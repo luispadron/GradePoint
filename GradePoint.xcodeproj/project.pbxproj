@@ -15,6 +15,7 @@
 		A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */; };
 		A00705261DAF0E9B00AD740A /* GradePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705251DAF0E9B00AD740A /* GradePointTests.swift */; };
 		A00705311DAF0E9B00AD740A /* GradePointUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705301DAF0E9B00AD740A /* GradePointUITests.swift */; };
+		A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		A007052C1DAF0E9B00AD740A /* GradePointUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradePointUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00705301DAF0E9B00AD740A /* GradePointUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointUITests.swift; sourceTree = "<group>"; };
 		A00705321DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
+				A0CE8B451DAF19DE007968EE /* Extensions */,
 				A0CE8B431DAF1780007968EE /* Controllers */,
 				A0CE8B441DAF178F007968EE /* Storyboards */,
 				A00705171DAF0E9B00AD740A /* Assets.xcassets */,
@@ -142,6 +145,14 @@
 				A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		A0CE8B451DAF19DE007968EE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +295,7 @@
 				A00705131DAF0E9B00AD740A /* ClassesViewController.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
+				A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
