@@ -49,7 +49,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Class Title" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="detailDescriptionLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
                     </connections>
@@ -106,12 +106,12 @@
             </objects>
             <point key="canvasLocation" x="-2244" y="128"/>
         </scene>
-        <!--Item-->
+        <!--Classes-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZU-Oi-B1e" sceneMemberID="firstResponder"/>
                 <splitViewController id="H1p-Uh-vWS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="exa-By-yUd"/>
+                    <tabBarItem key="tabBarItem" title="Classes" image="ClassesTabBarIcon" selectedImage="ClassesTabBarIconFilled" id="exa-By-yUd"/>
                     <toolbarItems/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
@@ -158,7 +158,7 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="Classes" id="Zdf-7t-Un8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -180,11 +180,11 @@
             </objects>
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
-        <!--Item 2-->
+        <!--GPA-->
         <scene sceneID="1jU-Qx-wAa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YZd-j8-i3q" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="Slv-he-pS4"/>
+                    <tabBarItem key="tabBarItem" title="GPA" image="CalcTabBarIcon" selectedImage="CalcTabBarIconFilled" id="Slv-he-pS4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="unr-zh-2We">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -200,6 +200,12 @@
             <point key="canvasLocation" x="-858.39999999999998" y="885.60719640179911"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="CalcTabBarIcon" width="17" height="21"/>
+        <image name="CalcTabBarIconFilled" width="17" height="21"/>
+        <image name="ClassesTabBarIcon" width="25" height="19"/>
+        <image name="ClassesTabBarIconFilled" width="25" height="19"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
