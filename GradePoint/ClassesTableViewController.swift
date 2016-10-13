@@ -29,6 +29,7 @@ class ClassesTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        self.tableView.separatorColor = UIColor.tableViewSeperator
         super.viewWillAppear(animated)
     }
 
@@ -68,10 +69,10 @@ class ClassesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
+        cell.classTitleLabel.text = "Test Class"
+        cell.classDateLabel.text = "Summer 2016"
+        
         return cell
     }
 

@@ -34,6 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UITabBar.appearance().tintColor = UIColor.highlight
         UITabBar.appearance().barTintColor = UIColor.mainDark
         
+        // Custom color for table view
+        UITableView.appearance().backgroundColor = UIColor.mainDark
+        
+        // Custom view for table view cell
+        let bgView = UIView()
+        bgView.backgroundColor = UIColor.highlight
+        UITableViewCell.appearance().selectedBackgroundView = bgView
+        
         return true
     }
 
