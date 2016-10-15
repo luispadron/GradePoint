@@ -28,14 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Custom color for navigation bar
         UINavigationBar.appearance().tintColor = UIColor.highlight
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.mainText]
-        UINavigationBar.appearance().barTintColor = UIColor.mainDark
+        UINavigationBar.appearance().barTintColor = UIColor.darkBg
         
         // Custom color for tab bar
         UITabBar.appearance().tintColor = UIColor.highlight
-        UITabBar.appearance().barTintColor = UIColor.mainDark
+        UITabBar.appearance().barTintColor = UIColor.darkBg
         
         // Custom color for table view
-        UITableView.appearance().backgroundColor = UIColor.mainDark
+        UITableView.appearance().backgroundColor = UIColor.darkBg
         
         // Custom view for table view cell
         let bgView = UIView()

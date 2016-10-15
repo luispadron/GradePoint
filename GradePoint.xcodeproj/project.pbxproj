@@ -15,6 +15,9 @@
 		A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */; };
 		A00705261DAF0E9B00AD740A /* GradePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705251DAF0E9B00AD740A /* GradePointTests.swift */; };
 		A00705311DAF0E9B00AD740A /* GradePointUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705301DAF0E9B00AD740A /* GradePointUITests.swift */; };
+		A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */; };
+		A05B1E2D1DB2B83F00A43BE3 /* BasicInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2C1DB2B83F00A43BE3 /* BasicInformationTableViewCell.swift */; };
+		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,9 @@
 		A007052C1DAF0E9B00AD740A /* GradePointUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradePointUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00705301DAF0E9B00AD740A /* GradePointUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointUITests.swift; sourceTree = "<group>"; };
 		A00705321DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClassTableViewController.swift; sourceTree = "<group>"; };
+		A05B1E2C1DB2B83F00A43BE3 /* BasicInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInformationTableViewCell.swift; sourceTree = "<group>"; };
+		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +143,7 @@
 			children = (
 				A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */,
 				A00705121DAF0E9B00AD740A /* ClassesViewController.swift */,
+				A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -162,6 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */,
+				A05B1E2C1DB2B83F00A43BE3 /* BasicInformationTableViewCell.swift */,
+				A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -303,11 +312,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */,
 				A00705131DAF0E9B00AD740A /* ClassesViewController.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
 				A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */,
+				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
+				A05B1E2D1DB2B83F00A43BE3 /* BasicInformationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

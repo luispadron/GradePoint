@@ -26,7 +26,7 @@ class ClassTableViewCell: UITableViewCell {
         classTitleLabel.textColor = UIColor.mainText
         classDateLabel.textColor = UIColor.textMuted
         // Set background color for the cell
-        self.backgroundColor = UIColor.mainDark
+        self.backgroundColor = UIColor.darkBg
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

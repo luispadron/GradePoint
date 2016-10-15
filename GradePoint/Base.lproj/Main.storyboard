@@ -121,6 +121,48 @@
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
+        <!--Add Class Table View Controller-->
+        <scene sceneID="ooM-Hz-NzG">
+            <objects>
+                <tableViewController storyboardIdentifier="addClassTableViewController" id="ldX-Ft-uD9" customClass="AddClassTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="X0f-tk-9CC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.26125979423522949" green="0.27021542191505432" blue="0.31348308920860291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="separatorColor" red="0.27309200167655945" green="0.2818281352519989" blue="0.33375334739685059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicInfoCell" id="oNC-Ub-GOH" customClass="BasicInformationTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oNC-Ub-GOH" id="3pX-6S-Sns">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rubricCell" id="Yjr-c9-Bbr" customClass="RubricTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yjr-c9-Bbr" id="LJA-nv-p8C">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="ldX-Ft-uD9" id="2ln-td-98d"/>
+                            <outlet property="delegate" destination="ldX-Ft-uD9" id="yMI-oy-yiD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="pVc-Ha-meH">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Uex-Uz-o3a"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gIG-4M-fil"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5bU-OE-Eyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="708" y="-1330"/>
+        </scene>
         <!--Classes View Controller-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
@@ -213,6 +255,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1l-8h-tcl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-858.39999999999998" y="885.60719640179911"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FgR-Ty-uEv">
+            <objects>
+                <navigationController storyboardIdentifier="addClassNavController" automaticallyAdjustsScrollViewInsets="NO" id="hHI-XG-7xe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gFz-Mb-cZk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ldX-Ft-uD9" kind="relationship" relationship="rootViewController" id="uHM-fv-9Pq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yMb-de-IHh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-231" y="-1331"/>
         </scene>
     </scenes>
     <resources>

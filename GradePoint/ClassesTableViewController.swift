@@ -12,14 +12,16 @@ class ClassesTableViewController: UITableViewController {
 
     var detailViewController: ClassesViewController? = nil
     var objects = [Any]()
-
+    var addButton: UIBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+        
+        // Assign the add button
+        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewClass(_:)))
+        
         self.navigationItem.rightBarButtonItem = addButton
         if let split = self.splitViewController {
             let controllers = split.viewControllers
@@ -38,25 +40,6 @@ class ClassesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-
-    // MARK: - Segues
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
-                let controller = (segue.destination as! UINavigationController).topViewController as! ClassesViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            }
-        }
-    }
 
     // MARK: - Table View
 
@@ -89,7 +72,37 @@ class ClassesTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
+    
+    func addNewClass(_ sender: Any) {
+        guard let button = sender as? UIBarButtonItem, button === addButton else {
+            return
+        }
+        
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let nc = board.instantiateViewController(withIdentifier: "addClassNavController")
+        let vc = board.instantiateViewController(withIdentifier: "addClassTableViewController")
+        nc.addChildViewController(vc)
+        nc.modalPresentationStyle = .popover
+        nc.popoverPresentationController?.barButtonItem = addButton
+        nc.preferredContentSize = CGSize(width: 500, height: 600)
+        
+        self.present(nc, animated: true, completion: nil)
+        
+    }
+    
+    // MARK: - Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let object = objects[indexPath.row] as! NSDate
+                let controller = (segue.destination as! UINavigationController).topViewController as! ClassesViewController
+                controller.detailItem = object
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
+            }
+        }
+    }
 
 }
 
