@@ -135,7 +135,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oNC-Ub-GOH" id="3pX-6S-Sns">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -143,7 +143,7 @@
                                 <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yjr-c9-Bbr" id="LJA-nv-p8C">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -155,8 +155,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="pVc-Ha-meH">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Uex-Uz-o3a"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gIG-4M-fil"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Uex-Uz-o3a">
+                            <connections>
+                                <action selector="onCancel:" destination="ldX-Ft-uD9" id="icM-qt-pgI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gIG-4M-fil">
+                            <connections>
+                                <action selector="onSave:" destination="ldX-Ft-uD9" id="R7k-IX-sY1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bU-OE-Eyw" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -137,5 +137,16 @@ class AddClassTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: IBActions
+    
+    @IBAction func onCancel(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onSave(_ sender: AnyObject) {
+    }
+    
+    
 
 }
