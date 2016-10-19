@@ -40,7 +40,7 @@ class AddClassTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
-        mainView.backgroundColor = UIColor.clear
+        mainView.backgroundColor = UIColor.lightBg
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
         label.font = UIFont.systemFont(ofSize: 17)
