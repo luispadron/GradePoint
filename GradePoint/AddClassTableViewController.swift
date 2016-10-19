@@ -76,8 +76,18 @@ class AddClassTableViewController: UITableViewController {
             return 0
         }
     }
-
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 44
+        case 1:
+            return 70
+        default:
+            return 0
+        }
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // If in first section use the basic info cell
         // Else use the rubric cell and cast
@@ -87,6 +97,10 @@ class AddClassTableViewController: UITableViewController {
             
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as? RubricTableViewCell,
             indexPath.section == 1 {
+            let emptyView = UIView()
+            emptyView.backgroundColor = UIColor.clear
+            cell.selectedBackgroundView = emptyView
+            
             return cell
         }
         

@@ -20,6 +20,9 @@
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
+		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
+		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextFiel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextFiel.swift */; };
+		A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,9 @@
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
+		A0DE9E321DB833E800C56226 /* UIFloatingPromptTextFiel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFloatingPromptTextFiel.swift; sourceTree = "<group>"; };
+		A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +174,9 @@
 		A0CE8B481DAF26E3007968EE /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				A0DE9E311DB833E800C56226 /* UIRubricView.swift */,
+				A0DE9E321DB833E800C56226 /* UIFloatingPromptTextFiel.swift */,
+				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
 				A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */,
 				A05B1E2C1DB2B83F00A43BE3 /* BasicInformationTableViewCell.swift */,
 				A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */,
@@ -314,7 +323,10 @@
 			files = (
 				A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */,
 				A00705131DAF0E9B00AD740A /* ClassesViewController.swift in Sources */,
+				A0DE9E351DB833E800C56226 /* UIFloatingPromptTextFiel.swift in Sources */,
+				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
+				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
 				A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */,

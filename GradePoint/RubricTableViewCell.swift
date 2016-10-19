@@ -10,15 +10,21 @@ import UIKit
 
 class RubricTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var rubricView: UIRubricView!
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        rubricView.backgroundColor = UIColor.darkBg
+        rubricView.plusColor = UIColor.highlight
+        rubricView.radius = 15.0
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

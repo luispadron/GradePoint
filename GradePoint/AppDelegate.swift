@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let bgView = UIView()
         bgView.backgroundColor = UIColor.highlight
         UITableViewCell.appearance().selectedBackgroundView = bgView
+        UITableViewCell.appearance().backgroundColor = UIColor.clear
         
         return true
     }
