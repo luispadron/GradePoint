@@ -10,8 +10,9 @@ import UIKit
 
 class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
     
-    var rubricCellCount = 1
-
+    lazy var rubricViews = [UIRubricView]()
+    var numOfRubricViews = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,7 +72,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
             return 2
         case 1:
             // This will increase as user adds more rubrics (starts @ 1)
-            return rubricCellCount
+            return numOfRubricViews
         default:
             return 0
         }
@@ -103,6 +104,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as! RubricTableViewCell
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
+            addViewToArray(cell.rubricView)
             return cell
         }
         
@@ -112,8 +114,13 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
     // - MARK: Rubric View Delegate
     
     func plusButtonTouched(_ view: UIRubricView, forState state: UIRubricViewState) {
-        if state == .open {
-            
+        switch state {
+        case .collapsed:
+            // Handle user cancelling that item
+            handleCloseState(withRubricView: view)
+        case .open:
+            // Handle user wanting to add a grade section
+            handleOpenState(withRubricView: view)
         }
     }
 
@@ -172,5 +179,41 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
     }
     
     // - MARK: Helper Methods
+    
+    func addViewToArray(_ view: UIRubricView) {
+        if rubricViews.contains(view) { return }
+        else { rubricViews.append(view) }
+    }
 
+    func handleOpenState(withRubricView view: UIRubricView) {
+        // If it's not the last rubric view then dont add another since we only want to 
+        // add a new rubric input view when ever the use has exhausted all the others
+        if view !== rubricViews[rubricViews.count - 1] { return }
+        
+        // Last rubric view, lets create another one for the use incase they want to enter something
+        let path = IndexPath(row: numOfRubricViews, section: 1)
+        self.numOfRubricViews += 1
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [path], with: .bottom)
+            self.tableView.endUpdates()
+        }
+    }
+    
+    func handleCloseState(withRubricView view: UIRubricView) {
+        guard let row = rubricViews.index(of: view), numOfRubricViews > 1 else {
+            print("FATAL ERROR: Could not find rubric view to delete")
+            return
+        }
+        
+        self.numOfRubricViews -= 1
+        rubricViews.remove(at: row)
+        
+        let path = IndexPath(row: row, section: 1)
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [path], with: .bottom)
+            self.tableView.endUpdates()
+        }
+    }
 }
