@@ -112,7 +112,9 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
     // - MARK: Rubric View Delegate
     
     func plusButtonTouched(_ view: UIRubricView, forState state: UIRubricViewState) {
-        print(state)
+        if state == .open {
+            
+        }
     }
 
     /*

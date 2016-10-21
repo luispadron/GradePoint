@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         // Custom color for table view
         UITableView.appearance().backgroundColor = UIColor.lightBg
-        UITableView.appearance().color
+        
         
         // Custom view for table view cell
         let bgView = UIView()

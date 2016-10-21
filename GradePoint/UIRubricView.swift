@@ -73,6 +73,15 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     // MARK: Helper methods
     
+    func updateView() {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+        drawButton()
+        drawPromptLabel()
+        drawTextField()
+    }
+    
     private func initGestureRecognizer() {
         buttonGesture.addTarget(self, action: #selector(self.tappedOnButton))
         buttonGesture.numberOfTapsRequired = 1
@@ -196,10 +205,6 @@ class UIRubricView: UIView, UITextFieldDelegate {
         rotateAnimation.fromValue = 0.0
         rotateAnimation.toValue = CGFloat(45).toRads
         
-        if isDeleteButton {
-            rotateAnimation.fromValue = CGFloat(45).toRads
-            rotateAnimation.toValue = 0.0
-        }
         rotateAnimation.duration = animationDuration
         rotateAnimation.isRemovedOnCompletion = false
         rotateAnimation.fillMode = kCAFillModeForwards
@@ -211,9 +216,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
         backgroundAnimation.toValue = deleteColor.cgColor
         
         if isDeleteButton {
+            rotateAnimation.fromValue = CGFloat(45).toRads
+            rotateAnimation.toValue = 0.0
+
             backgroundAnimation.fromValue = deleteColor.cgColor
             backgroundAnimation.toValue = addColor.cgColor
         }
+        
         backgroundAnimation.duration = animationDuration
         backgroundAnimation.isRemovedOnCompletion = false
         backgroundAnimation.fillMode = kCAFillModeForwards
