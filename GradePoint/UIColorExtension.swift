@@ -13,7 +13,7 @@ extension UIColor {
     
     // MARK: - Main Theme
     
-    @nonobjc static let darkBg = UIColor(red: 68/255, green: 68/255, blue: 79/255, alpha: 1.0) /* #44444f */
+    @nonobjc static let darkBg = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
     @nonobjc static let lightBg = UIColor(red:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
     @nonobjc static let highlight = UIColor(red: 111/255, green: 190/255, blue: 217/255, alpha: 1.0) /* #6fbed9 */
     @nonobjc static let unselected = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */

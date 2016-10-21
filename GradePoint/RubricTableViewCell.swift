@@ -10,21 +10,24 @@ import UIKit
 
 class RubricTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var rubricView: UIRubricView!
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    // Get's initialized in the cellForRow inside of AddClassTableViewController
+    var rubricView: UIRubricView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        rubricView.backgroundColor = UIColor.darkBg
-        rubricView.plusColor = UIColor.highlight
-        rubricView.radius = 15.0
-        
+        initRubricView()
+        contentView.isUserInteractionEnabled = false
+        self.bringSubview(toFront: rubricView)
+    }
+    
+    private func initRubricView() {
+        rubricView = UIRubricView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+        self.addSubview(rubricView)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        rubricView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        rubricView.setNeedsDisplay()
     }
 }

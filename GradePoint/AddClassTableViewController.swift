@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddClassTableViewController: UITableViewController {
+class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
     
     var rubricCellCount = 1
 
@@ -24,7 +24,7 @@ class AddClassTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.tableView.separatorColor = UIColor.tableViewSeperator
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,7 +32,7 @@ class AddClassTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table View Methods
+    // - MARK: - Table View Methods
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -91,20 +91,28 @@ class AddClassTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // If in first section use the basic info cell
         // Else use the rubric cell and cast
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCell", for: indexPath) as? BasicInformationTableViewCell,
-            indexPath.section == 0 {
+        
+        // Add a clear selected view
+        let emptyView = UIView()
+        emptyView.backgroundColor = UIColor.darkBg
+        
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCell", for: indexPath) as! BasicInformationTableViewCell
             return cell
-            
-        } else if let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as? RubricTableViewCell,
-            indexPath.section == 1 {
-            let emptyView = UIView()
-            emptyView.backgroundColor = UIColor.clear
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as! RubricTableViewCell
             cell.selectedBackgroundView = emptyView
-            
+            cell.rubricView.delegate = self
             return cell
         }
         
         return UITableViewCell()
+    }
+    
+    // - MARK: Rubric View Delegate
+    
+    func plusButtonTouched(_ view: UIRubricView, forState state: UIRubricViewState) {
+        print(state)
     }
 
     /*
@@ -152,7 +160,7 @@ class AddClassTableViewController: UITableViewController {
     }
     */
     
-    // MARK: IBActions
+    // - MARK: IBActions
     
     @IBAction func onCancel(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
@@ -161,6 +169,6 @@ class AddClassTableViewController: UITableViewController {
     @IBAction func onSave(_ sender: AnyObject) {
     }
     
-    
+    // - MARK: Helper Methods
 
 }

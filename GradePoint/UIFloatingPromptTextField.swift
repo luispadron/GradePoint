@@ -12,7 +12,7 @@ class UIFloatingPromptTextField: UITextField {
     
     public lazy var titleLabel = UILabel()
     public var titleText: String = ""
-    public var titleTextColor: UIColor = UIColor.lightGray
+    public var titleTextColor: UIColor = UIColor.highlight
     public var animationDuration: TimeInterval = 0.3
     
     public var editingOrSelected : Bool {
@@ -114,9 +114,9 @@ class UIFloatingPromptTextField: UITextField {
     
     public func titleLabelRectForBounds(bounds:CGRect, editing:Bool) -> CGRect {
         if editing {
-            return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + textHeight))
+            return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + titleHeight/6))
         }
-        return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + textHeight))
+        return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + titleHeight/6))
     }
     
     override var intrinsicContentSize: CGSize {

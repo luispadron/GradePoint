@@ -16,32 +16,32 @@ private extension Bool {
     var toggle: Bool { return self ? false : true }
 }
 
-@IBDesignable class UIRubricView: UIView, UITextFieldDelegate {
+class UIRubricView: UIView, UITextFieldDelegate {
     
     // MARK: Properties
     
-    @IBInspectable var shouldDrawCircle: Bool = false
+    var shouldDrawCircle: Bool = false
     
-    @IBInspectable var circleSpacing: CGFloat = 20
-    @IBInspectable var radius: CGFloat = 12
+    var circleSpacing: CGFloat = 30
+    var radius: CGFloat = 17
     
-    @IBInspectable var addButtonOffSet: CGFloat = 1
-    @IBInspectable var addColor: UIColor = UIColor.green
-    @IBInspectable var deleteColor: UIColor = UIColor.red
-    @IBInspectable var plusColor: UIColor = UIColor.blue
+    var addButtonOffSet: CGFloat = 1
+    var addColor: UIColor = UIColor.green
+    var deleteColor: UIColor = UIColor.red
+    var plusColor: UIColor = UIColor.highlight
     
-    @IBInspectable var nameFieldPrompt: String = "Name"
-    @IBInspectable var weightFieldPrompt: String = "Weight"
+    var nameFieldPrompt: String = "Name"
+    var weightFieldPrompt: String = "Weight"
     
-    @IBInspectable var fontSize: CGFloat = 17
+    var fontSize: CGFloat = 18
     
-    @IBInspectable var animationDuration: TimeInterval = 0.3
+    var animationDuration: TimeInterval = 0.3
     
-    private var buttonRect: CGRect?
-    private var isDeleteButton: Bool = false
-    private var isAnimating: Bool = false
+    var buttonRect: CGRect?
+    var isDeleteButton: Bool = false
+    var isAnimating: Bool = false
     
-    private var circleLayer: CAShapeLayer?
+    var circleLayer: CAShapeLayer?
     
     var promptLabel: UILabel!
     var nameField: UIFloatingPromptTextField!
@@ -54,8 +54,17 @@ private extension Bool {
     
     // MARK: Overrides
     
-    override func draw(_ rect: CGRect) {
-        // Draw the button
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor.darkBg
+        drawButton()
+        drawPromptLabel()
+        drawTextField()
+        initGestureRecognizer()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         drawButton()
         drawPromptLabel()
         drawTextField()
@@ -74,8 +83,8 @@ private extension Bool {
     
     private func drawButton() {
         let circle = UIBezierPath(arcCenter: CGPoint(x: bounds.minX + circleSpacing, y: bounds.midY), radius: radius,
-                                startAngle: CGFloat(0), endAngle: CGFloat(M_PI * 2),
-                                clockwise: true)
+                                  startAngle: CGFloat(0), endAngle: CGFloat(M_PI * 2),
+                                  clockwise: true)
         
         if shouldDrawCircle {
             circleLayer = CAShapeLayer()
@@ -132,6 +141,7 @@ private extension Bool {
         tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 1
         promptLabel.addGestureRecognizer(tap)
+        promptLabel.textColor = UIColor.textMuted
         promptLabel.isUserInteractionEnabled = true
         self.addSubview(promptLabel)
     }
@@ -140,12 +150,13 @@ private extension Bool {
         let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
         
         nameField = UIFloatingPromptTextField(frame:  CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY,
-                                                            width: actualWidth/2, height: bounds.height))
+                                                             width: actualWidth/2, height: bounds.height))
         nameField.placeholder = nameFieldPrompt
-        nameField.textColor = UIColor.blue
+        nameField.textColor = UIColor.mainText
         nameField.borderStyle = .none
         nameField.font = UIFont.systemFont(ofSize: fontSize)
         nameField.titleText = nameFieldPrompt
+        nameField.attributedPlaceholder = NSAttributedString(string: nameFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.textMuted])
         nameField.returnKeyType = .next
         nameField.isHidden = true
         nameField.delegate = self
@@ -155,10 +166,11 @@ private extension Bool {
                                                               width: actualWidth/2, height: bounds.height))
         
         weightField.placeholder = weightFieldPrompt
-        weightField.textColor = UIColor.blue
+        weightField.textColor = UIColor.mainText
         weightField.borderStyle = .none
         weightField.font = UIFont.systemFont(ofSize: fontSize)
         weightField.titleText = weightFieldPrompt
+        weightField.attributedPlaceholder = NSAttributedString(string: weightFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.textMuted])
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self
@@ -166,13 +178,14 @@ private extension Bool {
         
     }
     
-
+    
     @objc private func animateViews() {
         if isAnimating { return }
         
         CATransaction.begin()
         CATransaction.setCompletionBlock({
-            self.delegate?.buttonTapped()
+            let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
+            self.delegate?.plusButtonTouched(self, forState: state)
             self.isAnimating = false
             self.isDeleteButton = self.isDeleteButton.toggle
             self.toggleFields()
@@ -225,11 +238,11 @@ private extension Bool {
                         self.promptLabel.isHidden = false
                         self.promptLabel.layer.opacity = 0.0
                         self.toggleFields()
-                        UIView.animate(withDuration: self.animationDuration, animations: {
+                        UIView.animate(withDuration: self.animationDuration + 0.2, animations: {
                             self.promptLabel.layer.opacity = 1.0
                         })
                     }
-            })
+                })
         } else {
             promptLabel.layer.opacity = 1.0
             UIView.animate(withDuration: animationDuration, animations: { [unowned self] in
@@ -242,7 +255,7 @@ private extension Bool {
                         self.weightField.isHidden = false
                         self.nameField.layer.opacity = 0.0
                         self.weightField.layer.opacity = 0.0
-                        UIView.animate(withDuration: self.animationDuration, animations: {
+                        UIView.animate(withDuration: self.animationDuration + 0.2, animations: {
                             self.nameField.layer.opacity = 1.0
                             self.weightField.layer.opacity = 1.0
                         })
@@ -258,7 +271,7 @@ private extension Bool {
         }
         
         let point = buttonGesture.location(in: self)
-
+        
         if rect.contains(point) {
             animateViews()
         }
@@ -266,7 +279,7 @@ private extension Bool {
     
     
     // MARK: TextField Delegates
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField !== nameField {
             weightField.resignFirstResponder()
