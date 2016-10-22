@@ -195,7 +195,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
         self.numOfRubricViews += 1
         DispatchQueue.main.async {
             self.tableView.beginUpdates()
-            self.tableView.insertRows(at: [path], with: .bottom)
+            self.tableView.insertRows(at: [path], with: .automatic)
             self.tableView.endUpdates()
             self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
         }
@@ -213,7 +213,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
         let path = IndexPath(row: row, section: 1)
         DispatchQueue.main.async {
             self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [path], with: .bottom)
+            self.tableView.deleteRows(at: [path], with: .automatic)
             self.tableView.endUpdates()
         }
     }
