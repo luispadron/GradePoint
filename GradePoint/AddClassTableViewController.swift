@@ -14,7 +14,11 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    // An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
+    
+    // The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
+    var nameField: UITextField?
     
     var numOfRubricViews = 1
     var isIpad = false
@@ -116,6 +120,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.nameField.delegate = self
+                nameField = cell.nameField
                 return cell
             case 1: // Display the basic info date picker cell
                 let cell = BasicInfoSemesterTableViewCell(style: .default, reuseIdentifier: nil)
@@ -138,6 +143,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as! RubricTableViewCell
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
+            
             addViewToArray(cell.rubricView)
             return cell
         }
@@ -147,6 +153,21 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+    }
+    
+    // MARK: - Scroll View Delegates
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let field = nameField, field.isFirstResponder else {
+            return
+        }
+        // Reisgn the name field and hide keyboard, this allows for better viewing
+        field.resignFirstResponder()
+    }
+    
+    // MARK: - Textfield delegates
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
     }
     
     // MARK: - Rubric View Delegate
