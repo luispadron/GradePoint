@@ -332,7 +332,25 @@ class UIRubricView: UIView, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Dont allow multiple periods, anything below 0 or above 100
         if textField === weightField {
-            
+            let newChars = CharacterSet(charactersIn: string)
+            let isNumber = CharacterSet.decimalDigits.isSuperset(of: newChars)
+            if isNumber {
+                let current = textField.text! + string
+                let num = Double(current)
+                if let n = num,  n > 100.0 || n < 0.0 { return false }
+            } else { // Allow only one decimal
+                if string == "." {
+                    let current = textField.text! + string
+                    let num = Double(current)
+                    let count = textField.text!.components(separatedBy: ".").count
+                    if count > 1 { return false }
+                    if let n = num,  n >= 100 || n < 0 { return false }
+                    
+                    return true
+                }
+                // Not a number or decimal point, return false
+                return false
+            }
         }
         
         return true
