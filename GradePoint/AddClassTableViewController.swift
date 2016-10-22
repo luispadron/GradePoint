@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate {
+class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate, BasicInfoDateTapDelegate {
     
     lazy var rubricViews = [UIRubricView]()
     var numOfRubricViews = 1
@@ -108,7 +108,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             case 1: // Display the basic info date picker cell
                 let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.selectedBackgroundView = emptyView
-                cell.selectedBackgroundView = emptyView
+                cell.delegate = self
                 return cell
             default:
                 break
@@ -125,7 +125,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         return UITableViewCell()
     }
     
-    // - MARK: Rubric View Delegate
+    // MARK: - Rubric View Delegate
     
     func plusButtonTouched(_ view: UIRubricView, forState state: UIRubricViewState) {
         switch state {
@@ -136,6 +136,12 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             // Handle user wanting to add a grade section
             handleOpenState(withRubricView: view)
         }
+    }
+    
+    // MARK: - Date Input Delegate
+    
+    func dateInputWasTapped() {
+        
     }
 
     /*

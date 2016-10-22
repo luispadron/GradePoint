@@ -12,6 +12,9 @@ class BasicInfoDateTableViewCell: UITableViewCell {
 
     lazy var dateLabel = UILabel()
     lazy var dateInputLabel = UILabel()
+    var delegate: BasicInfoDateTapDelegate?
+    
+    // MARK: - Overrides
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,6 +32,12 @@ class BasicInfoDateTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        dateLabel.frame = CGRect(x: 20, y: 0, width: 50, height: self.frame.height)
+        let widthForInputLabel = self.contentView.frame.width - dateLabel.frame.width - (dateLabel.frame.origin.x + 100)
+        dateInputLabel.frame = CGRect(x: dateLabel.frame.origin.x + 100, y: 0, width: widthForInputLabel, height: self.frame.height)
+        super.layoutSubviews()
+    }
     
     // MARK: - Helper methods
     
@@ -45,17 +54,21 @@ class BasicInfoDateTableViewCell: UITableViewCell {
         dateInputLabel.font = UIFont.systemFont(ofSize: 17)
         dateInputLabel.text = "Fall 2016"
         dateInputLabel.textColor = UIColor.highlight
+        dateInputLabel.isUserInteractionEnabled = true
+        
+        // Add gesture recognizer to label which will display a pop over to pick date inside AddClassTableViewController via delegation
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dateInputWasTapped))
+        gesture.numberOfTapsRequired = 1
+        dateInputLabel.addGestureRecognizer(gesture)
         
         // Add as subviews
         self.addSubview(dateLabel)
         self.addSubview(dateInputLabel)
     }
     
-    override func layoutSubviews() {
-        dateLabel.frame = CGRect(x: 20, y: 0, width: 50, height: self.frame.height)
-        let widthForInputLabel = self.contentView.frame.width - dateLabel.frame.width - (dateLabel.frame.origin.x + 100)
-        dateInputLabel.frame = CGRect(x: dateLabel.frame.origin.x + 100, y: 0, width: widthForInputLabel, height: self.frame.height)
-        super.layoutSubviews()
+    // MARK: - Gesture recognizer
+    func dateInputWasTapped() {
+        delegate?.dateInputWasTapped()
     }
 
 }
