@@ -131,16 +131,8 @@
                         <color key="backgroundColor" red="0.26125979423522949" green="0.27021542191505432" blue="0.31348308920860291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.27309200167655945" green="0.2818281352519989" blue="0.33375334739685059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basicInfoCell" id="oNC-Ub-GOH" customClass="BasicInformationTableViewCell" customModule="GradePoint" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oNC-Ub-GOH" id="3pX-6S-Sns">
-                                    <frame key="frameInset" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rubricCell" rowHeight="70" id="GDC-G8-iSk" customClass="RubricTableViewCell" customModule="GradePoint" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="136" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDC-G8-iSk" id="YxI-gE-DpH">
                                     <frame key="frameInset" width="375" height="69.5"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
+class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate {
     
     lazy var rubricViews = [UIRubricView]()
     var numOfRubricViews = 1
@@ -21,6 +21,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.title = "New Class"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +46,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
         label.font = UIFont.systemFont(ofSize: 17)
-        label.textColor = UIColor.textMuted
+        label.textColor = UIColor.unselected
         label.backgroundColor = UIColor.lightBg
         mainView.addSubview(label)
         
@@ -98,8 +99,21 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
         emptyView.backgroundColor = UIColor.darkBg
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basicInfoCell", for: indexPath) as! BasicInformationTableViewCell
-            return cell
+            switch indexPath.row {
+            case 0: // Display the basic info name cell
+                let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.selectedBackgroundView = emptyView
+                cell.nameField.delegate = self
+                return cell
+            case 1: // Display the basic info date picker cell
+                let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.selectedBackgroundView = emptyView
+                cell.selectedBackgroundView = emptyView
+                return cell
+            default:
+                break
+            }
+            
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as! RubricTableViewCell
             cell.selectedBackgroundView = emptyView
