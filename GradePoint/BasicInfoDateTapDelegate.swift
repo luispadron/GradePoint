@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
-protocol BasicInfoDateTapDelegate {
-    func dateInputWasTapped()
+protocol BasicInfoDateDelegate {
+    func dateInputWasTapped(forCell cell: BasicInfoDateTableViewCell)
+    
+    func pickerRowSelected(semester: String, year: Int) 
 }

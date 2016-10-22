@@ -12,7 +12,7 @@ class BasicInfoDateTableViewCell: UITableViewCell {
 
     lazy var dateLabel = UILabel()
     lazy var dateInputLabel = UILabel()
-    var delegate: BasicInfoDateTapDelegate?
+    var delegate: BasicInfoDateDelegate?
     
     // MARK: - Overrides
     
@@ -68,7 +68,7 @@ class BasicInfoDateTableViewCell: UITableViewCell {
     
     // MARK: - Gesture recognizer
     func dateInputWasTapped() {
-        delegate?.dateInputWasTapped()
+        delegate?.dateInputWasTapped(forCell: self)
     }
 
 }

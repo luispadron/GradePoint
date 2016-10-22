@@ -17,6 +17,8 @@
 		A00705311DAF0E9B00AD740A /* GradePointUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705301DAF0E9B00AD740A /* GradePointUITests.swift */; };
 		A04D19931DBAF77600FDA9A7 /* BasicInfoDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19921DBAF77600FDA9A7 /* BasicInfoDateTableViewCell.swift */; };
 		A04D19961DBAFD8400FDA9A7 /* BasicInfoDateTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19951DBAFD8400FDA9A7 /* BasicInfoDateTapDelegate.swift */; };
+		A04D199A1DBAFE8900FDA9A7 /* DateInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19991DBAFE8900FDA9A7 /* DateInputViewController.swift */; };
+		A04D199C1DBB058D00FDA9A7 /* BasicInfoDatePickerCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D199B1DBB058D00FDA9A7 /* BasicInfoDatePickerCellTableViewCell.swift */; };
 		A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */; };
 		A05B1E2D1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
@@ -62,6 +64,8 @@
 		A00705321DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A04D19921DBAF77600FDA9A7 /* BasicInfoDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDateTableViewCell.swift; sourceTree = "<group>"; };
 		A04D19951DBAFD8400FDA9A7 /* BasicInfoDateTapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDateTapDelegate.swift; sourceTree = "<group>"; };
+		A04D19991DBAFE8900FDA9A7 /* DateInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInputViewController.swift; sourceTree = "<group>"; };
+		A04D199B1DBB058D00FDA9A7 /* BasicInfoDatePickerCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDatePickerCellTableViewCell.swift; sourceTree = "<group>"; };
 		A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClassTableViewController.swift; sourceTree = "<group>"; };
 		A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoNameTableViewCell.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */,
 				A00705121DAF0E9B00AD740A /* ClassesViewController.swift */,
 				A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */,
+				A04D19991DBAFE8900FDA9A7 /* DateInputViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */,
 				A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */,
 				A04D19921DBAF77600FDA9A7 /* BasicInfoDateTableViewCell.swift */,
+				A04D199B1DBB058D00FDA9A7 /* BasicInfoDatePickerCellTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -347,6 +353,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */,
+				A04D199A1DBAFE8900FDA9A7 /* DateInputViewController.swift in Sources */,
+				A04D199C1DBB058D00FDA9A7 /* BasicInfoDatePickerCellTableViewCell.swift in Sources */,
 				A04D19931DBAF77600FDA9A7 /* BasicInfoDateTableViewCell.swift in Sources */,
 				A00705131DAF0E9B00AD740A /* ClassesViewController.swift in Sources */,
 				A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */,

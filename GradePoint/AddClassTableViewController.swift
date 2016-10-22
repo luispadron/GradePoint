@@ -8,20 +8,28 @@
 
 import UIKit
 
-class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate, BasicInfoDateTapDelegate {
+class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate, BasicInfoDateDelegate {
+    
+    // MARK: - Properties
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     lazy var rubricViews = [UIRubricView]()
+    
     var numOfRubricViews = 1
+    var isIpad = false
+    var isDatePickerVisible = false
+    var datePicker: UIPickerView?
+    
+    
+    // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        self.title = "New Class"
+        
+        // Since were handling the picker view differently for ipad vs iphone, then figure out which device user has
+        // Then cache that value
+        if UIDevice.current.userInterfaceIdiom == .pad { isIpad = true }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +78,9 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         switch section {
         case 0:
             // This will just be static 2, since only want Name and Term
-            return 2
+            // Unless on iPhone screen size, then 3 because date picker is handled differently
+            if isIpad { return 2 }
+            return 3
         case 1:
             // This will increase as user adds more rubrics (starts @ 1)
             return numOfRubricViews
@@ -82,6 +92,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
+            if indexPath.row == 2 { return isDatePickerVisible ? 120 : 0 }
             return 44
         case 1:
             return 70
@@ -102,13 +113,22 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             switch indexPath.row {
             case 0: // Display the basic info name cell
                 let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.selectedBackgroundView = emptyView
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
                 cell.nameField.delegate = self
                 return cell
             case 1: // Display the basic info date picker cell
                 let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.selectedBackgroundView = emptyView
+                cell.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
                 cell.delegate = self
+                return cell
+            case 2:
+                let cell = BasicInfoDatePickerCellTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
+                cell.delegate = self
+                datePicker = cell.datePicker
                 return cell
             default:
                 break
@@ -123,6 +143,10 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         }
         
         return UITableViewCell()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
     }
     
     // MARK: - Rubric View Delegate
@@ -140,9 +164,33 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     // MARK: - Date Input Delegate
     
-    func dateInputWasTapped() {
+    func dateInputWasTapped(forCell cell: BasicInfoDateTableViewCell) {
+        if isIpad { // Display the date picker as a popover, cus it looks cooler
+            let vc = DateInputViewController()
+            vc.preferredContentSize = CGSize(width: 200, height: 100)
+            vc.modalPresentationStyle = .popover
+            vc.popoverPresentationController?.sourceView = cell.dateInputLabel
+            vc.delegate = self
+            self.saveButton.isEnabled = false
+            self.present(vc, animated: true, completion: { [unowned self] in
+                // Completion handler
+                self.saveButton.isEnabled = true
+            })
+            return
+        }
+        
+        // Not on ipad, present the date picker as a cell or hide it if already showing
+        if isDatePickerVisible { hideDatePicker() }
+        else { showDatePicker() }
+    }
+    
+    func pickerRowSelected(semester: String, year: Int) {
+        // User selected a date, lets update the UI
+        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! BasicInfoDateTableViewCell
+        cell.dateInputLabel.text = "\(semester) \(year)"
         
     }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -235,6 +283,43 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             self.tableView.beginUpdates()
             self.tableView.deleteRows(at: [path], with: .automatic)
             self.tableView.endUpdates()
+        }
+    }
+    
+    func showDatePicker() {
+        guard let picker = datePicker else {
+            print("Picker not available")
+            return
+        }
+        
+        // Show the date picker
+        tableView.beginUpdates()
+        isDatePickerVisible = true
+        tableView.endUpdates()
+        picker.isHidden = false
+        picker.alpha = 0.0
+        // Animate the show
+        UIView.animate(withDuration: 0.3) { 
+            picker.alpha = 1.0
+        }
+        
+    }
+    
+    func hideDatePicker() {
+        guard let picker = datePicker else {
+            print("Picker not available")
+            return
+        }
+        
+        // Hide the date picker
+        isDatePickerVisible = false
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        picker.isHidden = true
+        picker.alpha = 1.0
+        // Animate the show
+        UIView.animate(withDuration: 0.3) {
+            picker.alpha = 0.0
         }
     }
 }

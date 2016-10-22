@@ -168,6 +168,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="saveButton" destination="gIG-4M-fil" id="wsg-9z-Oev"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bU-OE-Eyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
