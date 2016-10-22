@@ -16,6 +16,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     // An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
+    // The current rubric view that is being edited or selected, set whenever user clicks the plus button
+    var currentRubricView: UIRubricView?
     
     // The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
     var nameField: UITextField?
@@ -119,8 +121,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
                 let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
-                cell.nameField.delegate = self
-                nameField = cell.nameField
+                cell.classNameField.delegate = self
+                nameField = cell.classNameField
                 return cell
             case 1: // Display the basic info date picker cell
                 let cell = BasicInfoSemesterTableViewCell(style: .default, reuseIdentifier: nil)
@@ -143,7 +145,10 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as! RubricTableViewCell
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
-            
+            // Assign the rubric views textfield delegates
+            cell.rubricView.nameField.delegate = self
+            cell.rubricView.weightField.delegate = self
+            // Add this to the tracking array of views for this controller
             addViewToArray(cell.rubricView)
             return cell
         }
@@ -168,6 +173,11 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     // MARK: - Textfield delegates
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
     }
     
     // MARK: - Rubric View Delegate
@@ -288,6 +298,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             self.tableView.endUpdates()
             self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
         }
+        // Set the current rubric view
+        currentRubricView = view
     }
     
     func handleCloseState(withRubricView view: UIRubricView) {
@@ -305,6 +317,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             self.tableView.deleteRows(at: [path], with: .automatic)
             self.tableView.endUpdates()
         }
+        // Remove current rubric view 
+        currentRubricView = nil
     }
     
     func showDatePicker() {
