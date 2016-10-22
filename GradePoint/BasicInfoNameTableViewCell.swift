@@ -15,12 +15,12 @@ class BasicInfoNameTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        updateSubviews()
+        initCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        updateSubviews()
+        initCell()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,7 +32,7 @@ class BasicInfoNameTableViewCell: UITableViewCell {
     
     // MARK: - Helper methods
     
-    private func updateSubviews() {
+    private func initCell() {
         // Init the name label
         nameLabel.frame = CGRect(x: 20, y: 0, width: 50, height: self.frame.height)
         nameLabel.text = "Name"
