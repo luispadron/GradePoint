@@ -197,6 +197,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate {
             self.tableView.beginUpdates()
             self.tableView.insertRows(at: [path], with: .bottom)
             self.tableView.endUpdates()
+            self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
         }
     }
     
