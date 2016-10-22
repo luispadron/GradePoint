@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate, BasicInfoDateDelegate {
+class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate {
     
     // MARK: - Properties
     
@@ -19,7 +19,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     var numOfRubricViews = 1
     var isIpad = false
     var isDatePickerVisible = false
-    var datePicker: UIPickerView?
+    var semesterPicker: UISemesterPickerView?
     
     
     // MARK: - Overrides
@@ -118,17 +118,17 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
                 cell.nameField.delegate = self
                 return cell
             case 1: // Display the basic info date picker cell
-                let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
+                let cell = BasicInfoSemesterTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.delegate = self
                 return cell
             case 2:
-                let cell = BasicInfoDatePickerCellTableViewCell(style: .default, reuseIdentifier: nil)
+                let cell = BasicInfoSemesterPickerTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
-                cell.delegate = self
-                datePicker = cell.datePicker
+                cell.semesterPicker.delegate = self
+                semesterPicker = cell.semesterPicker
                 return cell
             default:
                 break
@@ -164,13 +164,13 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     // MARK: - Date Input Delegate
     
-    func dateInputWasTapped(forCell cell: BasicInfoDateTableViewCell) {
+    func dateInputWasTapped(forCell cell: BasicInfoSemesterTableViewCell) {
         if isIpad { // Display the date picker as a popover, cus it looks cooler
-            let vc = DateInputViewController()
+            let vc = IPadSemesterPickerViewController()
             vc.preferredContentSize = CGSize(width: 200, height: 100)
             vc.modalPresentationStyle = .popover
             vc.popoverPresentationController?.sourceView = cell.dateInputLabel
-            vc.delegate = self
+            vc.semesterPicker.delegate = self
             self.saveButton.isEnabled = false
             self.present(vc, animated: true, completion: { [unowned self] in
                 // Completion handler
@@ -186,7 +186,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     func pickerRowSelected(semester: String, year: Int) {
         // User selected a date, lets update the UI
-        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! BasicInfoDateTableViewCell
+        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! BasicInfoSemesterTableViewCell
         cell.dateInputLabel.text = "\(semester) \(year)"
         
     }
@@ -287,7 +287,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     func showDatePicker() {
-        guard let picker = datePicker else {
+        guard let picker = semesterPicker else {
             print("Picker not available")
             return
         }
@@ -306,7 +306,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     func hideDatePicker() {
-        guard let picker = datePicker else {
+        guard let picker = semesterPicker else {
             print("Picker not available")
             return
         }

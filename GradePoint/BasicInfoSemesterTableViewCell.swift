@@ -8,11 +8,11 @@
 
 import UIKit
 
-class BasicInfoDateTableViewCell: UITableViewCell {
+class BasicInfoSemesterTableViewCell: UITableViewCell {
 
     lazy var dateLabel = UILabel()
     lazy var dateInputLabel = UILabel()
-    var delegate: BasicInfoDateDelegate?
+    var delegate: SemesterPickerDelegate?
     
     // MARK: - Overrides
     

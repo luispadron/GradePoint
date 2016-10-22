@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-protocol BasicInfoDateDelegate {
-    func dateInputWasTapped(forCell cell: BasicInfoDateTableViewCell)
+protocol SemesterPickerDelegate {
+    func dateInputWasTapped(forCell cell: BasicInfoSemesterTableViewCell)
     
     func pickerRowSelected(semester: String, year: Int) 
 }

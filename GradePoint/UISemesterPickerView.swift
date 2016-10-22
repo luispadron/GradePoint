@@ -1,33 +1,36 @@
 //
-//  DateInputViewController.swift
+//  UISemesterPickerView.swift
 //  GradePoint
 //
-//  Created by Luis Padron on 10/21/16.
+//  Created by Luis Padron on 10/22/16.
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
 import UIKit
 
-class DateInputViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var datePicker: UIPickerView!
-    var delegate: BasicInfoDateDelegate?
-    
     var years = [Int]()
     let semesters = ["Fall", "Spring", "Summer", "Winter"]
+    var delegate: SemesterPickerDelegate?
+    var selectedSemester: String!
+    var selectedYear: Int!
+    var titleColor = UIColor.white
     
-    var selectedSemester = ""
-    var selectedYear = 0
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        initPickerView()
-        datePicker.selectRow(1, inComponent: 1, animated: false)
-        selectedYear = years[1]
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initView()
+    }
+    
+    override func layoutSubviews() {
+        datePicker.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        super.layoutSubviews()
     }
     
     // MARK: - UIPickerView Delegates / Overrides
@@ -60,29 +63,30 @@ class DateInputViewController: UIViewController, UIPickerViewDataSource, UIPicke
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         switch component {
         case 0:
-            return semesters[row]
+            return NSAttributedString(string: semesters[row], attributes: [NSForegroundColorAttributeName: titleColor])
         case 1:
-            return String(years[row])
+            return NSAttributedString(string: String(years[row]), attributes: [NSForegroundColorAttributeName: titleColor])
         default:
-            fatalError("Some how the UIPickerView component is not correct")
+            fatalError("Some how the UIPickerView title for row passed in wrong range")
         }
         
         return nil
     }
     
-    // MARK: - Helper Methods
+    // MARK: - Helper methods
     
-    func initPickerView() {
-        // Make it take the whole frame size
-        datePicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+    private func initView() {
+        datePicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
         datePicker.dataSource = self
         datePicker.delegate = self
-        // Add as subview
-        self.view.addSubview(datePicker)
-        
+        initDataForPickerView()
+        self.addSubview(datePicker)
+    }
+    
+    func initDataForPickerView() {
         // Init the data for the picker view
         // Get the current year
         let date = Date()
@@ -95,6 +99,14 @@ class DateInputViewController: UIViewController, UIPickerViewDataSource, UIPicke
         }
         // Finally one ahead
         years.insert(currentYear + 1, at: 0)
+        
+        // Select the current year
+        datePicker.selectRow(1, inComponent: 1, animated: false)
+    
+        // Init selected values
+        selectedYear = years[1]
+        selectedSemester = semesters[0]
     }
+
 
 }
