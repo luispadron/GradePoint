@@ -185,8 +185,24 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self
+        weightField.keyboardType = .decimalPad
+        
+        // Add an input accessory view which will display done
+        let weightFieldToolBar = UIToolbar()
+        weightFieldToolBar.barStyle = .default
+        weightFieldToolBar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.keyboardDone))
+        ]
+        weightFieldToolBar.sizeToFit()
+        weightField.inputAccessoryView = weightFieldToolBar
+        
         self.addSubview(weightField)
         
+    }
+    
+    func keyboardDone() {
+        endEditing(true)
     }
     
     
@@ -311,6 +327,15 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Dont allow multiple periods, anything below 0 or above 100
+        if textField === weightField {
+            
+        }
+        
+        return true
     }
     
     override func layoutSubviews() {
