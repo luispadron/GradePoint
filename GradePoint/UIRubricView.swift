@@ -56,6 +56,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("FRAME FOR RUBRIC VIEW: \(frame)")
         backgroundColor = UIColor.darkBg
         drawButton()
         drawPromptLabel()
@@ -65,6 +66,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        backgroundColor = UIColor.darkBg
         drawButton()
         drawPromptLabel()
         drawTextField()
@@ -73,13 +75,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     // MARK: Helper methods
     
-    func updateView() {
-        for view in subviews {
-            view.removeFromSuperview()
-        }
-        drawButton()
-        drawPromptLabel()
-        drawTextField()
+    func updateViewForCellReuse() {
+        // When the cell in a table view gets reused, its subviews are cached
+        // Since were "deleting" the cell, we need to reset all of the fields
+        nameField.text = nil
+        weightField.text = nil
+        nameField.editingChanged()
+        weightField.editingChanged()
     }
     
     private func initGestureRecognizer() {
@@ -188,17 +190,9 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     
-    @objc private func animateViews() {
+    @objc func animateViews() {
         if isAnimating { return }
         
-        CATransaction.begin()
-        CATransaction.setCompletionBlock({
-            let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-            self.delegate?.plusButtonTouched(self, forState: state)
-            self.isAnimating = false
-            self.isDeleteButton = self.isDeleteButton.toggle
-            self.toggleFields()
-        })
         isAnimating = true
         // Create rotate animation
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -232,7 +226,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         circleLayer?.add(backgroundAnimation, forKey: "backgroundAnimation")
         
         // Animate opacity of views
-        if promptLabel.isHidden {
+        if promptLabel.isHidden { // The user has clicked the delete button and the two textfields will be hidden
             nameField.layer.opacity = 1.0
             weightField.layer.opacity = 1.0
             
@@ -242,6 +236,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
                 
                 }, completion: { [unowned self] (complete) in
                     if complete {
+                        // Call the delegate method now that "most" animations are complete
+                        let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
+                        self.delegate?.plusButtonTouched(self, forState: state)
+                        self.isAnimating = false
+                        self.isDeleteButton = self.isDeleteButton.toggle
+                        self.toggleFields()
+                        
                         self.nameField.isHidden = true
                         self.weightField.isHidden = true
                         self.promptLabel.isHidden = false
@@ -252,13 +253,20 @@ class UIRubricView: UIView, UITextFieldDelegate {
                         })
                     }
                 })
-        } else {
+        } else { // The user has clicked the add button and the two textfields will now be shown
             promptLabel.layer.opacity = 1.0
             UIView.animate(withDuration: animationDuration, animations: { [unowned self] in
                 self.promptLabel.layer.opacity = 0.0
                 
                 }, completion: { [unowned self] (complete) in
                     if complete {
+                        // Call the delegate method now that "most" animations are complete
+                        let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
+                        self.delegate?.plusButtonTouched(self, forState: state)
+                        self.isAnimating = false
+                        self.isDeleteButton = self.isDeleteButton.toggle
+                        self.toggleFields()
+                        
                         self.promptLabel.isHidden = true
                         self.nameField.isHidden = false
                         self.weightField.isHidden = false
@@ -271,7 +279,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
                     }
                 })
         }
-        CATransaction.commit()
+        
     }
     
     @objc private func tappedOnButton() {
@@ -303,5 +311,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+    }
+    
+    override func layoutSubviews() {
+        // Remove these views and redraw them
+        nameField.removeFromSuperview()
+        weightField.removeFromSuperview()
+        drawTextField()
+        super.layoutSubviews()
     }
 }
