@@ -387,6 +387,10 @@ class UIRubricView: UIView, UITextFieldDelegate {
         
         // Replace all % and treat string as if the % doesnt matter
         text = text.replacingOccurrences(of: "%", with: "")
+        
+        if text == "." {
+            text.insert("0", at: text.startIndex)
+        }
         // If it's a back space then remove that string and set the field
         if isBackspace {
             text = text.substring(to: text.index(before: text.endIndex))
