@@ -300,8 +300,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         }
         
         // Hide the date picker
-        isDatePickerVisible = false
         tableView.beginUpdates()
+        isDatePickerVisible = false
         tableView.endUpdates()
         picker.isHidden = true
         picker.alpha = 1.0
