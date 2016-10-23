@@ -46,6 +46,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     var promptLabel: UILabel!
     var nameField: UIFloatingPromptTextField!
     var weightField: UIFloatingPromptTextField!
+    var isBackspace = false
     
     private lazy var plusLayer = CAShapeLayer()
     private lazy var buttonGesture = UITapGestureRecognizer()
@@ -185,6 +186,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self
+        weightField.addTarget(self, action: #selector(self.weightFieldTextChanged), for: .editingChanged)
         weightField.keyboardType = .decimalPad
         
         // Add an input accessory view which will display done
@@ -330,17 +332,24 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == "" {
+            isBackspace = true
+            return true
+        }
+        
+        isBackspace = false
+        
         // Dont allow multiple periods, anything below 0 or above 100
         if textField === weightField {
             let newChars = CharacterSet(charactersIn: string)
             let isNumber = CharacterSet.decimalDigits.isSuperset(of: newChars)
             if isNumber {
-                let current = textField.text! + string
+                let current = textField.text!.replacingOccurrences(of: "%", with: "") + string
                 let num = Double(current)
                 if let n = num,  n > 100.0 || n < 0.0 { return false }
             } else { // Allow only one decimal
                 if string == "." {
-                    let current = textField.text! + string
+                    let current = textField.text!.replacingOccurrences(of: "%", with: "") + string
                     let num = Double(current)
                     let count = textField.text!.components(separatedBy: ".").count
                     if count > 1 { return false }
@@ -354,6 +363,32 @@ class UIRubricView: UIView, UITextFieldDelegate {
         }
         
         return true
+    }
+    
+    // Append a "%" sign to the end of the string in the textfield
+    func weightFieldTextChanged(textField: UITextField) {
+        
+        guard var text = textField.text, text != "" else {
+            return
+        }
+        
+        // Replace all % and treat string as if the % doesnt matter
+        text = text.replacingOccurrences(of: "%", with: "")
+        // If it's a back space then remove that string and set the field
+        if isBackspace {
+            text = text.substring(to: text.index(before: text.endIndex))
+        }
+        
+        // If after deleting the text = "" then just set textfield text to empty, and return 
+        // We dont want to append just % because that would look weird, so return and dont append
+        if text == "" {
+            textField.text = nil
+            return
+        }
+        
+        // All statements passed, lets set the textfields text
+        textField.text = text.appending("%")
+        
     }
     
     override func layoutSubviews() {
