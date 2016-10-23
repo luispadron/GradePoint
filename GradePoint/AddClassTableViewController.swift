@@ -13,12 +13,25 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     // MARK: - Properties
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
+    // Properties to handle the save button enabling and disabling
+    var canSave = false {
+        didSet {
+            saveButton.isEnabled = canSave
+        }
+    }
+    var rubricViewsAreValid = false {
+        didSet {
+            canSave = rubricViewsAreValid && nameFieldIsValid
+        }
+    }
+    var nameFieldIsValid = false {
+        didSet {
+            canSave = nameFieldIsValid && rubricViewsAreValid
+        }
+    }
     
     // An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
-    // The current rubric view that is being edited or selected, set whenever user clicks the plus button
-    var currentRubricView: UIRubricView?
     
     // The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
     var nameField: UITextField?
@@ -125,6 +138,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.classNameField.delegate = self
+                cell.classNameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
                 nameField = cell.classNameField
                 return cell
             case 1: // Display the basic info date picker cell
@@ -173,12 +187,15 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     // MARK: - Textfield delegates
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === nameField { textField.resignFirstResponder() }
+        updateSaveButton()
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+        updateSaveButton()
     }
     
     // MARK: - Rubric View Delegate
@@ -192,6 +209,24 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             // Handle user wanting to add a grade section
             handleOpenState(withRubricView: view)
         }
+    }
+    
+    func isRubricValidUpdated() {
+        // Check edge case where user has only one rubric and no fields are set for it
+        if rubricViews.count == 1 {
+            let v = rubricViews[0]
+            if v.nameField.text!.isEmpty || v.weightField.text!.isEmpty {
+                rubricViewsAreValid = false
+                return
+            }
+        }
+        
+        // Check if all rubric views are valid, update save button
+        var validCount = 0
+        for v in rubricViews {
+            if v.isRubricValid { validCount += 1 }
+        }
+        rubricViewsAreValid = validCount == rubricViews.count
     }
     
     // MARK: - Date Input Delegate
@@ -255,8 +290,6 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             self.tableView.endUpdates()
             self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
         }
-        // Set the current rubric view
-        currentRubricView = view
     }
     
     func handleCloseState(withRubricView view: UIRubricView) {
@@ -274,8 +307,6 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             self.tableView.deleteRows(at: [path], with: .automatic)
             self.tableView.endUpdates()
         }
-        // Remove current rubric view 
-        currentRubricView = nil
     }
     
     func showDatePicker() {
@@ -316,6 +347,14 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     func updateSaveButton() {
+        print("Updating save button")
+        guard let text = nameField?.text else {
+            nameFieldIsValid = false
+            return
+        }
         
+        // Check for only whitespace in textfield
+        let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
+        nameFieldIsValid = trimmed.isEmpty ? false : true
     }
 }

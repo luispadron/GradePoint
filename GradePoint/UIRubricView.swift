@@ -38,7 +38,12 @@ class UIRubricView: UIView, UITextFieldDelegate {
     var animationDuration: TimeInterval = 0.3
     
     var buttonRect: CGRect?
-    var isDeleteButton: Bool = false
+    var isDeleteButton: Bool = false {
+        didSet {
+            updateIsRubricValid()
+        }
+    }
+    
     var isAnimating: Bool = false
     
     var circleLayer: CAShapeLayer?
@@ -52,6 +57,12 @@ class UIRubricView: UIView, UITextFieldDelegate {
     private lazy var buttonGesture = UITapGestureRecognizer()
     
     var delegate: UIRubricViewDelegate?
+    
+    var isRubricValid = false {
+        didSet {
+            delegate?.isRubricValidUpdated()
+        }
+    }
     
     // MARK: Overrides
     
@@ -172,6 +183,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField.returnKeyType = .next
         nameField.isHidden = true
         nameField.delegate = self
+        nameField.addTarget(self, action: #selector(self.updateIsRubricValid), for: .editingChanged)
         self.addSubview(nameField)
         
         weightField = UIFloatingPromptTextField(frame: CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY,
@@ -369,6 +381,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     func weightFieldTextChanged(textField: UITextField) {
         
         guard var text = textField.text, text != "" else {
+            updateIsRubricValid()
             return
         }
         
@@ -383,12 +396,31 @@ class UIRubricView: UIView, UITextFieldDelegate {
         // We dont want to append just % because that would look weird, so return and dont append
         if text == "" {
             textField.text = nil
+            updateIsRubricValid()
             return
         }
         
         // All statements passed, lets set the textfields text
         textField.text = text.appending("%")
         
+        updateIsRubricValid()
+    }
+    
+    func updateIsRubricValid() {
+        // The user hasnt opened the rubric view, thus, no checking required
+        if !isDeleteButton {
+            isRubricValid = true
+            return
+        }
+        
+        // Check the name field for whitespace, and the weightfield if its empty
+        guard let nText = nameField.text, let wText = weightField.text, !nText.isEmpty, !wText.isEmpty else {
+            isRubricValid = false
+            return
+        }
+        
+        let trimmed = nText.trimmingCharacters(in: CharacterSet.whitespaces)
+        isRubricValid = trimmed.isEmpty ? false : true
     }
     
     override func layoutSubviews() {
@@ -396,6 +428,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField.removeFromSuperview()
         weightField.removeFromSuperview()
         drawTextField()
+        updateIsRubricValid()
         super.layoutSubviews()
     }
 }
