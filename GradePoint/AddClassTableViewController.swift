@@ -266,7 +266,35 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     @IBAction func onSave(_ sender: AnyObject) {
-        print("save")
+        // Check logic, i.e make sure rubrics add up to 100%
+        var percent = 0.0
+        var validRubrics = [UIRubricView]()
+        
+        for v in rubricViews {
+            // If the rubric view is active, i.e user has entered some text
+            if v.isDeleteButton { validRubrics.append(v) }
+        }
+        
+        for v in validRubrics {
+            guard let text = v.weightField.text?.replacingOccurrences(of: "%", with: "") else { // Removes the percent symbol, to all calculations
+                return
+            }
+
+            if let p = Double(text) {
+                percent += p
+            } else {
+                fatalError("Unable to convert percent to a double")
+            }
+
+        }
+        
+        if percent == 100 {
+            // Save the class
+        } else {
+            let ac = UIAlertController(title: "Unable to Save", message: "Please make sure weight adds up to 100%", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            present(ac, animated: true, completion: nil)
+        }
     }
     
     // - MARK: Helper Methods
