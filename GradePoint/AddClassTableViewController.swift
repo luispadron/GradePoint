@@ -294,8 +294,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     func handleCloseState(withRubricView view: UIRubricView) {
         guard let row = rubricViews.index(of: view), numOfRubricViews > 1 else {
-            print("FATAL ERROR: Could not find rubric view to delete")
-            return
+            fatalError("Could not find rubric view to delete")
         }
         
         self.numOfRubricViews -= 1
@@ -347,7 +346,6 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     func updateSaveButton() {
-        print("Updating save button")
         guard let text = nameField?.text else {
             nameFieldIsValid = false
             return
