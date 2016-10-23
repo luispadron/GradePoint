@@ -14,6 +14,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    
     // An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
     // The current rubric view that is being edited or selected, set whenever user clicks the plus button
@@ -36,6 +37,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         // Since were handling the picker view differently for ipad vs iphone, then figure out which device user has
         // Then cache that value
         if UIDevice.current.userInterfaceIdiom == .pad { isIpad = true }
+        // Disable save button until fields are checked
+        saveButton.isEnabled = false
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -228,6 +231,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     @IBAction func onSave(_ sender: AnyObject) {
+        print("save")
     }
     
     // - MARK: Helper Methods
@@ -309,5 +313,9 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         UIView.animate(withDuration: 0.3) {
             picker.alpha = 0.0
         }
+    }
+    
+    func updateSaveButton() {
+        
     }
 }

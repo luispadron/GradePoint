@@ -12,17 +12,13 @@ class ClassesTableViewController: UITableViewController {
 
     var detailViewController: ClassesViewController? = nil
     var objects = [Any]()
-    var addButton: UIBarButtonItem?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
-        // Assign the add button
-        addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewClass(_:)))
-        
-        self.navigationItem.rightBarButtonItem = addButton
+
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassesViewController
@@ -73,23 +69,6 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
-    func addNewClass(_ sender: Any) {
-        guard let button = sender as? UIBarButtonItem, button === addButton else {
-            return
-        }
-        
-        let board = UIStoryboard(name: "Main", bundle: nil)
-        let nc = board.instantiateViewController(withIdentifier: "addClassNavController")
-        let vc = board.instantiateViewController(withIdentifier: "addClassTableViewController")
-        nc.addChildViewController(vc)
-        nc.modalPresentationStyle = .popover
-        nc.popoverPresentationController?.barButtonItem = addButton
-        nc.preferredContentSize = CGSize(width: 500, height: 600)
-        
-        self.present(nc, animated: true, completion: nil)
-        
-    }
-    
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,6 +80,9 @@ class ClassesTableViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
+        } else if segue.identifier == "addClass" {
+            let controller = segue.destination as! UINavigationController
+            controller.preferredContentSize = CGSize(width: 500, height: 600)
         }
     }
 

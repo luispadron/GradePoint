@@ -162,19 +162,19 @@
                                 <action selector="onCancel:" destination="ldX-Ft-uD9" id="icM-qt-pgI"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gIG-4M-fil">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="3Pf-iK-RNP">
                             <connections>
-                                <action selector="onSave:" destination="ldX-Ft-uD9" id="R7k-IX-sY1"/>
+                                <action selector="onSave:" destination="ldX-Ft-uD9" id="aDe-XU-WbD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="saveButton" destination="gIG-4M-fil" id="wsg-9z-Oev"/>
+                        <outlet property="saveButton" destination="3Pf-iK-RNP" id="Wo8-uy-3lE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bU-OE-Eyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="708" y="-1330.8845577211396"/>
+            <point key="canvasLocation" x="708" y="-1331"/>
         </scene>
         <!--Classes View Controller-->
         <scene sceneID="smW-Zh-WAh">
@@ -228,7 +228,15 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Classes" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="Classes" id="Zdf-7t-Un8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="fl1-S7-Jun">
+                            <connections>
+                                <segue destination="vhc-Ao-D5F" kind="popoverPresentation" identifier="addClass" popoverAnchorBarButtonItem="fl1-S7-Jun" id="ZTr-QD-c3y">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -270,22 +278,22 @@
             <point key="canvasLocation" x="-858.39999999999998" y="885.60719640179911"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="FgR-Ty-uEv">
+        <scene sceneID="mTD-0m-KVy">
             <objects>
-                <navigationController storyboardIdentifier="addClassNavController" automaticallyAdjustsScrollViewInsets="NO" id="hHI-XG-7xe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="addClassNavController" automaticallyAdjustsScrollViewInsets="NO" id="vhc-Ao-D5F" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gFz-Mb-cZk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="66C-WA-HuV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ldX-Ft-uD9" kind="relationship" relationship="rootViewController" id="uHM-fv-9Pq"/>
+                        <segue destination="ldX-Ft-uD9" kind="relationship" relationship="rootViewController" id="7hl-kC-paE"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yMb-de-IHh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Y3-wE-esu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-231" y="-1331"/>
+            <point key="canvasLocation" x="-39" y="-1331"/>
         </scene>
     </scenes>
     <resources>
