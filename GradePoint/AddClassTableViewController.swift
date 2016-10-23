@@ -36,6 +36,10 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     // The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
     var nameField: UITextField?
     
+    // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
+    var nameCell: BasicInfoNameTableViewCell?
+    var dateCell: BasicInfoSemesterTableViewCell?
+    
     var numOfRubricViews = 1
     var isIpad = false
     var isDatePickerVisible = false
@@ -134,18 +138,24 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0: // Display the basic info name cell
+                if let c = nameCell { return c }
+                
                 let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.classNameField.delegate = self
                 cell.classNameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
                 nameField = cell.classNameField
+                nameCell = cell
                 return cell
             case 1: // Display the basic info date picker cell
+                if let c = dateCell { return c }
+                
                 let cell = BasicInfoSemesterTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.delegate = self
+                dateCell = cell
                 return cell
             case 2:
                 let cell = BasicInfoSemesterPickerTableViewCell(style: .default, reuseIdentifier: nil)
