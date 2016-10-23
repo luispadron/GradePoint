@@ -38,7 +38,16 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
     var nameCell: BasicInfoNameTableViewCell?
-    var dateCell: BasicInfoSemesterTableViewCell?
+    var semesterCell: BasicInfoSemesterTableViewCell?
+    var semesterPickerCell: BasicInfoSemesterPickerTableViewCell?
+    var rubricCells = [RubricTableViewCell]() {
+        didSet {
+            rubricViews.removeAll()
+            for c in rubricCells {
+                rubricViews.append(c.rubricView)
+            }
+        }
+    }
     
     var numOfRubricViews = 1
     var isIpad = false
@@ -149,32 +158,33 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
                 nameCell = cell
                 return cell
             case 1: // Display the basic info date picker cell
-                if let c = dateCell { return c }
+                if let c = semesterCell { return c }
                 
                 let cell = BasicInfoSemesterTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.delegate = self
-                dateCell = cell
+                semesterCell = cell
                 return cell
             case 2:
+                if let c = semesterPickerCell { return c }
                 let cell = BasicInfoSemesterPickerTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.semesterPicker.delegate = self
                 semesterPicker = cell.semesterPicker
+                semesterPickerCell = cell
                 return cell
             default:
                 break
             }
             
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "rubricCell", for: indexPath) as! RubricTableViewCell
+            if indexPath.row < rubricCells.count { return rubricCells[indexPath.row] }
+            let cell = RubricTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
-
-            // Add this to the tracking array of views for this controller
-            addViewToArray(cell.rubricView)
+            rubricCells.append(cell)
             return cell
         }
         
@@ -210,14 +220,14 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     // MARK: - Rubric View Delegate
     
-    func plusButtonTouched(_ view: UIRubricView, forState state: UIRubricViewState) {
+    func plusButtonTouched(inCell cell: RubricTableViewCell, forState state: UIRubricViewState) {
         switch state {
         case .collapsed:
             // Handle user cancelling that item
-            handleCloseState(withRubricView: view)
+            handleCloseState(forCell: cell)
         case .open:
             // Handle user wanting to add a grade section
-            handleOpenState(withRubricView: view)
+            handleOpenState(forCell: cell)
         }
     }
     
@@ -308,20 +318,17 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     // - MARK: Helper Methods
-    
-    func addViewToArray(_ view: UIRubricView) {
-        if rubricViews.contains(view) { return }
-        else { rubricViews.append(view) }
-    }
 
-    func handleOpenState(withRubricView view: UIRubricView) {
+    func handleOpenState(forCell cell: RubricTableViewCell) {
         // If it's not the last rubric view then dont add another since we only want to 
         // add a new rubric input view when ever the use has exhausted all the others
-        if view !== rubricViews[rubricViews.count - 1] { return }
+        print("Size of rubric cell: \(rubricCells.count)")
+        print("Size of rubric views: \(rubricViews.count)")
         
-        // Last rubric view, lets create another one for the use incase they want to enter something
+        // Last rubric view, lets create another one for the user incase they want to enter something
         let path = IndexPath(row: numOfRubricViews, section: 1)
         self.numOfRubricViews += 1
+        
         DispatchQueue.main.async {
             self.tableView.beginUpdates()
             self.tableView.insertRows(at: [path], with: .automatic)
@@ -330,14 +337,16 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         }
     }
     
-    func handleCloseState(withRubricView view: UIRubricView) {
-        guard let row = rubricViews.index(of: view), numOfRubricViews > 1 else {
+    func handleCloseState(forCell cell: RubricTableViewCell) {
+        guard let row = rubricCells.index(of: cell), numOfRubricViews > 1 else {
             fatalError("Could not find rubric view to delete")
         }
         
         self.numOfRubricViews -= 1
-        rubricViews.remove(at: row)
-        
+        rubricCells.remove(at: row)
+    
+        print("Size of rubric cell: \(rubricCells.count)")
+        print("Size of rubric views: \(rubricViews.count)")
         let path = IndexPath(row: row, section: 1)
         DispatchQueue.main.async {
             self.tableView.beginUpdates()

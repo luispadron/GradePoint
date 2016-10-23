@@ -58,6 +58,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     var delegate: UIRubricViewDelegate?
     
+    var parentCell: RubricTableViewCell!
+    
     var isRubricValid = false {
         didSet {
             delegate?.isRubricValidUpdated()
@@ -68,7 +70,6 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("FRAME FOR RUBRIC VIEW: \(frame)")
         backgroundColor = UIColor.darkBg
         drawButton()
         drawPromptLabel()
@@ -268,7 +269,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
                     if complete {
                         // Call the delegate method now that "most" animations are complete
                         let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-                        self.delegate?.plusButtonTouched(self, forState: state)
+                        self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
                         self.isAnimating = false
                         self.isDeleteButton = self.isDeleteButton.toggle
                         self.toggleFields()
@@ -292,7 +293,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
                     if complete {
                         // Call the delegate method now that "most" animations are complete
                         let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-                        self.delegate?.plusButtonTouched(self, forState: state)
+                        self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
                         self.isAnimating = false
                         self.isDeleteButton = self.isDeleteButton.toggle
                         self.toggleFields()
@@ -429,9 +430,12 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     override func layoutSubviews() {
         // Remove these views and redraw them
-        nameField.removeFromSuperview()
-        weightField.removeFromSuperview()
-        drawTextField()
+        drawButton()
+        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
+        let width = bounds.width - (plusLayer.bounds.maxX + 50)
+        promptLabel.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height)
+        nameField.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        weightField.frame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth/2, height: bounds.height)
         updateIsRubricValid()
         super.layoutSubviews()
     }

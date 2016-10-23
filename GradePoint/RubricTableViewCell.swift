@@ -11,21 +11,35 @@ import UIKit
 class RubricTableViewCell: UITableViewCell {
 
     // Get's initialized in the cellForRow inside of AddClassTableViewController
-    @IBOutlet weak var rubricView: UIRubricView!
+    var rubricView: UIRubricView!
     
-    override func prepareForReuse() {
-        rubricView.updateViewForCellReuse()
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        initCell()
         layoutIfNeeded()
-        super.prepareForReuse()
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initCell()
+        layoutIfNeeded()
+    }
+
+    
+    override func prepareForReuse() {
+        layoutIfNeeded()
+        super.prepareForReuse()
     }
     
     override func layoutSubviews() {
         rubricView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         super.layoutSubviews()
+    }
+    
+    func initCell() {
+        rubricView = UIRubricView(frame: self.frame)
+        rubricView.parentCell = self
+        self.addSubview(rubricView)
     }
     
 }

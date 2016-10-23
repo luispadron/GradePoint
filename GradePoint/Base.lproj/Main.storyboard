@@ -137,17 +137,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDC-G8-iSk" id="YxI-gE-DpH">
                                     <frame key="frameInset" width="375" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ApZ-Wa-wgr" customClass="UIRubricView" customModule="GradePoint" customModuleProvider="target">
-                                            <frame key="frameInset" maxY="-0.5"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="rubricView" destination="ApZ-Wa-wgr" id="Fa2-EY-A0w"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
