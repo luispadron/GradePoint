@@ -54,7 +54,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     var isBackspace = false
     
     private lazy var plusLayer = CAShapeLayer()
-    private lazy var buttonGesture = UITapGestureRecognizer()
+    lazy var buttonGesture = UITapGestureRecognizer()
     
     var delegate: UIRubricViewDelegate?
     

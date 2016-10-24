@@ -320,12 +320,8 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     // - MARK: Helper Methods
 
     func handleOpenState(forCell cell: RubricTableViewCell) {
-        // If it's not the last rubric view then dont add another since we only want to 
-        // add a new rubric input view when ever the use has exhausted all the others
-        print("Size of rubric cell: \(rubricCells.count)")
-        print("Size of rubric views: \(rubricViews.count)")
         
-        // Last rubric view, lets create another one for the user incase they want to enter something
+        // Lets create another one for the user incase they want to enter something
         let path = IndexPath(row: numOfRubricViews, section: 1)
         self.numOfRubricViews += 1
         
@@ -343,10 +339,12 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         }
         
         self.numOfRubricViews -= 1
+        
+        // Disable the button, this fix issues where when spam touching button more than one view is created
+        cell.rubricView.buttonGesture.isEnabled = false
+        
         rubricCells.remove(at: row)
     
-        print("Size of rubric cell: \(rubricCells.count)")
-        print("Size of rubric views: \(rubricViews.count)")
         let path = IndexPath(row: row, section: 1)
         DispatchQueue.main.async {
             self.tableView.beginUpdates()
