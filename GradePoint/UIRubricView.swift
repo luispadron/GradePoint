@@ -35,7 +35,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     var fontSize: CGFloat = 18
     
-    var animationDuration: TimeInterval = 0.3
+    var animationDuration: TimeInterval = 0.4
     
     var buttonRect: CGRect?
     var isDeleteButton: Bool = false {
@@ -86,16 +86,19 @@ class UIRubricView: UIView, UITextFieldDelegate {
         initGestureRecognizer()
     }
     
-    // MARK: Helper methods
-    
-    func updateViewForCellReuse() {
-        // When the cell in a table view gets reused, its subviews are cached
-        // Since were "deleting" the cell, we need to reset all of the fields
-        nameField.text = nil
-        weightField.text = nil
-        nameField.editingChanged()
-        weightField.editingChanged()
+    override func layoutSubviews() {
+        // Remove these views and redraw them
+        drawButton()
+        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
+        let width = bounds.width - (plusLayer.bounds.maxX + 50)
+        promptLabel.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height)
+        nameField.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        weightField.frame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        updateIsRubricValid()
+        super.layoutSubviews()
     }
+    
+    // MARK: Helper methods
     
     private func initGestureRecognizer() {
         buttonGesture.addTarget(self, action: #selector(self.tappedOnButton))
@@ -258,57 +261,65 @@ class UIRubricView: UIView, UITextFieldDelegate {
         
         // Animate opacity of views
         if promptLabel.isHidden { // The user has clicked the delete button and the two textfields will be hidden
+            // Prepare for animation
             nameField.layer.opacity = 1.0
             weightField.layer.opacity = 1.0
+            self.promptLabel.isHidden = false
+            promptLabel.layer.opacity = 0.0
             
-            UIView.animate(withDuration: animationDuration, animations: { [unowned self] in
-                self.nameField.layer.opacity = 0.0
-                self.weightField.layer.opacity = 0.0
+            UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: [.calculationModeLinear], animations: {
                 
-                }, completion: { [unowned self] (complete) in
-                    if complete {
-                        // Call the delegate method now that "most" animations are complete
-                        let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-                        self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
-                        self.isAnimating = false
-                        self.isDeleteButton = self.isDeleteButton.toggle
-                        self.toggleFields()
-                        
-                        self.nameField.isHidden = true
-                        self.weightField.isHidden = true
-                        self.promptLabel.isHidden = false
-                        self.promptLabel.layer.opacity = 0.0
-                        self.toggleFields()
-                        UIView.animate(withDuration: self.animationDuration + 0.2, animations: {
-                            self.promptLabel.layer.opacity = 1.0
-                        })
-                    }
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                    self.nameField.layer.opacity = 0.0
+                    self.weightField.layer.opacity = 0.0
                 })
+                
+                
+                UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
+                    self.promptLabel.layer.opacity = 1.0
+                })
+                
+                
+                }, completion: { _ in
+                    self.isAnimating = false
+                    self.toggleFields()
+                    self.nameField.isHidden = true
+                    self.weightField.isHidden = true
+                    self.toggleFields()
+                    // Call delegate
+                    let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
+                    self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
+                    self.isDeleteButton = self.isDeleteButton.toggle
+            })
         } else { // The user has clicked the add button and the two textfields will now be shown
             promptLabel.layer.opacity = 1.0
-            UIView.animate(withDuration: animationDuration, animations: { [unowned self] in
-                self.promptLabel.layer.opacity = 0.0
+            nameField.isHidden = false
+            weightField.isHidden = false
+            nameField.layer.opacity = 0.0
+            weightField.layer.opacity = 0.0
+            
+            UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: [], animations: {
                 
-                }, completion: { [unowned self] (complete) in
-                    if complete {
-                        // Call the delegate method now that "most" animations are complete
-                        let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-                        self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
-                        self.isAnimating = false
-                        self.isDeleteButton = self.isDeleteButton.toggle
-                        self.toggleFields()
-                        
-                        self.promptLabel.isHidden = true
-                        self.nameField.isHidden = false
-                        self.weightField.isHidden = false
-                        self.nameField.layer.opacity = 0.0
-                        self.weightField.layer.opacity = 0.0
-                        UIView.animate(withDuration: self.animationDuration + 0.2, animations: {
-                            self.nameField.layer.opacity = 1.0
-                            self.weightField.layer.opacity = 1.0
-                        })
-                    }
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                    self.promptLabel.layer.opacity = 0.0
                 })
+                
+                UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
+                    self.nameField.layer.opacity = 1.0
+                    self.weightField.layer.opacity = 1.0
+                })
+                
+                
+                }, completion: { _ in
+                    // Call the delegate method now that animations are complete
+                    self.isAnimating = false
+                    self.toggleFields()
+                    
+                    self.promptLabel.isHidden = true
+                    let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
+                    self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
+                    self.isDeleteButton = self.isDeleteButton.toggle
+            })
         }
         
     }
@@ -427,16 +438,5 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let trimmed = nText.trimmingCharacters(in: CharacterSet.whitespaces)
         isRubricValid = trimmed.isEmpty ? false : true
     }
-    
-    override func layoutSubviews() {
-        // Remove these views and redraw them
-        drawButton()
-        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
-        let width = bounds.width - (plusLayer.bounds.maxX + 50)
-        promptLabel.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height)
-        nameField.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
-        weightField.frame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth/2, height: bounds.height)
-        updateIsRubricValid()
-        super.layoutSubviews()
-    }
+
 }
