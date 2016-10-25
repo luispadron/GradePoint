@@ -311,7 +311,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         if percent == 100 {
             // Save the class
         } else {
-            let ac = UIAlertController(title: "Unable to Save", message: "Please make sure weight adds up to 100%", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Can't Save", message: "Weight(s) must add up to 100%", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
             present(ac, animated: true, completion: nil)
         }
