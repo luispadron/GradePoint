@@ -288,33 +288,25 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     @IBAction func onSave(_ sender: AnyObject) {
         // Check logic, i.e make sure rubrics add up to 100%
         var percent = 0.0
-        var validRubrics = [UIRubricView]()
         
-        for v in rubricViews {
-            // If the rubric view is active, i.e user has entered some text
-            if v.isDeleteButton { validRubrics.append(v) }
-        }
-        
-        for v in validRubrics {
-            guard let text = v.weightField.text?.replacingOccurrences(of: "%", with: "") else { // Removes the percent symbol, to all calculations
+        for i in 0..<rubricViews.count - 1 {
+            guard let text = rubricViews[i].weightField.text?.replacingOccurrences(of: "%", with: "") else { // Removes the percent symbol, to all calculations
                 return
             }
-
+            
             if let p = Double(text) {
+                if p <= 0 {
+                    presentAlert(withTitle: "Can't Save", andMessage: "Zero percentage is invalid in row \(i + 1)")
+                    return
+                }
                 percent += p
-            } else {
-                fatalError("Unable to convert percent to a double")
             }
-
+            else { fatalError("Unable to convert percent to a double") }
         }
         
         if percent == 100 {
             // Save the class
-        } else {
-            let ac = UIAlertController(title: "Can't Save", message: "Weight(s) must add up to 100%", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-            present(ac, animated: true, completion: nil)
-        }
+        } else { presentAlert(withTitle: "Can't Save", andMessage: "Weight(s) must add up to 100%") }
     }
     
     // - MARK: Helper Methods
@@ -399,5 +391,11 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         // Check for only whitespace in textfield
         let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
         nameFieldIsValid = trimmed.isEmpty ? false : true
+    }
+    
+    func presentAlert(withTitle title: String, andMessage msg: String) {
+        let ac = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        present(ac, animated: true, completion: nil)
     }
 }
