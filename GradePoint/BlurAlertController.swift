@@ -25,6 +25,7 @@ class BlurAlertController: UIViewController {
     var alertMessage: String?
     var buttonText: String?
     var buttonColor: UIColor?
+    var animationDuration: TimeInterval?
     var delegate: BlurAlertControllerDelegate?
     
     var shouldBlur = true
@@ -76,38 +77,26 @@ class BlurAlertController: UIViewController {
     func animateIn() {
         self.view.addSubview(alertBox)
         
-        // Offset
+        // Start the view invisible and at the top most of the VC
         alertBox.center.y = self.view.frame.minY // Start off at the top
+        alertBox.alpha = 0.0
         
-        alertBox.alpha = 0
+        let duration = animationDuration ?? 0.5
         
-        let animationDuration = 0.5
-        UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: [], animations: { 
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 30.0, options: .curveEaseInOut, animations: {
+            if self.shouldBlur { self.visualEffectView.effect = self.effect }
+            self.alertBox.center = self.view.center
+            self.alertBox.alpha = 1.0
             
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 2/3, animations: {
-                if self.shouldBlur { self.visualEffectView.effect = self.effect }
-                self.alertBox.center = self.view.center
-                self.alertBox.alpha = 1.0
-            })
-            
-            // Bounce up
-            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 1/3, animations: {
-                self.alertBox.center.y -= 30
-            })
-            
-            // Bounce down
-            UIView.addKeyframe(withRelativeStartTime: 0.9, relativeDuration: 1/3, animations: {
-                self.alertBox.center.y += 30
-            })
-        })
-
+            }, completion: nil)
     }
     
     func animteOutAndDismiss() {
-
-        UIView.animate(withDuration: 0.4, animations: {
+        let duration = animationDuration ?? 0.5
+        // Animate the view out
+        UIView.animate(withDuration: duration, animations: {
             if self.shouldBlur { self.visualEffectView.effect = nil }
-            self.alertBox.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.alertBox.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
             self.alertBox.alpha = 0
             self.alertBox.center.y = self.view.frame.maxY
             }) { _ in
@@ -119,3 +108,4 @@ class BlurAlertController: UIViewController {
     }
 
 }
+
