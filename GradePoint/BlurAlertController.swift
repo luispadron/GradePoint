@@ -59,6 +59,8 @@ class BlurAlertController: UIViewController {
         // Set button attributes
         button.setTitle(buttonText ?? "Done", for: .normal)
         button.backgroundColor = buttonColor ?? UIColor.blue
+        
+        alertBox.center = self.view.center
         // Animate
         animateIn()
     }
@@ -75,20 +77,30 @@ class BlurAlertController: UIViewController {
         self.view.addSubview(alertBox)
         
         // Offset
-        alertBox.center = self.view.center
-        alertBox.center.y = self.view.frame.minY
-        // Animate
-        alertBox.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3) // First make box bigger, to then animate scale down
+        alertBox.center.y = self.view.frame.minY // Start off at the top
         
         alertBox.alpha = 0
         
-        UIView.animate(withDuration: 0.4) {
-            if self.shouldBlur { self.visualEffectView.effect = self.effect }
-            self.alertBox.alpha = 1.0 // Make visible
-            self.alertBox.transform = CGAffineTransform.identity // Restore size
-            self.alertBox.center = self.view.center
-        }
-        
+        let animationDuration = 0.5
+        UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: [], animations: { 
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 2/3, animations: {
+                if self.shouldBlur { self.visualEffectView.effect = self.effect }
+                self.alertBox.center = self.view.center
+                self.alertBox.alpha = 1.0
+            })
+            
+            // Bounce up
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 1/3, animations: {
+                self.alertBox.center.y -= 30
+            })
+            
+            // Bounce down
+            UIView.addKeyframe(withRelativeStartTime: 0.9, relativeDuration: 1/3, animations: {
+                self.alertBox.center.y += 30
+            })
+        })
+
     }
     
     func animteOutAndDismiss() {
