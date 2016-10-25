@@ -8,7 +8,8 @@
 
 import UIKit
 
-class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate {
+class AddClassTableViewController: UITableViewController,
+                                  UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate, BlurAlertControllerDelegate {
     
     // MARK: - Properties
     
@@ -51,6 +52,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     
     var numOfRubricViews = 1
     var isIpad = false
+    var isPresentingAlert: Bool?
     var isDatePickerVisible = false
     var semesterPicker: UISemesterPickerView?
     
@@ -70,6 +72,16 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.separatorColor = UIColor.tableViewSeperator
+    }
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        if let isP = self.isPresentingAlert, isP {
+            // Keep the buttons disabled
+            DispatchQueue.main.async {
+                self.navigationItem.leftBarButtonItem?.isEnabled = false
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -278,6 +290,16 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         
     }
     
+    // MARK: - Blur Alert Delegate
+    
+    func alertDidFinish() {
+        self.isPresentingAlert = false
+        DispatchQueue.main.async {
+            // Reset the nav buttons
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
     
     // - MARK: IBActions
     
@@ -296,7 +318,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
             
             if let p = Double(text) {
                 if p <= 0 {
-                    presentAlert(withTitle: "Can't Save", andMessage: "Zero percentage is invalid in row \(i + 1)")
+                    presentAlert(withTitle: "Can't Save 💔", andMessage: "Zero percentage is invalid in row \(i + 1)")
                     return
                 }
                 percent += p
@@ -306,7 +328,7 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
         
         if percent == 100 {
             // Save the class
-        } else { presentAlert(withTitle: "Can't Save", andMessage: "Weight(s) must add up to 100%") }
+        } else { presentAlert(withTitle: "Can't Save 💔", andMessage: "Weights must add up to 100%") }
     }
     
     // - MARK: Helper Methods
@@ -394,8 +416,22 @@ class AddClassTableViewController: UITableViewController, UIRubricViewDelegate, 
     }
     
     func presentAlert(withTitle title: String, andMessage msg: String) {
-        let ac = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-        present(ac, animated: true, completion: nil)
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let alert = board.instantiateViewController(withIdentifier: "blurAlertController") as! BlurAlertController
+        alert.view.frame = self.view.frame
+        alert.alertTitle = title
+        alert.alertMessage = msg
+        alert.buttonText = "OK"
+        alert.buttonColor = UIColor.highlight
+        alert.delegate = self
+        
+        self.present(alert, animated: false, completion: {
+            self.isPresentingAlert = true
+            // Disable nav bar items while presenting
+            DispatchQueue.main.async {
+                self.navigationItem.leftBarButtonItem?.isEnabled = false
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+        })
     }
 }
