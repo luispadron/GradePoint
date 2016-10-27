@@ -1,0 +1,6 @@
+framework module Pods_GradePointTests {
+  umbrella header "Pods-GradePointTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
