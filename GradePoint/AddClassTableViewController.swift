@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddClassTableViewController: UITableViewController,
                                   UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate, BlurAlertControllerDelegate {
     
     // MARK: - Properties
+    
+    // Realm database object
+    
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     // Properties to handle the save button enabling and disabling
@@ -340,9 +344,13 @@ class AddClassTableViewController: UITableViewController,
         
         if percent == 100 {
             // Save the created class
+            print(self.term)
+            print(self.year)
             let semester = Semester(withTerm: self.term!, andYear: self.year!) // Unwrapped because, we're already saving, if these are optional something went wrong
-            let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubrics)
-            print(newClass)
+            let rubricList = List<Rubric>(rubrics)
+            let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubricList)
+            
+
         } else { presentAlert(withTitle: "Can't Save 💔", andMessage: "Weights must add up to 100%") }
     }
     

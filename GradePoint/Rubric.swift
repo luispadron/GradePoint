@@ -6,13 +6,14 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
-import Foundation
+import RealmSwift
 
-struct Rubric {
-    var name: String!
-    var weight: Double!
+class Rubric: Object {
+    dynamic var name = ""
+    dynamic var weight: Double = 0.0
     
-    init(withName name: String, andWeight weight: Double!) {
+    convenience init(withName name: String, andWeight weight: Double) {
+        self.init()
         self.name = name
         self.weight = weight
     }

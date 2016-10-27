@@ -6,13 +6,14 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
-import Foundation
+import RealmSwift
 
-struct Semester {
-    var term: String!
-    var year: Int!
+class Semester: Object {
+    dynamic var term = ""
+    dynamic var year = 0
     
-    init(withTerm term: String, andYear year: Int) {
+    convenience init(withTerm term: String, andYear year: Int) {
+        self.init()
         self.term = term
         self.year = year
     }
