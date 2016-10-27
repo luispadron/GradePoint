@@ -15,7 +15,7 @@ class AddClassTableViewController: UITableViewController,
     // MARK: - Properties
     
     // Realm database object
-    
+    let realm = try! Realm()
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     // Properties to handle the save button enabling and disabling
@@ -62,8 +62,9 @@ class AddClassTableViewController: UITableViewController,
     
     // The vars for the the finished class user is creating
     // These two are set using the picker view and get set in the pickerdelegate
-    var term: String?
-    var year: Int?
+    var term: String = "Fall" // Defaults are these because these are the first items in the picker view
+    var year: Int = 2016
+
     
     // MARK: - Overrides
     
@@ -344,12 +345,13 @@ class AddClassTableViewController: UITableViewController,
         
         if percent == 100 {
             // Save the created class
-            print(self.term)
-            print(self.year)
-            let semester = Semester(withTerm: self.term!, andYear: self.year!) // Unwrapped because, we're already saving, if these are optional something went wrong
+            let semester = Semester(withTerm: self.term, andYear: self.year)
             let rubricList = List<Rubric>(rubrics)
             let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubricList)
             
+            try! realm.write {
+                realm.add(newClass)
+            }
 
         } else { presentAlert(withTitle: "Can't Save 💔", andMessage: "Weights must add up to 100%") }
     }
