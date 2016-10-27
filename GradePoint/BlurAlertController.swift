@@ -44,12 +44,15 @@ class BlurAlertController: UIViewController {
         // Initialization code, set some properties and some styling up
         effect = visualEffectView.effect
         visualEffectView.effect = nil
+        
         alertBox.layer.cornerRadius = 5
         alertBox.clipsToBounds = true
-        titleLabel.layer.borderWidth = 1
-        titleLabel.layer.cornerRadius = 5
-        titleLabel.clipsToBounds = true
-        titleLabel.layer.borderColor = UIColor.unselected.cgColor
+        
+        // Add bottom border to alertBox for the titlelabel
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: alertBox.layer.frame.minX, y: titleLabel.frame.height, width: alertBox.layer.frame.width, height: 1)
+        bottomBorder.backgroundColor = UIColor.gray.cgColor
+        alertBox.layer.addSublayer(bottomBorder)
     }
     
     override func viewWillAppear(_ animated: Bool) {
