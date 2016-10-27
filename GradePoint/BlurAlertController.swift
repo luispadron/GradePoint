@@ -46,7 +46,7 @@ class BlurAlertController: UIViewController {
         visualEffectView.effect = nil
         alertBox.layer.cornerRadius = 5
         alertBox.clipsToBounds = true
-        titleLabel.layer.borderWidth = 2
+        titleLabel.layer.borderWidth = 1
         titleLabel.layer.cornerRadius = 5
         titleLabel.clipsToBounds = true
         titleLabel.layer.borderColor = UIColor.unselected.cgColor
