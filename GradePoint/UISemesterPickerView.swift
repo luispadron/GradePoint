@@ -54,10 +54,10 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         switch component {
         case 0:
             selectedSemester = semesters[row]
-            delegate?.pickerRowSelected(semester: selectedSemester, year: selectedYear)
+            delegate?.pickerRowSelected(term: selectedSemester, year: selectedYear)
         case 1:
             selectedYear = years[row]
-            delegate?.pickerRowSelected(semester: selectedSemester, year: selectedYear)
+            delegate?.pickerRowSelected(term: selectedSemester, year: selectedYear)
         default:
             fatalError("Some how the UIPickerView component is not correct")
         }

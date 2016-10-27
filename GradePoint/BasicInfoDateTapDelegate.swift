@@ -12,5 +12,5 @@ import UIKit
 protocol SemesterPickerDelegate {
     func dateInputWasTapped(forCell cell: BasicInfoSemesterTableViewCell)
     
-    func pickerRowSelected(semester: String, year: Int) 
+    func pickerRowSelected(term: String, year: Int)
 }

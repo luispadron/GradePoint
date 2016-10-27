@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Semester {
+struct Semester {
     var term: String!
     var year: Int!
     

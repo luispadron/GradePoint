@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Rubric {
+struct Rubric {
     var name: String!
     var weight: Double!
     

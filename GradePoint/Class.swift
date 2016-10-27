@@ -13,8 +13,10 @@ class Class {
     var semester: Semester!
     lazy var rubrics = [Rubric]()
     
-    init(withName name: String, inSemester semester: Semester) {
+    init(withName name: String, inSemester semester: Semester, withRubrics rubrics:  [Rubric]) {
         self.name = name
         self.semester = semester
+        self.rubrics = rubrics
     }
+    
 }

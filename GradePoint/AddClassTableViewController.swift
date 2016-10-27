@@ -35,7 +35,7 @@ class AddClassTableViewController: UITableViewController,
     lazy var rubricViews = [UIRubricView]()
     
     // The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
-    var nameField: UITextField?
+    var nameField: UITextField!
     
     // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
     var nameCell: BasicInfoNameTableViewCell?
@@ -56,6 +56,10 @@ class AddClassTableViewController: UITableViewController,
     var isDatePickerVisible = false
     var semesterPicker: UISemesterPickerView?
     
+    // The vars for the the finished class user is creating
+    // These two are set using the picker view and get set in the pickerdelegate
+    var term: String?
+    var year: Int?
     
     // MARK: - Overrides
     
@@ -264,7 +268,7 @@ class AddClassTableViewController: UITableViewController,
     // MARK: - Date Input Delegate
     
     func dateInputWasTapped(forCell cell: BasicInfoSemesterTableViewCell) {
-        if isIpad { // Display the date picker as a popover, cus it looks cooler
+        if isIpad { // Display the semester picker as a popover, cus it looks cooler
             let vc = IPadSemesterPickerViewController()
             vc.preferredContentSize = CGSize(width: 200, height: 100)
             vc.modalPresentationStyle = .popover
@@ -283,11 +287,13 @@ class AddClassTableViewController: UITableViewController,
         else { showDatePicker() }
     }
     
-    func pickerRowSelected(semester: String, year: Int) {
+    func pickerRowSelected(term: String, year: Int) {
         // User selected a date, lets update the UI
         let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! BasicInfoSemesterTableViewCell
-        cell.dateInputLabel.text = "\(semester) \(year)"
-        
+        cell.dateInputLabel.text = "\(term) \(year)"
+        // Set the properties
+        self.term = term
+        self.year = year
     }
     
     // MARK: - Blur Alert Delegate
@@ -310,6 +316,7 @@ class AddClassTableViewController: UITableViewController,
     @IBAction func onSave(_ sender: AnyObject) {
         // Check logic, i.e make sure rubrics add up to 100%
         var percent = 0.0
+        var rubrics = [Rubric]()
         
         for i in 0..<rubricViews.count - 1 {
             guard let text = rubricViews[i].weightField.text?.replacingOccurrences(of: "%", with: "") else { // Removes the percent symbol, to all calculations
@@ -322,12 +329,20 @@ class AddClassTableViewController: UITableViewController,
                     return
                 }
                 percent += p
+                // Start creating the rubrics in order to optimize and not have to use another for loop when we validate
+                let rView = rubricViews[i]
+                let rubric = Rubric(withName: rView.nameField.text!, andWeight: p) // unwrapped because we cant be saving without text anyway
+                rubrics.append(rubric)
             }
+                
             else { fatalError("Unable to convert percent to a double") }
         }
         
         if percent == 100 {
-            // Save the class
+            // Save the created class
+            let semester = Semester(withTerm: self.term!, andYear: self.year!) // Unwrapped because, we're already saving, if these are optional something went wrong
+            let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubrics)
+            print(newClass)
         } else { presentAlert(withTitle: "Can't Save 💔", andMessage: "Weights must add up to 100%") }
     }
     
