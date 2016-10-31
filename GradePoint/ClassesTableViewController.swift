@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ClassesTableViewController: UITableViewController {
 
     var detailViewController: ClassesViewController? = nil
-    var objects = [Any]()
+    var notifToken: NotificationToken?
+    var realm = try! Realm()
+    lazy var classes: Results<Class> = { self.realm.objects(Class.self) }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-
+        
+        // Create Realm notification
+        setupRealmNotifications()
+        
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassesViewController
@@ -44,13 +49,17 @@ class ClassesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return classes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
-        cell.classTitleLabel.text = "Test Class"
-        cell.classDateLabel.text = "Summer 2016"
+        
+        let classObj = classes[indexPath.row]
+    
+        cell.classTitleLabel.text = classObj.name
+        cell.classDateLabel.text = "\(classObj.semester!.term) \(classObj.semester!.year)"
+        cell.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classObj.colorData) as? UIColor
         
         return cell
     }
@@ -62,10 +71,9 @@ class ClassesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            objects.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+            try! realm.write {
+                realm.delete(classes[indexPath.row])
+            }
         }
     }
     
@@ -74,7 +82,7 @@ class ClassesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
+                let object = classes[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! ClassesViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
@@ -85,6 +93,33 @@ class ClassesTableViewController: UITableViewController {
             controller.preferredContentSize = CGSize(width: 500, height: 600)
         }
     }
-
+    
+    // MARK: - Helpers
+    
+    func setupRealmNotifications() {
+        notifToken = classes.addNotificationBlock({ [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                // Results are now populated
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("Error in tableview update inside of \(ClassesTableViewController.self)\nError is \(error)")
+            }
+        })
+    }
+    
+    // Stop notifications
+    deinit {
+        notifToken?.stop()
+    }
 }
 

@@ -12,7 +12,6 @@ import GameKit
 extension UIColor {
     
     // MARK: - Main Theme
-    
     @nonobjc static let darkBg = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
     @nonobjc static let lightBg = UIColor(red:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
     @nonobjc static let highlight = UIColor(red: 111/255, green: 190/255, blue: 217/255, alpha: 1.0) /* #6fbed9 */
@@ -27,6 +26,10 @@ extension UIColor {
     
     // MARK - Random Color Generation
     
+    /// Read only computed color - Pastel looking randomly generated color
+    class var randomPastel: UIColor { return generateRandomColor(mixedWithColor: self.white, withRedModifier: nil, withGreenModifier: nil, withBlueModifier: nil) }
+
+    /// Static function to generate random colors, can pass in a mix to get a different look and feel
     static func generateRandomColor(mixedWithColor mix: UIColor?, withRedModifier redM: Int?, withGreenModifier greenM: Int?, withBlueModifier blueM: Int?) -> UIColor {
         let redMod = redM ?? 0
         let greenMod = greenM ?? 0
@@ -51,5 +54,11 @@ extension UIColor {
         
         return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
+    
+    
+    // MARK: - Helpers
+    
+    /// Function which turns UIColor to NSData, for saving to realm
+    func toData() -> Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
     
 }

@@ -7,17 +7,20 @@
 //
 
 import RealmSwift
+import UIKit
 
 class Class: Object {
     dynamic var name = ""
     dynamic var semester: Semester?
     var rubrics = List<Rubric>()
+    dynamic var colorData = Data()
     
     convenience init(withName name: String, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
         self.init()
         self.name = name
         self.semester = semester
         self.rubrics = rubrics
+        self.colorData = UIColor.randomPastel.toData()
     }
     
 }
