@@ -11,7 +11,7 @@ import UIKit
 class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var semesterPicker: UIPickerView!
-    var years = [Int]()
+    lazy var years = { UISemesterPickerView.createArrayOfYears() }()
     let semesters = ["Fall", "Spring", "Summer", "Winter"]
     var delegate: SemesterPickerDelegate?
     var selectedSemester: String!
@@ -88,24 +88,26 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     
     func initDataForPickerView() {
         // Init the data for the picker view
-        // Get the current year
+        semesterPicker.selectRow(1, inComponent: 1, animated: false)
+    
+        // Init selected values
+        selectedYear = years[1]
+        selectedSemester = semesters[0]
+    }
+    
+    static func createArrayOfYears() -> [Int] {
+        var result = [Int]()
         let date = Date()
         let calendar = NSCalendar.current
         let currentYear = calendar.component(.year, from: date)
         
         // For the current year, go one ahead and 30 behind.
         for i in 0...30 {
-            years.append(currentYear - i)
+            result.append(currentYear - i)
         }
         // Finally one ahead
-        years.insert(currentYear + 1, at: 0)
-        
-        // Select the current year
-        semesterPicker.selectRow(1, inComponent: 1, animated: false)
-    
-        // Init selected values
-        selectedYear = years[1]
-        selectedSemester = semesters[0]
+        result.insert(currentYear + 1, at: 0)
+        return result
     }
 
 
