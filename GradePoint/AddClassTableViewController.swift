@@ -352,7 +352,8 @@ class AddClassTableViewController: UITableViewController,
             try! realm.write {
                 realm.add(newClass)
             }
-
+            self.dismiss(animated: true, completion: nil)
+            
         } else { presentAlert(withTitle: "Can't Save 💔", andMessage: "Weights must add up to 100%") }
     }
     
