@@ -70,6 +70,8 @@ class ClassesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let cell = tableView.cellForRow(at: indexPath) as! ClassTableViewCell
+            cell.classObj = nil
             try! realm.write {
                 realm.delete(classes[indexPath.row])
             }

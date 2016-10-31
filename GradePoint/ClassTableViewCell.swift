@@ -62,7 +62,7 @@ class ClassTableViewCell: UITableViewCell {
     // MARK: - Helper Methods
     func updateUI() {
         guard let classItem = classObj else {
-            fatalError("classObj was not set for this class cell")
+            return
         }
         // Set the approritate ui types to their fields
         self.classTitleLabel.text = classItem.name
