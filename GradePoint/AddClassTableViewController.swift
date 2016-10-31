@@ -62,8 +62,8 @@ class AddClassTableViewController: UITableViewController,
     
     // The vars for the the finished class user is creating
     // These two are set using the picker view and get set in the pickerdelegate
-    var term: String = "Fall" // Defaults are these because these are the first items in the picker view
-    var year: Int = 2016
+    lazy var term: String = { self.semesterPickerCell!.semesterPicker.semesters[0] }()
+    lazy var year: Int = { self.semesterPickerCell!.semesterPicker.years[1] }()
 
     
     // MARK: - Overrides

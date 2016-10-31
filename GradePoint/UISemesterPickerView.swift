@@ -10,7 +10,7 @@ import UIKit
 
 class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var datePicker: UIPickerView!
+    var semesterPicker: UIPickerView!
     var years = [Int]()
     let semesters = ["Fall", "Spring", "Summer", "Winter"]
     var delegate: SemesterPickerDelegate?
@@ -29,7 +29,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     override func layoutSubviews() {
-        datePicker.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        semesterPicker.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         super.layoutSubviews()
     }
     
@@ -79,11 +79,11 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     // MARK: - Helper methods
     
     private func initView() {
-        datePicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
-        datePicker.dataSource = self
-        datePicker.delegate = self
+        semesterPicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        semesterPicker.dataSource = self
+        semesterPicker.delegate = self
         initDataForPickerView()
-        self.addSubview(datePicker)
+        self.addSubview(semesterPicker)
     }
     
     func initDataForPickerView() {
@@ -101,7 +101,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         years.insert(currentYear + 1, at: 0)
         
         // Select the current year
-        datePicker.selectRow(1, inComponent: 1, animated: false)
+        semesterPicker.selectRow(1, inComponent: 1, animated: false)
     
         // Init selected values
         selectedYear = years[1]
