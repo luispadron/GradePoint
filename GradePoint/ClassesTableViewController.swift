@@ -56,10 +56,9 @@ class ClassesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
         let classObj = classes[indexPath.row]
-    
-        cell.classTitleLabel.text = classObj.name
-        cell.classDateLabel.text = "\(classObj.semester!.term) \(classObj.semester!.year)"
-        cell.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classObj.colorData) as? UIColor
+        
+        // Set the cells associated class, all UI updates are done in the ClassTableViewCell class
+        cell.classObj = classObj
         
         return cell
     }
