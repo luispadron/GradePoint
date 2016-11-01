@@ -114,17 +114,17 @@ class AddClassTableViewController: UITableViewController,
         mainView.backgroundColor = UIColor.lightBg
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.textColor = UIColor.unselected
         label.backgroundColor = UIColor.lightBg
         mainView.addSubview(label)
         
         switch section {
         case 0:
-            label.text = "BASIC INFORMATION"
+            label.text = "Basic Information"
             return mainView
         case 1:
-            label.text = "GRADE RUBRIC"
+            label.text = "Grade Rubric"
             return mainView
         default:
             return nil

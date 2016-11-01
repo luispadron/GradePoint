@@ -59,6 +59,23 @@ class ClassesTableViewController: UITableViewController {
         return classes.count
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
+        mainView.backgroundColor = UIColor.lightBg
+        
+        let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = UIColor.unselected
+        label.backgroundColor = UIColor.lightBg
+        mainView.addSubview(label)
+        label.text = "Classes"
+        return mainView
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
