@@ -30,14 +30,12 @@
 
 #include "util/format.hpp"
 
-#if REALM_VER_MAJOR >= 2
 #include <realm/history.hpp>
-#else
-#include <realm/commit_log.hpp>
-#endif
-
-#include <realm/sync/history.hpp>
 #include <realm/util/scope_exit.hpp>
+
+#if REALM_ENABLE_SYNC
+#include <realm/sync/history.hpp>
+#endif
 
 using namespace realm;
 using namespace realm::_impl;
@@ -156,16 +154,16 @@ void Realm::open_with_config(const Config& config,
             // probably has to be transmuted to an NSError.
             bool server_synchronization_mode = bool(config.sync_config);
             if (server_synchronization_mode) {
+#if REALM_ENABLE_SYNC
                 history = realm::sync::make_sync_history(config.path);
-            }
-            else {
-#if REALM_VER_MAJOR >= 2
-                history = realm::make_in_realm_history(config.path);
 #else
-                history = realm::make_client_history(config.path, config.encryption_key.data());
+                REALM_TERMINATE("Realm was not built with sync enabled");
 #endif
             }
-#ifdef REALM_GROUP_SHARED_OPTIONS_HPP
+            else {
+                history = realm::make_in_realm_history(config.path);
+            }
+
             SharedGroupOptions options;
             options.durability = config.in_memory ? SharedGroupOptions::Durability::MemOnly :
                                                     SharedGroupOptions::Durability::Full;
@@ -178,17 +176,6 @@ void Realm::open_with_config(const Config& config,
                 }
             };
             shared_group = std::make_unique<SharedGroup>(*history, options);
-#else
-            SharedGroup::DurabilityLevel durability = config.in_memory ? SharedGroup::durability_MemOnly :
-                                                                           SharedGroup::durability_Full;
-            shared_group = std::make_unique<SharedGroup>(*history, durability, config.encryption_key.data(), !config.disable_format_upgrade,
-                                                         [&](int from_version, int to_version) {
-                if (realm) {
-                    realm->upgrade_initial_version = from_version;
-                    realm->upgrade_final_version = to_version;
-                }
-            });
-#endif
         }
     }
     catch (...) {
@@ -210,6 +197,13 @@ Group& Realm::read_group()
         add_schema_change_handler();
     }
     return *m_group;
+}
+
+void Realm::Internal::begin_read(Realm& realm, VersionID version_id)
+{
+    REALM_ASSERT(!realm.m_group);
+    realm.m_group = &const_cast<Group&>(realm.m_shared_group->begin_read(version_id));
+    realm.add_schema_change_handler();
 }
 
 SharedRealm Realm::get_shared_realm(Config config)
@@ -242,12 +236,18 @@ bool Realm::read_schema_from_group_if_needed()
     return true;
 }
 
-void Realm::reset_file_if_needed(Schema const& schema, uint64_t version, std::vector<SchemaChange>& required_changes)
+bool Realm::reset_file_if_needed(Schema& schema, uint64_t version, std::vector<SchemaChange>& required_changes)
 {
     if (m_schema_version == ObjectStore::NotVersioned)
-        return;
-    if (m_schema_version == version && !ObjectStore::needs_migration(required_changes))
-        return;
+        return false;
+    if (m_schema_version == version) {
+        if (required_changes.empty()) {
+            set_schema(std::move(schema), version);
+            return true;
+        }
+        if (!ObjectStore::needs_migration(required_changes))
+            return false;
+    }
 
     // FIXME: this does not work if multiple processes try to open the file at
     // the same time, or even multiple threads if there is not any external
@@ -262,6 +262,7 @@ void Realm::reset_file_if_needed(Schema const& schema, uint64_t version, std::ve
     m_schema = ObjectStore::schema_from_group(read_group());
     m_schema_version = ObjectStore::get_schema_version(read_group());
     required_changes = m_schema.compare(schema);
+    return false;
 }
 
 void Realm::update_schema(Schema schema, uint64_t version, MigrationFunction migration_function)
@@ -293,8 +294,7 @@ void Realm::update_schema(Schema schema, uint64_t version, MigrationFunction mig
                 return true;
 
             case SchemaMode::ResetFile:
-                reset_file_if_needed(schema, version, required_changes);
-                return required_changes.empty();
+                return reset_file_if_needed(schema, version, required_changes);
 
             case SchemaMode::Additive:
                 if (required_changes.empty()) {
@@ -598,16 +598,15 @@ util::Optional<int> Realm::file_format_upgraded_from_version() const
 
 Realm::HandoverPackage::HandoverPackage(HandoverPackage&&) = default;
 Realm::HandoverPackage& Realm::HandoverPackage::operator=(HandoverPackage&&) = default;
-Realm::HandoverPackage::VersionID::VersionID() : VersionID(SharedGroup::VersionID()) { }
 
 // Precondition: `m_version` is not greater than `new_version`
 // Postcondition: `m_version` is equal to `new_version`
 void Realm::HandoverPackage::advance_to_version(VersionID new_version)
 {
-    if (SharedGroup::VersionID(new_version) == SharedGroup::VersionID(m_version_id)) {
+    if (new_version == m_version_id) {
         return;
     }
-    REALM_ASSERT_DEBUG((SharedGroup::VersionID(new_version) > SharedGroup::VersionID(m_version_id)));
+    REALM_ASSERT_DEBUG(new_version > m_version_id);
 
     // Open `Realm` at handover version
     _impl::RealmCoordinator& coordinator = get_coordinator();
@@ -681,7 +680,7 @@ std::vector<AnyThreadConfined> Realm::accept_handover(Realm::HandoverPackage han
     else {
         auto current_version = m_shared_group->get_version_of_current_transaction();
 
-        if (SharedGroup::VersionID(handover.m_version_id) <= current_version) {
+        if (handover.m_version_id <= current_version) {
             // The handover is behind, so advance it to our version
             handover.advance_to_version(current_version);
         } else {
