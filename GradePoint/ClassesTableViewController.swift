@@ -11,18 +11,26 @@ import RealmSwift
 
 class ClassesTableViewController: UITableViewController {
     
+    // MARK: - Realm Properties
+    
     var realm = try! Realm()
-    var notifToken: NotificationToken?
+    var notificationToken: NotificationToken?
     
     var detailViewController: ClassesViewController? = nil
     
-    lazy var classes: Results<Class> = { return self.realm.objects(Class.self) }()
-    
-    lazy var sections: [Semester] = {
+    lazy var semestersForSections: [Semester] = {
+        // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
         return Array(self.realm.objects(Semester.self).sorted(byProperty: "year", ascending: false)).unique()
     }()
     
+    var classesBySection = [Results<Class>]()
+    
+    // MARK: Properties
+    
+    var lastCountOfSections = 0
 
+    // MARK: - Overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -30,15 +38,15 @@ class ClassesTableViewController: UITableViewController {
         
         // Create Realm notification
         setupRealmNotifications()
+        // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
+        updateClassesBySection()
+        tableView.reloadData()
         
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassesViewController
             
-            // Set the initial detailItem
             // TODO: Add support for saving of last selected item and loading that initially
-            if classes.count > 0 { detailViewController?.detailItem = classes[0] }
-            else { detailViewController?.detailItem = nil }
         }
     }
 
@@ -57,11 +65,11 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return semestersForSections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classes.filter("semester.term == %@ AND semester.year == %@", sections[section].term, sections[section].year).count
+        return classesBySection[section].count
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -69,7 +77,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let semForSection = sections[section]
+        let semForSection = semestersForSections[section]
         
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.lightBg
@@ -89,21 +97,17 @@ class ClassesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
-        let classObj = classes.filter("semester.term == %@ AND semester.year == %@", sections[indexPath.section].term, sections[indexPath.section].year)[indexPath.row]
+        let classItem = classObj(forIndexPath: indexPath)
         
         // Set the cells associated class, all UI updates are done in the ClassTableViewCell class
-        cell.classObj = classObj
+        cell.classObj = classItem
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row < classes.count else {
-            fatalError("Selected row that was not inside of class array??")
-        }
-        
         // Set the detail item
-        self.detailViewController?.detailItem = classes[indexPath.row]
+        self.detailViewController?.detailItem = classObj(forIndexPath: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -114,9 +118,8 @@ class ClassesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
             // Grab the objects to delete from DB, sincce realm doesnt delete associated objects 
-            let classToDel = classes[indexPath.row]
+            let classToDel = classObj(forIndexPath: indexPath)
             let rubricsToDel = classToDel.rubrics
             let semesterToDel = classToDel.semester!
             
@@ -133,9 +136,9 @@ class ClassesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = classes[indexPath.row]
+                let classItem = classObj(forIndexPath: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! ClassesViewController
-                controller.detailItem = object
+                controller.detailItem = classItem
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -147,29 +150,41 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
+    func updateClassesBySection() {
+        classesBySection.removeAll()
+        for semester in semestersForSections {
+            let unsorted = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
+            let sorted = unsorted.sorted(byProperty: "year", ascending: false)
+            classesBySection.append(sorted)
+        }
+    }
+    
+    
+    // Sets up a notification on the Realm database, this block is called whenever 
+    // A new class is created/delted/etc..
     func setupRealmNotifications() {
-        notifToken = classes.addNotificationBlock({ [weak self] (changes: RealmCollectionChange) in
-            guard let tbView = self?.tableView else { return }
-            switch changes {
-            case .initial:
-                // Results are now populated
-                tbView.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
-                tbView.beginUpdates()
-                tbView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                tbView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
-                tbView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                tbView.endUpdates()
-            case .error(let error):
-                fatalError("Error in tableview update inside of \(ClassesTableViewController.self)\nError is \(error)")
+        notificationToken = realm.addNotificationBlock({ [unowned self] (note, realm) in
+            // Update the section
+            self.lastCountOfSections = self.semestersForSections.count
+            self.semestersForSections = Array(self.realm.objects(Semester.self).sorted(byProperty: "year", ascending: false)).unique()
+            
+            if self.lastCountOfSections < self.semestersForSections.count || self.lastCountOfSections > self.semestersForSections.count {
+                // New section has been added, 2D array of classes must be updated to include new object
+                print("Updating")
+                self.updateClassesBySection()
             }
+            self.tableView.reloadData()
         })
     }
-
+    
+    /// Returns a classObj for the sent in index path, used for tableview methods
+    func classObj(forIndexPath indexPath: IndexPath) -> Class {
+        return classesBySection[indexPath.section][indexPath.row]
+    }
     
     // Stop notifications
     deinit {
-        notifToken?.stop()
+        notificationToken?.stop()
     }
 }
 

@@ -38,4 +38,5 @@ class Semester: Object {
         if (self.term == sem.term) && (self.year == sem.year) { return true }
         else { return false }
     }
+    
 }
