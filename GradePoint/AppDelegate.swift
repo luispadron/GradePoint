@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
         
         // Override point for customization after application launch.

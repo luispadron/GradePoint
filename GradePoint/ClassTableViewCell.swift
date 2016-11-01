@@ -39,27 +39,16 @@ class ClassTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        guard let classItem = classObj else {
-            return
-        }
-        // After selection occurs the cells "colorRibbon" dissapears since the UIView will become clear
-        // reset the background color to the appropriate color
-        self.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
+        updateForSelection(selected)
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        
-        guard let classItem = classObj else {
-            return
-        }
-        // After selection occurs the cells "colorRibbon" dissapears since the UIView will become clear
-        // reset the background color to the appropriate color
-        self.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
+        updateForSelection(highlighted)
     }
     
     // MARK: - Helper Methods
+    
     func updateUI() {
         guard let classItem = classObj else {
             return
@@ -68,5 +57,17 @@ class ClassTableViewCell: UITableViewCell {
         self.classTitleLabel.text = classItem.name
         self.classDateLabel.text = "\(classItem.semester!.term) \(classItem.semester!.year)"
         self.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
+    }
+    
+    func updateForSelection(_ selected: Bool) {
+        guard let classItem = classObj else {
+            return
+        }
+        // After selection occurs the cells "colorRibbon" dissapears since the UIView will become clear
+        // reset the background color to the appropriate color
+        self.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
+        // Set white color for date text, so it looks better
+        if selected { self.classDateLabel.textColor = UIColor.lightText}
+        else { self.classDateLabel.textColor = UIColor.textMuted }
     }
 }

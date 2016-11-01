@@ -83,6 +83,11 @@ class AddClassTableViewController: UITableViewController,
         self.tableView.separatorColor = UIColor.tableViewSeperator
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        createRandomClass()
+    }
+    
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         if let isP = self.isPresentingAlert, isP {
             // Keep the buttons disabled
@@ -460,5 +465,16 @@ class AddClassTableViewController: UITableViewController,
                 self.navigationItem.rightBarButtonItem?.isEnabled = false
             }
         })
+    }
+    
+    // MARK: Developer methods
+    
+    func createRandomClass() {
+        self.nameField.text = "Test \(arc4random())"
+        self.rubricViews.append(UIRubricView(frame: CGRect(x: 0, y: 0, width: 0, height: 0)))
+        self.rubricViews[0].isRubricValid = true
+        self.rubricViews[0].nameField.text = "Rubric \(arc4random())"
+        self.rubricViews[0].weightField.text = "100"
+        self.saveButton.isEnabled = true
     }
 }

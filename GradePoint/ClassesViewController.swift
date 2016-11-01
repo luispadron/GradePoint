@@ -16,8 +16,13 @@ class ClassesViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
+            if let label = detailDescriptionLabel {
                 label.text = detail.name
+                self.title = detail.name
+            }
+        } else {
+            if let label = detailDescriptionLabel {
+                label.text = "Add a class"
             }
         }
     }
