@@ -52,7 +52,9 @@ class BasicInfoSemesterTableViewCell: UITableViewCell {
         let widthForInputLabel = self.contentView.frame.width - dateLabel.frame.width - (dateLabel.frame.origin.x + 100)
         dateInputLabel.frame = CGRect(x: dateLabel.frame.origin.x + 100, y: 0, width: widthForInputLabel, height: self.frame.height)
         dateInputLabel.font = UIFont.systemFont(ofSize: 17)
-        dateInputLabel.text = "Fall 2016"
+        let term = Semester.terms[0]
+        let year = UISemesterPickerView.createArrayOfYears()[1]
+        dateInputLabel.text = "\(term) \(year)"
         dateInputLabel.textColor = UIColor.highlight
         dateInputLabel.isUserInteractionEnabled = true
         
