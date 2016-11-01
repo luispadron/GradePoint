@@ -105,10 +105,6 @@ class ClassesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            // Set the cells classObj to nil, if not set this causes crash when reusing cell since object is deleted
-            let cell = tableView.cellForRow(at: indexPath) as! ClassTableViewCell
-            cell.classObj = nil
-            
             // Grab the objects to delete from DB, sincce realm doesnt delete associated objects 
             let classToDel = classes[indexPath.row]
             let rubricsToDel = classToDel.rubrics
@@ -151,10 +147,8 @@ class ClassesTableViewController: UITableViewController {
             case .update(_, let deletions, let insertions, let modifications):
                 tbView.beginUpdates()
                 tbView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
-                tbView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                     with: .automatic)
-                tbView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                     with: .automatic)
+                tbView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                tbView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }), with: .automatic)
                 tbView.endUpdates()
             case .error(let error):
                 fatalError("Error in tableview update inside of \(ClassesTableViewController.self)\nError is \(error)")

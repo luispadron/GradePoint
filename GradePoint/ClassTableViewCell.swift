@@ -36,6 +36,15 @@ class ClassTableViewCell: UITableViewCell {
         // Set background color for the cell
         self.backgroundColor = UIColor.darkBg
     }
+    
+    override func prepareForReuse() {
+        // Remove all refrences to old class obj, since the cell will be reused and new class will be assigned
+        self.classObj = nil
+        classRibbon.backgroundColor = nil
+        classTitleLabel.text = nil
+        classDateLabel.text = nil
+        super.prepareForReuse()
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
