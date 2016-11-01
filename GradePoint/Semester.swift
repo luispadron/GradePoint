@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-class Semester: Object, Comparable {
+class Semester: Object {
     static let terms = ["Spring", "Summer", "Fall", "Winter"]
     dynamic var term = ""
     dynamic var year = 0
@@ -24,16 +24,18 @@ class Semester: Object, Comparable {
         return ["terms"]
     }
     
-    // MARK: Comparable overrides
+    // MARK: Equatable overrides
  
     static func ==(lhs: Semester, rhs: Semester) -> Bool {
         if (lhs.term == rhs.term) && (lhs.year == rhs.year) { return true }
         else { return false }
     }
-    
-    static func <(lhs: Semester, rhs: Semester) -> Bool {
-        return false
-    }
-    
 
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let sem = object as? Semester else {
+            return false
+        }
+        if (self.term == sem.term) && (self.year == sem.year) { return true }
+        else { return false }
+    }
 }

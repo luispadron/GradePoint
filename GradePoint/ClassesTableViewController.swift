@@ -16,7 +16,12 @@ class ClassesTableViewController: UITableViewController {
     
     var detailViewController: ClassesViewController? = nil
     
-    lazy var classes: Results<Class> = { self.realm.objects(Class.self) }()
+    lazy var classes: Results<Class> = { return self.realm.objects(Class.self) }()
+    
+    lazy var sections: [Semester] = {
+        return Array(self.realm.objects(Semester.self).sorted(byProperty: "year", ascending: false)).unique()
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +57,11 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classes.count
+        return classes.filter("semester.term == %@ AND semester.year == %@", sections[section].term, sections[section].year).count
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -64,6 +69,8 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let semForSection = sections[section]
+        
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.lightBg
         
@@ -72,14 +79,17 @@ class ClassesTableViewController: UITableViewController {
         label.textColor = UIColor.unselected
         label.backgroundColor = UIColor.lightBg
         mainView.addSubview(label)
-        label.text = "Classes"
+        
+        // Set the correct label text
+        label.text = "\(semForSection.term) \(semForSection.year)"
+        
         return mainView
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
-        let classObj = classes[indexPath.row]
+        let classObj = classes.filter("semester.term == %@ AND semester.year == %@", sections[indexPath.section].term, sections[indexPath.section].year)[indexPath.row]
         
         // Set the cells associated class, all UI updates are done in the ClassTableViewCell class
         cell.classObj = classObj
@@ -155,6 +165,7 @@ class ClassesTableViewController: UITableViewController {
             }
         })
     }
+
     
     // Stop notifications
     deinit {
