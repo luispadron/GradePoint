@@ -17,7 +17,7 @@ class ClassesTableViewController: UITableViewController {
     var detailViewController: ClassesViewController? = nil
     
     lazy var classes: Results<Class> = { self.realm.objects(Class.self) }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

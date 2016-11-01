@@ -12,7 +12,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     
     var semesterPicker: UIPickerView!
     lazy var years = { UISemesterPickerView.createArrayOfYears() }()
-    let semesters = ["Fall", "Spring", "Summer", "Winter"]
+    let terms = Semester.terms
     var delegate: SemesterPickerDelegate?
     var selectedSemester: String!
     var selectedYear: Int!
@@ -42,7 +42,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return semesters.count
+            return terms.count
         case 1:
             return years.count
         default:
@@ -53,7 +53,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            selectedSemester = semesters[row]
+            selectedSemester = terms[row]
             delegate?.pickerRowSelected(term: selectedSemester, year: selectedYear)
         case 1:
             selectedYear = years[row]
@@ -66,7 +66,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         switch component {
         case 0:
-            return NSAttributedString(string: semesters[row], attributes: [NSForegroundColorAttributeName: titleColor])
+            return NSAttributedString(string: terms[row], attributes: [NSForegroundColorAttributeName: titleColor])
         case 1:
             return NSAttributedString(string: String(years[row]), attributes: [NSForegroundColorAttributeName: titleColor])
         default:
@@ -92,7 +92,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     
         // Init selected values
         selectedYear = years[1]
-        selectedSemester = semesters[0]
+        selectedSemester = terms[0]
     }
     
     static func createArrayOfYears() -> [Int] {
