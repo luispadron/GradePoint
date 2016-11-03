@@ -19,24 +19,7 @@ class Semester: Object {
         self.year = year
     }
     
-    
     override static func ignoredProperties() -> [String] {
         return ["terms"]
     }
-    
-    // MARK: Equatable overrides
- 
-    static func ==(lhs: Semester, rhs: Semester) -> Bool {
-        if (lhs.term == rhs.term) && (lhs.year == rhs.year) { return true }
-        else { return false }
-    }
-
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let sem = object as? Semester else {
-            return false
-        }
-        if (self.term == sem.term) && (self.year == sem.year) { return true }
-        else { return false }
-    }
-    
 }
