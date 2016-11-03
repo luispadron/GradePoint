@@ -11,23 +11,21 @@ import RealmSwift
 
 class ClassesTableViewController: UITableViewController {
     
-    // MARK: - Realm Properties
+    // MARK: - Properties
     
     var realm = try! Realm()
-    var notificationToken: NotificationToken?
+    var notificationTokens = [NotificationToken]()
     
     var detailViewController: ClassesViewController? = nil
     
-    lazy var semestersForSections: [Semester] = {
+    lazy var semesterSections: [Semester] = {
         // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
-        return Array(self.realm.objects(Semester.self).sorted(byProperty: "year", ascending: false)).unique()
+        return self.generateSemestersForSections()
     }()
     
+    /// A 2D array of Realm results grouped by their appropriate section
     var classesBySection = [Results<Class>]()
     
-    // MARK: Properties
-    
-    var lastCountOfSections = 0
 
     // MARK: - Overrides
     
@@ -36,11 +34,8 @@ class ClassesTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
-        // Create Realm notification
-        setupRealmNotifications()
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
-        updateClassesBySection()
-        tableView.reloadData()
+        initClassesBySection()
         
         if let split = self.splitViewController {
             let controllers = split.viewControllers
@@ -65,7 +60,7 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return semestersForSections.count
+        return classesBySection.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,11 +68,12 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
+        return classesBySection[section].count > 0 ? 44 : 0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let semForSection = semestersForSections[section]
+        // Create the correct headerView for the section
+        let semForSection = semesterSections[section]
         
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.lightBg
@@ -150,31 +146,54 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
-    func updateClassesBySection() {
-        classesBySection.removeAll()
-        for semester in semestersForSections {
+    /// This generates all of the possible Semester combinations, this array will be the sections for the table view, currently 48 sections total
+    func generateSemestersForSections() -> [Semester] {
+        let terms = Semester.terms
+        let years = UISemesterPickerView.createArrayOfYears()
+        var results = [Semester]()
+        
+        for year in years {
+            for term in terms {
+                results.append(Semester(withTerm: term, andYear: year))
+            }
+        }
+        return results
+    }
+    
+    /// This initializes the classesBySection array which is a 2D array that has Realm result objects grouped by their appropriate section
+    func initClassesBySection() {
+        for (index, semester) in semesterSections.enumerated() {
             let unsorted = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
             let sorted = unsorted.sorted(byProperty: "year", ascending: false)
             classesBySection.append(sorted)
+            registerNotification(for: classesBySection[index], in: index)
         }
     }
     
     
-    // Sets up a notification on the Realm database, this block is called whenever 
-    // A new class is created/delted/etc..
-    func setupRealmNotifications() {
-        notificationToken = realm.addNotificationBlock({ [unowned self] (note, realm) in
-            // Update the section
-            self.lastCountOfSections = self.semestersForSections.count
-            self.semestersForSections = Array(self.realm.objects(Semester.self).sorted(byProperty: "year", ascending: false)).unique()
+    /// This registers notifications for each of the Realm results which are grouped by section
+    func registerNotification(for classes: Results<Class>, in section: Int) {
+        let token = classes.addNotificationBlock { [unowned self] (changes: RealmCollectionChange) in
             
-            if self.lastCountOfSections < self.semestersForSections.count || self.lastCountOfSections > self.semestersForSections.count {
-                // New section has been added, 2D array of classes must be updated to include new object
-                print("Updating")
-                self.updateClassesBySection()
+            switch changes {
+                
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                self.tableView.reloadData()
+                
+            case .update:
+                // Query results have changed, so apply them to the UITableView
+                self.tableView.beginUpdates()
+                self.tableView.reloadSections(IndexSet.init(integer: section), with: .automatic)
+                self.tableView.endUpdates()
+    
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
             }
-            self.tableView.reloadData()
-        })
+            
+        }
+        notificationTokens.append(token)
     }
     
     /// Returns a classObj for the sent in index path, used for tableview methods
@@ -182,9 +201,13 @@ class ClassesTableViewController: UITableViewController {
         return classesBySection[indexPath.section][indexPath.row]
     }
     
+    // MARK: - Deinit
+    
     // Stop notifications
     deinit {
-        notificationToken?.stop()
+        for n in notificationTokens {
+            n.stop()
+        }
     }
 }
 

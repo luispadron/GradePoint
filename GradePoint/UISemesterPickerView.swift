@@ -101,8 +101,10 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         let calendar = NSCalendar.current
         let currentYear = calendar.component(.year, from: date)
         
-        // For the current year, go one ahead and 30 behind.
-        for i in 0...30 {
+        // For the current year, go one ahead and 10 behind.
+        // Such a short range because realistically no one will be filling info for a class they took so long ago
+        // Even 10 years in the past is a stretch but whatever
+        for i in 0...10 {
             result.append(currentYear - i)
         }
         // Finally one ahead
