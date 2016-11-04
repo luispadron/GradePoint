@@ -183,7 +183,7 @@ class ClassesTableViewController: UITableViewController {
                 
             case .update:
                 // Query results have changed, so apply them to the UITableView
-                self.tableView.reloadSections(IndexSet.init(integer: section), with: .automatic)
+                self.tableView.reloadSections(IndexSet.init(integer: section), with: .none)
     
             case .error(let error):
                 // An error occurred while opening the Realm file on the background worker thread
