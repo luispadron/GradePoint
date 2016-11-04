@@ -29,6 +29,7 @@
 		A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */; };
 		A05B1E2D1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
+		A0B4898C1DCBFF6400631E07 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* IntExtension.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
 		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
@@ -90,6 +91,7 @@
 		A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClassTableViewController.swift; sourceTree = "<group>"; };
 		A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoNameTableViewCell.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
+		A0B4898B1DCBFF6400631E07 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */,
+				A0B4898B1DCBFF6400631E07 /* IntExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */,
+				A0B4898C1DCBFF6400631E07 /* IntExtension.swift in Sources */,
 				A0E705AF1DBBE04E008E04EC /* BasicInfoSemesterPickerTableViewCell.swift in Sources */,
 				A04D199A1DBAFE8900FDA9A7 /* IPadSemesterPickerViewController.swift in Sources */,
 				A04D19931DBAF77600FDA9A7 /* BasicInfoSemesterTableViewCell.swift in Sources */,

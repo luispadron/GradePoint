@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GameKit
 
 extension UIColor {
     
@@ -27,30 +26,31 @@ extension UIColor {
     // MARK - Random Color Generation
     
     /// Read only computed color - Pastel looking randomly generated color
-    class var randomPastel: UIColor { return generateRandomColor(mixedWithColor: self.white, withRedModifier: nil, withGreenModifier: nil, withBlueModifier: nil) }
+    class var randomPastel: UIColor { return generateRandomColor(mixedWith: UIColor.white) }
 
     /// Static function to generate random colors, can pass in a mix to get a different look and feel
-    static func generateRandomColor(mixedWithColor mix: UIColor?, withRedModifier redM: Int?, withGreenModifier greenM: Int?, withBlueModifier blueM: Int?) -> UIColor {
-        let redMod = redM ?? 0
-        let greenMod = greenM ?? 0
-        let blueMod = blueM ?? 0
-        let random = GKMersenneTwisterRandomSource.init()
-        var red = CGFloat(random.nextInt(upperBound: 256) + redMod)
-        var green = CGFloat(random.nextInt(upperBound: 256) + greenMod)
-        var blue = CGFloat(random.nextInt(upperBound: 256) + blueMod)
+    static func generateRandomColor(mixedWith mix: UIColor?, redModifier redMod: Int? = nil, greenModifier greenMod: Int? = nil, blueModifier blueMod: Int? = nil) -> UIColor {
+        
+        var red = CGFloat(Int.random(withLowerBound: 1, andUpperBound: 255) + (redMod ?? 0))
+        var green = CGFloat(Int.random(withLowerBound: 1, andUpperBound: 255) + (greenMod ?? 0))
+        var blue = CGFloat(Int.random(withLowerBound: 1, andUpperBound: 255) + (blueMod ?? 0))
+        
+        guard let mixColor = mix else {
+            return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
+        }
         
         // Mix the random colors with the color sent in, this allows for certain palletes
-        if let mixColor = mix {
-            let mixCI = CIColor(color: mixColor)
-            let mixRed = mixCI.red * 255.0
-            let mixGreen = mixCI.green * 255.0
-            let mixBlue = mixCI.blue * 255.0
-            
-            // "Mix" the colors, take the average
-            red = (red + mixRed) / 2
-            green = (green + mixGreen) / 2
-            blue = (blue + mixBlue) / 2
-        }
+        var mixRed: CGFloat = 0.0, mixBlue: CGFloat = 0.0, mixGreen: CGFloat = 0.0
+        
+        mixColor.getRed(&mixRed, green: &mixGreen, blue: &mixBlue, alpha: nil)
+        mixRed *= 255.0
+        mixGreen *= 255.0
+        mixBlue *= 255.0
+        
+        // "Mix" the colors, take the average
+        red = (red + mixRed) / 2
+        green = (green + mixGreen) / 2
+        blue = (blue + mixBlue) / 2
         
         return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
     }
