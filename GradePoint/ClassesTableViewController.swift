@@ -26,7 +26,8 @@ class ClassesTableViewController: UITableViewController {
     /// A 2D array of Realm results grouped by their appropriate section
     var classesBySection = [Results<Class>]()
     
-
+    var editingIndexPath: IndexPath?
+    
     // MARK: - Overrides
     
     override func viewDidLoad() {
@@ -113,8 +114,10 @@ class ClassesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] action, indexPath in
-            print("Edit object at \(indexPath)")
+            self.editingIndexPath = indexPath
+            self.performSegue(withIdentifier: "addEditClass", sender: action)
         })
+        
         editAction.backgroundColor = UIColor.lapisLazuli
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
@@ -137,8 +140,13 @@ class ClassesTableViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         } else if segue.identifier == "addEditClass" {
-            let controller = segue.destination as! UINavigationController
-            controller.preferredContentSize = CGSize(width: 500, height: 600)
+            let nav = segue.destination as! UINavigationController
+            let controller = nav.topViewController as! AddEditClassTableViewController
+            // If editing then set the appropriate obj into the view controller
+            if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
+                controller.editingClass = classObj(forIndexPath: path)
+            }
+            nav.preferredContentSize = CGSize(width: 500, height: 600)
         }
     }
     

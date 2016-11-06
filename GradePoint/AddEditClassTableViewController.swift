@@ -35,10 +35,17 @@ class AddEditClassTableViewController: UITableViewController,
         }
     }
     
-    // An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
+    /// The edit class object, if this is set it means were editing this class, updates UI with properties when set
+    var editingClass: Class? = nil {
+        didSet {
+            updateUIForEdit()
+        }
+    }
+    
+    /// An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
     
-    // The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
+    /// The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
     var nameField: UITextField!
     
     // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
@@ -182,6 +189,8 @@ class AddEditClassTableViewController: UITableViewController,
                 cell.classNameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
                 nameField = cell.classNameField
                 nameCell = cell
+                // If editing class is not nil, thus editing, then set the text for this field
+                if let obj = editingClass { nameField.text = obj.name }
                 return cell
             case 1: // Display the basic info date picker cell
                 if let c = semesterCell { return c }
@@ -360,7 +369,16 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     // - MARK: Helper Methods
-
+    
+    func updateUIForEdit() {
+        guard let obj = editingClass else {
+            return
+        }
+        
+        self.title = "Edit \(obj.name)"
+    }
+    
+    
     func handleOpenState(forCell cell: RubricTableViewCell) {
         
         // Lets create another one for the user incase they want to enter something
