@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Prints the realm path
         print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-        
-        // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController!.childViewControllers[0] as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
