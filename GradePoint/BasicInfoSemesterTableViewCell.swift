@@ -58,7 +58,7 @@ class BasicInfoSemesterTableViewCell: UITableViewCell {
         dateInputLabel.textColor = UIColor.highlight
         dateInputLabel.isUserInteractionEnabled = true
         
-        // Add gesture recognizer to label which will display a pop over to pick date inside AddClassTableViewController via delegation
+        // Add gesture recognizer to label which will display a pop over to pick date inside AddEditClassTableViewController via delegation
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dateInputWasTapped))
         gesture.numberOfTapsRequired = 1
         dateInputLabel.addGestureRecognizer(gesture)

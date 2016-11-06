@@ -111,20 +111,18 @@ class ClassesTableViewController: UITableViewController {
         return true
     }
     
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Grab the objects to delete from DB, sincce realm doesnt delete associated objects 
-            let classToDel = classObj(forIndexPath: indexPath)
-            let rubricsToDel = classToDel.rubrics
-            let semesterToDel = classToDel.semester!
-            
-            try! realm.write {
-                realm.delete(rubricsToDel)
-                realm.delete(semesterToDel)
-                realm.delete(classToDel)
-            }
-        }
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] action, indexPath in
+            print("Edit object at \(indexPath)")
+        })
+        editAction.backgroundColor = UIColor.lapisLazuli
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
+            self.deleteClassObj(at: indexPath)
+        })
+        deleteAction.backgroundColor = UIColor.sunsetOrange
+        
+        return [deleteAction, editAction]
     }
     
     // MARK: - Segues
@@ -138,7 +136,7 @@ class ClassesTableViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
-        } else if segue.identifier == "addClass" {
+        } else if segue.identifier == "addEditClass" {
             let controller = segue.destination as! UINavigationController
             controller.preferredContentSize = CGSize(width: 500, height: 600)
         }
@@ -197,6 +195,20 @@ class ClassesTableViewController: UITableViewController {
     /// Returns a classObj for the sent in index path, used for tableview methods
     func classObj(forIndexPath indexPath: IndexPath) -> Class {
         return classesBySection[indexPath.section][indexPath.row]
+    }
+    
+    /// Deletes a classObj from Realm using a specified indexPath
+    func deleteClassObj(at indexPath: IndexPath) {
+        // Grab the objects to delete from DB, sincce realm doesnt delete associated objects
+        let classToDel = classObj(forIndexPath: indexPath)
+        let rubricsToDel = classToDel.rubrics
+        let semesterToDel = classToDel.semester!
+        
+        try! realm.write {
+            realm.delete(rubricsToDel)
+            realm.delete(semesterToDel)
+            realm.delete(classToDel)
+        }
     }
     
     // MARK: - Deinit

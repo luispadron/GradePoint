@@ -1,5 +1,5 @@
 //
-//  AddClassTableViewController.swift
+//  AddEditClassTableViewController.swift
 //  GradePoint
 //
 //  Created by Luis Padron on 10/15/16.
@@ -9,8 +9,8 @@
 import UIKit
 import RealmSwift
 
-class AddClassTableViewController: UITableViewController,
-                                  UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate, BlurAlertControllerDelegate {
+class AddEditClassTableViewController: UITableViewController,
+                                      UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate, BlurAlertControllerDelegate {
     
     // MARK: - Properties
     
@@ -284,11 +284,7 @@ class AddClassTableViewController: UITableViewController,
             vc.modalPresentationStyle = .popover
             vc.popoverPresentationController?.sourceView = cell.dateInputLabel
             vc.semesterPicker.delegate = self
-            self.saveButton.isEnabled = false
-            self.present(vc, animated: true, completion: { [unowned self] in
-                // Completion handler
-                self.saveButton.isEnabled = true
-            })
+            self.present(vc, animated: true, completion: nil)
             return
         }
         
@@ -454,7 +450,7 @@ class AddClassTableViewController: UITableViewController,
         alert.alertTitle = title
         alert.alertMessage = msg
         alert.buttonText = "OK"
-        alert.buttonColor = UIColor.warning
+        alert.buttonColor = UIColor.sunsetOrange
         alert.delegate = self
         
         self.present(alert, animated: false, completion: {

@@ -10,7 +10,7 @@ import UIKit
 
 class RubricTableViewCell: UITableViewCell {
 
-    // Get's initialized in the cellForRow inside of AddClassTableViewController
+    // Gets initialized in the cellForRow inside of AddEditClassTableViewController
     var rubricView: UIRubricView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

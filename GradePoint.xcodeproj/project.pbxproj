@@ -26,7 +26,7 @@
 		A04D19931DBAF77600FDA9A7 /* BasicInfoSemesterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19921DBAF77600FDA9A7 /* BasicInfoSemesterTableViewCell.swift */; };
 		A04D19961DBAFD8400FDA9A7 /* BasicInfoDateTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19951DBAFD8400FDA9A7 /* BasicInfoDateTapDelegate.swift */; };
 		A04D199A1DBAFE8900FDA9A7 /* IPadSemesterPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19991DBAFE8900FDA9A7 /* IPadSemesterPickerViewController.swift */; };
-		A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */; };
+		A05B1E2B1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */; };
 		A05B1E2D1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A0B4898C1DCBFF6400631E07 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* IntExtension.swift */; };
@@ -88,7 +88,7 @@
 		A04D19921DBAF77600FDA9A7 /* BasicInfoSemesterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoSemesterTableViewCell.swift; sourceTree = "<group>"; };
 		A04D19951DBAFD8400FDA9A7 /* BasicInfoDateTapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDateTapDelegate.swift; sourceTree = "<group>"; };
 		A04D19991DBAFE8900FDA9A7 /* IPadSemesterPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPadSemesterPickerViewController.swift; sourceTree = "<group>"; };
-		A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddClassTableViewController.swift; sourceTree = "<group>"; };
+		A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassTableViewController.swift; sourceTree = "<group>"; };
 		A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoNameTableViewCell.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			children = (
 				A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */,
 				A00705121DAF0E9B00AD740A /* ClassesViewController.swift */,
-				A05B1E2A1DB2B1D200A43BE3 /* AddClassTableViewController.swift */,
+				A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */,
 				A04D19991DBAFE8900FDA9A7 /* IPadSemesterPickerViewController.swift */,
 				A0359F711DBF1406008C7C2C /* BlurAlertController.swift */,
 			);
@@ -576,7 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A05B1E2B1DB2B1D200A43BE3 /* AddClassTableViewController.swift in Sources */,
+				A05B1E2B1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift in Sources */,
 				A0B4898C1DCBFF6400631E07 /* IntExtension.swift in Sources */,
 				A0E705AF1DBBE04E008E04EC /* BasicInfoSemesterPickerTableViewCell.swift in Sources */,
 				A04D199A1DBAFE8900FDA9A7 /* IPadSemesterPickerViewController.swift in Sources */,
