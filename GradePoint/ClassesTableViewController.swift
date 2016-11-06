@@ -77,12 +77,12 @@ class ClassesTableViewController: UITableViewController {
         let semForSection = semesterSections[section]
         
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
-        mainView.backgroundColor = UIColor.lightBg
+        mainView.backgroundColor = UIColor.tableViewHeader
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.textColor = UIColor.unselected
-        label.backgroundColor = UIColor.lightBg
+        label.backgroundColor = UIColor.tableViewHeader
         mainView.addSubview(label)
         
         // Set the correct label text

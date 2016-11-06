@@ -45,7 +45,7 @@ class BasicInfoSemesterTableViewCell: UITableViewCell {
         // Init the name label
         dateLabel.frame = CGRect(x: 20, y: 0, width: 60, height: self.frame.height)
         dateLabel.text = "Date"
-        dateLabel.textColor = UIColor.textMuted
+        dateLabel.textColor = UIColor.mutedText
         dateLabel.font = UIFont.systemFont(ofSize: 17)
         
         // Init the text field

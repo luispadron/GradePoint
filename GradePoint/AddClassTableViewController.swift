@@ -85,7 +85,7 @@ class AddClassTableViewController: UITableViewController,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        createRandomClass()
+        // createRandomClass()
     }
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
@@ -111,12 +111,12 @@ class AddClassTableViewController: UITableViewController,
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
-        mainView.backgroundColor = UIColor.lightBg
+        mainView.backgroundColor = UIColor.tableViewHeader
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.textColor = UIColor.unselected
-        label.backgroundColor = UIColor.lightBg
+        label.backgroundColor = UIColor.tableViewHeader
         mainView.addSubview(label)
         
         switch section {
@@ -454,7 +454,7 @@ class AddClassTableViewController: UITableViewController,
         alert.alertTitle = title
         alert.alertMessage = msg
         alert.buttonText = "OK"
-        alert.buttonColor = UIColor.highlight
+        alert.buttonColor = UIColor.warning
         alert.delegate = self
         
         self.present(alert, animated: false, completion: {

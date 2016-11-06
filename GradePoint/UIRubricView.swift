@@ -168,7 +168,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 1
         promptLabel.addGestureRecognizer(tap)
-        promptLabel.textColor = UIColor.textMuted
+        promptLabel.textColor = UIColor.mutedText
         promptLabel.isUserInteractionEnabled = true
         self.addSubview(promptLabel)
     }
@@ -179,11 +179,11 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField = UIFloatingPromptTextField(frame:  CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY,
                                                              width: actualWidth/2, height: bounds.height))
         nameField.placeholder = nameFieldPrompt
-        nameField.textColor = UIColor.mainText
+        nameField.textColor = UIColor.lightText
         nameField.borderStyle = .none
         nameField.font = UIFont.systemFont(ofSize: fontSize)
         nameField.titleText = nameFieldPrompt
-        nameField.attributedPlaceholder = NSAttributedString(string: nameFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.textMuted])
+        nameField.attributedPlaceholder = NSAttributedString(string: nameFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         nameField.returnKeyType = .next
         nameField.isHidden = true
         nameField.delegate = self
@@ -194,11 +194,11 @@ class UIRubricView: UIView, UITextFieldDelegate {
                                                               width: actualWidth/2, height: bounds.height))
         
         weightField.placeholder = weightFieldPrompt
-        weightField.textColor = UIColor.mainText
+        weightField.textColor = UIColor.lightText
         weightField.borderStyle = .none
         weightField.font = UIFont.systemFont(ofSize: fontSize)
         weightField.titleText = weightFieldPrompt
-        weightField.attributedPlaceholder = NSAttributedString(string: weightFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.textMuted])
+        weightField.attributedPlaceholder = NSAttributedString(string: weightFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self

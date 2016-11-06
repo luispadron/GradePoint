@@ -36,13 +36,13 @@ class BasicInfoNameTableViewCell: UITableViewCell {
         // Init the name label
         nameLabel.frame = CGRect(x: 20, y: 0, width: 50, height: self.frame.height)
         nameLabel.text = "Name"
-        nameLabel.textColor = UIColor.textMuted
+        nameLabel.textColor = UIColor.mutedText
         nameLabel.font = UIFont.systemFont(ofSize: 17)
         
         // Init the text field
         let widthForTextField = self.contentView.frame.width - nameLabel.frame.width - (nameLabel.frame.origin.x + 100)
         classNameField.frame = CGRect(x: nameLabel.frame.origin.x + 100, y: 0, width: widthForTextField, height: self.frame.height)
-        classNameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: [NSForegroundColorAttributeName: UIColor.textMuted])
+        classNameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         classNameField.autocapitalizationType = .words
         classNameField.font = UIFont.systemFont(ofSize: 17)
         classNameField.textColor = UIColor.white

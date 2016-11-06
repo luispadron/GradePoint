@@ -11,17 +11,20 @@ import UIKit
 extension UIColor {
     
     // MARK: - Main Theme
-    @nonobjc static let darkBg = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
-    @nonobjc static let lightBg = UIColor(red:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
-    @nonobjc static let highlight = UIColor(red: 111/255, green: 190/255, blue: 217/255, alpha: 1.0) /* #6fbed9 */
-    @nonobjc static let unselected = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
-    @nonobjc static let mainText = UIColor.white
-    @nonobjc static let textMuted = UIColor(red: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
+    static let navBar = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
+    static let darkBg = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
+    static let lightBg = UIColor(red:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
+    static let highlight = UIColor(red:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
+    static let warning = UIColor(red:0.96, green:0.58, blue:0.76, alpha:1.0) /* F694C1 */
+    static let unselected = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
+    static let lightText = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0) /* FAFAFA */
+    static let darkText = UIColor(red:0.21, green:0.21, blue:0.21, alpha:1.0) /* 363636 */
+    static let mutedText = UIColor(red: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
     
     // MARK: - TableView & Cells Theme
     
-    @nonobjc static let tableViewHeader = UIColor(red: 100/255, green: 100/255, blue: 112/255, alpha: 1.0) /* #646470 */
-    @nonobjc static let tableViewSeperator = UIColor(red: 78/255, green: 81/255, blue: 94/255, alpha: 1.0) /* #4e515e */
+    static let tableViewHeader = UIColor(red: 100/255, green: 100/255, blue: 112/255, alpha: 1.0) /* #646470 */
+    static let tableViewSeperator = UIColor(red: 78/255, green: 81/255, blue: 94/255, alpha: 1.0) /* #4e515e */
     
     // MARK - Random Color Generation
     
