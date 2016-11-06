@@ -38,6 +38,7 @@ class ClassesTableViewController: UITableViewController {
         initClassesBySection()
         
         if let split = self.splitViewController {
+            split.preferredDisplayMode = .allVisible
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassesViewController
             
@@ -102,8 +103,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Set the detail item
-        self.detailViewController?.detailItem = classObj(forIndexPath: indexPath)
+        
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
