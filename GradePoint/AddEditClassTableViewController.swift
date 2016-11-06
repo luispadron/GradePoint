@@ -36,11 +36,7 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     /// The edit class object, if this is set it means were editing this class, updates UI with properties when set
-    var editingClass: Class? = nil {
-        didSet {
-            updateUIForEdit()
-        }
-    }
+    var editingClass: Class?
     
     /// An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
@@ -62,7 +58,6 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     var numOfRubricViews = 1
-    var isIpad = false
     var isPresentingAlert: Bool?
     var isDatePickerVisible = false
     var semesterPicker: UISemesterPickerView?
@@ -78,9 +73,6 @@ class AddEditClassTableViewController: UITableViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Since were handling the picker view differently for ipad vs iphone, then figure out which device user has
-        // Then cache that value
-        if UIDevice.current.userInterfaceIdiom == .pad { isIpad = true }
         // Disable save button until fields are checked
         saveButton.isEnabled = false
     }
@@ -93,6 +85,7 @@ class AddEditClassTableViewController: UITableViewController,
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // createRandomClass()
+        if let classObj = editingClass { updateUI(for: classObj) }
     }
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
@@ -147,7 +140,6 @@ class AddEditClassTableViewController: UITableViewController,
         case 0:
             // This will just be static 2, since only want Name and Term
             // Unless on iPhone screen size, then 3 because date picker is handled differently
-            if isIpad { return 2 }
             return 3
         case 1:
             // This will increase as user adds more rubrics (starts @ 1)
@@ -287,17 +279,6 @@ class AddEditClassTableViewController: UITableViewController,
     // MARK: - Date Input Delegate
     
     func dateInputWasTapped(forCell cell: BasicInfoSemesterTableViewCell) {
-        if isIpad { // Display the semester picker as a popover, cus it looks cooler
-            let vc = IPadSemesterPickerViewController()
-            vc.preferredContentSize = CGSize(width: 200, height: 100)
-            vc.modalPresentationStyle = .popover
-            vc.popoverPresentationController?.sourceView = cell.dateInputLabel
-            vc.semesterPicker.delegate = self
-            self.present(vc, animated: true, completion: nil)
-            return
-        }
-        
-        // Not on ipad, present the date picker as a cell or hide it if already showing
         if isDatePickerVisible { hideDatePicker() }
         else { showDatePicker() }
     }
@@ -370,12 +351,22 @@ class AddEditClassTableViewController: UITableViewController,
     
     // - MARK: Helper Methods
     
-    func updateUIForEdit() {
-        guard let obj = editingClass else {
-            return
+    func updateUI(for obj: Class) {
+        guard let semPicker = semesterPicker, let picker = semPicker.semesterPicker else {
+            fatalError("Somehow picker views are not set??")
         }
         
+        // Set the title and name field
         self.title = "Edit \(obj.name)"
+        self.nameField.text = obj.name
+        
+        // Set the semester picker to correct values
+        let iTerm = semPicker.terms.index(of: obj.semester!.term)!
+        let iYear = semPicker.years.index(of: obj.semester!.year)!
+        picker.selectRow(iTerm, inComponent: 0, animated: false)
+        semPicker.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
+        picker.selectRow(iYear, inComponent: 1, animated: false)
+        semPicker.pickerView(picker, didSelectRow: iYear, inComponent: 1)
     }
     
     
