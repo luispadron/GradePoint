@@ -38,6 +38,8 @@ class AddEditClassTableViewController: UITableViewController,
     /// The edit class object, if this is set it means were editing this class, updates UI with properties when set
     var editingClass: Class?
     
+    var cellsCreatedForEdit = 0
+    
     /// An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
     lazy var rubricViews = [UIRubricView]()
     
@@ -211,6 +213,20 @@ class AddEditClassTableViewController: UITableViewController,
             let cell = RubricTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
+            
+            
+            // If were editing the make sure to display the number of rubric views correctly and their fields
+            if let obj = editingClass {
+                if indexPath.row < obj.rubrics.count, cellsCreatedForEdit < obj.rubrics.count {
+                    let rubricForRow = obj.rubrics[indexPath.row]
+                    cell.rubricView.toEditState()
+                    cell.rubricView.nameField.text = rubricForRow.name
+                    cell.rubricView.weightField.text = "\(rubricForRow.weight)%"
+                    cell.rubricView.nameField.resignFirstResponder()
+                    cellsCreatedForEdit += 1
+                }
+            }
+            
             rubricCells.append(cell)
             return cell
         }
@@ -255,6 +271,8 @@ class AddEditClassTableViewController: UITableViewController,
         case .open:
             // Handle user wanting to add a grade section
             handleOpenState(forCell: cell)
+        case .edit:
+            break
         }
     }
     
@@ -338,10 +356,17 @@ class AddEditClassTableViewController: UITableViewController,
             // Save the created class
             let semester = Semester(withTerm: self.term, andYear: self.year)
             let rubricList = List<Rubric>(rubrics)
-            let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubricList)
             
             try! realm.write {
-                realm.add(newClass)
+                if let classObj = self.editingClass {
+                    classObj.name = self.nameField.text!
+                    classObj.semester = semester
+                    classObj.rubrics.removeAll()
+                    classObj.rubrics.append(contentsOf: rubricList)
+                } else {
+                    let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubricList)
+                    realm.add(newClass)
+                }
             }
             // Dismiss self
             self.dismiss(animated: true, completion: nil)
@@ -367,6 +392,10 @@ class AddEditClassTableViewController: UITableViewController,
         semPicker.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
         picker.selectRow(iYear, inComponent: 1, animated: false)
         semPicker.pickerView(picker, didSelectRow: iYear, inComponent: 1)
+        
+        self.numOfRubricViews = obj.rubrics.count + 1
+        self.tableView.reloadData()
+        self.nameFieldIsValid = true
     }
     
     

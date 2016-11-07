@@ -438,5 +438,25 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let trimmed = nText.trimmingCharacters(in: CharacterSet.whitespaces)
         isRubricValid = trimmed.isEmpty ? false : true
     }
+    
+    func toEditState() {
+        // Rotate add button
+        plusLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(45).toRads))
+        
+        // Toggle the textfield
+        self.toggleFields()
+        self.promptLabel.isHidden = true
+        self.nameField.isHidden = false
+        self.weightField.isHidden = false
+        
+        DispatchQueue.main.async {
+            self.nameField.editingChanged()
+            self.weightField.editingChanged()
+        }
+        self.isDeleteButton = self.isDeleteButton.toggle
+        self.isRubricValid = true
+        
+        self.delegate?.plusButtonTouched(inCell: parentCell, forState: .edit)
+    }
 
 }

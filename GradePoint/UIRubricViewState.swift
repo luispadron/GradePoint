@@ -11,4 +11,5 @@ import Foundation
 enum UIRubricViewState {
     case collapsed
     case open
+    case edit
 }
