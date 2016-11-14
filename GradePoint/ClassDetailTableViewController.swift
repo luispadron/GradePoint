@@ -8,10 +8,13 @@
 
 import UIKit
 import RealmSwift
+import UICircularProgressRing
 
 class ClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
+    
+    @IBOutlet var progressRing: UICircularProgressRingView!
     
     var detailItem: Class? {
         didSet {
@@ -19,11 +22,13 @@ class ClassDetailTableViewController: UITableViewController {
             self.configureView()
         }
     }
+    
 
-    // MARK: - Overrides 
+    // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Configure the view for load
         configureView()
     }
 
@@ -31,6 +36,12 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
+        
+        // Add tableview header
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 260))
+        progressRing.center = view.center
+        headerView.addSubview(progressRing)
+        self.tableView.tableHeaderView = headerView
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,5 +71,13 @@ class ClassDetailTableViewController: UITableViewController {
     }
 
 
+    override func viewWillLayoutSubviews() {
+        if let headerView = self.tableView.tableHeaderView {
+            headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 260)
+            progressRing.center = headerView.center
+        }
+        
+        super.viewWillLayoutSubviews()
+    }
 }
 

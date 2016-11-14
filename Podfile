@@ -7,6 +7,8 @@ target 'GradePoint' do
 
   # Realm
   pod 'RealmSwift'
+  # Progress Ring
+  pod 'UICircularProgressRing'
 
   target 'GradePointTests' do
     inherit! :search_paths
