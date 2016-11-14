@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RealmSwift
 
-class ClassesViewController: UITableViewController {
+class ClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     
@@ -19,15 +20,19 @@ class ClassesViewController: UITableViewController {
         }
     }
 
-    
     // MARK: - Overrides 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
+        configureView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Set seperator color
+        self.tableView.separatorColor = UIColor.tableViewSeperator
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,7 +49,13 @@ class ClassesViewController: UITableViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = self.detailItem {
-            print(detail.className)
+            self.title = detail.name
+        } else {
+            // Figure out if we have any items
+            let realm = try! Realm()
+            let objs = realm.objects(Class.self)
+            if objs.count < 1 { self.title = "Add a Class" }
+            else { self.title = "Select a class" }
         }
     }
 

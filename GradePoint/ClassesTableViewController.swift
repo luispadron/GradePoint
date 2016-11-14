@@ -16,7 +16,7 @@ class ClassesTableViewController: UITableViewController {
     var realm = try! Realm()
     var notificationToken: NotificationToken?
     
-    var detailViewController: ClassesViewController? = nil
+    var detailViewController: ClassDetailTableViewController? = nil
     
     lazy var semesterSections: [Semester] = {
         // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
@@ -46,7 +46,7 @@ class ClassesTableViewController: UITableViewController {
         if let split = self.splitViewController {
             split.preferredDisplayMode = .allVisible
             let controllers = split.viewControllers
-            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassesViewController
+            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassDetailTableViewController
             
             // TODO: Add support for saving of last selected item and loading that initially
         }
@@ -139,7 +139,7 @@ class ClassesTableViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let classItem = classObj(forIndexPath: indexPath)
-                let controller = (segue.destination as! UINavigationController).topViewController as! ClassesViewController
+                let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
                 controller.detailItem = classItem
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
