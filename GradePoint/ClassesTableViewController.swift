@@ -14,7 +14,7 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Properties
     
     var realm = try! Realm()
-    var notificationTokens = [NotificationToken]()
+    var notificationToken: NotificationToken?
     
     var detailViewController: ClassesViewController? = nil
     
@@ -34,6 +34,11 @@ class ClassesTableViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
+        // Create realm notification block
+        notificationToken = realm.addNotificationBlock { [unowned self] note, realm in
+            self.tableView.reloadData()
+        }
         
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
         initClassesBySection()
@@ -168,36 +173,11 @@ class ClassesTableViewController: UITableViewController {
     
     /// This initializes the classesBySection array which is a 2D array that has Realm result objects grouped by their appropriate section
     func initClassesBySection() {
-        for (index, semester) in semesterSections.enumerated() {
+        for semester in semesterSections {
             let unsorted = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
             let sorted = unsorted.sorted(byProperty: "year", ascending: false)
             classesBySection.append(sorted)
-            registerNotification(for: classesBySection[index], in: index)
         }
-    }
-    
-    
-    /// This registers notifications for each of the Realm results which are grouped by section
-    func registerNotification(for classes: Results<Class>, in section: Int) {
-        let token = classes.addNotificationBlock { [unowned self] (changes: RealmCollectionChange) in
-            
-            switch changes {
-                
-            case .initial:
-                // Results are now populated and can be accessed without blocking the UI
-                self.tableView.reloadData()
-                
-            case .update:
-                // Query results have changed, so apply them to the UITableView
-                self.tableView.reloadSections(IndexSet.init(integer: section), with: .none)
-    
-            case .error(let error):
-                // An error occurred while opening the Realm file on the background worker thread
-                fatalError("\(error)")
-            }
-            
-        }
-        notificationTokens.append(token)
     }
     
     /// Returns a classObj for the sent in index path, used for tableview methods
@@ -223,9 +203,7 @@ class ClassesTableViewController: UITableViewController {
     
     // Stop notifications
     deinit {
-        for n in notificationTokens {
-            n.stop()
-        }
+        notificationToken?.stop()
     }
 }
 
