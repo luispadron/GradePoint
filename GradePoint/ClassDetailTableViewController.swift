@@ -36,23 +36,14 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
-        
-        // Add tableview header
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 260))
-        progressRing.center = view.center
-        headerView.addSubview(progressRing)
-        self.tableView.tableHeaderView = headerView
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: - TableView Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
+    
     
     
     // MARK: - Helpers
