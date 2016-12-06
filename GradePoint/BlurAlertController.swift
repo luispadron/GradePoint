@@ -22,7 +22,7 @@ class BlurAlertController: UIViewController {
     
     var effect: UIVisualEffect!
     var alertTitle: String?
-    var alertMessage: String?
+    var alertMessage: NSAttributedString?
     var buttonText: String?
     var buttonColor: UIColor?
     var animationDuration: TimeInterval?
@@ -59,7 +59,8 @@ class BlurAlertController: UIViewController {
         super.viewWillAppear(animated)
         // Set the text
         titleLabel.text = alertTitle ?? "Title"
-        messageLabel.text = alertMessage ?? "Message"
+        let message = alertMessage ?? NSAttributedString(string: "Message")
+        messageLabel.attributedText = message
         // Set button attributes
         button.setTitle(buttonText ?? "Done", for: .normal)
         button.backgroundColor = buttonColor ?? UIColor.blue

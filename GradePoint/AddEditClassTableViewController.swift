@@ -339,7 +339,17 @@ class AddEditClassTableViewController: UITableViewController,
             
             if let p = Double(text) {
                 if p <= 0 {
-                    presentAlert(withTitle: "Can't Save 💔", andMessage: "Zero percentage is invalid in row \(i + 1)")
+                    // Present an error dialog since we cannot save a percent of zero
+                    let invalidRowSubMessage = "row \(i + 1)"
+                    let message = "Zero percentage is invalid in " + invalidRowSubMessage
+                    
+                    // Attributes for the invalid row sub message
+                    let attrs = [NSForegroundColorAttributeName: UIColor.sunsetOrange]
+                    let rangeForSubMessage = (message as NSString).range(of: invalidRowSubMessage)
+                    let attrString = NSMutableAttributedString(string: message)
+                    attrString.addAttributes(attrs, range: rangeForSubMessage)
+                    
+                    presentAlert(withTitle: "Can't Save 💔", andMessage: attrString)
                     return
                 }
                 percent += p
@@ -371,7 +381,19 @@ class AddEditClassTableViewController: UITableViewController,
             // Dismiss self
             self.dismiss(animated: true, completion: nil)
             
-        } else { presentAlert(withTitle: "Can't Save 💔", andMessage: "Weights must add up to 100%") }
+        } else {
+            // Present error, since weights are not adding up to 100%
+            let percentAttrs = [ NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+            let percentSubMessage = "\nCurrent total: \(percent)%"
+            let message = "Weights must add up to 100%" + percentSubMessage
+            let rangeForSubMessage = (message as NSString).range(of: percentSubMessage)
+            
+            // Add attributes to the percent submessage
+            let attrString = NSMutableAttributedString(string: message)
+            attrString.setAttributes(percentAttrs, range: rangeForSubMessage)
+            
+            presentAlert(withTitle: "Can't Save 💔", andMessage: attrString)
+        }
     }
     
     // - MARK: Helper Methods
@@ -481,7 +503,7 @@ class AddEditClassTableViewController: UITableViewController,
         nameFieldIsValid = trimmed.isEmpty ? false : true
     }
     
-    func presentAlert(withTitle title: String, andMessage msg: String) {
+    func presentAlert(withTitle title: String, andMessage msg: NSAttributedString) {
         let board = UIStoryboard(name: "Main", bundle: nil)
         let alert = board.instantiateViewController(withIdentifier: "blurAlertController") as! BlurAlertController
         alert.view.frame = self.view.frame

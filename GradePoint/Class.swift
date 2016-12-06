@@ -10,9 +10,13 @@ import RealmSwift
 import UIKit
 
 class Class: Object {
+    
+    // MARK: - Properties
+    
     dynamic var name = ""
     dynamic var semester: Semester?
     var rubrics = List<Rubric>()
+    var assignments = List<Assignment>()
     dynamic var colorData = Data()
     
     // This is here as well as in Semester, to allow for sorting based on year
