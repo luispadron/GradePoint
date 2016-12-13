@@ -28,6 +28,7 @@
 		A05B1E2B1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */; };
 		A05B1E2D1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
+		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
 		A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6C1DF669FC00280F93 /* Assignment.swift */; };
 		A0B4898C1DCBFF6400631E07 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* IntExtension.swift */; };
@@ -91,6 +92,7 @@
 		A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassTableViewController.swift; sourceTree = "<group>"; };
 		A05B1E2C1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoNameTableViewCell.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
+		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
 		A09CEC6C1DF669FC00280F93 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
@@ -225,8 +227,9 @@
 			isa = PBXGroup;
 			children = (
 				A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */,
-				A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */,
 				A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */,
+				A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */,
+				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
 				A0359F711DBF1406008C7C2C /* BlurAlertController.swift */,
 			);
 			name = Controllers;
@@ -601,6 +604,7 @@
 				A0CE8B471DAF19EF007968EE /* UIColorExtension.swift in Sources */,
 				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
 				A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */,
+				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
 				A05B1E2D1DB2B83F00A43BE3 /* BasicInfoNameTableViewCell.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 			);
