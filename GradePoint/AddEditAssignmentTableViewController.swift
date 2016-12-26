@@ -86,6 +86,11 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.selectionStyle = .none
                 cell.promptText = "Assignment Name"
                 return cell
+            case 1:
+                let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
+                return cell
             default:
                 break
             }
