@@ -8,12 +8,14 @@
 
 import UIKit
 
-class AddEditAssignmentTableViewController: UITableViewController {
+class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate {
 
     // MARK: - Properties
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
     var parentClass: Class!
+    
+    var dateLabel: UILabel!
     
     // MARK: - Overrides
     
@@ -51,6 +53,16 @@ class AddEditAssignmentTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 2:
+                return 120
+            default:
+                return 44
+            }
+        }
+        
         return 44
     }
     
@@ -88,6 +100,16 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 return cell
             case 1:
                 let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
+                self.dateLabel = cell.dateLabel
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
+                return cell
+            case 2:
+                let cell = BasicInfoDatePickerTableViewCell(style: .default, reuseIdentifier: nil)
+                
+                // Add action from date picker
+                cell.datePicker.addTarget(self, action: #selector(self.datePickerChange), for: .valueChanged)
+                
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 return cell
@@ -101,7 +123,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         return UITableViewCell()
     }
 
-    // MARK: - IBActions
+    // MARK: - Actions
     
     @IBAction func onCancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -109,6 +131,14 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     
     @IBAction func onDone(_ sender: UIBarButtonItem) {
+    }
+    
+    func datePickerChange(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        
+        self.dateLabel.text = formatter.string(from: sender.date)
     }
 
 }
