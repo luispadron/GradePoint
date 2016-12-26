@@ -12,6 +12,18 @@ class BasicInfoNameTableViewCell: UITableViewCell {
 
     lazy var nameLabel = UILabel()
     lazy var nameField = UITextField()
+    var promptText: String? {
+        didSet {
+            nameField.attributedPlaceholder = NSAttributedString(string: promptText ?? "",
+                                                                 attributes: [NSForegroundColorAttributeName: promptColor ?? UIColor.mutedText])
+        }
+    }
+    var promptColor: UIColor? {
+        didSet {
+            nameField.attributedPlaceholder = NSAttributedString(string: promptText ?? "",
+                                                                 attributes: [NSForegroundColorAttributeName: promptColor ?? UIColor.mutedText])
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,7 +54,7 @@ class BasicInfoNameTableViewCell: UITableViewCell {
         // Init the text field
         let widthForTextField = self.contentView.frame.width - nameLabel.frame.width - (nameLabel.frame.origin.x + 100)
         nameField.frame = CGRect(x: nameLabel.frame.origin.x + 100, y: 0, width: widthForTextField, height: self.frame.height)
-        nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        nameField.attributedPlaceholder = NSAttributedString(string: promptText ?? "", attributes: [NSForegroundColorAttributeName: promptColor ?? UIColor.mutedText])
         nameField.autocapitalizationType = .words
         nameField.font = UIFont.systemFont(ofSize: 17)
         nameField.textColor = UIColor.white

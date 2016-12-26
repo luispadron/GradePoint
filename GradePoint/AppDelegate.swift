@@ -47,6 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UITableViewCell.appearance().selectedBackgroundView = bgView
         UITableViewCell.appearance().backgroundColor = UIColor.clear
         
+        // Change keyboard to dark version
+        UITextField.appearance().keyboardAppearance = .dark
+        
         return true
     }
 

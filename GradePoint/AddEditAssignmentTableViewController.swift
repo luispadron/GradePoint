@@ -25,9 +25,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Remove seperator color, by making it look like table view
-        self.tableView.separatorColor = UIColor.lightBg
+        self.tableView.separatorColor = UIColor.tableViewSeperator
     }
     
 
@@ -38,10 +36,21 @@ class AddEditAssignmentTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 3
+        case 1:
+            return 1
+        default:
+            return 0
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
     
@@ -68,7 +77,21 @@ class AddEditAssignmentTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: Actually do something here
+        
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
+                cell.promptText = "Assignment Name"
+                return cell
+            default:
+                break
+            }
+        } else if indexPath.section == 1 {
+            
+        }
         
         return UITableViewCell()
     }

@@ -179,6 +179,7 @@ class AddEditClassTableViewController: UITableViewController,
                 let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                cell.promptText = "Class Name"
                 cell.nameField.delegate = self
                 cell.nameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
                 nameField = cell.nameField
