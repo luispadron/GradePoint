@@ -16,7 +16,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import "RLMConstants.h"
+#import <Realm/RLMConstants.h>
 
 /// A token originating from the Realm Object Server.
 typedef NSString* RLMServerToken;
@@ -25,6 +25,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The error domain string for all SDK errors related to synchronization functionality.
 extern NSString *const RLMSyncErrorDomain;
+
+/// An error which is related to authentication to a Realm Object Server.
+typedef RLM_ERROR_ENUM(NSInteger, RLMSyncAuthError, RLMSyncErrorDomain) {
+    /// An error that indicates that the provided credentials are invalid.
+    RLMSyncAuthErrorInvalidCredential   = 611,
+
+    /// An error that indicates that the user with provided credentials does not exist.
+    RLMSyncAuthErrorUserDoesNotExist    = 612,
+
+    /// An error that indicates that the user cannot be registered as it exists already.
+    RLMSyncAuthErrorUserAlreadyExists   = 613,
+};
 
 /// An error which is related to synchronization with a Realm Object Server.
 typedef RLM_ERROR_ENUM(NSInteger, RLMSyncError, RLMSyncErrorDomain) {

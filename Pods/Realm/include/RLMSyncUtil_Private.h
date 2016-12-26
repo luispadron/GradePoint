@@ -16,9 +16,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import "RLMSyncUtil.h"
+#import <Realm/RLMSyncUtil.h>
 
-#import "RLMSyncCredential.h"
+#import <Realm/RLMSyncCredentials.h>
+#import <Realm/RLMRealmConfiguration.h>
+
+@class RLMSyncUser;
 
 typedef void(^RLMSyncCompletionBlock)(NSError * _Nullable, NSDictionary * _Nullable);
 typedef void(^RLMSyncBasicErrorReportingBlock)(NSError * _Nullable);
@@ -27,19 +30,23 @@ typedef NSString* RLMServerPath;
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface RLMRealmConfiguration (RealmSync)
++ (instancetype)managementConfigurationForUser:(RLMSyncUser *)user;
+@end
+
 extern RLMIdentityProvider const RLMIdentityProviderAccessToken;
 extern RLMIdentityProvider const RLMIdentityProviderRealm;
 
 extern NSString *const kRLMSyncAppIDKey;
 extern NSString *const kRLMSyncDataKey;
 extern NSString *const kRLMSyncErrorJSONKey;
+extern NSString *const kRLMSyncErrorStatusCodeKey;
 extern NSString *const kRLMSyncIdentityKey;
 extern NSString *const kRLMSyncPasswordKey;
 extern NSString *const kRLMSyncPathKey;
 extern NSString *const kRLMSyncProviderKey;
 extern NSString *const kRLMSyncRegisterKey;
 extern NSString *const kRLMSyncUnderlyingErrorKey;
-extern NSString *const kRLMSyncActionsKey;
 
 #define RLM_SYNC_UNINITIALIZABLE \
 - (instancetype)init __attribute__((unavailable("This type cannot be created directly"))); \

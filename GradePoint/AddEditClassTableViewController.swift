@@ -179,9 +179,9 @@ class AddEditClassTableViewController: UITableViewController,
                 let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
-                cell.classNameField.delegate = self
-                cell.classNameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
-                nameField = cell.classNameField
+                cell.nameField.delegate = self
+                cell.nameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
+                nameField = cell.nameField
                 nameCell = cell
                 // If editing class is not nil, thus editing, then set the text for this field
                 if let obj = editingClass { nameField.text = obj.name }

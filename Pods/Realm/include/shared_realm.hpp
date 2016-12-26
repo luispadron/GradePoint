@@ -45,6 +45,12 @@ struct VersionID;
 typedef std::shared_ptr<Realm> SharedRealm;
 typedef std::weak_ptr<Realm> WeakRealm;
 
+// Sets a path to a directory where Realm can write temporary files and named pipes.
+// This string should include a trailing slash '/'.
+void set_temporary_directory(std::string directory_path);
+
+const std::string& get_temporary_directory() noexcept;
+
 namespace _impl {
     class AnyHandover;
     class CollectionNotifier;
@@ -60,11 +66,11 @@ enum class SchemaMode : uint8_t {
     // changes, then call the migration function.
     //
     // If the schema version has not changed, verify that the only
-    // changes are to add new tables and add or remvoe indexes, and then
+    // changes are to add new tables and add or remove indexes, and then
     // apply them if so. Does not call the migration function.
     //
     // This mode does not automatically remove tables which are not
-    // present in the schea; that must be manually done in the migration
+    // present in the schema that must be manually done in the migration
     // function, to support sharing a Realm file between processes using
     // different class subsets.
     //
@@ -215,7 +221,7 @@ public:
     Realm(Realm&&) = delete;
     Realm& operator=(Realm&&) = delete;
     ~Realm();
-    
+
     // Pins the current version and exports each object for handover.
     HandoverPackage package_for_handover(std::vector<AnyThreadConfined> objects_to_hand_over);
 
@@ -308,6 +314,8 @@ private:
     // File format versions populated when a file format upgrade takes place during realm opening
     int upgrade_initial_version = 0, upgrade_final_version = 0;
 
+    bool m_is_sending_notifications = false;
+
     void set_schema(Schema schema, uint64_t version);
     bool reset_file_if_needed(Schema& schema, uint64_t version, std::vector<SchemaChange>& changes_required);
 
@@ -329,6 +337,8 @@ public:
     enum class Kind {
         /** Thrown for any I/O related exception scenarios when a realm is opened. */
         AccessError,
+        /** Thrown if the history type of the on-disk Realm is unexpected or incompatible. */
+        BadHistoryError,
         /** Thrown if the user does not have permission to open or create
          the specified file in the specified access mode when the realm is opened. */
         PermissionDenied,

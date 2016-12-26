@@ -19,6 +19,28 @@
 #import <Foundation/Foundation.h>
 
 #import "RLMSyncUtil_Private.hpp"
+#import "RLMSyncUser_Private.hpp"
+#import "RLMRealmConfiguration+Sync.h"
+#import "RLMRealmConfiguration_Private.hpp"
+#import "RLMSyncPermissionChange.h"
+
+@implementation RLMRealmConfiguration (RealmSync)
++ (instancetype)managementConfigurationForUser:(RLMSyncUser *)user {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:user.authenticationServer resolvingAgainstBaseURL:NO];
+    if ([components.scheme isEqualToString:@"https"]) {
+        components.scheme = @"realms";
+    } else {
+        components.scheme = @"realm";
+    }
+    components.path = @"/~/__management";
+    NSURL *managementRealmURL = components.URL;
+    RLMSyncConfiguration *syncConfig = [[RLMSyncConfiguration alloc] initWithUser:user realmURL:managementRealmURL];
+    RLMRealmConfiguration *config = [RLMRealmConfiguration new];
+    config.syncConfiguration = syncConfig;
+    config.objectClasses = @[RLMSyncPermissionChange.class];
+    return config;
+}
+@end
 
 RLMIdentityProvider const RLMIdentityProviderAccessToken = @"_access_token";
 
@@ -27,13 +49,13 @@ NSString *const RLMSyncErrorDomain = @"io.realm.sync";
 NSString *const kRLMSyncAppIDKey                = @"app_id";
 NSString *const kRLMSyncDataKey                 = @"data";
 NSString *const kRLMSyncErrorJSONKey            = @"json";
+NSString *const kRLMSyncErrorStatusCodeKey      = @"statusCode";
 NSString *const kRLMSyncIdentityKey             = @"identity";
 NSString *const kRLMSyncPasswordKey             = @"password";
 NSString *const kRLMSyncPathKey                 = @"path";
 NSString *const kRLMSyncProviderKey             = @"provider";
 NSString *const kRLMSyncRegisterKey             = @"register";
 NSString *const kRLMSyncUnderlyingErrorKey      = @"underlying_error";
-NSString *const kRLMSyncActionsKey              = @"actions";
 
 namespace realm {
 

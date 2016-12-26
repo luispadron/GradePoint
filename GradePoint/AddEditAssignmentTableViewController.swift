@@ -34,7 +34,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     // MARK: - Table view
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,15 +57,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
         
         switch section {
         case 0:
-            label.text = "Assignment Name"
+            label.text = "Basic Info"
             return mainView
         case 1:
-            label.text = "Assignment Date"
-            return mainView
-        case 2:
-            label.text = "Assignment Rubric"
-            return mainView
-        case 3:
             label.text = "Assignment Score"
             return mainView
         default:
