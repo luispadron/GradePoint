@@ -48,7 +48,7 @@ class AddEditClassTableViewController: UITableViewController,
     
     // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
     var nameCell: BasicInfoNameTableViewCell?
-    var semesterCell: BasicInfoSemesterTableViewCell?
+    var semesterCell: GenericLabelTableViewCell?
     var semesterPickerCell: BasicInfoSemesterPickerTableViewCell?
     var rubricCells = [RubricTableViewCell]() {
         didSet {
@@ -189,17 +189,16 @@ class AddEditClassTableViewController: UITableViewController,
                 return cell
             case 1: // Display the basic info date picker cell
                 if let c = semesterCell { return c }
-                
-                let cell = BasicInfoSemesterTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.backgroundColor = UIColor.darkBg
+                let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.leftLabel.text = "Date"
+                cell.rightLabel.text = "\(Semester.terms[0]) \(UISemesterPickerView.createArrayOfYears()[1])"
+                cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
-                cell.delegate = self
                 semesterCell = cell
                 return cell
             case 2:
                 if let c = semesterPickerCell { return c }
                 let cell = BasicInfoSemesterPickerTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.semesterPicker.delegate = self
                 semesterPicker = cell.semesterPicker
@@ -236,7 +235,14 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 1:
+                toggleDatePicker()
+            default:
+                break
+            }
+        }
     }
     
     // MARK: - Scroll View Delegates
@@ -297,15 +303,10 @@ class AddEditClassTableViewController: UITableViewController,
     
     // MARK: - Date Input Delegate
     
-    func dateInputWasTapped(forCell cell: BasicInfoSemesterTableViewCell) {
-        if isDatePickerVisible { hideDatePicker() }
-        else { showDatePicker() }
-    }
-    
     func pickerRowSelected(term: String, year: Int) {
         // User selected a date, lets update the UI
-        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! BasicInfoSemesterTableViewCell
-        cell.dateInputLabel.text = "\(term) \(year)"
+        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! GenericLabelTableViewCell
+        cell.rightLabel.text = "\(term) \(year)"
         // Set the properties
         self.term = term
         self.year = year
@@ -456,41 +457,24 @@ class AddEditClassTableViewController: UITableViewController,
         }
     }
     
-    func showDatePicker() {
-        guard let picker = semesterPicker else {
+    func toggleDatePicker() {
+        guard let picker = semesterPicker, let cell = semesterCell else {
             print("Picker not available")
             return
         }
         
         // Show the date picker
         tableView.beginUpdates()
-        isDatePickerVisible = true
+        isDatePickerVisible = !isDatePickerVisible
         tableView.endUpdates()
-        picker.isHidden = false
-        picker.alpha = 0.0
-        // Animate the show
-        UIView.animate(withDuration: 0.3) { 
-            picker.alpha = 1.0
-        }
-        
-    }
-    
-    func hideDatePicker() {
-        guard let picker = semesterPicker else {
-            print("Picker not available")
-            return
-        }
-        
-        // Hide the date picker
-        tableView.beginUpdates()
-        isDatePickerVisible = false
-        tableView.endUpdates()
-        picker.isHidden = true
-        picker.alpha = 1.0
+        picker.isHidden = !isDatePickerVisible
+        picker.alpha = isDatePickerVisible ? 0.0 : 1.0
         // Animate the show
         UIView.animate(withDuration: 0.3) {
-            picker.alpha = 0.0
+            cell.rightLabel.textColor = self.isDatePickerVisible ? UIColor.highlight : UIColor.lightText
+            picker.alpha = self.isDatePickerVisible ? 1.0 : 0.0
         }
+        
     }
     
     func updateSaveButton() {

@@ -25,14 +25,14 @@ class BasicInfoDatePickerTableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        self.layoutCells()
+        self.layoutViews()
         super.layoutSubviews()
     }
     
     // MARK: Helper Methods
     
     private func initCell() {
-        layoutCells()
+        layoutViews()
         
         datePicker.datePickerMode = .date
         datePicker.setValue(UIColor.lightText, forKey: "textColor")
@@ -40,7 +40,7 @@ class BasicInfoDatePickerTableViewCell: UITableViewCell {
         self.addSubview(datePicker)
     }
     
-    private func layoutCells() {
+    private func layoutViews() {
         datePicker.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
     }
 }

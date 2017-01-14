@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate {
+class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Properties
     
@@ -16,6 +16,10 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     var parentClass: Class!
     
     var dateLabel: UILabel!
+    var rubricLabel: UILabel!
+    
+    var datePickerIsVisible = false
+    var rubricPickerIsVisible = false
     
     // MARK: - Overrides
     
@@ -40,7 +44,7 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 5
         case 1:
             return 1
         default:
@@ -57,7 +61,9 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         if indexPath.section == 0 {
             switch indexPath.row {
             case 2:
-                return 120
+                return datePickerIsVisible ? 120 : 0
+            case 4:
+                return rubricPickerIsVisible ? 80 : 0
             default:
                 return 44
             }
@@ -99,19 +105,36 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
                 cell.promptText = "Assignment Name"
                 return cell
             case 1:
-                let cell = BasicInfoDateTableViewCell(style: .default, reuseIdentifier: nil)
-                self.dateLabel = cell.dateLabel
+                let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.leftLabel.text = "Date"
+                // Init the right label 'date label', set text to todays date
+                let formatter = DateFormatter()
+                formatter.dateStyle = .long
+                formatter.timeStyle = .none
+                cell.rightLabel.text = formatter.string(from: Date())
+                self.dateLabel = cell.rightLabel
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 return cell
             case 2:
                 let cell = BasicInfoDatePickerTableViewCell(style: .default, reuseIdentifier: nil)
-                
                 // Add action from date picker
                 cell.datePicker.addTarget(self, action: #selector(self.datePickerChange), for: .valueChanged)
-                
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                return cell
+            case 3:
+                let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.leftLabel.text = "Rubric"
+                cell.rightLabel.text = self.parentClass.rubrics[0].name
+                self.rubricLabel = cell.rightLabel
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
+                return cell
+            case 4:
+                let cell = BasicInfoRubricPickerTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.rubricPicker.delegate = self
+                cell.rubricPicker.dataSource = self
                 return cell
             default:
                 break
@@ -121,6 +144,52 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         }
         
         return UITableViewCell()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 1: // Date section selected, show or hide datePicker accordingly
+            togglePicker()
+        case 3:
+            togglePicker()
+        default:
+            return
+        }
+    }
+    
+    // MARK: - UIPickerView Methods
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return parentClass.rubrics.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 25
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return pickerView.frame.width
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let name = parentClass.rubrics[row].name
+        let title = NSMutableAttributedString(string: name)
+        title.addAttributes([NSForegroundColorAttributeName: UIColor.lightText,
+                             NSFontAttributeName: UIFont.systemFont(ofSize: 20)],
+                            range: (name as NSString).range(of: name))
+        return title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return parentClass.rubrics[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.rubricLabel.text = parentClass.rubrics[row].name
     }
 
     // MARK: - Actions
@@ -140,5 +209,47 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         
         self.dateLabel.text = formatter.string(from: sender.date)
     }
+    
+    // MARK: Helper Methods
+    
+    func togglePicker() {
+        guard let selectedPath = tableView.indexPathForSelectedRow else {
+            print("No row selected?")
+            return
+        }
+
+        switch selectedPath.row {
+        case 1:
+            let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! BasicInfoDatePickerTableViewCell
+            // Show the date picker
+            tableView.beginUpdates()
+            datePickerIsVisible = !datePickerIsVisible
+            tableView.endUpdates()
+            cell.datePicker.isHidden = !datePickerIsVisible
+            cell.datePicker.alpha = datePickerIsVisible ? 0.0 : 1.0
+            // Animate the show
+            UIView.animate(withDuration: 0.3) {
+                self.dateLabel.textColor = self.datePickerIsVisible ? UIColor.highlight : UIColor.lightText
+                cell.datePicker.alpha = self.datePickerIsVisible ? 1.0 : 0.0
+            }
+        case 3:
+            let cell = tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell
+            // Show the rubric picker
+            tableView.beginUpdates()
+            rubricPickerIsVisible = !rubricPickerIsVisible
+            tableView.endUpdates()
+            cell.rubricPicker.isHidden = !rubricPickerIsVisible
+            cell.rubricPicker.alpha = rubricPickerIsVisible ? 0.0 : 1.0
+            // Animate the show
+            UIView.animate(withDuration: 0.3) {
+                self.rubricLabel.textColor = self.rubricPickerIsVisible ? UIColor.highlight : UIColor.lightText
+                cell.rubricPicker.alpha = self.rubricPickerIsVisible ? 1.0 : 0.0
+            }
+        default:
+            return
+        }
+    }
+
+
 
 }
