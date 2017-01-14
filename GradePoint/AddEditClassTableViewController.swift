@@ -47,7 +47,7 @@ class AddEditClassTableViewController: UITableViewController,
     var nameField: UITextField!
     
     // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
-    var nameCell: BasicInfoNameTableViewCell?
+    var nameCell: TextInputTableViewCell?
     var semesterCell: GenericLabelTableViewCell?
     var semesterPickerCell: BasicInfoSemesterPickerTableViewCell?
     var rubricCells = [RubricTableViewCell]() {
@@ -176,13 +176,14 @@ class AddEditClassTableViewController: UITableViewController,
             case 0: // Display the basic info name cell
                 if let c = nameCell { return c }
                 
-                let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
+                let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                cell.inputLabel.text = "Name"
                 cell.promptText = "Class Name"
-                cell.nameField.delegate = self
-                cell.nameField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
-                nameField = cell.nameField
+                cell.inputField.delegate = self
+                cell.inputField.addTarget(self, action: #selector(self.updateSaveButton), for: .editingChanged)
+                nameField = cell.inputField
                 nameCell = cell
                 // If editing class is not nil, thus editing, then set the text for this field
                 if let obj = editingClass { nameField.text = obj.name }

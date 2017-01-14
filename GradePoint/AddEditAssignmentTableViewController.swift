@@ -99,7 +99,8 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
-                let cell = BasicInfoNameTableViewCell(style: .default, reuseIdentifier: nil)
+                let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.inputLabel.text = "Name"
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.promptText = "Assignment Name"
@@ -140,7 +141,17 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
                 break
             }
         } else if indexPath.section == 1 {
-            
+            switch indexPath.row {
+            case 0:
+                let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.inputLabel.text = "Score"
+                cell.promptText = "Assignment Score"
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
+                return cell
+            default:
+                break
+            }
         }
         
         return UITableViewCell()
