@@ -15,7 +15,6 @@ class ClassDetailTableViewController: UITableViewController {
     // MARK: - Properties
     
     var realm = try! Realm()
-    var notificationToken: NotificationToken?
     
     @IBOutlet var progressRing: UICircularProgressRingView!
     
@@ -33,11 +32,6 @@ class ClassDetailTableViewController: UITableViewController {
         // Configure the view for load
         configureView()
         
-        // Add notification block
-        notificationToken = realm.addNotificationBlock {_,_ in 
-            self.tableView.reloadData()
-        }
-        
         // Set the progressRing ass the tableHeaderView
         let encapsulationView = UIView() // encapsulates the view to stop clipping
         encapsulationView.addSubview(progressRing)
@@ -52,6 +46,8 @@ class ClassDetailTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // Reload data
+        self.tableView.reloadData()
         // Set progress ring calculation
         calculateProgress()
     }
@@ -221,10 +217,6 @@ class ClassDetailTableViewController: UITableViewController {
         }
         
         calculateProgress()
-    }
-    
-    deinit {
-        self.notificationToken?.stop()
     }
 }
 
