@@ -185,7 +185,31 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     func calculateProgress() {
-        self.progressRing.setProgress(value: 100, animationDuration: 3.0)
+        guard let rubrics = detailItem?.rubrics else {
+            print("Couldn't get rubrics to calculate progress")
+            return
+        }
+        
+        var weights = 0.0
+        var score = 0.0
+        
+        for rubric in rubrics {
+            let assignments = detailItem!.assignments.filter("associatedRubric = %@", rubric)
+            if assignments.count == 0 { continue }
+            
+            weights += rubric.weight
+            
+            var total = 0.0
+            
+            for assignment in assignments {
+                total += assignment.score
+            }
+            
+            total /= Double(assignments.count)
+            score += rubric.weight * total
+        }
+        
+        self.progressRing.setProgress(value: CGFloat(score / weights), animationDuration: 1.5)
     }
     
     func deleteAssignment(at indexPath: IndexPath) {
@@ -196,6 +220,7 @@ class ClassDetailTableViewController: UITableViewController {
             realm.delete(assignment)
         }
         
+        calculateProgress()
     }
     
     deinit {
