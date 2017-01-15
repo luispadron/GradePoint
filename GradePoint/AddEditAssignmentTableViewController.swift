@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate,
                                             UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Properties
+    
+    // Realm database object
+    let realm = try! Realm()
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     var parentClass: Class!
@@ -24,6 +28,8 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     
     var nameField: UITextField?
     var scoreField: UITextField?
+    
+    var selectedDate: Date = Date()
     
     // MARK: - Overrides
     
@@ -258,13 +264,29 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     
     
     @IBAction func onSave(_ sender: UIBarButtonItem) {
+        // Save the associated assignment to realm
+        guard let nText = nameField?.text, let sText = scoreField?.text,
+              let rubricPicker = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as?
+                                    BasicInfoRubricPickerTableViewCell)?.rubricPicker
+        else {
+            fatalError("Could not save because guard failed")
+        }
+        
+        let score = Double(sText)!
+        let rubric = parentClass.rubrics[rubricPicker.selectedRow(inComponent: 0)]
+        let newAssignment = Assignment(name: nText, date: selectedDate, score: score, associatedRubric: rubric)
+        
+        try! realm.write {
+            parentClass.assignments.append(newAssignment)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     func datePickerChange(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
-        
+        self.selectedDate = sender.date
         self.dateLabel.text = formatter.string(from: sender.date)
     }
     
