@@ -38,15 +38,27 @@ class ClassDetailTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
         
-        let view = UIView()
-        view.addSubview(progressRing)
-        self.tableView.tableHeaderView = view
+        // Set the progressRing ass the tableHeaderView
+        let encapsulationView = UIView() // encapsulates the view to stop clipping
+        encapsulationView.addSubview(progressRing)
+        self.tableView.tableHeaderView = encapsulationView
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
+        // Set progress ring calculation
+        calculateProgress()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        if let headerView = self.tableView.tableHeaderView {
+            headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 240)
+            progressRing.center = headerView.center
+        }
+        
+        super.viewWillLayoutSubviews()
     }
     
     // MARK: - TableView Methods
@@ -168,6 +180,10 @@ class ClassDetailTableViewController: UITableViewController {
         }
     }
     
+    func calculateProgress() {
+        
+    }
+    
     func deleteAssignment(at indexPath: IndexPath) {
         let rubric = detailItem!.rubrics[indexPath.section]
         let assignment = detailItem!.assignments
@@ -176,16 +192,6 @@ class ClassDetailTableViewController: UITableViewController {
             realm.delete(assignment)
         }
         
-    }
-
-
-    override func viewWillLayoutSubviews() {
-        if let headerView = self.tableView.tableHeaderView {
-            headerView.frame = CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 260)
-            progressRing.center = headerView.center
-        }
-        
-        super.viewWillLayoutSubviews()
     }
     
     deinit {
