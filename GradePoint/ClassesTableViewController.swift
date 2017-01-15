@@ -191,10 +191,12 @@ class ClassesTableViewController: UITableViewController {
         let classToDel = classObj(forIndexPath: indexPath)
         let rubricsToDel = classToDel.rubrics
         let semesterToDel = classToDel.semester!
+        let assignmentsToDel = classToDel.assignments
         
         try! realm.write {
             realm.delete(rubricsToDel)
             realm.delete(semesterToDel)
+            realm.delete(assignmentsToDel)
             realm.delete(classToDel)
         }
     }
