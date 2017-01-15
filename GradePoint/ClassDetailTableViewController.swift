@@ -48,6 +48,10 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         // Set progress ring calculation
         calculateProgress()
     }
@@ -181,7 +185,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     func calculateProgress() {
-        
+        self.progressRing.setProgress(value: 100, animationDuration: 3.0)
     }
     
     func deleteAssignment(at indexPath: IndexPath) {
