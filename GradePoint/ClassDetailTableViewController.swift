@@ -33,9 +33,14 @@ class ClassDetailTableViewController: UITableViewController {
         // Configure the view for load
         configureView()
         
+        // Add notification block
         notificationToken = realm.addNotificationBlock {_,_ in 
             self.tableView.reloadData()
         }
+        
+        let view = UIView()
+        view.addSubview(progressRing)
+        self.tableView.tableHeaderView = view
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +125,20 @@ class ClassDetailTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
+            self.deleteAssignment(at: indexPath)
+        })
+        deleteAction.backgroundColor = UIColor.sunsetOrange
+        
+        return [deleteAction]
+    }
+    
     
     // MARK: - Segues
     
@@ -147,6 +166,16 @@ class ClassDetailTableViewController: UITableViewController {
             if objs.count < 1 { self.title = "Add a Class" }
             else { self.title = "Select a class" }
         }
+    }
+    
+    func deleteAssignment(at indexPath: IndexPath) {
+        let rubric = detailItem!.rubrics[indexPath.section]
+        let assignment = detailItem!.assignments
+                                    .filter("associatedRubric = %@", rubric).sorted(byProperty: "date", ascending: false)[indexPath.row]
+        try! realm.write {
+            realm.delete(assignment)
+        }
+        
     }
 
 
