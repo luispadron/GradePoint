@@ -201,6 +201,7 @@ class AddEditClassTableViewController: UITableViewController,
                 if let c = semesterPickerCell { return c }
                 let cell = BasicInfoSemesterPickerTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.selectionStyle = .none
+                cell.contentView.backgroundColor = UIColor.darkBg
                 cell.semesterPicker.delegate = self
                 semesterPicker = cell.semesterPicker
                 semesterPickerCell = cell

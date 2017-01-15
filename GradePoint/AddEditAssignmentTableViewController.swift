@@ -8,11 +8,12 @@
 
 import UIKit
 
-class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate,
+                                            UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Properties
     
-    @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     var parentClass: Class!
     
     var dateLabel: UILabel!
@@ -21,12 +22,15 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     var datePickerIsVisible = false
     var rubricPickerIsVisible = false
     
+    var nameField: UITextField?
+    var scoreField: UITextField?
+    
     // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneButton.isEnabled = false
+        saveButton.isEnabled = false
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -104,6 +108,9 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
                 cell.promptText = "Assignment Name"
+                cell.inputField.delegate = self
+                cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
+                self.nameField = cell.inputField
                 return cell
             case 1:
                 let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
@@ -136,6 +143,8 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
                 let cell = BasicInfoRubricPickerTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.rubricPicker.delegate = self
                 cell.rubricPicker.dataSource = self
+                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.selectionStyle = .none
                 return cell
             default:
                 break
@@ -148,6 +157,9 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
                 cell.promptText = "Assignment Score"
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                cell.inputField.delegate = self
+                cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
+                self.scoreField = cell.inputField
                 return cell
             default:
                 break
@@ -202,6 +214,41 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.rubricLabel.text = parentClass.rubrics[row].name
     }
+    
+    // MARK: - UITextField Delegate
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == "" { return true }
+        
+        if textField === scoreField {
+            // Check for only numbers and only 1 decimal place
+            let newChars = CharacterSet(charactersIn: string)
+            let isNumber = CharacterSet.decimalDigits.isSuperset(of: newChars)
+            
+            if string == "." { return textField.text!.components(separatedBy: ".").count < 2 }
+            
+            return isNumber
+        }
+        
+        return true
+    }
+    
+    func textFieldChanged(_ textField: UITextField) {
+        guard let nameF = nameField, let scoreF = scoreField else {
+            print("Error couldn't get instances of textfields")
+            saveButton.isEnabled = false
+            return
+        }
+        
+        let nameValid = (nameF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
+        let scoreValid = (scoreF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
+        
+        saveButton.isEnabled = scoreValid && nameValid
+    }
 
     // MARK: - Actions
     
@@ -210,7 +257,7 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     }
     
     
-    @IBAction func onDone(_ sender: UIBarButtonItem) {
+    @IBAction func onSave(_ sender: UIBarButtonItem) {
     }
     
     func datePickerChange(sender: UIDatePicker) {
