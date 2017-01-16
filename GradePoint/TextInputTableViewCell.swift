@@ -11,7 +11,13 @@ import UIKit
 class TextInputTableViewCell: UITableViewCell {
     
     lazy var inputLabel = UILabel()
-    lazy var inputField = UITextField()
+    var inputField = UITextField() {
+        didSet {
+            inputField.removeFromSuperview()
+            inputLabel.removeFromSuperview()
+            self.initCell()
+        }
+    }
     
     var promptText: String? {
         didSet {

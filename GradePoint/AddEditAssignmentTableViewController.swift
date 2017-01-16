@@ -159,6 +159,7 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
             switch indexPath.row {
             case 0:
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
+                cell.inputField = UIPercentField()
                 cell.inputLabel.text = "Score"
                 cell.promptText = "Assignment Score"
                 cell.contentView.backgroundColor = UIColor.darkBg
@@ -228,16 +229,9 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string == "" { return true }
         
-        if textField === scoreField {
-            // Check for only numbers and only 1 decimal place
-            let newChars = CharacterSet(charactersIn: string)
-            let isNumber = CharacterSet.decimalDigits.isSuperset(of: newChars)
-            
-            if string == "." { return textField.text!.components(separatedBy: ".").count < 2 }
-            
-            return isNumber
+        if let field = textField as? UIPercentField, field === scoreField {
+            return field.shouldChangeText(replacementText: string)
         }
         
         return true
