@@ -259,13 +259,15 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         // Save the associated assignment to realm
-        guard let nText = nameField?.text, let sText = scoreField?.text,
+        guard let nText = nameField?.text, var sText = scoreField?.text?.replacingOccurrences(of: "%", with: ""),
               let rubricPicker = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as?
                                     BasicInfoRubricPickerTableViewCell)?.rubricPicker
         else {
             fatalError("Could not save because guard failed")
         }
         
+        // Check the score text and make sure that if there is a '.' it doesnt end in it, if it does remove it
+        if sText.characters.last == "." { sText = sText.substring(to: sText.index(before: sText.endIndex)) }
         let score = Double(sText)!
         let rubric = parentClass.rubrics[rubricPicker.selectedRow(inComponent: 0)]
         let newAssignment = Assignment(name: nText, date: selectedDate, score: score, associatedRubric: rubric)
