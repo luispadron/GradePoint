@@ -160,6 +160,7 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
             case 0:
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.inputField = UIPercentField()
+                (cell.inputField as! UIPercentField).allowsAllPercents = true
                 cell.inputLabel.text = "Score"
                 cell.promptText = "Assignment Score"
                 cell.contentView.backgroundColor = UIColor.darkBg

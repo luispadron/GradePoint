@@ -12,6 +12,7 @@ class UIPercentField: UITextField {
     
     
     private var isBackspace = false
+    var allowsAllPercents = false
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,9 +24,9 @@ class UIPercentField: UITextField {
         self.addTarget(self, action: #selector(self.editingChanged), for: .editingChanged)
     }
     
-    public func shouldChangeText(replacementText text: String) -> Bool {
+    public func shouldChangeText(replacementText string: String) -> Bool {
         // Allow backspace
-        if text == "" {
+        if string == "" {
             isBackspace = true
             return true
         }
@@ -33,21 +34,21 @@ class UIPercentField: UITextField {
         isBackspace = false
         
         // Allow only one decimal
-        if text == "." {
+        if string == "." {
             let text = self.text ?? ""
             return text.components(separatedBy: ".").count < 2
         }
         
-        let newChars = CharacterSet(charactersIn: text)
+        let newChars = CharacterSet(charactersIn: string)
         let isNumber = CharacterSet.decimalDigits.isSuperset(of: newChars)
         
         // If number make sure within range of 0 - 100
         if isNumber {
             let text = self.text ?? ""
-            let current = text.replacingOccurrences(of: "%", with: "") + text
+            let current = text.replacingOccurrences(of: "%", with: "") + string
             let num = Double(current)
             
-            return (num ?? -1) <= 100 || (num ?? -1) > 0
+            return (num ?? -1) <= 100 && (num ?? -1) >= 0 || allowsAllPercents
         }
         
         return false
