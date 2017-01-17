@@ -218,6 +218,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.keyboardDone))
         ]
         weightFieldToolBar.sizeToFit()
+        weightFieldToolBar.barTintColor = UIColor.darkBg
+        weightFieldToolBar.isTranslucent = false
         weightField.inputAccessoryView = weightFieldToolBar
         
         self.addSubview(weightField)

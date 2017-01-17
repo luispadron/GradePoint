@@ -165,6 +165,18 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
             case 0:
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.inputField = UIPercentField()
+                cell.inputField.keyboardType = .decimalPad
+                // Add input accessory view to keyboard
+                let inputFieldToolbar = UIToolbar()
+                inputFieldToolbar.barStyle = .default
+                inputFieldToolbar.items = [
+                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                    UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accesoryKeyboardDone))
+                ]
+                inputFieldToolbar.sizeToFit()
+                inputFieldToolbar.barTintColor = UIColor.darkBg
+                inputFieldToolbar.isTranslucent = false
+                cell.inputField.inputAccessoryView = inputFieldToolbar
                 (cell.inputField as! UIPercentField).allowsAllPercents = true
                 cell.inputLabel.text = "Score"
                 cell.promptText = "Assignment Score"
@@ -296,6 +308,15 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     }
     
     // MARK: Helper Methods
+    
+    func accesoryKeyboardDone() {
+        guard let textField = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextInputTableViewCell)?.inputField else {
+            print("Couldn't get keyboard to when user clicked on done, method: accesoryKeyboardDone")
+            return
+        }
+        
+        textField.resignFirstResponder()
+    }
     
     func togglePicker() {
         guard let selectedPath = tableView.indexPathForSelectedRow else {
