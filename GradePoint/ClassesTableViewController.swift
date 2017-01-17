@@ -35,6 +35,9 @@ class ClassesTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
+        // Remove seperator lines from empty cells
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
         // Create realm notification block
         notificationToken = realm.addNotificationBlock { [unowned self] note, realm in
             self.tableView.reloadData()

@@ -75,6 +75,9 @@ class AddEditClassTableViewController: UITableViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Remove seperator lines from empty cells
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
         // Disable save button until fields are checked
         saveButton.isEnabled = false
     }

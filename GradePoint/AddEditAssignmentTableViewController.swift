@@ -31,10 +31,15 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     
     var selectedDate: Date = Date()
     
+    var delegate: AddEditAssignmentViewDelegate?
+    
     // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Remove seperator lines from empty cells
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         saveButton.isEnabled = false
     }
@@ -276,7 +281,10 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         try! realm.write {
             parentClass.assignments.append(newAssignment)
         }
-        self.dismiss(animated: true, completion: nil)
+        
+        self.dismiss(animated: true) {
+            self.delegate?.viewDidFinishAddingEditing(assignment: newAssignment)
+        }
     }
     
     func datePickerChange(sender: UIDatePicker) {

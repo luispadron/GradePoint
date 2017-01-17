@@ -10,12 +10,11 @@ import UIKit
 import RealmSwift
 import UICircularProgressRing
 
-class ClassDetailTableViewController: UITableViewController {
+class ClassDetailTableViewController: UITableViewController, AddEditAssignmentViewDelegate {
 
     // MARK: - Properties
     
     var realm = try! Realm()
-    var notificationToken: NotificationToken?
     
     @IBOutlet var progressRing: UICircularProgressRingView!
     
@@ -33,16 +32,13 @@ class ClassDetailTableViewController: UITableViewController {
         // Configure the view for load
         configureView()
         
-        // Create realm notification block
-        notificationToken = realm.addNotificationBlock { [unowned self] _, _ in
-            self.tableView.reloadData()
-            self.checkForEmptyView()
-        }
-        
         // Set the progressRing ass the tableHeaderView
         let encapsulationView = UIView() // encapsulates the view to stop clipping
         encapsulationView.addSubview(progressRing)
         self.tableView.tableHeaderView = encapsulationView
+        
+        // Remove seperator lines from empty cells
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         self.checkForEmptyView()
     }
@@ -88,25 +84,16 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let rubrics = detailItem?.rubrics, let parentClass = detailItem else {
-            print("Could not get number rubrics for tableView")
-            return 0
-        }
-        
-        let rubricForSection = rubrics[section]
-        let assignmentForSection = parentClass.assignments.filter("associatedRubric = %@", rubricForSection)
-        
-        return assignmentForSection.count > 0 ? 44 : 0
+        return self.tableView(self.tableView, numberOfRowsInSection: section) > 0 ? 44 : 0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let rubrics = detailItem?.rubrics else {
+        guard let rubricForSection = detailItem?.rubrics[section] else {
             print("Error getting rubrics for header view")
             return nil
         }
-        // Create the correct headerView for the section
-        let rubricForSection = rubrics[section]
         
+        // Create the correct headerView for the section
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.tableViewHeader
         
@@ -159,6 +146,30 @@ class ClassDetailTableViewController: UITableViewController {
         return [deleteAction]
     }
     
+    // MARK: - AddEditAssignmentViewDelegate
+    
+    func viewDidFinishAddingEditing(assignment: Assignment) {
+        
+        guard let item = detailItem else {
+            print("Couldn't get detailItem inside of viewDidFinishAddingEditing, reloading tableView and returning")
+            self.tableView.reloadData()
+            return
+        }
+        
+        let rubric = assignment.associatedRubric!
+        if let section = item.rubrics.index(of: rubric) {
+            let assigns = item.assignments.filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)
+            if let row = assigns.index(of: assignment) {
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .right)
+                self.tableView.reloadSections(IndexSet.init(integer: section), with: .none)
+                self.tableView.endUpdates()
+            }
+        }
+        
+        self.checkForEmptyView()
+        self.calculateProgress()
+    }
     
     // MARK: - Segues
     
@@ -169,6 +180,7 @@ class ClassDetailTableViewController: UITableViewController {
             // Prepare view for segue
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = self.detailItem
+            vc.delegate = self
         }
     }
     
@@ -224,6 +236,13 @@ class ClassDetailTableViewController: UITableViewController {
             realm.delete(assignment)
         }
         
+        checkForEmptyView()
+        
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [indexPath], with: .left)
+        self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .none)
+        self.tableView.endUpdates()
+        
         calculateProgress()
     }
     
@@ -234,16 +253,14 @@ class ClassDetailTableViewController: UITableViewController {
             return
         }
         
-        let emptyView = UILabel(frame: CGRect(x: self.tableView.frame.midX, y: self.tableView.frame.midY, width: self.tableView.frame.width, height: 200))
+        self.tableView.tableHeaderView?.isHidden = true
+        
+        let emptyView = UILabel(frame: self.view.frame)
         emptyView.text = "Add an assignment"
         emptyView.textAlignment = .center
         emptyView.textColor = UIColor.white
+        emptyView.backgroundColor = UIColor.red
         self.tableView.backgroundView = emptyView
-        self.tableView.tableHeaderView?.isHidden = true
-    }
-    
-    deinit {
-        self.notificationToken?.stop()
     }
 }
 
