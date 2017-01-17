@@ -205,6 +205,17 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         }
     }
     
+    // MARK: - ScrollView Methods
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let nameField = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextInputTableViewCell)?.inputField {
+            if nameField.isFirstResponder { nameField.resignFirstResponder() }
+        }
+        if let scoreField = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextInputTableViewCell)?.inputField {
+            if scoreField.isFirstResponder { scoreField.resignFirstResponder() }
+        }
+    }
+    
     // MARK: - UIPickerView Methods
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
