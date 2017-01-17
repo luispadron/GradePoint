@@ -168,6 +168,13 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
         }
         
         self.checkForEmptyView()
+        
+        // Dont call for calculation here if not in split view because this gets called in viewDidAppear
+        // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
+        guard let svc = splitViewController, !svc.isCollapsed else {
+            return
+        }
+        
         self.calculateProgress()
     }
     
@@ -201,8 +208,8 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
     }
     
     func calculateProgress() {
-        guard let rubrics = detailItem?.rubrics else {
-            print("Couldn't get rubrics to calculate progress")
+        guard let pClass = detailItem, pClass.assignments.count > 0, let rubrics = detailItem?.rubrics else {
+            self.progressRing.setProgress(value: 0, animationDuration: 0)
             return
         }
         
@@ -242,7 +249,7 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
         self.tableView.deleteRows(at: [indexPath], with: .left)
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .none)
         self.tableView.endUpdates()
-        
+
         calculateProgress()
     }
     
