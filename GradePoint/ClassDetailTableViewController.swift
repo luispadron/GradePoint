@@ -15,6 +15,7 @@ class ClassDetailTableViewController: UITableViewController {
     // MARK: - Properties
     
     var realm = try! Realm()
+    var notificationToken: NotificationToken?
     
     @IBOutlet var progressRing: UICircularProgressRingView!
     
@@ -32,10 +33,18 @@ class ClassDetailTableViewController: UITableViewController {
         // Configure the view for load
         configureView()
         
+        // Create realm notification block
+        notificationToken = realm.addNotificationBlock { [unowned self] _, _ in
+            self.tableView.reloadData()
+            self.checkForEmptyView()
+        }
+        
         // Set the progressRing ass the tableHeaderView
         let encapsulationView = UIView() // encapsulates the view to stop clipping
         encapsulationView.addSubview(progressRing)
         self.tableView.tableHeaderView = encapsulationView
+        
+        self.checkForEmptyView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,10 +55,9 @@ class ClassDetailTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Reload data
-        self.tableView.reloadData()
         // Set progress ring calculation
-        calculateProgress()
+        self.calculateProgress()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -217,6 +225,25 @@ class ClassDetailTableViewController: UITableViewController {
         }
         
         calculateProgress()
+    }
+    
+    private func checkForEmptyView() {
+        guard let count = detailItem?.assignments.count, count == 0 else {
+            self.tableView.backgroundView = nil
+            self.tableView.tableHeaderView?.isHidden = false
+            return
+        }
+        
+        let emptyView = UILabel(frame: CGRect(x: self.tableView.frame.midX, y: self.tableView.frame.midY, width: self.tableView.frame.width, height: 200))
+        emptyView.text = "Add an assignment"
+        emptyView.textAlignment = .center
+        emptyView.textColor = UIColor.white
+        self.tableView.backgroundView = emptyView
+        self.tableView.tableHeaderView?.isHidden = true
+    }
+    
+    deinit {
+        self.notificationToken?.stop()
     }
 }
 
