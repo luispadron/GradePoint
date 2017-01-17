@@ -123,7 +123,7 @@ class ClassDetailTableViewController: UITableViewController {
         let rubricForSection = rubrics[indexPath.section]
         let assignment = parentClass.assignments
                                     .filter("associatedRubric = %@", rubricForSection)
-                                    .sorted(byProperty: "date", ascending: false)[indexPath.row]
+                                    .sorted(byKeyPath: "date", ascending: false)[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "assignmentTableViewCell", for: indexPath) as! AssignmentTableViewCell
         
@@ -211,7 +211,7 @@ class ClassDetailTableViewController: UITableViewController {
     func deleteAssignment(at indexPath: IndexPath) {
         let rubric = detailItem!.rubrics[indexPath.section]
         let assignment = detailItem!.assignments
-                                    .filter("associatedRubric = %@", rubric).sorted(byProperty: "date", ascending: false)[indexPath.row]
+                                    .filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)[indexPath.row]
         try! realm.write {
             realm.delete(assignment)
         }

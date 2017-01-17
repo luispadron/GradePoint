@@ -90,8 +90,8 @@ public final class Results<T: Object>: NSObject, NSFastEnumeration {
 
     /// :nodoc:
     public func countByEnumerating(with state: UnsafeMutablePointer<NSFastEnumerationState>,
-                   objects buffer: AutoreleasingUnsafeMutablePointer<AnyObject?>!,
-                   count len: Int) -> Int {
+                                   objects buffer: AutoreleasingUnsafeMutablePointer<AnyObject?>!,
+                                   count len: Int) -> Int {
         return Int(rlmResults.countByEnumerating(with: state, objects: buffer, count: UInt(len)))
     }
 
@@ -224,6 +224,23 @@ public final class Results<T: Object>: NSObject, NSFastEnumeration {
     /**
      Returns a `Results` containing the objects represented by the results, but sorted.
 
+     Objects are sorted based on the values of the given key path. For example, to sort a collection of `Student`s from
+     youngest to oldest based on their `age` property, you might call
+     `students.sorted(byKeyPath: "age", ascending: true)`.
+
+     - warning: Collections may only be sorted by properties of boolean, `Date`, `NSDate`, single and double-precision
+                floating point, integer, and string types.
+
+     - parameter keyPath:   The key path to sort by.
+     - parameter ascending: The direction to sort in.
+     */
+    public func sorted(byKeyPath keyPath: String, ascending: Bool = true) -> Results<T> {
+        return sorted(by: [SortDescriptor(keyPath: keyPath, ascending: ascending)])
+    }
+
+    /**
+     Returns a `Results` containing the objects represented by the results, but sorted.
+
      Objects are sorted based on the values of the given property. For example, to sort a collection of `Student`s from
      youngest to oldest based on their `age` property, you might call
      `students.sorted(byProperty: "age", ascending: true)`.
@@ -234,8 +251,9 @@ public final class Results<T: Object>: NSObject, NSFastEnumeration {
      - parameter property:  The name of the property to sort by.
      - parameter ascending: The direction to sort in.
      */
+    @available(*, deprecated, renamed: "sorted(byKeyPath:ascending:)")
     public func sorted(byProperty property: String, ascending: Bool = true) -> Results<T> {
-        return sorted(by: [SortDescriptor(property: property, ascending: ascending)])
+        return sorted(byKeyPath: property, ascending: ascending)
     }
 
     /**
@@ -244,7 +262,7 @@ public final class Results<T: Object>: NSObject, NSFastEnumeration {
      - warning: Collections may only be sorted by properties of boolean, `Date`, `NSDate`, single and double-precision
                 floating point, integer, and string types.
 
-     - see: `sorted(byProperty:ascending:)`
+     - see: `sorted(byKeyPath:ascending:)`
 
      - parameter sortDescriptors: A sequence of `SortDescriptor`s to sort by.
      */
@@ -394,6 +412,18 @@ extension Results: RealmCollection {
     }
 }
 
+// MARK: AssistedObjectiveCBridgeable
+
+extension Results: AssistedObjectiveCBridgeable {
+    static func bridging(from objectiveCValue: Any, with metadata: Any?) -> Results {
+        return Results(objectiveCValue as! RLMResults)
+    }
+
+    var bridged: (objectiveCValue: Any, metadata: Any?) {
+        return (objectiveCValue: rlmResults, metadata: nil)
+    }
+}
+
 // MARK: Unavailable
 
 extension Results {
@@ -406,7 +436,7 @@ extension Results {
     @available(*, unavailable, renamed: "index(matching:_:)")
     public func index(of predicateFormat: String, _ args: AnyObject...) -> Int? { fatalError() }
 
-    @available(*, unavailable, renamed: "sorted(byProperty:ascending:)")
+    @available(*, unavailable, renamed: "sorted(byKeyPath:ascending:)")
     public func sorted(_ property: String, ascending: Bool = true) -> Results<T> { fatalError() }
 
     @available(*, unavailable, renamed: "sorted(by:)")
@@ -651,17 +681,17 @@ public final class Results<T: Object>: ResultsBase {
     /**
      Returns a `Results` containing the objects represented by the results, but sorted.
 
-     Objects are sorted based on the values of the given property. For example, to sort a collection of `Student`s from
+     Objects are sorted based on the values of the given key path. For example, to sort a collection of `Student`s from
      youngest to oldest based on their `age` property, you might call `students.sorted("age", ascending: true)`.
 
      - warning: Collections may only be sorted by properties of boolean, `NSDate`, single and double-precision floating
                 point, integer, and string types.
 
-     - parameter property:  The name of the property to sort by.
+     - parameter keyPath:  The key path to sort by.
      - parameter ascending: The direction to sort in.
      */
-    public func sorted(property: String, ascending: Bool = true) -> Results<T> {
-        return sorted([SortDescriptor(property: property, ascending: ascending)])
+    public func sorted(keyPath: String, ascending: Bool = true) -> Results<T> {
+        return sorted([SortDescriptor(keyPath: keyPath, ascending: ascending)])
     }
 
     /**
@@ -670,7 +700,7 @@ public final class Results<T: Object>: ResultsBase {
      - warning: Collections may only be sorted by properties of boolean, `NSDate`, single and double-precision floating
                 point, integer, and string types.
 
-     - see: `sorted(byProperty:ascending:)`
+     - see: `sorted(byKeyPath:ascending:)`
 
      - parameter sortDescriptors: A sequence of `SortDescriptor`s to sort by.
      */
@@ -786,6 +816,18 @@ public final class Results<T: Object>: ResultsBase {
         return rlmResults.addNotificationBlock { results, change, error in
             block(RealmCollectionChange.fromObjc(self, change: change, error: error))
         }
+    }
+}
+
+// MARK: AssistedObjectiveCBridgeable
+
+extension Results: AssistedObjectiveCBridgeable {
+    static func bridging(from objectiveCValue: Any, with metadata: Any?) -> Results {
+        return Results(objectiveCValue as! RLMResults)
+    }
+
+    var bridged: (objectiveCValue: Any, metadata: Any?) {
+        return (objectiveCValue: rlmResults, metadata: nil)
     }
 }
 

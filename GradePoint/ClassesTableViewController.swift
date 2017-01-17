@@ -175,7 +175,7 @@ class ClassesTableViewController: UITableViewController {
     func initClassesBySection() {
         for semester in semesterSections {
             let unsorted = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
-            let sorted = unsorted.sorted(byProperty: "year", ascending: false)
+            let sorted = unsorted.sorted(byKeyPath: "year", ascending: false)
             classesBySection.append(sorted)
         }
     }

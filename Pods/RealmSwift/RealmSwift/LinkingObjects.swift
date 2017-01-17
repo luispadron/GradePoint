@@ -27,9 +27,9 @@ public class LinkingObjectsBase: NSObject, NSFastEnumeration {
     internal let objectClassName: String
     internal let propertyName: String
 
-    private var cachedRLMResults: RLMResults<RLMObject>?
-    @objc private var object: RLMWeakObjectHandle?
-    @objc private var property: RLMProperty?
+    fileprivate var cachedRLMResults: RLMResults<RLMObject>?
+    @objc fileprivate var object: RLMWeakObjectHandle?
+    @objc fileprivate var property: RLMProperty?
 
     internal var rlmResults: RLMResults<RLMObject> {
         if cachedRLMResults == nil {
@@ -220,6 +220,23 @@ public final class LinkingObjects<T: Object>: LinkingObjectsBase {
     /**
      Returns a `Results` containing all the linking objects, but sorted.
 
+     Objects are sorted based on the values of the given key path. For example, to sort a collection of `Student`s from
+     youngest to oldest based on their `age` property, you might call
+     `students.sorted(byKeyPath: "age", ascending: true)`.
+
+     - warning: Collections may only be sorted by properties of boolean, `Date`, `NSDate`, single and double-precision
+                floating point, integer, and string types.
+
+     - parameter keyPath:  The key path to sort by.
+     - parameter ascending: The direction to sort in.
+     */
+    public func sorted(byKeyPath keyPath: String, ascending: Bool = true) -> Results<T> {
+        return sorted(by: [SortDescriptor(keyPath: keyPath, ascending: ascending)])
+    }
+
+    /**
+     Returns a `Results` containing all the linking objects, but sorted.
+
      Objects are sorted based on the values of the given property. For example, to sort a collection of `Student`s from
      youngest to oldest based on their `age` property, you might call
      `students.sorted(byProperty: "age", ascending: true)`.
@@ -230,8 +247,9 @@ public final class LinkingObjects<T: Object>: LinkingObjectsBase {
      - parameter property:  The name of the property to sort by.
      - parameter ascending: The direction to sort in.
      */
+    @available(*, deprecated, renamed: "sorted(byKeyPath:ascending:)")
     public func sorted(byProperty property: String, ascending: Bool = true) -> Results<T> {
-        return sorted(by: [SortDescriptor(property: property, ascending: ascending)])
+        return sorted(byKeyPath: property, ascending: ascending)
     }
 
     /**
@@ -240,7 +258,7 @@ public final class LinkingObjects<T: Object>: LinkingObjectsBase {
      - warning: Collections may only be sorted by properties of boolean, `Date`, `NSDate`, single and double-precision
                 floating point, integer, and string types.
 
-     - see: `sorted(byProperty:ascending:)`
+     - see: `sorted(byKeyPath:ascending:)`
 
      - parameter sortDescriptors: A sequence of `SortDescriptor`s to sort by.
      */
@@ -398,6 +416,48 @@ extension LinkingObjects : RealmCollection {
     }
 }
 
+// MARK: AssistedObjectiveCBridgeable
+
+extension LinkingObjects: AssistedObjectiveCBridgeable {
+    internal static func bridging(from objectiveCValue: Any, with metadata: Any?) -> LinkingObjects {
+        guard let metadata = metadata as? LinkingObjectsBridgingMetadata else { preconditionFailure() }
+
+        let swiftValue = LinkingObjects(fromType: T.self, property: metadata.propertyName)
+        switch (objectiveCValue, metadata) {
+        case (let object as RLMObjectBase, .uncached(let property)):
+            swiftValue.object = RLMWeakObjectHandle(object: object)
+            swiftValue.property = property
+        case (let results as RLMResults<RLMObject>, .cached):
+            swiftValue.cachedRLMResults = results
+        default:
+            preconditionFailure()
+        }
+        return swiftValue
+    }
+
+    internal var bridged: (objectiveCValue: Any, metadata: Any?) {
+        if let results = cachedRLMResults {
+            return (objectiveCValue: results,
+                    metadata: LinkingObjectsBridgingMetadata.cached(propertyName: propertyName))
+        } else {
+            return (objectiveCValue: (object!.copy() as! RLMWeakObjectHandle).object,
+                    metadata: LinkingObjectsBridgingMetadata.uncached(property: property!))
+        }
+    }
+}
+
+internal enum LinkingObjectsBridgingMetadata {
+    case uncached(property: RLMProperty)
+    case cached(propertyName: String)
+
+    fileprivate var propertyName: String {
+        switch self {
+        case .uncached(let property):   return property.name
+        case .cached(let propertyName): return propertyName
+        }
+    }
+}
+
 // MARK: Unavailable
 
 extension LinkingObjects {
@@ -410,7 +470,7 @@ extension LinkingObjects {
     @available(*, unavailable, renamed: "index(matching:_:)")
     public func index(of predicateFormat: String, _ args: Any...) -> Int? { fatalError() }
 
-    @available(*, unavailable, renamed: "sorted(byProperty:ascending:)")
+    @available(*, unavailable, renamed: "sorted(byKeyPath:ascending:)")
     public func sorted(_ property: String, ascending: Bool = true) -> Results<T> { fatalError() }
 
     @available(*, unavailable, renamed: "sorted(by:)")
@@ -633,17 +693,17 @@ public final class LinkingObjects<T: Object>: LinkingObjectsBase {
     /**
      Returns a `Results` containing all the linking objects, but sorted.
 
-     Objects are sorted based on the values of the given property. For example, to sort a collection of `Student`s from
+     Objects are sorted based on the values of the given key path. For example, to sort a collection of `Student`s from
      youngest to oldest based on their `age` property, you might call `students.sorted("age", ascending: true)`.
 
      - warning: Collections may only be sorted by properties of boolean, `NSDate`, single and double-precision floating
                 point, integer, and string types.
 
-     - parameter property:  The name of the property to sort by.
+     - parameter keyPath:  The key path to sort by.
      - parameter ascending: The direction to sort in.
      */
-    public func sorted(property: String, ascending: Bool = true) -> Results<T> {
-        return sorted([SortDescriptor(property: property, ascending: ascending)])
+    public func sorted(keyPath: String, ascending: Bool = true) -> Results<T> {
+        return sorted([SortDescriptor(keyPath: keyPath, ascending: ascending)])
     }
 
     /**
@@ -803,6 +863,48 @@ extension LinkingObjects: RealmCollectionType {
             return rlmResults.addNotificationBlock { _, change, error in
                 block(RealmCollectionChange.fromObjc(anyCollection, change: change, error: error))
             }
+    }
+}
+
+// MARK: AssistedObjectiveCBridgeable
+
+extension LinkingObjects: AssistedObjectiveCBridgeable {
+    internal static func bridging(from objectiveCValue: Any, with metadata: Any?) -> LinkingObjects {
+        guard let metadata = metadata as? LinkingObjectsBridgingMetadata else { preconditionFailure() }
+
+        let swiftValue = LinkingObjects(fromType: T.self, property: metadata.propertyName)
+        switch (objectiveCValue, metadata) {
+        case (let object as RLMObjectBase, .uncached(let property)):
+            swiftValue.object = RLMWeakObjectHandle(object: object)
+            swiftValue.property = property
+        case (let results as RLMResults, .cached):
+            swiftValue.cachedRLMResults = results
+        default:
+            preconditionFailure()
+        }
+        return swiftValue
+    }
+
+    internal var bridged: (objectiveCValue: Any, metadata: Any?) {
+        if let results = cachedRLMResults {
+            return (objectiveCValue: results,
+                    metadata: LinkingObjectsBridgingMetadata.cached(propertyName: propertyName))
+        } else {
+            return (objectiveCValue: (object!.copy() as! RLMWeakObjectHandle).object,
+                    metadata: LinkingObjectsBridgingMetadata.uncached(property: property!))
+        }
+    }
+}
+
+internal enum LinkingObjectsBridgingMetadata {
+    case uncached(property: RLMProperty)
+    case cached(propertyName: String)
+
+    private var propertyName: String {
+        switch self {
+        case .uncached(let property):   return property.name
+        case .cached(let propertyName): return propertyName
+        }
     }
 }
 
