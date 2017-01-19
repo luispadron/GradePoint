@@ -30,6 +30,8 @@
 		A05B1E2B1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
+		A076F5A51E30735D00CE4F43 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A41E30735D00CE4F43 /* UILabelExtension.swift */; };
+		A076F5A71E3078C100CE4F43 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A61E3078C100CE4F43 /* StringExtension.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
@@ -94,6 +96,8 @@
 		A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassTableViewController.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
+		A076F5A41E30735D00CE4F43 /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		A076F5A61E3078C100CE4F43 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 			children = (
 				A0CE8B461DAF19EF007968EE /* UIColorExtension.swift */,
 				A0B4898B1DCBFF6400631E07 /* IntExtension.swift */,
+				A076F5A41E30735D00CE4F43 /* UILabelExtension.swift */,
+				A076F5A61E3078C100CE4F43 /* StringExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -500,6 +506,7 @@
 				A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
+				A076F5A51E30735D00CE4F43 /* UILabelExtension.swift in Sources */,
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,
 				A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */,
 				A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */,
@@ -507,6 +514,7 @@
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
+				A076F5A71E3078C100CE4F43 /* StringExtension.swift in Sources */,
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */,
 				A014985C1E2C19DC00D49DCC /* UIPercentField.swift in Sources */,

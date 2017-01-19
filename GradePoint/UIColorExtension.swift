@@ -11,25 +11,25 @@ import UIKit
 extension UIColor {
     
     // MARK: - Main Theme
-    static let navBar = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
-    static let darkBg = UIColor(red:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
-    static let lightBg = UIColor(red:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
-    static let highlight = UIColor(red:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
-    static let unselected = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
-    static let lightText = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0) /* FAFAFA */
-    static let darkText = UIColor(red:0.21, green:0.21, blue:0.21, alpha:1.0) /* 363636 */
-    static let mutedText = UIColor(red: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
+    static let navBar = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
+    static let darkBg = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
+    static let lightBg = UIColor(colorLiteralRed:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
+    static let highlight = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
+    static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
+    static let lightText = UIColor(colorLiteralRed:0.98, green:0.98, blue:0.98, alpha:1.0) /* FAFAFA */
+    static let darkText = UIColor(colorLiteralRed:0.21, green:0.21, blue:0.21, alpha:1.0) /* 363636 */
+    static let mutedText = UIColor(colorLiteralRed: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
     
     // MARK: - TableView & Cells Theme
     
-    static let tableViewHeader = UIColor(red: 100/255, green: 100/255, blue: 112/255, alpha: 1.0) /* #646470 */
-    static let tableViewSeperator = UIColor(red: 78/255, green: 81/255, blue: 94/255, alpha: 1.0) /* #4e515e */
+    static let tableViewHeader = UIColor(colorLiteralRed: 100/255, green: 100/255, blue: 112/255, alpha: 1.0) /* #646470 */
+    static let tableViewSeperator = UIColor(colorLiteralRed: 78/255, green: 81/255, blue: 94/255, alpha: 1.0) /* #4e515e */
     
     // MARK: - Misc. Colors
     
-    static let lapisLazuli = UIColor(red:0.14, green:0.48, blue:0.63, alpha:1.0) /* 247BA0 */
-    static let sunsetOrange = UIColor(red:0.95, green:0.37, blue:0.36, alpha:1.0) /* F25F5C */
-    static let mustard = UIColor(red:1.00, green:0.88, blue:0.40, alpha:1.0) /* FFE066 */
+    static let lapisLazuli = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* 247BA0 */
+    static let sunsetOrange = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* F25F5C */
+    static let mustard = UIColor(colorLiteralRed:1.00, green:0.88, blue:0.40, alpha:1.0) /* FFE066 */
     
     // MARK - Random Color Generation
     

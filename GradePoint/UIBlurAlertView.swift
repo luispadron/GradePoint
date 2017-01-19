@@ -47,14 +47,9 @@ open class UIBlurAlertView: UIView {
         fatalError("initCoder not set up for UIBlurAlertView")
     }
     
-    open override func draw(_ rect: CGRect) {
-        
-    }
-    
     // MARK: - Helpers
     
     private func drawViews() {
-        self.backgroundColor = UIColor.lightGray
         self.layer.cornerRadius = 5
         self.clipsToBounds = true
         
@@ -66,6 +61,7 @@ open class UIBlurAlertView: UIView {
         // Set up frames
         titleLabel.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: 30)
         messageLabel.frame = CGRect(x: 0, y: titleLabel.frame.height + 25, width: self.bounds.width, height: 30)
+        messageLabel.resizeToFitText()
         
         self.addSubview(titleLabel)
         self.addSubview(messageLabel)
