@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class AddEditClassTableViewController: UITableViewController,
-                                      UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate, BlurAlertControllerDelegate {
+                                      UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate {
     
     // MARK: - Properties
     
@@ -348,15 +348,37 @@ class AddEditClassTableViewController: UITableViewController,
                 if p <= 0 {
                     // Present an error dialog since we cannot save a percent of zero
                     let invalidRowSubMessage = "row \(i + 1)"
-                    let message = "Zero percentage is invalid in " + invalidRowSubMessage
-                    
+                    let m = "Zero percentage is invalid in " + invalidRowSubMessage
+    
                     // Attributes for the invalid row sub message
                     let attrs = [NSForegroundColorAttributeName: UIColor.sunsetOrange]
-                    let rangeForSubMessage = (message as NSString).range(of: invalidRowSubMessage)
-                    let attrString = NSMutableAttributedString(string: message)
-                    attrString.addAttributes(attrs, range: rangeForSubMessage)
+                    let rangeForSubMessage = (m as NSString).range(of: invalidRowSubMessage)
+                    let message = NSMutableAttributedString(string: m)
+                    message.addAttributes(attrs, range: rangeForSubMessage)
+                    let title = NSAttributedString(string: "Can't Save 💔")
                     
-                    presentAlert(withTitle: "Can't Save 💔", andMessage: attrString)
+                    let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
+                    let okButton = UIButton()
+                    okButton.backgroundColor = UIColor.lapisLazuli
+                    okButton.setTitle("OK", for: .normal)
+                    alert.addButton(button: okButton, handler: { [unowned self] in
+                        self.isPresentingAlert = false
+                        DispatchQueue.main.async {
+                            // Reset the nav buttons
+                            self.navigationItem.leftBarButtonItem?.isEnabled = true
+                            self.navigationItem.rightBarButtonItem?.isEnabled = true
+                        }
+                    })
+                    // Present the alert
+                    alert.presentAlert(presentingViewController: self) {
+                        self.isPresentingAlert = true
+                        // Disable nav bar items while presenting
+                        DispatchQueue.main.async {
+                            self.navigationItem.leftBarButtonItem?.isEnabled = false
+                            self.navigationItem.rightBarButtonItem?.isEnabled = false
+                        }
+                    }
+                    
                     return
                 }
                 percent += p
@@ -392,14 +414,35 @@ class AddEditClassTableViewController: UITableViewController,
             // Present error, since weights are not adding up to 100%
             let percentAttrs = [ NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
             let percentSubMessage = "\nCurrent total: \(percent)%"
-            let message = "Weights must add up to 100%" + percentSubMessage
-            let rangeForSubMessage = (message as NSString).range(of: percentSubMessage)
+            let m = "Weights must add up to 100%" + percentSubMessage
+            let rangeForSubMessage = (m as NSString).range(of: percentSubMessage)
             
             // Add attributes to the percent submessage
-            let attrString = NSMutableAttributedString(string: message)
-            attrString.setAttributes(percentAttrs, range: rangeForSubMessage)
+            let message = NSMutableAttributedString(string: m)
+            message.setAttributes(percentAttrs, range: rangeForSubMessage)
+            let title = NSAttributedString(string: "Can't Save 💔")
+            let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
+            let okButton = UIButton()
+            okButton.backgroundColor = UIColor.lapisLazuli
+            okButton.setTitle("OK", for: .normal)
+            alert.addButton(button: okButton, handler: { [unowned self] in
+                self.isPresentingAlert = false
+                // Disable nav bar items while presenting
+                DispatchQueue.main.async {
+                    self.navigationItem.leftBarButtonItem?.isEnabled = true
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+            })
+            // Present the alert
+            alert.presentAlert(presentingViewController: self, completion: {
+                self.isPresentingAlert = true
+                // Disable nav bar items while presenting
+                DispatchQueue.main.async {
+                    self.navigationItem.leftBarButtonItem?.isEnabled = false
+                    self.navigationItem.rightBarButtonItem?.isEnabled = false
+                }
+            })
             
-            presentAlert(withTitle: "Can't Save 💔", andMessage: attrString)
         }
     }
     
@@ -491,26 +534,6 @@ class AddEditClassTableViewController: UITableViewController,
         // Check for only whitespace in textfield
         let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
         nameFieldIsValid = trimmed.isEmpty ? false : true
-    }
-    
-    func presentAlert(withTitle title: String, andMessage msg: NSAttributedString) {
-        let board = UIStoryboard(name: "Main", bundle: nil)
-        let alert = board.instantiateViewController(withIdentifier: "blurAlertController") as! BlurAlertController
-        alert.view.frame = self.view.frame
-        alert.alertTitle = title
-        alert.alertMessage = msg
-        alert.buttonText = "OK"
-        alert.buttonColor = UIColor.sunsetOrange
-        alert.delegate = self
-        
-        self.present(alert, animated: false, completion: {
-            self.isPresentingAlert = true
-            // Disable nav bar items while presenting
-            DispatchQueue.main.async {
-                self.navigationItem.leftBarButtonItem?.isEnabled = false
-                self.navigationItem.rightBarButtonItem?.isEnabled = false
-            }
-        })
     }
     
     // MARK: Developer methods
