@@ -69,7 +69,20 @@ open class UIBlurAlertController: UIViewController {
         // Add the blur alert view
         self.alertView.center = self.view.center
         self.alertView.backgroundColor = alertBackgroundColor
+        self.alertView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(alertView)
+        
+        // Add constraints
+        let widthConstraint = NSLayoutConstraint(item: alertView, attribute: .width, relatedBy: .equal, toItem: nil,
+                                                 attribute: .notAnAttribute, multiplier: 1.0, constant: self.alertView.frame.width)
+        let heightConstraint = NSLayoutConstraint(item: alertView, attribute: .height, relatedBy: .equal, toItem: nil,
+                                                  attribute: .notAnAttribute, multiplier: 1.0, constant: self.alertView.frame.height)
+        let xConstraint = NSLayoutConstraint(item: alertView, attribute: .centerX, relatedBy: .equal, toItem: self.view,
+                                             attribute: .centerX, multiplier: 1.0, constant: 0)
+        let yConstraint = NSLayoutConstraint(item: alertView, attribute: .centerY, relatedBy: .equal, toItem: self.view,
+                                             attribute: .centerY, multiplier: 1.0, constant: 0)
+        NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, yConstraint])
+        
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -79,16 +92,29 @@ open class UIBlurAlertController: UIViewController {
             self.animateIn()
         }
     }
-
-    open override func viewWillLayoutSubviews() {
-        self.alertView.center = self.view.center
-    }
     
     // MARK: - Presenting Method
     
     /// Call this to present the alert, because this will override the animation since doing custom animation
-    public func presentAlert(presentingViewController pvc: UIViewController) {
-        pvc.present(self, animated: false, completion: nil)
+    public func presentAlert(presentingViewController pvc: UIViewController, completion: (() -> Void)? = nil) {
+        pvc.present(self, animated: false, completion: completion)
+    }
+    
+    // MARK: - Button actions
+    
+    public func addButton(button: UIButton, forHandlerEvents events: UIControlEvents = [.touchUpInside], handler: (() -> Void)?) {
+        self.alertView.buttons.append(button)
+        // Add the action to the button
+        if let h = handler {
+            button.addHandler(controlEvents: events, handler: {
+                h()
+                self.animateOutAndDismiss()
+            })
+        } else { // Handler is nil, when button gets clicked then just dismiss the controller
+            button.addHandler(controlEvents: events, handler: {
+                self.animateOutAndDismiss()
+            })
+        }
     }
     
     // MARK: - Helpers
@@ -119,12 +145,24 @@ open class UIBlurAlertController: UIViewController {
         alertView.alpha = 0.0
         
         UIView.animate(withDuration: self.animationDuration, delay: 0.0,
-                       usingSpringWithDamping: 1.0, initialSpringVelocity: 7, options: .curveEaseInOut,
+                       usingSpringWithDamping: 1.0, initialSpringVelocity: 9, options: .curveEaseInOut,
                        animations: {
                         // Add the blur back
                         if let view = self.visualEffectView { view.effect = self.blurEffect }
                         self.alertView.center = self.view.center
                         self.alertView.alpha = 1.0
                        }, completion: nil)
+    }
+    
+    private func animateOutAndDismiss() {
+        UIView.animate(withDuration: self.animationDuration, animations: { 
+            // Remove the effect
+            if let view = self.visualEffectView { view.effect = nil }
+            self.alertView.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
+            self.alertView.alpha = 0
+            self.alertView.center.y = self.view.frame.maxY
+        }) { _ in
+            self.dismiss(animated: false, completion: nil)
+        }
     }
 }

@@ -8,8 +8,9 @@
 
 import UIKit
 
+
+// Color extensions
 extension UIColor {
-    
     // MARK: - Main Theme
     static let navBar = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
     static let darkBg = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
@@ -30,7 +31,10 @@ extension UIColor {
     static let lapisLazuli = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* 247BA0 */
     static let sunsetOrange = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* F25F5C */
     static let mustard = UIColor(colorLiteralRed:1.00, green:0.88, blue:0.40, alpha:1.0) /* FFE066 */
-    
+}
+
+// Random color generation extension
+extension UIColor {
     // MARK - Random Color Generation
     
     /// Read only computed color - Pastel looking randomly generated color

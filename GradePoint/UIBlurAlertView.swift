@@ -8,29 +8,33 @@
 
 import UIKit
 
-open class UIBlurAlertView: UIView {
+internal class UIBlurAlertView: UIView {
     
     // MARK: - Properties
     
     private var _title: NSAttributedString
     
-    public var title: NSAttributedString {
+    internal var title: NSAttributedString {
         get { return self._title }
     }
     
     private var _message: NSAttributedString?
     
-    public var message: NSAttributedString? {
+    internal var message: NSAttributedString? {
         get { return self._message}
     }
     
     private lazy var titleLabel = UILabel()
     private lazy var messageLabel = UILabel()
-    private lazy var buttons = [UIButton]()
+    internal var buttons = [UIButton]() {
+        didSet {
+            self.updateButtons()
+        }
+    }
     
     // MARK: - Initializers
     
-    public required init(frame: CGRect, title: NSAttributedString, message: NSAttributedString?) {
+    internal required init(frame: CGRect, title: NSAttributedString, message: NSAttributedString?) {
         self._title = title
         self._message = message
         super.init(frame: frame)
@@ -43,7 +47,7 @@ open class UIBlurAlertView: UIView {
     }
     
     
-    required public init?(coder aDecoder: NSCoder) {
+    required internal init?(coder aDecoder: NSCoder) {
         fatalError("initCoder not set up for UIBlurAlertView")
     }
     
@@ -72,5 +76,20 @@ open class UIBlurAlertView: UIView {
         bottomBorder.frame = CGRect(x: self.layer.frame.minX, y: titleLabel.frame.height, width: self.layer.frame.width, height: 1)
         bottomBorder.backgroundColor = UIColor.gray.cgColor
         self.layer.addSublayer(bottomBorder)
+    }
+    
+    private func updateButtons() {
+        // Loop through all the buttons and add them
+        for (index, button) in buttons.enumerated() {
+            // Calculate the size and positions
+            let width = self.bounds.width / CGFloat(buttons.count)
+            let height = self.bounds.height * 1/4
+            let xForButton: CGFloat = width * CGFloat(index)
+            let yForButton: CGFloat = self.bounds.maxY - height
+            button.frame = CGRect(x: xForButton, y: yForButton, width: width, height: height)
+            // If already added, then just continue and dont add the button as a subview again
+            if let _ = self.subviews.index(of: button) { continue }
+            self.addSubview(button)
+        }
     }
 }
