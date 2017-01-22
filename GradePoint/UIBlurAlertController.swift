@@ -93,6 +93,11 @@ open class UIBlurAlertController: UIViewController {
         }
     }
     
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.visualEffectView?.frame = self.view.frame
+    }
+    
     // MARK: - Presenting Method
     
     /// Call this to present the alert, because this will override the animation since doing custom animation
@@ -102,16 +107,16 @@ open class UIBlurAlertController: UIViewController {
     
     // MARK: - Button actions
     
-    public func addButton(button: UIButton, forHandlerEvents events: UIControlEvents = [.touchUpInside], handler: (() -> Void)?) {
+    public func addButton(button: UIHandlerButton, forHandlerEvents events: UIControlEvents = [.touchUpInside], handler: (() -> Void)?) {
         self.alertView.buttons.append(button)
         // Add the action to the button
         if let h = handler {
-            button.addHandler(controlEvents: events, handler: {
+            button.addHandler(controlEvents: events, handler: { [unowned self] in
                 h()
                 self.animateOutAndDismiss()
             })
         } else { // Handler is nil, when button gets clicked then just dismiss the controller
-            button.addHandler(controlEvents: events, handler: {
+            button.addHandler(controlEvents: events, handler: { [unowned self] in
                 self.animateOutAndDismiss()
             })
         }

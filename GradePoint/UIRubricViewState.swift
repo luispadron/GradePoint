@@ -6,8 +6,6 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
-import Foundation
-
 enum UIRubricViewState {
     case collapsed
     case open

@@ -356,28 +356,8 @@ class AddEditClassTableViewController: UITableViewController,
                     let message = NSMutableAttributedString(string: m)
                     message.addAttributes(attrs, range: rangeForSubMessage)
                     let title = NSAttributedString(string: "Can't Save 💔")
-                    
-                    let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
-                    let okButton = UIButton()
-                    okButton.backgroundColor = UIColor.lapisLazuli
-                    okButton.setTitle("OK", for: .normal)
-                    alert.addButton(button: okButton, handler: { [unowned self] in
-                        self.isPresentingAlert = false
-                        DispatchQueue.main.async {
-                            // Reset the nav buttons
-                            self.navigationItem.leftBarButtonItem?.isEnabled = true
-                            self.navigationItem.rightBarButtonItem?.isEnabled = true
-                        }
-                    })
                     // Present the alert
-                    alert.presentAlert(presentingViewController: self) {
-                        self.isPresentingAlert = true
-                        // Disable nav bar items while presenting
-                        DispatchQueue.main.async {
-                            self.navigationItem.leftBarButtonItem?.isEnabled = false
-                            self.navigationItem.rightBarButtonItem?.isEnabled = false
-                        }
-                    }
+                    present(alert: .message, withTitle: title, andMessage: message)
                     
                     return
                 }
@@ -421,28 +401,8 @@ class AddEditClassTableViewController: UITableViewController,
             let message = NSMutableAttributedString(string: m)
             message.setAttributes(percentAttrs, range: rangeForSubMessage)
             let title = NSAttributedString(string: "Can't Save 💔")
-            let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
-            let okButton = UIButton()
-            okButton.backgroundColor = UIColor.lapisLazuli
-            okButton.setTitle("OK", for: .normal)
-            alert.addButton(button: okButton, handler: { [unowned self] in
-                self.isPresentingAlert = false
-                // Disable nav bar items while presenting
-                DispatchQueue.main.async {
-                    self.navigationItem.leftBarButtonItem?.isEnabled = true
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                }
-            })
             // Present the alert
-            alert.presentAlert(presentingViewController: self, completion: {
-                self.isPresentingAlert = true
-                // Disable nav bar items while presenting
-                DispatchQueue.main.async {
-                    self.navigationItem.leftBarButtonItem?.isEnabled = false
-                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-                }
-            })
-            
+            present(alert: .message, withTitle: title, andMessage: message)
         }
     }
     
@@ -534,6 +494,40 @@ class AddEditClassTableViewController: UITableViewController,
         // Check for only whitespace in textfield
         let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
         nameFieldIsValid = trimmed.isEmpty ? false : true
+    }
+    
+    /// Presents an alert when provided the specified alertType
+    private func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString) {
+        let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
+        
+        switch type {
+        case .message:
+            let button = UIHandlerButton()
+            button.setTitle("OK", for: .normal)
+            button.backgroundColor = UIColor.lapisLazuli
+            alert.addButton(button: button, handler: { [weak self] in
+                self?.isPresentingAlert = false
+                DispatchQueue.main.async {
+                    // Reset the nav buttons
+                    self?.navigationItem.leftBarButtonItem?.isEnabled = true
+                    self?.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+            })
+        case .deletion:
+            break
+        }
+        
+        // Present the alert
+        alert.presentAlert(presentingViewController: self)
+        
+        // Make sure to disable the nav bar buttons when presenting alert
+        self.isPresentingAlert = true
+        DispatchQueue.main.async {
+            // Reset the nav buttons
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        
     }
     
     // MARK: Developer methods
