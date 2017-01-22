@@ -7,7 +7,7 @@
 //
 
 protocol UIRubricViewDelegate: class {
-    func plusButtonTouched(inCell cell: RubricTableViewCell, forState state: UIRubricViewState)
+    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState)
     
     func isRubricValidUpdated()
 }

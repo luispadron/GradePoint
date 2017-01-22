@@ -275,14 +275,14 @@ class AddEditClassTableViewController: UITableViewController,
     
     // MARK: - Rubric View Delegate
     
-    func plusButtonTouched(inCell cell: RubricTableViewCell, forState state: UIRubricViewState) {
+    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState) {
         switch state {
         case .collapsed:
-            // Handle user cancelling that item
-            handleCloseState(forCell: cell)
-        case .open:
             // Handle user wanting to add a grade section
             handleOpenState(forCell: cell)
+        case .open:
+            // Handle user cancelling that item
+            handleCloseState(forCell: cell)
         case .edit:
             break
         }

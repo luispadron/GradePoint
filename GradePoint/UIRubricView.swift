@@ -169,12 +169,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
             promptLabel.textColor = UIColor(red:0.780, green: 0.780, blue: 0.804, alpha:1.00)
         }
         promptLabel.font = UIFont.systemFont(ofSize: fontSize)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.animateViews))
-        tap.numberOfTapsRequired = 1
-        tap.numberOfTouchesRequired = 1
-        promptLabel.addGestureRecognizer(tap)
         promptLabel.textColor = UIColor.mutedText
-        promptLabel.isUserInteractionEnabled = true
         self.addSubview(promptLabel)
     }
     
@@ -230,10 +225,24 @@ class UIRubricView: UIView, UITextFieldDelegate {
         endEditing(true)
     }
     
+    // MARK: Actions
+    
+    @objc private func tappedOnButton() {
+        guard let buttonRect = buttonRect else {
+            print("Button rect not found when tapped on button")
+            return
+        }
+        
+        let state: UIRubricViewState = self.isDeleteButton ? .open : .collapsed
+        let point = buttonGesture.location(in: self)
+        
+        if (buttonRect.contains(point) || state == .collapsed) && !isAnimating {
+            self.delegate?.plusButtonTouched(inCell: self.parentCell, withState: state)
+            animateViews()
+        }
+    }
     
     @objc func animateViews() {
-        if isAnimating { return }
-        
         isAnimating = true
         // Create rotate animation
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -293,9 +302,6 @@ class UIRubricView: UIView, UITextFieldDelegate {
                     self.nameField.isHidden = true
                     self.weightField.isHidden = true
                     self.toggleFields()
-                    // Call delegate
-                    let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-                    self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
                     self.isDeleteButton = self.isDeleteButton.toggle
             })
         } else { // The user has clicked the add button and the two textfields will now be shown
@@ -318,29 +324,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
                 
                 
                 }, completion: { _ in
-                    // Call the delegate method now that animations are complete
                     self.isAnimating = false
                     self.toggleFields()
-                    
                     self.promptLabel.isHidden = true
-                    let state: UIRubricViewState = self.isDeleteButton ? .collapsed : .open
-                    self.delegate?.plusButtonTouched(inCell: self.parentCell, forState: state)
                     self.isDeleteButton = self.isDeleteButton.toggle
             })
         }
         
-    }
-    
-    @objc private func tappedOnButton() {
-        guard let rect = buttonRect else {
-            return
-        }
-        
-        let point = buttonGesture.location(in: self)
-        
-        if rect.contains(point) {
-            animateViews()
-        }
     }
     
     
@@ -463,7 +453,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         self.isDeleteButton = self.isDeleteButton.toggle
         self.isRubricValid = true
         
-        self.delegate?.plusButtonTouched(inCell: parentCell, forState: .edit)
+        self.delegate?.plusButtonTouched(inCell: parentCell, withState: .edit)
     }
 
 }
