@@ -498,8 +498,8 @@ class AddEditClassTableViewController: UITableViewController,
     
     /// Presents an alert when provided the specified alertType
     private func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString) {
-        // Closure which disables the nav buttons
-        let disableNav = { [weak self] in
+        // Closure which enables the nav buttons
+        let enableNav = { [weak self] in
             self?.isPresentingAlert = false
             DispatchQueue.main.async {
                 // Reset the nav buttons
@@ -517,7 +517,7 @@ class AddEditClassTableViewController: UITableViewController,
             button.setTitle("OK", for: .normal)
             button.backgroundColor = UIColor.lapisLazuli
             alert.addButton(button: button, handler: {
-                disableNav()
+                enableNav()
             })
         case .deletion:
             break

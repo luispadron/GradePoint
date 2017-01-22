@@ -208,7 +208,7 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
     }
     
     func calculateProgress() {
-        guard let pClass = detailItem, pClass.assignments.count > 0, let rubrics = detailItem?.rubrics else {
+        guard let pClass = detailItem, pClass.assignments.count > 0 else {
             self.progressRing.setProgress(value: 0, animationDuration: 0)
             return
         }
@@ -216,8 +216,10 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
         var weights = 0.0
         var score = 0.0
         
+        let rubrics = pClass.rubrics
+        
         for rubric in rubrics {
-            let assignments = detailItem!.assignments.filter("associatedRubric = %@", rubric)
+            let assignments = pClass.assignments.filter("associatedRubric = %@", rubric)
             if assignments.count == 0 { continue }
             
             weights += rubric.weight
