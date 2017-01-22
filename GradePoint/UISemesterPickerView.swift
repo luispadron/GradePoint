@@ -13,7 +13,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     var semesterPicker: UIPickerView!
     lazy var years = { UISemesterPickerView.createArrayOfYears() }()
     let terms = Semester.terms
-    var delegate: SemesterPickerDelegate?
+    weak var delegate: SemesterPickerDelegate?
     var selectedSemester: String!
     var selectedYear: Int!
     var titleColor = UIColor.white

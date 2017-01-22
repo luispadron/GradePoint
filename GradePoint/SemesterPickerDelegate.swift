@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-protocol SemesterPickerDelegate {
+protocol SemesterPickerDelegate: class {
     func pickerRowSelected(term: String, year: Int)
 }

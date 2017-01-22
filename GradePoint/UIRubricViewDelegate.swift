@@ -6,7 +6,7 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
-protocol UIRubricViewDelegate {
+protocol UIRubricViewDelegate: class {
     func plusButtonTouched(inCell cell: RubricTableViewCell, forState state: UIRubricViewState)
     
     func isRubricValidUpdated()

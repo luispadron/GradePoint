@@ -56,7 +56,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     private lazy var plusLayer = CAShapeLayer()
     lazy var buttonGesture = UITapGestureRecognizer()
     
-    var delegate: UIRubricViewDelegate?
+    weak var delegate: UIRubricViewDelegate?
     
     var parentCell: RubricTableViewCell!
     

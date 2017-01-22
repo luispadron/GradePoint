@@ -34,7 +34,7 @@ open class UIBlurAlertController: UIViewController {
     public var blurEffect = UIBlurEffect(style: .dark)
     /// The animation duration for the animation in and the animation out of the alert view. Default = 0.5
     public var animationDuration: TimeInterval = 0.5
-    
+    /// The alert view for the controller
     private lazy var alertView: UIBlurAlertView = {
         let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: self.alertSize)
         let view = UIBlurAlertView(frame: frame, title: self.alertTitle, message: self.message)

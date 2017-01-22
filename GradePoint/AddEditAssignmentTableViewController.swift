@@ -31,7 +31,7 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
     
     var selectedDate: Date = Date()
     
-    var delegate: AddEditAssignmentViewDelegate?
+    weak var delegate: AddEditAssignmentViewDelegate?
     
     // MARK: - Overrides
     

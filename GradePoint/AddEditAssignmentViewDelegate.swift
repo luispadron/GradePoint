@@ -6,6 +6,6 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
-protocol AddEditAssignmentViewDelegate {
+protocol AddEditAssignmentViewDelegate: class {
     func viewDidFinishAddingEditing(assignment: Assignment)
 }
