@@ -186,6 +186,8 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(newAssignmentsForRubric[0].name, name)
         XCTAssertEqual(newAssignmentsForRubric[0].associatedRubric, rubric)
         XCTAssertEqual(newAssignmentsForRubric[0], assignmentsForRubric[0])
+        
+        deleteObjects()
     }
     
     // MARK: - Helper methods
