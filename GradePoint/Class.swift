@@ -13,6 +13,7 @@ class Class: Object {
     
     // MARK: - Properties
     
+    dynamic var id = UUID().uuidString
     dynamic var name = ""
     dynamic var semester: Semester?
     var rubrics = List<Rubric>()
@@ -23,6 +24,8 @@ class Class: Object {
     // Sadly Realm does not yet support sorting via child properties
     dynamic var year = 0
     
+    // MARK: - Initializers
+    
     convenience init(withName name: String, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
         self.init()
         self.name = name
@@ -31,6 +34,12 @@ class Class: Object {
         self.colorData = UIColor.randomPastel.toData()
         
         self.year = semester.year
+    }
+    
+    // MARK: - Overrides
+    
+    override class func primaryKey() -> String? {
+        return "id"
     }
     
 }

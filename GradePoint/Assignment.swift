@@ -12,10 +12,13 @@ class Assignment: Object {
     
     // MARK: - Properties
     
+    dynamic var id = UUID().uuidString
     dynamic var name = ""
     dynamic var date = Date()
     dynamic var score: Double = 0.0
     dynamic var associatedRubric: Rubric?
+    
+    // MARK: - Initializers
     
     convenience init(name: String, date: Date, score: Double, associatedRubric: Rubric) {
         self.init()
@@ -25,5 +28,11 @@ class Assignment: Object {
         self.date = date
         self.score = score
         self.associatedRubric = associatedRubric
+    }
+    
+    // MARK: - Overrides
+    
+    override class func primaryKey() -> String? {
+        return "id"
     }
 }

@@ -9,14 +9,26 @@
 import RealmSwift
 
 class Semester: Object {
+    
+    // MARK: - Properties
+    
+    dynamic var id = UUID().uuidString
     static let terms = ["Spring", "Summer", "Fall", "Winter"]
     dynamic var term = ""
     dynamic var year = 0
+    
+    // MARK: - Initializers
     
     convenience init(withTerm term: String, andYear year: Int) {
         self.init()
         self.term = term
         self.year = year
+    }
+    
+    // MARK: - Overrides
+    
+    override class func primaryKey() -> String? {
+        return "id"
     }
     
     override static func ignoredProperties() -> [String] {

@@ -11,3 +11,12 @@ target 'GradePoint' do
   # Progress Ring
   pod 'UICircularProgressRing'
 end
+
+target 'GradePointTests' do 
+  use_frameworks!
+
+  # Pods for tests
+  
+  # Realm
+  pod 'RealmSwift'
+end
