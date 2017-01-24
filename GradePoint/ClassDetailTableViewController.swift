@@ -209,7 +209,7 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
     
     func calculateProgress() {
         guard let pClass = detailItem, pClass.assignments.count > 0 else {
-            self.progressRing.setProgress(value: 0, animationDuration: 0)
+            self.progressRing.setProgress(value: 0, animationDuration: 0, completion: nil)
             return
         }
         
@@ -234,7 +234,7 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
             score += rubric.weight * total
         }
         
-        self.progressRing.setProgress(value: CGFloat(score / weights), animationDuration: 1.5)
+        self.progressRing.setProgress(value: CGFloat(score / weights), animationDuration: 1.5, completion: nil)
     }
     
     func deleteAssignment(at indexPath: IndexPath) {

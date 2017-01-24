@@ -17,6 +17,7 @@ class Assignment: Object {
     dynamic var date = Date()
     dynamic var score: Double = 0.0
     dynamic var associatedRubric: Rubric?
+    let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
     // MARK: - Initializers
     

@@ -15,7 +15,6 @@
 		A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705141DAF0E9B00AD740A /* Main.storyboard */; };
 		A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00705171DAF0E9B00AD740A /* Assets.xcassets */; };
 		A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */; };
-		A00705311DAF0E9B00AD740A /* GradePointUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705301DAF0E9B00AD740A /* GradePointUITests.swift */; };
 		A00F8DD21E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00F8DD11E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift */; };
 		A00F8DD41E29A70E009F8C5D /* GenericLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00F8DD31E29A70E009F8C5D /* GenericLabelTableViewCell.swift */; };
 		A014985C1E2C19DC00D49DCC /* UIPercentField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A014985B1E2C19DC00D49DCC /* UIPercentField.swift */; };
@@ -34,7 +33,7 @@
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
 		A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6C1DF669FC00280F93 /* Assignment.swift */; };
-		A0A0A4C81E3713190055B0D4 /* ClassModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A0A4C71E3713190055B0D4 /* ClassModelTests.swift */; };
+		A0A0A4C81E3713190055B0D4 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A0A4C71E3713190055B0D4 /* ModelTests.swift */; };
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B94AB31E34701200CF73F2 /* UIHandlerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB21E34701200CF73F2 /* UIHandlerButton.swift */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
@@ -82,7 +81,6 @@
 		A00705211DAF0E9B00AD740A /* GradePointTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradePointTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00705271DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A007052C1DAF0E9B00AD740A /* GradePointUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradePointUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A00705301DAF0E9B00AD740A /* GradePointUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointUITests.swift; sourceTree = "<group>"; };
 		A00705321DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00F8DD11E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoRubricPickerTableViewCell.swift; sourceTree = "<group>"; };
 		A00F8DD31E29A70E009F8C5D /* GenericLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericLabelTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,7 +100,7 @@
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
 		A09CEC6C1DF669FC00280F93 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
-		A0A0A4C71E3713190055B0D4 /* ClassModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassModelTests.swift; sourceTree = "<group>"; };
+		A0A0A4C71E3713190055B0D4 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B94AB21E34701200CF73F2 /* UIHandlerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHandlerButton.swift; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 		A007052F1DAF0E9B00AD740A /* GradePointUITests */ = {
 			isa = PBXGroup;
 			children = (
-				A00705301DAF0E9B00AD740A /* GradePointUITests.swift */,
 				A00705321DAF0E9B00AD740A /* Info.plist */,
 			);
 			path = GradePointUITests;
@@ -238,7 +235,7 @@
 		A0A0A4C91E3713270055B0D4 /* Model Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A0A0A4C71E3713190055B0D4 /* ClassModelTests.swift */,
+				A0A0A4C71E3713190055B0D4 /* ModelTests.swift */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -488,7 +485,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A09A61CF9F285BA86C3D5271 /* [CP] Copy Pods Resources */ = {
@@ -518,7 +515,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DA19D5EE6F9F74DF9A1F1C68 /* [CP] Embed Pods Frameworks */ = {
@@ -598,7 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0A0A4C81E3713190055B0D4 /* ClassModelTests.swift in Sources */,
+				A0A0A4C81E3713190055B0D4 /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +603,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A00705311DAF0E9B00AD740A /* GradePointUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
