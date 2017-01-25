@@ -62,7 +62,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     var isRubricValid = false {
         didSet {
-            delegate?.isRubricValidUpdated()
+            delegate?.isRubricValidUpdated(forView: self)
         }
     }
     
@@ -453,7 +453,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         self.isDeleteButton = self.isDeleteButton.toggle
         self.isRubricValid = true
         
-        self.delegate?.plusButtonTouched(inCell: parentCell, withState: .edit)
+        self.delegate?.plusButtonTouched(inCell: parentCell, withState: nil)
     }
 
 }

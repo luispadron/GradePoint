@@ -196,7 +196,7 @@
 		A00705241DAF0E9B00AD740A /* GradePointTests */ = {
 			isa = PBXGroup;
 			children = (
-				A0A0A4C91E3713270055B0D4 /* Model Tests */,
+				A0A0A4C71E3713190055B0D4 /* ModelTests.swift */,
 				A00705271DAF0E9B00AD740A /* Info.plist */,
 			);
 			path = GradePointTests;
@@ -230,14 +230,6 @@
 				A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */,
 			);
 			name = Delegates;
-			sourceTree = "<group>";
-		};
-		A0A0A4C91E3713270055B0D4 /* Model Tests */ = {
-			isa = PBXGroup;
-			children = (
-				A0A0A4C71E3713190055B0D4 /* ModelTests.swift */,
-			);
-			name = "Model Tests";
 			sourceTree = "<group>";
 		};
 		A0CE8B431DAF1780007968EE /* Controllers */ = {

@@ -14,100 +14,74 @@ class AddEditClassTableViewController: UITableViewController,
     
     // MARK: - Properties
     
-    // Realm database object
+    /// Realm database object
     let realm = try! Realm()
     
+    /// The save button in the navigation bar
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     // Properties to handle the save button enabling and disabling
-    var canSave = false {
-        didSet {
-            saveButton.isEnabled = canSave
-        }
-    }
-    var rubricViewsAreValid = false {
-        didSet {
-            canSave = rubricViewsAreValid && nameFieldIsValid
-        }
-    }
-    var nameFieldIsValid = false {
-        didSet {
-            canSave = nameFieldIsValid && rubricViewsAreValid
-        }
-    }
-    
-    /// The edit class object, if this is set it means were editing this class, updates UI with properties when set
-    var editingClass: Class?
-    
-    var cellsCreatedForEdit = 0
-    
-    /// An array of rubric views that the controller will deal with (provided from the UIRubricTableViewCell)
-    lazy var rubricViews = [UIRubricView]()
+    var canSave = false { didSet { saveButton.isEnabled = canSave } }
+    var rubricViewsAreValid = false { didSet { canSave = rubricViewsAreValid && nameFieldIsValid } }
+    var nameFieldIsValid = false { didSet { canSave = nameFieldIsValid && rubricViewsAreValid }}
     
     /// The namefield which this controller handles, this field is part of the BasicInfoTableViewCell
     var nameField: UITextField!
-    
     // Stored variable for cells, since I dont want to reuse them and lose any input user has put in
     var nameCell: TextInputTableViewCell?
     var semesterCell: GenericLabelTableViewCell?
     var semesterPickerCell: BasicInfoSemesterPickerTableViewCell?
-    var rubricCells = [RubricTableViewCell]() {
-        didSet {
-            rubricViews.removeAll()
-            for c in rubricCells {
-                rubricViews.append(c.rubricView)
-            }
-        }
-    }
+    var rubricCells = [RubricTableViewCell]()
+    var numOfRubricViewsToDisplay = 1
     
-    var numOfRubricViews = 1
-    var isPresentingAlert: Bool?
-    var isDatePickerVisible = false
     var semesterPicker: UISemesterPickerView?
+    var isDatePickerVisible = false
+    var isPresentingAlert: Bool?
     
     // The vars for the the finished class user is creating
     // These two are set using the picker view and get set in the pickerdelegate
     lazy var term: String = { Semester.terms[0] }()
-    lazy var year: Int = { UISemesterPickerView.createArrayOfYears()[1] }() // Gets the 2nd year in the created array of years
+    // Gets the 2nd year in the created array of years, the second year is the current year
+    lazy var year: Int = { UISemesterPickerView.createArrayOfYears()[1] }()
 
+    // Variables that are in use when editing a class
+    /// The edit class object, if this is set it means were editing this class, updates UI with properties when set
+    var classObj: Class?
+    /// A dictionary that associates a rubrics pk with its cell in the UI
+    var editingRubrics = [String : RubricTableViewCell]()
+    /// An array of rubric primary keys that will be deleted when save button is pressed
+    var rubricsToDelete = [String]()
     
     // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Change color of tableview seperators
+        self.tableView.separatorColor = UIColor.tableViewSeperator
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
         // Disable save button until fields are checked
         saveButton.isEnabled = false
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // createRandomClass()
-        if let classObj = editingClass { updateUI(for: classObj) }
+        if let classObj = classObj { updateUI(for: classObj) }
     }
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        if let isP = self.isPresentingAlert, isP {
-            // Keep the buttons disabled
-            DispatchQueue.main.async {
-                self.navigationItem.leftBarButtonItem?.isEnabled = false
-                self.navigationItem.rightBarButtonItem?.isEnabled = false
-            }
+        guard let presentingAlert = self.isPresentingAlert, presentingAlert == true else {
+            return
         }
+        
+        // Keep the buttons disabled
+        DispatchQueue.main.async {
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // - MARK: - Table View Methods
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -143,12 +117,11 @@ class AddEditClassTableViewController: UITableViewController,
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            // This will just be static 2, since only want Name and Term
-            // Unless on iPhone screen size, then 3 because date picker is handled differently
+            // 3 static rows: name, semester, and semester picker
             return 3
         case 1:
             // This will increase as user adds more rubrics (starts @ 1)
-            return numOfRubricViews
+            return numOfRubricViewsToDisplay
         default:
             return 0
         }
@@ -189,7 +162,7 @@ class AddEditClassTableViewController: UITableViewController,
                 nameField = cell.inputField
                 nameCell = cell
                 // If editing class is not nil, thus editing, then set the text for this field
-                if let obj = editingClass { nameField.text = obj.name }
+                if let obj = classObj { nameField.text = obj.name }
                 return cell
             case 1: // Display the basic info date picker cell
                 if let c = semesterCell { return c }
@@ -219,16 +192,16 @@ class AddEditClassTableViewController: UITableViewController,
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
             
-            
             // If were editing the make sure to display the number of rubric views correctly and their fields
-            if let obj = editingClass {
-                if indexPath.row < obj.rubrics.count, cellsCreatedForEdit < obj.rubrics.count {
+            if let obj = classObj {
+                if indexPath.row < obj.rubrics.count, rubricCells.count < obj.rubrics.count {
                     let rubricForRow = obj.rubrics[indexPath.row]
-                    cell.rubricView.toEditState()
+                    cell.rubricView.toEditState() // Opens the rubric views and makes them editable
                     cell.rubricView.nameField.text = rubricForRow.name
                     cell.rubricView.weightField.text = "\(rubricForRow.weight)%"
                     cell.rubricView.nameField.resignFirstResponder()
-                    cellsCreatedForEdit += 1
+                    // Add the association of pk to the displayed cell
+                    editingRubrics[rubricForRow.id] = cell
                 }
             }
             
@@ -243,7 +216,7 @@ class AddEditClassTableViewController: UITableViewController,
         if indexPath.section == 0 {
             switch indexPath.row {
             case 1:
-                toggleDatePicker()
+                toggleSemesterPicker()
             default:
                 break
             }
@@ -273,38 +246,79 @@ class AddEditClassTableViewController: UITableViewController,
         updateSaveButton()
     }
     
-    // MARK: - Rubric View Delegate
+    // MARK: - Rubric View Delegation
     
-    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState) {
-        switch state {
-        case .collapsed:
-            // Handle user wanting to add a grade section
-            handleOpenState(forCell: cell)
-        case .open:
-            // Handle user cancelling that item
-            handleCloseState(forCell: cell)
-        case .edit:
-            break
-        }
-    }
-    
-    func isRubricValidUpdated() {
-        // Check edge case where user has only one rubric and no fields are set for it
-        if rubricViews.count == 1 {
-            let v = rubricViews[0]
-            if v.nameField.text!.isEmpty || v.weightField.text!.isEmpty {
-                rubricViewsAreValid = false
-                return
-            }
+    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?) {
+        guard let `state` = state else {
+            return
         }
         
-        // Check if all rubric views are valid, update save button
-        var validCount = 0
-        for v in rubricViews {
-            if v.isRubricValid { validCount += 1 }
+        switch state {
+        case .collapsed:
+            // view was closed, open it
+            handleOpenState(forCell: cell)
+        case .open:
+            // view was opened, close it
+            handleCloseState(forCell: cell)
         }
-        rubricViewsAreValid = validCount == rubricViews.count
     }
+    
+    func isRubricValidUpdated(forView view: UIRubricView) {
+        // Initial case, only one rubric view, its valid but needs values so dont allow save
+        if rubricCells.count == 1 {
+            rubricViewsAreValid = false
+        } else {
+            var validCount = 0
+            for (_, cell) in rubricCells.enumerated() {
+                if cell.rubricView.isRubricValid { validCount += 1 }
+                rubricViewsAreValid = validCount == rubricCells.count
+            }
+        }
+    }
+    
+    
+    func handleOpenState(forCell cell: RubricTableViewCell) {
+        
+        // Lets create another one for the user incase they want to enter something
+        let path = IndexPath(row: numOfRubricViewsToDisplay, section: 1)
+        self.numOfRubricViewsToDisplay += 1
+        
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [path], with: .automatic)
+            self.tableView.endUpdates()
+            self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
+        }
+    }
+    
+    func handleCloseState(forCell cell: RubricTableViewCell) {
+        guard let row = rubricCells.index(of: cell), numOfRubricViewsToDisplay > 1 else {
+            fatalError("Could not find rubric view to delete")
+        }
+        
+        self.numOfRubricViewsToDisplay -= 1
+        
+        // Disable the button, this fix issues where when spam touching button more than one view is created
+        cell.rubricView.buttonGesture.isEnabled = false
+        
+        rubricCells.remove(at: row)
+        
+        let path = IndexPath(row: row, section: 1)
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [path], with: .automatic)
+            self.tableView.endUpdates()
+        }
+        
+        
+        // If editing keep track of removed rubric
+        if let _ = classObj {
+            // Add the rubric to the rubricToDelete array
+            let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as! String
+            rubricsToDelete.append(primaryKey)
+        }
+    }
+
     
     // MARK: - Date Input Delegate
     
@@ -335,75 +349,84 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     @IBAction func onSave(_ sender: AnyObject) {
-        // Check logic, i.e make sure rubrics add up to 100%
-        var percent = 0.0
-        var rubrics = [Rubric]()
-        
-        for i in 0..<rubricViews.count - 1 {
-            guard let text = rubricViews[i].weightField.text?.replacingOccurrences(of: "%", with: "") else { // Removes the percent symbol, to all calculations
-                return
-            }
-            
-            if let p = Double(text) {
-                if p <= 0 {
-                    // Present an error dialog since we cannot save a percent of zero
-                    let invalidRowSubMessage = "row \(i + 1)"
-                    let m = "Zero percentage is invalid in " + invalidRowSubMessage
-    
-                    // Attributes for the invalid row sub message
-                    let attrs = [NSForegroundColorAttributeName: UIColor.sunsetOrange]
-                    let rangeForSubMessage = (m as NSString).range(of: invalidRowSubMessage)
-                    let message = NSMutableAttributedString(string: m)
-                    message.addAttributes(attrs, range: rangeForSubMessage)
-                    let title = NSAttributedString(string: "Can't Save 💔")
-                    // Present the alert
-                    present(alert: .message, withTitle: title, andMessage: message)
-                    
-                    return
-                }
-                percent += p
-                // Start creating the rubrics in order to optimize and not have to use another for loop when we validate
-                let rView = rubricViews[i]
-                let rubric = Rubric(withName: rView.nameField.text!, andWeight: p) // unwrapped because we cant be saving without text anyway
-                rubrics.append(rubric)
-            }
-                
-            else { fatalError("Unable to convert percent to a double") }
+        // Final check to make sure everything is ready
+        guard isSaveReady() else {
+            print("Not ready to save")
+            return
         }
-        
-        if percent == 100 {
-            // Save the created class
-            let semester = Semester(withTerm: self.term, andYear: self.year)
-            let rubricList = List<Rubric>(rubrics)
-            
-            try! realm.write {
-                if let classObj = self.editingClass {
-                    classObj.name = self.nameField.text!
-                    classObj.semester = semester
-                    classObj.rubrics.removeAll()
-                    classObj.rubrics.append(contentsOf: rubricList)
-                } else {
-                    let newClass = Class(withName: nameField.text!, inSemester: semester, withRubrics: rubricList)
-                    realm.add(newClass)
-                }
-            }
-            // Dismiss self
-            self.dismiss(animated: true, completion: nil)
-            
+        // Save changes or save new class if not editing
+        if let obj = classObj {
+            saveChangesTo(obj)
         } else {
-            // Present error, since weights are not adding up to 100%
-            let percentAttrs = [ NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-            let percentSubMessage = "\nCurrent total: \(percent)%"
-            let m = "Weights must add up to 100%" + percentSubMessage
-            let rangeForSubMessage = (m as NSString).range(of: percentSubMessage)
-            
-            // Add attributes to the percent submessage
-            let message = NSMutableAttributedString(string: m)
-            message.setAttributes(percentAttrs, range: rangeForSubMessage)
-            let title = NSAttributedString(string: "Can't Save 💔")
-            // Present the alert
-            present(alert: .message, withTitle: title, andMessage: message)
+            saveNewClass()
         }
+    }
+    
+    /// Saves a new class object to realm with all the data the user entered
+    func saveNewClass() {
+        // Want all rubric cells except the last one, since its always empty
+        var cells = rubricCells
+        cells.removeLast()
+        
+        // Rubrics to be created in realm
+        var rubrics = [Rubric]()
+        // Loop through the rubric cells and append rubrics to the rubrics array, can force unwrap since already checked for values
+        for cell in cells {
+            let view = cell.rubricView!
+            // Get rubric info
+            let rubricWeight = Double(view.weightField.text!.replacingOccurrences(of: "%", with: ""))!
+            let rubricName = view.nameField.text!
+            rubrics.append(Rubric(withName: rubricName, andWeight: rubricWeight))
+        }
+        
+        // Create the semester
+        let semester = Semester(withTerm: self.term, andYear: self.year)
+        
+        // Create the new class
+        let newClass = Class(withName: self.nameField.text!, inSemester: semester, withRubrics: List<Rubric>(rubrics))
+        
+        try! realm.write {
+            realm.add(newClass)
+        }
+    }
+    
+    /// Saves the edits the user made to the object
+    func saveChangesTo(_ classObj: Class) {
+
+    }
+    
+    // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
+    func isSaveReady() -> Bool {
+        // Want all rubric cells except the last one, since its always empty
+        var cells = rubricCells
+        cells.removeLast()
+        
+        // Keep track of total percent while looping
+        var totalPercent = 0.0
+        
+        for cell in cells {
+            let view = cell.rubricView
+            guard let text = view?.weightField.text?.replacingOccurrences(of: "%", with: ""), let percent = Double(text) else {
+                // Present dialog and return
+                return false
+            }
+    
+            if percent <= 0 {
+                // Present alert warning user about zero percent
+                print("Percent 0 error, not ready to save. Presenting alert")
+                return false
+            }
+            
+            totalPercent += percent
+        }
+        
+        if totalPercent != 100 {
+            print("Percent not equal to 100, not ready to save. Presenting alert")
+            // Present alert telling user weights must add up to 100
+            return false
+        }
+        
+        return true
     }
     
     // - MARK: Helper Methods
@@ -425,47 +448,12 @@ class AddEditClassTableViewController: UITableViewController,
         picker.selectRow(iYear, inComponent: 1, animated: false)
         semPicker.pickerView(picker, didSelectRow: iYear, inComponent: 1)
         
-        self.numOfRubricViews = obj.rubrics.count + 1
+        self.numOfRubricViewsToDisplay = obj.rubrics.count + 1
         self.tableView.reloadData()
         self.nameFieldIsValid = true
     }
     
-    
-    func handleOpenState(forCell cell: RubricTableViewCell) {
-        
-        // Lets create another one for the user incase they want to enter something
-        let path = IndexPath(row: numOfRubricViews, section: 1)
-        self.numOfRubricViews += 1
-        
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.insertRows(at: [path], with: .automatic)
-            self.tableView.endUpdates()
-            self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
-        }
-    }
-    
-    func handleCloseState(forCell cell: RubricTableViewCell) {
-        guard let row = rubricCells.index(of: cell), numOfRubricViews > 1 else {
-            fatalError("Could not find rubric view to delete")
-        }
-        
-        self.numOfRubricViews -= 1
-        
-        // Disable the button, this fix issues where when spam touching button more than one view is created
-        cell.rubricView.buttonGesture.isEnabled = false
-        
-        rubricCells.remove(at: row)
-    
-        let path = IndexPath(row: row, section: 1)
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [path], with: .automatic)
-            self.tableView.endUpdates()
-        }
-    }
-    
-    func toggleDatePicker() {
+    func toggleSemesterPicker() {
         guard let picker = semesterPicker, let cell = semesterCell else {
             print("Picker not available")
             return
@@ -494,6 +482,22 @@ class AddEditClassTableViewController: UITableViewController,
         // Check for only whitespace in textfield
         let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
         nameFieldIsValid = trimmed.isEmpty ? false : true
+    }
+    
+    /// Deletes all rubrics inside of the rubricsToDelete array
+    func deleteRubrics() {
+        
+        for pk in rubricsToDelete {
+            // Get the rubric from realm using the pk
+            let rubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
+            // Get the assignments associated with this rubric
+            let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
+            // Write deletion to realm
+            try! realm.write {
+                realm.delete(rubric)
+                realm.delete(assignments)
+            }
+        }
     }
     
     /// Presents an alert when provided the specified alertType
@@ -534,16 +538,5 @@ class AddEditClassTableViewController: UITableViewController,
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
-    }
-    
-    // MARK: Developer methods
-    
-    func createRandomClass() {
-        self.nameField.text = "Test \(arc4random())"
-        self.rubricViews.append(UIRubricView(frame: CGRect(x: 0, y: 0, width: 0, height: 0)))
-        self.rubricViews[0].isRubricValid = true
-        self.rubricViews[0].nameField.text = "Rubric \(arc4random())"
-        self.rubricViews[0].weightField.text = "100"
-        self.saveButton.isEnabled = true
     }
 }

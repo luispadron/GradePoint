@@ -152,7 +152,7 @@ class ClassesTableViewController: UITableViewController {
             let controller = nav.topViewController as! AddEditClassTableViewController
             // If editing then set the appropriate obj into the view controller
             if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
-                controller.editingClass = classObj(forIndexPath: path)
+                controller.classObj = classObj(forIndexPath: path)
             }
             nav.preferredContentSize = CGSize(width: 500, height: 600)
         }
