@@ -177,9 +177,8 @@ class ClassesTableViewController: UITableViewController {
     /// This initializes the classesBySection array which is a 2D array that has Realm result objects grouped by their appropriate section
     func initClassesBySection() {
         for semester in semesterSections {
-            let unsorted = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
-            let sorted = unsorted.sorted(byKeyPath: "year", ascending: false)
-            classesBySection.append(sorted)
+            let classesForSemester = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
+            classesBySection.append(classesForSemester)
         }
     }
     

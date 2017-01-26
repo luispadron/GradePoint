@@ -20,10 +20,6 @@ class Class: Object {
     var assignments = List<Assignment>()
     dynamic var colorData = Data()
     
-    // This is here as well as in Semester, to allow for sorting based on year
-    // Sadly Realm does not yet support sorting via child properties
-    dynamic var year = 0
-    
     // MARK: - Initializers
     
     convenience init(withName name: String, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
@@ -32,8 +28,6 @@ class Class: Object {
         self.semester = semester
         self.rubrics = rubrics
         self.colorData = UIColor.randomPastel.toData()
-        
-        self.year = semester.year
     }
     
     // MARK: - Overrides

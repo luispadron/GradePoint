@@ -51,6 +51,8 @@ class AddEditClassTableViewController: UITableViewController,
     var editingRubrics = [String : RubricTableViewCell]()
     /// An array of rubric primary keys that will be deleted when save button is pressed
     var rubricsToDelete = [String]()
+    /// Boolean to determine if we have already loaded the rubrics that are being edited, if this is true, we dont want to load them again 
+    var needsToLoadCellsForEdit = true
     
     // MARK: - Overrides
     
@@ -193,7 +195,8 @@ class AddEditClassTableViewController: UITableViewController,
             cell.rubricView.delegate = self
             
             // If were editing the make sure to display the number of rubric views correctly and their fields
-            if let obj = classObj {
+            // Only do this for the inital load
+            if let obj = classObj, needsToLoadCellsForEdit {
                 if indexPath.row < obj.rubrics.count, rubricCells.count < obj.rubrics.count {
                     let rubricForRow = obj.rubrics[indexPath.row]
                     cell.rubricView.toEditState() // Opens the rubric views and makes them editable
@@ -212,6 +215,17 @@ class AddEditClassTableViewController: UITableViewController,
         return UITableViewCell()
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Check to see if the number of displayed cells is equal to number of items in the editing classObj
+        // If so were done loading all the cells for the class obj, don't load them anymore
+        if let obj = classObj, needsToLoadCellsForEdit, indexPath.section == 1 {
+            if indexPath.row >= obj.rubrics.count {
+                self.needsToLoadCellsForEdit = false
+                print(self.needsToLoadCellsForEdit)
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             switch indexPath.row {
@@ -222,6 +236,7 @@ class AddEditClassTableViewController: UITableViewController,
             }
         }
     }
+    
     
     // MARK: - Scroll View Delegates
     
@@ -314,8 +329,9 @@ class AddEditClassTableViewController: UITableViewController,
         // If editing keep track of removed rubric
         if let _ = classObj {
             // Add the rubric to the rubricToDelete array
-            let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as! String
-            rubricsToDelete.append(primaryKey)
+            if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as? String {
+                rubricsToDelete.append(primaryKey)
+            }
         }
     }
 
@@ -360,6 +376,8 @@ class AddEditClassTableViewController: UITableViewController,
         } else {
             saveNewClass()
         }
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     /// Saves a new class object to realm with all the data the user entered
@@ -392,8 +410,43 @@ class AddEditClassTableViewController: UITableViewController,
     
     /// Saves the edits the user made to the object
     func saveChangesTo(_ classObj: Class) {
-
+        // Lets save the changes made to the Class object, again can force unwrap since already checked for values
+        let name = self.nameField.text!
+        
+        // Write name and semester changes to realm
+        try! realm.write {
+            classObj.name = name
+            classObj.semester?.term = self.term
+            classObj.semester?.year = self.year
+        }
+        
+        // Remove rubrics from class obj that were deleted by the user
+        self.deleteRubrics()
+        // Loop through the rubrics array and make those changes finally
+        for (pk, cell) in editingRubrics {
+            let savedRubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
+            try! realm.write {
+                savedRubric.name = cell.rubricView.nameField.text!
+                savedRubric.weight = Double(cell.rubricView.weightField.text!.replacingOccurrences(of: "%", with: ""))!
+            }
+            // Finally remove this from the list of rubricCells since we don't need this info for this edited cell, only for new now
+            if let index = rubricCells.index(of: cell) { rubricCells.remove(at: index) }
+        }
+        
+        // Add any remaining rubric views values to a new rubric
+        var newRubricCells = rubricCells
+        // Remove last because thats the empty one that's always there
+        newRubricCells.removeLast()
+        for cell in newRubricCells {
+            let name = cell.rubricView.nameField.text!
+            let weight = Double(cell.rubricView.weightField.text!.replacingOccurrences(of: "%", with: ""))!
+            let newRubric = Rubric(withName: name, andWeight: weight)
+            try! realm.write {
+                classObj.rubrics.append(newRubric)
+            }
+        }
     }
+    
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
@@ -427,6 +480,27 @@ class AddEditClassTableViewController: UITableViewController,
         }
         
         return true
+    }
+    
+    /// Deletes all rubrics inside of the rubricsToDelete array
+    func deleteRubrics() {
+        
+        for pk in rubricsToDelete {
+            // Get the rubric from realm using the pk
+            let rubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
+            // Get the assignments associated with this rubric
+            let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
+            // Write deletion to realm
+            try! realm.write {
+                realm.delete(rubric)
+                realm.delete(assignments)
+            }
+            
+            // Remove this rubric from the editing rubrics array
+            editingRubrics.removeValue(forKey: pk)
+        }
+        // Done deleting no longer need this
+        rubricsToDelete.removeAll()
     }
     
     // - MARK: Helper Methods
@@ -482,22 +556,6 @@ class AddEditClassTableViewController: UITableViewController,
         // Check for only whitespace in textfield
         let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
         nameFieldIsValid = trimmed.isEmpty ? false : true
-    }
-    
-    /// Deletes all rubrics inside of the rubricsToDelete array
-    func deleteRubrics() {
-        
-        for pk in rubricsToDelete {
-            // Get the rubric from realm using the pk
-            let rubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
-            // Get the assignments associated with this rubric
-            let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
-            // Write deletion to realm
-            try! realm.write {
-                realm.delete(rubric)
-                realm.delete(assignments)
-            }
-        }
     }
     
     /// Presents an alert when provided the specified alertType

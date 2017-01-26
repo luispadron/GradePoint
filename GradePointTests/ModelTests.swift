@@ -41,7 +41,6 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(classObj.semester, expectedSemester)
         XCTAssertEqual(classObj.rubrics, rubricList)
         XCTAssertNotNil(classObj.colorData)
-        XCTAssertEqual(classObj.year, expectedSemester.year)
         XCTAssertEqual(classObj.assignments.count, 0)
     }
     
