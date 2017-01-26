@@ -457,16 +457,26 @@ class AddEditClassTableViewController: UITableViewController,
         // Keep track of total percent while looping
         var totalPercent = 0.0
         
-        for cell in cells {
+        for (index, cell) in cells.enumerated() {
             let view = cell.rubricView
             guard let text = view?.weightField.text?.replacingOccurrences(of: "%", with: ""), let percent = Double(text) else {
-                // Present dialog and return
+                presentErrorAlert(title: "Unable to save", message: "Some data is incorrect and cannot save, please check values and try again")
                 return false
             }
     
             if percent <= 0 {
                 // Present alert warning user about zero percent
-                print("Percent 0 error, not ready to save. Presenting alert")
+                // Construct title
+                let title = NSAttributedString(string: "Can't Save 💔", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+                // Construct attributed message
+                let invalidRowSubmessage = "row \(index + 1)"
+                let attrsForSub = [NSForegroundColorAttributeName : UIColor.sunsetOrange, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
+                let attrsForMessage = [NSForegroundColorAttributeName : UIColor.mutedText, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
+                let message = "Zero percentage is invalid in " + invalidRowSubmessage
+                let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
+                messageAttributed.addAttributes(attrsForSub, range: (message as NSString).range(of: invalidRowSubmessage))
+                
+                self.present(alert: .message, withTitle: title, andMessage: messageAttributed)
                 return false
             }
             
@@ -476,6 +486,15 @@ class AddEditClassTableViewController: UITableViewController,
         if totalPercent != 100 {
             print("Percent not equal to 100, not ready to save. Presenting alert")
             // Present alert telling user weights must add up to 100
+            // Construct title
+            let title = NSAttributedString(string: "Can't Save 💔", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+            // Construct the message
+            let percentSubMessage = "\nCurrent total: \(totalPercent)%"
+            let message = "Weights must add up to 100%" + percentSubMessage
+            let attrsForMessage = [NSForegroundColorAttributeName : UIColor.mutedText, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
+            let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
+        
+            self.present(alert: .message, withTitle: title, andMessage: messageAttributed)
             return false
         }
         

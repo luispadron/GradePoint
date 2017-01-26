@@ -39,6 +39,7 @@
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
+		A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */; };
 		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
 		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */; };
 		A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */; };
@@ -106,6 +107,7 @@
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExentions.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
 		A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFloatingPromptTextField.swift; sourceTree = "<group>"; };
 		A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewDelegate.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				A0B4898B1DCBFF6400631E07 /* Int+Random.swift */,
 				A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */,
 				A076F5A61E3078C100CE4F43 /* String+Range.swift */,
+				A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				A05B1E2B1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift in Sources */,
 				A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */,
 				A00F8DD41E29A70E009F8C5D /* GenericLabelTableViewCell.swift in Sources */,
+				A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */,
 				A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */,
 				A0E705AF1DBBE04E008E04EC /* BasicInfoSemesterPickerTableViewCell.swift in Sources */,
 				A00705131DAF0E9B00AD740A /* ClassDetailTableViewController.swift in Sources */,

@@ -53,15 +53,6 @@ open class UIBlurAlertController: UIViewController {
         
     }
     
-    public init(size alertSize: CGSize, stringTitle title: String, stringMessage message: String?) {
-        self.alertSize = alertSize
-        self._alertTitle = NSAttributedString(string: title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17)])
-        self._message = NSAttributedString(string: message ?? "", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 15)])
-        super.init(nibName: nil, bundle: nil)
-        
-        self.modalPresentationStyle = .overCurrentContext
-    }
-    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
