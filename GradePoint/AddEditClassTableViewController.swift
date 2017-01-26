@@ -293,6 +293,8 @@ class AddEditClassTableViewController: UITableViewController,
     
     
     func handleOpenState(forCell cell: RubricTableViewCell) {
+        // Animate the view
+        cell.rubricView.animateViews()
         
         // Lets create another one for the user incase they want to enter something
         let path = IndexPath(row: numOfRubricViewsToDisplay, section: 1)
@@ -306,11 +308,34 @@ class AddEditClassTableViewController: UITableViewController,
         }
     }
     
-    func handleCloseState(forCell cell: RubricTableViewCell) {
+    func handleCloseState(forCell cell: RubricTableViewCell, shouldPresentAlert shouldAlert: Bool = true) {
         guard let row = rubricCells.index(of: cell), numOfRubricViewsToDisplay > 1 else {
             fatalError("Could not find rubric view to delete")
         }
         
+        // If editing keep track of removed rubric, this method can be called when we want to simply handle the close state
+        // If so then shouldAdd will be nil and we wont readd this to the rubricsToDelete array
+        if let _ = classObj, shouldAlert {
+            // Present an alert warning the user that removing this rubric will also delete any of its associated assignments
+            if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as? String {
+                
+                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.sunsetOrange]
+                let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
+                let messageAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName : UIColor.mutedText]
+                let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
+                let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)
+                
+                // Present the alert, send it the primary key so that the button for deletion in the alert can handle adding to rubricsToDelete,
+                // Also send it the cell which should be closed if user decides to delete
+                self.present(alert: .deletion, withTitle: title, andMessage: messageAttributed, options: [cell, primaryKey])
+                return
+            }
+        }
+        
+        // Animate the view
+        cell.rubricView.animateViews()
+        
+        // Decrease num of rubric views to display since we just deleted one
         self.numOfRubricViewsToDisplay -= 1
         
         // Disable the button, this fix issues where when spam touching button more than one view is created
@@ -325,14 +350,6 @@ class AddEditClassTableViewController: UITableViewController,
             self.tableView.endUpdates()
         }
         
-        
-        // If editing keep track of removed rubric
-        if let _ = classObj {
-            // Add the rubric to the rubricToDelete array
-            if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as? String {
-                rubricsToDelete.append(primaryKey)
-            }
-        }
     }
 
     
@@ -511,8 +528,11 @@ class AddEditClassTableViewController: UITableViewController,
             let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
             // Write deletion to realm
             try! realm.write {
+                for assignment in assignments {
+                    realm.delete(assignment)
+                }
+                
                 realm.delete(rubric)
-                realm.delete(assignments)
             }
             
             // Remove this rubric from the editing rubrics array
@@ -578,7 +598,7 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     /// Presents an alert when provided the specified alertType
-    private func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString) {
+    private func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
         // Closure which enables the nav buttons
         let enableNav = { [weak self] in
             self?.isPresentingAlert = false
@@ -593,14 +613,48 @@ class AddEditClassTableViewController: UITableViewController,
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
         
         switch type {
+            
         case .message:
+            // Add the ok button
             let button = UIHandlerButton()
             button.setTitle("OK", for: .normal)
             button.backgroundColor = UIColor.lapisLazuli
             alert.addButton(button: button, handler: {
-                enableNav()
+                enableNav() // enable the nav
             })
+            
         case .deletion:
+            // Create and add the cancel button
+            let cancel = UIHandlerButton()
+            cancel.setTitle("Cancel", for: .normal)
+            cancel.backgroundColor = UIColor.lapisLazuli
+            alert.addButton(button: cancel, handler: { 
+                enableNav() //enable the nav
+            })
+            
+            // Create and add the delete button
+            let delete = UIHandlerButton()
+            delete.setTitle("Delete", for: .normal)
+            delete.backgroundColor = UIColor.sunsetOrange
+            alert.addButton(button: delete, handler: { [weak self] in
+                enableNav()
+                guard let strongSelf = self else {
+                    print("Unable to get self inside delete handler, class: \(AddEditClassTableViewController.self)")
+                    return
+                }
+                
+                // If calling this method with .delete then we have been sent the cell and pk in the options
+                if let opts = options, opts.count > 0, let cell = opts[0] as? RubricTableViewCell, let pk = opts[1] as? String {
+                    // Add this rubrics pk to the rubricsToDelete array, will be deleted when saving
+                    strongSelf.rubricsToDelete.append(pk)
+                    // Don't present the alert asking if they wish to delte again but close the view and make it look delete
+                    strongSelf.handleCloseState(forCell: cell, shouldPresentAlert: false)
+                } else {
+                    // Present an error alert
+                    strongSelf.presentErrorAlert(title: "Error Deleting", message: "Error occured while deleting, please try again")
+                }
+            })
+            
             break
         }
         

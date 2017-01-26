@@ -238,11 +238,10 @@ class UIRubricView: UIView, UITextFieldDelegate {
         
         if (buttonRect.contains(point) || state == .collapsed) && !isAnimating {
             self.delegate?.plusButtonTouched(inCell: self.parentCell, withState: state)
-            animateViews()
         }
     }
     
-    @objc func animateViews() {
+    func animateViews() {
         isAnimating = true
         // Create rotate animation
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
