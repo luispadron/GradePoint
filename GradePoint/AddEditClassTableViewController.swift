@@ -64,11 +64,17 @@ class AddEditClassTableViewController: UITableViewController,
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         // Disable save button until fields are checked
         saveButton.isEnabled = false
+        
+        if let obj = classObj {
+            self.title = "Edit " + obj.name
+            self.numOfRubricViewsToDisplay = obj.rubrics.count + 1
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let classObj = classObj { updateUI(for: classObj) }
+        // If editing update the semester picker and select the saved values
+        if let obj = classObj { updateSemesterPicker(for: obj) }
     }
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
@@ -164,7 +170,10 @@ class AddEditClassTableViewController: UITableViewController,
                 nameField = cell.inputField
                 nameCell = cell
                 // If editing class is not nil, thus editing, then set the text for this field
-                if let obj = classObj { nameField.text = obj.name }
+                if let obj = classObj {
+                    nameField.text = obj.name
+                    self.nameFieldIsValid = true
+                }
                 return cell
             case 1: // Display the basic info date picker cell
                 if let c = semesterCell { return c }
@@ -216,14 +225,11 @@ class AddEditClassTableViewController: UITableViewController,
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // Check to see if the number of displayed cells is equal to number of items in the editing classObj
-        // If so were done loading all the cells for the class obj, don't load them anymore
-        if let obj = classObj, needsToLoadCellsForEdit, indexPath.section == 1 {
-            if indexPath.row >= obj.rubrics.count {
-                self.needsToLoadCellsForEdit = false
-                print(self.needsToLoadCellsForEdit)
-            }
+        guard let obj = classObj, indexPath.section == 1, needsToLoadCellsForEdit, indexPath.row >= obj.rubrics.count else {
+            return
         }
+        
+        self.needsToLoadCellsForEdit = false
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -353,10 +359,10 @@ class AddEditClassTableViewController: UITableViewController,
     }
 
     
-    // MARK: - Date Input Delegate
+    // MARK: - Semester Picker Delegate
     
     func pickerRowSelected(term: String, year: Int) {
-        // User selected a date, lets update the UI
+        // User selected a semester, lets update the UI
         let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! GenericLabelTableViewCell
         cell.rightLabel.text = "\(term) \(year)"
         // Set the properties
@@ -544,28 +550,6 @@ class AddEditClassTableViewController: UITableViewController,
     
     // - MARK: Helper Methods
     
-    func updateUI(for obj: Class) {
-        guard let semPicker = semesterPicker, let picker = semPicker.semesterPicker else {
-            fatalError("Somehow picker views are not set??")
-        }
-        
-        // Set the title and name field
-        self.title = "Edit \(obj.name)"
-        self.nameField.text = obj.name
-        
-        // Set the semester picker to correct values
-        let iTerm = semPicker.terms.index(of: obj.semester!.term)!
-        let iYear = semPicker.years.index(of: obj.semester!.year)!
-        picker.selectRow(iTerm, inComponent: 0, animated: false)
-        semPicker.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
-        picker.selectRow(iYear, inComponent: 1, animated: false)
-        semPicker.pickerView(picker, didSelectRow: iYear, inComponent: 1)
-        
-        self.numOfRubricViewsToDisplay = obj.rubrics.count + 1
-        self.tableView.reloadData()
-        self.nameFieldIsValid = true
-    }
-    
     func toggleSemesterPicker() {
         guard let picker = semesterPicker, let cell = semesterCell else {
             print("Picker not available")
@@ -595,6 +579,23 @@ class AddEditClassTableViewController: UITableViewController,
         // Check for only whitespace in textfield
         let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
         nameFieldIsValid = trimmed.isEmpty ? false : true
+    }
+    
+    /// Updates the semester picker with values of the class that is passed in
+    func updateSemesterPicker(for classObj: Class) {
+        guard let pickerCell = semesterPicker, let picker = pickerCell.semesterPicker else {
+            fatalError("Unable to update semester picker, has not been loaded yet")
+        }
+        
+        // Since we're done displaying section 0, which contains the semester picker we can go ahead and set its values
+        // to what was saved into realm
+        // Set the semester picker to correct values
+        let iTerm = pickerCell.terms.index(of: classObj.semester!.term)!
+        let iYear = pickerCell.years.index(of: classObj.semester!.year)!
+        picker.selectRow(iTerm, inComponent: 0, animated: false)
+        pickerCell.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
+        picker.selectRow(iYear, inComponent: 1, animated: false)
+        pickerCell.pickerView(picker, didSelectRow: iYear, inComponent: 1)
     }
     
     /// Presents an alert when provided the specified alertType
