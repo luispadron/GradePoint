@@ -15,6 +15,7 @@
 		A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705141DAF0E9B00AD740A /* Main.storyboard */; };
 		A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00705171DAF0E9B00AD740A /* Assets.xcassets */; };
 		A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */; };
+		A0082BC11E3ED27300C91B3F /* Segueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0082BC01E3ED27300C91B3F /* Segueable.swift */; };
 		A00F8DD21E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00F8DD11E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift */; };
 		A00F8DD41E29A70E009F8C5D /* GenericLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00F8DD31E29A70E009F8C5D /* GenericLabelTableViewCell.swift */; };
 		A014985C1E2C19DC00D49DCC /* UIPercentField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A014985B1E2C19DC00D49DCC /* UIPercentField.swift */; };
@@ -83,6 +84,7 @@
 		A00705271DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A007052C1DAF0E9B00AD740A /* GradePointUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradePointUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00705321DAF0E9B00AD740A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0082BC01E3ED27300C91B3F /* Segueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segueable.swift; sourceTree = "<group>"; };
 		A00F8DD11E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoRubricPickerTableViewCell.swift; sourceTree = "<group>"; };
 		A00F8DD31E29A70E009F8C5D /* GenericLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericLabelTableViewCell.swift; sourceTree = "<group>"; };
 		A014985B1E2C19DC00D49DCC /* UIPercentField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPercentField.swift; sourceTree = "<group>"; };
@@ -182,9 +184,10 @@
 		A007050D1DAF0E9B00AD740A /* GradePoint */ = {
 			isa = PBXGroup;
 			children = (
+				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
 				A01B87801DBD272600A85E2D /* Data Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
-				A04D19941DBAFD6A00FDA9A7 /* Delegates */,
+				A04D19941DBAFD6A00FDA9A7 /* Protocols */,
 				A0CE8B451DAF19DE007968EE /* Extensions */,
 				A0CE8B431DAF1780007968EE /* Controllers */,
 				A0CE8B481DAF26E3007968EE /* Custom Views */,
@@ -223,15 +226,15 @@
 			name = "Data Models";
 			sourceTree = "<group>";
 		};
-		A04D19941DBAFD6A00FDA9A7 /* Delegates */ = {
+		A04D19941DBAFD6A00FDA9A7 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
 				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
 				A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */,
 				A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */,
+				A0082BC01E3ED27300C91B3F /* Segueable.swift */,
 			);
-			name = Delegates;
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
@@ -584,6 +587,7 @@
 				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
+				A0082BC11E3ED27300C91B3F /* Segueable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

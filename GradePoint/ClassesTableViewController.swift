@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ClassesTableViewController: UITableViewController {
+class ClassesTableViewController: UITableViewController, Segueable {
     
     // MARK: - Properties
     
@@ -123,7 +123,7 @@ class ClassesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] action, indexPath in
             self.editingIndexPath = indexPath
-            self.performSegue(withIdentifier: "addEditClass", sender: action)
+            self.performSegue(withIdentifier: .addEditClass, sender: action)
         })
         
         editAction.backgroundColor = UIColor.lapisLazuli
@@ -138,16 +138,25 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Segues
     
+    /// Conformance for Seguable protocol
+    enum SegueIdentifier: String {
+        case showDetail = "showDetail"
+        case addEditClass = "addEditClass"
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let classItem = classObj(forIndexPath: indexPath)
-                let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
-                controller.detailItem = classItem
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
+        switch segueIdentifier(forSegue: segue) {
+        case .showDetail:
+            guard let indexPath = self.tableView.indexPathForSelectedRow else {
+                fatalError("Index path for selected row was nil")
             }
-        } else if segue.identifier == "addEditClass" {
+            let classItem = classObj(forIndexPath: indexPath)
+            let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
+            controller.detailItem = classItem
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+        
+        case .addEditClass:
             let nav = segue.destination as! UINavigationController
             let controller = nav.topViewController as! AddEditClassTableViewController
             // If editing then set the appropriate obj into the view controller

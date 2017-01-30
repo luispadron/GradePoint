@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import UICircularProgressRing
 
-class ClassDetailTableViewController: UITableViewController, AddEditAssignmentViewDelegate {
+class ClassDetailTableViewController: UITableViewController, Segueable, AddEditAssignmentViewDelegate {
 
     // MARK: - Properties
     
@@ -180,10 +180,14 @@ class ClassDetailTableViewController: UITableViewController, AddEditAssignmentVi
     
     // MARK: - Segues
     
+    /// Conformace to Segueable
+    enum SegueIdentifier: String {
+        case addEditAssignment = "addEditAssignment"
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier else { return }
-        
-        if id == "addEditAssignment" {
+        switch segueIdentifier(forSegue: segue) {
+        case .addEditAssignment:
             // Prepare view for segue
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = self.detailItem
