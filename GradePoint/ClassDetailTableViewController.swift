@@ -38,15 +38,13 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         // Configure the view for load
         configureView()
         
-        // Set the progressRing ass the tableHeaderView
+        // Set the progressRing as the tableHeaderView
         let encapsulationView = UIView() // encapsulates the view to stop clipping
         encapsulationView.addSubview(progressRing)
         self.tableView.tableHeaderView = encapsulationView
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        self.reloadTableViewEmptyState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +57,8 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         super.viewDidAppear(animated)
         // Set progress ring calculation
         self.calculateProgress()
+        // Inital state for empty state view
+        self.reloadEmptyState(forTableView: self.tableView)
         
     }
     
@@ -206,7 +206,7 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
             }
         }
         
-        self.reloadTableViewEmptyState()
+        self.reloadEmptyState(forTableView: self.tableView)
         
         // Dont call for calculation here if not in split view because this gets called in viewDidAppear
         // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
@@ -288,7 +288,7 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
             realm.delete(assignment)
         }
         
-        self.reloadTableViewEmptyState()
+        self.reloadEmptyState(forTableView: self.tableView)
         
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .left)

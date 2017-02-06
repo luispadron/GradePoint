@@ -46,7 +46,7 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         // Create realm notification block
         notificationToken = realm.addNotificationBlock { [unowned self] note, realm in
             self.tableView.reloadData()
-            self.reloadTableViewEmptyState()
+            self.reloadEmptyState(forTableView: self.tableView)
         }
         
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
@@ -59,15 +59,18 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
             
             // TODO: Add support for saving of last selected item and loading that initially
         }
-        
-        // If realm has no items, then it wont call the notification block, still want to reload empty state view however
-        self.reloadTableViewEmptyState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         self.tableView.separatorColor = UIColor.tableViewSeperator
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Inital state for empty state view
+        self.reloadEmptyState(forTableView: self.tableView)
     }
 
     override func didReceiveMemoryWarning() {
