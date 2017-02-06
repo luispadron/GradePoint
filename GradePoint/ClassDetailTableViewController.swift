@@ -9,8 +9,10 @@
 import UIKit
 import RealmSwift
 import UICircularProgressRing
+import UIEmptyState
 
-class ClassDetailTableViewController: UITableViewController, Segueable, AddEditAssignmentViewDelegate {
+class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSource, UIEmptyStateDelegate,
+                                        Segueable, AddEditAssignmentViewDelegate {
 
     // MARK: - Properties
     
@@ -29,6 +31,10 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Add dataSource and delegate for UIEmptyState
+        self.emptyStateDataSource = self
+        self.emptyStateDelegate = self
+        
         // Configure the view for load
         configureView()
         
@@ -40,7 +46,7 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        self.checkForEmptyView()
+        self.reloadTableViewEmptyState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +74,8 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
     // MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        // If no assignments then dont show the progress ring
+        self.progressRing.isHidden = detailItem?.assignments.count ?? 0 == 0
         return detailItem?.rubrics.count ?? 0
     }
     
@@ -132,10 +140,6 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
@@ -145,6 +149,41 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
         
         return [deleteAction]
     }
+    
+    // MARK: - UIEmptyState Data Source
+    
+    func titleForEmptyStateView() -> NSAttributedString {
+        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "No Assignments Added", attributes: attrs)
+    }
+    
+    func detailMessageForEmptyStateView() -> NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+        return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
+    }
+    
+    func buttonTitleForEmptyStateView() -> NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        return NSAttributedString(string: "Add assignment", attributes: attrs)
+    }
+    
+    func buttonImageForEmptyStateView() -> UIImage? {
+        return #imageLiteral(resourceName: "buttonBg")
+    }
+    
+    func buttonSizeForEmptyStateView() -> CGSize? {
+        return CGSize(width: 170, height: 50)
+    }
+    
+    // MARK: - UIEmptyState Delegate
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        self.performSegue(withIdentifier: .addEditAssignment, sender: button)
+    }
+    
     
     // MARK: - AddEditAssignmentViewDelegate
     
@@ -167,7 +206,7 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
             }
         }
         
-        self.checkForEmptyView()
+        self.reloadTableViewEmptyState()
         
         // Dont call for calculation here if not in split view because this gets called in viewDidAppear
         // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
@@ -249,7 +288,7 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
             realm.delete(assignment)
         }
         
-        checkForEmptyView()
+        self.reloadTableViewEmptyState()
         
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .left)
@@ -257,23 +296,6 @@ class ClassDetailTableViewController: UITableViewController, Segueable, AddEditA
         self.tableView.endUpdates()
 
         calculateProgress()
-    }
-    
-    private func checkForEmptyView() {
-        guard let count = detailItem?.assignments.count, count == 0 else {
-            self.tableView.backgroundView = nil
-            self.tableView.tableHeaderView?.isHidden = false
-            return
-        }
-        
-        self.tableView.tableHeaderView?.isHidden = true
-        
-        let emptyView = UILabel(frame: self.view.frame)
-        emptyView.text = "Add an assignment"
-        emptyView.textAlignment = .center
-        emptyView.textColor = UIColor.white
-        emptyView.backgroundColor = UIColor.red
-        self.tableView.backgroundView = emptyView
     }
 }
 

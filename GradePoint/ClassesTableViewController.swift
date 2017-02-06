@@ -59,6 +59,9 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
             
             // TODO: Add support for saving of last selected item and loading that initially
         }
+        
+        // If realm has no items, then it wont call the notification block, still want to reload empty state view however
+        self.reloadTableViewEmptyState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -115,15 +118,6 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         cell.classObj = classItem
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
