@@ -4,12 +4,9 @@ target 'GradePoint' do
   use_frameworks!
 
   # Pods for GradePoint
-
-  # Realm
   pod 'RealmSwift'
-
-  # Progress Ring
   pod 'UICircularProgressRing'
+  pod 'UIEmptyState'  
 end
 
 target 'GradePointTests' do 

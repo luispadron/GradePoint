@@ -31,6 +31,7 @@ extension UIColor {
     static let lapisLazuli = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* 247BA0 */
     static let sunsetOrange = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* F25F5C */
     static let mustard = UIColor(colorLiteralRed:1.00, green:0.88, blue:0.40, alpha:1.0) /* FFE066 */
+    static let tronGreen = UIColor(red:0.40, green:0.84, blue:0.71, alpha:1.0) /* 67D5B5 */ 
 }
 
 // Random color generation extension

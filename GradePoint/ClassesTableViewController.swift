@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import UIEmptyState
 
-class ClassesTableViewController: UITableViewController, Segueable {
+class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource, UIEmptyStateDelegate, Segueable {
     
     // MARK: - Properties
     
@@ -32,7 +33,11 @@ class ClassesTableViewController: UITableViewController, Segueable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Set delegate and data source for UIEmptyState
+        self.emptyStateDataSource = self
+        self.emptyStateDelegate = self
+        
+        // Set bar button item
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
         // Remove seperator lines from empty cells
@@ -41,6 +46,7 @@ class ClassesTableViewController: UITableViewController, Segueable {
         // Create realm notification block
         notificationToken = realm.addNotificationBlock { [unowned self] note, realm in
             self.tableView.reloadData()
+            self.reloadTableViewEmptyState()
         }
         
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
@@ -134,6 +140,42 @@ class ClassesTableViewController: UITableViewController, Segueable {
         deleteAction.backgroundColor = UIColor.sunsetOrange
         
         return [deleteAction, editAction]
+    }
+    
+    // MARK: - UIEmptyState Data Source
+    
+    func titleForEmptyStateView() -> NSAttributedString {
+        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "No Classes Added", attributes: attrs)
+    }
+    
+    func detailMessageForEmptyStateView() -> NSAttributedString? {
+        return nil
+    }
+    
+    func imageForEmptyStateView() -> UIImage? {
+        return #imageLiteral(resourceName: "EmptyClassesIcon")
+    }
+    
+    func buttonImageForEmptyStateView() -> UIImage? {
+        return #imageLiteral(resourceName: "buttonBg")
+    }
+    
+    func buttonSizeForEmptyStateView() -> CGSize? {
+        return CGSize(width: 160, height: 45)
+    }
+    
+    // MARK: UIEmptyState Delegate
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        self.performSegue(withIdentifier: .addEditClass, sender: button)
+    }
+    
+    func buttonTitleForEmptyStateView() -> NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        return NSAttributedString(string: "Add a class", attributes: attrs)
     }
     
     // MARK: - Segues
