@@ -10,12 +10,11 @@ import UIKit
 import RealmSwift
 import UIEmptyState
 
-class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource, UIEmptyStateDelegate, Segueable {
+class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource, UIEmptyStateDelegate, Segueable, AddEditClassViewDelegate {
     
     // MARK: - Properties
     
     var realm = try! Realm()
-    var notificationToken: NotificationToken?
     
     var detailViewController: ClassDetailTableViewController? = nil
     
@@ -43,11 +42,6 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        // Create realm notification block
-        notificationToken = realm.addNotificationBlock { [unowned self] note, realm in
-            self.tableView.reloadData()
-            self.reloadEmptyState(forTableView: self.tableView)
-        }
         
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
         initClassesBySection()
@@ -205,10 +199,46 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
             // If editing then set the appropriate obj into the view controller
             if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
                 controller.classObj = classObj(forIndexPath: path)
+                // Collapse the edit action for the tableview, so theyre not opened when returning
+                self.tableView.isEditing = false
             }
             nav.preferredContentSize = CGSize(width: 500, height: 600)
+            // Assign the delegate
+            controller.delegate = self
         }
     }
+    
+    // MARK: - Add Edit Class Delegation
+    
+    func didFinishUpdating(classObj: Class) {
+        guard let section = self.section(forMatchingSemester: classObj.semester!), let row = classesBySection[section].index(of: classObj) else {
+            print("Couldnt get index for updated class object, simply reloading tableview and exiting...")
+            self.tableView.reloadData()
+            self.reloadEmptyState(forTableView: self.tableView)
+            return
+        }
+        
+        self.tableView.beginUpdates()
+        self.tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .automatic)
+        self.tableView.endUpdates()
+        self.reloadEmptyState(forTableView: self.tableView)
+    }
+    
+    func section(forMatchingSemester semester: Semester) -> Int? {
+        var indexOfMatch: Int?
+        for (index, secSemester) in semesterSections.enumerated() {
+            if semester.year == secSemester.year && semester.term == secSemester.term {
+                indexOfMatch = index
+                break
+            }
+        }
+        return indexOfMatch
+    }
+    
+    func didFinishCreating(newClass classObj: Class) {
+        print(classObj)
+    }
+    
     
     // MARK: - Helpers
     
@@ -253,13 +283,6 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
             realm.delete(assignmentsToDel)
             realm.delete(classToDel)
         }
-    }
-    
-    // MARK: - Deinit
-    
-    // Stop notifications
-    deinit {
-        notificationToken?.stop()
     }
 }
 

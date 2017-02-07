@@ -54,6 +54,9 @@ class AddEditClassTableViewController: UITableViewController,
     /// Boolean to determine if we have already loaded the rubrics that are being edited, if this is true, we dont want to load them again 
     var needsToLoadCellsForEdit = true
     
+    /// The delegate for this view, will be notified when finished editing or creating new class
+    weak var delegate: AddEditClassViewDelegate?
+    
     // MARK: - Overrides
     
     override func viewDidLoad() {
@@ -399,8 +402,6 @@ class AddEditClassTableViewController: UITableViewController,
         } else {
             saveNewClass()
         }
-        
-        self.dismiss(animated: true, completion: nil)
     }
     
     /// Saves a new class object to realm with all the data the user entered
@@ -428,6 +429,13 @@ class AddEditClassTableViewController: UITableViewController,
         
         try! realm.write {
             realm.add(newClass)
+        }
+        
+        
+        // Dismiss controller 
+        self.dismiss(animated: true) { [weak self] in
+            // Call the delegate tell it were done creating this class
+            self?.delegate?.didFinishCreating(newClass: newClass)
         }
     }
     
@@ -467,6 +475,12 @@ class AddEditClassTableViewController: UITableViewController,
             try! realm.write {
                 classObj.rubrics.append(newRubric)
             }
+        }
+        
+        // Dismiss controller
+        self.dismiss(animated: true) { [weak self] in
+            // Call the delegate method, tell it were done updating the class
+            self?.delegate?.didFinishUpdating(classObj: classObj)
         }
     }
     
