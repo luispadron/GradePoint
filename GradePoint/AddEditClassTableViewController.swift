@@ -82,6 +82,8 @@ class AddEditClassTableViewController: UITableViewController,
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         guard let presentingAlert = self.isPresentingAlert, presentingAlert == true else {
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+            self.navigationItem.rightBarButtonItem?.isEnabled = self.canSave
             return
         }
         
