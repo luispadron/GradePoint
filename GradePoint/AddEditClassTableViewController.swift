@@ -631,7 +631,7 @@ class AddEditClassTableViewController: UITableViewController,
             
         case .message:
             // Add the ok button
-            let button = UIHandlerButton()
+            let button = UIButton()
             button.setTitle("OK", for: .normal)
             button.backgroundColor = UIColor.lapisLazuli
             alert.addButton(button: button, handler: {
@@ -640,7 +640,7 @@ class AddEditClassTableViewController: UITableViewController,
             
         case .deletion:
             // Create and add the cancel button
-            let cancel = UIHandlerButton()
+            let cancel = UIButton()
             cancel.setTitle("Cancel", for: .normal)
             cancel.backgroundColor = UIColor.lapisLazuli
             alert.addButton(button: cancel, handler: { 
@@ -648,7 +648,7 @@ class AddEditClassTableViewController: UITableViewController,
             })
             
             // Create and add the delete button
-            let delete = UIHandlerButton()
+            let delete = UIButton()
             delete.setTitle("Delete", for: .normal)
             delete.backgroundColor = UIColor.sunsetOrange
             alert.addButton(button: delete, handler: { [weak self] in

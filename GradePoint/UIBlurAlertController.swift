@@ -107,17 +107,17 @@ open class UIBlurAlertController: UIViewController {
     
     // MARK: - Button actions
     
-    public func addButton(button: UIHandlerButton, forHandlerEvents events: UIControlEvents = [.touchUpInside], handler: (() -> Void)?) {
+    public func addButton(button: UIButton, forHandlerEvents events: UIControlEvents = [.touchUpInside], handler: (() -> Void)?) {
         self.alertView.buttons.append(button)
         // Add the action to the button
         if let h = handler {
-            button.addHandler(controlEvents: events, handler: { [unowned self] in
+            button.addHandler(forEvents: events, handler: { [weak self] in
                 h()
-                self.animateOutAndDismiss()
+                self?.animateOutAndDismiss()
             })
-        } else { // Handler is nil, when button gets clicked then just dismiss the controller
-            button.addHandler(controlEvents: events, handler: { [unowned self] in
-                self.animateOutAndDismiss()
+        } else { // Handler is nil, when button gets clicked just dismiss the controller
+            button.addHandler(forEvents: events, handler: { [weak self] in
+                self?.animateOutAndDismiss()
             })
         }
     }
