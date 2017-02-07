@@ -264,6 +264,8 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
     }
 }
 
+// MARK: AddEditClassView Delegation
+
 /// Protocol extension for the AddEditClassViewDelegate
 extension AddEditClassViewDelegate where Self: ClassesTableViewController {
     
