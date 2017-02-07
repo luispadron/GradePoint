@@ -22,7 +22,7 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
         return self.generateSemestersForSections()
     }()
-    
+
     /// A 2D array of Realm results grouped by their appropriate section
     var classesBySection = [Results<Class>]()
     
@@ -199,46 +199,14 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
             // If editing then set the appropriate obj into the view controller
             if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
                 controller.classObj = classObj(forIndexPath: path)
-                // Collapse the edit action for the tableview, so theyre not opened when returning
-                self.tableView.isEditing = false
             }
             nav.preferredContentSize = CGSize(width: 500, height: 600)
             // Assign the delegate
             controller.delegate = self
+            // Collapse any edit actions for the tableview, so theyre not opened when returning
+            self.tableView.isEditing = false
         }
     }
-    
-    // MARK: - Add Edit Class Delegation
-    
-    func didFinishUpdating(classObj: Class) {
-        guard let section = self.section(forMatchingSemester: classObj.semester!), let row = classesBySection[section].index(of: classObj) else {
-            print("Couldnt get index for updated class object, simply reloading tableview and exiting...")
-            self.tableView.reloadData()
-            self.reloadEmptyState(forTableView: self.tableView)
-            return
-        }
-        
-        self.tableView.beginUpdates()
-        self.tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .automatic)
-        self.tableView.endUpdates()
-        self.reloadEmptyState(forTableView: self.tableView)
-    }
-    
-    func section(forMatchingSemester semester: Semester) -> Int? {
-        var indexOfMatch: Int?
-        for (index, secSemester) in semesterSections.enumerated() {
-            if semester.year == secSemester.year && semester.term == secSemester.term {
-                indexOfMatch = index
-                break
-            }
-        }
-        return indexOfMatch
-    }
-    
-    func didFinishCreating(newClass classObj: Class) {
-        print(classObj)
-    }
-    
     
     // MARK: - Helpers
     
@@ -283,6 +251,51 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
             realm.delete(assignmentsToDel)
             realm.delete(classToDel)
         }
+        
+        // Refresh tableView 
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        // Check to see if this row is the last one in the section, if so reload that section also so the header goes away
+        if classesBySection[indexPath.section].isEmpty {
+            self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
+        }
+        self.tableView.endUpdates()
+        self.reloadEmptyState(forTableView: self.tableView)
+    }
+}
+
+/// Protocol extension for the AddEditClassViewDelegate
+extension AddEditClassViewDelegate where Self: ClassesTableViewController {
+    
+    func didFinishUpdating(classObj: Class) {
+        self.tableView.reloadData()
+        self.reloadEmptyState(forTableView: self.tableView)
+    }
+    
+    func didFinishCreating(newClass classObj: Class) {
+        guard let section = self.section(forMatchingSemester: classObj.semester!), let row = classesBySection[section].index(of: classObj) else {
+            print("Couldnt get index for newly created class object, simply reloading tableview and exiting...")
+            return
+        }
+        
+        let indexPath = IndexPath(row: row, section: section)
+        self.tableView.beginUpdates()
+        self.tableView.insertRows(at: [indexPath], with: .automatic)
+        self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
+        self.tableView.endUpdates()
+        self.reloadEmptyState(forTableView: self.tableView)
+    }
+    
+    
+    private func section(forMatchingSemester semester: Semester) -> Int? {
+        var indexOfMatch: Int?
+        for (index, secSemester) in semesterSections.enumerated() {
+            if semester.year == secSemester.year && semester.term == secSemester.term {
+                indexOfMatch = index
+                break
+            }
+        }
+        return indexOfMatch
     }
 }
 
