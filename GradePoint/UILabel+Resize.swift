@@ -10,8 +10,7 @@ import UIKit
 
 extension UILabel {
     
-    // Sets the height of the label to the expected height of the text
-    
+    /// Sets the height of the label to the expected height of the text
     func resizeToFitText() {
         let height = expectedHeight()
         var newFrame = self.frame
@@ -19,8 +18,7 @@ extension UILabel {
         self.frame = newFrame
     }
     
-    // Returns the height that would be expected for the string
-    
+    /// Returns the height that would be expected for the string
     func expectedHeight() -> CGFloat {
         self.numberOfLines = 0
         self.lineBreakMode = .byWordWrapping

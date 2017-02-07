@@ -6,9 +6,10 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
+/// Protocol for the semester picker
 protocol SemesterPickerDelegate: class {
+    /// Notifies delegate that a row was selected
     func pickerRowSelected(term: String, year: Int)
 }
