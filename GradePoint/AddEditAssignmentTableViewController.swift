@@ -306,7 +306,7 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         }
         
         self.dismiss(animated: true) {
-            self.delegate?.viewDidFinishAddingEditing(assignment: newAssignment)
+            self.delegate?.didFinishCreating(assignment: newAssignment)
         }
     }
     

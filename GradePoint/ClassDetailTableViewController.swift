@@ -189,39 +189,6 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         self.performSegue(withIdentifier: .addEditAssignment, sender: button)
     }
     
-    
-    // MARK: - AddEditAssignmentViewDelegate
-    
-    func viewDidFinishAddingEditing(assignment: Assignment) {
-        
-        guard let item = detailItem else {
-            print("Couldn't get detailItem inside of viewDidFinishAddingEditing, reloading tableView and returning")
-            self.tableView.reloadData()
-            return
-        }
-        
-        let rubric = assignment.associatedRubric!
-        if let section = item.rubrics.index(of: rubric) {
-            let assigns = item.assignments.filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)
-            if let row = assigns.index(of: assignment) {
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .right)
-                self.tableView.reloadSections(IndexSet.init(integer: section), with: .none)
-                self.tableView.endUpdates()
-            }
-        }
-        
-        self.reloadEmptyState(forTableView: self.tableView)
-        
-        // Dont call for calculation here if not in split view because this gets called in viewDidAppear
-        // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
-        guard let svc = splitViewController, !svc.isCollapsed else {
-            return
-        }
-        
-        self.calculateProgress()
-    }
-    
     // MARK: - Segues
     
     /// Conformace to Segueable
@@ -296,11 +263,49 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         self.reloadEmptyState(forTableView: self.tableView)
         
         self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: [indexPath], with: .left)
-        self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .none)
+        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         self.tableView.endUpdates()
 
         calculateProgress()
     }
 }
 
+// MARK: - AddEditAssignmentViewDelegate
+
+/// Protocol extension for the AddEditAssignmentViewDelegate
+extension AddEditAssignmentViewDelegate where Self: ClassDetailTableViewController {
+    
+    func didFinishCreating(assignment: Assignment) {
+        guard let item = detailItem else {
+            print("Couldn't get detailItem inside of viewDidFinishAddingEditing, reloading tableView and returning")
+            self.tableView.reloadData()
+            return
+        }
+        
+        let rubric = assignment.associatedRubric!
+        if let section = item.rubrics.index(of: rubric) {
+            let assigns = item.assignments.filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)
+            if let row = assigns.index(of: assignment) {
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
+                self.tableView.reloadSections(IndexSet.init(integer: section), with: .automatic)
+                self.tableView.endUpdates()
+            }
+        }
+        
+        self.reloadEmptyState(forTableView: self.tableView)
+        
+        // Dont call for calculation here if not in split view because this gets called in viewDidAppear
+        // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
+        guard let svc = splitViewController, !svc.isCollapsed else {
+            return
+        }
+        
+        self.calculateProgress()
+    }
+    
+    func didFinishUpdating(assignment: Assignment) {
+        // TODO: Add method implementation
+    }
+}

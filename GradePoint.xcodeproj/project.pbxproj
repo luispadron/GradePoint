@@ -231,11 +231,11 @@
 		A04D19941DBAFD6A00FDA9A7 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
-				A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */,
-				A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */,
 				A0082BC01E3ED27300C91B3F /* Segueable.swift */,
 				A0E8B6911E497A9800EC4470 /* AddEditClassViewDelegate.swift */,
+				A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */,
+				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
+				A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
