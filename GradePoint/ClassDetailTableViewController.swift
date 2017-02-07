@@ -45,6 +45,9 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        // Inital state for empty state view
+        self.reloadEmptyState(forTableView: self.tableView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,9 +60,6 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         super.viewDidAppear(animated)
         // Set progress ring calculation
         self.calculateProgress()
-        // Inital state for empty state view
-        self.reloadEmptyState(forTableView: self.tableView)
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -74,8 +74,6 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
     // MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // If no assignments then dont show the progress ring
-        self.progressRing.isHidden = detailItem?.assignments.count ?? 0 == 0
         return detailItem?.rubrics.count ?? 0
     }
     
@@ -151,6 +149,13 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
     }
     
     // MARK: - UIEmptyState Data Source
+    
+    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+        // If no assignments for this class then hide the progress ring and show empty state view
+        let noAssignments = detailItem?.assignments.count ?? 0 == 0
+        self.progressRing.isHidden = noAssignments
+        return noAssignments
+    }
     
     func titleForEmptyStateView() -> NSAttributedString {
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText,

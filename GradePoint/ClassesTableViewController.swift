@@ -52,6 +52,10 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
         initClassesBySection()
         
+        // Inital state for empty state view
+        self.reloadEmptyState(forTableView: self.tableView)
+        
+        
         if let split = self.splitViewController {
             split.preferredDisplayMode = .allVisible
             let controllers = split.viewControllers
@@ -67,11 +71,6 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         super.viewWillAppear(animated)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // Inital state for empty state view
-        self.reloadEmptyState(forTableView: self.tableView)
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,6 +139,11 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
     }
     
     // MARK: - UIEmptyState Data Source
+    
+    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+        // If not items then empty, show empty state
+        return realm.objects(Class.self).isEmpty
+    }
     
     func titleForEmptyStateView() -> NSAttributedString {
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
