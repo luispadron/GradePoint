@@ -41,7 +41,10 @@ extension UIButton {
     
     /// Called when button is tapped, will call the handler that was set in `addHandler(:)`
     @objc private func buttonTapped() {
-        // Call the handler
-        handler?.handler()
+        
+        self.animateWithPulse(withDuration: 0.25) {
+            // Call the handler
+            self.handler?.handler()
+        }
     }
 }

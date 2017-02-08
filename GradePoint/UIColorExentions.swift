@@ -9,7 +9,7 @@
 import UIKit
 
 
-// Color extensions
+///  Static Color extensions
 extension UIColor {
     // MARK: - Main Theme
     static let navBar = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
@@ -34,7 +34,7 @@ extension UIColor {
     static let tronGreen = UIColor(red:0.40, green:0.84, blue:0.71, alpha:1.0) /* 67D5B5 */ 
 }
 
-// Random color generation extension
+/// Random color generation extension
 extension UIColor {
     // MARK - Random Color Generation
     
@@ -73,5 +73,27 @@ extension UIColor {
     
     /// Function which turns UIColor to NSData, for saving to realm
     func toData() -> Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
+}
+
+/// Color Adjustment Extensions
+extension UIColor {
+    /// Returns a lighter color given percentage
+    public func lighter(by percetange: CGFloat) -> UIColor? {
+        return self.adjust(by: abs(percetange))
+    }
     
+    /// Returns a darker color given percentage
+    public func darker(by percentage: CGFloat) -> UIColor? {
+        return self.adjust(by: -1 * abs(percentage))
+    }
+    
+    /// Adjusts the color
+    private func adjust(by percentage: CGFloat) -> UIColor? {
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        
+        guard self.getRed(&r, green: &g, blue: &b, alpha: &a) else { return nil }
+        
+        return UIColor(red: min(r + percentage/100, 1.0), green: min(g + percentage/100, 1.0),
+                       blue: min(b + percentage/100, 1.0), alpha: a)
+    }
 }

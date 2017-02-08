@@ -37,6 +37,7 @@
 		A0A0A4C81E3713190055B0D4 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A0A4C71E3713190055B0D4 /* ModelTests.swift */; };
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
+		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
 		A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */; };
@@ -107,6 +108,7 @@
 		A0A0A4C71E3713190055B0D4 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
+		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExentions.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				A076F5A61E3078C100CE4F43 /* String+Range.swift */,
 				A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */,
 				A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */,
+				A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 				A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */,
 				A0E8B6921E497A9800EC4470 /* AddEditClassViewDelegate.swift in Sources */,
 				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
+				A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */,
 				A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */,
 				A00F8DD21E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift in Sources */,
 				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
