@@ -16,6 +16,7 @@ extension UIViewController {
         let m = NSAttributedString(string: message, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 15),
                                                                NSForegroundColorAttributeName: UIColor.mutedText])
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: t, message: m)
+        alert.alertFeedbackType = .error
         let ok = UIButton()
         ok.setTitle("OK", for: .normal)
         ok.backgroundColor = UIColor.lapisLazuli

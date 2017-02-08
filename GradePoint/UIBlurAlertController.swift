@@ -7,39 +7,42 @@
 //
 
 import UIKit
+import AudioToolbox.AudioServices
 
 open class UIBlurAlertController: UIViewController {
     
     // MARK: - Properties
     
     /// The size of the alert dialog
-    public var alertSize: CGSize
+    open var alertSize: CGSize
     private var _alertTitle: NSAttributedString
     /// The title for the alert
-    public var alertTitle: NSAttributedString {
+    open var alertTitle: NSAttributedString {
         get { return self._alertTitle }
     }
     private var _message: NSAttributedString?
     /// The message for the alert
-    public var message: NSAttributedString? {
+    open var message: NSAttributedString? {
         get { return self._message }
     }
     /// The background color for the alert
-    public var alertBackgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
+    open var alertBackgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
     /// The visual effect view
     private var visualEffectView: UIVisualEffectView?
     /// The visual effect for the controller
     private var effect: UIVisualEffect?
     /// The blur effect for the controller, default = Dark
-    public var blurEffect = UIBlurEffect(style: .dark)
+    open var blurEffect = UIBlurEffect(style: .dark)
     /// The animation duration for the animation in and the animation out of the alert view. Default = 0.5
-    public var animationDuration: TimeInterval = 0.5
+    open var animationDuration: TimeInterval = 0.5
     /// The alert view for the controller
     private lazy var alertView: UIBlurAlertView = {
         let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: self.alertSize)
         let view = UIBlurAlertView(frame: frame, title: self.alertTitle, message: self.message)
         return view
     }()
+    /// The feed back type for this alert, if set will trigger a haptic feedback if on iOS 10 +
+    open var alertFeedbackType: UINotificationFeedbackType?
     
     // MARK: - Initializers
     
@@ -157,6 +160,13 @@ open class UIBlurAlertController: UIViewController {
                         self.alertView.center = self.view.center
                         self.alertView.alpha = 1.0
                        }, completion: nil)
+        
+        // Will do a haptic feed back vibration if on iOS 10+ and alertFeedback is set
+        if let type = alertFeedbackType, #available(iOS 10.0, *) {
+            let notificationGenerator = UINotificationFeedbackGenerator()
+            notificationGenerator.prepare()
+            notificationGenerator.notificationOccurred(type)
+        }
     }
     
     private func animateOutAndDismiss() {

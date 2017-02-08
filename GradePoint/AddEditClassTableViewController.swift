@@ -641,6 +641,8 @@ class AddEditClassTableViewController: UITableViewController,
             })
             
         case .deletion:
+            // Set alert type
+            alert.alertFeedbackType = .warning
             // Create and add the cancel button
             let cancel = UIButton()
             cancel.setTitle("Cancel", for: .normal)
