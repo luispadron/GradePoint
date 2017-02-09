@@ -20,9 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
         let splitViewController = self.window!.rootViewController!.childViewControllers[0] as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        let detailNavController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        detailNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
+        splitViewController.preferredDisplayMode = .allVisible
         
         
         // Custom color for status bar
@@ -78,12 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: - Split view
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let topAsDetailController = secondaryAsNavController.topViewController as? ClassDetailTableViewController else { return false }
-        if topAsDetailController.classObj == nil {
-            // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-            return true
-        }
+        guard let detailNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let detailController = detailNavController.topViewController as? ClassDetailTableViewController else { return false }
+        if detailController.classObj == nil { return true }
         return false
     }
 
