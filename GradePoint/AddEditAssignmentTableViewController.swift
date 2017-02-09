@@ -9,8 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDelegate,
-                                            UIPickerViewDelegate, UIPickerViewDataSource {
+class AddEditAssignmentTableViewController: UITableViewController {
 
     // MARK: - Properties
     
@@ -212,69 +211,6 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
         let nameField = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextInputTableViewCell)?.inputField
         nameField?.resignFirstResponder()
     }
-    
-    // MARK: - UIPickerView Methods
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return parentClass.rubrics.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 25
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return pickerView.frame.width
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let name = parentClass.rubrics[row].name
-        let title = NSMutableAttributedString(string: name)
-        title.addAttributes([NSForegroundColorAttributeName: UIColor.lightText,
-                             NSFontAttributeName: UIFont.systemFont(ofSize: 20)],
-                            range: (name as NSString).range(of: name))
-        return title
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return parentClass.rubrics[row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.rubricLabel.text = parentClass.rubrics[row].name
-    }
-    
-    // MARK: - UITextField Delegate
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if let field = textField as? UIPercentField, field === scoreField {
-            return field.shouldChangeText(replacementText: string)
-        }
-        
-        return true
-    }
-    
-    func textFieldChanged(_ textField: UITextField) {
-        guard let nameF = nameField, let scoreF = scoreField else {
-            print("Error couldn't get instances of textfields")
-            saveButton.isEnabled = false
-            return
-        }
-        
-        let nameValid = (nameF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
-        let scoreValid = (scoreF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
-        
-        saveButton.isEnabled = scoreValid && nameValid
-    }
 
     // MARK: - Actions
     
@@ -363,7 +299,74 @@ class AddEditAssignmentTableViewController: UITableViewController, UITextFieldDe
             return
         }
     }
-
-
-
 }
+
+// MARK: - UITextField Delegate
+
+extension AddEditAssignmentTableViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let field = textField as? UIPercentField, field === scoreField {
+            return field.shouldChangeText(replacementText: string)
+        }
+        
+        return true
+    }
+    
+    func textFieldChanged(_ textField: UITextField) {
+        guard let nameF = nameField, let scoreF = scoreField else {
+            print("Error couldn't get instances of textfields")
+            saveButton.isEnabled = false
+            return
+        }
+        
+        let nameValid = (nameF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
+        let scoreValid = (scoreF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
+        
+        saveButton.isEnabled = scoreValid && nameValid
+    }
+}
+
+// MARK: - UIPickerView Delegate & UIPickerView Data Source
+
+extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return parentClass.rubrics.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 25
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return pickerView.frame.width
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let name = parentClass.rubrics[row].name
+        let title = NSMutableAttributedString(string: name)
+        title.addAttributes([NSForegroundColorAttributeName: UIColor.lightText,
+                             NSFontAttributeName: UIFont.systemFont(ofSize: 20)],
+                            range: (name as NSString).range(of: name))
+        return title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return parentClass.rubrics[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.rubricLabel.text = parentClass.rubrics[row].name
+    }
+}
+
+

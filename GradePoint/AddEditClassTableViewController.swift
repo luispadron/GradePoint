@@ -9,8 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddEditClassTableViewController: UITableViewController,
-                                      UIRubricViewDelegate, UITextFieldDelegate, SemesterPickerDelegate {
+class AddEditClassTableViewController: UITableViewController {
     
     // MARK: - Properties
     
@@ -259,133 +258,6 @@ class AddEditClassTableViewController: UITableViewController,
         field.resignFirstResponder()
     }
     
-    // MARK: - Textfield delegates
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === nameField { textField.resignFirstResponder() }
-        updateSaveButton()
-        return false
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-        updateSaveButton()
-    }
-    
-    // MARK: - Rubric View Delegation
-    
-    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?) {
-        guard let `state` = state else {
-            return
-        }
-        
-        switch state {
-        case .collapsed:
-            // view was closed, open it
-            handleOpenState(forCell: cell)
-        case .open:
-            // view was opened, close it
-            handleCloseState(forCell: cell)
-        }
-    }
-    
-    func isRubricValidUpdated(forView view: UIRubricView) {
-        // Initial case, only one rubric view, its valid but needs values so dont allow save
-        if rubricCells.count == 1 {
-            rubricViewsAreValid = false
-        } else {
-            var validCount = 0
-            for (_, cell) in rubricCells.enumerated() {
-                if cell.rubricView.isRubricValid { validCount += 1 }
-                rubricViewsAreValid = validCount == rubricCells.count
-            }
-        }
-    }
-    
-    
-    func handleOpenState(forCell cell: RubricTableViewCell) {
-        // Animate the view
-        cell.rubricView.animateViews()
-        
-        // Lets create another one for the user incase they want to enter something
-        let path = IndexPath(row: numOfRubricViewsToDisplay, section: 1)
-        self.numOfRubricViewsToDisplay += 1
-        
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.insertRows(at: [path], with: .automatic)
-            self.tableView.endUpdates()
-            self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
-        }
-    }
-    
-    func handleCloseState(forCell cell: RubricTableViewCell, shouldPresentAlert shouldAlert: Bool = true) {
-        guard let row = rubricCells.index(of: cell), numOfRubricViewsToDisplay > 1 else {
-            fatalError("Could not find rubric view to delete")
-        }
-        
-        // If editing keep track of removed rubric, this method can be called when we want to simply handle the close state
-        // If so then shouldAdd will be nil and we wont readd this to the rubricsToDelete array
-        if let _ = classObj, shouldAlert {
-            // Present an alert warning the user that removing this rubric will also delete any of its associated assignments
-            if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as? String {
-                
-                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.sunsetOrange]
-                let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
-                let messageAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName : UIColor.mutedText]
-                let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
-                let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)
-                
-                // Present the alert, send it the primary key so that the button for deletion in the alert can handle adding to rubricsToDelete,
-                // Also send it the cell which should be closed if user decides to delete
-                self.present(alert: .deletion, withTitle: title, andMessage: messageAttributed, options: [cell, primaryKey])
-                return
-            }
-        }
-        
-        // Animate the view
-        cell.rubricView.animateViews()
-        
-        // Decrease num of rubric views to display since we just deleted one
-        self.numOfRubricViewsToDisplay -= 1
-        
-        // Disable the button, this fix issues where when spam touching button more than one view is created
-        cell.rubricView.buttonGesture.isEnabled = false
-        
-        rubricCells.remove(at: row)
-        
-        let path = IndexPath(row: row, section: 1)
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [path], with: .automatic)
-            self.tableView.endUpdates()
-        }
-        
-    }
-
-    
-    // MARK: - Semester Picker Delegate
-    
-    func pickerRowSelected(term: String, year: Int) {
-        // User selected a semester, lets update the UI
-        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! GenericLabelTableViewCell
-        cell.rightLabel.text = "\(term) \(year)"
-        // Set the properties
-        self.term = term
-        self.year = year
-    }
-    
-    // MARK: - Blur Alert Delegate
-    
-    func alertDidFinish() {
-        self.isPresentingAlert = false
-        DispatchQueue.main.async {
-            // Reset the nav buttons
-            self.navigationItem.leftBarButtonItem?.isEnabled = true
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
-        }
-    }
-    
     // - MARK: IBActions
     
     @IBAction func onCancel(_ sender: AnyObject) {
@@ -563,29 +435,7 @@ class AddEditClassTableViewController: UITableViewController,
         // Done deleting no longer need this
         rubricsToDelete.removeAll()
     }
-    
-    // - MARK: Helper Methods
-    
-    func toggleSemesterPicker() {
-        guard let picker = semesterPicker, let cell = semesterCell else {
-            print("Picker not available")
-            return
-        }
-        
-        // Show the date picker
-        tableView.beginUpdates()
-        isDatePickerVisible = !isDatePickerVisible
-        tableView.endUpdates()
-        picker.isHidden = !isDatePickerVisible
-        picker.alpha = isDatePickerVisible ? 0.0 : 1.0
-        // Animate the show
-        UIView.animate(withDuration: 0.3) {
-            cell.rightLabel.textColor = self.isDatePickerVisible ? UIColor.highlight : UIColor.lightText
-            picker.alpha = self.isDatePickerVisible ? 1.0 : 0.0
-        }
-        
-    }
-    
+
     func updateSaveButton() {
         guard let text = nameField?.text else {
             nameFieldIsValid = false
@@ -597,25 +447,8 @@ class AddEditClassTableViewController: UITableViewController,
         nameFieldIsValid = trimmed.isEmpty ? false : true
     }
     
-    /// Updates the semester picker with values of the class that is passed in
-    func updateSemesterPicker(for classObj: Class) {
-        guard let pickerCell = semesterPicker, let picker = pickerCell.semesterPicker else {
-            fatalError("Unable to update semester picker, has not been loaded yet")
-        }
-        
-        // Since we're done displaying section 0, which contains the semester picker we can go ahead and set its values
-        // to what was saved into realm
-        // Set the semester picker to correct values
-        let iTerm = pickerCell.terms.index(of: classObj.semester!.term)!
-        let iYear = pickerCell.years.index(of: classObj.semester!.year)!
-        picker.selectRow(iTerm, inComponent: 0, animated: false)
-        pickerCell.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
-        picker.selectRow(iYear, inComponent: 1, animated: false)
-        pickerCell.pickerView(picker, didSelectRow: iYear, inComponent: 1)
-    }
-    
     /// Presents an alert when provided the specified alertType
-    private func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
+    func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
         // Closure which enables the nav buttons
         let enableNav = { [weak self] in
             self?.isPresentingAlert = false
@@ -688,5 +521,167 @@ class AddEditClassTableViewController: UITableViewController,
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
+    }
+}
+
+// MARK: - Text Field Delegate
+
+extension AddEditClassTableViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === nameField { textField.resignFirstResponder() }
+        updateSaveButton()
+        return false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        updateSaveButton()
+    }
+}
+
+
+// MARK: - UIRubricView Delegate
+
+extension AddEditClassTableViewController: UIRubricViewDelegate {
+    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?) {
+        guard let `state` = state else {
+            return
+        }
+        
+        switch state {
+        case .collapsed:
+            // view was closed, open it
+            handleOpenState(forCell: cell)
+        case .open:
+            // view was opened, close it
+            handleCloseState(forCell: cell)
+        }
+    }
+    
+    func isRubricValidUpdated(forView view: UIRubricView) {
+        // Initial case, only one rubric view, its valid but needs values so dont allow save
+        if rubricCells.count == 1 {
+            rubricViewsAreValid = false
+        } else {
+            var validCount = 0
+            for (_, cell) in rubricCells.enumerated() {
+                if cell.rubricView.isRubricValid { validCount += 1 }
+                rubricViewsAreValid = validCount == rubricCells.count
+            }
+        }
+    }
+    
+    
+    func handleOpenState(forCell cell: RubricTableViewCell) {
+        // Animate the view
+        cell.rubricView.animateViews()
+        
+        // Lets create another one for the user incase they want to enter something
+        let path = IndexPath(row: numOfRubricViewsToDisplay, section: 1)
+        self.numOfRubricViewsToDisplay += 1
+        
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: [path], with: .automatic)
+            self.tableView.endUpdates()
+            self.tableView.scrollToRow(at: path, at: .bottom, animated: true)
+        }
+    }
+    
+    func handleCloseState(forCell cell: RubricTableViewCell, shouldPresentAlert shouldAlert: Bool = true) {
+        guard let row = rubricCells.index(of: cell), numOfRubricViewsToDisplay > 1 else {
+            fatalError("Could not find rubric view to delete")
+        }
+        
+        // If editing keep track of removed rubric, this method can be called when we want to simply handle the close state
+        // If so then shouldAdd will be nil and we wont readd this to the rubricsToDelete array
+        if let _ = classObj, shouldAlert {
+            // Present an alert warning the user that removing this rubric will also delete any of its associated assignments
+            if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: cell).first as? String {
+                
+                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.sunsetOrange]
+                let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
+                let messageAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName : UIColor.mutedText]
+                let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
+                let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)
+                
+                // Present the alert, send it the primary key so that the button for deletion in the alert can handle adding to rubricsToDelete,
+                // Also send it the cell which should be closed if user decides to delete
+                self.present(alert: .deletion, withTitle: title, andMessage: messageAttributed, options: [cell, primaryKey])
+                return
+            }
+        }
+        
+        // Animate the view
+        cell.rubricView.animateViews()
+        
+        // Decrease num of rubric views to display since we just deleted one
+        self.numOfRubricViewsToDisplay -= 1
+        
+        // Disable the button, this fix issues where when spam touching button more than one view is created
+        cell.rubricView.buttonGesture.isEnabled = false
+        
+        rubricCells.remove(at: row)
+        
+        let path = IndexPath(row: row, section: 1)
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [path], with: .automatic)
+            self.tableView.endUpdates()
+        }
+        
+    }
+}
+
+// MARK: - Semester Picker Delegate
+
+extension AddEditClassTableViewController: SemesterPickerDelegate {
+    func pickerRowSelected(term: String, year: Int) {
+        // User selected a semester, lets update the UI
+        let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! GenericLabelTableViewCell
+        cell.rightLabel.text = "\(term) \(year)"
+        // Set the properties
+        self.term = term
+        self.year = year
+    }
+    
+    // Helper Methods
+    
+    func toggleSemesterPicker() {
+        guard let picker = semesterPicker, let cell = semesterCell else {
+            print("Picker not available")
+            return
+        }
+        
+        // Show the date picker
+        tableView.beginUpdates()
+        isDatePickerVisible = !isDatePickerVisible
+        tableView.endUpdates()
+        picker.isHidden = !isDatePickerVisible
+        picker.alpha = isDatePickerVisible ? 0.0 : 1.0
+        // Animate the show
+        UIView.animate(withDuration: 0.3) {
+            cell.rightLabel.textColor = self.isDatePickerVisible ? UIColor.highlight : UIColor.lightText
+            picker.alpha = self.isDatePickerVisible ? 1.0 : 0.0
+        }
+        
+    }
+    
+    /// Updates the semester picker with values of the class that is passed in
+    func updateSemesterPicker(for classObj: Class) {
+        guard let pickerCell = semesterPicker, let picker = pickerCell.semesterPicker else {
+            fatalError("Unable to update semester picker, has not been loaded yet")
+        }
+        
+        // Since we're done displaying section 0, which contains the semester picker we can go ahead and set its values
+        // to what was saved into realm
+        // Set the semester picker to correct values
+        let iTerm = pickerCell.terms.index(of: classObj.semester!.term)!
+        let iYear = pickerCell.years.index(of: classObj.semester!.year)!
+        picker.selectRow(iTerm, inComponent: 0, animated: false)
+        pickerCell.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
+        picker.selectRow(iYear, inComponent: 1, animated: false)
+        pickerCell.pickerView(picker, didSelectRow: iYear, inComponent: 1)
     }
 }
