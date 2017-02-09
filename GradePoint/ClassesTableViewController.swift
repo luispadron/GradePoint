@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import UIEmptyState
 
-class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource, UIEmptyStateDelegate, Segueable, AddEditClassViewDelegate {
+class ClassesTableViewController: UITableViewController {
     
     // MARK: - Properties
     
@@ -65,12 +65,6 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         super.viewWillAppear(animated)
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
     // MARK: - Table View
 
@@ -132,82 +126,6 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
         return [deleteAction, editAction]
     }
     
-    // MARK: - UIEmptyState Data Source
-    
-    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
-        // If not items then empty, show empty state
-        return realm.objects(Class.self).isEmpty
-    }
-    
-    func titleForEmptyStateView() -> NSAttributedString {
-        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
-        return NSAttributedString(string: "No Classes Added", attributes: attrs)
-    }
-    
-    func detailMessageForEmptyStateView() -> NSAttributedString? {
-        return nil
-    }
-    
-    func imageForEmptyStateView() -> UIImage? {
-        return #imageLiteral(resourceName: "EmptyClassesIcon")
-    }
-    
-    func buttonImageForEmptyStateView() -> UIImage? {
-        return #imageLiteral(resourceName: "buttonBg")
-    }
-    
-    func buttonSizeForEmptyStateView() -> CGSize? {
-        return CGSize(width: 160, height: 45)
-    }
-    
-    // MARK: UIEmptyState Delegate
-    
-    func emptyStatebuttonWasTapped(button: UIButton) {
-        self.performSegue(withIdentifier: .addEditClass, sender: button)
-    }
-    
-    func buttonTitleForEmptyStateView() -> NSAttributedString? {
-        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
-        return NSAttributedString(string: "Add a class", attributes: attrs)
-    }
-    
-    // MARK: - Segues
-    
-    /// Conformance for Seguable protocol
-    enum SegueIdentifier: String {
-        case showDetail = "showDetail"
-        case addEditClass = "addEditClass"
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segueIdentifier(forSegue: segue) {
-        case .showDetail:
-            guard let indexPath = self.tableView.indexPathForSelectedRow else {
-                fatalError("Index path for selected row was nil")
-            }
-            let classItem = classObj(forIndexPath: indexPath)
-            let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
-            controller.detailItem = classItem
-            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-            controller.navigationItem.leftItemsSupplementBackButton = true
-        
-        case .addEditClass:
-            let nav = segue.destination as! UINavigationController
-            let controller = nav.topViewController as! AddEditClassTableViewController
-            // If editing then set the appropriate obj into the view controller
-            if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
-                controller.classObj = classObj(forIndexPath: path)
-            }
-            nav.preferredContentSize = CGSize(width: 500, height: 600)
-            // Assign the delegate
-            controller.delegate = self
-            // Collapse any edit actions for the tableview, so theyre not opened when returning
-            self.tableView.isEditing = false
-        }
-    }
-    
     // MARK: - Helpers
     
     /// This generates all of the possible Semester combinations, this array will be the sections for the table view, currently 48 sections total
@@ -264,11 +182,93 @@ class ClassesTableViewController: UITableViewController, UIEmptyStateDataSource,
     }
 }
 
+// MARK: UIEmptyState Data Source & Delegate
+
+extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
+    
+    // Empty State Data Source
+    
+    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+        // If not items then empty, show empty state
+        return realm.objects(Class.self).isEmpty
+    }
+    
+    func titleForEmptyStateView() -> NSAttributedString {
+        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "No Classes Added", attributes: attrs)
+    }
+    
+    func detailMessageForEmptyStateView() -> NSAttributedString? {
+        return nil
+    }
+    
+    func imageForEmptyStateView() -> UIImage? {
+        return #imageLiteral(resourceName: "EmptyClassesIcon")
+    }
+    
+    func buttonImageForEmptyStateView() -> UIImage? {
+        return #imageLiteral(resourceName: "buttonBg")
+    }
+    
+    func buttonSizeForEmptyStateView() -> CGSize? {
+        return CGSize(width: 160, height: 45)
+    }
+    
+    // Empty State Delegate
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        self.performSegue(withIdentifier: .addEditClass, sender: button)
+    }
+    
+    func buttonTitleForEmptyStateView() -> NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        return NSAttributedString(string: "Add a class", attributes: attrs)
+    }
+}
+
+/// MARK: Segues
+
+extension ClassesTableViewController: Segueable {
+    
+    /// Conformance for Seguable protocol
+    enum SegueIdentifier: String {
+        case showDetail = "showDetail"
+        case addEditClass = "addEditClass"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segueIdentifier(forSegue: segue) {
+        case .showDetail:
+            guard let indexPath = self.tableView.indexPathForSelectedRow else {
+                fatalError("Index path for selected row was nil")
+            }
+            let classItem = classObj(forIndexPath: indexPath)
+            let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
+            controller.detailItem = classItem
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            
+        case .addEditClass:
+            let nav = segue.destination as! UINavigationController
+            let controller = nav.topViewController as! AddEditClassTableViewController
+            // If editing then set the appropriate obj into the view controller
+            if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
+                controller.classObj = classObj(forIndexPath: path)
+            }
+            nav.preferredContentSize = CGSize(width: 500, height: 600)
+            // Assign the delegate
+            controller.delegate = self
+            // Collapse any edit actions for the tableview, so theyre not opened when returning
+            self.tableView.isEditing = false
+        }
+    }
+}
+
 // MARK: AddEditClassView Delegation
 
-/// Protocol extension for the AddEditClassViewDelegate
-extension AddEditClassViewDelegate where Self: ClassesTableViewController {
-    
+extension ClassesTableViewController: AddEditClassViewDelegate {
     func didFinishUpdating(classObj: Class) {
         self.tableView.reloadData()
         self.reloadEmptyState(forTableView: self.tableView)
@@ -300,4 +300,3 @@ extension AddEditClassViewDelegate where Self: ClassesTableViewController {
         return indexOfMatch
     }
 }
-

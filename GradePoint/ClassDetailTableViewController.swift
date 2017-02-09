@@ -11,8 +11,7 @@ import RealmSwift
 import UICircularProgressRing
 import UIEmptyState
 
-class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSource, UIEmptyStateDelegate,
-                                        Segueable, AddEditAssignmentViewDelegate {
+class ClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     
@@ -148,65 +147,6 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
         return [deleteAction]
     }
     
-    // MARK: - UIEmptyState Data Source
-    
-    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
-        // If no assignments for this class then hide the progress ring and show empty state view
-        let noAssignments = detailItem?.assignments.count ?? 0 == 0
-        self.progressRing.isHidden = noAssignments
-        return noAssignments
-    }
-    
-    func titleForEmptyStateView() -> NSAttributedString {
-        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
-        return NSAttributedString(string: "No Assignments Added", attributes: attrs)
-    }
-    
-    func detailMessageForEmptyStateView() -> NSAttributedString? {
-        let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-        return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
-    }
-    
-    func buttonTitleForEmptyStateView() -> NSAttributedString? {
-        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
-        return NSAttributedString(string: "Add assignment", attributes: attrs)
-    }
-    
-    func buttonImageForEmptyStateView() -> UIImage? {
-        return #imageLiteral(resourceName: "buttonBg")
-    }
-    
-    func buttonSizeForEmptyStateView() -> CGSize? {
-        return CGSize(width: 170, height: 50)
-    }
-    
-    // MARK: - UIEmptyState Delegate
-    
-    func emptyStatebuttonWasTapped(button: UIButton) {
-        self.performSegue(withIdentifier: .addEditAssignment, sender: button)
-    }
-    
-    // MARK: - Segues
-    
-    /// Conformace to Segueable
-    enum SegueIdentifier: String {
-        case addEditAssignment = "addEditAssignment"
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segueIdentifier(forSegue: segue) {
-        case .addEditAssignment:
-            // Prepare view for segue
-            let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
-            vc.parentClass = self.detailItem
-            vc.delegate = self
-        }
-    }
-    
-    
     // MARK: - Helpers
     
     func configureView() {
@@ -271,11 +211,76 @@ class ClassDetailTableViewController: UITableViewController, UIEmptyStateDataSou
     }
 }
 
+// MARK: - UIEmptyState DataSource & Delegate
+
+extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
+    
+    // DataSource
+    
+    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+        // If no assignments for this class then hide the progress ring and show empty state view
+        let noAssignments = detailItem?.assignments.count ?? 0 == 0
+        self.progressRing.isHidden = noAssignments
+        return noAssignments
+    }
+    
+    func titleForEmptyStateView() -> NSAttributedString {
+        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "No Assignments Added", attributes: attrs)
+    }
+    
+    func detailMessageForEmptyStateView() -> NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+        return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
+    }
+    
+    func buttonTitleForEmptyStateView() -> NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        return NSAttributedString(string: "Add assignment", attributes: attrs)
+    }
+    
+    func buttonImageForEmptyStateView() -> UIImage? {
+        return #imageLiteral(resourceName: "buttonBg")
+    }
+    
+    func buttonSizeForEmptyStateView() -> CGSize? {
+        return CGSize(width: 170, height: 50)
+    }
+    
+    // Delegate
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        self.performSegue(withIdentifier: .addEditAssignment, sender: button)
+    }
+
+}
+
+// MARK: - Segues
+
+extension ClassDetailTableViewController: Segueable {
+    /// Conformace to Segueable
+    enum SegueIdentifier: String {
+        case addEditAssignment = "addEditAssignment"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segueIdentifier(forSegue: segue) {
+        case .addEditAssignment:
+            // Prepare view for segue
+            let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
+            vc.parentClass = self.detailItem
+            vc.delegate = self
+        }
+    }
+}
+
+
 // MARK: - AddEditAssignmentViewDelegate
 
-/// Protocol extension for the AddEditAssignmentViewDelegate
-extension AddEditAssignmentViewDelegate where Self: ClassDetailTableViewController {
-    
+extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     func didFinishCreating(assignment: Assignment) {
         guard let item = detailItem else {
             print("Couldn't get detailItem inside of viewDidFinishAddingEditing, reloading tableView and returning")
