@@ -246,7 +246,7 @@ extension ClassesTableViewController: Segueable {
             }
             let classItem = classObj(forIndexPath: indexPath)
             let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
-            controller.detailItem = classItem
+            controller.classObj = classItem
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
             

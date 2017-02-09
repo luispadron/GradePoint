@@ -19,12 +19,7 @@ class ClassDetailTableViewController: UITableViewController {
     
     @IBOutlet var progressRing: UICircularProgressRingView!
     
-    var detailItem: Class? {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
-    }
+    var classObj: Class? { didSet { self.configureView() } }
     
     // MARK: - Overrides
     
@@ -73,11 +68,11 @@ class ClassDetailTableViewController: UITableViewController {
     // MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return detailItem?.rubrics.count ?? 0
+        return classObj?.rubrics.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let rubrics = detailItem?.rubrics, let parentClass = detailItem else {
+        guard let rubrics = classObj?.rubrics, let parentClass = classObj else {
             print("Could not get number rubrics for tableView")
             return 0
         }
@@ -93,7 +88,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let rubricForSection = detailItem?.rubrics[section] else {
+        guard let rubricForSection = classObj?.rubrics[section] else {
             print("Error getting rubrics for header view")
             return nil
         }
@@ -115,7 +110,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let rubrics = detailItem?.rubrics, let parentClass = detailItem else {
+        guard let rubrics = classObj?.rubrics, let parentClass = classObj else {
             print("Error couldn't get rubrics or parentclass in cellForRow")
             return UITableViewCell()
         }
@@ -151,7 +146,7 @@ class ClassDetailTableViewController: UITableViewController {
     
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = self.detailItem {
+        if let detail = self.classObj {
             self.title = detail.name
         } else {
             // Figure out if we have any items
@@ -163,7 +158,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     func calculateProgress() {
-        guard let pClass = detailItem, pClass.assignments.count > 0 else {
+        guard let pClass = classObj, pClass.assignments.count > 0 else {
             self.progressRing.setProgress(value: 0, animationDuration: 0, completion: nil)
             return
         }
@@ -193,8 +188,8 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     func deleteAssignment(at indexPath: IndexPath) {
-        let rubric = detailItem!.rubrics[indexPath.section]
-        let assignment = detailItem!.assignments
+        let rubric = classObj!.rubrics[indexPath.section]
+        let assignment = classObj!.assignments
                                     .filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)[indexPath.row]
         try! realm.write {
             realm.delete(assignment)
@@ -219,7 +214,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If no assignments for this class then hide the progress ring and show empty state view
-        let noAssignments = detailItem?.assignments.count ?? 0 == 0
+        let noAssignments = classObj?.assignments.count ?? 0 == 0
         self.progressRing.isHidden = noAssignments
         return noAssignments
     }
@@ -271,7 +266,7 @@ extension ClassDetailTableViewController: Segueable {
         case .addEditAssignment:
             // Prepare view for segue
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
-            vc.parentClass = self.detailItem
+            vc.parentClass = self.classObj
             vc.delegate = self
         }
     }
@@ -282,8 +277,8 @@ extension ClassDetailTableViewController: Segueable {
 
 extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     func didFinishCreating(assignment: Assignment) {
-        guard let item = detailItem else {
-            print("Couldn't get detailItem inside of viewDidFinishAddingEditing, reloading tableView and returning")
+        guard let item = classObj else {
+            print("Couldn't get classObj inside of viewDidFinishAddingEditing, reloading tableView and returning")
             self.tableView.reloadData()
             return
         }

@@ -246,8 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */,
-				A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */,
 				A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */,
+				A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */,
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
 				A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */,
 			);
