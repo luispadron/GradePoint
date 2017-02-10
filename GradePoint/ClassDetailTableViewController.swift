@@ -18,11 +18,14 @@ class ClassDetailTableViewController: UITableViewController {
     /// Realm database
     var realm = try! Realm()
     
+    /// Outlet for the add button in the navigation controller
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
     /// Outlet to the Progress Ring View
     @IBOutlet var progressRing: UICircularProgressRingView!
     
     /// The class object which will be shown as detail, selected from the master controller ClassTableViewController
-    var classObj: Class? { didSet { self.configureView() } }
+    var classObj: Class? 
     
     /// If no classes, then this controller should be blank and no interaction should be allowed.
     /// The view and what to display is handled inside the UIEmptyStateDataSource methods
@@ -43,16 +46,14 @@ class ClassDetailTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        
-        // Configure the view for load
-        configureView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
+        // Configure the view for load
+        configureView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,19 +150,22 @@ class ClassDetailTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
+    /// Configures the view depending on if we have a detail item (classObj) or not
     func configureView() {
+        self.tableView.reloadData()
+        
         if let classObj = self.classObj {
             self.title = classObj.name
-            self.navigationController?.navigationItem.leftBarButtonItem?.isEnabled = true
-            self.navigationController?.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.addButton.isEnabled = true
+            self.splitViewController?.displayModeButtonItem.isEnabled = true
         } else if shouldShowBlank {
             self.title = nil
-            self.navigationController?.navigationItem.leftBarButtonItem?.isEnabled = false
-            self.navigationController?.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.addButton.isEnabled = false
+            self.splitViewController?.displayModeButtonItem.isEnabled = false
         } else {
-            self.title = "Select a class"
-            self.navigationController?.navigationItem.leftBarButtonItem?.isEnabled = false
-            self.navigationController?.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.title = nil
+            self.addButton.isEnabled = false
+            self.splitViewController?.displayModeButtonItem.isEnabled = false
         }
         
         self.reloadEmptyState(forTableView: self.tableView)
@@ -238,7 +242,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         // If no class selected, tell user to select one
         guard let _ = classObj else {
             let attrsForSelect = [NSForegroundColorAttributeName: UIColor.mutedText,
-                                  NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+                                  NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
             return NSAttributedString(string: "Select a class", attributes: attrsForSelect)
         }
         // Display the title

@@ -16,8 +16,6 @@ class ClassesTableViewController: UITableViewController {
     
     var realm = try! Realm()
     
-    var detailViewController: ClassDetailTableViewController? = nil
-    
     lazy var semesterSections: [Semester] = {
         // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
         return self.generateSemestersForSections()
@@ -41,6 +39,8 @@ class ClassesTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        self.tableView.separatorColor = UIColor.tableViewSeperator
         
         
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
@@ -48,23 +48,7 @@ class ClassesTableViewController: UITableViewController {
         
         // Inital state for empty state view
         self.reloadEmptyState(forTableView: self.tableView)
-        
-        
-        if let split = self.splitViewController {
-            split.preferredDisplayMode = .allVisible
-            let controllers = split.viewControllers
-            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ClassDetailTableViewController
-            
-            // TODO: Add support for saving of last selected item and loading that initially
-        }
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
-        self.tableView.separatorColor = UIColor.tableViewSeperator
-        super.viewWillAppear(animated)
-    }
-    
 
     // MARK: - Table View
 
@@ -178,8 +162,13 @@ class ClassesTableViewController: UITableViewController {
         }
         
         // Update detail if needed
-        if shouldUpdateDetail { detailController?.classObj = nil }
-        else { detailController?.configureView() }
+        if shouldUpdateDetail {
+            detailController?.classObj = nil
+            detailController?.configureView()
+        }
+        else {
+            detailController?.configureView()
+        }
         
         // Refresh tableView 
         self.tableView.beginUpdates()
@@ -284,6 +273,9 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
     func didFinishUpdating(classObj: Class) {
         self.tableView.reloadData()
         self.reloadEmptyState(forTableView: self.tableView)
+        // Also update detail controller if presenting this updated class
+        let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
+        if detailController?.classObj == classObj { detailController?.configureView() }
     }
     
     func didFinishCreating(newClass classObj: Class) {

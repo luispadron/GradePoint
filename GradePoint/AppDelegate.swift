@@ -19,9 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Prints the realm path
         print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-        let splitViewController = self.window!.rootViewController!.childViewControllers[0] as! UISplitViewController
-        let detailNavController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        detailNavController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        let splitViewController = self.window!.rootViewController!.childViewControllers.first as! UISplitViewController
+        let detailNavController = splitViewController.viewControllers.last as? UINavigationController
+        detailNavController?.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = .allVisible
         
