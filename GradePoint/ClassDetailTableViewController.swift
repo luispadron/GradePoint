@@ -221,10 +221,15 @@ class ClassDetailTableViewController: UITableViewController {
 extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
     
     // DataSource
-    
+
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If no assignments for this class then hide the progress ring and show empty state view
-        let noAssignments = classObj?.assignments.count ?? 0 == 0
+        guard let classObj = self.classObj else {
+            self.progressRing.isHidden = true
+            return !shouldShowBlank
+        }
+        
+        let noAssignments = classObj.assignments.count == 0
         self.progressRing.isHidden = noAssignments
         return noAssignments && !shouldShowBlank
     }
