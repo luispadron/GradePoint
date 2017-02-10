@@ -153,6 +153,7 @@ class ClassDetailTableViewController: UITableViewController {
     /// Configures the view depending on if we have a detail item (classObj) or not
     func configureView() {
         self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
         
         if let classObj = self.classObj {
             self.title = classObj.name
@@ -314,6 +315,7 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         guard let item = classObj else {
             print("Couldn't get classObj inside of viewDidFinishAddingEditing, reloading tableView and returning")
             self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
             return
         }
         
