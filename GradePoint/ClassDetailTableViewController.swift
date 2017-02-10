@@ -15,11 +15,18 @@ class ClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     
+    /// Realm database
     var realm = try! Realm()
     
+    /// Outlet to the Progress Ring View
     @IBOutlet var progressRing: UICircularProgressRingView!
     
+    /// The class object which will be shown as detail, selected from the master controller ClassTableViewController
     var classObj: Class? { didSet { self.configureView() } }
+    
+    /// If no classes, then this controller should be blank and no interaction should be allowed.
+    /// The view and what to display is handled inside the UIEmptyStateDataSource methods
+    var shouldShowBlank: Bool { get { return try! Realm().objects(Class.self).count == 0 } }
     
     // MARK: - Overrides
     
@@ -29,9 +36,6 @@ class ClassDetailTableViewController: UITableViewController {
         self.emptyStateDataSource = self
         self.emptyStateDelegate = self
         
-        // Configure the view for load
-        configureView()
-        
         // Set the progressRing as the tableHeaderView
         let encapsulationView = UIView() // encapsulates the view to stop clipping
         encapsulationView.addSubview(progressRing)
@@ -40,8 +44,9 @@ class ClassDetailTableViewController: UITableViewController {
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        // Inital state for empty state view
-        self.reloadEmptyState(forTableView: self.tableView)
+        
+        // Configure the view for load
+        configureView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -145,16 +150,21 @@ class ClassDetailTableViewController: UITableViewController {
     // MARK: - Helpers
     
     func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = self.classObj {
-            self.title = detail.name
+        if let classObj = self.classObj {
+            self.title = classObj.name
+            self.navigationController?.navigationItem.leftBarButtonItem?.isEnabled = true
+            self.navigationController?.navigationItem.rightBarButtonItem?.isEnabled = true
+        } else if shouldShowBlank {
+            self.title = nil
+            self.navigationController?.navigationItem.leftBarButtonItem?.isEnabled = false
+            self.navigationController?.navigationItem.rightBarButtonItem?.isEnabled = false
         } else {
-            // Figure out if we have any items
-            let realm = try! Realm()
-            let objs = realm.objects(Class.self)
-            if objs.count < 1 { self.title = "Add a Class" }
-            else { self.title = "Select a class" }
+            self.title = "Select a class"
+            self.navigationController?.navigationItem.leftBarButtonItem?.isEnabled = false
+            self.navigationController?.navigationItem.rightBarButtonItem?.isEnabled = false
         }
+        
+        self.reloadEmptyState(forTableView: self.tableView)
     }
     
     func calculateProgress() {
@@ -216,32 +226,47 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         // If no assignments for this class then hide the progress ring and show empty state view
         let noAssignments = classObj?.assignments.count ?? 0 == 0
         self.progressRing.isHidden = noAssignments
-        return noAssignments
+        return noAssignments && !shouldShowBlank
     }
     
     func titleForEmptyStateView() -> NSAttributedString {
+        // If no class selected, tell user to select one
+        guard let _ = classObj else {
+            let attrsForSelect = [NSForegroundColorAttributeName: UIColor.mutedText,
+                                  NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+            return NSAttributedString(string: "Select a class", attributes: attrsForSelect)
+        }
+        // Display the title
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Assignments Added", attributes: attrs)
     }
     
     func detailMessageForEmptyStateView() -> NSAttributedString? {
+        guard let _ = classObj else { return nil }
+        
         let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
         return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
     }
     
     func buttonTitleForEmptyStateView() -> NSAttributedString? {
+        guard let _ = classObj else { return nil }
+        
         let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add assignment", attributes: attrs)
     }
     
     func buttonImageForEmptyStateView() -> UIImage? {
+        guard let _ = classObj else { return nil }
+        
         return #imageLiteral(resourceName: "buttonBg")
     }
     
     func buttonSizeForEmptyStateView() -> CGSize? {
+        guard let _ = classObj else { return nil }
+        
         return CGSize(width: 170, height: 50)
     }
     

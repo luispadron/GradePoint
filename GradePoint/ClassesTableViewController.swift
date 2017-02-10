@@ -163,12 +163,23 @@ class ClassesTableViewController: UITableViewController {
         let semesterToDel = classToDel.semester!
         let assignmentsToDel = classToDel.assignments
         
+        // Figure out whether we need to update the state of the detail controller or not
+        // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
+        var shouldUpdateDetail = false
+        let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
+        if detailController?.classObj == classToDel { shouldUpdateDetail = true }
+        
+        // Delete class object and its associated properties from Realm
         try! realm.write {
             realm.delete(rubricsToDel)
             realm.delete(semesterToDel)
             realm.delete(assignmentsToDel)
             realm.delete(classToDel)
         }
+        
+        // Update detail if needed
+        if shouldUpdateDetail { detailController?.classObj = nil }
+        else { detailController?.configureView() }
         
         // Refresh tableView 
         self.tableView.beginUpdates()
@@ -242,7 +253,8 @@ extension ClassesTableViewController: Segueable {
         switch segueIdentifier(forSegue: segue) {
         case .showDetail:
             guard let indexPath = self.tableView.indexPathForSelectedRow else {
-                fatalError("Index path for selected row was nil")
+                print("index Path for selected row was nil inside ClassesTableViewController when performing segue")
+                return
             }
             let classItem = classObj(forIndexPath: indexPath)
             let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
@@ -286,6 +298,11 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         self.tableView.endUpdates()
         self.reloadEmptyState(forTableView: self.tableView)
+        
+        // Also update the detail views context message
+        let detailNav = splitViewController?.viewControllers.last as? UINavigationController
+        let detailController = detailNav?.childViewControllers.first as? ClassDetailTableViewController
+        detailController?.configureView()
     }
     
     
