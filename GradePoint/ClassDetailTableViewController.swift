@@ -169,7 +169,7 @@ class ClassDetailTableViewController: UITableViewController {
             self.splitViewController?.displayModeButtonItem.isEnabled = false
         }
         
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
     }
     
     func calculateProgress() {
@@ -210,7 +210,7 @@ class ClassDetailTableViewController: UITableViewController {
             realm.delete(assignment)
         }
         
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
         
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -330,7 +330,7 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
             }
         }
         
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
         
         // Dont call for calculation here if not in split view because this gets called in viewDidAppear
         // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment

@@ -39,7 +39,6 @@ class ClassesTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         self.tableView.separatorColor = UIColor.tableViewSeperator
         
         
@@ -47,7 +46,13 @@ class ClassesTableViewController: UITableViewController {
         initClassesBySection()
         
         // Inital state for empty state view
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
     }
 
     // MARK: - Table View
@@ -178,7 +183,7 @@ class ClassesTableViewController: UITableViewController {
             self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         }
         self.tableView.endUpdates()
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
     }
 }
 
@@ -272,7 +277,7 @@ extension ClassesTableViewController: Segueable {
 extension ClassesTableViewController: AddEditClassViewDelegate {
     func didFinishUpdating(classObj: Class) {
         self.tableView.reloadData()
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
         // Also update detail controller if presenting this updated class
         let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
         if detailController?.classObj == classObj { detailController?.configureView() }
@@ -289,7 +294,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         self.tableView.insertRows(at: [indexPath], with: .automatic)
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         self.tableView.endUpdates()
-        self.reloadEmptyState(forTableView: self.tableView)
+        self.reloadEmptyState()
         
         // Also update the detail views context message
         let detailNav = splitViewController?.viewControllers.last as? UINavigationController
