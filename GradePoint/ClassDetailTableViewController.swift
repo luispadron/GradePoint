@@ -27,15 +27,25 @@ class ClassDetailTableViewController: UITableViewController {
     /// The class object which will be shown as detail, selected from the master controller ClassTableViewController
     var classObj: Class? {
         didSet {
-            guard let _ = classObj else { return }
-            
+            guard let `classObj` = classObj else {
+                rubrics.removeAll()
+                assignments.removeAll()
+                return
+            }
+            rubrics = Array(classObj.rubrics)
+            // Set up the assignments array, sorted by its associated rubric
+            assignments.removeAll()
+            for rubric in rubrics {
+                let assignmentsForRubric = classObj.assignments.filter("associatedRubric = %@", rubric)
+                assignments.append(assignmentsForRubric)
+            }
         }
     }
     
     /// The rubrics for this class
-    var rubrics: [Rubric]?
+    var rubrics = [Rubric]()
     /// The assignments sorted by rubric
-    var assignments: [Assignment]?
+    var assignments = [Results<Assignment>]()
     
     /// If no classes, then this controller should be blank and no interaction should be allowed.
     /// The view and what to display is handled inside the UIEmptyStateDataSource methods
@@ -56,6 +66,8 @@ class ClassDetailTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        self.reloadEmptyState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -84,19 +96,11 @@ class ClassDetailTableViewController: UITableViewController {
     // MARK: - TableView Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return classObj?.rubrics.count ?? 0
+        return rubrics.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let rubrics = classObj?.rubrics, let parentClass = classObj else {
-            print("Could not get number rubrics for tableView")
-            return 0
-        }
-        
-        let rubricForSection = rubrics[section]
-        let assignmentsForSection = parentClass.assignments.filter("associatedRubric =  %@", rubricForSection)
-        
-        return assignmentsForSection.count
+        return assignments[section].count
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -104,11 +108,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let rubricForSection = classObj?.rubrics[section] else {
-            print("Error getting rubrics for header view")
-            return nil
-        }
-        
+        let rubricForSection = rubrics[section]
         // Create the correct headerView for the section
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.tableViewHeader
@@ -126,24 +126,15 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let rubrics = classObj?.rubrics, let parentClass = classObj else {
-            print("Error couldn't get rubrics or parentclass in cellForRow")
-            return UITableViewCell()
-        }
-        
-        let rubricForSection = rubrics[indexPath.section]
-        let assignment = parentClass.assignments
-                                    .filter("associatedRubric = %@", rubricForSection)
-                                    .sorted(byKeyPath: "date", ascending: false)[indexPath.row]
-        
+        let assignmentForRow = assignment(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "assignmentTableViewCell", for: indexPath) as! AssignmentTableViewCell
         
-        cell.nameLabel.text = assignment.name
-        cell.scoreLabel.text = "Score: \(assignment.score)"
+        cell.nameLabel.text = assignmentForRow.name
+        cell.scoreLabel.text = "Score: \(assignmentForRow.score)"
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
-        cell.dateLabel.text = "Date: " + formatter.string(from: assignment.date)
+        cell.dateLabel.text = "Date: " + formatter.string(from: assignmentForRow.date)
         
         return cell
     }
@@ -160,16 +151,9 @@ class ClassDetailTableViewController: UITableViewController {
         // Edit Action
         let editAction = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] action, indexPath in
             // Send the assignment as the sender, since it will be used to edit
-            guard let rubrics = self?.classObj?.rubrics, let parentClass = self?.classObj else {
-                print("WARNING: couldn't get rubrics or parentclass in editAction")
-                return
-            }
-            
-            let rubricForSection = rubrics[indexPath.section]
-            let assignment = parentClass.assignments
-                                        .filter("associatedRubric = %@", rubricForSection)
-                                        .sorted(byKeyPath: "date", ascending: false)[indexPath.row]
-            self?.performSegue(withIdentifier: .addEditAssignment, sender: assignment)
+            guard let `self` = self else { return }
+            let assignmentToEdit = self.assignment(for: indexPath)
+            self.performSegue(withIdentifier: .addEditAssignment, sender: assignmentToEdit)
         }
         
         editAction.backgroundColor = .lapisLazuli
@@ -201,8 +185,9 @@ class ClassDetailTableViewController: UITableViewController {
         self.reloadEmptyState()
     }
     
+    /// Calculates the percentage for the progress ring
     func calculateProgress() {
-        guard let pClass = classObj, pClass.assignments.count > 0 else {
+        guard assignments.count > 0 else {
             self.progressRing.setProgress(value: 0, animationDuration: 0, completion: nil)
             return
         }
@@ -210,10 +195,8 @@ class ClassDetailTableViewController: UITableViewController {
         var weights = 0.0
         var score = 0.0
         
-        let rubrics = pClass.rubrics
-        
-        for rubric in rubrics {
-            let assignments = pClass.assignments.filter("associatedRubric = %@", rubric)
+        for (indexOfRubric, rubric) in rubrics.enumerated() {
+            let assignments = self.assignments[indexOfRubric]
             if assignments.count == 0 { continue }
             
             weights += rubric.weight
@@ -231,20 +214,22 @@ class ClassDetailTableViewController: UITableViewController {
         self.progressRing.setProgress(value: CGFloat(score / weights), animationDuration: 1.5, completion: nil)
     }
     
+    func assignment(for indexPath: IndexPath) -> Assignment {
+        return assignments[indexPath.section][indexPath.row]
+    }
+    
     func deleteAssignment(at indexPath: IndexPath) {
-        let rubric = classObj!.rubrics[indexPath.section]
-        let assignment = classObj!.assignments
-                                    .filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)[indexPath.row]
-        try! realm.write {
-            realm.delete(assignment)
-        }
+        let assignmentToDelete = assignment(for: indexPath)
         
-        self.reloadEmptyState()
+        try! realm.write {
+            realm.delete(assignmentToDelete)
+        }
         
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .automatic)
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         self.tableView.endUpdates()
+        self.reloadEmptyState()
 
         calculateProgress()
     }
@@ -343,31 +328,25 @@ extension ClassDetailTableViewController: Segueable {
 
 extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     func didFinishCreating(assignment: Assignment) {
-        guard let item = classObj else {
-            print("Couldn't get classObj inside of viewDidFinishAddingEditing, reloading tableView and returning")
+
+        guard let section = rubrics.index(of: assignment.associatedRubric!), let row = assignments[section].index(of: assignment) else {
+            print("WARNING: Could not find section or row for created assignment")
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
             return
         }
         
-        let rubric = assignment.associatedRubric!
-        if let section = item.rubrics.index(of: rubric) {
-            let assigns = item.assignments.filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: false)
-            if let row = assigns.index(of: assignment) {
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
-                self.tableView.reloadSections(IndexSet.init(integer: section), with: .automatic)
-                self.tableView.endUpdates()
-            }
-        }
+        self.tableView.beginUpdates()
+        self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
+        self.tableView.reloadSections(IndexSet.init(integer: section), with: .automatic)
+        self.tableView.endUpdates()
+        self.tableView.layoutIfNeeded()
         
         self.reloadEmptyState()
         
         // Dont call for calculation here if not in split view because this gets called in viewDidAppear
         // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
-        guard let svc = splitViewController, !svc.isCollapsed else {
-            return
-        }
+        guard let svc = splitViewController, !svc.isCollapsed else { return }
         
         self.calculateProgress()
     }
