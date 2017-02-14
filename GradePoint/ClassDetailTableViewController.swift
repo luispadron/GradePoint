@@ -25,7 +25,17 @@ class ClassDetailTableViewController: UITableViewController {
     @IBOutlet var progressRing: UICircularProgressRingView!
     
     /// The class object which will be shown as detail, selected from the master controller ClassTableViewController
-    var classObj: Class? 
+    var classObj: Class? {
+        didSet {
+            guard let _ = classObj else { return }
+            
+        }
+    }
+    
+    /// The rubrics for this class
+    var rubrics: [Rubric]?
+    /// The assignments sorted by rubric
+    var assignments: [Assignment]?
     
     /// If no classes, then this controller should be blank and no interaction should be allowed.
     /// The view and what to display is handled inside the UIEmptyStateDataSource methods
@@ -140,12 +150,31 @@ class ClassDetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
-            self.deleteAssignment(at: indexPath)
+        // Delete Action
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [weak self] action, indexPath in
+            self?.deleteAssignment(at: indexPath)
         })
-        deleteAction.backgroundColor = UIColor.sunsetOrange
         
-        return [deleteAction]
+        deleteAction.backgroundColor = .sunsetOrange
+        
+        // Edit Action
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] action, indexPath in
+            // Send the assignment as the sender, since it will be used to edit
+            guard let rubrics = self?.classObj?.rubrics, let parentClass = self?.classObj else {
+                print("WARNING: couldn't get rubrics or parentclass in editAction")
+                return
+            }
+            
+            let rubricForSection = rubrics[indexPath.section]
+            let assignment = parentClass.assignments
+                                        .filter("associatedRubric = %@", rubricForSection)
+                                        .sorted(byKeyPath: "date", ascending: false)[indexPath.row]
+            self?.performSegue(withIdentifier: .addEditAssignment, sender: assignment)
+        }
+        
+        editAction.backgroundColor = .lapisLazuli
+        
+        return [deleteAction, editAction]
     }
     
     // MARK: - Helpers
@@ -303,6 +332,8 @@ extension ClassDetailTableViewController: Segueable {
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = self.classObj
             vc.delegate = self
+            // If editing (coming from edit action) set the assignmt for edit of the ViewController
+            if let assignmentForEdit = sender as? Assignment { vc.assignmentForEdit = assignmentForEdit }
         }
     }
 }

@@ -13,23 +13,29 @@ class AddEditAssignmentTableViewController: UITableViewController {
 
     // MARK: - Properties
     
-    // Realm database object
+    /// Realm database object
     let realm = try! Realm()
-    
+    /// Outlet to the save button
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    /// The parent class which owns this Assignment, passed in via segue inside of ClassDetailTableViewController
     var parentClass: Class!
-    
+    /// The date label, which displays the value picked from the date picker
     var dateLabel: UILabel!
+    /// The rubric label, which displays the value picked from the rubric picker
     var rubricLabel: UILabel!
-    
+    /// Boolean for determining whether datePicker is visible or not
     var datePickerIsVisible = false
+    /// Boolean for determining whether rubricPicker is visible or not
     var rubricPickerIsVisible = false
-    
+    /// The name field textfield
     var nameField: UITextField?
+    /// The score field textfield
     var scoreField: UITextField?
-    
+    /// The selected date from the date picker
     var selectedDate: Date = Date()
-    
+    /// Assignment which will be edited if editing
+    var assignmentForEdit: Assignment?
+    /// The delegate which will handle the completion of this view controller, edit and saving of Assignments
     weak var delegate: AddEditAssignmentViewDelegate?
     
     // MARK: - Overrides
@@ -39,13 +45,21 @@ class AddEditAssignmentTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        saveButton.isEnabled = false
+
+        saveButton.isEnabled = assignmentForEdit != nil ? true : false
+        // If editing, set the title
+        if let assignment = assignmentForEdit { self.title = "Edit \(assignment.name)" }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.separatorColor = UIColor.tableViewSeperator
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // If editing, select the correct date and rubric
+        if let assignment = assignmentForEdit { updatePickers(for: assignment) }
     }
     
 
@@ -120,6 +134,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.promptText = "Assignment Name"
                 cell.inputField.delegate = self
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
+                if let assignment = assignmentForEdit { cell.inputField.text = assignment.name }
                 self.nameField = cell.inputField
                 return cell
             case 1:
@@ -129,7 +144,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .long
                 formatter.timeStyle = .none
-                cell.rightLabel.text = formatter.string(from: Date())
+                if let assignment = assignmentForEdit { cell.rightLabel.text = formatter.string(from: assignment.date) }
+                else { cell.rightLabel.text = formatter.string(from: Date()) }
                 self.dateLabel = cell.rightLabel
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
@@ -144,7 +160,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
             case 3:
                 let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.leftLabel.text = "Rubric"
-                cell.rightLabel.text = self.parentClass.rubrics[0].name
+                if let assignment = assignmentForEdit { cell.rightLabel.text = assignment.associatedRubric!.name }
+                else { cell.rightLabel.text = self.parentClass.rubrics[0].name }
                 self.rubricLabel = cell.rightLabel
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
@@ -183,6 +200,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.selectionStyle = .none
                 cell.inputField.delegate = self
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
+                if let assignment = assignmentForEdit { cell.inputField.text = "\(assignment.score)%" }
                 self.scoreField = cell.inputField
                 return cell
             default:
@@ -260,6 +278,23 @@ class AddEditAssignmentTableViewController: UITableViewController {
         }
         
         textField.resignFirstResponder()
+    }
+    
+    /// Updates the pickers to the appropriate values for the assignment being edited
+    func updatePickers(for assignment: Assignment) {
+        guard let datePicker = (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? BasicInfoDatePickerTableViewCell)?.datePicker,
+            let rubricPicker = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? BasicInfoRubricPickerTableViewCell)?.rubricPicker else {
+                print("WARNING: Unable to get pickers for update")
+                return
+        }
+        
+        // Update date picker
+        datePicker.setDate(assignment.date, animated: false)
+        // Update rubric picker
+        if let indexOfRubric = parentClass.rubrics.index(of: assignment.associatedRubric!) {
+            rubricPicker.selectRow(indexOfRubric, inComponent: 0, animated: false)
+            self.pickerView(rubricPicker, didSelectRow: indexOfRubric, inComponent: 0)
+        }
     }
     
     func togglePicker() {
