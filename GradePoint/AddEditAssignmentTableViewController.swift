@@ -238,26 +238,77 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     
     @IBAction func onSave(_ sender: UIBarButtonItem) {
-        // Save the associated assignment to realm
-        guard let nText = nameField?.text, var sText = scoreField?.text?.replacingOccurrences(of: "%", with: ""),
-              let rubricPicker = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as?
-                                    BasicInfoRubricPickerTableViewCell)?.rubricPicker
-        else {
-            fatalError("Could not save because guard failed")
+        
+        guard let _ = nameField?.text, let _ = scoreField?.text?.replacingOccurrences(of: "%", with: ""),
+            let _ = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? BasicInfoRubricPickerTableViewCell)?.rubricPicker else {
+                self.presentErrorAlert(title: "Error Saving", message: "Unable to save this assignment, due to an unknown error.")
+                return
         }
         
-        // Check the score text and make sure that if there is a '.' it doesnt end in it, if it does remove it
-        if sText.characters.last == "." { sText = sText.substring(to: sText.index(before: sText.endIndex)) }
-        let score = Double(sText)!
-        let rubric = parentClass.rubrics[rubricPicker.selectedRow(inComponent: 0)]
-        let newAssignment = Assignment(name: nText, date: selectedDate, score: score, associatedRubric: rubric)
+        if let _ = assignmentForEdit { saveChanges() }
+        else { saveNew() }
+//        // Save the associated assignment to realm
+//        else {
+//            fatalError("Could not save because guard failed")
+//        }
+//        
+//        // Check the score text and make sure that if there is a '.' it doesnt end in it, if it does remove it
+//        if sText.characters.last == "." { sText = sText.substring(to: sText.index(before: sText.endIndex)) }
+//        let score = Double(sText)!
+//        let rubric = parentClass.rubrics[rubricPicker.selectedRow(inComponent: 0)]
+//        let newAssignment = Assignment(name: nText, date: selectedDate, score: score, associatedRubric: rubric)
+//        
+//        try! realm.write {
+//            parentClass.assignments.append(newAssignment)
+//        }
+//        
+//        self.dismiss(animated: true) {
+//            self.delegate?.didFinishCreating(assignment: newAssignment)
+//        }
+    }
+    
+    /// Updates assignment in Realm, calls delegate and dismisses view
+    func saveChanges() {
+        // Can force unwrap here since we checked in the guard of onSave(_:)
+        let name = nameField!.text!
+        var scoreText = scoreField!.text!.replacingOccurrences(of: "%", with: "")
+        if scoreText.characters.last == "." { scoreText = scoreText.substring(to: scoreText.index(before: scoreText.endIndex)) }
+        let score = Double(scoreText) ?? 0.0
+        let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
+        let rubric = parentClass!.rubrics[indexOfRubric]
         
+        // Write change to realm
+        try! realm.write {
+            assignmentForEdit?.name = name
+            assignmentForEdit?.score = score
+            assignmentForEdit?.date = selectedDate
+            assignmentForEdit?.associatedRubric = rubric
+        }
+        
+        self.dismiss(animated: true) { [weak self] in
+            guard let assignment = self?.assignmentForEdit else { return }
+            self?.delegate?.didFinishUpdating(assignment: assignment)
+        }
+    }
+    
+    /// Creates and saves a new assignment in Realm, calls delegate and dismisses view
+    func saveNew() {
+        // Can force unwrap because checked inside of onSave(_:)
+        let name = nameField!.text!
+        var scoreText = scoreField!.text!.replacingOccurrences(of: "%", with: "")
+        if scoreText.characters.last == "." { scoreText = scoreText.substring(to: scoreText.index(before: scoreText.endIndex)) }
+        let score = Double(scoreText) ?? 0.0
+        let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
+        let rubric = parentClass!.rubrics[indexOfRubric]
+        
+        let newAssignment = Assignment(name: name, date: selectedDate, score: score, associatedRubric: rubric)
+
         try! realm.write {
             parentClass.assignments.append(newAssignment)
         }
-        
-        self.dismiss(animated: true) {
-            self.delegate?.didFinishCreating(assignment: newAssignment)
+
+        self.dismiss(animated: true) { [weak self] in
+            self?.delegate?.didFinishCreating(assignment: newAssignment)
         }
     }
     

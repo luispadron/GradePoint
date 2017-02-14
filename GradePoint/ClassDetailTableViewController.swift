@@ -373,6 +373,7 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     }
     
     func didFinishUpdating(assignment: Assignment) {
-        // TODO: Add method implementation
+        self.tableView.reloadData()
+        self.reloadEmptyState()
     }
 }
