@@ -127,8 +127,10 @@ class ClassDetailTableViewController: UITableViewController {
         let assignmentForRow = assignment(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "assignmentTableViewCell", for: indexPath) as! AssignmentTableViewCell
         
+        cell.selectionStyle = .none
+        cell.selectedBackgroundView = nil
         cell.nameLabel.text = assignmentForRow.name
-        cell.scoreLabel.text = "Score: \(assignmentForRow.score)"
+        cell.scoreLabel.text = "Score: \(assignmentForRow.score)%"
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
