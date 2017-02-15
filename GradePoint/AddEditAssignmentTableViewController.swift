@@ -390,6 +390,12 @@ class AddEditAssignmentTableViewController: UITableViewController {
 // MARK: - UITextField Delegate
 
 extension AddEditAssignmentTableViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
