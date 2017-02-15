@@ -27,7 +27,7 @@ class ClassDetailTableViewController: UITableViewController {
     /// The class object which will be shown as detail, selected from the master controller ClassTableViewController
     var classObj: Class? {
         didSet {
-            guard let `classObj` = classObj else {
+            guard let `classObj` = classObj, !classObj.isInvalidated else {
                 rubrics.removeAll()
                 assignments.removeAll()
                 return
@@ -66,8 +66,6 @@ class ClassDetailTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        self.reloadEmptyState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -226,13 +224,15 @@ class ClassDetailTableViewController: UITableViewController {
         }
         
         self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-        self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
+        self.tableView.deleteRows(at: [indexPath], with: .left)
+        self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .fade)
         self.tableView.endUpdates()
         self.reloadEmptyState()
 
         calculateProgress()
     }
+    
+    deinit { self.classObj = nil }
 }
 
 // MARK: - UIEmptyState DataSource & Delegate
@@ -337,8 +337,8 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         }
         
         self.tableView.beginUpdates()
-        self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
-        self.tableView.reloadSections(IndexSet.init(integer: section), with: .automatic)
+        self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .right)
+        self.tableView.reloadSections(IndexSet.init(integer: section), with: .fade)
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
         
