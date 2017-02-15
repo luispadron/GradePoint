@@ -14,13 +14,8 @@ class ClassTableViewCell: UITableViewCell {
     @IBOutlet weak var classRibbon: UIView!
     @IBOutlet weak var classTitleLabel: UILabel!
     @IBOutlet weak var classDateLabel: UILabel!
-    
-    /// The class associated with the cell
-    var classObj: Class? {
-        didSet {
-            updateUI()
-        }
-    }
+    /// The color for the cells ribbon
+    var ribbonColor: UIColor?
    
     // MARK: - Overrides
     
@@ -39,7 +34,7 @@ class ClassTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         // Remove all refrences to old class obj, since the cell will be reused and new class will be assigned
-        self.classObj = nil
+        self.ribbonColor = nil
         classRibbon.backgroundColor = nil
         classTitleLabel.text = nil
         classDateLabel.text = nil
@@ -58,23 +53,10 @@ class ClassTableViewCell: UITableViewCell {
     
     // MARK: - Helper Methods
     
-    func updateUI() {
-        guard let classItem = classObj else {
-            return
-        }
-        // Set the approritate ui types to their fields
-        self.classTitleLabel.text = classItem.name
-        self.classDateLabel.text = "\(classItem.semester!.term) \(classItem.semester!.year)"
-        self.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
-    }
-    
     func updateForSelection(_ selected: Bool) {
-        guard let classItem = classObj else {
-            return
-        }
         // After selection occurs the cells "colorRibbon" dissapears since the UIView will become clear
         // reset the background color to the appropriate color
-        self.classRibbon.backgroundColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
+        self.classRibbon.backgroundColor = ribbonColor
         // Set white color for date text, so it looks better
         if selected { self.classDateLabel.textColor = UIColor.lightText}
         else { self.classDateLabel.textColor = UIColor.mutedText }
