@@ -247,24 +247,6 @@ class AddEditAssignmentTableViewController: UITableViewController {
         
         if let _ = assignmentForEdit { saveChanges() }
         else { saveNew() }
-//        // Save the associated assignment to realm
-//        else {
-//            fatalError("Could not save because guard failed")
-//        }
-//        
-//        // Check the score text and make sure that if there is a '.' it doesnt end in it, if it does remove it
-//        if sText.characters.last == "." { sText = sText.substring(to: sText.index(before: sText.endIndex)) }
-//        let score = Double(sText)!
-//        let rubric = parentClass.rubrics[rubricPicker.selectedRow(inComponent: 0)]
-//        let newAssignment = Assignment(name: nText, date: selectedDate, score: score, associatedRubric: rubric)
-//        
-//        try! realm.write {
-//            parentClass.assignments.append(newAssignment)
-//        }
-//        
-//        self.dismiss(animated: true) {
-//            self.delegate?.didFinishCreating(assignment: newAssignment)
-//        }
     }
     
     /// Updates assignment in Realm, calls delegate and dismisses view
