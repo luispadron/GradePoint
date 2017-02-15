@@ -205,25 +205,10 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.addTarget(self, action: #selector(self.weightFieldTextChanged), for: .editingChanged)
         weightField.keyboardType = .decimalPad
         
-        // Add an input accessory view which will display done
-        let weightFieldToolBar = UIToolbar()
-        weightFieldToolBar.barStyle = .default
-        weightFieldToolBar.items = [
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.keyboardDone))
-        ]
-        weightFieldToolBar.sizeToFit()
-        weightFieldToolBar.barTintColor = UIColor.darkBg
-        weightFieldToolBar.isTranslucent = false
-        weightField.inputAccessoryView = weightFieldToolBar
-        
         self.addSubview(weightField)
         
     }
-    
-    func keyboardDone() {
-        endEditing(true)
-    }
+
     
     // MARK: Actions
     

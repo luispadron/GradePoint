@@ -221,6 +221,20 @@ class AddEditClassTableViewController: UITableViewController {
                 }
             }
             
+            // Add an accesory button the rubrics views weight field to calculate a percentage
+            // Add an input accessory view which will display done
+            let weightFieldToolBar = UIToolbar()
+            weightFieldToolBar.barStyle = .default
+            weightFieldToolBar.items = [
+                UIBarButtonItem(title: "Calculate", style: .done, target: self, action: #selector(self.rubricNeedsCalculate(sender:))),
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.rubricWeightFieldDone(sender:)))
+            ]
+            weightFieldToolBar.sizeToFit()
+            weightFieldToolBar.barTintColor = UIColor.darkBg
+            weightFieldToolBar.isTranslucent = false
+            cell.rubricView.weightField.inputAccessoryView = weightFieldToolBar
+            
             rubricCells.append(cell)
             return cell
         }
@@ -366,7 +380,7 @@ class AddEditClassTableViewController: UITableViewController {
         cells.removeLast()
         
         // Keep track of total percent while looping
-        var totalPercent = 0.0
+        var totalPercent: Double = 0.0
         
         for (index, cell) in cells.enumerated() {
             let view = cell.rubricView
@@ -394,7 +408,7 @@ class AddEditClassTableViewController: UITableViewController {
             totalPercent += percent
         }
         
-        if totalPercent != 100 {
+        if round(totalPercent) != 100 {
             print("Percent not equal to 100, not ready to save. Presenting alert")
             // Present alert telling user weights must add up to 100
             // Construct title
@@ -544,6 +558,30 @@ extension AddEditClassTableViewController: UITextFieldDelegate {
 // MARK: - UIRubricView Delegate
 
 extension AddEditClassTableViewController: UIRubricViewDelegate {
+    
+    /// The done button was tapped, end editing
+    func rubricWeightFieldDone(sender: Any) {
+        self.view.endEditing(true)
+    }
+    
+    func rubricNeedsCalculate(sender: Any) {
+        guard let calculateButton = sender as? UIBarButtonItem, let buttonView = calculateButton.value(forKeyPath: "view") as? UIView,
+            let calculateToolbar = buttonView.superview as? UIToolbar else {
+            return
+        }
+        
+        var rubricViewToCalculate: UIRubricView?
+        // Find the view which needs calculation to be done on
+        for cell in rubricCells {
+            if calculateToolbar === cell.rubricView.weightField.inputAccessoryView { rubricViewToCalculate = cell.rubricView }
+        }
+        
+        let percent = Double(round((1/3)*1000)/1000) * 100
+        rubricViewToCalculate?.weightField.text = "\(percent)%"
+        rubricViewToCalculate?.weightField.setTitleVisible(titleVisible: true)
+        rubricViewToCalculate?.weightFieldTextChanged(textField: rubricViewToCalculate!.weightField)
+    }
+    
     func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?) {
         guard let `state` = state else {
             return
@@ -630,7 +668,6 @@ extension AddEditClassTableViewController: UIRubricViewDelegate {
             self.tableView.deleteRows(at: [path], with: .automatic)
             self.tableView.endUpdates()
         }
-        
     }
 }
 
