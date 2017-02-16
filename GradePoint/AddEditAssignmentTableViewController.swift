@@ -180,7 +180,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.inputField = UIPercentField()
+                let config = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
+                let textField = UISafeTextField(frame: .zero, fieldType: .percent, configuration: config)
+                cell.inputField = textField
                 cell.inputField.keyboardType = .decimalPad
                 // Add input accessory view to keyboard
                 let inputFieldToolbar = UIToolbar()
@@ -193,7 +195,6 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 inputFieldToolbar.barTintColor = UIColor.darkBg
                 inputFieldToolbar.isTranslucent = false
                 cell.inputField.inputAccessoryView = inputFieldToolbar
-                (cell.inputField as! UIPercentField).allowsAllPercents = true
                 cell.inputLabel.text = "Score"
                 cell.promptText = "Assignment Score"
                 cell.contentView.backgroundColor = UIColor.darkBg
@@ -384,8 +385,8 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if let field = textField as? UIPercentField, field === scoreField {
-            return field.shouldChangeText(replacementText: string)
+        if let field = textField as? UISafeTextField, field === scoreField {
+            return field.shouldChangeTextAfterCheck(text: string)
         }
         
         return true

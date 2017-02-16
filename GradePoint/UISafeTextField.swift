@@ -111,21 +111,22 @@ open class UISafeTextField: UITextField {
         // Make sure string is a number
         guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) else { return false }
         
-        return false
+        return true
     }
     
     private func checkValidPercent(for string: String, with configuration: PercentConfiguration) -> Bool {
         guard checkValidPercent(for: string) else { return false }
+        if string == "." { return true }
         
-        let currentText = self.text?.replacingOccurrences(of: "", with: "%") ?? ""
+        let currentText = self.text?.replacingOccurrences(of: "%", with: "") ?? ""
         
         // If allows floating point, must be convertable to double or float
         var convertable = true
         if configuration.allowsFloatingPoint { convertable = Double(currentText + string) != nil || Float(currentText + string) != nil }
         // If allows over 100 just make sure it isnt below 0, if doesnt allow over 100 then check that its within range
         var inRange = true
-        if configuration.allowsOver100 && configuration.allowsFloatingPoint { inRange = (Double(currentText + string) ?? -1.0 )  > 0.0 }
-        else if configuration.allowsOver100 { inRange = (Int(currentText + string) ?? -1 )  > 0 }
+        if configuration.allowsOver100 && configuration.allowsFloatingPoint { inRange = (Double(currentText + string) ?? -1.0 ) >=  0.0 }
+        else if configuration.allowsOver100 { inRange = (Int(currentText + string) ?? -1 )  >= 0 }
         else { inRange = (Int(currentText + string) ?? -1 ) >= 0 && (Int(currentText + string) ?? -1 ) <= 100 }
         
         return convertable && inRange
