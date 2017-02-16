@@ -8,12 +8,12 @@
 
 import UIKit
 
-class UIFloatingPromptTextField: UISafeTextField {
+open class UIFloatingPromptTextField: UISafeTextField {
     
-    public lazy var titleLabel = UILabel()
-    public var titleText: String = ""
-    public var titleTextColor: UIColor = UIColor.highlight
-    public var animationDuration: TimeInterval = 0.3
+    open lazy var titleLabel = UILabel()
+    open var titleText: String = ""
+    open var titleTextColor: UIColor = UIColor.highlight
+    open var animationDuration: TimeInterval = 0.3
     
     public var editingOrSelected : Bool {
         get {
@@ -118,7 +118,7 @@ class UIFloatingPromptTextField: UISafeTextField {
         return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + titleHeight/6))
     }
     
-    override var intrinsicContentSize: CGSize {
+    override open var intrinsicContentSize: CGSize {
         get {
             return CGSize(width: bounds.size.width, height: titleHeight)
         }

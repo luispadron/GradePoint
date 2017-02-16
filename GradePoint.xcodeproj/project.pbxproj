@@ -29,6 +29,7 @@
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */; };
 		A076F5A71E3078C100CE4F43 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A61E3078C100CE4F43 /* String+Range.swift */; };
+		A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084437F1E55808F00C32F52 /* UICalculateViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
@@ -36,6 +37,7 @@
 		A0A0A4C81E3713190055B0D4 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A0A4C71E3713190055B0D4 /* ModelTests.swift */; };
 		A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF71E554D5600054935 /* UISafeTextField.swift */; };
 		A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */; };
+		A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CFD1E557A3E00054935 /* UICalculateView.swift */; };
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
@@ -101,6 +103,7 @@
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Resize.swift"; sourceTree = "<group>"; };
 		A076F5A61E3078C100CE4F43 /* String+Range.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
+		A084437F1E55808F00C32F52 /* UICalculateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		A0A0A4C71E3713190055B0D4 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		A0A27CF71E554D5600054935 /* UISafeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextField.swift; sourceTree = "<group>"; };
 		A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextFieldConfigurations.swift; sourceTree = "<group>"; };
+		A0A27CFD1E557A3E00054935 /* UICalculateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateView.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
@@ -244,6 +248,15 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		A084437E1E55805E00C32F52 /* UICalculateView */ = {
+			isa = PBXGroup;
+			children = (
+				A0A27CFD1E557A3E00054935 /* UICalculateView.swift */,
+				A084437F1E55808F00C32F52 /* UICalculateViewController.swift */,
+			);
+			name = UICalculateView;
+			sourceTree = "<group>";
+		};
 		A0A27CFB1E55563D00054935 /* UISafeTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +315,7 @@
 				A0E892E61DB97B4A0034DAB6 /* Cells */,
 				A0A27CFC1E5579DD00054935 /* UIBlurAlert */,
 				A0A27CFB1E55563D00054935 /* UISafeTextField */,
+				A084437E1E55805E00C32F52 /* UICalculateView */,
 				A0DE9E311DB833E800C56226 /* UIRubricView.swift */,
 				A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */,
 				A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */,
@@ -594,6 +608,7 @@
 				A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */,
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,
 				A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */,
+				A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */,
 				A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */,
 				A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */,
 				A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */,
@@ -606,6 +621,7 @@
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
+				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,
 				A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */,
 				A0E8B6921E497A9800EC4470 /* AddEditClassViewDelegate.swift in Sources */,
 				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
