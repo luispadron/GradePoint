@@ -304,7 +304,7 @@ class AddEditClassTableViewController: UITableViewController {
         for cell in cells {
             let view = cell.rubricView!
             // Get rubric info
-            let rubricWeight = Double(view.weightField.text!.replacingOccurrences(of: "%", with: ""))!
+            let rubricWeight = Double(view.weightField.safeText)!
             let rubricName = view.nameField.text!
             rubrics.append(Rubric(withName: rubricName, andWeight: rubricWeight))
         }
@@ -346,7 +346,7 @@ class AddEditClassTableViewController: UITableViewController {
             let savedRubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
             try! realm.write {
                 savedRubric.name = cell.rubricView.nameField.text!
-                savedRubric.weight = Double(cell.rubricView.weightField.text!.replacingOccurrences(of: "%", with: ""))!
+                savedRubric.weight = Double(cell.rubricView.weightField.safeText)!
             }
             // Finally remove this from the list of rubricCells since we don't need this info for this edited cell, only for new now
             if let index = rubricCells.index(of: cell) { rubricCells.remove(at: index) }
@@ -358,7 +358,7 @@ class AddEditClassTableViewController: UITableViewController {
         newRubricCells.removeLast()
         for cell in newRubricCells {
             let name = cell.rubricView.nameField.text!
-            let weight = Double(cell.rubricView.weightField.text!.replacingOccurrences(of: "%", with: ""))!
+            let weight = Double(cell.rubricView.weightField.safeText)!
             let newRubric = Rubric(withName: name, andWeight: weight)
             try! realm.write {
                 classObj.rubrics.append(newRubric)
@@ -384,7 +384,7 @@ class AddEditClassTableViewController: UITableViewController {
         
         for (index, cell) in cells.enumerated() {
             let view = cell.rubricView
-            guard let text = view?.weightField.text?.replacingOccurrences(of: "%", with: ""), let percent = Double(text) else {
+            guard let text = view?.weightField.safeText, let percent = Double(text) else {
                 presentErrorAlert(title: "Unable to save", message: "Some data is incorrect and cannot save, please check values and try again")
                 return false
             }

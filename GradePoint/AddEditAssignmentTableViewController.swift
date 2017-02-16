@@ -30,7 +30,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     /// The name field textfield
     var nameField: UITextField?
     /// The score field textfield
-    var scoreField: UITextField?
+    var scoreField: UISafeTextField?
     /// The selected date from the date picker
     var selectedDate: Date = Date()
     /// Assignment which will be edited if editing
@@ -183,7 +183,6 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 let config = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
                 let textField = UISafeTextField(frame: .zero, fieldType: .percent, configuration: config)
                 cell.inputField = textField
-                cell.inputField.keyboardType = .decimalPad
                 // Add input accessory view to keyboard
                 let inputFieldToolbar = UIToolbar()
                 inputFieldToolbar.barStyle = .default
@@ -202,7 +201,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.inputField.delegate = self
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
                 if let assignment = assignmentForEdit { cell.inputField.text = "\(assignment.score)%" }
-                self.scoreField = cell.inputField
+                self.scoreField = cell.inputField as? UISafeTextField
                 return cell
             default:
                 break
@@ -240,7 +239,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         
-        guard let _ = nameField?.text, let _ = scoreField?.text?.replacingOccurrences(of: "%", with: ""),
+        guard let _ = nameField?.text, let text = scoreField?.safeText, text.characters.count > 0,
             let _ = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? BasicInfoRubricPickerTableViewCell)?.rubricPicker else {
                 self.presentErrorAlert(title: "Error Saving", message: "Unable to save this assignment, due to an unknown error.")
                 return
@@ -254,7 +253,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     func saveChanges() {
         // Can force unwrap here since we checked in the guard of onSave(_:)
         let name = nameField!.text!
-        var scoreText = scoreField!.text!.replacingOccurrences(of: "%", with: "")
+        var scoreText = scoreField!.safeText
         if scoreText.characters.last == "." { scoreText = scoreText.substring(to: scoreText.index(before: scoreText.endIndex)) }
         let score = Double(scoreText) ?? 0.0
         let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
@@ -278,7 +277,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     func saveNew() {
         // Can force unwrap because checked inside of onSave(_:)
         let name = nameField!.text!
-        var scoreText = scoreField!.text!.replacingOccurrences(of: "%", with: "")
+        var scoreText = scoreField!.safeText
         if scoreText.characters.last == "." { scoreText = scoreText.substring(to: scoreText.index(before: scoreText.endIndex)) }
         let score = Double(scoreText) ?? 0.0
         let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
