@@ -16,27 +16,33 @@ open class UISafeTextField: UITextField {
     }
     
     /// The type of the textfield
-    open var fieldType: FieldType = .text
+    open var fieldType: FieldType
     /// The configuration for the text field
-    open var configuration: FieldConfiguration = TextConfiguration(maxCharacters: Int.max)
+    open var configuration: FieldConfiguration
     /// Boolean for determining if the user clicked backspace
     private var isBackspace: Bool = false
     
     // MARK: - Initializers
     
-    public override init(frame: CGRect) {
+    public required init(frame: CGRect, fieldType: FieldType, configuration: FieldConfiguration) {
+        self.fieldType = fieldType
+        self.configuration = configuration
         super.init(frame: frame)
+        // Add target
         self.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        // Set keyboard type
+        switch fieldType {
+        case .percent:
+            fallthrough
+        case .number:
+            self.keyboardType = .decimalPad
+        case .text:
+            break
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    public convenience init(frame: CGRect, fieldType: FieldType, configuration: FieldConfiguration) {
-        self.init(frame: frame)
-        self.fieldType = fieldType
-        self.configuration = configuration
     }
     
     // MARK: - Check Methods
