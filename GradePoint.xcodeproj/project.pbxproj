@@ -253,6 +253,15 @@
 			name = UISafeTextField;
 			sourceTree = "<group>";
 		};
+		A0A27CFC1E5579DD00054935 /* UIBlurAlert */ = {
+			isa = PBXGroup;
+			children = (
+				A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */,
+				A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */,
+			);
+			name = UIBlurAlert;
+			sourceTree = "<group>";
+		};
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,7 +269,6 @@
 				A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */,
 				A05B1E2A1DB2B1D200A43BE3 /* AddEditClassTableViewController.swift */,
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
-				A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -292,11 +300,11 @@
 			isa = PBXGroup;
 			children = (
 				A0E892E61DB97B4A0034DAB6 /* Cells */,
+				A0A27CFC1E5579DD00054935 /* UIBlurAlert */,
 				A0A27CFB1E55563D00054935 /* UISafeTextField */,
 				A0DE9E311DB833E800C56226 /* UIRubricView.swift */,
 				A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */,
 				A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */,
-				A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
