@@ -39,7 +39,7 @@ public struct PercentConfiguration: FieldConfiguration {
 public struct TextConfiguration: FieldConfiguration {
     public let maxCharacters: Int
     
-    init(maxCharacters: Int) {
+    init(maxCharacters: Int = Int.max) {
         self.maxCharacters = maxCharacters
     }
 }

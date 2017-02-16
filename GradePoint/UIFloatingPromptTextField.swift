@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UIFloatingPromptTextField: UITextField {
+class UIFloatingPromptTextField: UISafeTextField {
     
     public lazy var titleLabel = UILabel()
     public var titleText: String = ""
@@ -21,14 +21,13 @@ class UIFloatingPromptTextField: UITextField {
         }
     }
     
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        initialize()
+    public required init(frame: CGRect, fieldType: FieldType, configuration: FieldConfiguration) {
+        super.init(frame: frame, fieldType: fieldType, configuration: configuration)
+        self.initialize()
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initialize()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func initialize() {

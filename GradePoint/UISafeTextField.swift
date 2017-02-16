@@ -165,18 +165,26 @@ open class UISafeTextField: UITextField {
     /// Checks to see if its a valid percent AND if meets configurations defined in the PercentConfiguration
     private func checkValidPercent(for string: String, with configuration: PercentConfiguration) -> Bool {
         guard checkValidPercent(for: string) else { return false }
-        if string == "." { return true }
+        
+        if string == "." && configuration.allowsFloatingPoint { return true }
+        else if string == "." && !configuration.allowsFloatingPoint { return false }
         
         let currentText = self.text?.replacingOccurrences(of: "%", with: "") ?? ""
         
         // If allows floating point, must be convertable to double or float
         var convertable = true
         if configuration.allowsFloatingPoint { convertable = Double(currentText + string) != nil || Float(currentText + string) != nil }
+        
         // If allows over 100 just make sure it isnt below 0, if doesnt allow over 100 then check that its within range
         var inRange = true
-        if configuration.allowsOver100 && configuration.allowsFloatingPoint { inRange = (Double(currentText + string) ?? -1.0 ) >=  0.0 }
-        else if configuration.allowsOver100 { inRange = (Int(currentText + string) ?? -1 )  >= 0 }
-        else { inRange = (Int(currentText + string) ?? -1 ) >= 0 && (Int(currentText + string) ?? -1 ) <= 100 }
+        
+        if configuration.allowsFloatingPoint {
+            if configuration.allowsOver100 { inRange = (Double(currentText + string) ?? -1.0 ) >=  0.0 }
+            else { inRange = (Double(currentText + string) ?? -1.0 ) <=  100.0 }
+        } else if !configuration.allowsFloatingPoint {
+            if configuration.allowsOver100 { inRange = (Int(currentText + string) ?? -1) >= 0 }
+            else { inRange = (Int(currentText + string) ?? -1) <= 100 }
+        }
         
         return convertable && inRange
     }
@@ -184,11 +192,17 @@ open class UISafeTextField: UITextField {
     ///////////// TEXT ///////////////
     
     private func checkValidText(for string: String) -> Bool {
-        return false
+        return true
     }
     
     private func checkValidText(for string: String, with configuration: TextConfiguration) -> Bool {
-        return false
+        guard checkValidText(for: string) else { return false }
+        
+        let currentText = self.text ?? ""
+        // Check to see if in range
+        let inRange = (currentText + string).characters.count < configuration.maxCharacters
+        
+        return inRange
     }
     
 }

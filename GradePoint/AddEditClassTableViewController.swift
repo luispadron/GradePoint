@@ -579,7 +579,6 @@ extension AddEditClassTableViewController: UIRubricViewDelegate {
         let percent = Double(round((1/3)*1000)/1000) * 100
         rubricViewToCalculate?.weightField.text = "\(percent)%"
         rubricViewToCalculate?.weightField.setTitleVisible(titleVisible: true)
-        rubricViewToCalculate?.weightFieldTextChanged(textField: rubricViewToCalculate!.weightField)
     }
     
     func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?) {

@@ -176,8 +176,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
     private func drawTextField() {
         let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
         
-        nameField = UIFloatingPromptTextField(frame:  CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY,
-                                                             width: actualWidth/2, height: bounds.height))
+        let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        nameField = UIFloatingPromptTextField(frame: nameFieldFrame, fieldType: .text, configuration: TextConfiguration())
         nameField.placeholder = nameFieldPrompt
         nameField.textColor = UIColor.lightText
         nameField.borderStyle = .none
@@ -190,9 +190,9 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField.addTarget(self, action: #selector(self.updateIsRubricValid), for: .editingChanged)
         self.addSubview(nameField)
         
-        weightField = UIFloatingPromptTextField(frame: CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY,
-                                                              width: actualWidth/2, height: bounds.height))
-        
+        let weightFieldFrame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        let config = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
+        weightField = UIFloatingPromptTextField(frame: weightFieldFrame, fieldType: .percent, configuration: config)
         weightField.placeholder = weightFieldPrompt
         weightField.textColor = UIColor.lightText
         weightField.borderStyle = .none
@@ -202,7 +202,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self
-        weightField.addTarget(self, action: #selector(self.weightFieldTextChanged), for: .editingChanged)
+        weightField.addTarget(self, action: #selector(self.updateIsRubricValid), for: .editingChanged)
         weightField.keyboardType = .decimalPad
         
         self.addSubview(weightField)
@@ -337,71 +337,11 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string == "" {
-            isBackspace = true
-            return true
-        }
+        guard let field = textField as? UIFloatingPromptTextField else { return false }
         
-        isBackspace = false
-        
-        // Dont allow multiple periods, anything below 0 or above 100
-        if textField === weightField {
-            let newChars = CharacterSet(charactersIn: string)
-            let isNumber = CharacterSet.decimalDigits.isSuperset(of: newChars)
-            if isNumber {
-                let current = textField.text!.replacingOccurrences(of: "%", with: "") + string
-                let num = Double(current)
-                if let n = num,  n > 100.0 || n < 0.0 { return false }
-            } else { // Allow only one decimal
-                if string == "." {
-                    let current = textField.text!.replacingOccurrences(of: "%", with: "") + string
-                    let num = Double(current)
-                    let count = textField.text!.components(separatedBy: ".").count
-                    if count > 1 { return false }
-                    if let n = num,  n >= 100 || n < 0 { return false }
-                    
-                    return true
-                }
-                // Not a number or decimal point, return false
-                return false
-            }
-        }
-        
-        return true
+        return field.shouldChangeTextAfterCheck(text: string)
     }
     
-    // Append a "%" sign to the end of the string in the textfield
-    func weightFieldTextChanged(textField: UITextField) {
-        
-        guard var text = textField.text, text != "" else {
-            updateIsRubricValid()
-            return
-        }
-        
-        // Replace all % and treat string as if the % doesnt matter
-        text = text.replacingOccurrences(of: "%", with: "")
-        
-        if text == "." {
-            text.insert("0", at: text.startIndex)
-        }
-        // If it's a back space then remove that string and set the field
-        if isBackspace {
-            text = text.substring(to: text.index(before: text.endIndex))
-        }
-        
-        // If after deleting the text = "" then just set textfield text to empty, and return 
-        // We dont want to append just % because that would look weird, so return and dont append
-        if text == "" {
-            textField.text = nil
-            updateIsRubricValid()
-            return
-        }
-        
-        // All statements passed, lets set the textfields text
-        textField.text = text.appending("%")
-        
-        updateIsRubricValid()
-    }
     
     func updateIsRubricValid() {
         // The user hasnt opened the rubric view, thus, no checking required
