@@ -11,12 +11,16 @@ public protocol FieldConfiguration {}
 
 /// Configuration for a number textfield
 public struct NumberConfiguration: FieldConfiguration {
-    public let range: ClosedRange<Int>
-    public let allowSignedNumbers: Bool
+    public var range: ClosedRange<Double>?
+    public let allowsSignedNumbers: Bool
     
-    init(range: ClosedRange<Int>, allowSignedNumbers: Bool = true) {
+    init(allowsSignedNumbers: Bool = true) {
+        self.allowsSignedNumbers = allowsSignedNumbers
+    }
+    
+    init(allowsSignedNumbers: Bool = true, range: ClosedRange<Double>) {
+        self.allowsSignedNumbers = allowsSignedNumbers
         self.range = range
-        self.allowSignedNumbers = allowSignedNumbers
     }
 }
 

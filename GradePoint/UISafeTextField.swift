@@ -21,6 +21,9 @@ open class UISafeTextField: UITextField {
     open var configuration: FieldConfiguration
     /// Boolean for determining if the user clicked backspace
     private var isBackspace: Bool = false
+    /// Returns a safe text, this will remove any special characters added to the text
+    /// Such as the '%' character when using .percent type
+    open var safeText: String { get { return (self.text ?? "").replacingOccurrences(of: "%", with: "") } }
     
     // MARK: - Initializers
     
@@ -79,18 +82,21 @@ open class UISafeTextField: UITextField {
     @objc private func textDidChange(textField: UITextField) {
         switch fieldType {
         case .number:
-            break
+            guard var currentText = self.text else { return }
+            // If only entered a dot, prepend a 0, i.e .1 -> 0.1
+            if currentText == "." { currentText.insert("0", at: currentText.startIndex) }
+            self.text = currentText
         case .percent:
             // Append a percent to the end of the text field
-            guard var textToChange = self.text?.replacingOccurrences(of: "%", with: "") else { return }
+            guard var currentText = self.text?.replacingOccurrences(of: "%", with: "") else { return }
             // If only entered a dot, prepend a 0, i.e .1 -> 0.1
-            if textToChange == "." { textToChange.insert("0", at: textToChange.startIndex) }
+            if currentText == "." { currentText.insert("0", at: currentText.startIndex) }
             // Remove the last char
-            if isBackspace { textToChange = textToChange.substring(to: textToChange.index(before: textToChange.endIndex)) }
+            if isBackspace { currentText = currentText.substring(to: currentText.index(before: currentText.endIndex)) }
             // If after removing a char text is empty, then set self.text to nil since no text
-            if textToChange == "" { self.text = nil; return }
+            if currentText == "" { self.text = nil; return }
             // All good to append a percent
-            self.text = textToChange.appending("%")
+            self.text = currentText.appending("%")
         case .text:
             break
         }
@@ -100,12 +106,48 @@ open class UISafeTextField: UITextField {
     
     ///////////// NUMBER ///////////////
     
+    /// Checks to see if valid number, this would mean that text can be converted into a number
     private func checkValidNumber(for string: String) -> Bool {
-        return false
+        // Allow backspace
+        if string == "" { return true }
+        else if string == "." && !(self.text?.contains(".") ?? false) { return (self.text?.components(separatedBy: ".") ?? [""]).count < 2 } // Allow only one decimal dot
+        // Only allow digits
+        guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string)) else { return false }
+        
+        return true
     }
     
+    /// Checks to see if its a valid number AND if meets configurations defined in the NumberConfiguration
     private func checkValidNumber(for string: String, with configuration: NumberConfiguration) -> Bool {
-        return false
+        guard checkValidNumber(for: string) else { return false }
+    
+        if string == "" || string == "." { return true } // These have already been checked, just return true
+        else if string == "-" && !(self.text?.contains("-") ?? false) && configuration.allowsSignedNumbers { // Allow only one - for negative
+            return (self.text?.components(separatedBy: "-") ?? [""]).count < 2
+        }
+        
+        
+        let currentText = self.text ?? ""
+        
+        // Make sure number can be converted
+        let convertable = Double(currentText + string) != nil || Int(currentText + string) != nil || Float(currentText + string) != nil
+        
+        // If doesnt allow signed numbers then check to see if number is signed
+        var isValidNumber = true
+        if !configuration.allowsSignedNumbers { isValidNumber = Double(currentText + string)! > 0.0 }
+        
+        // Make sure number is in range
+        var inRange = true
+        if let range = configuration.range { inRange = range.contains(Double(currentText + string)!) }
+        
+        // Not in range, and has - in textfield, this would mean that configuration allowed for signed nubmers but didnt set correct range
+        // I.e a range of 0...3
+        if !inRange && currentText.characters[currentText.startIndex] == "-" && currentText.characters.count == 1 {
+            self.text = nil // Removes that - and returns nil
+            return false
+        }
+        
+        return convertable && isValidNumber && inRange
     }
     
     ///////////// PERCENT ///////////////
@@ -120,6 +162,7 @@ open class UISafeTextField: UITextField {
         return true
     }
     
+    /// Checks to see if its a valid percent AND if meets configurations defined in the PercentConfiguration
     private func checkValidPercent(for string: String, with configuration: PercentConfiguration) -> Bool {
         guard checkValidPercent(for: string) else { return false }
         if string == "." { return true }
