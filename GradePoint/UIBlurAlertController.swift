@@ -9,7 +9,7 @@
 import UIKit
 import AudioToolbox.AudioServices
 
-open class UIBlurAlertController: UIViewController {
+open class UIBlurAlertController: UIBlurViewController {
     
     // MARK: - Properties
     
@@ -27,14 +27,7 @@ open class UIBlurAlertController: UIViewController {
     }
     /// The background color for the alert
     open var alertBackgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
-    /// The visual effect view
-    private var visualEffectView: UIVisualEffectView?
-    /// The visual effect for the controller
-    private var effect: UIVisualEffect?
-    /// The blur effect for the controller, default = Dark
-    open var blurEffect = UIBlurEffect(style: .dark)
-    /// The animation duration for the animation in and the animation out of the alert view. Default = 0.5
-    open var animationDuration: TimeInterval = 0.5
+
     /// The alert view for the controller
     private lazy var alertView: UIBlurAlertView = {
         let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: self.alertSize)
@@ -53,8 +46,8 @@ open class UIBlurAlertController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.modalPresentationStyle = .overCurrentContext
-        
     }
+    
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -65,9 +58,6 @@ open class UIBlurAlertController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
-        
-        // Create blur effect view and add it as a subview
-        self.addVisualEffectView()
         
         // Add the blur alert view
         self.alertView.center = self.view.center
@@ -90,15 +80,6 @@ open class UIBlurAlertController: UIViewController {
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if animated {
-            self.animateAlertIn()
-        }
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.visualEffectView?.frame = self.view.frame
     }
     
     // MARK: - Presenting Method
@@ -116,35 +97,28 @@ open class UIBlurAlertController: UIViewController {
         if let h = handler {
             button.addHandler(forEvents: events, handler: { [weak self] in
                 h()
-                self?.animateAlertOutAndDismiss()
+                self?.animateOut()
             })
         } else { // Handler is nil, when button gets clicked just dismiss the controller
             button.addHandler(forEvents: events, handler: { [weak self] in
-                self?.animateAlertOutAndDismiss()
+                self?.animateOut()
             })
         }
     }
     
-    // MARK: - Helpers
+    // MARK: - Overrides
     
-    /// Adds a visual effect view over the controller, only if allowed by user settings
-    private func addVisualEffectView() {
-        if UIAccessibilityIsReduceTransparencyEnabled() { return }
-        // Create the effect since user allows blur
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = self.view.bounds
-        self.view.addSubview(blurView)
-        
-        // Vibrancy effect
-        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-        let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-        vibrancyView.frame = self.view.bounds
-        blurView.contentView.addSubview(vibrancyView)
-        
-        self.effect = blurView.effect
-        blurView.effect = nil
-        self.visualEffectView = blurView
+    public override func animateIn() {
+        super.animateIn()
+        self.animateAlertIn()
     }
+    
+    public override func animateOut() {
+        super.animateOut()
+        self.animateAlertOutAndDismiss()
+    }
+    
+    // MARK: - Helpers
     
     /// Animates the alertview in
     private func animateAlertIn() {
@@ -155,8 +129,6 @@ open class UIBlurAlertController: UIViewController {
         UIView.animate(withDuration: self.animationDuration, delay: 0.0,
                        usingSpringWithDamping: 1.0, initialSpringVelocity: 9, options: .curveEaseInOut,
                        animations: {
-                        // Add the blur back
-                        if let view = self.visualEffectView { view.effect = self.blurEffect }
                         self.alertView.center = self.view.center
                         self.alertView.alpha = 1.0
                        }, completion: nil)
@@ -171,8 +143,7 @@ open class UIBlurAlertController: UIViewController {
     
     private func animateAlertOutAndDismiss() {
         UIView.animate(withDuration: self.animationDuration, animations: { 
-            // Remove the effect
-            if let view = self.visualEffectView { view.effect = nil }
+            // Expand view off screen
             self.alertView.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
             self.alertView.alpha = 0
             self.alertView.center.y = self.view.frame.maxY

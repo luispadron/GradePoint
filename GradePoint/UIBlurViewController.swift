@@ -12,9 +12,9 @@ import UIKit
 open class UIBlurViewController: UIViewController {
 
     /// The visual effect view
-    private var visualEffectView: UIVisualEffectView?
+    open var visualEffectView: UIVisualEffectView?
     /// The visual effect for the controller
-    private var effect: UIVisualEffect?
+    open var effect: UIVisualEffect?
     /// The blur effect for the controller, default = Dark
     open var blurEffect = UIBlurEffect(style: .dark)
     /// The animation duration for the animation in and the animation out of the blur view. Default = 0.5
@@ -37,11 +37,6 @@ open class UIBlurViewController: UIViewController {
         if animated { self.animateIn() }
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if animated { self.animateOut() }
-    }
-    
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.visualEffectView?.frame = self.view.frame
@@ -50,7 +45,7 @@ open class UIBlurViewController: UIViewController {
     // MARK: - Animations
     
     /// Animates the blur when appearing
-    private func animateIn() {
+    public func animateIn() {
         
         UIView.animate(withDuration: self.animationDuration, delay: 0.0,
                        usingSpringWithDamping: 1.0, initialSpringVelocity: 9, options: .curveEaseInOut,
@@ -61,7 +56,7 @@ open class UIBlurViewController: UIViewController {
     }
     
     /// Animates the blur view out
-    private func animateOut() {
+    public func animateOut() {
         UIView.animate(withDuration: self.animationDuration, animations: {
             // Remove the effect
             if let view = self.visualEffectView { view.effect = nil }
