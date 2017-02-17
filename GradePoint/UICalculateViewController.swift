@@ -54,7 +54,7 @@ open class UICalculateViewController: UIBlurViewController {
 
 extension UICalculateViewController: UICalculateViewDelegate {
     func calculateWasTapped(for: UICalculateView, score: String, total: String) {
-        
+        print(score + "/" + total)
     }
     
     func exitButtonWasTapped(for: UICalculateView) {

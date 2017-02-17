@@ -63,8 +63,9 @@ open class UICalculateView: UIView {
     // MARK: - Actions
     
     @objc private func calculateButtonTapped(button: UIButton) {
-        button.animateWithPulse(withDuration: 0.3) {
-            print("Animated")
+        button.animateWithPulse(withDuration: 0.3) { [weak self] in
+            guard let `self` = self, let score = self.scoreField.text, let total = self.totalField.text else { return }
+            self.delegate?.calculateWasTapped(for: self, score: score, total: total)
         }
     }
     

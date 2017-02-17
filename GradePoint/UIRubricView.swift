@@ -182,6 +182,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField.textColor = UIColor.lightText
         nameField.borderStyle = .none
         nameField.font = UIFont.systemFont(ofSize: fontSize)
+        nameField.tintColor = UIColor.highlight
         nameField.titleText = nameFieldPrompt
         nameField.attributedPlaceholder = NSAttributedString(string: nameFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         nameField.returnKeyType = .next
@@ -196,6 +197,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.placeholder = weightFieldPrompt
         weightField.textColor = UIColor.lightText
         weightField.borderStyle = .none
+        weightField.tintColor = UIColor.highlight
         weightField.font = UIFont.systemFont(ofSize: fontSize)
         weightField.titleText = weightFieldPrompt
         weightField.attributedPlaceholder = NSAttributedString(string: weightFieldPrompt, attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
