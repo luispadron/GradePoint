@@ -25,6 +25,7 @@ open class UICalculateView: UIView {
     // MARK: - Helper Methods
     
     private func initialize() {
+        self.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 5
         self.clipsToBounds = true
@@ -34,17 +35,15 @@ open class UICalculateView: UIView {
         titleLabel.frame = frameForTitle
         self.addSubview(titleLabel)
         
-        let frameForScore = CGRect(x: 5, y: frameForTitle.maxY + 15, width: self.bounds.width - 10, height: 40)
+        let frameForScore = CGRect(x: 10, y: frameForTitle.maxY + 25, width: self.bounds.width - 20, height: 30)
         scoreField.frame = frameForScore
         self.addSubview(scoreField)
         
-        let frameForTotal = CGRect(x: 5, y: frameForScore.maxY + 15, width: self.bounds.width - 10, height: 40)
+        let frameForTotal = CGRect(x: 10, y: frameForScore.maxY + 30, width: self.bounds.width - 20, height: 30)
         totalField.frame = frameForTotal
         self.addSubview(totalField)
         
-        let sizeForButton = CGSize(width: 150, height: 40)
-        let pointForButton = CGPoint(x: self.bounds.midX - (sizeForButton.width/2), y: frameForTotal.maxY + 10)
-        calculateButton.frame = CGRect(origin: pointForButton, size: sizeForButton)
+        calculateButton.frame = CGRect(x: 0, y: self.bounds.maxY - 50, width: self.bounds.width, height: 50)
         self.addSubview(calculateButton)
         
         // Add a border to view
@@ -75,26 +74,24 @@ open class UICalculateView: UIView {
         return label
     }()
     
-    /// The score UIFloatingPromptTextField view
-    open lazy var scoreField: UIFloatingPromptTextField = {
+    /// The score UISafeTextField view
+    open lazy var scoreField: UISafeTextField = {
         let config = NumberConfiguration(allowsSignedNumbers: false)
-        let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number, configuration: config)
+        let field = UISafeTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Score"
-        field.titleText = "Score"
-        field.titleTextSpacing = 8.0
         field.font = UIFont.systemFont(ofSize: 18)
+        field.borderStyle = .roundedRect
         field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
         return field
     }()
     
     /// The total UISafeTextField view
-    open lazy var totalField: UIFloatingPromptTextField = {
+    open lazy var totalField: UISafeTextField = {
         let config = NumberConfiguration(allowsSignedNumbers: false)
-        let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number, configuration: config)
+        let field = UISafeTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Total"
-        field.titleText = "Total"
-        field.titleTextSpacing = 8.0
+        field.borderStyle = .roundedRect
         field.font = UIFont.systemFont(ofSize: 18)
         field.attributedPlaceholder = NSAttributedString(string: "Total", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
@@ -118,7 +115,7 @@ open class UICalculateView: UIView {
 
 extension UICalculateView: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let field = textField as? UIFloatingPromptTextField else { return true }
+        guard let field = textField as? UISafeTextField else { return true }
         return field.shouldChangeTextAfterCheck(text: string)
     }
 }

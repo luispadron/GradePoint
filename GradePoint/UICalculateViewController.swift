@@ -11,7 +11,7 @@ import UIKit
 open class UICalculateViewController: UIBlurViewController {
     
     open lazy var calculateView: UICalculateView = {
-        let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 300, height: 220)))
+        let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 320, height: 220)))
         return view
     }()
     
