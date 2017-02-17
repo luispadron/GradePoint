@@ -33,6 +33,7 @@ open class UICalculateView: UIView {
     // MARK: - Helper Methods
     
     private func initialize() {
+        
         self.backgroundColor = UIColor(red: 0.878, green: 0.890, blue: 0.865, alpha: 1.0)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 5
@@ -66,7 +67,7 @@ open class UICalculateView: UIView {
     
     // MARK: - Actions
     
-    @objc private func calculateButtonTapped(button: UIButton) {
+    func calculateButtonTapped(button: UIButton) {
         button.animateWithPulse(withDuration: 0.3) { [weak self] in
             guard let `self` = self else { return }
             let score = self.scoreField.text ?? ""
@@ -75,7 +76,8 @@ open class UICalculateView: UIView {
         }
     }
     
-    @objc private func exitButtonTapped(button: UIButton) {
+    func exitButtonTapped(button: UIButton) {
+        self.endEditing(true)
         self.delegate?.exitButtonWasTapped(for: self)
     }
     
@@ -122,6 +124,8 @@ open class UICalculateView: UIView {
         field.tintColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00)
         field.font = UIFont.systemFont(ofSize: 18)
         field.borderStyle = .roundedRect
+        field.keyboardType = .numbersAndPunctuation
+        field.returnKeyType = .next
         field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
         return field
@@ -145,6 +149,8 @@ open class UICalculateView: UIView {
         field.borderStyle = .roundedRect
         field.tintColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00)
         field.font = UIFont.systemFont(ofSize: 18)
+        field.returnKeyType = .done
+        field.keyboardType = .numbersAndPunctuation
         field.attributedPlaceholder = NSAttributedString(string: "Total", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
         return field
@@ -165,6 +171,23 @@ open class UICalculateView: UIView {
 // MARK: - UITextField Delegation
 
 extension UICalculateView: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField !== scoreField {
+            totalField.resignFirstResponder()
+            return true
+        }
+        
+        scoreField.resignFirstResponder()
+        totalField.becomeFirstResponder()
+        
+        return true
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let field = textField as? UISafeTextField else { return true }
         return field.shouldChangeTextAfterCheck(text: string)
