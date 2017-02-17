@@ -10,13 +10,19 @@ import UIKit
 
 open class UICalculateViewController: UIBlurViewController {
     
+    /// The percent of the calculated view
+    public typealias CalculateViewControllerCompletion = (Double) -> Void
+    
+    open var calculationCompletion: CalculateViewControllerCompletion
+    
     open lazy var calculateView: UICalculateView = {
         let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 320, height: 220)))
         view.delegate = self
         return view
     }()
     
-    required public init() {
+    required public init(completion: @escaping CalculateViewControllerCompletion) {
+        self.calculationCompletion = completion
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .overCurrentContext
     }
@@ -43,18 +49,21 @@ open class UICalculateViewController: UIBlurViewController {
         NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, yConstraint])
         
     }
-    
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
 }
 
 /// MARK: - UICalculateView Delegation
 
 extension UICalculateViewController: UICalculateViewDelegate {
     func calculateWasTapped(for: UICalculateView, score: String, total: String) {
-        print(score + "/" + total)
+        let totalD = Double(total) ?? 1.0
+        let totalSafe = totalD > 0.0 ? totalD : 1.0
+        let p = ((Double(score) ?? 0.0) / totalSafe) * 100.0
+        
+        let percent = Double(round(100 * p)/100)
+        
+        self.dismiss(animated: false) { [weak self] in
+            self?.calculationCompletion(percent)
+        }
     }
     
     func exitButtonWasTapped(for: UICalculateView) {
