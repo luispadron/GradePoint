@@ -92,7 +92,7 @@ open class UIBlurAlertController: UIViewController {
         super.viewWillAppear(animated)
         
         if animated {
-            self.animateIn()
+            self.animateAlertIn()
         }
     }
     
@@ -116,11 +116,11 @@ open class UIBlurAlertController: UIViewController {
         if let h = handler {
             button.addHandler(forEvents: events, handler: { [weak self] in
                 h()
-                self?.animateOutAndDismiss()
+                self?.animateAlertOutAndDismiss()
             })
         } else { // Handler is nil, when button gets clicked just dismiss the controller
             button.addHandler(forEvents: events, handler: { [weak self] in
-                self?.animateOutAndDismiss()
+                self?.animateAlertOutAndDismiss()
             })
         }
     }
@@ -147,7 +147,7 @@ open class UIBlurAlertController: UIViewController {
     }
     
     /// Animates the alertview in
-    private func animateIn() {
+    private func animateAlertIn() {
         // Start the view invisible and at the top
         alertView.center.y = self.view.bounds.minY
         alertView.alpha = 0.0
@@ -169,7 +169,7 @@ open class UIBlurAlertController: UIViewController {
         }
     }
     
-    private func animateOutAndDismiss() {
+    private func animateAlertOutAndDismiss() {
         UIView.animate(withDuration: self.animationDuration, animations: { 
             // Remove the effect
             if let view = self.visualEffectView { view.effect = nil }

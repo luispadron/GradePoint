@@ -82,7 +82,6 @@ open class UICalculateView: UIView {
         field.placeholder = "Score"
         field.titleText = "Score"
         field.titleTextSpacing = 8.0
-        field.borderStyle = .roundedRect
         field.font = UIFont.systemFont(ofSize: 18)
         field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
@@ -96,7 +95,6 @@ open class UICalculateView: UIView {
         field.placeholder = "Total"
         field.titleText = "Total"
         field.titleTextSpacing = 8.0
-        field.borderStyle = .roundedRect
         field.font = UIFont.systemFont(ofSize: 18)
         field.attributedPlaceholder = NSAttributedString(string: "Total", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self

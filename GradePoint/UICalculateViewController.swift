@@ -8,21 +8,12 @@
 
 import UIKit
 
-open class UICalculateViewController: UIViewController {
+open class UICalculateViewController: UIBlurViewController {
     
-    open var animationDuration: TimeInterval = 0.5
     open lazy var calculateView: UICalculateView = {
         let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 300, height: 220)))
         return view
     }()
-    
-    required public init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) not implemented")
-    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +21,6 @@ open class UICalculateViewController: UIViewController {
         self.view.addSubview(calculateView)
         calculateView.center = self.view.center
         
-    
         // Add constraints
         let widthConstraint = NSLayoutConstraint(item: calculateView, attribute: .width, relatedBy: .equal, toItem: nil,
                                                  attribute: .notAnAttribute, multiplier: 1.0, constant: calculateView.frame.width)
@@ -46,7 +36,6 @@ open class UICalculateViewController: UIViewController {
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.view.backgroundColor = UIColor.gray
     }
 
 }
