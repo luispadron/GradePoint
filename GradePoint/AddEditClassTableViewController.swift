@@ -578,7 +578,7 @@ extension AddEditClassTableViewController: UIRubricViewDelegate {
 
         let calculateAlert = UICalculateViewController(completion: { percent in
             rubricViewToCalculate?.weightField.text = "\(percent)%"
-            rubricViewToCalculate?.weightField.setTitleVisible(titleVisible: true, animated: true, animationCompletion: nil)
+            rubricViewToCalculate?.weightField.editingChanged()
             rubricViewToCalculate?.updateIsRubricValid()
         })
         

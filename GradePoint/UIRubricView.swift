@@ -340,7 +340,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let field = textField as? UIFloatingPromptTextField else { return false }
-        
+    
         return field.shouldChangeTextAfterCheck(text: string)
     }
     
