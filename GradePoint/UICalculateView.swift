@@ -155,7 +155,6 @@ open class UICalculateView: UIView {
         let button = UIButton(type: .custom)
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText, NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
         button.layer.backgroundColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00).cgColor
-        button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.setAttributedTitle(NSAttributedString(string: "Calculate", attributes: attrs), for: .normal)
         button.addTarget(self, action: #selector(self.calculateButtonTapped), for: .touchUpInside)
