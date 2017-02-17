@@ -45,7 +45,11 @@ open class UICalculateView: UIView {
         scoreField.frame = frameForScore
         self.addSubview(scoreField)
         
-        let frameForTotal = CGRect(x: 10, y: frameForScore.maxY + 30, width: self.bounds.width - 20, height: 30)
+        let frameForSeperator = CGRect(x: 0, y: frameForScore.maxY + 10, width: self.bounds.width, height: seperatorLabel.frame.height)
+        seperatorLabel.frame = frameForSeperator
+        self.addSubview(seperatorLabel)
+        
+        let frameForTotal = CGRect(x: 10, y: frameForSeperator.maxY + 10, width: self.bounds.width - 20, height: 30)
         totalField.frame = frameForTotal
         self.addSubview(totalField)
         
@@ -85,7 +89,7 @@ open class UICalculateView: UIView {
         self.titleLabel.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         view.addSubview(self.titleLabel)
         
-        self.exitButton.frame = CGRect(x: view.bounds.width - 35, y: 4, width: 25, height: 25)
+        self.exitButton.frame = CGRect(x: view.bounds.width - 35, y: 4, width: 20, height: 20)
         view.addSubview(self.exitButton)
         
         return view
@@ -106,7 +110,6 @@ open class UICalculateView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "DeleteIcon"), for: .normal)
         button.contentMode = .scaleAspectFit
-        button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         button.addTarget(self, action: #selector(self.exitButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -122,6 +125,16 @@ open class UICalculateView: UIView {
         field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
         return field
+    }()
+    
+    /// The label in between the score and total fields
+    open lazy var seperatorLabel: UILabel = {
+        let label = UILabel()
+        let attrs = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+        label.attributedText = NSAttributedString(string: "OUT OF", attributes: attrs)
+        label.textAlignment = .center
+        label.resizeToFitText()
+        return label
     }()
     
     /// The total UISafeTextField view
