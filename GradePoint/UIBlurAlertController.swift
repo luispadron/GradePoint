@@ -108,12 +108,12 @@ open class UIBlurAlertController: UIBlurViewController {
     
     // MARK: - Overrides
     
-    public override func animateIn() {
+    public override func animateIn(completion: BlurViewAnimationCompletion?) {
         super.animateIn()
         self.animateAlertIn()
     }
     
-    public override func animateOut() {
+    public override func animateOut(completion: BlurViewAnimationCompletion? = nil) {
         super.animateOut()
         self.animateAlertOutAndDismiss()
     }

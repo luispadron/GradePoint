@@ -12,8 +12,18 @@ open class UICalculateViewController: UIBlurViewController {
     
     open lazy var calculateView: UICalculateView = {
         let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 320, height: 220)))
+        view.delegate = self
         return view
     }()
+    
+    required public init() {
+        super.init(nibName: nil, bundle: nil)
+        self.modalPresentationStyle = .overCurrentContext
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -38,4 +48,18 @@ open class UICalculateViewController: UIBlurViewController {
         super.viewDidAppear(animated)
     }
 
+}
+
+/// MARK: - UICalculateView Delegation
+
+extension UICalculateViewController: UICalculateViewDelegate {
+    func calculateWasTapped(for: UICalculateView, score: String, total: String) {
+        
+    }
+    
+    func exitButtonWasTapped(for: UICalculateView) {
+        super.animateOut { finished in
+            if finished { self.dismiss(animated: false, completion: nil) }
+        }
+    }
 }

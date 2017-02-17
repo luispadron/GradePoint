@@ -44,23 +44,29 @@ open class UIBlurViewController: UIViewController {
     
     // MARK: - Animations
     
+    public typealias BlurViewAnimationCompletion = (Bool) -> Void
+    
     /// Animates the blur when appearing
-    public func animateIn() {
+    public func animateIn(completion: BlurViewAnimationCompletion? = nil) {
         
-        UIView.animate(withDuration: self.animationDuration, delay: 0.0,
-                       usingSpringWithDamping: 1.0, initialSpringVelocity: 9, options: .curveEaseInOut,
-                       animations: {
+        UIView.animate(withDuration: self.animationDuration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 9,
+                       options: .curveEaseInOut, animations: { 
                         // Add the blur back
                         if let view = self.visualEffectView { view.effect = self.blurEffect }
-        }, completion: nil)
+        }) { (finished) in
+            if finished { completion?(finished) }
+        }
+        
     }
     
     /// Animates the blur view out
-    public func animateOut() {
+    public func animateOut(completion: BlurViewAnimationCompletion? = nil) {
         UIView.animate(withDuration: self.animationDuration, animations: {
             // Remove the effect
             if let view = self.visualEffectView { view.effect = nil }
-        }, completion: nil)
+        }) { (finished) in
+            if finished { completion?(finished) }
+        }
     }
     
     // MARK: - Helpers

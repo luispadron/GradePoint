@@ -8,8 +8,16 @@
 
 import UIKit
 
+/// Delegate for the calculate view
+protocol UICalculateViewDelegate: class {
+    func calculateWasTapped(for: UICalculateView, score: String, total: String)
+    func exitButtonWasTapped(for: UICalculateView)
+}
+
 /// A view which calculates a percentage given the score and total
 open class UICalculateView: UIView {
+    
+    weak var delegate: UICalculateViewDelegate?
     
     // MARK: - Initalizers & Overrides
     
@@ -25,17 +33,15 @@ open class UICalculateView: UIView {
     // MARK: - Helper Methods
     
     private func initialize() {
-        self.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
+        self.backgroundColor = UIColor(red: 0.878, green: 0.890, blue: 0.865, alpha: 1.0)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 5
         self.clipsToBounds = true
         // Add subviews
         // Set frames for subviews
-        let frameForTitle = CGRect(x: 0, y: 5, width: self.bounds.width, height: 20)
-        titleLabel.frame = frameForTitle
-        self.addSubview(titleLabel)
+        self.addSubview(headerView)
         
-        let frameForScore = CGRect(x: 10, y: frameForTitle.maxY + 25, width: self.bounds.width - 20, height: 30)
+        let frameForScore = CGRect(x: 10, y: headerView.frame.maxY + 25, width: self.bounds.width - 20, height: 30)
         scoreField.frame = frameForScore
         self.addSubview(scoreField)
         
@@ -49,7 +55,7 @@ open class UICalculateView: UIView {
         // Add a border to view
         let bottomBorder = CALayer()
         bottomBorder.frame = CGRect(x: 0, y: titleLabel.frame.maxY + 5, width: self.layer.frame.width, height: 1)
-        bottomBorder.backgroundColor = UIColor.gray.cgColor
+        bottomBorder.backgroundColor = UIColor(red: 0.337, green: 0.384, blue: 0.439, alpha: 1.00).cgColor
         self.layer.addSublayer(bottomBorder)
     }
     
@@ -62,16 +68,44 @@ open class UICalculateView: UIView {
         }
     }
     
+    @objc private func exitButtonTapped(button: UIButton) {
+        self.delegate?.exitButtonWasTapped(for: self)
+    }
+    
     // MARK: - Subviews
+    
+    /// The enclosing header view, encapsulates the title label and the exit button
+    open lazy var headerView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: 30)
+        
+        self.titleLabel.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        view.addSubview(self.titleLabel)
+        
+        self.exitButton.frame = CGRect(x: view.bounds.width - 35, y: 4, width: 25, height: 25)
+        view.addSubview(self.exitButton)
+        
+        return view
+    }()
     
     /// The title label which will be displayed ontop of the view
     open lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Calculate Percentage"
         label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = UIColor.lightText
+        label.textColor = UIColor(red: 0.337, green: 0.384, blue: 0.439, alpha: 1.00)
         label.textAlignment = .center
         return label
+    }()
+    
+    /// The exit button for the view
+    open lazy var exitButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "DeleteIcon"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        button.addTarget(self, action: #selector(self.exitButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     /// The score UISafeTextField view
@@ -79,6 +113,7 @@ open class UICalculateView: UIView {
         let config = NumberConfiguration(allowsSignedNumbers: false)
         let field = UISafeTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Score"
+        field.tintColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00)
         field.font = UIFont.systemFont(ofSize: 18)
         field.borderStyle = .roundedRect
         field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
@@ -92,6 +127,7 @@ open class UICalculateView: UIView {
         let field = UISafeTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Total"
         field.borderStyle = .roundedRect
+        field.tintColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00)
         field.font = UIFont.systemFont(ofSize: 18)
         field.attributedPlaceholder = NSAttributedString(string: "Total", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.delegate = self
@@ -102,7 +138,7 @@ open class UICalculateView: UIView {
     open lazy var calculateButton: UIButton = {
         let button = UIButton(type: .custom)
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText, NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
-        button.layer.backgroundColor = UIColor.green.cgColor
+        button.layer.backgroundColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00).cgColor
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.setAttributedTitle(NSAttributedString(string: "Calculate", attributes: attrs), for: .normal)
