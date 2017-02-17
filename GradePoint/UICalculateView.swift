@@ -25,28 +25,31 @@ open class UICalculateView: UIView {
     // MARK: - Helper Methods
     
     private func initialize() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 5
+        self.clipsToBounds = true
         // Add subviews
         // Set frames for subviews
-        let frameForTitle = CGRect(x: 0, y: 0, width: self.frame.width, height: 20)
+        let frameForTitle = CGRect(x: 0, y: 5, width: self.bounds.width, height: 20)
         titleLabel.frame = frameForTitle
         self.addSubview(titleLabel)
         
-        let frameForScore = CGRect(x: 5, y: frameForTitle.maxY + 20, width: self.bounds.width - 5, height: 30)
+        let frameForScore = CGRect(x: 5, y: frameForTitle.maxY + 15, width: self.bounds.width - 10, height: 40)
         scoreField.frame = frameForScore
         self.addSubview(scoreField)
         
-        let frameForTotal = CGRect(x: 5, y: frameForScore.maxY + 25, width: self.bounds.width - 5, height: 30)
-        totalField.frame = frameForScore
+        let frameForTotal = CGRect(x: 5, y: frameForScore.maxY + 15, width: self.bounds.width - 10, height: 40)
+        totalField.frame = frameForTotal
         self.addSubview(totalField)
         
-        let sizeForButton = CGSize(width: 100, height: 30)
-        let pointForButton = CGPoint(x: self.bounds.midX - 50, y: self.bounds.midY + frameForTotal.maxY + 20)
+        let sizeForButton = CGSize(width: 150, height: 40)
+        let pointForButton = CGPoint(x: self.bounds.midX - (sizeForButton.width/2), y: frameForTotal.maxY + 10)
         calculateButton.frame = CGRect(origin: pointForButton, size: sizeForButton)
-        self.addSubview(totalField)
+        self.addSubview(calculateButton)
         
         // Add a border to view
         let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: self.layer.frame.minX, y: titleLabel.frame.height, width: self.layer.frame.width, height: 1)
+        bottomBorder.frame = CGRect(x: 0, y: titleLabel.frame.maxY + 5, width: self.layer.frame.width, height: 1)
         bottomBorder.backgroundColor = UIColor.gray.cgColor
         self.layer.addSublayer(bottomBorder)
     }
@@ -55,7 +58,9 @@ open class UICalculateView: UIView {
     // MARK: - Actions
     
     @objc private func calculateButtonTapped(button: UIButton) {
-        print("button touched")
+        button.animateWithPulse(withDuration: 0.3) {
+            print("Animated")
+        }
     }
     
     // MARK: - Subviews
@@ -65,8 +70,8 @@ open class UICalculateView: UIView {
         let label = UILabel()
         label.text = "Calculate Percentage"
         label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = UIColor.lapisLazuli
-        label.contentMode = .center
+        label.textColor = UIColor.lightText
+        label.textAlignment = .center
         return label
     }()
     
@@ -76,8 +81,11 @@ open class UICalculateView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Score"
         field.titleText = "Score"
+        field.titleTextSpacing = 8.0
+        field.borderStyle = .roundedRect
         field.font = UIFont.systemFont(ofSize: 18)
         field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.delegate = self
         return field
     }()
     
@@ -87,8 +95,11 @@ open class UICalculateView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Total"
         field.titleText = "Total"
+        field.titleTextSpacing = 8.0
+        field.borderStyle = .roundedRect
         field.font = UIFont.systemFont(ofSize: 18)
         field.attributedPlaceholder = NSAttributedString(string: "Total", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.delegate = self
         return field
     }()
     
@@ -96,8 +107,20 @@ open class UICalculateView: UIView {
     open lazy var calculateButton: UIButton = {
         let button = UIButton(type: .custom)
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText, NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        button.layer.backgroundColor = UIColor.green.cgColor
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
         button.setAttributedTitle(NSAttributedString(string: "Calculate", attributes: attrs), for: .normal)
-        button.addTarget(self, action: #selector(self.calculateButtonTapped), for: .allTouchEvents)
+        button.addTarget(self, action: #selector(self.calculateButtonTapped), for: .touchUpInside)
         return button
     }()
+}
+
+// MARK: - UITextField Delegation
+
+extension UICalculateView: UITextFieldDelegate {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let field = textField as? UIFloatingPromptTextField else { return true }
+        return field.shouldChangeTextAfterCheck(text: string)
+    }
 }

@@ -41,14 +41,8 @@ internal class UIBlurAlertView: UIView {
         self.drawViews()
     }
     
-    // Not used
-    private override init(frame: CGRect) {
-        fatalError("Please use init(frame: CGRect, title: String, message: String?) instead")
-    }
-    
-    
-    required internal init?(coder aDecoder: NSCoder) {
-        fatalError("initCoder not set up for UIBlurAlertView")
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Helpers

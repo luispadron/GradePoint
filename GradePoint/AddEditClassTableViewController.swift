@@ -576,7 +576,7 @@ extension AddEditClassTableViewController: UIRubricViewDelegate {
             if calculateToolbar === cell.rubricView.weightField.inputAccessoryView { rubricViewToCalculate = cell.rubricView }
         }
 
-        let calculateAlert = UICalculateViewController(size: CGSize(width: 300, height: 200))
+        let calculateAlert = UICalculateViewController()
         self.present(calculateAlert, animated: true, completion: nil)
 //        let percent = Double(round((1/3)*1000)/1000) * 100
 //        rubricViewToCalculate?.weightField.text = "\(percent)%"

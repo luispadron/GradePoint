@@ -14,6 +14,7 @@ open class UIFloatingPromptTextField: UISafeTextField {
     open var titleText: String = ""
     open var titleTextColor: UIColor = UIColor.highlight
     open var animationDuration: TimeInterval = 0.3
+    open var titleTextSpacing: CGFloat = 0.0
     
     public var editingOrSelected : Bool {
         get {
@@ -107,15 +108,14 @@ open class UIFloatingPromptTextField: UISafeTextField {
     
     public var titleHeight: CGFloat {
         get {
-            return titleLabel.font!.lineHeight
+            return titleLabel.font.lineHeight
         }
     }
     
     public func titleLabelRectForBounds(bounds:CGRect, editing:Bool) -> CGRect {
-        if editing {
-            return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + titleHeight/6))
-        }
-        return CGRect(x: 0, y: textHeight, width: bounds.width, height: -(titleHeight + titleHeight/6))
+        var yForTitle = textHeight - titleHeight - titleTextSpacing
+        if yForTitle < 0 { yForTitle = 0 }
+        return CGRect(x: 0, y: yForTitle, width: bounds.width, height: titleHeight)
     }
     
     override open var intrinsicContentSize: CGSize {

@@ -251,8 +251,8 @@
 		A084437E1E55805E00C32F52 /* UICalculateView */ = {
 			isa = PBXGroup;
 			children = (
-				A0A27CFD1E557A3E00054935 /* UICalculateView.swift */,
 				A084437F1E55808F00C32F52 /* UICalculateViewController.swift */,
+				A0A27CFD1E557A3E00054935 /* UICalculateView.swift */,
 			);
 			name = UICalculateView;
 			sourceTree = "<group>";
