@@ -200,10 +200,7 @@ class ClassDetailTableViewController: UITableViewController {
     
     /// Calculates the percentage for the progress ring
     func calculateProgress() {
-        guard assignments.count > 0 else {
-            self.progressRing.setProgress(value: 0, animationDuration: 0, completion: nil)
-            return
-        }
+        guard (assignments.filter { $0.count > 0 }.count) > 0 else { return }
         
         var weights = 0.0
         var score = 0.0
