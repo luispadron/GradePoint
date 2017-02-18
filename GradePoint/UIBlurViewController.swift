@@ -34,7 +34,7 @@ open class UIBlurViewController: UIViewController {
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if animated { self.animateIn() }
+        if animated { self.animateIn(completion: nil) }
     }
     
     open override func viewWillLayoutSubviews() {
@@ -47,7 +47,7 @@ open class UIBlurViewController: UIViewController {
     public typealias BlurViewAnimationCompletion = (Bool) -> Void
     
     /// Animates the blur when appearing
-    public func animateIn(completion: BlurViewAnimationCompletion? = nil) {
+    public func animateIn(completion: BlurViewAnimationCompletion?) {
         
         UIView.animate(withDuration: self.animationDuration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 9,
                        options: .curveEaseInOut, animations: { 
@@ -60,12 +60,14 @@ open class UIBlurViewController: UIViewController {
     }
     
     /// Animates the blur view out
-    public func animateOut(completion: BlurViewAnimationCompletion? = nil) {
+    public func animateOut(completion: BlurViewAnimationCompletion?) {
         UIView.animate(withDuration: self.animationDuration, animations: {
             // Remove the effect
             if let view = self.visualEffectView { view.effect = nil }
         }) { (finished) in
-            if finished { completion?(finished) }
+            if finished { self.dismiss(animated: false, completion: { 
+                completion?(finished)
+            }) }
         }
     }
     

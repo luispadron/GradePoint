@@ -13,13 +13,17 @@ open class UICalculateViewController: UIBlurViewController {
     /// The percent of the calculated view
     public typealias CalculateViewControllerCompletion = (Double) -> Void
     
+    /// The completion for the calculate view, will be called when calculate button is pressed
     open var calculationCompletion: CalculateViewControllerCompletion
     
+    /// The calculate view instance
     open lazy var calculateView: UICalculateView = {
         let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 320, height: 220)))
         view.delegate = self
         return view
     }()
+    
+    // MARK: Initializers
     
     required public init(completion: @escaping CalculateViewControllerCompletion) {
         self.calculationCompletion = completion
@@ -48,6 +52,46 @@ open class UICalculateViewController: UIBlurViewController {
                                              attribute: .centerY, multiplier: 1.0, constant: 0)
         NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, yConstraint])
         
+        // Add recognizer to view
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewWasTapped))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    // MARK: Actions
+    
+    func viewWasTapped(recognizer: UITapGestureRecognizer) {
+        let tapPoint = recognizer.location(in: self.view)
+        if calculateView.frame.contains(tapPoint) { return }
+        else { self.animateOut(completion: nil) }
+    }
+    
+    // MARK: Animations
+    
+    public override func animateIn(completion: UIBlurViewController.BlurViewAnimationCompletion?) {
+        super.animateIn(completion: completion)
+        // Custom animation code for calculate view
+        self.calculateView.alpha = 0.0
+        self.calculateView.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
+        UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 10, options: .curveEaseOut,
+                       animations: {
+                        self.calculateView.alpha = 1.0
+                        self.calculateView.transform = CGAffineTransform.init(scaleX: 1.05, y: 1.05)
+        }) { finished in
+            if finished { completion?(finished) }
+        }
+    }
+    
+    public override func animateOut(completion: UIBlurViewController.BlurViewAnimationCompletion?) {
+        super.animateOut(completion: completion)
+        // Custom animation code for calculate view
+        self.calculateView.alpha = 1.0
+        UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5, options: .curveEaseIn,
+                       animations: { 
+                        self.calculateView.alpha = 0.0
+                        self.calculateView.transform = CGAffineTransform.init(scaleX: 0.3, y: 0.3)
+        }) { finished in
+            if finished { completion?(finished) }
+        }
     }
 }
 
@@ -61,14 +105,12 @@ extension UICalculateViewController: UICalculateViewDelegate {
         
         let percent = Double(round(100 * p)/100)
         
-        self.dismiss(animated: false) { [weak self] in
+        self.animateOut { [weak self] _ in
             self?.calculationCompletion(percent)
         }
     }
     
     func exitButtonWasTapped(for: UICalculateView) {
-        super.animateOut { finished in
-            if finished { self.dismiss(animated: false, completion: nil) }
-        }
+        self.animateOut(completion: nil)
     }
 }

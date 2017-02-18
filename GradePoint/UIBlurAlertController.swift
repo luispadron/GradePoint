@@ -109,13 +109,13 @@ open class UIBlurAlertController: UIBlurViewController {
     // MARK: - Overrides
     
     public override func animateIn(completion: BlurViewAnimationCompletion?) {
-        super.animateIn()
+        super.animateIn(completion: completion)
         self.animateAlertIn()
     }
     
     public override func animateOut(completion: BlurViewAnimationCompletion? = nil) {
-        super.animateOut()
-        self.animateAlertOutAndDismiss()
+        super.animateOut(completion: completion)
+        self.animateAlertOut()
     }
     
     // MARK: - Helpers
@@ -141,14 +141,12 @@ open class UIBlurAlertController: UIBlurViewController {
         }
     }
     
-    private func animateAlertOutAndDismiss() {
+    private func animateAlertOut() {
         UIView.animate(withDuration: self.animationDuration, animations: { 
             // Expand view off screen
             self.alertView.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
             self.alertView.alpha = 0
             self.alertView.center.y = self.view.frame.maxY
-        }) { _ in
-            self.dismiss(animated: false, completion: nil)
-        }
+        })
     }
 }

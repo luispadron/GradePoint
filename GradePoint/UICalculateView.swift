@@ -91,7 +91,7 @@ open class UICalculateView: UIView {
         self.titleLabel.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         view.addSubview(self.titleLabel)
         
-        self.exitButton.frame = CGRect(x: view.bounds.width - 35, y: 4, width: 20, height: 20)
+        self.exitButton.frame = CGRect(x: view.bounds.width - 40, y: 3, width: 25, height: 25)
         view.addSubview(self.exitButton)
         
         return view
