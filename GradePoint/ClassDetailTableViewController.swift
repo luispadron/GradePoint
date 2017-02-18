@@ -42,6 +42,19 @@ class ClassDetailTableViewController: UITableViewController {
         }
     }
     
+    /// The accesor for the class obj, this will check if invalidated in realm or not before returning
+    var _classObj: Class? {
+        get {
+            guard let obj = self.classObj, !obj.isInvalidated else {
+                // Has become invalidated, set classObj to nil
+                self.classObj = nil
+                return nil
+            }
+            
+            return obj
+        }
+    }
+    
     /// The rubrics for this class
     var rubrics = [Rubric]()
     /// The assignments sorted by rubric
@@ -168,7 +181,7 @@ class ClassDetailTableViewController: UITableViewController {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         
-        if let classObj = self.classObj {
+        if let classObj = self._classObj {
             self.title = classObj.name
             self.addButton.isEnabled = true
             self.splitViewController?.displayModeButtonItem.isEnabled = true
@@ -245,7 +258,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If no assignments for this class then hide the progress ring and show empty state view
-        guard let classObj = self.classObj else {
+        guard let classObj = self._classObj else {
             self.progressRing.isHidden = true
             return !shouldShowBlank
         }
@@ -257,7 +270,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     
     func titleForEmptyStateView() -> NSAttributedString {
         // If no class selected, tell user to select one
-        guard let _ = classObj else {
+        guard let _ = _classObj else {
             let attrsForSelect = [NSForegroundColorAttributeName: UIColor.mutedText,
                                   NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
             return NSAttributedString(string: "Select a class", attributes: attrsForSelect)
@@ -269,7 +282,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     func detailMessageForEmptyStateView() -> NSAttributedString? {
-        guard let _ = classObj else { return nil }
+        guard let _ = _classObj else { return nil }
         
         let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
@@ -277,7 +290,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     func buttonTitleForEmptyStateView() -> NSAttributedString? {
-        guard let _ = classObj else { return nil }
+        guard let _ = _classObj else { return nil }
         
         let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
@@ -285,13 +298,13 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     func buttonImageForEmptyStateView() -> UIImage? {
-        guard let _ = classObj else { return nil }
+        guard let _ = _classObj else { return nil }
         
         return #imageLiteral(resourceName: "buttonBg")
     }
     
     func buttonSizeForEmptyStateView() -> CGSize? {
-        guard let _ = classObj else { return nil }
+        guard let _ = _classObj else { return nil }
         
         return CGSize(width: 170, height: 50)
     }
@@ -317,7 +330,7 @@ extension ClassDetailTableViewController: Segueable {
         case .addEditAssignment:
             // Prepare view for segue
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
-            vc.parentClass = self.classObj
+            vc.parentClass = self._classObj
             vc.delegate = self
             // If editing (coming from edit action) set the assignmt for edit of the ViewController
             if let assignmentForEdit = sender as? Assignment { vc.assignmentForEdit = assignmentForEdit }
