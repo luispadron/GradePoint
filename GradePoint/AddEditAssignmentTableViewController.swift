@@ -187,6 +187,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 let inputFieldToolbar = UIToolbar()
                 inputFieldToolbar.barStyle = .default
                 inputFieldToolbar.items = [
+                    UIBarButtonItem(title: "Calculate", style: .done, target: self, action: #selector(self.assignmentNeedsCalculate)),
                     UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                     UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accesoryKeyboardDone))
                 ]
@@ -300,6 +301,14 @@ class AddEditAssignmentTableViewController: UITableViewController {
         formatter.timeStyle = .none
         self.selectedDate = sender.date
         self.dateLabel.text = formatter.string(from: sender.date)
+    }
+    
+    func assignmentNeedsCalculate(sender: UIBarButtonItem) {
+        let controller = UICalculateViewController { [weak self] (percent) in
+            self?.scoreField?.text = "\(percent)%"
+            if let field = self?.scoreField { self?.textFieldChanged(field) }
+        }
+        self.present(controller, animated: true, completion: nil)
     }
     
     // MARK: Helper Methods
