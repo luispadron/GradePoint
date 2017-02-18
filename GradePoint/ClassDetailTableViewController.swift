@@ -143,7 +143,7 @@ class ClassDetailTableViewController: UITableViewController {
         cell.selectionStyle = .none
         cell.selectedBackgroundView = nil
         cell.nameLabel.text = assignmentForRow.name
-        cell.scoreLabel.text = "Score: \(assignmentForRow.score)%"
+        cell.scoreLabel.text = "Score: \(assignmentForRow.score.roundedUpTo(2))%"
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
