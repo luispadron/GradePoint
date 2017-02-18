@@ -143,7 +143,7 @@ class AddEditClassTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             if indexPath.row == 2 { return isDatePickerVisible ? 120 : 0 }
-            return 44
+            return 60
         case 1:
             return 70
         default:

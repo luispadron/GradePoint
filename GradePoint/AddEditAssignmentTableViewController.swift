@@ -93,11 +93,11 @@ class AddEditAssignmentTableViewController: UITableViewController {
             case 4:
                 return rubricPickerIsVisible ? 80 : 0
             default:
-                return 44
+                return 60
             }
         }
         
-        return 44
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
