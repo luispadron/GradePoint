@@ -433,7 +433,7 @@
 				TargetAttributes = {
 					A007050A1DAF0E9B00AD740A = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 4FNMZ7SN42;
+						DevelopmentTeam = YGJQDEP824;
 						ProvisioningStyle = Automatic;
 					};
 					A00705201DAF0E9B00AD740A = {
@@ -794,7 +794,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4FNMZ7SN42;
+				DEVELOPMENT_TEAM = YGJQDEP824;
 				INFOPLIST_FILE = GradePoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint;
@@ -809,7 +809,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4FNMZ7SN42;
+				DEVELOPMENT_TEAM = YGJQDEP824;
 				INFOPLIST_FILE = GradePoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint;
