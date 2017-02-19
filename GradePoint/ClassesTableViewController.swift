@@ -55,6 +55,11 @@ class ClassesTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        
+        // Present onboarding
+        if let controller = storyboard?.instantiateViewController(withIdentifier: "OnboardPageViewController") {
+            self.present(controller, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Table View
