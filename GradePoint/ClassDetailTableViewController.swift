@@ -93,7 +93,6 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         // Set progress ring calculation
         self.calculateProgress()
-        self.progressRing.setProgress(for: _classObj!, animationDuration: 1.5, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -200,8 +199,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     /// Calculates the percentage for the progress ring
-    func calculateProgress() {
-        guard (assignments.filter { $0.count > 0 }.count) > 0 else { return }
+    func calculateProgress() {    
         guard let classObj = _classObj else { return }
         
         self.progressRing.setProgress(for: classObj, animationDuration: 1.5)

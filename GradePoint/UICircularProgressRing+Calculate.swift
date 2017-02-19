@@ -19,6 +19,8 @@ extension UICircularProgressRingView {
     /// Returns the progress for a specific class. I.e loops through the assignments and calculates the score for the class
     static func getProgress(for classObj: Class) -> CGFloat {
         let assignmentsSectionedByRubric = classObj.rubrics.map { classObj.assignments.filter("associatedRubric = %@", $0) }
+        let count = assignmentsSectionedByRubric.filter { $0.count > 0 }.count
+        guard count > 0 else { return 0.0 }
         
         var weights = 0.0
         var totalScore = 0.0

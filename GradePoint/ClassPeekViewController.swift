@@ -28,8 +28,7 @@ class ClassPeekViewController: UIViewController {
         
     }
 
-    func calculateProgress(for classObj: Class) {
-        guard classObj.assignments.count > 0 else { return }
+    func setProgress(for classObj: Class) {
         self.progress = UICircularProgressRingView.getProgress(for: classObj)
     }
     

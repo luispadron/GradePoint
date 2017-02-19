@@ -281,7 +281,7 @@ extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
         guard let peekVC = storyboard?.instantiateViewController(withIdentifier: "ClassPeekViewController") as? ClassPeekViewController else { return nil }
         
         let classObj = self.classObj(forIndexPath: indexPath)
-        peekVC.calculateProgress(for: classObj)
+        peekVC.setProgress(for: classObj)
         peekVC.preferredContentSize = CGSize(width: 240.0, height: 240.0)
         peekVC.indexPathForPeek = indexPath
         previewingContext.sourceRect = cell.frame
