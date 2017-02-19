@@ -56,6 +56,7 @@
 		A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */; };
 		A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF11E5900E20062F9F2 /* Double+Round.swift */; };
 		A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */; };
+		A0F89EF61E5927760062F9F2 /* UICircularProgressRing+Calculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF51E5927760062F9F2 /* UICircularProgressRing+Calculate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentViewDelegate.swift; sourceTree = "<group>"; };
 		A0F89EF11E5900E20062F9F2 /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
+		A0F89EF51E5927760062F9F2 /* UICircularProgressRing+Calculate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICircularProgressRing+Calculate.swift"; sourceTree = "<group>"; };
 		A70F0F8F4B5AE0A62E9DB397 /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
 		AF245C4173E1A735DC005B11 /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,6 +314,7 @@
 				A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */,
 				A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */,
 				A0F89EF11E5900E20062F9F2 /* Double+Round.swift */,
+				A0F89EF51E5927760062F9F2 /* UICircularProgressRing+Calculate.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -631,6 +634,7 @@
 				A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */,
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
+				A0F89EF61E5927760062F9F2 /* UICircularProgressRing+Calculate.swift in Sources */,
 				A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
 				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,

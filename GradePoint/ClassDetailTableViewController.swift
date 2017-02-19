@@ -93,6 +93,7 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         // Set progress ring calculation
         self.calculateProgress()
+        self.progressRing.setProgress(for: _classObj!, animationDuration: 1.5, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -201,27 +202,9 @@ class ClassDetailTableViewController: UITableViewController {
     /// Calculates the percentage for the progress ring
     func calculateProgress() {
         guard (assignments.filter { $0.count > 0 }.count) > 0 else { return }
+        guard let classObj = _classObj else { return }
         
-        var weights = 0.0
-        var score = 0.0
-        
-        for (indexOfRubric, rubric) in rubrics.enumerated() {
-            let assignments = self.assignments[indexOfRubric]
-            if assignments.count == 0 { continue }
-            
-            weights += rubric.weight
-            
-            var total = 0.0
-            
-            for assignment in assignments {
-                total += assignment.score
-            }
-            
-            total /= Double(assignments.count)
-            score += rubric.weight * total
-        }
-        
-        self.progressRing.setProgress(value: CGFloat(score / weights), animationDuration: 1.5, completion: nil)
+        self.progressRing.setProgress(for: classObj, animationDuration: 1.5)
     }
     
     func assignment(for indexPath: IndexPath) -> Assignment {

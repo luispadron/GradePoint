@@ -25,34 +25,12 @@ class ClassPeekViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.progressRing.setProgress(value: progress, animationDuration: 1.5)
+        
     }
 
     func calculateProgress(for classObj: Class) {
         guard classObj.assignments.count > 0 else { return }
-        
-        let rubrics = classObj.rubrics
-        let assignmentsByRubric = rubrics.map { classObj.assignments.filter("associatedRubric = %@", $0) }
-    
-        var weights = 0.0
-        var score = 0.0
-        
-        for (indexOfRubric, rubric) in rubrics.enumerated() {
-            let assignments = assignmentsByRubric[indexOfRubric]
-            if assignments.count == 0 { continue }
-            
-            weights += rubric.weight
-            
-            var total = 0.0
-            
-            for assignment in assignments {
-                total += assignment.score
-            }
-            
-            total /= Double(assignments.count)
-            score += rubric.weight * total
-        }
-        
-        self.progress = CGFloat(score / weights)
+        self.progress = UICircularProgressRingView.getProgress(for: classObj)
     }
     
 }
