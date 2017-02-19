@@ -216,6 +216,64 @@
             </objects>
             <point key="canvasLocation" x="1991" y="-170"/>
         </scene>
+        <!--Class Peek View Controller-->
+        <scene sceneID="kwe-n4-aNN">
+            <objects>
+                <viewController storyboardIdentifier="ClassPeekViewController" modalPresentationStyle="currentContext" id="roK-8J-KKU" customClass="ClassPeekViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ceC-qf-8HP"/>
+                        <viewControllerLayoutGuide type="bottom" id="0h7-7o-2FX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bhv-jf-hDe">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="50J-UT-yTm" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                <rect key="frame" x="10" y="10" width="220" height="220"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="SRj-mJ-AwO"/>
+                                    <constraint firstAttribute="height" constant="220" id="aov-As-MpB"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                        <color key="value" red="0.64318168163299561" green="0.98848986625671387" blue="0.63136482238769531" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
+                                        <color key="value" red="0.4578264057636261" green="0.98399174213409424" blue="0.99217092990875244" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                        <color key="value" red="0.4578264058" green="0.98399174209999996" blue="0.9921709299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="55"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="50J-UT-yTm" firstAttribute="centerY" secondItem="bhv-jf-hDe" secondAttribute="centerY" id="Xqj-4j-EEj"/>
+                            <constraint firstItem="50J-UT-yTm" firstAttribute="centerX" secondItem="bhv-jf-hDe" secondAttribute="centerX" id="vya-WL-9KY"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="240" height="240"/>
+                    <connections>
+                        <outlet property="progressRing" destination="50J-UT-yTm" id="yxM-ND-eGw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kFw-Rd-yUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="399" y="-659"/>
+        </scene>
         <!--Classes View Controller-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
@@ -409,9 +467,6 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
                             <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="outerRingCapStyle">
-                            <integer key="value" value="0"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">

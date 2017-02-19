@@ -41,6 +41,8 @@ class ClassesTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = UIColor.tableViewSeperator
         
+        // Add 3D touch support to this view
+        if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
         
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
         initClassesBySection()
@@ -247,10 +249,8 @@ extension ClassesTableViewController: Segueable {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifier(forSegue: segue) {
         case .showDetail:
-            guard let indexPath = self.tableView.indexPathForSelectedRow else {
-                print("index Path for selected row was nil inside ClassesTableViewController when performing segue")
-                return
-            }
+            guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
+            
             let classItem = classObj(forIndexPath: indexPath)
             let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
             controller.classObj = classItem
@@ -270,6 +270,29 @@ extension ClassesTableViewController: Segueable {
             // Collapse any edit actions for the tableview, so theyre not opened when returning
             self.tableView.isEditing = false
         }
+    }
+}
+
+// MARK: 3D Touch Delegation
+
+extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location), let cell = tableView.cellForRow(at: indexPath) else { return nil }
+        guard let peekVC = storyboard?.instantiateViewController(withIdentifier: "ClassPeekViewController") as? ClassPeekViewController else { return nil }
+        
+        let classObj = self.classObj(forIndexPath: indexPath)
+        peekVC.calculateProgress(for: classObj)
+        peekVC.preferredContentSize = CGSize(width: 240.0, height: 240.0)
+        peekVC.indexPathForPeek = indexPath
+        previewingContext.sourceRect = cell.frame
+        
+        return peekVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        guard let indexPath = (viewControllerToCommit as? ClassPeekViewController)?.indexPathForPeek else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        self.performSegue(withIdentifier: .showDetail, sender: cell)
     }
 }
 
