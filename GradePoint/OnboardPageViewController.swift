@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OnboardViewController: UIPageViewController, UIPageViewControllerDataSource {
+class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     /// The controllers for the onboarding
     private(set) lazy var onboardControllers: [UIViewController] = {
@@ -20,13 +20,17 @@ class OnboardViewController: UIPageViewController, UIPageViewControllerDataSourc
         super.viewDidLoad()
 
         dataSource = self
+        delegate = self
         
         if let firstVC = onboardControllers.first {
             self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            self.view.backgroundColor = firstVC.view.backgroundColor?.lighter(by: 20)
         }
         
     }
-
+    
+    // MARK: PageViewController DataSource
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = onboardControllers.index(of: viewController) else { return nil }
         
@@ -61,7 +65,19 @@ class OnboardViewController: UIPageViewController, UIPageViewControllerDataSourc
         return firstIndex
     }
     
+    // MARK: PageViewController Delegate
     
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard let toVC = pendingViewControllers.first else { return }
+        // Set the background color for this pageviewcontroller, which in turn sets the page controls color
+        UIView.animate(withDuration: 0.2) { 
+            self.view.backgroundColor = toVC.view.backgroundColor?.lighter(by: 10)
+        }
+    }
+    
+    func pageViewControllerSupportedInterfaceOrientations(_ pageViewController: UIPageViewController) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
     
     // MARK: Helper methods
     

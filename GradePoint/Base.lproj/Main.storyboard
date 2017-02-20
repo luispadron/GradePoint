@@ -56,18 +56,18 @@
             </objects>
             <point key="canvasLocation" x="-2245" y="2076"/>
         </scene>
-        <!--Onboard View Controller-->
+        <!--Onboard Page View Controller-->
         <scene sceneID="s4Y-8e-hHS">
             <objects>
-                <pageViewController storyboardIdentifier="OnboardPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="BBe-6J-vmz" customClass="OnboardViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="OnboardPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="BBe-6J-vmz" customClass="OnboardPageViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIT-bi-efh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2246" y="-857"/>
         </scene>
-        <!--View Controller-->
+        <!--Onboard1 View Controller-->
         <scene sceneID="Exe-4u-Npr">
             <objects>
-                <viewController storyboardIdentifier="Onboard1" id="bde-9l-ZsW" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Onboard1" id="bde-9l-ZsW" customClass="Onboard1ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ul1-c7-xM0"/>
                         <viewControllerLayoutGuide type="bottom" id="bYO-Nv-k4j"/>
@@ -75,12 +75,61 @@
                     <view key="view" contentMode="scaleToFill" id="qv0-rO-Z9V">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.99687186022003405" green="1" blue="0.27451086312088591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJv-DB-hZO" userLabel="IntroView">
+                                <rect key="frame" x="52" y="213" width="310" height="320"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To GradePoint" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3M-0G-RiU" userLabel="Header">
+                                        <rect key="frame" x="18" y="8.6666666666666572" width="274" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircularAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mxw-jp-MjA">
+                                        <rect key="frame" x="58" y="57.666666666666686" width="195" height="195"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaE-dd-6Ge">
+                                        <rect key="frame" x="29" y="272.66666666666663" width="253.33333333333331" height="42.999999999999943"/>
+                                        <string key="text">A simple aplication for keeping
+track of your grades</string>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oaE-dd-6Ge" firstAttribute="top" secondItem="mxw-jp-MjA" secondAttribute="bottom" constant="20" id="1uG-Tl-Hap"/>
+                                    <constraint firstItem="oaE-dd-6Ge" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="CGe-sc-uyt"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="top" secondItem="w3M-0G-RiU" secondAttribute="bottom" constant="20" id="Slb-GO-R13"/>
+                                    <constraint firstItem="w3M-0G-RiU" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="XLL-5u-rz8"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="bC2-Ax-uR0"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerY" secondItem="nJv-DB-hZO" secondAttribute="centerY" constant="-4.8333333333333144" id="gUF-pD-3Sr"/>
+                                    <constraint firstAttribute="height" constant="320" id="sIv-pb-kWi"/>
+                                    <constraint firstAttribute="width" constant="310" id="slV-MW-qAQ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
+                                <rect key="frame" x="20" y="633" width="374" height="43"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="IQY-4H-pV6" secondAttribute="trailing" id="08E-OK-8w6"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="6eh-AQ-Cjv"/>
+                            <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="60" id="aYL-Ti-oCx"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" constant="5" id="btf-e8-1Dx"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="IQY-4H-pV6" secondAttribute="leading" id="byG-WL-kFN"/>
+                            <constraint firstItem="IQY-4H-pV6" firstAttribute="top" secondItem="nJv-DB-hZO" secondAttribute="bottom" constant="100" id="g1n-98-N6S"/>
+                            <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="jXW-32-RI0"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2W-U1-wGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1497" y="-858"/>
+            <point key="canvasLocation" x="-1497.1014492753625" y="-858.42391304347836"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="bGw-DV-Pcc">
@@ -533,6 +582,7 @@
     <resources>
         <image name="CalcTabBarIcon" width="17" height="21"/>
         <image name="CalcTabBarIconFilled" width="17" height="21"/>
+        <image name="CircularAppIcon" width="195" height="195"/>
         <image name="ClassesTabBarIcon" width="25" height="19"/>
         <image name="ClassesTabBarIconFilled" width="25" height="19"/>
     </resources>
