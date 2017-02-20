@@ -29,6 +29,15 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     }
     
+    private var backgroundColor: UIColor? {
+        didSet {
+            self.oldColor = oldValue
+            self.view.backgroundColor = self.backgroundColor
+        }
+    }
+    
+    private var oldColor: UIColor?
+    
     // MARK: PageViewController DataSource
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -71,7 +80,16 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
         guard let toVC = pendingViewControllers.first else { return }
         // Set the background color for this pageviewcontroller, which in turn sets the page controls color
         UIView.animate(withDuration: 0.2) { 
-            self.view.backgroundColor = toVC.view.backgroundColor?.lighter(by: 10)
+            self.backgroundColor = toVC.view.backgroundColor?.lighter(by: 10)
+        }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if finished && !completed {
+            // Return to old color since user didnt go through with transition
+            UIView.animate(withDuration: 0.15, animations: { 
+                self.backgroundColor = self.oldColor
+            })
         }
     }
     

@@ -96,35 +96,31 @@ keep track of your grades</string>
                                         <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
-                                        <rect key="frame" x="0.0" y="398" width="310" height="43"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="310" id="M2d-YU-adZ"/>
-                                            <constraint firstAttribute="height" constant="43" id="V0p-mc-fq7"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="oaE-dd-6Ge" firstAttribute="top" secondItem="mxw-jp-MjA" secondAttribute="bottom" constant="20" id="1uG-Tl-Hap"/>
                                     <constraint firstItem="oaE-dd-6Ge" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="CGe-sc-uyt"/>
                                     <constraint firstItem="mxw-jp-MjA" firstAttribute="top" secondItem="w3M-0G-RiU" secondAttribute="bottom" constant="20" id="Slb-GO-R13"/>
-                                    <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="WJr-hl-5g6"/>
                                     <constraint firstItem="w3M-0G-RiU" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="XLL-5u-rz8"/>
                                     <constraint firstItem="mxw-jp-MjA" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="bC2-Ax-uR0"/>
                                     <constraint firstItem="mxw-jp-MjA" firstAttribute="centerY" secondItem="nJv-DB-hZO" secondAttribute="centerY" constant="-69.333333333333314" id="gUF-pD-3Sr"/>
-                                    <constraint firstItem="IQY-4H-pV6" firstAttribute="top" secondItem="oaE-dd-6Ge" secondAttribute="bottom" constant="82.333333333333428" id="m81-Lv-Tcv"/>
                                     <constraint firstAttribute="height" constant="449" id="sIv-pb-kWi"/>
                                     <constraint firstAttribute="width" constant="310" id="slV-MW-qAQ"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
+                                <rect key="frame" x="148" y="674.33333333333348" width="118" height="21.666666666666629"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="6eh-AQ-Cjv"/>
+                            <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="QgI-MA-2y0"/>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" constant="69.5" id="btf-e8-1Dx"/>
+                            <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="40" id="hJt-a6-ts0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -151,68 +147,70 @@ keep track of your grades</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
-                                <rect key="frame" x="52" y="613" width="310" height="43"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ytd-2x-re8">
+                                <rect key="frame" x="37" y="146" width="341.33333333333331" height="445"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClassExample" translatesAutoresizingMaskIntoConstraints="NO" id="zgK-u3-JKI">
+                                        <rect key="frame" x="29" y="71" width="285" height="81"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out the weights for your class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
+                                        <rect key="frame" x="20" y="160" width="301.33333333333331" height="21.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-xb-j7a">
+                                        <rect key="frame" x="27" y="189" width="289" height="236"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView1" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-Z3-Sei">
+                                                <rect key="frame" x="0.0" y="0.0" width="289" height="59"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView2" translatesAutoresizingMaskIntoConstraints="NO" id="H89-rh-QcV">
+                                                <rect key="frame" x="0.0" y="59" width="289" height="59"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView3" translatesAutoresizingMaskIntoConstraints="NO" id="plG-Nt-Pt5">
+                                                <rect key="frame" x="0.0" y="118" width="289" height="59"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView4" translatesAutoresizingMaskIntoConstraints="NO" id="dv2-dN-6cX">
+                                                <rect key="frame" x="0.0" y="177" width="289" height="59"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbV-mL-HJU">
+                                        <rect key="frame" x="76" y="20" width="190" height="43"/>
+                                        <string key="text">Keeping track is easy,
+simply add your classes</string>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="fbV-mL-HJU" firstAttribute="top" secondItem="Ytd-2x-re8" secondAttribute="top" constant="20" id="7Gx-ZU-Xnv"/>
+                                    <constraint firstItem="fbV-mL-HJU" firstAttribute="centerX" secondItem="Ytd-2x-re8" secondAttribute="centerX" constant="1" id="Auw-87-rnB"/>
+                                    <constraint firstItem="bgW-Z3-Sei" firstAttribute="top" secondItem="tTx-lb-47M" secondAttribute="bottom" constant="8" id="C5j-a8-VHC"/>
+                                    <constraint firstItem="tTx-lb-47M" firstAttribute="centerX" secondItem="Ytd-2x-re8" secondAttribute="centerX" id="L1g-2j-e5v"/>
+                                    <constraint firstItem="zgK-u3-JKI" firstAttribute="top" secondItem="fbV-mL-HJU" secondAttribute="bottom" constant="8" id="L2e-g1-BjU"/>
+                                    <constraint firstAttribute="height" constant="445" id="OqM-mC-uIB"/>
+                                    <constraint firstItem="kUE-xb-j7a" firstAttribute="centerX" secondItem="Ytd-2x-re8" secondAttribute="centerX" constant="1.5" id="S91-W6-mM9"/>
+                                    <constraint firstAttribute="width" constant="341.32999999999998" id="mhC-YD-xrq"/>
+                                    <constraint firstItem="zgK-u3-JKI" firstAttribute="centerX" secondItem="Ytd-2x-re8" secondAttribute="centerX" constant="1.5" id="uUX-Gj-uRy"/>
+                                    <constraint firstItem="tTx-lb-47M" firstAttribute="top" secondItem="zgK-u3-JKI" secondAttribute="bottom" constant="8" id="yqo-4h-5kR"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
+                                <rect key="frame" x="135.66666666666669" y="674.33333333333348" width="143.00000000000006" height="21.666666666666629"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbV-mL-HJU">
-                                <rect key="frame" x="113" y="59" width="190" height="43"/>
-                                <string key="text">Keeping track is easy,
-simply add your classes</string>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClassExample" translatesAutoresizingMaskIntoConstraints="NO" id="zgK-u3-JKI">
-                                <rect key="frame" x="66" y="110" width="285" height="81"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out the weights for your class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
-                                <rect key="frame" x="57" y="199" width="301.33333333333337" height="21.666666666666657"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-xb-j7a">
-                                <rect key="frame" x="64" y="228" width="289" height="236"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView1" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-Z3-Sei">
-                                        <rect key="frame" x="0.0" y="0.0" width="289" height="59"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView2" translatesAutoresizingMaskIntoConstraints="NO" id="H89-rh-QcV">
-                                        <rect key="frame" x="0.0" y="59" width="289" height="59"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView3" translatesAutoresizingMaskIntoConstraints="NO" id="plG-Nt-Pt5">
-                                        <rect key="frame" x="0.0" y="118" width="289" height="59"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView4" translatesAutoresizingMaskIntoConstraints="NO" id="dv2-dN-6cX">
-                                        <rect key="frame" x="0.0" y="177" width="289" height="59"/>
-                                    </imageView>
-                                </subviews>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRN-5y-1Ho">
-                                <rect key="frame" x="76" y="478" width="266" height="43"/>
-                                <string key="text">You're now ready to begin adding
-and tracking your assignments</string>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.40535759925842285" green="0.83694922924041748" blue="0.70983439683914185" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="kUE-xb-j7a" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="1.5" id="58Y-2x-M6X"/>
-                            <constraint firstItem="xRN-5y-1Ho" firstAttribute="top" secondItem="kUE-xb-j7a" secondAttribute="bottom" constant="14.333333333333258" id="Lpr-ux-BCy"/>
-                            <constraint firstItem="xRN-5y-1Ho" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="2" id="Ocj-cM-Nie"/>
-                            <constraint firstItem="zgK-u3-JKI" firstAttribute="top" secondItem="fbV-mL-HJU" secondAttribute="bottom" constant="8" id="Tjd-1K-sua"/>
-                            <constraint firstItem="fbV-mL-HJU" firstAttribute="top" secondItem="b1I-5S-3gG" secondAttribute="bottom" constant="39" id="XfE-oy-IYt"/>
-                            <constraint firstItem="fbV-mL-HJU" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="1" id="c7F-DC-rxK"/>
-                            <constraint firstItem="zgK-u3-JKI" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="1.5" id="caS-9E-xSd"/>
-                            <constraint firstItem="tTx-lb-47M" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" id="eTO-LH-5tc"/>
-                            <constraint firstItem="bgW-Z3-Sei" firstAttribute="top" secondItem="tTx-lb-47M" secondAttribute="bottom" constant="8" id="hxV-UY-Ack"/>
-                            <constraint firstItem="tTx-lb-47M" firstAttribute="top" secondItem="zgK-u3-JKI" secondAttribute="bottom" constant="8" id="pqk-Ir-bpd"/>
+                            <constraint firstItem="Qg6-wR-hUA" firstAttribute="top" secondItem="aUF-LX-xP6" secondAttribute="bottom" constant="40" id="0go-UC-0af"/>
+                            <constraint firstItem="Ytd-2x-re8" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" id="DeR-2Q-peK"/>
+                            <constraint firstItem="aUF-LX-xP6" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" id="OcF-kE-9ex"/>
+                            <constraint firstItem="Ytd-2x-re8" firstAttribute="centerY" secondItem="Dgg-cm-cLx" secondAttribute="centerY" id="od7-dd-h9P"/>
                         </constraints>
                     </view>
                     <connections>
@@ -225,7 +223,6 @@ and tracking your assignments</string>
                         <outlet property="rubricView4" destination="dv2-dN-6cX" id="8Rw-V9-gaj"/>
                         <outlet property="secondLabel" destination="tTx-lb-47M" id="mgB-KA-Ohp"/>
                         <outlet property="swipeLabel" destination="aUF-LX-xP6" id="KzT-Wi-2vz"/>
-                        <outlet property="thirdLabel" destination="xRN-5y-1Ho" id="I39-gJ-Njp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZE-QV-FIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -279,7 +276,7 @@ and tracking your assignments</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDC-G8-iSk" id="YxI-gE-DpH">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -347,6 +344,9 @@ and tracking your assignments</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -381,7 +381,7 @@ and tracking your assignments</string>
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -481,7 +481,7 @@ and tracking your assignments</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">

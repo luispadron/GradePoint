@@ -20,7 +20,6 @@ class Onboard2ViewController: UIViewController {
     @IBOutlet weak var rubricView2: UIImageView!
     @IBOutlet weak var rubricView3: UIImageView!
     @IBOutlet weak var rubricView4: UIImageView!
-    @IBOutlet weak var thirdLabel: UILabel!
     @IBOutlet weak var swipeLabel: UILabel!
     
     private var hasAnimated = false
@@ -34,7 +33,6 @@ class Onboard2ViewController: UIViewController {
         // Set opacity for views
         firstLabel.alpha = 0.0
         secondLabel.alpha = 0.0
-        thirdLabel.alpha = 0.0
         swipeLabel.alpha = 0.0
         classAddExample.alpha = 0.0
         rubricView1.alpha = 0.0
@@ -61,7 +59,7 @@ class Onboard2ViewController: UIViewController {
         self.rubricView4.center.y = self.rubricView1.center.y
         
         
-        let duration: TimeInterval = 1.5
+        let duration: TimeInterval = 2.0
         
         UIView.animateKeyframes(withDuration: duration, delay: 0.0, options: [], animations: {
             
@@ -84,55 +82,46 @@ class Onboard2ViewController: UIViewController {
     }
     
     func animateRubricViews() {
-        let duration: TimeInterval = 3.0
+        let duration: TimeInterval = 4.0
         
         UIView.animateKeyframes(withDuration: duration, delay: 0.0, options: [], animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/4, animations: { 
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/5, animations: {
                 self.rubricView1.alpha = 1.0
             })
             
-            UIView.addKeyframe(withRelativeStartTime: 1/4, relativeDuration: 1/4, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 1/5, relativeDuration: 1/5, animations: {
                 self.rubricView2.alpha = 1.0
                 self.rubricView2.center.y = self.yForRubricView2
             })
             
-            UIView.addKeyframe(withRelativeStartTime: 2/4, relativeDuration: 1/4, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 2/5, relativeDuration: 1/5, animations: {
                 self.rubricView3.alpha = 1.0
                 self.rubricView3.center.y = self.yForRubricView3
             })
             
-            UIView.addKeyframe(withRelativeStartTime: 3/4, relativeDuration: 1/4, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 3/5, relativeDuration: 1/5, animations: {
                 self.rubricView4.alpha = 1.0
                 self.rubricView4.center.y = self.yForRubricView4
             })
             
+            UIView.addKeyframe(withRelativeStartTime: 4/5, relativeDuration: 1/5, animations: { 
+                self.swipeLabel.alpha = 1.0
+            })
+            
         }) { (finished) in
-            // Finally animate the last label and the swipe label
+            // Keep animating swipe label
             if finished {
-                UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: { 
-                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: { 
-                        self.thirdLabel.alpha = 1.0
+                UIView.animateKeyframes(withDuration: 1.5, delay: 0.0, options: .repeat, animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                        self.swipeLabel.alpha = 0.5
                     })
                     
                     UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
                         self.swipeLabel.alpha = 1.0
                     })
                     
-                }, completion: { (finished) in
-                    // Keep animating the swipe label
-                    if finished {
-                        UIView.animateKeyframes(withDuration: 1.5, delay: 0.0, options: .repeat, animations: { 
-                            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: { 
-                                self.swipeLabel.alpha = 0.5
-                            })
-                            
-                            UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: { 
-                                self.swipeLabel.alpha = 1.0
-                            })
-                        }, completion: nil)
-                    }
-                })
+                }, completion: nil)
             }
         }
     }
