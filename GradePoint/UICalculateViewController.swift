@@ -72,10 +72,11 @@ open class UICalculateViewController: UIBlurViewController {
         // Custom animation code for calculate view
         self.calculateView.alpha = 0.0
         self.calculateView.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
-        UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 10, options: .curveEaseOut,
+        UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 10,
+                       options: [.beginFromCurrentState, .curveEaseOut],
                        animations: {
                         self.calculateView.alpha = 1.0
-                        self.calculateView.transform = CGAffineTransform.init(scaleX: 1.05, y: 1.05)
+                        self.calculateView.transform = CGAffineTransform.init(scaleX: 1.0, y: 1.0)
         }) { finished in
             if finished { completion?(finished) }
         }

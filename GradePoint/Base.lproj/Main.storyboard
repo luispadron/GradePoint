@@ -77,7 +77,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJv-DB-hZO" userLabel="IntroView">
-                                <rect key="frame" x="52" y="213" width="310" height="320"/>
+                                <rect key="frame" x="52" y="213" width="310" height="449"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To GradePoint" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3M-0G-RiU" userLabel="Header">
                                         <rect key="frame" x="18" y="8.6666666666666572" width="274" height="29"/>
@@ -96,36 +96,44 @@ track of your grades</string>
                                         <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
+                                        <rect key="frame" x="0.0" y="398" width="310" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="310" id="M2d-YU-adZ"/>
+                                            <constraint firstAttribute="height" constant="43" id="V0p-mc-fq7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="oaE-dd-6Ge" firstAttribute="top" secondItem="mxw-jp-MjA" secondAttribute="bottom" constant="20" id="1uG-Tl-Hap"/>
                                     <constraint firstItem="oaE-dd-6Ge" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="CGe-sc-uyt"/>
                                     <constraint firstItem="mxw-jp-MjA" firstAttribute="top" secondItem="w3M-0G-RiU" secondAttribute="bottom" constant="20" id="Slb-GO-R13"/>
+                                    <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="WJr-hl-5g6"/>
                                     <constraint firstItem="w3M-0G-RiU" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="XLL-5u-rz8"/>
                                     <constraint firstItem="mxw-jp-MjA" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="bC2-Ax-uR0"/>
-                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerY" secondItem="nJv-DB-hZO" secondAttribute="centerY" constant="-4.8333333333333144" id="gUF-pD-3Sr"/>
-                                    <constraint firstAttribute="height" constant="320" id="sIv-pb-kWi"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerY" secondItem="nJv-DB-hZO" secondAttribute="centerY" constant="-69.333333333333314" id="gUF-pD-3Sr"/>
+                                    <constraint firstItem="IQY-4H-pV6" firstAttribute="top" secondItem="oaE-dd-6Ge" secondAttribute="bottom" constant="82.333333333333428" id="m81-Lv-Tcv"/>
+                                    <constraint firstAttribute="height" constant="449" id="sIv-pb-kWi"/>
                                     <constraint firstAttribute="width" constant="310" id="slV-MW-qAQ"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
-                                <rect key="frame" x="20" y="633" width="374" height="43"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="IQY-4H-pV6" secondAttribute="trailing" id="08E-OK-8w6"/>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="6eh-AQ-Cjv"/>
-                            <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="60" id="aYL-Ti-oCx"/>
-                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" constant="5" id="btf-e8-1Dx"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="IQY-4H-pV6" secondAttribute="leading" id="byG-WL-kFN"/>
-                            <constraint firstItem="IQY-4H-pV6" firstAttribute="top" secondItem="nJv-DB-hZO" secondAttribute="bottom" constant="100" id="g1n-98-N6S"/>
-                            <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="jXW-32-RI0"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" constant="69.5" id="btf-e8-1Dx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="appIcon" destination="mxw-jp-MjA" id="W3N-j9-Vg1"/>
+                        <outlet property="detailLabel" destination="oaE-dd-6Ge" id="bMz-7T-ZRE"/>
+                        <outlet property="headerLabel" destination="w3M-0G-RiU" id="8ea-Zb-Fh5"/>
+                        <outlet property="introView" destination="nJv-DB-hZO" id="RT1-qv-iG5"/>
+                        <outlet property="swipeLabel" destination="IQY-4H-pV6" id="XCh-LD-6Hx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2W-U1-wGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
