@@ -89,9 +89,9 @@
                                         <rect key="frame" x="58" y="57.666666666666686" width="195" height="195"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaE-dd-6Ge">
-                                        <rect key="frame" x="29" y="272.66666666666663" width="253.33333333333331" height="42.999999999999943"/>
-                                        <string key="text">A simple aplication for keeping
-track of your grades</string>
+                                        <rect key="frame" x="30" y="272.66666666666663" width="251.66666666666669" height="42.999999999999943"/>
+                                        <string key="text">A simple aplication to help you
+keep track of your grades</string>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -139,10 +139,10 @@ track of your grades</string>
             </objects>
             <point key="canvasLocation" x="-1497.1014492753625" y="-858.42391304347836"/>
         </scene>
-        <!--View Controller-->
+        <!--Onboard2 View Controller-->
         <scene sceneID="bGw-DV-Pcc">
             <objects>
-                <viewController storyboardIdentifier="Onboard2" id="oNM-4Z-Me9" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Onboard2" id="oNM-4Z-Me9" customClass="Onboard2ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="b1I-5S-3gG"/>
                         <viewControllerLayoutGuide type="bottom" id="Qg6-wR-hUA"/>
@@ -150,12 +150,87 @@ track of your grades</string>
                     <view key="view" contentMode="scaleToFill" id="Dgg-cm-cLx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.39349283099412724" blue="0.63445403978227177" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
+                                <rect key="frame" x="52" y="613" width="310" height="43"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbV-mL-HJU">
+                                <rect key="frame" x="113" y="59" width="190" height="43"/>
+                                <string key="text">Keeping track is easy,
+simply add your classes</string>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClassExample" translatesAutoresizingMaskIntoConstraints="NO" id="zgK-u3-JKI">
+                                <rect key="frame" x="66" y="110" width="285" height="81"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out the weights for your class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
+                                <rect key="frame" x="57" y="199" width="301.33333333333337" height="21.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-xb-j7a">
+                                <rect key="frame" x="64" y="228" width="289" height="236"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView1" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-Z3-Sei">
+                                        <rect key="frame" x="0.0" y="0.0" width="289" height="59"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView2" translatesAutoresizingMaskIntoConstraints="NO" id="H89-rh-QcV">
+                                        <rect key="frame" x="0.0" y="59" width="289" height="59"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView3" translatesAutoresizingMaskIntoConstraints="NO" id="plG-Nt-Pt5">
+                                        <rect key="frame" x="0.0" y="118" width="289" height="59"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView4" translatesAutoresizingMaskIntoConstraints="NO" id="dv2-dN-6cX">
+                                        <rect key="frame" x="0.0" y="177" width="289" height="59"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRN-5y-1Ho">
+                                <rect key="frame" x="76" y="478" width="266" height="43"/>
+                                <string key="text">You're now ready to begin adding
+and tracking your assignments</string>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.40535759925842285" green="0.83694922924041748" blue="0.70983439683914185" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="kUE-xb-j7a" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="1.5" id="58Y-2x-M6X"/>
+                            <constraint firstItem="xRN-5y-1Ho" firstAttribute="top" secondItem="kUE-xb-j7a" secondAttribute="bottom" constant="14.333333333333258" id="Lpr-ux-BCy"/>
+                            <constraint firstItem="xRN-5y-1Ho" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="2" id="Ocj-cM-Nie"/>
+                            <constraint firstItem="zgK-u3-JKI" firstAttribute="top" secondItem="fbV-mL-HJU" secondAttribute="bottom" constant="8" id="Tjd-1K-sua"/>
+                            <constraint firstItem="fbV-mL-HJU" firstAttribute="top" secondItem="b1I-5S-3gG" secondAttribute="bottom" constant="39" id="XfE-oy-IYt"/>
+                            <constraint firstItem="fbV-mL-HJU" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="1" id="c7F-DC-rxK"/>
+                            <constraint firstItem="zgK-u3-JKI" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" constant="1.5" id="caS-9E-xSd"/>
+                            <constraint firstItem="tTx-lb-47M" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" id="eTO-LH-5tc"/>
+                            <constraint firstItem="bgW-Z3-Sei" firstAttribute="top" secondItem="tTx-lb-47M" secondAttribute="bottom" constant="8" id="hxV-UY-Ack"/>
+                            <constraint firstItem="tTx-lb-47M" firstAttribute="top" secondItem="zgK-u3-JKI" secondAttribute="bottom" constant="8" id="pqk-Ir-bpd"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="classAddExample" destination="zgK-u3-JKI" id="YZR-nj-PmN"/>
+                        <outlet property="firstLabel" destination="fbV-mL-HJU" id="CXg-bL-oMO"/>
+                        <outlet property="rubricStackView" destination="kUE-xb-j7a" id="Xw6-uW-o2C"/>
+                        <outlet property="rubricView1" destination="bgW-Z3-Sei" id="MV0-dT-BDw"/>
+                        <outlet property="rubricView2" destination="H89-rh-QcV" id="Zfp-EA-BeG"/>
+                        <outlet property="rubricView3" destination="plG-Nt-Pt5" id="shi-Pg-6pq"/>
+                        <outlet property="rubricView4" destination="dv2-dN-6cX" id="8Rw-V9-gaj"/>
+                        <outlet property="secondLabel" destination="tTx-lb-47M" id="mgB-KA-Ohp"/>
+                        <outlet property="swipeLabel" destination="aUF-LX-xP6" id="KzT-Wi-2vz"/>
+                        <outlet property="thirdLabel" destination="xRN-5y-1Ho" id="I39-gJ-Njp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZE-QV-FIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-735" y="-858"/>
+            <point key="canvasLocation" x="-736.23188405797111" y="-858.42391304347836"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hv5-2k-zId">
@@ -204,7 +279,7 @@ track of your grades</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GDC-G8-iSk" id="YxI-gE-DpH">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="69.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -306,7 +381,7 @@ track of your grades</string>
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -406,7 +481,7 @@ track of your grades</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">
@@ -591,8 +666,13 @@ track of your grades</string>
         <image name="CalcTabBarIcon" width="17" height="21"/>
         <image name="CalcTabBarIconFilled" width="17" height="21"/>
         <image name="CircularAppIcon" width="195" height="195"/>
+        <image name="ClassExample" width="285" height="81"/>
         <image name="ClassesTabBarIcon" width="25" height="19"/>
         <image name="ClassesTabBarIconFilled" width="25" height="19"/>
+        <image name="RubricView1" width="289" height="59"/>
+        <image name="RubricView2" width="289" height="59"/>
+        <image name="RubricView3" width="289" height="59"/>
+        <image name="RubricView4" width="289" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5kc-o4-kea"/>

@@ -21,6 +21,7 @@
 		A00F8DD41E29A70E009F8C5D /* GenericLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00F8DD31E29A70E009F8C5D /* GenericLabelTableViewCell.swift */; };
 		A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01599101E2AC47E003B63F2 /* TextInputTableViewCell.swift */; };
 		A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */; };
+		A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */; };
 		A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87811DBD273A00A85E2D /* Rubric.swift */; };
 		A01B87841DBD275300A85E2D /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87831DBD275300A85E2D /* Semester.swift */; };
 		A01B87861DBD276000A85E2D /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87851DBD276000A85E2D /* Class.swift */; };
@@ -101,6 +102,7 @@
 		A00F8DD31E29A70E009F8C5D /* GenericLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericLabelTableViewCell.swift; sourceTree = "<group>"; };
 		A01599101E2AC47E003B63F2 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard1ViewController.swift; sourceTree = "<group>"; };
+		A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard2ViewController.swift; sourceTree = "<group>"; };
 		A01B87811DBD273A00A85E2D /* Rubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rubric.swift; sourceTree = "<group>"; };
 		A01B87831DBD275300A85E2D /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		A01B87851DBD276000A85E2D /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			children = (
 				A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */,
 				A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */,
+				A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */,
 			);
 			name = Onboarding;
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */,
 				A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */,
 				A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */,
+				A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */,
 				A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */,
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
