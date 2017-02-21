@@ -117,7 +117,29 @@ class ClassesTableViewController: UITableViewController {
         editAction.backgroundColor = UIColor.lapisLazuli
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
-            self.deleteClassObj(at: indexPath)
+            
+            // Present alert to user
+            let title = NSAttributedString(string: "Delete This Class", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20)])
+            let messageAttrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.sunsetOrange]
+            let message = NSAttributedString(string: "This cannot be undone, are you sure?", attributes: messageAttrs)
+            let alert = UIBlurAlertController(size: CGSize(width: 300, height: 180), title: title, message: message)
+            let cancel = UIButton()
+            cancel.setTitle("Cancel", for: .normal)
+            cancel.backgroundColor = UIColor.lapisLazuli
+            
+            let delete = UIButton()
+            delete.setTitle("Delete", for: .normal)
+            delete.backgroundColor = UIColor.sunsetOrange
+            
+            alert.addButton(button: cancel, handler: { [weak self] in
+                self?.tableView.isEditing = false
+            })
+            alert.addButton(button: delete, handler: { [weak self] in
+                self?.tableView.isEditing = false
+                // Delete the class
+                self?.deleteClassObj(at: indexPath)
+            })
+            alert.presentAlert(presentingViewController: self)
         })
         deleteAction.backgroundColor = UIColor.sunsetOrange
         
