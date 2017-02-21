@@ -12,8 +12,10 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     /// The controllers for the onboarding
     private(set) lazy var onboardControllers: [UIViewController] = {
-        return [self.newOnboardController(with: "Onboard1"),
-                self.newOnboardController(with: "Onboard2")]
+        return
+           [self.newOnboardController(with: "Onboard1"),
+            self.newOnboardController(with: "Onboard2"),
+            self.newOnboardController(with: "Onboard3")]
     }()
     
     override func viewDidLoad() {
