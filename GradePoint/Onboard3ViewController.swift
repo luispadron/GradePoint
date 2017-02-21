@@ -71,6 +71,11 @@ class Onboard3ViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func onButtonTap(_ sender: UIButton) {
+        // Dismiss the parent page view controller and set has onboarded to true
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: UserPreferenceKeys.onboardingComplete.rawValue)
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.hasOnboardedUser = true
         self.parent?.dismiss(animated: true, completion: nil)
     }
     

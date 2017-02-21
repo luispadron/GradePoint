@@ -62,7 +62,7 @@
                 <pageViewController storyboardIdentifier="OnboardPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="BBe-6J-vmz" customClass="OnboardPageViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIT-bi-efh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2246" y="-857"/>
+            <point key="canvasLocation" x="1303" y="-664"/>
         </scene>
         <!--Onboard1 View Controller-->
         <scene sceneID="Exe-4u-Npr">
@@ -136,7 +136,7 @@ keep track of your grades</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2W-U1-wGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1497.1014492753625" y="-858.42391304347836"/>
+            <point key="canvasLocation" x="2054" y="-664"/>
         </scene>
         <!--Onboard2 View Controller-->
         <scene sceneID="bGw-DV-Pcc">
@@ -230,7 +230,7 @@ simply add your classes</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZE-QV-FIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-736.23188405797111" y="-858.42391304347836"/>
+            <point key="canvasLocation" x="2814" y="-664"/>
         </scene>
         <!--Onboard3 View Controller-->
         <scene sceneID="XXY-DJ-cAb">
@@ -319,7 +319,7 @@ keeping track of your assignments</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ9-wb-ncy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-858"/>
+            <point key="canvasLocation" x="3551" y="-664"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hv5-2k-zId">
@@ -539,6 +539,9 @@ keeping track of your assignments</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="BBe-6J-vmz" kind="presentation" identifier="onboardingSegue" id="pVc-mS-YSd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>

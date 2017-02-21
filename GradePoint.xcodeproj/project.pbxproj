@@ -57,6 +57,7 @@
 		A0E8B6921E497A9800EC4470 /* AddEditClassViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6911E497A9800EC4470 /* AddEditClassViewDelegate.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
 		A0E8CAA51E5BF31E0029565A /* Onboard3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard3ViewController.swift */; };
+		A0E8CAA71E5BFE640029565A /* UserPreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA61E5BFE640029565A /* UserPreferenceKeys.swift */; };
 		A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */; };
 		A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF11E5900E20062F9F2 /* Double+Round.swift */; };
 		A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */; };
@@ -139,6 +140,7 @@
 		A0E8B6911E497A9800EC4470 /* AddEditClassViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewDelegate.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
 		A0E8CAA41E5BF31E0029565A /* Onboard3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard3ViewController.swift; sourceTree = "<group>"; };
+		A0E8CAA61E5BFE640029565A /* UserPreferenceKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferenceKeys.swift; sourceTree = "<group>"; };
 		A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentViewDelegate.swift; sourceTree = "<group>"; };
 		A0F89EF11E5900E20062F9F2 /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 			children = (
 				A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */,
 				A0B94AB41E34747000CF73F2 /* AlertType.swift */,
+				A0E8CAA61E5BFE640029565A /* UserPreferenceKeys.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
 				A0E8CAA51E5BF31E0029565A /* Onboard3ViewController.swift in Sources */,
+				A0E8CAA71E5BFE640029565A /* UserPreferenceKeys.swift in Sources */,
 				A0082BC11E3ED27300C91B3F /* Segueable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

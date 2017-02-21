@@ -13,7 +13,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-
+    var hasOnboardedUser: Bool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
@@ -51,6 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Change keyboard to dark version
         UITextField.appearance().keyboardAppearance = .dark
         
+        // Figure out whether we have onboarded the user or not
+        let defaults = UserDefaults.standard
+        self.hasOnboardedUser = defaults.bool(forKey: UserPreferenceKeys.onboardingComplete.rawValue)
+    
         return true
     }
 

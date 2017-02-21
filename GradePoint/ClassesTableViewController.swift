@@ -56,9 +56,10 @@ class ClassesTableViewController: UITableViewController {
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         
-        // Present onboarding
-        if let controller = storyboard?.instantiateViewController(withIdentifier: "OnboardPageViewController") {
-            self.present(controller, animated: false, completion: nil)
+        // If user has not been onboarded then present onboarding
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        if let onboarded = delegate?.hasOnboardedUser, !onboarded {
+            self.performSegue(withIdentifier: .onboarding, sender: self)
         }
     }
 
@@ -249,6 +250,7 @@ extension ClassesTableViewController: Segueable {
     enum SegueIdentifier: String {
         case showDetail = "showDetail"
         case addEditClass = "addEditClass"
+        case onboarding = "onboardingSegue"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -274,6 +276,9 @@ extension ClassesTableViewController: Segueable {
             controller.delegate = self
             // Collapse any edit actions for the tableview, so theyre not opened when returning
             self.tableView.isEditing = false
+            
+        case .onboarding:
+            break
         }
     }
 }
