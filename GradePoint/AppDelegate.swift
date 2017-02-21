@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
-        print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 { print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)") }
         
         let splitViewController = self.window!.rootViewController!.childViewControllers.first as! UISplitViewController
         let detailNavController = splitViewController.viewControllers.last as? UINavigationController
