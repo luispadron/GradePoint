@@ -122,7 +122,7 @@ class ClassesTableViewController: UITableViewController {
             let title = NSAttributedString(string: "Delete This Class", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20)])
             let messageAttrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.sunsetOrange]
             let message = NSAttributedString(string: "This cannot be undone, are you sure?", attributes: messageAttrs)
-            let alert = UIBlurAlertController(size: CGSize(width: 300, height: 180), title: title, message: message)
+            let alert = UIBlurAlertController(size: CGSize(width: 250, height: 180), title: title, message: message)
             let cancel = UIButton()
             cancel.setTitle("Cancel", for: .normal)
             cancel.backgroundColor = UIColor.lapisLazuli
