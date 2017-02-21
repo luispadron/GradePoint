@@ -701,11 +701,11 @@ keeping track of your assignments</string>
             </objects>
             <point key="canvasLocation" x="2212" y="1046"/>
         </scene>
-        <!--GPA-->
+        <!--Calculators-->
         <scene sceneID="1jU-Qx-wAa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YZd-j8-i3q" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="GPA" image="CalcTabBarIcon" selectedImage="CalcTabBarIconFilled" id="Slv-he-pS4"/>
+                    <tabBarItem key="tabBarItem" title="Calculators" image="CalcTabBarIcon" selectedImage="CalcTabBarIconFilled" id="Slv-he-pS4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="unr-zh-2We">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
