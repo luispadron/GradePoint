@@ -281,8 +281,8 @@ section.features .feature-item h3 {
 }
 section.features .feature-item i {
   font-size: 80px;
-  background: -webkit-linear-gradient(to left, #7b4397, #dc2430);
-  background: linear-gradient(to left, #7b4397, #dc2430);
+  background: -webkit-linear-gradient(to left, #A593E0, #30A9DE);
+  background: linear-gradient(to left, #A593E0, #30A9DE);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -354,10 +354,10 @@ section.contact ul.list-social li.social-twitter a {
 section.contact ul.list-social li.social-twitter a:hover {
   background-color: #0d95e8;
 }
-section.contact ul.list-social li.social-facebook a {
-  background-color: #3b5998;
+section.contact ul.list-social li.social-github a {
+  background-color: #25292e;
 }
-section.contact ul.list-social li.social-facebook a:hover {
+section.contact ul.list-social li.social-github a:hover {
   background-color: #344e86;
 }
 section.contact ul.list-social li.social-google-plus a {
@@ -444,4 +444,22 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #222222;
+}
+
+footer {
+  background-color: #222222;
+  padding: 20px 0;
+}
+
+footer p {
+  margin: 0;
+  color: white;
+}
+
+.love {
+  display: inline-block;
+  position: relative;
+  top: .2em;
+  font-size: 1.4em;
+  color: #ff79c6;
 }
