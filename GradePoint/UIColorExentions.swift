@@ -97,3 +97,19 @@ extension UIColor {
                        blue: min(b + percentage/100, 1.0), alpha: a)
     }
 }
+
+/// Text color extension
+
+extension UIColor {
+    public func isLight(threshold: CGFloat = 0.85) -> Bool {
+        var white: CGFloat = 0
+        self.getWhite(&white, alpha: nil)
+        return white > threshold
+    }
+    
+    /// Returns dark color if text should be black when placed ontop of background, or light color if text should be light over background
+    public func visibleTextColor(lightColor: UIColor = UIColor.white, darkColor: UIColor = UIColor.black, threshold: CGFloat = 0.85) -> UIColor {
+        return self.isLight(threshold: threshold) ? darkColor : lightColor
+    }
+    
+}

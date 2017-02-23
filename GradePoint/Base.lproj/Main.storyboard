@@ -514,12 +514,12 @@ keeping track of your assignments</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5w9-fD-BWU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5w9-fD-BWU" userLabel="NavBar">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-QN-zvc">
                                         <rect key="frame" x="8" y="60" width="398" height="27"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -533,6 +533,9 @@ keeping track of your assignments</string>
                                                     <constraint firstAttribute="width" constant="25" id="Rxd-E5-PcY"/>
                                                 </constraints>
                                                 <state key="normal" image="DeleteIcon"/>
+                                                <connections>
+                                                    <action selector="onCancel:" destination="quP-G3-hBI" eventType="touchUpInside" id="5la-g7-2Uq"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szm-TS-1Oc">
                                                 <rect key="frame" x="344" y="0.0" width="40" height="25"/>
@@ -540,6 +543,9 @@ keeping track of your assignments</string>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onSave:" destination="quP-G3-hBI" eventType="touchUpInside" id="J6a-Ov-H35"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -556,14 +562,30 @@ keeping track of your assignments</string>
                                     <constraint firstItem="HyS-QN-zvc" firstAttribute="top" secondItem="OKL-ri-BEn" secondAttribute="bottom" constant="5" id="wDz-Vr-7e7"/>
                                 </constraints>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
+                                <rect key="frame" x="0.0" y="95" width="414" height="641"/>
+                                <connections>
+                                    <outlet property="delegate" destination="quP-G3-hBI" id="VjK-PP-r4E"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.2627450980392157" green="0.27058823529411763" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="faa-9i-Psk" secondAttribute="trailing" constant="-20" id="DQs-4v-cof"/>
+                            <constraint firstItem="faa-9i-Psk" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leadingMargin" constant="-20" id="IlC-gZ-jP7"/>
+                            <constraint firstItem="faa-9i-Psk" firstAttribute="top" secondItem="5w9-fD-BWU" secondAttribute="bottom" id="Mat-bp-DHi"/>
                             <constraint firstItem="5w9-fD-BWU" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leadingMargin" constant="-20" id="TOg-TU-vKc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5w9-fD-BWU" secondAttribute="trailing" constant="-20" id="bhT-x7-zoe"/>
                             <constraint firstItem="5w9-fD-BWU" firstAttribute="top" secondItem="0lj-2W-6nn" secondAttribute="bottom" constant="-20" id="fj1-HA-Ydi"/>
+                            <constraint firstItem="Esf-sI-6e3" firstAttribute="top" secondItem="faa-9i-Psk" secondAttribute="bottom" id="yUu-9T-5Hx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="l0h-Og-cBT" id="1xf-aT-QTq"/>
+                        <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
+                        <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
+                        <outlet property="saveButton" destination="Szm-TS-1Oc" id="ie4-NT-oUf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYS-Df-2Ku" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
