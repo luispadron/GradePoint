@@ -287,16 +287,16 @@ extension ClassesTableViewController: Segueable {
             controller.navigationItem.leftItemsSupplementBackButton = true
             
         case .addEditClass:
-            let nav = segue.destination as! UINavigationController
-            let controller = nav.topViewController as! AddEditClassTableViewController
-            // If editing then set the appropriate obj into the view controller
-            if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
-                controller.classObj = classObj(forIndexPath: path)
-            }
-            nav.preferredContentSize = CGSize(width: 500, height: 600)
-            // Assign the delegate
-            controller.delegate = self
-            // Collapse any edit actions for the tableview, so theyre not opened when returning
+//            let nav = segue.destination as! UINavigationController
+//            let controller = nav.topViewController as! AddEditClassTableViewController
+//            // If editing then set the appropriate obj into the view controller
+//            if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
+//                controller.classObj = classObj(forIndexPath: path)
+//            }
+//            nav.preferredContentSize = CGSize(width: 500, height: 600)
+//            // Assign the delegate
+//            controller.delegate = self
+//            // Collapse any edit actions for the tableview, so theyre not opened when returning
             self.tableView.isEditing = false
             
         case .onboarding:

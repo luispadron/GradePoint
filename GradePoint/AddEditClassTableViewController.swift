@@ -220,6 +220,7 @@ class AddEditClassTableViewController: UITableViewController {
             
         } else if indexPath.section == 1 {
             if indexPath.row < rubricCells.count { return rubricCells[indexPath.row] }
+            print("Creating rubric cell")
             let cell = RubricTableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectedBackgroundView = emptyView
             cell.rubricView.delegate = self
