@@ -76,7 +76,24 @@ class AddEditClassTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // If editing update the semester picker and select the saved values
-        if let obj = classObj { updateSemesterPicker(for: obj) }
+        if let obj = classObj {
+            updateSemesterPicker(for: obj)
+            // TODO: Fix this ugly code, currently whats happening is since my dumb ass decided to use dynamic prototyped table view cells
+            // when editing a class which has tons of rubrics, the save functionality does not work correctly, since the rubric views and such are calculated
+            // using the cells of the table view, but these cells are only assigned in cellForRow, which only gets called on visible cells.
+            // What this does is scroll to the bottom of the tableview and then back up... this will trigger all cells to be created and we can use this terrible fix for now.
+            if obj.rubrics.count > rubricCells.count {
+                let rectForBottom = CGRect(x: 0, y: self.view.frame.maxY, width: self.view.frame.width, height: self.view.frame.height)
+                UIView.animate(withDuration: 0.05, animations: {
+                    self.tableView.scrollRectToVisible(rectForBottom, animated: false)
+                }, completion: { (finished) in
+                    if finished {
+                        let rectForTop = CGRect(x: 0, y: self.view.frame.minY, width: self.view.frame.width, height: self.view.frame.height)
+                        self.tableView.scrollRectToVisible(rectForTop, animated: false)
+                    }
+                })
+            }
+        }
     }
     
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
