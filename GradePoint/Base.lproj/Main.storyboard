@@ -428,7 +428,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -511,7 +511,7 @@ keeping track of your assignments</string>
                         <viewControllerLayoutGuide type="bottom" id="Esf-sI-6e3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HME-m6-5h1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="746"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5w9-fD-BWU" userLabel="NavBar">
@@ -562,8 +562,20 @@ keeping track of your assignments</string>
                                     <constraint firstItem="HyS-QN-zvc" firstAttribute="top" secondItem="OKL-ri-BEn" secondAttribute="bottom" constant="5" id="wDz-Vr-7e7"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
-                                <rect key="frame" x="0.0" y="95" width="414" height="641"/>
+                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
+                                <rect key="frame" x="0.0" y="95" width="414" height="651"/>
+                                <subviews>
+                                    <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="651"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="vdY-dK-mYM" firstAttribute="leading" secondItem="faa-9i-Psk" secondAttribute="leading" id="1Fi-t0-uAQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="vdY-dK-mYM" secondAttribute="bottom" id="1jh-Qc-C5g"/>
+                                    <constraint firstItem="vdY-dK-mYM" firstAttribute="width" secondItem="faa-9i-Psk" secondAttribute="width" id="IxQ-Wf-wee"/>
+                                    <constraint firstAttribute="trailing" secondItem="vdY-dK-mYM" secondAttribute="trailing" id="c6G-DC-116"/>
+                                    <constraint firstItem="vdY-dK-mYM" firstAttribute="top" secondItem="faa-9i-Psk" secondAttribute="top" id="y7j-2b-XI6"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="quP-G3-hBI" id="VjK-PP-r4E"/>
                                 </connections>
@@ -571,13 +583,13 @@ keeping track of your assignments</string>
                         </subviews>
                         <color key="backgroundColor" red="0.2627450980392157" green="0.27058823529411763" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="faa-9i-Psk" secondAttribute="trailing" constant="-20" id="DQs-4v-cof"/>
-                            <constraint firstItem="faa-9i-Psk" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leadingMargin" constant="-20" id="IlC-gZ-jP7"/>
-                            <constraint firstItem="faa-9i-Psk" firstAttribute="top" secondItem="5w9-fD-BWU" secondAttribute="bottom" id="Mat-bp-DHi"/>
+                            <constraint firstItem="faa-9i-Psk" firstAttribute="top" secondItem="5w9-fD-BWU" secondAttribute="bottom" id="7yd-TR-Mgg"/>
+                            <constraint firstItem="faa-9i-Psk" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leading" id="9FX-NA-Nhe"/>
+                            <constraint firstAttribute="trailing" secondItem="faa-9i-Psk" secondAttribute="trailing" id="KYl-uf-f1T"/>
                             <constraint firstItem="5w9-fD-BWU" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leadingMargin" constant="-20" id="TOg-TU-vKc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5w9-fD-BWU" secondAttribute="trailing" constant="-20" id="bhT-x7-zoe"/>
+                            <constraint firstItem="Esf-sI-6e3" firstAttribute="top" secondItem="faa-9i-Psk" secondAttribute="bottom" id="dY2-pb-Iay"/>
                             <constraint firstItem="5w9-fD-BWU" firstAttribute="top" secondItem="0lj-2W-6nn" secondAttribute="bottom" constant="-20" id="fj1-HA-Ydi"/>
-                            <constraint firstItem="Esf-sI-6e3" firstAttribute="top" secondItem="faa-9i-Psk" secondAttribute="bottom" id="yUu-9T-5Hx"/>
                         </constraints>
                     </view>
                     <connections>
@@ -585,11 +597,13 @@ keeping track of your assignments</string>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
                         <outlet property="saveButton" destination="Szm-TS-1Oc" id="ie4-NT-oUf"/>
+                        <outlet property="scrollView" destination="faa-9i-Psk" id="lSN-tM-tAQ"/>
+                        <outlet property="stackView" destination="vdY-dK-mYM" id="Mp2-Fa-QzQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYS-Df-2Ku" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1472.4637681159422" y="131.25"/>
+            <point key="canvasLocation" x="1366.6666666666667" y="148.36956521739131"/>
         </scene>
         <!--Nav Controller 2-->
         <scene sceneID="r7l-gg-dq7">
@@ -620,7 +634,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">

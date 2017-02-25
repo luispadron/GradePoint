@@ -12,10 +12,14 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
 
     let colorForView = UIColor.randomPastel
     
+    // Nav bar
     @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var navigationTitle: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
+    // View content
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,18 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         self.saveButton.setTitleColor(visibleColor, for: .normal)
         self.navigationTitle.textColor = visibleColor
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        let view = UIView()
+        view.backgroundColor = UIColor.randomPastel
+        let view2  = UIView()
+        view2.backgroundColor = UIColor.randomPastel
+        
+        self.stackView.addArrangedSubview(view)
+        self.stackView.addArrangedSubview(view2)
+        
+        view.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        view2.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
