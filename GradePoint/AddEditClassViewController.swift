@@ -96,11 +96,11 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let wasHidden = semesterPickerView.isHidden
         self.semesterPickerView.isHidden = false
         let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
-        let toSize = wasHidden ? CGSize(width: self.semesterPickerView.frame.width, height: 120) : CGSize(width: self.semesterPickerView.frame.width, height: 0)
+        let toHeight: CGFloat = wasHidden ? 120.0 : 0.0
         
         UIView.animate(withDuration: 0.4, animations: {
             self.semesterPickerView.alpha = toAlpha
-            self.semesterPickerConstraint.constant = toSize.height
+            self.semesterPickerConstraint.constant = toHeight
             self.semesterLabel.textColor = wasHidden ? UIColor.highlight : UIColor.white
         }, completion: { finished in
             if finished { self.semesterPickerView.isHidden = !wasHidden }
