@@ -538,8 +538,8 @@ keeping track of your assignments</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szm-TS-1Oc">
-                                                <rect key="frame" x="344" y="0.0" width="40" height="25"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <rect key="frame" x="347" y="0.0" width="37" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -562,11 +562,32 @@ keeping track of your assignments</string>
                                     <constraint firstItem="HyS-QN-zvc" firstAttribute="top" secondItem="OKL-ri-BEn" secondAttribute="bottom" constant="5" id="wDz-Vr-7e7"/>
                                 </constraints>
                             </view>
-                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
+                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
                                 <rect key="frame" x="0.0" y="95" width="414" height="651"/>
                                 <subviews>
-                                    <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="651"/>
+                                    <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMy-Q1-gjJ">
+                                                        <rect key="frame" x="8" y="8" width="398" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <color key="textColor" red="0.7803921568627451" green="0.7803921568627451" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="8k5-em-6m7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="wMy-Q1-gjJ" secondAttribute="trailing" constant="8" id="D3R-o1-A54"/>
+                                                    <constraint firstItem="wMy-Q1-gjJ" firstAttribute="leading" secondItem="AX7-Lh-nnI" secondAttribute="leading" constant="8" id="Ydm-ym-Hed"/>
+                                                    <constraint firstItem="wMy-Q1-gjJ" firstAttribute="top" secondItem="AX7-Lh-nnI" secondAttribute="top" constant="8" id="uVL-GY-bka"/>
+                                                    <constraint firstAttribute="bottom" secondItem="wMy-Q1-gjJ" secondAttribute="bottom" constant="8" id="usI-eL-jb9"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                     </stackView>
                                 </subviews>
                                 <constraints>
