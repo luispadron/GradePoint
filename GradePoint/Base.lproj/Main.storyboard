@@ -566,7 +566,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="95" width="414" height="651"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="293"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="344"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -649,6 +649,25 @@ keeping track of your assignments</string>
                                                 <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="zjo-Hq-6E3"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-th-0OK" userLabel="Header View 2">
+                                                <rect key="frame" x="0.0" y="294" width="414" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Rubric" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-LP-ed3">
+                                                        <rect key="frame" x="8" y="8" width="398" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="nqD-LP-ed3" firstAttribute="leading" secondItem="9HN-th-0OK" secondAttribute="leading" constant="8" id="2gK-F4-qRJ"/>
+                                                    <constraint firstAttribute="height" constant="50" id="dim-Uf-Apv"/>
+                                                    <constraint firstItem="nqD-LP-ed3" firstAttribute="top" secondItem="9HN-th-0OK" secondAttribute="top" constant="8" id="j6u-qJ-lB3"/>
+                                                    <constraint firstAttribute="bottom" secondItem="nqD-LP-ed3" secondAttribute="bottom" constant="8" id="ju2-nv-ZnC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nqD-LP-ed3" secondAttribute="trailing" constant="8" id="nI7-Sw-sDZ"/>
                                                 </constraints>
                                             </view>
                                         </subviews>

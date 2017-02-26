@@ -100,7 +100,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         
         UIView.animate(withDuration: 0.4, animations: {
             self.semesterPickerView.alpha = toAlpha
-            self.semesterPickerView.frame.size = toSize
             self.semesterPickerConstraint.constant = toSize.height
             self.semesterLabel.textColor = wasHidden ? UIColor.highlight : UIColor.white
         }, completion: { finished in
