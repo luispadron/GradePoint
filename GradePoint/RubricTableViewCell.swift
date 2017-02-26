@@ -38,7 +38,6 @@ class RubricTableViewCell: UITableViewCell {
     
     func initCell() {
         rubricView = UIRubricView(frame: self.frame)
-        rubricView.parentCell = self
         self.addSubview(rubricView)
     }
     

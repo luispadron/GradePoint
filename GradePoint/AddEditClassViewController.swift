@@ -12,8 +12,11 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: Properties
     
-    let colorForView = UIColor.randomPastel
+    ///// CONSTANTS
+    let colorForView: UIColor = UIColor.randomPastel
+    let heightForRubricView: CGFloat = 70.0
     
+    ///// VIEWS
     // Nav bar
     @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var navigationTitle: UILabel!
@@ -28,6 +31,19 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
     
+    /// An array which will hold all the rubric views which have been created
+    var rubricViews: [UIRubricView] {
+        get {
+            let views = self.stackView.arrangedSubviews
+            var result = [UIRubricView]()
+            for view in views { if let v = view as? UIRubricView { result.append(v) } }
+            return result
+        }
+    }
+    
+    
+    ///// Variables
+    /// The semester, grabbed from the UISemesterPickerView
     var semester: Semester?
     
     // MARK: Overrides
@@ -57,6 +73,9 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let color = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
         UIApplication.shared.statusBarStyle = color
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        // Initially we need to have at least one rubric view added to the view
+        if rubricViews.isEmpty { appendRubricView() }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,14 +126,50 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         })
     }
     
+    // MARK: Helper Methods
+    
+    func appendRubricView() {
+        let rubricView = UIRubricView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForRubricView))
+        rubricView.delegate = self
+        rubricView.heightAnchor.constraint(equalToConstant: heightForRubricView).isActive = true
+        self.stackView.addArrangedSubview(rubricView)
+    }
+    
+    func removeRubricView(_ view: UIRubricView) {
+        self.stackView.removeArrangedSubview(view)
+    }
+    
 }
 
-// MARK: Semester Picker Delegation 
-
+// MARK: Semester Picker Delegation
 extension AddEditClassViewController: SemesterPickerDelegate {
     /// Notifies delegate that a row was selected
     internal func pickerRowSelected(term: String, year: Int) {
         self.semesterLabel.text = "\(term) \(year)"
         self.semester = Semester(withTerm: term, andYear: year)
     }
+}
+
+// MARK: Rubric View Delegation
+extension AddEditClassViewController: UIRubricViewDelegate {
+    /// Notifies delgate that the rubrics valid state was updated
+    internal func isRubricValidUpdated(forView view: UIRubricView) {
+        print("updated")
+    }
+
+    /// Notifies delegate that the plus button was touched
+    internal func plusButtonTouched(_ view: UIRubricView, withState state: UIRubricViewState?) {
+        guard let `state` = state else { return }
+        
+        
+        view.animateViews()
+        
+        switch state {
+        case .open:
+            self.removeRubricView(view)
+        case .collapsed:
+            self.appendRubricView()
+        }
+    }
+
 }

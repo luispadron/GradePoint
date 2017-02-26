@@ -603,19 +603,12 @@ extension AddEditClassTableViewController: UIRubricViewDelegate {
         self.present(calculateAlert, animated: true, completion: nil)
     }
     
-    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?) {
-        guard let `state` = state else {
+    func plusButtonTouched(_ view: UIRubricView, withState state: UIRubricViewState?) {
+        guard let _ = state else {
             return
         }
         
-        switch state {
-        case .collapsed:
-            // view was closed, open it
-            handleOpenState(forCell: cell)
-        case .open:
-            // view was opened, close it
-            handleCloseState(forCell: cell)
-        }
+
     }
     
     func isRubricValidUpdated(forView view: UIRubricView) {

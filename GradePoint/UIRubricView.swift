@@ -58,8 +58,6 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     weak var delegate: UIRubricViewDelegate?
     
-    var parentCell: RubricTableViewCell!
-    
     var isRubricValid = false {
         didSet {
             delegate?.isRubricValidUpdated(forView: self)
@@ -224,7 +222,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let point = buttonGesture.location(in: self)
         
         if (buttonRect.contains(point) || state == .collapsed) && !isAnimating {
-            self.delegate?.plusButtonTouched(inCell: self.parentCell, withState: state)
+            self.delegate?.plusButtonTouched(self, withState: state)
         }
     }
     
@@ -379,7 +377,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         self.isDeleteButton = self.isDeleteButton.toggle
         self.isRubricValid = true
         
-        self.delegate?.plusButtonTouched(inCell: parentCell, withState: nil)
+        self.delegate?.plusButtonTouched(self, withState: nil)
     }
 
 }

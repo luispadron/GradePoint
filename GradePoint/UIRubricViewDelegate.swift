@@ -9,7 +9,7 @@
 /// Protocol for the rubric view
 protocol UIRubricViewDelegate: class {
     /// Notifies delegate that the plus button was touched
-    func plusButtonTouched(inCell cell: RubricTableViewCell, withState state: UIRubricViewState?)
+    func plusButtonTouched(_ view: UIRubricView, withState state: UIRubricViewState?)
     /// Notifies delgate that the rubrics valid state was updated
     func isRubricValidUpdated(forView view: UIRubricView)
     
