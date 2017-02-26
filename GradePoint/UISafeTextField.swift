@@ -16,9 +16,9 @@ open class UISafeTextField: UITextField {
     }
     
     /// The type of the textfield
-    open var fieldType: FieldType
+    open var fieldType: FieldType = .text
     /// The configuration for the text field
-    open var configuration: FieldConfiguration
+    open var configuration: FieldConfiguration = TextConfiguration(maxCharacters: Int.max)
     /// Boolean for determining if the user clicked backspace
     private var isBackspace: Bool = false
     /// Returns a safe text, this will remove any special characters added to the text
@@ -45,7 +45,18 @@ open class UISafeTextField: UITextField {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        // Add target
+        self.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        // Set keyboard type
+        switch fieldType {
+        case .percent:
+            fallthrough
+        case .number:
+            self.keyboardType = .decimalPad
+        case .text:
+            break
+        }
     }
     
     // MARK: - Check Methods

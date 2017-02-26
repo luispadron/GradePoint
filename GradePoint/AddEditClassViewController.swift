@@ -31,17 +31,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         self.navigationTitle.textColor = visibleColor
         self.setNeedsStatusBarAppearanceUpdate()
         
-        let view = UIView()
-        view.backgroundColor = UIColor.randomPastel
-        let view2  = UIView()
-        view2.backgroundColor = UIColor.randomPastel
-        
-        self.stackView.addArrangedSubview(view)
-        self.stackView.addArrangedSubview(view2)
-        
-        view.heightAnchor.constraint(equalToConstant: 500).isActive = true
-        view2.heightAnchor.constraint(equalToConstant: 500).isActive = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

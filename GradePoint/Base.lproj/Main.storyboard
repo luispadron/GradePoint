@@ -566,7 +566,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="95" width="414" height="651"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -585,6 +585,33 @@ keeping track of your assignments</string>
                                                     <constraint firstItem="wMy-Q1-gjJ" firstAttribute="leading" secondItem="AX7-Lh-nnI" secondAttribute="leading" constant="8" id="Ydm-ym-Hed"/>
                                                     <constraint firstItem="wMy-Q1-gjJ" firstAttribute="top" secondItem="AX7-Lh-nnI" secondAttribute="top" constant="8" id="uVL-GY-bka"/>
                                                     <constraint firstAttribute="bottom" secondItem="wMy-Q1-gjJ" secondAttribute="bottom" constant="8" id="usI-eL-jb9"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWj-ja-CWk">
+                                                <rect key="frame" x="0.0" y="50" width="414" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn2-bl-OaP">
+                                                        <rect key="frame" x="8" y="8" width="45" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Etm-4N-cqR" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
+                                                        <rect key="frame" x="73" y="8" width="333" height="44"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="20" id="8B4-Ix-pSP"/>
+                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="20" id="KfB-Yr-zFJ"/>
+                                                    <constraint firstAttribute="height" constant="60" id="PiJ-Yq-cjD"/>
+                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="bRt-rp-TPX"/>
+                                                    <constraint firstItem="Yn2-bl-OaP" firstAttribute="leading" secondItem="CWj-ja-CWk" secondAttribute="leading" constant="8" id="iZb-Sl-vD2"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Yn2-bl-OaP" secondAttribute="bottom" constant="8" id="nG8-rq-EQc"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Etm-4N-cqR" secondAttribute="bottom" constant="8" id="oui-zt-nYS"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Etm-4N-cqR" secondAttribute="trailing" constant="8" id="sCu-kS-LOs"/>
+                                                    <constraint firstItem="Yn2-bl-OaP" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="yWB-Kp-K4j"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
