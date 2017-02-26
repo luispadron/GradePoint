@@ -428,7 +428,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -565,8 +565,8 @@ keeping track of your assignments</string>
                             <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
                                 <rect key="frame" x="0.0" y="95" width="414" height="651"/>
                                 <subviews>
-                                    <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+                                    <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="172"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -587,8 +587,8 @@ keeping track of your assignments</string>
                                                     <constraint firstAttribute="bottom" secondItem="wMy-Q1-gjJ" secondAttribute="bottom" constant="8" id="usI-eL-jb9"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWj-ja-CWk">
-                                                <rect key="frame" x="0.0" y="50" width="414" height="60"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWj-ja-CWk" userLabel="Name Field">
+                                                <rect key="frame" x="0.0" y="51" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn2-bl-OaP">
                                                         <rect key="frame" x="8" y="8" width="45" height="44"/>
@@ -597,14 +597,13 @@ keeping track of your assignments</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Etm-4N-cqR" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                                        <rect key="frame" x="73" y="8" width="333" height="44"/>
+                                                        <rect key="frame" x="120" y="8" width="286" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="20" id="8B4-Ix-pSP"/>
-                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="20" id="KfB-Yr-zFJ"/>
+                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="67" id="KfB-Yr-zFJ"/>
                                                     <constraint firstAttribute="height" constant="60" id="PiJ-Yq-cjD"/>
                                                     <constraint firstItem="Etm-4N-cqR" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="bRt-rp-TPX"/>
                                                     <constraint firstItem="Yn2-bl-OaP" firstAttribute="leading" secondItem="CWj-ja-CWk" secondAttribute="leading" constant="8" id="iZb-Sl-vD2"/>
@@ -612,6 +611,33 @@ keeping track of your assignments</string>
                                                     <constraint firstAttribute="bottom" secondItem="Etm-4N-cqR" secondAttribute="bottom" constant="8" id="oui-zt-nYS"/>
                                                     <constraint firstAttribute="trailing" secondItem="Etm-4N-cqR" secondAttribute="trailing" constant="8" id="sCu-kS-LOs"/>
                                                     <constraint firstItem="Yn2-bl-OaP" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="yWB-Kp-K4j"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-K4-8dK" userLabel="Semester Field">
+                                                <rect key="frame" x="0.0" y="112" width="414" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ooq-5e-OoZ">
+                                                        <rect key="frame" x="8" y="8" width="73" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spring 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-1j-1fm">
+                                                        <rect key="frame" x="119.99999999999999" y="8" width="91.666666666666643" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="Kwy-1j-1fm" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="49y-Mu-nlY"/>
+                                                    <constraint firstAttribute="height" constant="60" id="8hV-Pl-iXD"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Kwy-1j-1fm" secondAttribute="bottom" constant="8" id="Ra4-dk-C0V"/>
+                                                    <constraint firstItem="Kwy-1j-1fm" firstAttribute="leading" secondItem="Ooq-5e-OoZ" secondAttribute="trailing" constant="39" id="UCm-lC-8FW"/>
+                                                    <constraint firstItem="Ooq-5e-OoZ" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="d4m-Qf-seR"/>
+                                                    <constraint firstItem="Ooq-5e-OoZ" firstAttribute="leading" secondItem="3OD-K4-8dK" secondAttribute="leading" constant="8" id="oOf-BV-xJs"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Ooq-5e-OoZ" secondAttribute="bottom" constant="8" id="rdx-sB-JhB"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -682,7 +708,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">
