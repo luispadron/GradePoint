@@ -10,6 +10,8 @@ import UIKit
 
 class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
 
+    // MARK: Properties
+    
     let colorForView = UIColor.randomPastel
     
     // Nav bar
@@ -20,17 +22,33 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     // View content
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
+    // Fields
+    @IBOutlet weak var nameField: UISafeTextField!
+    @IBOutlet weak var semesterLabel: UILabel!
+    @IBOutlet weak var semesterPickerView: UISemesterPickerView!
+    @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
+    
+    var semester: Semester?
+    
+    // MARK: Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UI Setup
         self.navigationView.backgroundColor = colorForView
         let visibleColor = colorForView.visibleTextColor(lightColor: UIColor.lightText, darkColor: UIColor.darkText)
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
         self.navigationTitle.textColor = visibleColor
-        self.setNeedsStatusBarAppearanceUpdate()
+
+        semesterPickerView.isHidden = true
+        semesterPickerView.alpha = 0.0
+        semesterPickerConstraint.constant = 0.0
+        semesterPickerView.delegate = self
         
+        // Notify of nav bar color changes
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,9 +88,34 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-
     @IBAction func onSave(_ sender: UIButton) {
+        
     }
     
+    @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
+        let wasHidden = semesterPickerView.isHidden
+        self.semesterPickerView.isHidden = false
+        let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
+        let toSize = wasHidden ? CGSize(width: self.semesterPickerView.frame.width, height: 120) : CGSize(width: self.semesterPickerView.frame.width, height: 0)
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            self.semesterPickerView.alpha = toAlpha
+            self.semesterPickerView.frame.size = toSize
+            self.semesterPickerConstraint.constant = toSize.height
+            self.semesterLabel.textColor = wasHidden ? UIColor.highlight : UIColor.white
+        }, completion: { finished in
+            if finished { self.semesterPickerView.isHidden = !wasHidden }
+        })
+    }
     
+}
+
+// MARK: Semester Picker Delegation 
+
+extension AddEditClassViewController: SemesterPickerDelegate {
+    /// Notifies delegate that a row was selected
+    internal func pickerRowSelected(term: String, year: Int) {
+        self.semesterLabel.text = "\(term) \(year)"
+        self.semester = Semester(withTerm: term, andYear: year)
+    }
 }

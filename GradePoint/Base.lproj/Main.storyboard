@@ -566,7 +566,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="95" width="414" height="651"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="172"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="293"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -630,6 +630,7 @@ keeping track of your assignments</string>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="49y-Mu-nlY"/>
                                                     <constraint firstAttribute="height" constant="60" id="8hV-Pl-iXD"/>
@@ -638,6 +639,16 @@ keeping track of your assignments</string>
                                                     <constraint firstItem="Ooq-5e-OoZ" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="d4m-Qf-seR"/>
                                                     <constraint firstItem="Ooq-5e-OoZ" firstAttribute="leading" secondItem="3OD-K4-8dK" secondAttribute="leading" constant="8" id="oOf-BV-xJs"/>
                                                     <constraint firstAttribute="bottom" secondItem="Ooq-5e-OoZ" secondAttribute="bottom" constant="8" id="rdx-sB-JhB"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="3sc-xd-X33" appends="YES" id="iWm-4Q-gm4"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="173" width="414" height="120"/>
+                                                <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="120" id="zjo-Hq-6E3"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -668,14 +679,23 @@ keeping track of your assignments</string>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="l0h-Og-cBT" id="1xf-aT-QTq"/>
+                        <outlet property="nameField" destination="Etm-4N-cqR" id="mwH-Gf-wZA"/>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
                         <outlet property="saveButton" destination="Szm-TS-1Oc" id="ie4-NT-oUf"/>
                         <outlet property="scrollView" destination="faa-9i-Psk" id="lSN-tM-tAQ"/>
+                        <outlet property="semesterLabel" destination="Kwy-1j-1fm" id="0pR-Wy-5PN"/>
+                        <outlet property="semesterPickerConstraint" destination="zjo-Hq-6E3" id="Y2r-QX-hfN"/>
+                        <outlet property="semesterPickerView" destination="0Fj-pb-dLM" id="R2t-R5-ONk"/>
                         <outlet property="stackView" destination="vdY-dK-mYM" id="Mp2-Fa-QzQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYS-Df-2Ku" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="3sc-xd-X33">
+                    <connections>
+                        <action selector="onSemesterTap:" destination="quP-G3-hBI" id="kcf-Br-GHF"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1366.6666666666667" y="148.36956521739131"/>
         </scene>
