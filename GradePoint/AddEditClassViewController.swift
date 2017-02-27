@@ -57,11 +57,17 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
         self.navigationTitle.textColor = visibleColor
-
-        semesterPickerView.isHidden = true
-        semesterPickerView.alpha = 0.0
+        
+        self.nameField.textColor = UIColor.white
+        let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
+        self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
+        
         semesterPickerConstraint.constant = 0.0
         semesterPickerView.delegate = self
+        
+        
+        // Initially we need to have at least one rubric view added to the view
+        if rubricViews.isEmpty { appendRubricView() }
         
         // Notify of nav bar color changes
         self.setNeedsStatusBarAppearanceUpdate()
@@ -73,9 +79,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let color = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
         UIApplication.shared.statusBarStyle = color
         self.setNeedsStatusBarAppearanceUpdate()
-        
-        // Initially we need to have at least one rubric view added to the view
-        if rubricViews.isEmpty { appendRubricView() }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -88,13 +91,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         super.didReceiveMemoryWarning()
         
     }
-    
-    // MARK: ScrollView Delegation
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrolling")
-    }
-
     
     // MARK: Actions
     

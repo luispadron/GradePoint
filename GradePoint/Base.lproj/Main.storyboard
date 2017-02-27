@@ -644,7 +644,7 @@ keeping track of your assignments</string>
                                                     <outletCollection property="gestureRecognizers" destination="3sc-xd-X33" appends="YES" id="iWm-4Q-gm4"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
+                                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="173" width="414" height="120"/>
                                                 <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
