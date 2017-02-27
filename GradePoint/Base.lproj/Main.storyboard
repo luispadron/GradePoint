@@ -515,14 +515,8 @@ keeping track of your assignments</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5w9-fD-BWU" userLabel="NavBar">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-QN-zvc">
-                                        <rect key="frame" x="8" y="57" width="398" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OKL-ri-BEn">
                                         <rect key="frame" x="15" y="30" width="384" height="22"/>
                                         <subviews>
@@ -537,6 +531,12 @@ keeping track of your assignments</string>
                                                     <action selector="onCancel:" destination="quP-G3-hBI" eventType="touchUpInside" id="5la-g7-2Uq"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-QN-zvc">
+                                                <rect key="frame" x="128.33333333333337" y="0.0" width="119.66666666666666" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szm-TS-1Oc">
                                                 <rect key="frame" x="347" y="0.0" width="37" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -553,17 +553,13 @@ keeping track of your assignments</string>
                                 <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="OKL-ri-BEn" firstAttribute="top" secondItem="5w9-fD-BWU" secondAttribute="top" constant="30" id="2bz-wz-7j8"/>
-                                    <constraint firstAttribute="bottom" secondItem="HyS-QN-zvc" secondAttribute="bottom" constant="8" id="7QT-gs-CYR"/>
-                                    <constraint firstItem="HyS-QN-zvc" firstAttribute="leading" secondItem="5w9-fD-BWU" secondAttribute="leading" constant="8" id="Fgx-Sw-uSX"/>
-                                    <constraint firstAttribute="height" constant="95" id="PvY-qq-dCJ"/>
+                                    <constraint firstAttribute="height" constant="80" id="PvY-qq-dCJ"/>
                                     <constraint firstItem="OKL-ri-BEn" firstAttribute="leading" secondItem="5w9-fD-BWU" secondAttribute="leading" constant="15" id="SaF-Vc-GE3"/>
                                     <constraint firstAttribute="trailing" secondItem="OKL-ri-BEn" secondAttribute="trailing" constant="15" id="mVz-4J-FKq"/>
-                                    <constraint firstAttribute="trailing" secondItem="HyS-QN-zvc" secondAttribute="trailing" constant="8" id="pXv-tK-dMo"/>
-                                    <constraint firstItem="HyS-QN-zvc" firstAttribute="top" secondItem="OKL-ri-BEn" secondAttribute="bottom" constant="5" id="wDz-Vr-7e7"/>
                                 </constraints>
                             </view>
                             <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
-                                <rect key="frame" x="0.0" y="95" width="414" height="651"/>
+                                <rect key="frame" x="0.0" y="80" width="414" height="666"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="344"/>
@@ -687,13 +683,13 @@ keeping track of your assignments</string>
                         </subviews>
                         <color key="backgroundColor" red="0.2627450980392157" green="0.27058823529411763" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="5w9-fD-BWU" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leading" id="6fO-ru-wbW"/>
                             <constraint firstItem="faa-9i-Psk" firstAttribute="top" secondItem="5w9-fD-BWU" secondAttribute="bottom" id="7yd-TR-Mgg"/>
                             <constraint firstItem="faa-9i-Psk" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leading" id="9FX-NA-Nhe"/>
                             <constraint firstAttribute="trailing" secondItem="faa-9i-Psk" secondAttribute="trailing" id="KYl-uf-f1T"/>
-                            <constraint firstItem="5w9-fD-BWU" firstAttribute="leading" secondItem="HME-m6-5h1" secondAttribute="leadingMargin" constant="-20" id="TOg-TU-vKc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5w9-fD-BWU" secondAttribute="trailing" constant="-20" id="bhT-x7-zoe"/>
+                            <constraint firstItem="5w9-fD-BWU" firstAttribute="top" secondItem="HME-m6-5h1" secondAttribute="top" id="YXd-M5-9Fh"/>
                             <constraint firstItem="Esf-sI-6e3" firstAttribute="top" secondItem="faa-9i-Psk" secondAttribute="bottom" id="dY2-pb-Iay"/>
-                            <constraint firstItem="5w9-fD-BWU" firstAttribute="top" secondItem="0lj-2W-6nn" secondAttribute="bottom" constant="-20" id="fj1-HA-Ydi"/>
+                            <constraint firstAttribute="trailing" secondItem="5w9-fD-BWU" secondAttribute="trailing" id="paL-Su-BU8"/>
                         </constraints>
                     </view>
                     <connections>
