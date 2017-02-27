@@ -50,6 +50,8 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
             return result
         }
     }
+    /// Dict which holds any rubric views and that rubrics PK, which were intially added to the view due to editing a class
+    var editingRubrics = [String: UIRubricView]()
     
     ///// Variables
     /// The semester, grabbed from the UISemesterPickerView
@@ -77,12 +79,12 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
         self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
-        
+        self.nameField.autocapitalizationType = .words
         semesterPickerConstraint.constant = 0.0
         semesterPickerView.delegate = self
         
         // Initially we need to have at least one rubric view added to the view
-        if rubricViews.isEmpty { appendRubricView() }
+        if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
         
         self.saveButton.isEnabled = false
         
@@ -103,9 +105,10 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         UIApplication.shared.statusBarStyle = color
         self.setNeedsStatusBarAppearanceUpdate()
 
-        // Set the pickers initial value
+        // If editing a class Set the pickers initial value, and set any rubrics
         if let obj = classObj {
             updateSemesterPicker(for: obj)
+            updateRubricViews(for: obj)
         }
         else {
             let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
@@ -168,7 +171,7 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func onSave(_ sender: UIButton) {
         guard isSaveReady() else { return }
         guard let classObj = self.classObj else { saveNewClass(); return }
-        saveUpdate(for: classObj)
+        saveChangesTo(classObj)
     }
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
@@ -257,19 +260,61 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func saveUpdate(for classObj: Class) {
+    /// Saves the edits the user made to the object
+    func saveChangesTo(_ classObj: Class) {
+        // Lets save the changes made to the Class object, again can force unwrap since already checked for values
         
+        // Write name and semester changes to realm
+        try! realm.write {
+            classObj.name = self.nameField.safeText
+            classObj.semester?.term = self.semester.term
+            classObj.semester?.year = self.semester.year
+        }
+        
+        // The rubric views which will be added
+        var rubricViews = self.rubricViews
+        rubricViews.removeLast()
+        
+        // Loop through the rubric views and save any changes/add new rubrics
+        for (pk, rubricView) in editingRubrics {
+            let savedRubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
+            try! realm.write {
+                savedRubric.name = rubricView.nameField.safeText
+                savedRubric.weight = Double(rubricView.weightField.safeText)!
+            }
+            // Remove this rubric from the rubricViews array, since was already updated, and should not be created again
+            if let index = rubricViews.index(of: rubricView) { rubricViews.remove(at: index) }
+        }
+        
+        // Add any new rubric views
+        for rubricView in rubricViews {
+            let name = rubricView.nameField.safeText
+            let weight = Double(rubricView.weightField.safeText)!
+            let newRubric = Rubric(withName: name, andWeight: weight)
+            try! realm.write {
+                classObj.rubrics.append(newRubric)
+            }
+        }
+        
+        // Dismiss controller
+        self.dismiss(animated: true) { [weak self] in
+            // Call the delegate method, tell it were done updating the class
+            self?.delegate?.didFinishUpdating(classObj: classObj)
+        }
     }
     
     // MARK: Helper Methods
     
-    func appendRubricView() {
+    /// Adds a new rubric view to the stack view, returns the view which was added
+    @discardableResult func appendRubricView() -> UIRubricView {
         let rubricView = UIRubricView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForRubricView))
         rubricView.delegate = self
         rubricView.heightAnchor.constraint(equalToConstant: heightForRubricView).isActive = true
         self.stackView.addArrangedSubview(rubricView)
+        return rubricView
     }
     
+    /// Removes the specified view from the stack view
     func removeRubricView(_ view: UIRubricView) {
         view.animateViews()
         UIView.animate(withDuration: view.animationDuration, animations: {
@@ -304,6 +349,19 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         self.semesterPickerView.pickerView(picker, didSelectRow: iYear, inComponent: 1)
         
         self.semester = classObj.semester!
+    }
+    
+    func updateRubricViews(for classObj: Class) {
+        for rubric in classObj.rubrics {
+            let view = appendRubricView()
+            view.nameField.text = rubric.name
+            view.weightField.text = "\(rubric.weight)%"
+            view.toEditState()
+            self.editingRubrics[rubric.id] = view
+        }
+     
+        // Append a new rubric view to the end
+        appendRubricView()
     }
     
     /// Presents an alert when provided the specified alertType
