@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
 
     // MARK: Properties
+    
+    let realm = try! Realm()
+    var classObj: Class?
     
     ///// CONSTANTS
     let colorForView: UIColor = UIColor.randomPastel
@@ -48,7 +52,7 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     
     ///// Variables
     /// The semester, grabbed from the UISemesterPickerView
-    var semester: Semester?
+    var semester: Semester!
     
     // MARK: Overrides
     
@@ -68,6 +72,7 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
+        self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         
         semesterPickerConstraint.constant = 0.0
         semesterPickerView.delegate = self
@@ -87,6 +92,16 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let color = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
         UIApplication.shared.statusBarStyle = color
         self.setNeedsStatusBarAppearanceUpdate()
+
+        // Set the pickers initial value
+        if let obj = classObj {
+            updateSemesterPicker(for: obj)
+        }
+        else {
+            let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
+            self.semesterLabel.text = "\(semester.term) \(semester.year)"
+            self.semester = semester
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -111,10 +126,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    @IBAction func onSave(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
         let wasHidden = semesterPickerView.isHidden
         self.semesterPickerView.isHidden = false
@@ -128,6 +139,23 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         }, completion: { finished in
             if finished { self.semesterPickerView.isHidden = !wasHidden }
         })
+    }
+    
+    
+    // MARK: Save Methods
+    
+    @IBAction func onSave(_ sender: UIButton) {
+        guard let classObj = self.classObj else { saveNewClass(); return }
+        saveUpdate(for: classObj)
+    }
+    
+    func saveNewClass() {
+        let name = nameField.safeText
+        let semester = self.semester
+    }
+    
+    func saveUpdate(for classObj: Class) {
+        
     }
     
     // MARK: Helper Methods
@@ -149,20 +177,40 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func updateSaveButton() {
-        guard let text = nameField?.text else {
-            nameFieldIsValid = false
-            return
-        }
-        
-        // Check for only whitespace in textfield
-        let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
-        nameFieldIsValid = trimmed.isEmpty ? false : true
+        // Checks to see whether should enable save button
+        let nameValid = self.nameField.safeText.isValid()
+        var rubricsAreValid = false
+        var validCount = 0
+        for view in rubricViews { if view.isRubricValid { validCount += 1 } }
+        rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
+        print("Name valid: \(nameValid), rubrics valid: \(rubricsAreValid)")
+        self.saveButton.isEnabled = nameValid && rubricsAreValid
     }
     
+    /// Updates the semester picker with values of the class that is passed in
+    func updateSemesterPicker(for classObj: Class) {
+        
+        // Set the semester picker to correct values
+        let picker = self.semesterPickerView.semesterPicker!
+        let iTerm = self.semesterPickerView.terms.index(of: classObj.semester!.term)!
+        let iYear = self.semesterPickerView.years.index(of: classObj.semester!.year)!
+        
+        picker.selectRow(iTerm, inComponent: 0, animated: false)
+        self.semesterPickerView.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
+        picker.selectRow(iYear, inComponent: 1, animated: false)
+        self.semesterPickerView.pickerView(picker, didSelectRow: iYear, inComponent: 1)
+        
+        self.semester = classObj.semester!
+    }
 }
 
 // MARK: - Text Field Delegate
 extension AddEditClassViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let field = textField as? UISafeTextField else { return true }
+        return field.shouldChangeTextAfterCheck(text: string)
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === nameField { textField.resignFirstResponder() }
@@ -189,14 +237,7 @@ extension AddEditClassViewController: SemesterPickerDelegate {
 extension AddEditClassViewController: UIRubricViewDelegate {
     /// Notifies delgate that the rubrics valid state was updated
     internal func isRubricValidUpdated(forView view: UIRubricView) {
-        if rubricViews.count == 1 {
-            rubricViewsAreValid = false
-        } else {
-            // Check if views are valid
-            var validCount = 0
-            for view in rubricViews { if view.isRubricValid { validCount += 1 } }
-            rubricViewsAreValid = validCount == rubricViews.count
-        }
+        updateSaveButton()
     }
 
     /// Notifies delegate that the plus button was touched

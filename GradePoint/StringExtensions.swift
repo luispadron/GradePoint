@@ -15,4 +15,9 @@ extension String {
         return NSString(string: self).range(of: self)
     }
     
+    /// Returns whether or not the string has characters NOT including whitespace
+    func isValid() -> Bool {
+        let trimmed = self.trimmingCharacters(in: CharacterSet.whitespaces)
+        return trimmed.isEmpty ? false : true
+    }
 }
