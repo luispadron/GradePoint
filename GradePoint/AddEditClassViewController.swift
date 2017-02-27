@@ -77,6 +77,11 @@ class AddEditClassViewController: UIViewController {
         self.saveButton.setTitleColor(visibleDisabledColor, for: .disabled)
         self.navigationTitle.textColor = visibleColor
         
+        // Custom save button layer
+        self.saveButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        self.saveButton.layer.backgroundColor = self.colorForView.lighter(by: 10)?.cgColor
+        self.saveButton.layer.cornerRadius = 5.0
+        
         self.nameField.textColor = UIColor.white
         let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
@@ -344,7 +349,15 @@ class AddEditClassViewController: UIViewController {
         var validCount = 0
         for view in rubricViews { if view.isRubricValid { validCount += 1 } }
         rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
+        
         self.saveButton.isEnabled = nameValid && rubricsAreValid
+        
+        if self.saveButton.isEnabled {
+            // Update the buttons layer to look more touchable
+            self.saveButton.layer.backgroundColor = self.colorForView.lighter(by: 10)?.cgColor
+        } else {
+            self.saveButton.layer.backgroundColor = self.colorForView.cgColor
+        }
     }
     
     /// Updates the semester picker with values of the class that is passed in
