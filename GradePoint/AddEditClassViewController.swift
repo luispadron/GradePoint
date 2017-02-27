@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
+class AddEditClassViewController: UIViewController {
 
     // MARK: Properties
     
@@ -426,6 +426,14 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         
         // Present the alert
         alert.presentAlert(presentingViewController: self)
+    }
+}
+
+// MARK: ScrollView Delegate
+extension AddEditClassViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Remove first responder from name field, since keyboard is really annoying
+        if nameField.isFirstResponder { nameField.resignFirstResponder() }
     }
 }
 
