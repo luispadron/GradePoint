@@ -19,7 +19,8 @@ class Class: Object {
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
     dynamic var colorData = Data()
-    
+    /// Returns the color after getting it from the color data
+    var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }
     // MARK: - Initializers
     
     convenience init(withName name: String, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {

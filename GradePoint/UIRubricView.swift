@@ -359,7 +359,6 @@ class UIRubricView: UIView, UITextFieldDelegate {
         plusLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(45).toRads))
         
         // Toggle the textfield
-        self.toggleFields()
         self.promptLabel.isHidden = true
         self.nameField.isHidden = false
         self.weightField.isHidden = false

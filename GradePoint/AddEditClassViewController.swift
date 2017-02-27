@@ -15,9 +15,11 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     
     let realm = try! Realm()
     var classObj: Class?
+    lazy var colorForView: UIColor = {
+        if let obj = self.classObj { return obj.color }
+        else { return UIColor.randomPastel }
+    }()
     
-    ///// CONSTANTS
-    let colorForView: UIColor = UIColor.randomPastel
     let heightForRubricView: CGFloat = 70.0
     
     ///// VIEWS
@@ -39,7 +41,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     var canSave = false { didSet { saveButton.isEnabled = canSave } }
     var rubricViewsAreValid = false { didSet { canSave = rubricViewsAreValid && nameFieldIsValid } }
     var nameFieldIsValid = false { didSet { canSave = nameFieldIsValid && rubricViewsAreValid }}
-    var isPresentingAlert: Bool?
     
     /// An array which will hold all the rubric views which have been created
     var rubricViews: [UIRubricView] {
@@ -52,6 +53,8 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     }
     /// Dict which holds any rubric views and that rubrics PK, which were intially added to the view due to editing a class
     var editingRubrics = [String: UIRubricView]()
+    /// Any rubrics which were being edited and the user now wants to delete will be added to this array, stores the pk of the rubric to delete
+    var rubricsToDelete = [String]()
     
     ///// Variables
     /// The semester, grabbed from the UISemesterPickerView
@@ -92,6 +95,12 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         if let classObj = self.classObj {
             self.navigationTitle.text = "Edit \(classObj.name)"
             self.nameField.text = classObj.name
+            updateSemesterPicker(for: classObj)
+            updateRubricViews(for: classObj)
+        } else {
+            let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
+            self.semesterLabel.text = "\(semester.term) \(semester.year)"
+            self.semester = semester
         }
         
         // Notify of nav bar color changes
@@ -104,38 +113,14 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let color = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
         UIApplication.shared.statusBarStyle = color
         self.setNeedsStatusBarAppearanceUpdate()
-
-        // If editing a class Set the pickers initial value, and set any rubrics
-        if let obj = classObj {
-            updateSemesterPicker(for: obj)
-            updateRubricViews(for: obj)
-        }
-        else {
-            let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
-            self.semesterLabel.text = "\(semester.term) \(semester.year)"
-            self.semester = semester
-        }
+        
+        updateSaveButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
         UIApplication.shared.statusBarStyle = .lightContent
-    }
-
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        guard let presentingAlert = self.isPresentingAlert, presentingAlert == true else {
-            self.navigationItem.leftBarButtonItem?.isEnabled = true
-            self.navigationItem.rightBarButtonItem?.isEnabled = self.canSave
-            return
-        }
-        
-        // Keep the buttons disabled
-        DispatchQueue.main.async {
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-        }
-        
     }
     
     
@@ -247,6 +232,7 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         
         // Create the new class
         let newClass = Class(withName: self.nameField.text!, inSemester: semester, withRubrics: List<Rubric>(rubrics))
+        newClass.colorData = colorForView.toData()
         
         try! realm.write {
             realm.add(newClass)
@@ -270,6 +256,9 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
         }
+        
+        // Delete any rubrics
+        self.deleteRubrics()
         
         // The rubric views which will be added
         var rubricViews = self.rubricViews
@@ -303,6 +292,30 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    /// Deletes all rubrics inside of the rubricsToDelete array
+    func deleteRubrics() {
+        
+        for pk in rubricsToDelete {
+            // Get the rubric from realm using the pk
+            let rubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
+            // Get the assignments associated with this rubric
+            let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
+            // Write deletion to realm
+            try! realm.write {
+                for assignment in assignments {
+                    realm.delete(assignment)
+                }
+                
+                realm.delete(rubric)
+            }
+            
+            // Remove this rubric from the editing rubrics array
+            editingRubrics.removeValue(forKey: pk)
+        }
+        // Done deleting no longer need this
+        rubricsToDelete.removeAll()
+    }
+    
     // MARK: Helper Methods
     
     /// Adds a new rubric view to the stack view, returns the view which was added
@@ -331,7 +344,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         var validCount = 0
         for view in rubricViews { if view.isRubricValid { validCount += 1 } }
         rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
-        print("Name valid: \(nameValid), rubrics valid: \(rubricsAreValid)")
         self.saveButton.isEnabled = nameValid && rubricsAreValid
     }
     
@@ -366,16 +378,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     
     /// Presents an alert when provided the specified alertType
     func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
-        // Closure which enables the nav buttons
-        let enableNav = { [weak self] in
-            self?.isPresentingAlert = false
-            DispatchQueue.main.async {
-                // Reset the nav buttons
-                self?.navigationItem.leftBarButtonItem?.isEnabled = true
-                self?.navigationItem.rightBarButtonItem?.isEnabled = true
-            }
-        }
-        
         // The alert controller
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
         
@@ -386,9 +388,7 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
             let button = UIButton()
             button.setTitle("OK", for: .normal)
             button.backgroundColor = UIColor.lapisLazuli
-            alert.addButton(button: button, handler: {
-                enableNav() // enable the nav
-            })
+            alert.addButton(button: button, handler: nil)
             
         case .deletion:
             // Set alert type
@@ -397,31 +397,28 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
             let cancel = UIButton()
             cancel.setTitle("Cancel", for: .normal)
             cancel.backgroundColor = UIColor.lapisLazuli
-            alert.addButton(button: cancel, handler: {
-                enableNav() //enable the nav
-            })
+            alert.addButton(button: cancel, handler: nil)
             
             // Create and add the delete button
             let delete = UIButton()
             delete.setTitle("Delete", for: .normal)
             delete.backgroundColor = UIColor.sunsetOrange
             alert.addButton(button: delete, handler: { [weak self] in
-                enableNav()
                 guard let strongSelf = self else {
                     print("Unable to get self inside delete handler, class: \(AddEditClassViewController.self)")
                     return
                 }
                 
-//                // If calling this method with .delete then we have been sent the cell and pk in the options
-//                if let opts = options, opts.count > 0, let cell = opts[0] as? RubricTableViewCell, let pk = opts[1] as? String {
-//                    // Add this rubrics pk to the rubricsToDelete array, will be deleted when saving
-//                    strongSelf.rubricsToDelete.append(pk)
-//                    // Don't present the alert asking if they wish to delte again but close the view and make it look delete
-//                    strongSelf.handleCloseState(forCell: cell, shouldPresentAlert: false)
-//                } else {
-//                    // Present an error alert
-//                    strongSelf.presentErrorAlert(title: "Error Deleting", message: "Error occured while deleting, please try again")
-//                }
+                // If calling this method with .delete then we have been sent the view and pk in the options
+                if let opts = options, opts.count > 0, let view = opts[0] as? UIRubricView, let pk = opts[1] as? String {
+                    // Add this rubrics pk to the rubricsToDelete array, will be deleted when saving
+                    strongSelf.rubricsToDelete.append(pk)
+                    // Don't present the alert asking if they wish to delte again but close the view and make it look delete
+                    strongSelf.removeRubricView(view)
+                } else {
+                    // Present an error alert
+                    strongSelf.presentErrorAlert(title: "Error Deleting", message: "Error occured while deleting, please try again")
+                }
             })
             
             break
@@ -429,15 +426,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         
         // Present the alert
         alert.presentAlert(presentingViewController: self)
-        
-        // Make sure to disable the nav bar buttons when presenting alert
-        self.isPresentingAlert = true
-        DispatchQueue.main.async {
-            // Reset the nav buttons
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-        }
-        
     }
 }
 
@@ -483,7 +471,20 @@ extension AddEditClassViewController: UIRubricViewDelegate {
     
         switch state {
         case .open:
-            self.removeRubricView(view)
+            // User is about to close a rubric which was previously created, warn them what this means
+            if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: view).first as? String {
+                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.sunsetOrange]
+                let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
+                let messageAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName : UIColor.mutedText]
+                let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
+                let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)
+                
+                // Present the alert, send it the primary key so that the button for deletion in the alert can handle adding to rubricsToDelete,
+                // Also send it the cell which should be closed if user decides to delete
+                self.present(alert: .deletion, withTitle: title, andMessage: messageAttributed, options: [view, primaryKey])
+            } else {
+                self.removeRubricView(view)
+            }
         case .collapsed:
             view.animateViews()
             self.appendRubricView()

@@ -103,7 +103,7 @@ class ClassesTableViewController: UITableViewController {
         // Set the cell labels
         cell.classTitleLabel.text = classItem.name
         cell.classDateLabel.text = "\(classItem.semester!.term) \(classItem.semester!.year)"
-        cell.ribbonColor = NSKeyedUnarchiver.unarchiveObject(with: classItem.colorData) as? UIColor
+        cell.ribbonColor = classItem.color
         
         return cell
     }
