@@ -518,7 +518,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OKL-ri-BEn">
-                                        <rect key="frame" x="15" y="30" width="384" height="22"/>
+                                        <rect key="frame" x="15" y="29" width="384" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0h-Og-cBT">
                                                 <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
@@ -552,10 +552,13 @@ keeping track of your assignments</string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="OKL-ri-BEn" firstAttribute="top" secondItem="5w9-fD-BWU" secondAttribute="top" constant="30" id="2bz-wz-7j8"/>
-                                    <constraint firstAttribute="height" constant="80" id="PvY-qq-dCJ"/>
+                                    <constraint firstAttribute="height" constant="80" id="PvY-qq-dCJ">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="60"/>
+                                    </constraint>
                                     <constraint firstItem="OKL-ri-BEn" firstAttribute="leading" secondItem="5w9-fD-BWU" secondAttribute="leading" constant="15" id="SaF-Vc-GE3"/>
+                                    <constraint firstItem="OKL-ri-BEn" firstAttribute="centerY" secondItem="5w9-fD-BWU" secondAttribute="centerY" id="cTm-yf-fjb"/>
                                     <constraint firstAttribute="trailing" secondItem="OKL-ri-BEn" secondAttribute="trailing" constant="15" id="mVz-4J-FKq"/>
+                                    <constraint firstItem="OKL-ri-BEn" firstAttribute="centerX" secondItem="5w9-fD-BWU" secondAttribute="centerX" id="oGU-Zo-SxA"/>
                                 </constraints>
                             </view>
                             <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
