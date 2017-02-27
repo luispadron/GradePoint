@@ -31,6 +31,11 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
     
+    /// Properties to handle the save button
+    var canSave = false { didSet { saveButton.isEnabled = canSave } }
+    var rubricViewsAreValid = false { didSet { canSave = rubricViewsAreValid && nameFieldIsValid } }
+    var nameFieldIsValid = false { didSet { canSave = nameFieldIsValid && rubricViewsAreValid }}
+    
     /// An array which will hold all the rubric views which have been created
     var rubricViews: [UIRubricView] {
         get {
@@ -40,7 +45,6 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
             return result
         }
     }
-    
     
     ///// Variables
     /// The semester, grabbed from the UISemesterPickerView
@@ -56,18 +60,22 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
         let visibleColor = colorForView.visibleTextColor(lightColor: UIColor.lightText, darkColor: UIColor.darkText)
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
+        let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.mutedText, darkColor: UIColor.gray)
+        self.saveButton.setTitleColor(visibleDisabledColor, for: .disabled)
         self.navigationTitle.textColor = visibleColor
         
         self.nameField.textColor = UIColor.white
         let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
+        self.nameField.delegate = self
         
         semesterPickerConstraint.constant = 0.0
         semesterPickerView.delegate = self
         
-        
         // Initially we need to have at least one rubric view added to the view
         if rubricViews.isEmpty { appendRubricView() }
+        
+        self.saveButton.isEnabled = false
         
         // Notify of nav bar color changes
         self.setNeedsStatusBarAppearanceUpdate()
@@ -132,9 +140,40 @@ class AddEditClassViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func removeRubricView(_ view: UIRubricView) {
-        self.stackView.removeArrangedSubview(view)
+        view.animateViews()
+        UIView.animate(withDuration: view.animationDuration, animations: {
+            view.alpha = 0.0
+        }, completion: { finished in
+            if finished { self.stackView.removeArrangedSubview(view) }
+        })
     }
     
+    func updateSaveButton() {
+        guard let text = nameField?.text else {
+            nameFieldIsValid = false
+            return
+        }
+        
+        // Check for only whitespace in textfield
+        let trimmed = text.trimmingCharacters(in: CharacterSet.whitespaces)
+        nameFieldIsValid = trimmed.isEmpty ? false : true
+    }
+    
+}
+
+// MARK: - Text Field Delegate
+extension AddEditClassViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === nameField { textField.resignFirstResponder() }
+        updateSaveButton()
+        return false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        updateSaveButton()
+    }
 }
 
 // MARK: Semester Picker Delegation
@@ -150,20 +189,25 @@ extension AddEditClassViewController: SemesterPickerDelegate {
 extension AddEditClassViewController: UIRubricViewDelegate {
     /// Notifies delgate that the rubrics valid state was updated
     internal func isRubricValidUpdated(forView view: UIRubricView) {
-        print("updated")
+        if rubricViews.count == 1 {
+            rubricViewsAreValid = false
+        } else {
+            // Check if views are valid
+            var validCount = 0
+            for view in rubricViews { if view.isRubricValid { validCount += 1 } }
+            rubricViewsAreValid = validCount == rubricViews.count
+        }
     }
 
     /// Notifies delegate that the plus button was touched
     internal func plusButtonTouched(_ view: UIRubricView, withState state: UIRubricViewState?) {
         guard let `state` = state else { return }
-        
-        
-        view.animateViews()
-        
+    
         switch state {
         case .open:
             self.removeRubricView(view)
         case .collapsed:
+            view.animateViews()
             self.appendRubricView()
         }
     }

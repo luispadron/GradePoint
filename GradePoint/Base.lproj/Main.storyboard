@@ -518,19 +518,19 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-QN-zvc">
-                                        <rect key="frame" x="8" y="60" width="398" height="27"/>
+                                        <rect key="frame" x="8" y="57" width="398" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OKL-ri-BEn">
-                                        <rect key="frame" x="15" y="30" width="384" height="25"/>
+                                        <rect key="frame" x="15" y="30" width="384" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0h-Og-cBT">
-                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="GAU-QU-1o7"/>
-                                                    <constraint firstAttribute="width" constant="25" id="Rxd-E5-PcY"/>
+                                                    <constraint firstAttribute="height" constant="22" id="GAU-QU-1o7"/>
+                                                    <constraint firstAttribute="width" constant="22" id="Rxd-E5-PcY"/>
                                                 </constraints>
                                                 <state key="normal" image="DeleteIcon"/>
                                                 <connections>
@@ -538,7 +538,7 @@ keeping track of your assignments</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szm-TS-1Oc">
-                                                <rect key="frame" x="347" y="0.0" width="37" height="25"/>
+                                                <rect key="frame" x="347" y="0.0" width="37" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -601,7 +601,7 @@ keeping track of your assignments</string>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.23940511047840118" green="0.23885084688663483" blue="0.26677089929580688" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="67" id="KfB-Yr-zFJ"/>
                                                     <constraint firstAttribute="height" constant="60" id="PiJ-Yq-cjD"/>
@@ -629,7 +629,7 @@ keeping track of your assignments</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.23940511049999999" green="0.2388508469" blue="0.26677089929999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="49y-Mu-nlY"/>
@@ -646,7 +646,7 @@ keeping track of your assignments</string>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="173" width="414" height="120"/>
-                                                <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.23940511049999999" green="0.2388508469" blue="0.26677089929999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="zjo-Hq-6E3"/>
                                                 </constraints>

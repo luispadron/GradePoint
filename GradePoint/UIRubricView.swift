@@ -38,12 +38,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
     var animationDuration: TimeInterval = 0.4
     
     var buttonRect: CGRect?
-    var isDeleteButton: Bool = false {
-        didSet {
-            updateIsRubricValid()
-        }
-    }
-    
+    var isDeleteButton: Bool = false { didSet { updateIsRubricValid() } }
+
     var isAnimating: Bool = false
     
     var circleLayer: CAShapeLayer?
@@ -58,11 +54,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     weak var delegate: UIRubricViewDelegate?
     
-    var isRubricValid = false {
-        didSet {
-            delegate?.isRubricValidUpdated(forView: self)
-        }
-    }
+    var isRubricValid = false { didSet { delegate?.isRubricValidUpdated(forView: self) } }
     
     // MARK: Overrides
     
@@ -71,7 +63,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         backgroundColor = UIColor.darkBg
         drawButton()
         drawPromptLabel()
-        drawTextField()
+        drawTextFields()
         initGestureRecognizer()
     }
     
@@ -80,7 +72,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         backgroundColor = UIColor.darkBg
         drawButton()
         drawPromptLabel()
-        drawTextField()
+        drawTextFields()
         initGestureRecognizer()
     }
     
@@ -171,7 +163,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         self.addSubview(promptLabel)
     }
     
-    private func drawTextField() {
+    private func drawTextFields() {
         let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
         
         let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
@@ -226,7 +218,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         }
     }
     
-    func animateViews() {
+    func animateViews(completion: (() -> Void)? = nil) {
         isAnimating = true
         // Create rotate animation
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -287,6 +279,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
                     self.weightField.isHidden = true
                     self.toggleFields()
                     self.isDeleteButton = self.isDeleteButton.toggle
+                    completion?()
             })
         } else { // The user has clicked the add button and the two textfields will now be shown
             promptLabel.layer.opacity = 1.0
@@ -312,6 +305,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
                     self.toggleFields()
                     self.promptLabel.isHidden = true
                     self.isDeleteButton = self.isDeleteButton.toggle
+                    completion?()
             })
         }
         
