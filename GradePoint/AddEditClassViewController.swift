@@ -511,5 +511,16 @@ extension AddEditClassViewController: UIRubricViewDelegate {
             self.appendRubricView()
         }
     }
+    
+    /// Notifies when the weight fields keyboard 'Calculate' button was tapped
+    internal func calculateButtonWasTapped(forView view: UIRubricView, textField: UITextField) {
+        let calculateAlert = UICalculateViewController(completion: { percent in
+            view.weightField.text = "\(percent)%"
+            view.weightField.editingChanged()
+            view.updateIsRubricValid()
+        })
+        
+        self.present(calculateAlert, animated: true, completion: nil)
+    }
 
 }

@@ -197,6 +197,20 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.addTarget(self, action: #selector(self.updateIsRubricValid), for: .editingChanged)
         weightField.keyboardType = .decimalPad
         
+        // Add a tool bar to the keyboard
+        // Add input accessory view to keyboard
+        let inputFieldToolbar = UIToolbar()
+        inputFieldToolbar.barStyle = .default
+        inputFieldToolbar.items = [
+            UIBarButtonItem(title: "Calculate", style: .done, target: self, action: #selector(self.calculateButtonTap)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonTap))
+        ]
+        inputFieldToolbar.sizeToFit()
+        inputFieldToolbar.barTintColor = UIColor.darkBg
+        inputFieldToolbar.isTranslucent = false
+        weightField.inputAccessoryView = inputFieldToolbar
+        
         self.addSubview(weightField)
         
     }
@@ -216,6 +230,14 @@ class UIRubricView: UIView, UITextFieldDelegate {
         if (buttonRect.contains(point) || state == .collapsed) && !isAnimating {
             self.delegate?.plusButtonTouched(self, withState: state)
         }
+    }
+    
+    func calculateButtonTap() {
+        delegate?.calculateButtonWasTapped(forView: self, textField: self.weightField)
+    }
+    
+    func doneButtonTap() {
+        self.weightField.resignFirstResponder()
     }
     
     func animateViews(completion: (() -> Void)? = nil) {
