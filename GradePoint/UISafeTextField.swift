@@ -31,21 +31,15 @@ open class UISafeTextField: UITextField {
         self.fieldType = fieldType
         self.configuration = configuration
         super.init(frame: frame)
-        // Add target
-        self.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        // Set keyboard type
-        switch fieldType {
-        case .percent:
-            fallthrough
-        case .number:
-            self.keyboardType = .decimalPad
-        case .text:
-            break
-        }
+        initialize()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    private func initialize() {
         // Add target
         self.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         // Set keyboard type
