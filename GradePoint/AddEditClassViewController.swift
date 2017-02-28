@@ -110,6 +110,9 @@ class AddEditClassViewController: UIViewController {
             self.semester = semester
         }
         
+        // Setup keyboard notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        
         // Notify of nav bar color changes
         self.setNeedsStatusBarAppearanceUpdate()
     }
@@ -156,7 +159,17 @@ class AddEditClassViewController: UIViewController {
             if finished { self.semesterPickerView.isHidden = !wasHidden }
         })
     }
-    
+
+    /// Called whenever keyboard is shown, adjusts scroll view insets
+    func keyboardWillShow(notification: Notification) {
+        let userInfo = notification.userInfo!
+        var frame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        frame = self.view.convert(frame, from: nil)
+        
+        var contentInset: UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = frame.size.height
+        self.scrollView.contentInset = contentInset
+    }
     
     // MARK: Save Methods
     
