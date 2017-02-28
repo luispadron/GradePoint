@@ -82,13 +82,15 @@ class AddEditClassViewController: UIViewController {
         self.saveButton.layer.backgroundColor = self.colorForView.lighter(by: 10)?.cgColor
         self.saveButton.layer.cornerRadius = 5.0
         
+        // Customization for the fields
         self.nameField.textColor = UIColor.white
         let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
         self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         self.nameField.autocapitalizationType = .words
-        semesterPickerConstraint.constant = 0.0
+        
+        // Set the delegate
         semesterPickerView.delegate = self
         
         // Initially we need to have at least one rubric view added to the view
