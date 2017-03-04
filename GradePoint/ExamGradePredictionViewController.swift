@@ -15,6 +15,7 @@ class ExamGradePredictionViewController: UIViewController {
     
     // Buttons
     @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var buttonEnclosingView: UIView!
     @IBOutlet weak var calculateButton: UIButton!
     // Fields
     @IBOutlet weak var currentGradeField: UISafeTextField!
@@ -56,13 +57,20 @@ class ExamGradePredictionViewController: UIViewController {
         self.examWorthField.keyboardType = .numbersAndPunctuation
         self.examWorthField.returnKeyType = .done
         
+        self.calculateButton.layer.cornerRadius = 5
+        self.calculateButton.layer.backgroundColor = UIColor(red: 0.404, green: 0.835, blue: 0.710, alpha: 1.00).cgColor
         self.calculateButton.setTitleColor(UIColor.mutedText, for: .disabled)
         self.calculateButton.isEnabled = false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // Layer for the button
+        var widthForButton = (self.buttonEnclosingView.frame.width/2.0) - 150
+        widthForButton = widthForButton > 30.0 ? widthForButton : 30.0
+        
+        self.calculateButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: widthForButton, bottom: 15, right: widthForButton)
     }
 
     @IBAction func onExitButtonTap(_ sender: UIButton) {
@@ -81,6 +89,7 @@ class ExamGradePredictionViewController: UIViewController {
     }
     
     @IBAction func textFieldEditingChanged(_ sender: UISafeTextField) {
+        // Toggle button based on fields
         self.calculateButton.isEnabled = !self.currentGradeField.safeText.isEmpty && !self.desiredGradeField.safeText.isEmpty && !self.examWorthField.safeText.isEmpty
     }
     

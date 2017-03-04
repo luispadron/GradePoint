@@ -1027,7 +1027,7 @@ maintain or achieve a desired grade.</string>
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.40535759929999998" green="0.83694922920000003" blue="0.70983439680000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.40392156862745099" green="0.83529411764705885" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="N1j-Pq-PGm" firstAttribute="centerX" secondItem="K2Q-xG-TLK" secondAttribute="centerX" id="91D-f7-7K1"/>
                                     <constraint firstAttribute="height" constant="80" id="AD7-Zy-2SZ">
@@ -1149,7 +1149,7 @@ maintain or achieve a desired grade.</string>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x27-dd-NXO">
                                                         <rect key="frame" x="175" y="25" width="64" height="30"/>
                                                         <state key="normal" title="Calculate">
-                                                            <color key="titleColor" red="0.40535759929999998" green="0.83694922920000003" blue="0.70983439680000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="onCalculateButtonTap:" destination="hNm-xK-bvc" eventType="touchUpInside" id="p2a-1H-caP"/>
@@ -1243,6 +1243,7 @@ maintain or achieve a desired grade.</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonEnclosingView" destination="FYw-MY-uGv" id="Bgc-oZ-V03"/>
                         <outlet property="calculateButton" destination="x27-dd-NXO" id="9J6-v9-jeM"/>
                         <outlet property="currentGradeField" destination="XLn-3x-gf4" id="6kG-G4-Jc3"/>
                         <outlet property="desiredGradeField" destination="Xgx-9C-guj" id="PvR-55-Q63"/>
