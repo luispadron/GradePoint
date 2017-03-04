@@ -15,6 +15,7 @@ class Class: Object {
     
     dynamic var id = UUID().uuidString
     dynamic var name = ""
+    dynamic var creditHours = 3
     dynamic var semester: Semester?
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
@@ -23,9 +24,10 @@ class Class: Object {
     var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }
     // MARK: - Initializers
     
-    convenience init(withName name: String, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
+    convenience init(withName name: String, creditHours: Int, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
         self.init()
         self.name = name
+        self.creditHours = creditHours
         self.semester = semester
         self.rubrics = rubrics
         self.colorData = UIColor.randomPastel.toData()

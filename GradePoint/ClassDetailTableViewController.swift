@@ -15,9 +15,6 @@ class ClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     
-    /// Realm database
-    var realm = try! Realm()
-    
     /// Outlet for the add button in the navigation controller
     @IBOutlet weak var addButton: UIBarButtonItem!
     
@@ -204,6 +201,7 @@ class ClassDetailTableViewController: UITableViewController {
     func deleteAssignment(at indexPath: IndexPath) {
         let assignmentToDelete = assignment(for: indexPath)
         
+        let realm = try! Realm()
         try! realm.write {
             realm.delete(assignmentToDelete)
         }

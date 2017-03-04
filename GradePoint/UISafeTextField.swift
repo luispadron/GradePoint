@@ -126,10 +126,9 @@ open class UISafeTextField: UITextField {
     private func checkValidNumber(for string: String, with configuration: NumberConfiguration) -> Bool {
         guard checkValidNumber(for: string) else { return false }
     
-        if string == "" || string == "." { return true } // These have already been checked, just return true
-        else if string == "-" && !(self.text?.contains("-") ?? false) && configuration.allowsSignedNumbers { // Allow only one - for negative
-            return (self.text?.components(separatedBy: "-") ?? [""]).count < 2
-        }
+        if string == "." && !configuration.allowsFloating { return false }
+        else if string == "" || (string == "." && configuration.allowsFloating) { return true } // These have already been checked, just return true
+        else if string == "-" && !(self.text?.contains("-") ?? false) && configuration.allowsSignedNumbers { return (self.text?.components(separatedBy: "-") ?? [""]).count < 2 } // Allow only one - for negative
         
         
         let currentText = self.text ?? ""

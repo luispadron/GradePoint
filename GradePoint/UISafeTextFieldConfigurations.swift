@@ -13,6 +13,7 @@ public protocol FieldConfiguration {}
 public struct NumberConfiguration: FieldConfiguration {
     public var range: ClosedRange<Double>?
     public let allowsSignedNumbers: Bool
+    public var allowsFloating: Bool = true
     
     init(allowsSignedNumbers: Bool = true) {
         self.allowsSignedNumbers = allowsSignedNumbers

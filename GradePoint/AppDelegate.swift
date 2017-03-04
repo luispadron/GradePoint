@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var hasOnboardedUser: Bool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Checks for any required migrations
+        checkForMigrations()
+        
         // Prints the realm path
         if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 { print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)") }
         
@@ -88,5 +91,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return false
     }
 
+    // MARK: Helper Methods
+    
+    // TODO: REMOVE BEFORE RELEASE
+    func checkForMigrations() {
+        let config = Realm.Configuration(
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 1 {
+                    migration.enumerateObjects(ofType: Class.className(), { (oldObject, newObject) in
+                        newObject!["creditHours"] = 3
+                    })
+                }
+            }
+        )
+        
+        Realm.Configuration.defaultConfiguration = config
+        let _ = try! Realm()
+    }
 }
 

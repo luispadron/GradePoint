@@ -398,7 +398,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -535,7 +535,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="80" width="414" height="666"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="285"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -582,8 +582,34 @@ keeping track of your assignments</string>
                                                     <constraint firstItem="Yn2-bl-OaP" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="yWB-Kp-K4j"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-K4-8dK" userLabel="Semester Field">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLa-Nn-0XS" userLabel="Credit Hour Field">
                                                 <rect key="frame" x="0.0" y="112" width="414" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-kB-Q6n" userLabel="Credit Hours">
+                                                        <rect key="frame" x="8" y="8" width="97" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPb-gC-sKS" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
+                                                        <rect key="frame" x="120" y="8" width="286" height="44"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.23940511049999999" green="0.2388508469" blue="0.26677089929999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstItem="cRG-kB-Q6n" firstAttribute="leading" secondItem="WLa-Nn-0XS" secondAttribute="leading" constant="8" id="0uf-JE-VMJ"/>
+                                                    <constraint firstItem="cRG-kB-Q6n" firstAttribute="top" secondItem="WLa-Nn-0XS" secondAttribute="top" constant="8" id="3sI-mb-f7i"/>
+                                                    <constraint firstAttribute="height" constant="60" id="9Xw-Q0-Mg8"/>
+                                                    <constraint firstAttribute="trailing" secondItem="WPb-gC-sKS" secondAttribute="trailing" constant="8" id="VY1-0o-tVf"/>
+                                                    <constraint firstItem="WPb-gC-sKS" firstAttribute="leading" secondItem="cRG-kB-Q6n" secondAttribute="trailing" constant="15" id="X07-DE-p5h"/>
+                                                    <constraint firstItem="WPb-gC-sKS" firstAttribute="top" secondItem="WLa-Nn-0XS" secondAttribute="top" constant="8" id="ZWy-kE-gzg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="WPb-gC-sKS" secondAttribute="bottom" constant="8" id="fKO-JE-Ztn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="cRG-kB-Q6n" secondAttribute="bottom" constant="8" id="uVM-sA-TOL"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-K4-8dK" userLabel="Semester Field">
+                                                <rect key="frame" x="0.0" y="173" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ooq-5e-OoZ">
                                                         <rect key="frame" x="8" y="8" width="73" height="44"/>
@@ -614,14 +640,14 @@ keeping track of your assignments</string>
                                                 </connections>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="173" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="234" width="414" height="0.0"/>
                                                 <color key="backgroundColor" red="0.23940511049999999" green="0.2388508469" blue="0.26677089929999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="zjo-Hq-6E3"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-th-0OK" userLabel="Header View 2">
-                                                <rect key="frame" x="0.0" y="174" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="235" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Rubric" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-LP-ed3">
                                                         <rect key="frame" x="8" y="8" width="398" height="34"/>
@@ -667,6 +693,7 @@ keeping track of your assignments</string>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="l0h-Og-cBT" id="1xf-aT-QTq"/>
+                        <outlet property="creditHoursField" destination="WPb-gC-sKS" id="pb3-Rd-67b"/>
                         <outlet property="nameField" destination="Etm-4N-cqR" id="mwH-Gf-wZA"/>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
@@ -716,7 +743,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">

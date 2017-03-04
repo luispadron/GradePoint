@@ -14,8 +14,6 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Properties
     
-    var realm = try! Realm()
-    
     lazy var semesterSections: [Semester] = {
         // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
         return self.generateSemestersForSections()
@@ -167,7 +165,7 @@ class ClassesTableViewController: UITableViewController {
     /// This initializes the classesBySection array which is a 2D array that has Realm result objects grouped by their appropriate section
     func initClassesBySection() {
         for semester in semesterSections {
-            let classesForSemester = realm.objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
+            let classesForSemester = try! Realm().objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
             classesBySection.append(classesForSemester)
         }
     }
@@ -192,6 +190,7 @@ class ClassesTableViewController: UITableViewController {
         if detailController?.classObj == classToDel { shouldUpdateDetail = true }
         
         // Delete class object and its associated properties from Realm
+        let realm = try! Realm()
         try! realm.write {
             realm.delete(rubricsToDel)
             realm.delete(semesterToDel)
@@ -228,7 +227,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If not items then empty, show empty state
-        return realm.objects(Class.self).isEmpty
+        return try! Realm().objects(Class.self).isEmpty
     }
     
     func titleForEmptyStateView() -> NSAttributedString {

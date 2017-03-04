@@ -33,6 +33,7 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     // Fields
     @IBOutlet weak var nameField: UISafeTextField!
+    @IBOutlet weak var creditHoursField: UISafeTextField!
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
@@ -83,12 +84,24 @@ class AddEditClassViewController: UIViewController {
         self.saveButton.layer.cornerRadius = 5.0
         
         // Customization for the fields
-        self.nameField.textColor = UIColor.white
         let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
+        
+        self.nameField.textColor = UIColor.white
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
         self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         self.nameField.autocapitalizationType = .words
+        self.nameField.returnKeyType = .next
+        
+        self.creditHoursField.textColor = UIColor.white
+        self.creditHoursField.attributedPlaceholder = NSAttributedString(string: "3", attributes: attrsForPrompt)
+        self.creditHoursField.delegate = self
+        self.creditHoursField.keyboardType = .numbersAndPunctuation
+        self.creditHoursField.returnKeyType = .done
+        var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...30)
+        config.allowsFloating = false
+        self.creditHoursField.configuration = config
+        self.creditHoursField.fieldType = .number
         
         // Set the delegate
         semesterPickerView.delegate = self
@@ -102,6 +115,7 @@ class AddEditClassViewController: UIViewController {
         if let classObj = self.classObj {
             self.navigationTitle.text = "Edit \(classObj.name)"
             self.nameField.text = classObj.name
+            self.creditHoursField.text = "\(classObj.creditHours)"
             updateSemesterPicker(for: classObj)
             updateRubricViews(for: classObj)
         } else {
@@ -210,6 +224,10 @@ class AddEditClassViewController: UIViewController {
                 return false
             }
             
+            // Default the credit hours field to 3
+            let creditString = self.creditHoursField.safeText
+            if !creditString.isValid() { self.creditHoursField.text = "3" }
+            
             if percent <= 0 {
                 // Present alert warning user about zero percent
                 // Construct title
@@ -266,8 +284,9 @@ class AddEditClassViewController: UIViewController {
         // Create the semester
         let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
         
+        let credits = Int(self.creditHoursField.safeText)!
         // Create the new class
-        let newClass = Class(withName: self.nameField.text!, inSemester: semester, withRubrics: List<Rubric>(rubrics))
+        let newClass = Class(withName: self.nameField.text!, creditHours: credits, inSemester: semester, withRubrics: List<Rubric>(rubrics))
         newClass.colorData = colorForView.toData()
         
         try! realm.write {
@@ -289,6 +308,7 @@ class AddEditClassViewController: UIViewController {
         // Write name and semester changes to realm
         try! realm.write {
             classObj.name = self.nameField.safeText
+            classObj.creditHours = Int(self.creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
         }
@@ -478,6 +498,7 @@ extension AddEditClassViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Remove first responder from name field, since keyboard is really annoying
         if nameField.isFirstResponder { nameField.resignFirstResponder() }
+        else if creditHoursField.isFirstResponder { creditHoursField.resignFirstResponder() }
     }
 }
 
@@ -490,7 +511,13 @@ extension AddEditClassViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === nameField { textField.resignFirstResponder() }
+        if textField === nameField { // When hitting next, go to credit hours field
+            textField.resignFirstResponder()
+            creditHoursField.becomeFirstResponder()
+        } else if textField === creditHoursField {
+            creditHoursField.resignFirstResponder()
+        }
+        
         updateSaveButton()
         return false
     }
