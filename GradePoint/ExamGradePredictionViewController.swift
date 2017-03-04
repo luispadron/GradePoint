@@ -39,16 +39,22 @@ class ExamGradePredictionViewController: UIViewController {
         self.currentGradeField.fieldType = .percent
         self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 86%", attributes: placeHolderAttrs)
         self.currentGradeField.textColor = UIColor.white
+        self.currentGradeField.keyboardType = .numbersAndPunctuation
+        self.currentGradeField.returnKeyType = .next
         
         self.desiredGradeField.configuration = percentConfig
         self.desiredGradeField.fieldType = .percent
         self.desiredGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 90%", attributes: placeHolderAttrs)
         self.desiredGradeField.textColor = UIColor.white
+        self.desiredGradeField.keyboardType = .numbersAndPunctuation
+        self.desiredGradeField.returnKeyType = .next
         
         self.examWorthField.configuration = percentConfig
         self.examWorthField.fieldType = .percent
         self.examWorthField.attributedPlaceholder = NSAttributedString(string: "Example: 15%", attributes: placeHolderAttrs)
         self.examWorthField.textColor = UIColor.white
+        self.examWorthField.keyboardType = .numbersAndPunctuation
+        self.examWorthField.returnKeyType = .done
         
         self.calculateButton.setTitleColor(UIColor.mutedText, for: .disabled)
         self.calculateButton.isEnabled = false
@@ -69,6 +75,7 @@ class ExamGradePredictionViewController: UIViewController {
     }
     
     @IBAction func onCalculateButtonTap(_ sender: UIButton) {
+        self.view.endEditing(true)
         if isInitialCalculation { animateViews() }
         else { calculateScore() }
     }
@@ -113,15 +120,29 @@ class ExamGradePredictionViewController: UIViewController {
             self.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
         }
     }
-    
-    func createMessage(forScore score: CGFloat) -> String {
-        
-        return ""
-    }
 }
 
 // MARK: TextField Delegation
 extension ExamGradePredictionViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Switch between the fields
+        switch textField {
+        case currentGradeField:
+            textField.resignFirstResponder()
+            desiredGradeField.becomeFirstResponder()
+        case desiredGradeField:
+            textField.resignFirstResponder()
+            examWorthField.becomeFirstResponder()
+        case examWorthField:
+            textField.resignFirstResponder()
+        default:
+            self.view.endEditing(true)
+        }
+        
+        return true
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let field = textField as? UISafeTextField else { return false }
         return field.shouldChangeTextAfterCheck(text: string)
