@@ -67,7 +67,7 @@ class ExamGradePredictionViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         // Layer for the button
-        var widthForButton = (self.buttonEnclosingView.frame.width/2.0) - 150
+        var widthForButton = (self.buttonEnclosingView.frame.width/2.0) - 170
         widthForButton = widthForButton > 30.0 ? widthForButton : 30.0
         
         self.calculateButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: widthForButton, bottom: 15, right: widthForButton)
