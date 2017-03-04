@@ -139,9 +139,7 @@ class ClassDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let assignmentForRow = assignment(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "assignmentTableViewCell", for: indexPath) as! AssignmentTableViewCell
-        
-        cell.selectionStyle = .none
-        cell.selectedBackgroundView = nil
+        cell.selectionStyle = .default
         cell.nameLabel.text = assignmentForRow.name
         cell.scoreLabel.text = "Score: \(assignmentForRow.score.roundedUpTo(2))%"
         let formatter = DateFormatter()
@@ -152,6 +150,10 @@ class ClassDetailTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: .editAssignment, sender: tableView.cellForRow(at: indexPath)!)
+    }
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         // Delete Action
@@ -160,18 +162,8 @@ class ClassDetailTableViewController: UITableViewController {
         })
         
         deleteAction.backgroundColor = .sunsetOrange
-        
-        // Edit Action
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] action, indexPath in
-            // Send the assignment as the sender, since it will be used to edit
-            guard let `self` = self else { return }
-            let assignmentToEdit = self.assignment(for: indexPath)
-            self.performSegue(withIdentifier: .addEditAssignment, sender: assignmentToEdit)
-        }
-        
-        editAction.backgroundColor = .lapisLazuli
-        
-        return [deleteAction, editAction]
+    
+        return [deleteAction]
     }
     
     // MARK: - Helpers
@@ -290,7 +282,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     // Delegate
     
     func emptyStatebuttonWasTapped(button: UIButton) {
-        self.performSegue(withIdentifier: .addEditAssignment, sender: button)
+        self.performSegue(withIdentifier: .addAssignment, sender: button)
     }
 
 }
@@ -300,18 +292,26 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 extension ClassDetailTableViewController: Segueable {
     /// Conformace to Segueable
     enum SegueIdentifier: String {
-        case addEditAssignment = "addEditAssignment"
+        case addAssignment = "addAssignment"
+        case editAssignment = "editAssignment"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifier(forSegue: segue) {
-        case .addEditAssignment:
+        case .addAssignment:
             // Prepare view for segue
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = self._classObj
             vc.delegate = self
-            // If editing (coming from edit action) set the assignmt for edit of the ViewController
-            if let assignmentForEdit = sender as? Assignment { vc.assignmentForEdit = assignmentForEdit }
+            
+        case .editAssignment:
+            guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
+            // Prepare view for segue
+            let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
+            vc.popoverPresentationController?.sourceView = cell
+            vc.parentClass = self._classObj
+            vc.delegate = self
+            vc.assignmentForEdit = self.assignment(for: indexPath)
         }
     }
 }
@@ -336,16 +336,12 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         self.tableView.layoutIfNeeded()
         
         self.reloadEmptyState()
-        
-        // Dont call for calculation here if not in split view because this gets called in viewDidAppear
-        // Only needed here if in splitView because then viewDidAppear wont be called when coming back from adding assignment
-        guard let svc = splitViewController, !svc.isCollapsed else { return }
-        
         self.calculateProgress()
     }
     
     func didFinishUpdating(assignment: Assignment) {
         self.tableView.reloadData()
         self.reloadEmptyState()
+        self.calculateProgress()
     }
 }

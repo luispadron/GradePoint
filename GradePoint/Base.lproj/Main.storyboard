@@ -383,7 +383,7 @@ keeping track of your assignments</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kFw-Rd-yUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="541" y="-324"/>
+            <point key="canvasLocation" x="541" y="-423"/>
         </scene>
         <!--Classes View Controller-->
         <scene sceneID="smW-Zh-WAh">
@@ -768,7 +768,7 @@ keeping track of your assignments</string>
                     <navigationItem key="navigationItem" id="QbH-kx-cMn">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lU3-J9-LLO">
                             <connections>
-                                <segue destination="CNu-9p-9u8" kind="popoverPresentation" identifier="addEditAssignment" popoverAnchorBarButtonItem="lU3-J9-LLO" id="y89-4s-roQ">
+                                <segue destination="CNu-9p-9u8" kind="popoverPresentation" identifier="addAssignment" popoverAnchorBarButtonItem="lU3-J9-LLO" id="y89-4s-roQ">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -777,6 +777,9 @@ keeping track of your assignments</string>
                     <connections>
                         <outlet property="addButton" destination="lU3-J9-LLO" id="ikC-8Z-Xqd"/>
                         <outlet property="progressRing" destination="Eau-ME-Idr" id="xAe-8H-r7A"/>
+                        <segue destination="CNu-9p-9u8" kind="popoverPresentation" identifier="editAssignment" popoverAnchorView="OM0-4C-bXI" id="Eyw-f5-vuE">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lp1-po-eqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1288,5 +1291,6 @@ maintain or achieve a desired grade.</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Tll-UG-LXB"/>
+        <segue reference="Eyw-f5-vuE"/>
     </inferredMetricsTieBreakers>
 </document>
