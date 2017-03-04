@@ -110,9 +110,12 @@ class AddEditClassViewController: UIViewController {
             self.semester = semester
         }
         
-        // Setup keyboard notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        
+        // If not on iPad where the view will be presented as a popover
+        if !(UIDevice.current.userInterfaceIdiom == .pad) {
+            // Setup keyboard notifications
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        }
         // Notify of nav bar color changes
         self.setNeedsStatusBarAppearanceUpdate()
     }
@@ -131,7 +134,10 @@ class AddEditClassViewController: UIViewController {
         super.viewWillDisappear(animated)
         // Revert status bar changes
         UIApplication.shared.statusBarStyle = .lightContent
+        // Remove any notifications
+        NotificationCenter.default.removeObserver(self)
     }
+    
     
     
     // MARK: Actions
@@ -160,15 +166,25 @@ class AddEditClassViewController: UIViewController {
         })
     }
 
-    /// Called whenever keyboard is shown, adjusts scroll view insets
-    func keyboardWillShow(notification: Notification) {
+    /// Called whenever keyboard is shown, adjusts scroll view
+    func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
-        var frame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        frame = self.view.convert(frame, from: nil)
+        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
-        var contentInset: UIEdgeInsets = self.scrollView.contentInset
-        contentInset.bottom = frame.size.height
-        self.scrollView.contentInset = contentInset
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    /// Called whenever keyboard is shown, adjusts scroll view
+    func keyboardWillHide(notification: Notification) {
+        let userInfo = notification.userInfo!
+        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        self.scrollView.contentInset = .zero
+        self.scrollView.scrollIndicatorInsets = .zero
     }
     
     // MARK: Save Methods
