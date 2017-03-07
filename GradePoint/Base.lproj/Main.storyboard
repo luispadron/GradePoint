@@ -398,7 +398,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -488,27 +488,27 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OKL-ri-BEn">
-                                        <rect key="frame" x="15" y="29" width="384" height="22"/>
+                                        <rect key="frame" x="15" y="27.666666666666664" width="384" height="24.999999999999993"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0h-Og-cBT">
-                                                <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="24.999999999999996"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="22" id="GAU-QU-1o7"/>
-                                                    <constraint firstAttribute="width" constant="22" id="Rxd-E5-PcY"/>
+                                                    <constraint firstAttribute="height" constant="25" id="GAU-QU-1o7"/>
+                                                    <constraint firstAttribute="width" constant="25" id="Rxd-E5-PcY"/>
                                                 </constraints>
-                                                <state key="normal" image="DeleteIcon"/>
+                                                <state key="normal" backgroundImage="DeleteIcon"/>
                                                 <connections>
                                                     <action selector="onCancel:" destination="quP-G3-hBI" eventType="touchUpInside" id="5la-g7-2Uq"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-QN-zvc">
-                                                <rect key="frame" x="128.33333333333337" y="0.0" width="119.66666666666666" height="22"/>
+                                                <rect key="frame" x="129.33333333333337" y="0.0" width="119.66666666666666" height="24.999999999999996"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szm-TS-1Oc">
-                                                <rect key="frame" x="347" y="0.0" width="37" height="22"/>
+                                                <rect key="frame" x="347" y="0.0" width="37" height="24.999999999999996"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -735,7 +735,7 @@ keeping track of your assignments</string>
             <objects>
                 <tableViewController id="Hro-Yl-liD" customClass="ClassDetailTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="OM0-4C-bXI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -743,7 +743,7 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">
@@ -1031,22 +1031,22 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-Pq-PGm">
-                                        <rect key="frame" x="15" y="29" width="384" height="22"/>
+                                        <rect key="frame" x="15" y="27.666666666666664" width="384" height="24.999999999999993"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-Di-dkF">
-                                                <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="24.999999999999996"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="22" id="A5M-UI-qBY"/>
-                                                    <constraint firstAttribute="width" constant="22" id="XJO-Y9-6oo"/>
+                                                    <constraint firstAttribute="height" constant="25" id="A5M-UI-qBY"/>
+                                                    <constraint firstAttribute="width" constant="25" id="XJO-Y9-6oo"/>
                                                 </constraints>
-                                                <state key="normal" image="DeleteIcon"/>
+                                                <state key="normal" backgroundImage="DeleteIcon"/>
                                                 <connections>
                                                     <action selector="onCancel:" destination="quP-G3-hBI" eventType="touchUpInside" id="1jh-pY-oSU"/>
                                                     <action selector="onExitButtonTap:" destination="hNm-xK-bvc" eventType="touchUpInside" id="QtD-J5-GMe"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Grade Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gz-Cf-Af0">
-                                                <rect key="frame" x="22" y="0.0" width="362" height="22"/>
+                                                <rect key="frame" x="25" y="0.0" width="359" height="24.999999999999996"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1318,7 +1318,7 @@ maintain or achieve a desired grade.</string>
         <image name="RubricView4" width="289" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="5kc-o4-kea"/>
         <segue reference="Eyw-f5-vuE"/>
     </inferredMetricsTieBreakers>
 </document>
