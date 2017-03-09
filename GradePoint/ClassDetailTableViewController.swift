@@ -185,6 +185,7 @@ class ClassDetailTableViewController: UITableViewController {
         }
         
         self.reloadEmptyState()
+        self.calculateProgress()
     }
     
     /// Calculates the percentage for the progress ring

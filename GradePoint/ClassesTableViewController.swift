@@ -335,7 +335,10 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         self.reloadEmptyState()
         // Also update detail controller if presenting this updated class
         let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
-        if detailController?.classObj == classObj { detailController?.configureView() }
+        if detailController?.classObj == classObj {
+            detailController?.classObj = classObj
+            detailController?.configureView()
+        }
     }
     
     func didFinishCreating(newClass classObj: Class) {
