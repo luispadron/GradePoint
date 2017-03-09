@@ -185,9 +185,13 @@ open class UISafeTextField: UITextField {
         if configuration.allowsFloatingPoint {
             if configuration.allowsOver100 { inRange = (Double(currentText + string) ?? -1.0 ) >=  0.0 }
             else { inRange = (Double(currentText + string) ?? -1.0 ) <=  100.0 }
+            
+            if !configuration.allowsZeroPercent { inRange = (Double(currentText + string) ?? -1.0 ) >  0.0 }
         } else if !configuration.allowsFloatingPoint {
             if configuration.allowsOver100 { inRange = (Int(currentText + string) ?? -1) >= 0 }
             else { inRange = (Int(currentText + string) ?? -1) <= 100 }
+            
+            if !configuration.allowsZeroPercent { inRange = (Int(currentText + string) ?? -1) > 0 }
         }
         
         return convertable && inRange

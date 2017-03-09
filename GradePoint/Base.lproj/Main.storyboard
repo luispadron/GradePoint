@@ -1007,9 +1007,7 @@ maintain or achieve a desired grade.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MSV-Ze-EHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="GNP-7I-oQt">
                     <connections>
-                        <segue destination="hNm-xK-bvc" kind="popoverPresentation" popoverAnchorView="2K1-Xa-FLr" id="BYo-K5-b5z">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="hNm-xK-bvc" kind="presentation" id="BYo-K5-b5z"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

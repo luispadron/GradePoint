@@ -50,7 +50,9 @@ class ExamGradePredictionViewController: UIViewController {
         self.desiredGradeField.keyboardType = .numbersAndPunctuation
         self.desiredGradeField.returnKeyType = .next
         
-        self.examWorthField.configuration = percentConfig
+        var examWorthConfig = percentConfig
+        examWorthConfig.allowsZeroPercent = false
+        self.examWorthField.configuration = examWorthConfig
         self.examWorthField.fieldType = .percent
         self.examWorthField.attributedPlaceholder = NSAttributedString(string: "Example: 15%", attributes: placeHolderAttrs)
         self.examWorthField.textColor = UIColor.white
@@ -125,8 +127,14 @@ class ExamGradePredictionViewController: UIViewController {
         
         let gradeNeeded = CGFloat((100.0 * desiredGrade - (100.0 - examWorth) * currentGrade)/examWorth)
         
-        self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [unowned self] in
-            self.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
+        // Number too big and will look weird in UI, also very unrealistic, notify the user
+        if gradeNeeded > 999 {
+            self.progressRing.setProgress(value: 0, animationDuration: 0)
+            self.messageLabel.text = "Woah there percent needed too big, check your percents and try again."
+        } else {
+            self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [unowned self] in
+                self.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
+            }
         }
     }
 }
@@ -162,13 +170,13 @@ extension ExamGradePredictionViewController: UITextFieldDelegate {
 struct ScoreMessage {
     
     private static var easyMessages = ["Thats easy, nice job!", "Wow, you easily got this!",
-                                       "Too easy...", "Does 2 + 2 = 4?\nThats how hard you need to try."]
+                                       "Too easy...", "Does 2 + 2 = 4? Thats how hard you need to try."]
     
-    private static var mediumMessage = ["Not too bad, study a bit", "Meh, I've seen harder.\nYou got this!",
+    private static var mediumMessage = ["Not too bad, study a bit", "Meh, I've seen harder.",
                                         "Learn some Swift while studying, you should be okay!"]
     
-    private static var hardMessage = ["Dang! Goodluck", "You can do it, I believe in you\nSort of.",
-                                      "Hmmm... Maybe you can do it?", "Get to studying now!\nWhat are you waiting for?"]
+    private static var hardMessage = ["Dang! Goodluck", "You can do it, I believe in you! Sort of.",
+                                      "Hmmm... Maybe you can do it?", "Get to studying now!"]
     
     private static var extremelyHardMessage = ["Ok I don't know about this one, but goodluck!",
                                                "Is this even possible?", "Beg for extra credit", "I'm so sorry..."]

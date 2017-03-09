@@ -29,6 +29,7 @@ public struct NumberConfiguration: FieldConfiguration {
 public struct PercentConfiguration: FieldConfiguration {
     public let allowsOver100: Bool
     public let allowsFloatingPoint: Bool
+    public var allowsZeroPercent = true
     
     init(allowsOver100: Bool, allowsFloatingPoint: Bool) {
         self.allowsOver100 = allowsOver100
