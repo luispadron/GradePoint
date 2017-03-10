@@ -83,13 +83,12 @@ class ClassDetailTableViewController: UITableViewController {
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
         // Configure the view for load
-        configureView()
+        updateUI(shouldCalculateProgress: false) // Dont calculate progress here because too early for animations
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Set progress ring calculation
-        self.calculateProgress()
+        updateUI()
     }
     
     override func viewWillLayoutSubviews() {
@@ -166,7 +165,7 @@ class ClassDetailTableViewController: UITableViewController {
     // MARK: - Helpers
     
     /// Configures the view depending on if we have a detail item (classObj) or not
-    func configureView() {
+    func updateUI(shouldCalculateProgress: Bool = true) {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         
@@ -185,11 +184,11 @@ class ClassDetailTableViewController: UITableViewController {
         }
         
         self.reloadEmptyState()
-        self.calculateProgress()
+        if shouldCalculateProgress { self.calculateProgress() }
     }
     
     /// Calculates the percentage for the progress ring
-    func calculateProgress() {    
+    func calculateProgress() {
         guard let classObj = _classObj else { return }
         
         self.progressRing.setProgress(for: classObj, animationDuration: 1.5)
@@ -335,12 +334,14 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         self.tableView.layoutIfNeeded()
         
         self.reloadEmptyState()
-        self.calculateProgress()
+        // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well
+        if let svc = splitViewController, !svc.isCollapsed { self.updateUI() }
     }
     
     func didFinishUpdating(assignment: Assignment) {
         self.tableView.reloadData()
         self.reloadEmptyState()
-        self.calculateProgress()
+        // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well
+        if let svc = splitViewController, !svc.isCollapsed { self.updateUI() }
     }
 }

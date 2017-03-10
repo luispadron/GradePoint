@@ -201,10 +201,10 @@ class ClassesTableViewController: UITableViewController {
         // Update detail if needed
         if shouldUpdateDetail {
             detailController?.classObj = nil
-            detailController?.configureView()
+            detailController?.updateUI()
         }
         else {
-            detailController?.configureView()
+            detailController?.updateUI()
         }
         
         // Refresh tableView 
@@ -337,7 +337,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
         if detailController?.classObj == classObj {
             detailController?.classObj = classObj
-            detailController?.configureView()
+            detailController?.updateUI()
         }
     }
     
@@ -357,7 +357,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         // Also update the detail views context message
         let detailNav = splitViewController?.viewControllers.last as? UINavigationController
         let detailController = detailNav?.childViewControllers.first as? ClassDetailTableViewController
-        detailController?.configureView()
+        detailController?.updateUI()
     }
     
     
