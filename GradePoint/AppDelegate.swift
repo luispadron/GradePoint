@@ -56,7 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Figure out whether we have onboarded the user or not
         let defaults = UserDefaults.standard
         self.hasOnboardedUser = defaults.bool(forKey: UserPreferenceKeys.onboardingComplete.rawValue)
-    
+        
+        // If no initial GPA Scale has been created then create that now, this will only be the case on first start up
+        let realm = try! Realm()
+        if realm.objects(GPAScale.self).count < 1 { GPAScale.createInitialScale() }
+        
         return true
     }
 

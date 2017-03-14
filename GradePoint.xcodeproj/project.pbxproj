@@ -46,6 +46,8 @@
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
+		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
+		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
 		A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */; };
@@ -129,6 +131,8 @@
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
+		A0C5170C1E78A64C0089527D /* GPAScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAScale.swift; sourceTree = "<group>"; };
+		A0C517131E78AC0B0089527D /* GPARubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPARubric.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExentions.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 				A09CEC6C1DF669FC00280F93 /* Assignment.swift */,
 				A01B87811DBD273A00A85E2D /* Rubric.swift */,
 				A01B87831DBD275300A85E2D /* Semester.swift */,
+				A0C5170E1E78A65E0089527D /* GPA Scale */,
 			);
 			name = "Data Models";
 			sourceTree = "<group>";
@@ -310,6 +315,15 @@
 				A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */,
 			);
 			name = UIBlurAlert;
+			sourceTree = "<group>";
+		};
+		A0C5170E1E78A65E0089527D /* GPA Scale */ = {
+			isa = PBXGroup;
+			children = (
+				A0C5170C1E78A64C0089527D /* GPAScale.swift */,
+				A0C517131E78AC0B0089527D /* GPARubric.swift */,
+			);
+			name = "GPA Scale";
 			sourceTree = "<group>";
 		};
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
@@ -636,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */,
+				A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */,
 				A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */,
 				A00F8DD41E29A70E009F8C5D /* GenericLabelTableViewCell.swift in Sources */,
 				A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */,
@@ -646,6 +661,7 @@
 				A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */,
 				A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */,
 				A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */,
+				A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */,
 				A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */,
 				A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */,
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
