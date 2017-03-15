@@ -32,9 +32,6 @@ class ClassesTableViewController: UITableViewController {
         self.emptyStateDataSource = self
         self.emptyStateDelegate = self
         
-        // Set bar button item
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = UIColor.tableViewSeperator

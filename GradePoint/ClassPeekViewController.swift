@@ -14,22 +14,24 @@ class ClassPeekViewController: UIViewController {
     @IBOutlet weak var progressRing: UICircularProgressRingView!
     
     var progress: CGFloat = 0.0
+    var color: UIColor? = nil
     var indexPathForPeek: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.progressRing.innerRingColor = color ?? self.progressRing.innerRingColor
+        self.progressRing.outerRingColor = color?.darker(by: 15) ?? self.progressRing.outerRingColor
         self.progressRing.setProgress(value: progress, animationDuration: 1.5)
         
     }
 
     func setProgress(for classObj: Class) {
-        self.progress = UICircularProgressRingView.getProgress(for: classObj)
+        self.color = classObj.color
+        self.progress = classObj.score
     }
     
 }

@@ -178,7 +178,7 @@ simply add your classes</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.40535759925842285" green="0.83694922924041748" blue="0.70983439683914185" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.40392156862745099" green="0.83529411764705885" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Qg6-wR-hUA" firstAttribute="top" secondItem="aUF-LX-xP6" secondAttribute="bottom" constant="40" id="0go-UC-0af"/>
                             <constraint firstItem="Ytd-2x-re8" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" id="DeR-2Q-peK"/>
@@ -348,7 +348,7 @@ keeping track of your assignments</string>
                                         <color key="value" red="0.64318168163299561" green="0.98848986625671387" blue="0.63136482238769531" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
-                                        <color key="value" red="0.4578264057636261" green="0.98399174213409424" blue="0.99217092990875244" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
                                         <color key="value" red="0.4578264058" green="0.98399174209999996" blue="0.9921709299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -363,6 +363,15 @@ keeping track of your assignments</string>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="value">
                                         <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="viewStyle">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                        <real key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -383,7 +392,7 @@ keeping track of your assignments</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kFw-Rd-yUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="541" y="-423"/>
+            <point key="canvasLocation" x="541" y="-353"/>
         </scene>
         <!--Classes View Controller-->
         <scene sceneID="smW-Zh-WAh">
@@ -819,19 +828,28 @@ keeping track of your assignments</string>
                             <real key="value" value="55"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
-                            <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
-                            <color key="value" red="0.52292871475219727" green="1" blue="0.59267610311508179" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.40392156862745099" green="0.83529411764705885" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
-                            <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="value" red="0.5794023339718537" green="0.92741205758854828" blue="0.81224859650492065" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="viewStyle">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
@@ -913,7 +931,7 @@ keeping track of your assignments</string>
                                                                 </subviews>
                                                             </view>
                                                             <vibrancyEffect>
-                                                                <blurEffect style="extraLight"/>
+                                                                <blurEffect style="light"/>
                                                             </vibrancyEffect>
                                                         </visualEffectView>
                                                     </subviews>
@@ -947,26 +965,66 @@ maintain or achieve a desired grade.</string>
                                             <outletCollection property="gestureRecognizers" destination="GNP-7I-oQt" appends="YES" id="Rq8-ft-bzo"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6Q-NT-24c">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yqb-F4-gRO" userLabel="GPA Calculator">
                                         <rect key="frame" x="0.0" y="222.33333333333331" width="374" height="202.33333333333331"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dU7-K5-EsM">
-                                                <rect key="frame" x="137" y="90.999999999999972" width="101" height="20.333333333333371"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wrz-xF-Xd7">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="063-XO-Z8O">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwt-9J-iAP">
+                                                            <rect key="frame" x="0.0" y="1.5" width="374" height="49.5"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Fib-D7-ObH">
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="49.5"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="jzu-Qt-aSp">
+                                                                        <rect key="frame" x="8" y="8" width="359" height="33.5"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" red="0.92488895939086291" green="0.92488895939086291" blue="0.92488895939086291" alpha="0.86662029109589045" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </view>
+                                                            <vibrancyEffect>
+                                                                <blurEffect style="light"/>
+                                                            </vibrancyEffect>
+                                                        </visualEffectView>
+                                                    </subviews>
+                                                </view>
+                                                <blurEffect style="light"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </visualEffectView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="GMN-Gr-kB3">
+                                                <rect key="frame" x="5" y="58" width="364" height="140.5"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <string key="text">Determine your GPA by loading your classes or,
+by entering custom ones.</string>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.6479269862" green="0.57001531120000004" blue="0.87848258020000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstItem="dU7-K5-EsM" firstAttribute="centerX" secondItem="r6Q-NT-24c" secondAttribute="centerX" id="Tvh-id-Z1e"/>
-                                            <constraint firstItem="dU7-K5-EsM" firstAttribute="centerY" secondItem="r6Q-NT-24c" secondAttribute="centerY" id="ZFe-S6-r8v"/>
-                                        </constraints>
+                                        <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="4uw-vn-TQr" appends="YES" id="sub-T7-gok"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHP-IJ-dAI">
                                         <rect key="frame" x="0.0" y="444.66666666666674" width="374" height="202.33333333333326"/>
@@ -1005,9 +1063,14 @@ maintain or achieve a desired grade.</string>
                     <navigationItem key="navigationItem" title="Calculators" id="nXz-Xi-Pgw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MSV-Ze-EHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="GNP-7I-oQt">
+                <tapGestureRecognizer id="GNP-7I-oQt" userLabel="Exam Calc Gesture">
                     <connections>
                         <segue destination="hNm-xK-bvc" kind="presentation" id="BYo-K5-b5z"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="4uw-vn-TQr" userLabel="GPA Calc Gesture">
+                    <connections>
+                        <segue destination="XO0-0A-Hk9" kind="presentation" id="zUc-Oa-BJv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1037,6 +1100,7 @@ maintain or achieve a desired grade.</string>
                                                     <constraint firstAttribute="height" constant="25" id="A5M-UI-qBY"/>
                                                     <constraint firstAttribute="width" constant="25" id="XJO-Y9-6oo"/>
                                                 </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <state key="normal" backgroundImage="DeleteIcon"/>
                                                 <connections>
                                                     <action selector="onCancel:" destination="quP-G3-hBI" eventType="touchUpInside" id="1jh-pY-oSU"/>
@@ -1273,7 +1337,6 @@ maintain or achieve a desired grade.</string>
                         <outlet property="currentGradeField" destination="XLn-3x-gf4" id="6kG-G4-Jc3"/>
                         <outlet property="desiredGradeField" destination="Xgx-9C-guj" id="PvR-55-Q63"/>
                         <outlet property="examWorthField" destination="lDg-Hb-xSo" id="PMN-5x-sXu"/>
-                        <outlet property="exitButton" destination="hJN-Di-dkF" id="8sz-4y-FeJ"/>
                         <outlet property="messageLabel" destination="J2B-ve-CdB" id="gF9-CS-YKs"/>
                         <outlet property="needGetLabel" destination="2oU-qv-vdn" id="f18-BV-tkL"/>
                         <outlet property="progressRing" destination="UNS-zA-i3e" id="9aH-p2-G9n"/>
@@ -1300,6 +1363,162 @@ maintain or achieve a desired grade.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJP-R2-I6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1304" y="1046"/>
+        </scene>
+        <!--Calculator View Controller-->
+        <scene sceneID="zXJ-XD-9vQ">
+            <objects>
+                <viewController id="XO0-0A-Hk9" customClass="GPACalculatorViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I5e-0l-Nhv"/>
+                        <viewControllerLayoutGuide type="bottom" id="JfM-BX-VFf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z3S-wq-0ct">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QmB-qs-q0L" userLabel="NavBar">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OZI-Vd-7Ym">
+                                        <rect key="frame" x="15" y="27.666666666666664" width="384" height="24.999999999999993"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2p-SS-J8l">
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="24.999999999999996"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="VjD-B1-WbH"/>
+                                                    <constraint firstAttribute="height" constant="25" id="YqB-Qr-WAT"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal" backgroundImage="DeleteIcon"/>
+                                                <connections>
+                                                    <action selector="onExitButtonTap:" destination="XO0-0A-Hk9" eventType="touchUpInside" id="JiI-B2-M0x"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kq3-JF-roX">
+                                                <rect key="frame" x="120.00000000000001" y="0.0" width="120.33333333333336" height="24.999999999999996"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmc-s9-kTp">
+                                                <rect key="frame" x="312" y="0.0" width="72" height="24.999999999999996"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Calculate">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onCalculateButtonTap:" destination="XO0-0A-Hk9" eventType="touchUpInside" id="vgg-bF-iMb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.6479269862" green="0.57001531120000004" blue="0.87848258020000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="1lR-dz-aP7">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="60"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="OZI-Vd-7Ym" secondAttribute="trailing" constant="15" id="6xR-eZ-Mfq"/>
+                                    <constraint firstItem="OZI-Vd-7Ym" firstAttribute="leading" secondItem="QmB-qs-q0L" secondAttribute="leading" constant="15" id="Ia6-vI-kaQ"/>
+                                    <constraint firstItem="OZI-Vd-7Ym" firstAttribute="centerX" secondItem="QmB-qs-q0L" secondAttribute="centerX" id="Mbh-4r-czH"/>
+                                    <constraint firstItem="OZI-Vd-7Ym" firstAttribute="centerY" secondItem="QmB-qs-q0L" secondAttribute="centerY" id="UO2-PZ-O9u"/>
+                                </constraints>
+                            </view>
+                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSA-Ck-DB3">
+                                <rect key="frame" x="0.0" y="80" width="414" height="656"/>
+                                <subviews>
+                                    <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-Ph-hGp">
+                                        <rect key="frame" x="0.0" y="8" width="414" height="250"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2U7-2D-hyf" userLabel="GPA Progress Ring View">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade point average" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oeO-o5-45U">
+                                                        <rect key="frame" x="126" y="0.0" width="162" height="21.666666666666671"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pzb-z9-2iE" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                                        <rect key="frame" x="107" y="25" width="200" height="200"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="Pzb-z9-2iE" secondAttribute="height" multiplier="1:1" id="dPd-zH-IJO"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                                                <color key="value" red="0.5624320115220256" green="0.49773644172227377" blue="0.77392594948934013" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                                                <color key="value" red="0.6479269862" green="0.57001531120000004" blue="0.87848258020000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                                <real key="value" value="45"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="viewStyle">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                                <real key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="250" id="0pA-H2-omv"/>
+                                                    <constraint firstItem="Pzb-z9-2iE" firstAttribute="centerX" secondItem="2U7-2D-hyf" secondAttribute="centerX" id="GKJ-f4-MII"/>
+                                                    <constraint firstItem="Pzb-z9-2iE" firstAttribute="top" secondItem="oeO-o5-45U" secondAttribute="bottom" constant="3.3300000000000001" id="Wmj-Zj-Msd"/>
+                                                    <constraint firstItem="oeO-o5-45U" firstAttribute="top" secondItem="2U7-2D-hyf" secondAttribute="top" id="dtO-Ld-EBt"/>
+                                                    <constraint firstItem="Pzb-z9-2iE" firstAttribute="centerY" secondItem="2U7-2D-hyf" secondAttribute="centerY" id="isv-ii-fPT"/>
+                                                    <constraint firstItem="oeO-o5-45U" firstAttribute="centerX" secondItem="2U7-2D-hyf" secondAttribute="centerX" id="jUA-wP-UDq"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="QU2-Ph-hGp" secondAttribute="bottom" id="1tA-hW-HUD"/>
+                                    <constraint firstAttribute="trailing" secondItem="QU2-Ph-hGp" secondAttribute="trailing" id="2UM-Zw-aeu"/>
+                                    <constraint firstItem="QU2-Ph-hGp" firstAttribute="leading" secondItem="BSA-Ck-DB3" secondAttribute="leading" id="GuX-oK-EwI"/>
+                                    <constraint firstItem="QU2-Ph-hGp" firstAttribute="top" secondItem="BSA-Ck-DB3" secondAttribute="top" constant="8" id="d1n-aC-vrq"/>
+                                    <constraint firstItem="QU2-Ph-hGp" firstAttribute="width" secondItem="BSA-Ck-DB3" secondAttribute="width" id="h7g-3K-N9w"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="QmB-qs-q0L" firstAttribute="top" secondItem="Z3S-wq-0ct" secondAttribute="top" id="DeZ-sA-eer"/>
+                            <constraint firstAttribute="trailing" secondItem="BSA-Ck-DB3" secondAttribute="trailing" id="FR5-3C-Wnq"/>
+                            <constraint firstItem="BSA-Ck-DB3" firstAttribute="leading" secondItem="Z3S-wq-0ct" secondAttribute="leading" id="Fwt-nV-C7t"/>
+                            <constraint firstItem="JfM-BX-VFf" firstAttribute="top" secondItem="BSA-Ck-DB3" secondAttribute="bottom" id="GMH-1q-BdS"/>
+                            <constraint firstItem="BSA-Ck-DB3" firstAttribute="top" secondItem="QmB-qs-q0L" secondAttribute="bottom" id="YVS-Gm-vZd"/>
+                            <constraint firstItem="QmB-qs-q0L" firstAttribute="leading" secondItem="Z3S-wq-0ct" secondAttribute="leading" id="jVS-jB-Yz1"/>
+                            <constraint firstAttribute="trailing" secondItem="QmB-qs-q0L" secondAttribute="trailing" id="pUA-wu-2nM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calculateButton" destination="mmc-s9-kTp" id="sQq-IA-CPf"/>
+                        <outlet property="progressRingView" destination="Pzb-z9-2iE" id="O8J-Xr-3Wz"/>
+                        <outlet property="stackView" destination="QU2-Ph-hGp" id="7vA-V8-Od3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hfk-HI-zuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2246.376811594203" y="1815.4891304347827"/>
         </scene>
     </scenes>
     <resources>

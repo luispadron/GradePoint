@@ -14,7 +14,6 @@ class ExamGradePredictionViewController: UIViewController {
     // MARK: Properties
     
     // Buttons
-    @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var buttonEnclosingView: UIView!
     @IBOutlet weak var calculateButton: UIButton!
     // Fields
@@ -32,7 +31,6 @@ class ExamGradePredictionViewController: UIViewController {
         super.viewDidLoad()
 
         // UI Setup
-        self.exitButton.tintColor = .white
         
         let percentConfig = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
         let placeHolderAttrs = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
@@ -78,7 +76,7 @@ class ExamGradePredictionViewController: UIViewController {
     @IBAction func onExitButtonTap(_ sender: UIButton) {
         // Quickly animate the exit button rotation and dismiss
         UIView.animate(withDuration: 0.25, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
-            self.exitButton.transform = CGAffineTransform.init(rotationAngle: .pi/2)
+            sender.transform = CGAffineTransform.init(rotationAngle: .pi/2)
         }) { (finished) in
             if finished { self.dismiss(animated: true, completion: nil) }
         }

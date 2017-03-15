@@ -76,6 +76,12 @@ class ClassDetailTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        // Set color for progress ring
+        if let color = _classObj?.color {
+            self.progressRing.innerRingColor = color
+            self.progressRing.outerRingColor = color.darker(by: 15) ?? UIColor.lightGray
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -190,8 +196,7 @@ class ClassDetailTableViewController: UITableViewController {
     /// Calculates the percentage for the progress ring
     func calculateProgress() {
         guard let classObj = _classObj else { return }
-        
-        self.progressRing.setProgress(for: classObj, animationDuration: 1.5)
+        self.progressRing.setProgress(value: classObj.score, animationDuration: 1.5)
     }
     
     func assignment(for indexPath: IndexPath) -> Assignment {
