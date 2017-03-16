@@ -16,18 +16,46 @@ class GPACalculatorViewController: UIViewController {
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
     @IBOutlet weak var stackView: UIStackView!
     
+    // MARK: - Properties
+    /// The height for the GPA views
+    let heightForGpaViews: CGFloat = 70.0
+    /// The gpa views currently displayed on the view
+    var gpaViews: [UIAddGPAView]  {
+        get {
+            var views = [UIAddGPAView]()
+            for view in self.stackView.arrangedSubviews {
+                if let gpaView = view as? UIAddGPAView { views.append(gpaView) }
+            }
+            return views
+        }
+    }
+    
 
+    /// MARK: - Overrides 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // UI Setup
-
+        
+        
+        // Add an initial gpa view
+        if gpaViews.isEmpty { appendGpaView() }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.progressRingView.setProgress(value: 3.58, animationDuration: 5)
     }
 
+    
+    // MARK: - Helper Methods
+    
+    @discardableResult func appendGpaView() -> UIAddGPAView {
+        let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
+        newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
+        self.stackView.addArrangedSubview(newView)
+        return newView
+    }
     
     // MARK: - Actions
     
@@ -44,4 +72,11 @@ class GPACalculatorViewController: UIViewController {
     @IBAction func onCalculateButtonTap(_ sender: UIButton) {
     }
     
+}
+
+/// MARK: GPA View Delegation
+extension GPACalculatorViewController: UIAddGPAViewDelegate {
+    func addButtonTouched(forView view: UIAddGPAView) {
+        
+    }
 }

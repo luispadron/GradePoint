@@ -208,7 +208,7 @@ open class UISafeTextField: UITextField {
         
         let currentText = self.text ?? ""
         // Check to see if in range
-        let inRange = (currentText + string).characters.count < configuration.maxCharacters
+        let inRange = (currentText + string).characters.count <= configuration.maxCharacters
         
         return inRange
     }

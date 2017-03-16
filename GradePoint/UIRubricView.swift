@@ -8,10 +8,6 @@
 
 import UIKit
 
-private extension CGFloat {
-    var toRads: CGFloat { return self * CGFloat(M_PI) / 180 }
-}
-
 private extension Bool {
     var toggle: Bool { return self ? false : true }
 }
