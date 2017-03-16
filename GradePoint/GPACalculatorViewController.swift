@@ -53,6 +53,7 @@ class GPACalculatorViewController: UIViewController {
     @discardableResult func appendGpaView() -> UIAddGPAView {
         let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
         newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
+        newView.delegate = self
         self.stackView.addArrangedSubview(newView)
         return newView
     }
@@ -77,6 +78,12 @@ class GPACalculatorViewController: UIViewController {
 /// MARK: GPA View Delegation
 extension GPACalculatorViewController: UIAddGPAViewDelegate {
     func addButtonTouched(forView view: UIAddGPAView) {
-        
+        // Means new view must be created if state was of add else we need to remove this view
+        switch view.state {
+        case .add: // Current state is add, thus delete was tapped, remove this view
+            self.stackView.removeArrangedSubview(view)
+        case .delete:
+            self.appendGpaView()
+        }
     }
 }

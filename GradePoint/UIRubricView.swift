@@ -148,12 +148,6 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let width = bounds.width - (plusLayer.bounds.maxX + 50)
         promptLabel = UILabel(frame: CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height))
         promptLabel.text = "Add a grade section"
-        if #available(iOS 10.0, *) {
-            promptLabel.textColor = UIColor(displayP3Red:0.780, green: 0.780, blue: 0.804, alpha:1.00)
-        } else {
-            // Fallback on earlier versions
-            promptLabel.textColor = UIColor(red:0.780, green: 0.780, blue: 0.804, alpha:1.00)
-        }
         promptLabel.font = UIFont.systemFont(ofSize: fontSize)
         promptLabel.textColor = UIColor.mutedText
         self.addSubview(promptLabel)

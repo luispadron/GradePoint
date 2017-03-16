@@ -32,6 +32,9 @@ class UIAddGPAView: UIView {
     var isAnimating: Bool = false
     var state: UIAddGPAViewState = .add
     
+    // View properties
+    var fontSize: CGFloat = 18
+    
     /// Delegate
     weak var delegate: UIAddGPAViewDelegate?
     
@@ -55,6 +58,10 @@ class UIAddGPAView: UIView {
         super.layoutSubviews()
         
         // Update frames for fields
+        let labelWidth = self.bounds.width - (self.circleLayer.bounds.maxX + 50)
+        let labelFrame = CGRect(x: self.circleLayer.bounds.maxX + 50, y: self.bounds.minY, width: labelWidth, height: self.bounds.height)
+        self.addRubricLabel.frame = labelFrame
+        
         let width = self.bounds.width - (self.circleLayer.bounds.maxX + 50) - 50 - self.circleLayer.bounds.width
         let nameFieldFrame = CGRect(x: self.circleLayer.bounds.maxX + 20, y: self.bounds.minY, width: width*0.5, height: self.bounds.height)
         let gradeFieldFrame = CGRect(x: nameFieldFrame.maxX + 20, y: self.bounds.minY, width: width*0.25, height: self.bounds.height)
@@ -115,6 +122,7 @@ class UIAddGPAView: UIView {
     }
     
     private func addFields() {
+        self.addSubview(addRubricLabel)
         self.addSubview(nameField)
         self.addSubview(gradeField)
         self.addSubview(creditsField)
@@ -130,11 +138,14 @@ class UIAddGPAView: UIView {
         
         let point = recognizer.location(in: self)
         
-        if buttonRect.contains(point) {
-            // Notify delegate
-            self.delegate?.addButtonTouched(forView: self)
+        if buttonRect.contains(point) || addRubricLabel.frame.contains(point) {
             // And animate the view
-            self.animateViews()
+            if !self.isAnimating {
+                self.animateViews(completion: {
+                    // Notify delegate
+                    self.delegate?.addButtonTouched(forView: self)
+                })
+            }
         }
     }
 
@@ -163,22 +174,95 @@ class UIAddGPAView: UIView {
             rotationAnimation.toValue = CGFloat(45).toRads
             colorAnimation.fromValue = addColor.cgColor
             colorAnimation.toValue = deleteColor.cgColor
-            // Toggle the state to what we will animate to
-            self.state = .delete
+            // Add the animation
+            plusButtonLayer.add(rotationAnimation, forKey: "rotationAnimation")
+            circleLayer.add(colorAnimation, forKey: "colorAnimation")
+            animateFieldsToDelete {
+                // Toggle to the state we will animate to
+                self.state = .delete
+                self.isAnimating = false
+                completion?()
+            }
         case .delete:
             rotationAnimation.fromValue = CGFloat(45).toRads
             rotationAnimation.toValue = 0.0
             colorAnimation.fromValue = deleteColor.cgColor
             colorAnimation.toValue = addColor.cgColor
-            self.state = .add
+            // Add the animation
+            plusButtonLayer.add(rotationAnimation, forKey: "rotationAnimation")
+            circleLayer.add(colorAnimation, forKey: "colorAnimation")
+            animateFieldsToAdd {
+                // Toggle to the state we will animate to
+                self.state = .add
+                self.isAnimating = false
+                completion?()
+            }
         }
+    }
+    
+    private func animateFieldsToAdd(completion: @escaping (() -> Void)) {
+        // Prepare for animation
+        addRubricLabel.isHidden = false
+        addRubricLabel.layer.opacity = 0.0
+        nameField.layer.opacity = 1.0
+        gradeField.layer.opacity = 1.0
+        creditsField.layer.opacity = 1.0
+
         
-        // Add the animation
-        plusButtonLayer.add(rotationAnimation, forKey: "rotationAnimation")
-        circleLayer.add(colorAnimation, forKey: "colorAnimation")
+        UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                self.addRubricLabel.layer.opacity = 1.0
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
+                self.nameField.layer.opacity = 0.0
+                self.gradeField.layer.opacity = 0.0
+                self.creditsField.layer.opacity = 0.0
+            })
+        }) { _ in
+            self.nameField.isHidden = true
+            self.gradeField.isHidden = true
+            self.creditsField.isHidden = true
+            completion()
+        }
     }
 
+    private func animateFieldsToDelete(completion: @escaping (() -> Void)) {
+        // Prepare for animation
+        addRubricLabel.layer.opacity = 1.0
+        nameField.layer.opacity = 0.0
+        gradeField.layer.opacity = 0.0
+        creditsField.layer.opacity = 0.0
+        nameField.isHidden = false
+        gradeField.isHidden = false
+        creditsField.isHidden = false
+        
+        UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: [], animations: { 
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: { 
+                self.addRubricLabel.layer.opacity = 0.0
+            })
+            
+            UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: { 
+                self.nameField.layer.opacity = 1.0
+                self.gradeField.layer.opacity = 1.0
+                self.creditsField.layer.opacity = 1.0
+            })
+        }) { _ in
+            self.addRubricLabel.isHidden = true
+            completion()
+        }
+    }
+    
+
     // MARK: Views
+    
+    lazy var addRubricLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Add a class"
+        label.textColor = UIColor.mutedText
+        label.font = UIFont.systemFont(ofSize: self.fontSize)
+        return label
+    }()
     
     /// The name field for the GPA View
     lazy var nameField: UIFloatingPromptTextField = {
@@ -192,6 +276,8 @@ class UIAddGPAView: UIView {
         field.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.returnKeyType = .next
         field.delegate = self
+        field.isHidden = true
+        field.font = UIFont.systemFont(ofSize: self.fontSize)
         
         return field
     }()
@@ -207,6 +293,8 @@ class UIAddGPAView: UIView {
         field.attributedPlaceholder = NSAttributedString(string: "Grade", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.returnKeyType = .next
         field.delegate = self
+        field.isHidden = true
+        field.font = UIFont.systemFont(ofSize: self.fontSize)
         
         return field
     }()
@@ -224,6 +312,8 @@ class UIAddGPAView: UIView {
         field.attributedPlaceholder = NSAttributedString(string: "Credits", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.returnKeyType = .done
         field.delegate = self
+        field.isHidden = true
+        field.font = UIFont.systemFont(ofSize: self.fontSize)
         
         return field
     }()
