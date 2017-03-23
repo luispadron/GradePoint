@@ -1512,7 +1512,9 @@ by entering custom ones.</string>
                     </view>
                     <connections>
                         <outlet property="calculateButton" destination="mmc-s9-kTp" id="sQq-IA-CPf"/>
+                        <outlet property="progressContentView" destination="2U7-2D-hyf" id="Ge0-ou-YKS"/>
                         <outlet property="progressRingView" destination="Pzb-z9-2iE" id="O8J-Xr-3Wz"/>
+                        <outlet property="scrollView" destination="BSA-Ck-DB3" id="LeR-Cl-vfi"/>
                         <outlet property="stackView" destination="QU2-Ph-hGp" id="7vA-V8-Od3"/>
                     </connections>
                 </viewController>

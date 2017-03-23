@@ -12,7 +12,9 @@ import UICircularProgressRing
 class GPACalculatorViewController: UIViewController {
     
     // MARK: - Views/Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var calculateButton: UIButton!
+    @IBOutlet weak var progressContentView: UIView!
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
     @IBOutlet weak var stackView: UIStackView!
     
@@ -36,15 +38,48 @@ class GPACalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // UI Setup
-        
+        /// UI Setup
+
         
         // Add an initial gpa view
         if gpaViews.isEmpty { appendGpaView() }
+        
+        // Setup keyboard notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.progressRingView.setProgress(value: 3.58, animationDuration: 5)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Keyboard/ScrollView 
+    
+    /// Called whenever keyboard is shown, adjusts scroll view
+    func keyboardDidShow(notification: Notification) {
+        let userInfo = notification.userInfo!
+        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    /// Called whenever keyboard is shown, adjusts scroll view
+    func keyboardWillHide(notification: Notification) {
+        let userInfo = notification.userInfo!
+        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        self.scrollView.contentInset = .zero
+        self.scrollView.scrollIndicatorInsets = .zero
     }
 
     
@@ -54,8 +89,23 @@ class GPACalculatorViewController: UIViewController {
         let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
         newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
         newView.delegate = self
+        
+        // Animate the views
+        newView.alpha = 0.0
         self.stackView.addArrangedSubview(newView)
+        UIView.animate(withDuration: 0.3) { 
+            newView.alpha = 1.0
+        }
         return newView
+    }
+    
+    func removeGpaView(view: UIAddGPAView) {
+        view.alpha = 1.0
+        UIView.animate(withDuration: 0.3, animations: {
+            view.alpha = 0.0
+        }, completion: { _ in
+            self.stackView.removeArrangedSubview(view)
+        })
     }
     
     // MARK: - Actions
@@ -81,7 +131,7 @@ extension GPACalculatorViewController: UIAddGPAViewDelegate {
         // Means new view must be created if state was of add else we need to remove this view
         switch view.state {
         case .add: // Current state is add, thus delete was tapped, remove this view
-            self.stackView.removeArrangedSubview(view)
+            self.removeGpaView(view: view)
         case .delete:
             self.appendGpaView()
         }

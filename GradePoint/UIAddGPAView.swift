@@ -28,7 +28,7 @@ class UIAddGPAView: UIView {
     private var buttonRect: CGRect?
     
     // Animation properties
-    var animationDuration: TimeInterval = 0.4
+    var animationDuration: TimeInterval = 0.3
     var isAnimating: Bool = false
     var state: UIAddGPAViewState = .add
     
@@ -178,6 +178,8 @@ class UIAddGPAView: UIView {
             plusButtonLayer.add(rotationAnimation, forKey: "rotationAnimation")
             circleLayer.add(colorAnimation, forKey: "colorAnimation")
             animateFieldsToDelete {
+                // Make name first responder
+                self.nameField.becomeFirstResponder()
                 // Toggle to the state we will animate to
                 self.state = .delete
                 self.isAnimating = false
@@ -193,6 +195,7 @@ class UIAddGPAView: UIView {
             circleLayer.add(colorAnimation, forKey: "colorAnimation")
             animateFieldsToAdd {
                 // Toggle to the state we will animate to
+                self.endEditing(true)
                 self.state = .add
                 self.isAnimating = false
                 completion?()
