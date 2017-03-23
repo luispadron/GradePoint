@@ -328,8 +328,9 @@ class UIAddGPAView: UIView {
     
     /// The credits field
     lazy var creditsField: UIFloatingPromptTextField = {
-        let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number,
-                                              configuration: NumberConfiguration(allowsSignedNumbers: false, range: 1...99))
+        var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...99)
+        config.allowsFloating = false
+        let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Credits"
         field.titleText = "Credits"
         field.titleTextColor = .palePurple
@@ -358,6 +359,14 @@ class UIAddGPAView: UIView {
 // MARK: Textfield Delegation
 
 extension UIAddGPAView: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Select the first row by default
+        if textField === self.gradeField && self.gradeField.text?.isEmpty ?? true {
+            self.pickerView(self.gradesPickerView, didSelectRow: 0, inComponent: 0)
+            self.gradesPickerView.selectRow(0, inComponent: 0, animated: false)
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Switch fields when pressing next or done button

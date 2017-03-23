@@ -8,6 +8,7 @@
 
 import UIKit
 import UICircularProgressRing
+import RealmSwift
 
 class GPACalculatorViewController: UIViewController {
     
@@ -93,9 +94,14 @@ class GPACalculatorViewController: UIViewController {
         // Animate the views
         newView.alpha = 0.0
         self.stackView.addArrangedSubview(newView)
-        UIView.animate(withDuration: 0.3) { 
+        UIView.animate(withDuration: 0.3, animations: {
             newView.alpha = 1.0
-        }
+        }, completion: { _ in
+            // Add a default name to the the views name field
+            newView.nameField.text = "Class \(self.gpaViews.count)"
+            DispatchQueue.main.async { newView.nameField.editingChanged() }
+        })
+        
         return newView
     }
     
@@ -106,6 +112,31 @@ class GPACalculatorViewController: UIViewController {
         }, completion: { _ in
             self.stackView.removeArrangedSubview(view)
         })
+    }
+    
+    func calculateGpa() {
+        let scale = try! Realm().objects(GPAScale.self)[0]
+        var totalPoints: Double = 0
+        var totalCreditHours: Int = 0
+        
+        for gpaView in gpaViews.filter({ $0.state == .delete }) {
+            if let creditHours = Int(gpaView.creditsField.safeText) {
+                totalCreditHours += creditHours
+                let gradeMultiplier = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }[0].gradePoints
+                totalPoints += Double(creditHours) * gradeMultiplier
+            } else {
+                self.presentErrorAlert(title: "Can't Calculate GPA", message: "Please make sure all fields are filled out.")
+                return
+            }
+        }
+        
+        // This shouldn't be possible, since textfield doesnt allow zero to be entered, however for a sanity check well do it...
+        if totalCreditHours == 0 {
+            self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all values were entered correctly")
+            return
+        }
+        
+        self.progressRingView.setProgress(value: CGFloat(totalPoints / Double(totalCreditHours)), animationDuration: 1.5)
     }
     
     // MARK: - Actions
@@ -129,11 +160,18 @@ class GPACalculatorViewController: UIViewController {
             self.stackView.insertArrangedSubview(self.progressContentView, at: 0)
             UIView.animate(withDuration: 0.5, animations: { 
                 self.progressContentView.alpha = 1.0
+                
+            }, completion: { _ in
+                self.calculateGpa()
             })
+        } else {
+            // just calculate the GPA
+            self.calculateGpa()
         }
         
         // Scroll up
         self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
+        self.view.endEditing(true)
     }
     
 }
