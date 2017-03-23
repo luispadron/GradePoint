@@ -121,6 +121,19 @@ class GPACalculatorViewController: UIViewController {
     
     
     @IBAction func onCalculateButtonTap(_ sender: UIButton) {
+        // Add the views if not already added
+        if !stackView.arrangedSubviews.contains(self.progressContentView) {
+            self.view.endEditing(true)
+            // Animate the addition
+            self.progressContentView.alpha = 0.0
+            self.stackView.insertArrangedSubview(self.progressContentView, at: 0)
+            UIView.animate(withDuration: 0.5, animations: { 
+                self.progressContentView.alpha = 1.0
+            })
+        }
+        
+        // Scroll up
+        self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
     }
     
 }
