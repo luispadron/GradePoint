@@ -138,7 +138,7 @@ class UIAddGPAView: UIView {
         
         let point = recognizer.location(in: self)
         
-        if buttonRect.contains(point) || addRubricLabel.frame.contains(point) {
+        if buttonRect.contains(point) || (addRubricLabel.frame.contains(point) && !addRubricLabel.isHidden) {
             // And animate the view
             if !self.isAnimating {
                 self.animateViews(completion: {
@@ -351,6 +351,9 @@ extension UIAddGPAView: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Dont allow editing in the gradeField as this really inteded to be used as a picker
+        if textField === self.gradeField { return false }
+        // Check if text should be allowed
         guard let field = textField as? UIFloatingPromptTextField else { return true }
         return field.shouldChangeTextAfterCheck(text: string)
     }
