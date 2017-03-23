@@ -18,7 +18,7 @@ class UIAddGPAView: UIView {
     
     // Button properties
     var circleSpacing: CGFloat = 30
-    var buttonRadius: CGFloat = 17
+    var buttonRadius: CGFloat = 15
     var addButtonOffSet: CGFloat = 1
     var addColor: UIColor = .palePurple
     var deleteColor: UIColor = .sunsetOrange
@@ -149,6 +149,11 @@ class UIAddGPAView: UIView {
         }
     }
 
+    @objc private func tappedOnDoneGradeFieldButton(sender: UIBarButtonItem) {
+        // End editing
+        let _ = self.textFieldShouldReturn(self.gradeField)
+    }
+    
     // MARK: Animation
     
     /// Animates the views to the proper state
@@ -285,6 +290,7 @@ class UIAddGPAView: UIView {
         return field
     }()
     
+    /// The grade field
     lazy var gradeField: UIFloatingPromptTextField = {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .text, configuration: TextConfiguration(maxCharacters: 2))
         field.placeholder = "Grade"
@@ -298,10 +304,29 @@ class UIAddGPAView: UIView {
         field.delegate = self
         field.isHidden = true
         field.font = UIFont.systemFont(ofSize: self.fontSize)
+        // Add the picker view as an input view
+        field.inputView = self.gradesPickerView
+        // Add toolbar to field
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 40))
+        toolBar.layer.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height-20.0)
+        toolBar.tintColor = .white
+        toolBar.barTintColor = .palePurple
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.tappedOnDoneGradeFieldButton(sender:)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width / 3, height: self.frame.size.height))
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.backgroundColor = .clear
+        label.textColor = .white
+        label.text = "Select a grade"
+        label.textAlignment = .center
+        let textBtn = UIBarButtonItem(customView: label)
+        toolBar.setItems([flexSpace, textBtn, flexSpace, doneButton], animated: false)
+        field.inputAccessoryView = toolBar
         
         return field
     }()
     
+    /// The credits field
     lazy var creditsField: UIFloatingPromptTextField = {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number,
                                               configuration: NumberConfiguration(allowsSignedNumbers: false, range: 1...99))
@@ -319,6 +344,13 @@ class UIAddGPAView: UIView {
         field.font = UIFont.systemFont(ofSize: self.fontSize)
         
         return field
+    }()
+    
+    /// The picker view which acts as an input view for the GradeField
+    lazy var gradesPickerView: UIPickerView = {
+        let picker = UIPickerView()
+        picker.delegate = self
+        return picker
     }()
 }
 
@@ -356,5 +388,31 @@ extension UIAddGPAView: UITextFieldDelegate {
         // Check if text should be allowed
         guard let field = textField as? UIFloatingPromptTextField else { return true }
         return field.shouldChangeTextAfterCheck(text: string)
+    }
+}
+
+// MARK: PickerView Delegation
+
+extension UIAddGPAView: UIPickerViewDelegate, UIPickerViewDataSource {
+    // The grades which can be picked from the picker
+    var grades: [String] { get { return ["A+", "A", "B+", "B", "C+", "C", "D+", "D", "F"] } }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return grades.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return grades[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.gradeField.text = grades[row]
+        DispatchQueue.main.async {
+            self.gradeField.editingChanged()
+        }
     }
 }
