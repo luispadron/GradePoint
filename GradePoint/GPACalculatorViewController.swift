@@ -86,6 +86,7 @@ class GPACalculatorViewController: UIViewController {
     
     // MARK: - Helper Methods
     
+    /// Adds a GPA view to the end of the stack view,  with animation
     @discardableResult func appendGpaView() -> UIAddGPAView {
         let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
         newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
@@ -105,6 +106,7 @@ class GPACalculatorViewController: UIViewController {
         return newView
     }
     
+    /// Removes a GPAView from the stack view, with animation
     func removeGpaView(view: UIAddGPAView) {
         view.alpha = 1.0
         UIView.animate(withDuration: 0.3, animations: {
@@ -114,26 +116,39 @@ class GPACalculatorViewController: UIViewController {
         })
     }
     
+    /// Returns whether all fields have been filled out and if were ready to calculate the GPA, also presents an alert notifying the user what to do
+    func readyToCalculateGpa() -> Bool {
+        var isReady = false
+        
+        for gpaView in gpaViews.filter({ $0.state == .delete }) {
+            let hasCreditHours = Int(gpaView.creditsField.safeText) ?? -1 > 0
+            let hasGrade = !gpaView.gradeField.safeText.isEmpty
+            isReady = hasCreditHours && hasGrade
+            // Present alert
+            if !hasCreditHours {
+                // Make that field the first responder
+                gpaView.creditsField.becomeFirstResponder()
+                self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all credit hour fields are filled out")
+            }
+            else if !hasGrade {
+                self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all grade fields are filled out")
+            }
+        }
+        
+        return isReady
+    }
+    
+    /// Calculates the GPA using all the input from the UIAddGPAView
     func calculateGpa() {
         let scale = try! Realm().objects(GPAScale.self)[0]
         var totalPoints: Double = 0
         var totalCreditHours: Int = 0
         
         for gpaView in gpaViews.filter({ $0.state == .delete }) {
-            if let creditHours = Int(gpaView.creditsField.safeText) {
-                totalCreditHours += creditHours
-                let gradeMultiplier = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }[0].gradePoints
-                totalPoints += Double(creditHours) * gradeMultiplier
-            } else {
-                self.presentErrorAlert(title: "Can't Calculate GPA", message: "Please make sure all fields are filled out.")
-                return
-            }
-        }
-        
-        // This shouldn't be possible, since textfield doesnt allow zero to be entered, however for a sanity check well do it...
-        if totalCreditHours == 0 {
-            self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all values were entered correctly")
-            return
+            let creditHours = Int(gpaView.creditsField.safeText)!
+            totalCreditHours += creditHours
+            let gradeMultiplier = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }[0].gradePoints
+            totalPoints += Double(creditHours) * gradeMultiplier
         }
         
         self.progressRingView.setProgress(value: CGFloat(totalPoints / Double(totalCreditHours)), animationDuration: 1.5)
@@ -152,6 +167,8 @@ class GPACalculatorViewController: UIViewController {
     
     
     @IBAction func onCalculateButtonTap(_ sender: UIButton) {
+        guard readyToCalculateGpa() else { return }
+        
         // Add the views if not already added
         if !stackView.arrangedSubviews.contains(self.progressContentView) {
             self.view.endEditing(true)
