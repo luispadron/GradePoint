@@ -201,7 +201,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.selectionStyle = .none
                 cell.inputField.delegate = self
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
-                if let assignment = assignmentForEdit { cell.inputField.text = "\(assignment.score)%" }
+                if let assignment = assignmentForEdit { cell.inputField.text = "\(assignment.score.roundedUpTo(2))%" }
                 self.scoreField = cell.inputField as? UISafeTextField
                 return cell
             default:

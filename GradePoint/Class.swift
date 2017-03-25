@@ -45,11 +45,11 @@ class Class: Object {
     var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }
     
     /// Returns the score after calculating all the assignments and rubrics
-    var score: CGFloat {
+    var score: Double {
         get {
+            if self.assignments.count == 0 { return 0.00 }
+            
             let assignmentsSectionedByRubric = self.rubrics.map { self.assignments.filter("associatedRubric = %@", $0) }
-            let count = assignmentsSectionedByRubric.filter { $0.count > 0 }.count
-            guard count > 0 else { return 0.0 }
             
             var weights = 0.0
             var totalScore = 0.0
@@ -65,7 +65,41 @@ class Class: Object {
                 totalScore += assignments[0].associatedRubric!.weight * sumTotal
             }
             
-            return CGFloat(totalScore / weights)
+            return Double(totalScore / weights).roundedUpTo(2)
+        }
+    }
+    
+    /// Returns the letter grade based on the score
+    var letterGrade: String {
+        get {
+            switch score {
+            case 0.00...59.99:
+                return "F"
+            case 60.00...62.99:
+                return "D-"
+            case 63.00...66.99:
+                return "D"
+            case 67.00...69.99:
+                return "D+"
+            case 70.00...72.99:
+                return "C-"
+            case 73.00...76.99:
+                return "C"
+            case 77.00...79.99:
+                return "C+"
+            case 80.00...82.99:
+                return "B-"
+            case 83.00...86.99:
+                return "B"
+            case 87.00...89.99:
+                return "B+"
+            case 90.00...92.99:
+                return "A-"
+            case 93.00...99.99:
+                return "A"
+            default:
+                return "A+"
+            }
         }
     }
 }

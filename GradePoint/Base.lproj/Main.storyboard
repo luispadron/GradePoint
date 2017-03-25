@@ -825,7 +825,7 @@ keeping track of your assignments</string>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                            <real key="value" value="55"/>
+                            <real key="value" value="45"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                             <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -838,7 +838,7 @@ keeping track of your assignments</string>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                            <integer key="value" value="1"/>
+                            <integer key="value" value="2"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
