@@ -179,7 +179,32 @@ class GPACalculatorViewController: UIViewController {
             totalPoints += Double(creditHours) * gradeMultiplier
         }
         
-        self.progressRingView.setProgress(value: CGFloat(totalPoints / Double(totalCreditHours)), animationDuration: 1.5)
+        let gpa = Double(totalPoints / Double(totalCreditHours)).roundedUpTo(2)
+        self.progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+        
+        // Finally save the gpa to realm
+        saveCalculation(withGpa: gpa)
+        
+    }
+    
+    /// Saves the calculation to realm
+    func saveCalculation(withGpa gpa: Double) {
+        let realm = try! Realm()
+        let classes = realm.objects(Class.self)
+        
+        var gpaClasses = [GPAClass]()
+        for (index, gpaView) in gpaViews.filter({ $0.state == .delete }).enumerated() {
+            let name = gpaView.nameField.safeText
+            let grade = gpaView.gradeField.safeText
+            let credits = Int(gpaView.creditsField.safeText)!
+            var associatedClass: String?
+            if index < classes.count { associatedClass = classes[index].id }
+            let newGpaClass = GPAClass(name: name, gradeLetter: grade, creditHours: credits)
+            newGpaClass.associatedClassId = associatedClass
+            gpaClasses.append(newGpaClass)
+        }
+        
+        GPACalculation.createGPACalculation(withGpaClasses: gpaClasses, calculatedGpa: gpa)
     }
     
     // MARK: - Actions
