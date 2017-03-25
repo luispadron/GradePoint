@@ -32,12 +32,15 @@ class GPACalculatorViewController: UIViewController {
             return views
         }
     }
-    
 
     /// MARK: - Overrides 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// UI Setup
+        // Prepare the GPA Views
+        prepareGpaViews()
         
         // Setup keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
@@ -46,8 +49,13 @@ class GPACalculatorViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Add any initial gpa views
-        loadGpaViews()
+        
+        // Now that were about to show, populate any gpa views
+        let classes = try! Realm().objects(Class.self)
+        for (index, classObj) in classes.enumerated() {
+            if index > self.gpaViews.count { break }
+            populate(gpaView: self.gpaViews[index], withClass: classObj)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,10 +79,6 @@ class GPACalculatorViewController: UIViewController {
     
     /// Called whenever keyboard is shown, adjusts scroll view
     func keyboardWillHide(notification: Notification) {
-        let userInfo = notification.userInfo!
-        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        
         self.scrollView.contentInset = .zero
         self.scrollView.scrollIndicatorInsets = .zero
     }
@@ -82,48 +86,48 @@ class GPACalculatorViewController: UIViewController {
     
     // MARK: - Helper Methods
     
-    func loadGpaViews() {
+    func prepareGpaViews() {
         let realm = try! Realm()
-        let classes = realm.objects(Class.self)
+        let classCount = realm.objects(Class.self).count
         // Load up some views based on the users class
-        for classObj in classes {
-            appendGpaView(withClass: classObj)
+        for _ in 1...classCount {
+            appendGpaView(withAnimation: false)
         }
         
         // Always add an empty GPA view to the end
-        appendGpaView()
+        appendGpaView(withAnimation: false)
         
     }
     
-    /// Adds a GPA view to the end of the stack view populated by the provided Class
-    @discardableResult func appendGpaView(withClass classObj: Class) -> UIAddGPAView {
-        let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
-        newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
-        newView.delegate = self
-        self.stackView.addArrangedSubview(newView)
+    /// Populates a GPA view with the provided Class
+    @discardableResult func populate(gpaView: UIAddGPAView, withClass classObj: Class) -> UIAddGPAView {
         // Update the fields with the class values
-        newView.nameField.text = classObj.name
-        newView.creditsField.text = "\(classObj.creditHours)"
-        newView.toDeleteState()
-        return newView
+        gpaView.nameField.text = classObj.name
+        gpaView.creditsField.text = "\(classObj.creditHours)"
+        gpaView.toDeleteState()
+        return gpaView
     }
     
     /// Adds a GPA view to the end of the stack view,  with animation
-    @discardableResult func appendGpaView() -> UIAddGPAView {
+    @discardableResult func appendGpaView(withAnimation animated: Bool = true) -> UIAddGPAView {
         let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
         newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
         newView.delegate = self
         
-        // Animate the views
+        // Add to the end of stackview
         self.stackView.addArrangedSubview(newView)
-        newView.alpha = 0.0
-        UIView.animate(withDuration: 0.3, animations: {
-            newView.alpha = 1.0
-        }, completion: { _ in
-            // Add a default name to the the views name field
-            newView.nameField.text = "Class \(self.gpaViews.count)"
-            DispatchQueue.main.async { newView.nameField.editingChanged() }
-        })
+        
+        // Animate if required
+        if animated {
+            newView.alpha = 0.0
+            UIView.animate(withDuration: 0.3, animations: {
+                newView.alpha = 1.0
+            }, completion: { _ in
+                // Add a default name to the the views name field
+                newView.nameField.text = "Class \(self.gpaViews.count)"
+                DispatchQueue.main.async { newView.nameField.editingChanged() }
+            })
+        }
         
         return newView
     }
@@ -151,9 +155,10 @@ class GPACalculatorViewController: UIViewController {
                 // Make that field the first responder
                 gpaView.creditsField.becomeFirstResponder()
                 self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all credit hour fields are filled out")
-            }
-            else if !hasGrade {
+                break
+            } else if !hasGrade {
                 self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all grade fields are filled out")
+                break
             }
         }
         
@@ -209,8 +214,8 @@ class GPACalculatorViewController: UIViewController {
         }
         
         // Scroll up
-        self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
         self.view.endEditing(true)
+        self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
     }
     
 }

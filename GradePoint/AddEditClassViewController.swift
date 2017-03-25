@@ -188,10 +188,6 @@ class AddEditClassViewController: UIViewController {
     
     /// Called whenever keyboard is shown, adjusts scroll view
     func keyboardWillHide(notification: Notification) {
-        let userInfo = notification.userInfo!
-        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        
         self.scrollView.contentInset = .zero
         self.scrollView.scrollIndicatorInsets = .zero
     }
