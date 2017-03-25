@@ -261,6 +261,28 @@ class UIAddGPAView: UIView {
         }
     }
     
+    // MARK: Helper Methods
+    
+    /// Transforms the view into a delete state without animating
+    func toDeleteState() {
+        // Rotate add button
+        plusButtonLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(45).toRads))
+        circleLayer.fillColor = deleteColor.cgColor
+        
+        // Toggle the textfield
+        self.addRubricLabel.isHidden = true
+        self.nameField.isHidden = false
+        self.gradeField.isHidden = false
+        self.creditsField.isHidden = false
+        
+        DispatchQueue.main.async {
+            self.nameField.editingChanged()
+            self.gradeField.editingChanged()
+            self.creditsField.editingChanged()
+        }
+        
+        self.state = .delete
+    }
 
     // MARK: Views
     

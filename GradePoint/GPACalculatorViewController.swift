@@ -39,19 +39,15 @@ class GPACalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// UI Setup
-
-        
-        // Add an initial gpa view
-        if gpaViews.isEmpty { appendGpaView() }
-        
         // Setup keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Add any initial gpa views
+        loadGpaViews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,6 +82,32 @@ class GPACalculatorViewController: UIViewController {
     
     // MARK: - Helper Methods
     
+    func loadGpaViews() {
+        let realm = try! Realm()
+        let classes = realm.objects(Class.self)
+        // Load up some views based on the users class
+        for classObj in classes {
+            appendGpaView(withClass: classObj)
+        }
+        
+        // Always add an empty GPA view to the end
+        appendGpaView()
+        
+    }
+    
+    /// Adds a GPA view to the end of the stack view populated by the provided Class
+    @discardableResult func appendGpaView(withClass classObj: Class) -> UIAddGPAView {
+        let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
+        newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
+        newView.delegate = self
+        self.stackView.addArrangedSubview(newView)
+        // Update the fields with the class values
+        newView.nameField.text = classObj.name
+        newView.creditsField.text = "\(classObj.creditHours)"
+        newView.toDeleteState()
+        return newView
+    }
+    
     /// Adds a GPA view to the end of the stack view,  with animation
     @discardableResult func appendGpaView() -> UIAddGPAView {
         let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
@@ -93,8 +115,8 @@ class GPACalculatorViewController: UIViewController {
         newView.delegate = self
         
         // Animate the views
-        newView.alpha = 0.0
         self.stackView.addArrangedSubview(newView)
+        newView.alpha = 0.0
         UIView.animate(withDuration: 0.3, animations: {
             newView.alpha = 1.0
         }, completion: { _ in
