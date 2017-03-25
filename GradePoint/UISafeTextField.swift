@@ -31,6 +31,7 @@ open class UISafeTextField: UITextField {
         self.fieldType = fieldType
         self.configuration = configuration
         super.init(frame: frame)
+        if let _ = configuration as? NumberConfiguration { self.autocorrectionType = .no }
         initialize()
     }
     

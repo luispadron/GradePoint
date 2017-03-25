@@ -93,6 +93,7 @@ class AddEditClassViewController: UIViewController {
         self.creditHoursField.delegate = self
         self.creditHoursField.keyboardType = .numbersAndPunctuation
         self.creditHoursField.returnKeyType = .done
+        self.creditHoursField.autocorrectionType = .no
         var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...30)
         config.allowsFloating = false
         self.creditHoursField.configuration = config
