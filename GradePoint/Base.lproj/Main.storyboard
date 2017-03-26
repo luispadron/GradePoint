@@ -892,7 +892,7 @@ keeping track of your assignments</string>
         <!--Calculators-->
         <scene sceneID="Xfi-Lk-IIi">
             <objects>
-                <viewController id="QYF-7m-Ffp" sceneMemberID="viewController">
+                <viewController id="QYF-7m-Ffp" customClass="CalculatorsViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c6z-OM-CdY"/>
                         <viewControllerLayoutGuide type="bottom" id="bKh-EB-Dvl"/>
@@ -904,86 +904,24 @@ keeping track of your assignments</string>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ifu-go-ptv">
                                 <rect key="frame" x="20" y="30" width="374" height="647"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K1-Xa-FLr" userLabel="Exam Calculator">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="202.33333333333334"/>
-                                        <subviews>
-                                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBb-36-tL0">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="3Lb-AW-kxi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-fZ-Od7">
-                                                            <rect key="frame" x="0.0" y="1.5" width="374" height="49.5"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gHL-8m-Vuv">
-                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="49.5"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exam Grade Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Ik6-ev-wOI">
-                                                                        <rect key="frame" x="8" y="8" width="359" height="33.5"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                            </view>
-                                                            <vibrancyEffect>
-                                                                <blurEffect style="light"/>
-                                                            </vibrancyEffect>
-                                                        </visualEffectView>
-                                                    </subviews>
-                                                </view>
-                                                <blurEffect style="light"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </visualEffectView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
-                                                <rect key="frame" x="5" y="58" width="364" height="141"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <string key="text">Determine the score, on an exam, needed to 
-maintain or achieve a desired grade.</string>
-                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.33256985090000002" green="0.69844939120000005" blue="0.59262468189999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <gestureRecognizers/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="GNP-7I-oQt" appends="YES" id="Rq8-ft-bzo"/>
-                                        </connections>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yqb-F4-gRO" userLabel="GPA Calculator">
-                                        <rect key="frame" x="0.0" y="222.33333333333331" width="374" height="202.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="313.66666666666669"/>
                                         <subviews>
-                                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wrz-xF-Xd7">
+                                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wrz-xF-Xd7">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="063-XO-Z8O">
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="063-XO-Z8O">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwt-9J-iAP">
-                                                            <rect key="frame" x="0.0" y="1.5" width="374" height="49.5"/>
+                                                            <rect key="frame" x="0.0" y="1.5" width="374" height="48.5"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Fib-D7-ObH">
-                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="49.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="48.5"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="jzu-Qt-aSp">
-                                                                        <rect key="frame" x="8" y="8" width="359" height="33.5"/>
+                                                                        <rect key="frame" x="8" y="7.5" width="358.5" height="33"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" red="0.92488895939086291" green="0.92488895939086291" blue="0.92488895939086291" alpha="0.86662029109589045" colorSpace="custom" customColorSpace="displayP3"/>
@@ -997,6 +935,9 @@ maintain or achieve a desired grade.</string>
                                                         </visualEffectView>
                                                     </subviews>
                                                 </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Wrz-xF-Xd7" secondAttribute="height" multiplier="187:25" id="N60-th-wd2"/>
+                                                </constraints>
                                                 <blurEffect style="light"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1004,18 +945,80 @@ maintain or achieve a desired grade.</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </visualEffectView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="GMN-Gr-kB3">
-                                                <rect key="frame" x="5" y="58" width="364" height="140.5"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <string key="text">Determine your GPA by loading your classes or,
-by entering custom ones.</string>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="GMN-Gr-kB3">
+                                                <rect key="frame" x="8" y="57.666666666666679" width="358" height="38.333333333333321"/>
+                                                <string key="text">Determine your GPA. 
+Progress is saved when calculating.</string>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-pV-zwe">
+                                                <rect key="frame" x="8" y="104" width="358" height="209.66666666666669"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last calculated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkd-ku-Nlu">
+                                                        <rect key="frame" x="8" y="181.33333333333331" width="342" height="20.333333333333371"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                                        <rect key="frame" x="96" y="0.0" width="166" height="166.33333333333331"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="a3o-M4-3X8" secondAttribute="height" multiplier="1:1" id="8qj-gu-oAY"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                                <real key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="viewStyle">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                                                <color key="value" red="0.32754348570000003" green="0.68406077369999996" blue="0.58667486589999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                                                <color key="value" red="0.40535759929999998" green="0.83694922920000003" blue="0.70983439680000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="Xkd-ku-Nlu" firstAttribute="top" secondItem="a3o-M4-3X8" secondAttribute="bottom" constant="15" id="AO2-qD-jKR"/>
+                                                    <constraint firstItem="a3o-M4-3X8" firstAttribute="centerX" secondItem="0MN-pV-zwe" secondAttribute="centerX" id="CTC-B6-Ys3"/>
+                                                    <constraint firstItem="a3o-M4-3X8" firstAttribute="top" secondItem="0MN-pV-zwe" secondAttribute="top" id="Eam-r9-oey"/>
+                                                    <constraint firstItem="Xkd-ku-Nlu" firstAttribute="leading" secondItem="0MN-pV-zwe" secondAttribute="leading" constant="8" id="SB7-co-7gd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Xkd-ku-Nlu" secondAttribute="trailing" constant="8" id="UDN-OQ-bgy"/>
+                                                    <constraint firstItem="Xkd-ku-Nlu" firstAttribute="top" secondItem="a3o-M4-3X8" secondAttribute="bottom" constant="15" id="V41-bb-mTO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Xkd-ku-Nlu" secondAttribute="bottom" constant="8" id="h6g-5M-gwp"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.6479269862" green="0.57001531120000004" blue="0.87848258020000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="0MN-pV-zwe" secondAttribute="bottom" id="BFL-ae-aeG"/>
+                                            <constraint firstAttribute="trailing" secondItem="0MN-pV-zwe" secondAttribute="trailing" constant="8" id="HXA-h1-XJh"/>
+                                            <constraint firstAttribute="trailing" secondItem="0MN-pV-zwe" secondAttribute="trailing" constant="8" id="HxW-zX-6ID"/>
+                                            <constraint firstAttribute="trailing" secondItem="Wrz-xF-Xd7" secondAttribute="trailing" id="IXp-eI-Phb"/>
+                                            <constraint firstItem="Wrz-xF-Xd7" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" id="Pe5-mu-BWY"/>
+                                            <constraint firstAttribute="bottom" secondItem="0MN-pV-zwe" secondAttribute="bottom" id="R7Z-Wa-e6Y"/>
+                                            <constraint firstItem="0MN-pV-zwe" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="dDQ-RJ-qb4"/>
+                                            <constraint firstItem="GMN-Gr-kB3" firstAttribute="top" secondItem="Wrz-xF-Xd7" secondAttribute="bottom" constant="7.5" id="fzE-PT-cUH"/>
+                                            <constraint firstItem="0MN-pV-zwe" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="gB3-W1-i5q"/>
+                                            <constraint firstItem="0MN-pV-zwe" firstAttribute="top" secondItem="GMN-Gr-kB3" secondAttribute="bottom" constant="8" id="o27-gl-gYV"/>
+                                            <constraint firstAttribute="trailing" secondItem="GMN-Gr-kB3" secondAttribute="trailing" constant="8" id="rqk-Uj-C5O"/>
+                                            <constraint firstItem="GMN-Gr-kB3" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="umC-uv-GyG"/>
+                                            <constraint firstItem="Wrz-xF-Xd7" firstAttribute="top" secondItem="Yqb-F4-gRO" secondAttribute="top" id="zbK-yW-dfg"/>
+                                        </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -1026,26 +1029,76 @@ by entering custom ones.</string>
                                             <outletCollection property="gestureRecognizers" destination="4uw-vn-TQr" appends="YES" id="sub-T7-gok"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHP-IJ-dAI">
-                                        <rect key="frame" x="0.0" y="444.66666666666674" width="374" height="202.33333333333326"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K1-Xa-FLr" userLabel="Exam Calculator">
+                                        <rect key="frame" x="0.0" y="333.66666666666674" width="374" height="313.33333333333326"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dfq-6c-jQ4">
-                                                <rect key="frame" x="137" y="90.999999999999943" width="101" height="20.333333333333371"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBb-36-tL0">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3Lb-AW-kxi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="49.5"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-fZ-Od7">
+                                                            <rect key="frame" x="0.0" y="0.5" width="374" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gHL-8m-Vuv">
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="49.5"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exam Grade Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Ik6-ev-wOI">
+                                                                        <rect key="frame" x="7.5" y="7.5" width="358.5" height="34"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </view>
+                                                            <vibrancyEffect>
+                                                                <blurEffect style="light"/>
+                                                            </vibrancyEffect>
+                                                        </visualEffectView>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="cBb-36-tL0" secondAttribute="height" multiplier="374:49" constant="-7.6326530612245165" id="YQ0-cl-JED"/>
+                                                </constraints>
+                                                <blurEffect style="light"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </visualEffectView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
+                                                <rect key="frame" x="8" y="58" width="358" height="248"/>
+                                                <string key="text">Determine the score, on an exam, needed to 
+maintain or achieve a desired grade.</string>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="0.10752768529999999" blue="0.44461506439999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.33256985090000002" green="0.69844939120000005" blue="0.59262468189999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="Dfq-6c-jQ4" firstAttribute="centerX" secondItem="HHP-IJ-dAI" secondAttribute="centerX" id="8NB-lT-0OK"/>
-                                            <constraint firstItem="Dfq-6c-jQ4" firstAttribute="centerY" secondItem="HHP-IJ-dAI" secondAttribute="centerY" id="tnb-6S-IMP"/>
+                                            <constraint firstItem="cBb-36-tL0" firstAttribute="leading" secondItem="2K1-Xa-FLr" secondAttribute="leading" id="3wh-ll-vDh"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vnl-FE-RYJ" secondAttribute="bottom" constant="8" id="HFE-1k-Lez"/>
+                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="top" secondItem="cBb-36-tL0" secondAttribute="bottom" constant="8" id="VdP-Id-l5u"/>
+                                            <constraint firstItem="cBb-36-tL0" firstAttribute="top" secondItem="2K1-Xa-FLr" secondAttribute="top" id="WlL-la-C1u"/>
+                                            <constraint firstAttribute="trailing" secondItem="cBb-36-tL0" secondAttribute="trailing" id="g0W-LA-syv"/>
+                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="leading" secondItem="2K1-Xa-FLr" secondAttribute="leading" constant="8" id="pp4-Ei-a6N"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vnl-FE-RYJ" secondAttribute="trailing" constant="8" id="x2m-zY-HPK"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="GNP-7I-oQt" appends="YES" id="Rq8-ft-bzo"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <variation key="heightClass=compact" axis="horizontal"/>
@@ -1061,6 +1114,10 @@ by entering custom ones.</string>
                     </view>
                     <tabBarItem key="tabBarItem" title="Calculators" image="CalcTabBarIcon" selectedImage="CalcTabBarIconFilled" id="l8K-dE-3jo"/>
                     <navigationItem key="navigationItem" title="Calculators" id="nXz-Xi-Pgw"/>
+                    <connections>
+                        <outlet property="gpaRing" destination="a3o-M4-3X8" id="D1j-kI-qT7"/>
+                        <outlet property="lastCalculationLabel" destination="Xkd-ku-Nlu" id="cbz-YG-4Cr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MSV-Ze-EHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="GNP-7I-oQt" userLabel="Exam Calc Gesture">

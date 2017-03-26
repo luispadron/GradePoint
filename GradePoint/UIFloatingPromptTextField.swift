@@ -38,11 +38,12 @@ open class UIFloatingPromptTextField: UISafeTextField {
     
     private func createTitleLabel() {
         titleLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        titleLabel.font = UIFont.systemFont(ofSize: 13)
+        titleLabel.font = UIFont.systemFont(ofSize: 12)
         titleLabel.alpha = 0.0
         titleLabel.textColor = titleTextColor
         titleLabel.text = ""
         titleLabel.frame = titleLabelRectForBounds(bounds: bounds, editing: isTitleVisible())
+        titleLabel.adjustsFontSizeToFitWidth = true
         self.addSubview(titleLabel)
     }
     

@@ -361,6 +361,7 @@ class UIAddGPAView: UIView {
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([flexSpace, textBtn, flexSpace, doneButton], animated: false)
         field.inputAccessoryView = toolBar
+        label.adjustsFontSizeToFitWidth = true
         
         return field
     }()
