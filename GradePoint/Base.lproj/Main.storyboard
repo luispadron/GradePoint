@@ -1428,12 +1428,12 @@ by entering custom ones.</string>
                                 <rect key="frame" x="0.0" y="80" width="414" height="656"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-Ph-hGp">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJD-3p-kJC" userLabel="Header View 2">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJD-3p-kJC" userLabel="Loaded Header">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-cw-udx">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-cw-udx">
                                                         <rect key="frame" x="8" y="8" width="398" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1447,6 +1447,25 @@ by entering custom ones.</string>
                                                     <constraint firstItem="qPa-cw-udx" firstAttribute="leading" secondItem="dJD-3p-kJC" secondAttribute="leading" constant="8" id="mmh-rm-RKI"/>
                                                     <constraint firstAttribute="trailing" secondItem="qPa-cw-udx" secondAttribute="trailing" constant="8" id="nPj-4p-g9I"/>
                                                     <constraint firstAttribute="bottom" secondItem="qPa-cw-udx" secondAttribute="bottom" constant="8" id="ve3-EC-Bf5"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5pd-Hk-Nce" userLabel="Custom Header">
+                                                <rect key="frame" x="0.0" y="51" width="414" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdj-vo-Msa">
+                                                        <rect key="frame" x="8" y="8" width="398" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="Gdj-vo-Msa" firstAttribute="top" secondItem="5pd-Hk-Nce" secondAttribute="top" constant="8" id="GFo-Ci-dHo"/>
+                                                    <constraint firstItem="Gdj-vo-Msa" firstAttribute="leading" secondItem="5pd-Hk-Nce" secondAttribute="leading" constant="8" id="LKg-2m-W5y"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Gdj-vo-Msa" secondAttribute="bottom" constant="8" id="TSr-Hb-3Ni"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Gdj-vo-Msa" secondAttribute="trailing" constant="8" id="dj0-MY-zBe"/>
+                                                    <constraint firstAttribute="height" constant="50" id="uqe-fe-P7g"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -1474,6 +1493,7 @@ by entering custom ones.</string>
                     </view>
                     <connections>
                         <outlet property="calculateButton" destination="mmc-s9-kTp" id="sQq-IA-CPf"/>
+                        <outlet property="customClassHeader" destination="5pd-Hk-Nce" id="IS2-1P-Wtx"/>
                         <outlet property="progressContentView" destination="9eH-Ha-sGS" id="FTX-cM-ndD"/>
                         <outlet property="progressRingView" destination="rSW-Pn-BaS" id="Nj6-Z3-ueX"/>
                         <outlet property="scrollView" destination="BSA-Ck-DB3" id="LeR-Cl-vfi"/>

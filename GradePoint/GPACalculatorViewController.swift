@@ -18,6 +18,7 @@ class GPACalculatorViewController: UIViewController {
     @IBOutlet weak var progressContentView: UIView!
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var customClassHeader: UIView!
     
     // MARK: - Properties
     /// The height for the GPA views
@@ -51,11 +52,21 @@ class GPACalculatorViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // Now that were about to show, populate any gpa views
-        let classes = try! Realm().objects(Class.self)
-        for (index, classObj) in classes.enumerated() {
+        let loadedClasses = try! Realm().objects(Class.self)
+        for (index, classObj) in loadedClasses.enumerated() {
             if index > self.gpaViews.count { break }
             populate(gpaView: self.gpaViews[index], withClass: classObj)
         }
+        // Populate the custom classes that were saved from any previous calculations
+        let customClasses = try! Realm().objects(GPAClass.self)
+        for (index, gpaClass) in customClasses.enumerated() {
+            let indexOfView = loadedClasses.count + index
+            if indexOfView > gpaViews.count { break }
+            self.populate(gpaView: self.gpaViews[indexOfView], withGpaClass: gpaClass)
+        }
+        
+        // Always add an empty gpa view under custom classes header
+        self.appendGpaView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -88,15 +99,30 @@ class GPACalculatorViewController: UIViewController {
     
     func prepareGpaViews() {
         let realm = try! Realm()
-        let classCount = realm.objects(Class.self).count
-        // Load up some views based on the users class
-        for _ in 1...classCount {
-            appendGpaView(withAnimation: false)
+        let loadedCount = realm.objects(Class.self).count
+        
+        // Add any of the loaded classes under the Loaded Classes header
+        if loadedCount == 0 {
+            // Remove the header for loaded classes since we dont have any
+            self.stackView.removeArrangedSubview(self.stackView.arrangedSubviews[0])
+        } else {
+            for i in 1...loadedCount {
+                let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
+                newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
+                newView.delegate = self
+                self.stackView.insertArrangedSubview(newView, at: i)
+            }
         }
         
-        // Always add an empty GPA view to the end
-        appendGpaView(withAnimation: false)
-        
+        // Add any of the saved custom classes under the Custom Classes header
+        let customCount = realm.objects(GPAClass.self).count
+        let indexOfHeader = self.stackView.arrangedSubviews.index(of: customClassHeader)!
+        for i in 0..<customCount {
+            let newView = UIAddGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGpaViews))
+            newView.heightAnchor.constraint(equalToConstant: heightForGpaViews).isActive = true
+            newView.delegate = self
+            self.stackView.insertArrangedSubview(newView, at: indexOfHeader + i + 1)
+        }
     }
     
     /// Populates a GPA view with the provided Class
@@ -106,6 +132,21 @@ class GPACalculatorViewController: UIViewController {
         gpaView.gradeField.text = classObj.letterGrade
         gpaView.creditsField.text = "\(classObj.creditHours)"
         gpaView.toDeleteState()
+        
+        // Since this shouldnt be edited we will remove that functionality now
+        gpaView.toDisabled()
+        
+        return gpaView
+    }
+    
+    /// Populates a GPA view with the provided GPAClass
+    @discardableResult func populate(gpaView: UIAddGPAView, withGpaClass classObj: GPAClass) -> UIAddGPAView {
+        // Update the fields with the class values
+        gpaView.nameField.text = classObj.name
+        gpaView.gradeField.text = classObj.gradeLetter
+        gpaView.creditsField.text = "\(classObj.creditHours)"
+        gpaView.toDeleteState()
+        
         return gpaView
     }
     
@@ -123,10 +164,6 @@ class GPACalculatorViewController: UIViewController {
             newView.alpha = 0.0
             UIView.animate(withDuration: 0.3, animations: {
                 newView.alpha = 1.0
-            }, completion: { _ in
-                // Add a default name to the the views name field
-                newView.nameField.text = "Class \(self.gpaViews.count)"
-                DispatchQueue.main.async { newView.nameField.editingChanged() }
             })
         }
         
@@ -147,18 +184,22 @@ class GPACalculatorViewController: UIViewController {
     func readyToCalculateGpa() -> Bool {
         var isReady = false
         
-        for gpaView in gpaViews.filter({ $0.state == .delete }) {
+        for gpaView in gpaViews.filter({ $0.state == .delete || $0.state == .disabled }) {
             let hasCreditHours = Int(gpaView.creditsField.safeText) ?? -1 > 0
             let hasGrade = !gpaView.gradeField.safeText.isEmpty
-            isReady = hasCreditHours && hasGrade
+            let hasName = gpaView.nameField.safeText.isValid()
+            isReady = hasCreditHours && hasGrade && hasName
             // Present alert
             if !hasCreditHours {
-                // Make that field the first responder
                 gpaView.creditsField.becomeFirstResponder()
                 self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all credit hour fields are filled out")
                 break
             } else if !hasGrade {
                 self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all grade fields are filled out")
+                break
+            } else if !hasName {
+                gpaView.nameField.becomeFirstResponder()
+                self.presentErrorAlert(title: "Unable To Calculate", message: "Make sure that all name fields are filled out")
                 break
             }
         }
@@ -172,7 +213,7 @@ class GPACalculatorViewController: UIViewController {
         var totalPoints: Double = 0
         var totalCreditHours: Int = 0
         
-        for gpaView in gpaViews.filter({ $0.state == .delete }) {
+        for gpaView in gpaViews.filter({ $0.state == .delete || $0.state == .disabled }) {
             let creditHours = Int(gpaView.creditsField.safeText)!
             totalCreditHours += creditHours
             let gradeMultiplier = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }[0].gradePoints
@@ -193,6 +234,7 @@ class GPACalculatorViewController: UIViewController {
         let classes = realm.objects(Class.self)
         
         var gpaClasses = [GPAClass]()
+        
         for (index, gpaView) in gpaViews.filter({ $0.state == .delete }).enumerated() {
             let name = gpaView.nameField.safeText
             let grade = gpaView.gradeField.safeText
@@ -255,6 +297,8 @@ extension GPACalculatorViewController: UIAddGPAViewDelegate {
             self.removeGpaView(view: view)
         case .delete:
             self.appendGpaView()
+        case .disabled:
+            return
         }
     }
 }

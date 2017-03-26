@@ -11,6 +11,7 @@ import UIKit
 enum UIAddGPAViewState: Int {
     case add = 1
     case delete = 2
+    case disabled = 3
 }
 
 class UIAddGPAView: UIView {
@@ -23,8 +24,8 @@ class UIAddGPAView: UIView {
     var addColor: UIColor = .palePurple
     var deleteColor: UIColor = .sunsetOrange
     var plusColor: UIColor = UIColor.white
-    private lazy var circleLayer = CAShapeLayer()
-    private lazy var plusButtonLayer = CAShapeLayer()
+    lazy var circleLayer = CAShapeLayer()
+    lazy var plusButtonLayer = CAShapeLayer()
     private var buttonRect: CGRect?
     
     // Animation properties
@@ -62,10 +63,15 @@ class UIAddGPAView: UIView {
         let labelFrame = CGRect(x: self.circleLayer.bounds.maxX + 50, y: self.bounds.minY, width: labelWidth, height: self.bounds.height)
         self.addRubricLabel.frame = labelFrame
         
-        let width = self.bounds.width - (self.circleLayer.bounds.maxX + 50) - 50 - self.circleLayer.bounds.width
-        let nameFieldFrame = CGRect(x: self.circleLayer.bounds.maxX + 20, y: self.bounds.minY, width: width*0.5, height: self.bounds.height)
-        let gradeFieldFrame = CGRect(x: nameFieldFrame.maxX + 20, y: self.bounds.minY, width: width*0.25, height: self.bounds.height)
-        let creditFieldFrame = CGRect(x: gradeFieldFrame.maxX + 20, y: self.bounds.minY, width: width*0.25, height: self.bounds.height)
+        var width = self.bounds.width - (self.circleLayer.bounds.maxX + 50) - 50 - self.circleLayer.bounds.width
+        var nameFieldFrame = CGRect(x: self.circleLayer.bounds.maxX + 20, y: self.bounds.minY, width: width*0.5, height: self.bounds.height)
+        if self.state == .disabled {
+            // No plus button so change width
+            width = self.bounds.width - 50
+            nameFieldFrame = CGRect(x: 20, y: self.bounds.minY, width: width*(1/3), height: self.bounds.height)
+        }
+        let gradeFieldFrame = CGRect(x: nameFieldFrame.maxX + 20, y: self.bounds.minY, width: width*(1/3), height: self.bounds.height)
+        let creditFieldFrame = CGRect(x: gradeFieldFrame.maxX + 20, y: self.bounds.minY, width: width*(1/3), height: self.bounds.height)
         
         self.nameField.frame = nameFieldFrame
         self.gradeField.frame = gradeFieldFrame
@@ -131,14 +137,10 @@ class UIAddGPAView: UIView {
     // MARK: Actions
     
     @objc private func tappedOnButton(recognizer: UITapGestureRecognizer) {
-        guard let buttonRect = buttonRect else {
-            print("Button rect not found when tapped on button")
-            return
-        }
         
         let point = recognizer.location(in: self)
         
-        if buttonRect.contains(point) || (addRubricLabel.frame.contains(point) && !addRubricLabel.isHidden) {
+        if self.buttonRect?.contains(point) ?? false || (addRubricLabel.frame.contains(point) && !addRubricLabel.isHidden) {
             // And animate the view
             if !self.isAnimating {
                 self.animateViews(completion: {
@@ -205,7 +207,10 @@ class UIAddGPAView: UIView {
                 self.isAnimating = false
                 completion?()
             }
+        case .disabled:
+            return
         }
+        
     }
     
     private func animateFieldsToAdd(completion: @escaping (() -> Void)) {
@@ -282,6 +287,18 @@ class UIAddGPAView: UIView {
         }
         
         self.state = .delete
+    }
+    
+    func toDisabled() {
+        plusButtonLayer.removeFromSuperlayer()
+        circleLayer.removeFromSuperlayer()
+        buttonRect = nil
+        nameField.isUserInteractionEnabled = false
+        nameField.textColor = .mutedText
+        creditsField.isUserInteractionEnabled = false
+        creditsField.textColor = .mutedText
+        
+        self.state = .disabled
     }
 
     // MARK: Views
