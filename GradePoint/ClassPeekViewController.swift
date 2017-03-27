@@ -25,8 +25,8 @@ class ClassPeekViewController: UIViewController {
         super.viewDidAppear(animated)
         self.progressRing.innerRingColor = color ?? self.progressRing.innerRingColor
         self.progressRing.outerRingColor = color?.darker(by: 15) ?? self.progressRing.outerRingColor
+        self.progressRing.font = UIFont.systemFont(ofSize: 45)
         self.progressRing.setProgress(value: progress, animationDuration: 1.5)
-        
     }
 
     func setProgress(for classObj: Class) {

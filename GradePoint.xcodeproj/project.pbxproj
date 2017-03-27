@@ -366,6 +366,7 @@
 				A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */,
 				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
+				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
 				A017D1CD1E5A75A0004FBDA9 /* Onboarding */,
 				A0727DC41E65481C00885B35 /* Calculators */,
 			);
@@ -408,7 +409,6 @@
 				A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */,
 				A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */,
 				A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */,
-				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
 				A021E8B81E7A1C180014818F /* UIAddGPAView.swift */,
 			);
 			name = "Custom Controls";

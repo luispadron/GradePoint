@@ -61,6 +61,8 @@ class ExamGradePredictionViewController: UIViewController {
         self.calculateButton.layer.backgroundColor = UIColor(red: 0.404, green: 0.835, blue: 0.710, alpha: 1.00).cgColor
         self.calculateButton.setTitleColor(UIColor.mutedText, for: .disabled)
         self.calculateButton.isEnabled = false
+        
+        self.progressRing.font = UIFont.systemFont(ofSize: 55)
     }
 
     

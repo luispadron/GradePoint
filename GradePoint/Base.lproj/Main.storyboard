@@ -238,9 +238,6 @@ keeping track of your assignments</string>
                                                 <color key="value" red="0.33256985086825769" green="0.69844939115751592" blue="0.59262468188945339" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                <real key="value" value="60"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
                                                 <integer key="value" value="1"/>
@@ -263,7 +260,7 @@ keeping track of your assignments</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGN-eO-2Aa">
-                                <rect key="frame" x="141.66666666666669" y="660" width="131.00000000000006" height="36"/>
+                                <rect key="frame" x="142" y="660" width="131" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="Cool, lets start!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -352,9 +349,6 @@ keeping track of your assignments</string>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
                                         <color key="value" red="0.4578264058" green="0.98399174209999996" blue="0.9921709299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                        <real key="value" value="55"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
@@ -824,9 +818,6 @@ keeping track of your assignments</string>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                            <real key="value" value="45"/>
-                        </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                             <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
@@ -946,24 +937,24 @@ keeping track of your assignments</string>
                                                 </userDefinedRuntimeAttributes>
                                             </visualEffectView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="GMN-Gr-kB3">
-                                                <rect key="frame" x="8" y="57.666666666666679" width="358" height="38.333333333333321"/>
+                                                <rect key="frame" x="8" y="57.999999999999993" width="358" height="38.333333333333321"/>
                                                 <string key="text">Determine your GPA. 
-Progress is saved when calculating.</string>
+Progress is saved when calculated.</string>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-pV-zwe">
-                                                <rect key="frame" x="8" y="104" width="358" height="209.66666666666669"/>
+                                                <rect key="frame" x="8" y="104.33333333333333" width="358" height="209.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last calculated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkd-ku-Nlu">
-                                                        <rect key="frame" x="8" y="181.33333333333331" width="342" height="20.333333333333371"/>
+                                                        <rect key="frame" x="8" y="180.99999999999997" width="342" height="20.333333333333371"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                        <rect key="frame" x="96" y="0.0" width="166" height="166.33333333333331"/>
+                                                        <rect key="frame" x="96" y="0.0" width="166" height="165.99999999999997"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="a3o-M4-3X8" secondAttribute="height" multiplier="1:1" id="8qj-gu-oAY"/>
@@ -987,6 +978,15 @@ Progress is saved when calculating.</string>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
                                                                 <color key="value" red="0.40535759929999998" green="0.83694922920000003" blue="0.70983439680000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" GPA"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -1071,7 +1071,7 @@ Progress is saved when calculating.</string>
                                                 </userDefinedRuntimeAttributes>
                                             </visualEffectView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
-                                                <rect key="frame" x="8" y="58" width="358" height="248"/>
+                                                <rect key="frame" x="8" y="58" width="358" height="248.5"/>
                                                 <string key="text">Determine the score, on an exam, needed to 
 maintain or achieve a desired grade.</string>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
@@ -1149,10 +1149,10 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-Pq-PGm">
-                                        <rect key="frame" x="15" y="27.666666666666664" width="384" height="24.999999999999993"/>
+                                        <rect key="frame" x="15" y="28" width="384" height="25"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-Di-dkF">
-                                                <rect key="frame" x="0.0" y="0.0" width="25" height="24.999999999999996"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="A5M-UI-qBY"/>
                                                     <constraint firstAttribute="width" constant="25" id="XJO-Y9-6oo"/>
@@ -1165,7 +1165,7 @@ maintain or achieve a desired grade.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Grade Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gz-Cf-Af0">
-                                                <rect key="frame" x="25" y="0.0" width="359" height="24.999999999999996"/>
+                                                <rect key="frame" x="25" y="0.0" width="359" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1338,9 +1338,6 @@ maintain or achieve a desired grade.</string>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                                                <real key="value" value="55"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
@@ -1578,9 +1575,6 @@ maintain or achieve a desired grade.</string>
                                 <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                     <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                    <real key="value" value="45"/>
-                                </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
                                     <integer key="value" value="2"/>
@@ -1597,6 +1591,7 @@ maintain or achieve a desired grade.</string>
                                 <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
                                     <real key="value" value="15"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" GPA"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>

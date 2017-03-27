@@ -82,6 +82,8 @@ class ClassDetailTableViewController: UITableViewController {
             self.progressRing.innerRingColor = color
             self.progressRing.outerRingColor = color.darker(by: 15) ?? UIColor.lightGray
         }
+        
+        self.progressRing.font = UIFont.systemFont(ofSize: 40)
     }
 
     override func viewWillAppear(_ animated: Bool) {

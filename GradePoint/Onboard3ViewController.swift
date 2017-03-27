@@ -30,6 +30,7 @@ class Onboard3ViewController: UIViewController {
         self.button.layer.backgroundColor = self.view.backgroundColor?.lighter(by: 20)?.cgColor
         self.button.layer.cornerRadius = 6.0
         
+        self.progressRing.font = UIFont.systemFont(ofSize: 60)
         // Customization for progress ring
         self.progressRing.animationStyle = kCAMediaTimingFunctionEaseInEaseOut
     }

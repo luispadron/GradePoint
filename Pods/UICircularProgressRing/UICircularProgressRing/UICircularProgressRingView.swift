@@ -58,6 +58,28 @@ import UIKit
      */
     open weak var delegate: UICircularProgressRingDelegate?
     
+    // MARK: Circle Properties
+    
+    /**
+     Whether or not the progress ring should be a full circle.
+     
+     What this means is that the outer ring will always go from 0 - 360 degrees and the inner ring will be calculated accordingly depending on current value.
+     
+     ## Important ##
+     Default = true
+     
+     When this property is true any value set for `endAngle` will be ignored.
+     
+     ## Author: 
+     Luis Padron
+     
+    */
+    @IBInspectable open var fullCircle: Bool = true {
+        didSet {
+            self.ringLayer.fullCircle = self.fullCircle
+        }
+    }
+    
     // MARK: Value Properties
     
     /**
@@ -405,38 +427,20 @@ import UIKit
     }
     
     /**
-     The text/font size for the value label
+     The font to be used for the progress indicator.
+     All font attributes are specified here except for font color, which is done using `fontColor`.
+     
      
      ## Important ##
-     Default = 18
-     
+     Default = UIFont.systemFont(ofSize: 18)
      
      
      ## Author:
      Luis Padron
      */
-    @IBInspectable open var fontSize: CGFloat = 18 {
+    @IBInspectable open var font: UIFont = UIFont.systemFont(ofSize: 18) {
         didSet {
-            self.ringLayer.fontSize = self.fontSize
-        }
-    }
-    
-    /**
-     The name of the custom font for value label to use
-     Provide name as a string, and make sure "Fonts Provided by application"
-     is set inside the Info.plist of the project.
-     
-     ## Important ##
-     Default = nil
-     
-     
-     
-     ## Author:
-     Luis Padron
-     */
-    @IBInspectable open var customFontWithName: String? {
-        didSet {
-            self.ringLayer.customFontWithName = self.customFontWithName
+            self.ringLayer.font = self.font
         }
     }
     
@@ -574,6 +578,7 @@ import UIKit
         self.layer.contentsScale = UIScreen.main.scale
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale * 2
+        self.ringLayer.fullCircle = fullCircle
         self.ringLayer.value = value
         self.ringLayer.maxValue = maxValue
         self.ringLayer.viewStyle = viewStyle
@@ -588,9 +593,9 @@ import UIKit
         self.ringLayer.innerCapStyle = inStyle
         self.ringLayer.innerRingSpacing = innerRingSpacing
         self.ringLayer.shouldShowValueText = shouldShowValueText
+        self.ringLayer.valueIndicator = valueIndicator
         self.ringLayer.fontColor = fontColor
-        self.ringLayer.fontSize = fontSize
-        self.ringLayer.customFontWithName = customFontWithName
+        self.ringLayer.font = font
         self.ringLayer.showFloatingPoint = showFloatingPoint
         self.ringLayer.decimalPlaces = decimalPlaces
         

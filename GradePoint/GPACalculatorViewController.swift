@@ -40,6 +40,7 @@ class GPACalculatorViewController: UIViewController {
         super.viewDidLoad()
         
         /// UI Setup
+        self.progressRingView.font = UIFont.systemFont(ofSize: 30)
         // Prepare the GPA Views
         prepareGpaViews()
         

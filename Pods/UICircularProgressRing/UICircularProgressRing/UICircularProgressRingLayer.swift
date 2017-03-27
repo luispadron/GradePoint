@@ -63,6 +63,8 @@ class UICircularProgressRingLayer: CAShapeLayer {
      These properties are initialized in UICircularProgressRingView.
      They're also assigned by mutating UICircularProgressRingView.
      */
+    @NSManaged var fullCircle: Bool
+    
     @NSManaged var value: CGFloat
     @NSManaged var maxValue: CGFloat
     
@@ -83,8 +85,7 @@ class UICircularProgressRingLayer: CAShapeLayer {
     
     @NSManaged var shouldShowValueText: Bool
     @NSManaged var fontColor: UIColor
-    @NSManaged var fontSize: CGFloat
-    @NSManaged var customFontWithName: String?
+    @NSManaged var font: UIFont
     @NSManaged var valueIndicator: String
     @NSManaged var showFloatingPoint: Bool
     @NSManaged var decimalPlaces: Int
@@ -155,11 +156,13 @@ class UICircularProgressRingLayer: CAShapeLayer {
         let height = bounds.width
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
         let outerRadius = max(width, height)/2 - outerRingWidth/2
+        let start = fullCircle ? 0 : startAngle.toRads
+        let end = fullCircle ? CGFloat.pi*2 : endAngle.toRads
         
         let outerPath = UIBezierPath(arcCenter: center,
                                      radius: outerRadius,
-                                     startAngle: startAngle.toRads,
-                                     endAngle: endAngle.toRads,
+                                     startAngle: start,
+                                     endAngle: end,
                                      clockwise: true)
         
         outerPath.lineWidth = outerRingWidth
@@ -186,12 +189,18 @@ class UICircularProgressRingLayer: CAShapeLayer {
         
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
         
-        // Calculate the center difference between the end and start angle
-        let angleDiff: CGFloat = endAngle.toRads - startAngle.toRads
-        // Calculate how much we should draw depending on the value set
-        let arcLenPerValue = angleDiff / CGFloat(maxValue)
-        // The inner end angle some basic math is done
-        let innerEndAngle = arcLenPerValue * CGFloat(value) + startAngle.toRads
+        var innerEndAngle: CGFloat = 0.0
+        
+        if fullCircle {
+            innerEndAngle = (360.0 / CGFloat(maxValue)) * CGFloat(value) + startAngle
+        } else {
+            // Calculate the center difference between the end and start angle
+            let angleDiff: CGFloat = endAngle - startAngle
+            // Calculate how much we should draw depending on the value set
+            let arcLenPerValue = angleDiff / CGFloat(maxValue)
+            // The inner end angle some basic math is done
+            innerEndAngle = arcLenPerValue * CGFloat(value) + startAngle
+        }
         
         // The radius for style 1 is set below
         // The radius for style 1 is a bit less than the outer, this way it looks like its inside the circle
@@ -205,7 +214,7 @@ class UICircularProgressRingLayer: CAShapeLayer {
         let innerPath = UIBezierPath(arcCenter: center,
                                      radius: radiusIn,
                                      startAngle: startAngle.toRads,
-                                     endAngle: innerEndAngle,
+                                     endAngle: innerEndAngle.toRads,
                                      clockwise: true)
         innerPath.lineWidth = innerRingWidth
         innerPath.lineCapStyle = innerCapStyle
@@ -222,13 +231,9 @@ class UICircularProgressRingLayer: CAShapeLayer {
         
         // Draws the text field
         // Some basic label properties are set
-        valueLabel.font = UIFont.systemFont(ofSize: fontSize)
+        valueLabel.font = self.font
         valueLabel.textAlignment = .center
         valueLabel.textColor = fontColor
-        
-        if let fName = customFontWithName {
-            valueLabel.font = UIFont(name: fName, size: fontSize)
-        }
         
         valueLabel.update(withValue: value, valueIndicator: valueIndicator,
                           showsDecimal: showFloatingPoint, decimalPlaces: decimalPlaces)
