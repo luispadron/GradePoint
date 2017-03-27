@@ -22,7 +22,10 @@ class CalculatorsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Set up the UI
-        self.gpaRing.font = UIFont.systemFont(ofSize: 25)
+        
+        self.gpaRing.font = UIFont.systemFont(ofSize: self.gpaRing.frame.width/7.0)
+
+        
         // Set the progress ring and label
         let attrs = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.lightText.withAlphaComponent(0.6)]
         let savedCalc = try! Realm().objects(GPACalculation.self)
@@ -38,4 +41,5 @@ class CalculatorsViewController: UIViewController {
             lastCalculationLabel.attributedText = NSAttributedString(string: "Never calculated, calculate now", attributes: attrs)
         }
     }
+
 }
