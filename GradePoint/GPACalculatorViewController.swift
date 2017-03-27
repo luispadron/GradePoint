@@ -53,7 +53,7 @@ class GPACalculatorViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // Now that were about to show, populate any gpa views
-        let loadedClasses = try! Realm().objects(Class.self)
+        let loadedClasses = try! Realm().objects(Class.self).filter({$0.assignments.count > 0})
         for (index, classObj) in loadedClasses.enumerated() {
             if index > self.gpaViews.count { break }
             populate(gpaView: self.gpaViews[index], withClass: classObj)
@@ -100,7 +100,7 @@ class GPACalculatorViewController: UIViewController {
     
     func prepareGpaViews() {
         let realm = try! Realm()
-        let loadedCount = realm.objects(Class.self).count
+        let loadedCount = realm.objects(Class.self).filter({ $0.assignments.count > 0 }).count
         
         // Add any of the loaded classes under the Loaded Classes header
         if loadedCount == 0 {
@@ -231,19 +231,13 @@ class GPACalculatorViewController: UIViewController {
     
     /// Saves the calculation to realm
     func saveCalculation(withGpa gpa: Double) {
-        let realm = try! Realm()
-        let classes = realm.objects(Class.self)
-        
         var gpaClasses = [GPAClass]()
         
-        for (index, gpaView) in gpaViews.filter({ $0.state == .delete }).enumerated() {
+        for gpaView in gpaViews.filter({ $0.state == .delete }) {
             let name = gpaView.nameField.safeText
             let grade = gpaView.gradeField.safeText
             let credits = Int(gpaView.creditsField.safeText)!
-            var associatedClass: String?
-            if index < classes.count { associatedClass = classes[index].id }
             let newGpaClass = GPAClass(name: name, gradeLetter: grade, creditHours: credits)
-            newGpaClass.associatedClassId = associatedClass
             gpaClasses.append(newGpaClass)
         }
         

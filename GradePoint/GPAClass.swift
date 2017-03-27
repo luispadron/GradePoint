@@ -10,7 +10,6 @@ import RealmSwift
 
 /// Realm object which stores class info that was entered by the user in the GPA Calculator
 class GPAClass: Object {
-    dynamic var associatedClassId: String?
     dynamic var name = ""
     dynamic var gradeLetter = ""
     dynamic var creditHours = 1
