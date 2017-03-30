@@ -21,7 +21,7 @@ extension Segueable where Self: UIViewController, SegueIdentifier.RawValue == St
     /// Returns a segue identifier for the specified segue
     func segueIdentifier(forSegue segue: UIStoryboardSegue) -> SegueIdentifier {
         guard let identifier = segue.identifier, let segueIdentifer = SegueIdentifier(rawValue: identifier) else {
-            fatalError("Invalid segue identfier \(segue.identifier)")
+            fatalError("Invalid segue identfier \(String(describing: segue.identifier))")
         }
         
         return segueIdentifer

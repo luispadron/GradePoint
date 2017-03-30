@@ -29,6 +29,7 @@
 		A021E8BB1E7A1FE40014818F /* UIAddGPAViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8BA1E7A1FE40014818F /* UIAddGPAViewDelegate.swift */; };
 		A021E8BD1E7A20F40014818F /* CGFloat+ToRads.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */; };
 		A045BE841E78C3760046AC09 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A045BE831E78C3760046AC09 /* GPACalculatorViewController.swift */; };
+		A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */; };
 		A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */; };
 		A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
@@ -120,6 +121,7 @@
 		A021E8BA1E7A1FE40014818F /* UIAddGPAViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAddGPAViewDelegate.swift; sourceTree = "<group>"; };
 		A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+ToRads.swift"; sourceTree = "<group>"; };
 		A045BE831E78C3760046AC09 /* GPACalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculatorViewController.swift; sourceTree = "<group>"; };
+		A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterPickerDelegate.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
 				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
+				A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */,
 				A017D1CD1E5A75A0004FBDA9 /* Onboarding */,
 				A0727DC41E65481C00885B35 /* Calculators */,
 			);
@@ -695,6 +698,7 @@
 				A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */,
 				A021E8BB1E7A1FE40014818F /* UIAddGPAViewDelegate.swift in Sources */,
 				A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */,
+				A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */,
 				A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */,
 				A021E8B91E7A1C180014818F /* UIAddGPAView.swift in Sources */,
 				A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */,
