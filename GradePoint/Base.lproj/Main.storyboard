@@ -1708,14 +1708,19 @@ maintain or achieve a desired grade.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtC-68-wQ7">
-                                                    <rect key="frame" x="8" y="8" width="185" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtC-68-wQ7">
+                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="dtC-68-wQ7" firstAttribute="bottom" secondItem="e5b-lT-tVb" secondAttribute="bottomMargin" id="31m-jc-iPx"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="dtC-68-wQ7" secondAttribute="trailing" constant="20" id="RPG-CJ-fXS"/>
+                                                <constraint firstItem="dtC-68-wQ7" firstAttribute="top" secondItem="e5b-lT-tVb" secondAttribute="topMargin" id="aWx-ib-8uD"/>
+                                                <constraint firstItem="dtC-68-wQ7" firstAttribute="leading" secondItem="e5b-lT-tVb" secondAttribute="leadingMargin" id="bhc-uy-56K"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
@@ -1726,14 +1731,19 @@ maintain or achieve a desired grade.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XA-eb-vRz">
-                                                    <rect key="frame" x="8" y="8" width="185" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XA-eb-vRz">
+                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4XA-eb-vRz" firstAttribute="top" secondItem="sm5-sz-qAT" secondAttribute="topMargin" id="8de-Fl-XtA"/>
+                                                <constraint firstItem="4XA-eb-vRz" firstAttribute="leading" secondItem="sm5-sz-qAT" secondAttribute="leadingMargin" id="Ym0-9X-tyS"/>
+                                                <constraint firstItem="4XA-eb-vRz" firstAttribute="bottom" secondItem="sm5-sz-qAT" secondAttribute="bottomMargin" id="cm7-0s-M9M"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="4XA-eb-vRz" secondAttribute="trailing" constant="20" id="syf-G6-OhZ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
@@ -1744,14 +1754,19 @@ maintain or achieve a desired grade.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTT-q4-aB8">
-                                                    <rect key="frame" x="8" y="8" width="185" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTT-q4-aB8">
+                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yTT-q4-aB8" firstAttribute="top" secondItem="2GX-0O-gnp" secondAttribute="topMargin" id="6ep-Sm-d2V"/>
+                                                <constraint firstItem="yTT-q4-aB8" firstAttribute="bottom" secondItem="2GX-0O-gnp" secondAttribute="bottomMargin" id="ION-5J-yZa"/>
+                                                <constraint firstItem="yTT-q4-aB8" firstAttribute="leading" secondItem="2GX-0O-gnp" secondAttribute="leadingMargin" id="NfX-6Y-qah"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="yTT-q4-aB8" secondAttribute="trailing" constant="20" id="dTg-hj-ce7"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
@@ -1766,19 +1781,47 @@ maintain or achieve a desired grade.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2o-ho-hRz">
-                                                    <rect key="frame" x="8" y="8" width="185" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2o-ho-hRz">
+                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="h2o-ho-hRz" firstAttribute="bottom" secondItem="e9c-H6-P8a" secondAttribute="bottomMargin" id="4ge-R7-yI2"/>
+                                                <constraint firstItem="h2o-ho-hRz" firstAttribute="top" secondItem="e9c-H6-P8a" secondAttribute="topMargin" id="SFr-je-E2F"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="h2o-ho-hRz" secondAttribute="trailing" constant="20" id="eAJ-NJ-742"/>
+                                                <constraint firstItem="h2o-ho-hRz" firstAttribute="leading" secondItem="e9c-H6-P8a" secondAttribute="leadingMargin" id="kCL-Ar-bGT"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <segue destination="jLS-Cl-QAa" kind="show" id="dqN-bV-Y0l"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PJ6-Vu-FHc">
+                                        <rect key="frame" x="0.0" y="348" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PJ6-Vu-FHc" id="AAE-61-53h">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2017 Luis Padron" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Yf-ca-Fzq">
+                                                    <rect key="frame" x="8" y="8" width="398" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1Yf-ca-Fzq" firstAttribute="bottom" secondItem="AAE-61-53h" secondAttribute="bottomMargin" id="Afq-9S-pO1"/>
+                                                <constraint firstItem="1Yf-ca-Fzq" firstAttribute="top" secondItem="AAE-61-53h" secondAttribute="topMargin" id="XMG-Q6-trJ"/>
+                                                <constraint firstItem="1Yf-ca-Fzq" firstAttribute="trailing" secondItem="AAE-61-53h" secondAttribute="trailingMargin" id="lTI-wy-2LN"/>
+                                                <constraint firstItem="1Yf-ca-Fzq" firstAttribute="leading" secondItem="AAE-61-53h" secondAttribute="leadingMargin" id="x6c-Ia-5is"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
