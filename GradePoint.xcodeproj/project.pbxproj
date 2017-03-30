@@ -41,6 +41,7 @@
 		A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59761E86EDB5007EEE1E /* GPACalculation.swift */; };
 		A07B59791E86EDFF007EEE1E /* GPAClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59781E86EDFF007EEE1E /* GPAClass.swift */; };
 		A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084437F1E55808F00C32F52 /* UICalculateViewController.swift */; };
+		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
@@ -133,6 +134,7 @@
 		A07B59761E86EDB5007EEE1E /* GPACalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculation.swift; sourceTree = "<group>"; };
 		A07B59781E86EDFF007EEE1E /* GPAClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClass.swift; sourceTree = "<group>"; };
 		A084437F1E55808F00C32F52 /* UICalculateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateViewController.swift; sourceTree = "<group>"; };
+		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
@@ -334,6 +336,15 @@
 			name = UICalculateView;
 			sourceTree = "<group>";
 		};
+		A086C9F71E8CB8D1007819FD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */,
+				A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		A0A27CFB1E55563D00054935 /* UISafeTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,7 +380,7 @@
 				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
 				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
-				A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */,
+				A086C9F71E8CB8D1007819FD /* Settings */,
 				A017D1CD1E5A75A0004FBDA9 /* Onboarding */,
 				A0727DC41E65481C00885B35 /* Calculators */,
 			);
@@ -704,6 +715,7 @@
 				A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */,
 				A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */,
 				A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */,
+				A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */,
 				A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */,
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
