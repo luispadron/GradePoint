@@ -33,8 +33,9 @@ class SettingsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard section == 2 else { return 1 }
-        return 3
+        if section == 2 { return 3 }
+        else if section == 3 { return 2 }
+        else { return 1 }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

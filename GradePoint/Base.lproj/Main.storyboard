@@ -1851,13 +1851,35 @@ maintain or achieve a desired grade.</string>
                     <view key="view" contentMode="scaleToFill" id="iET-xD-4Xp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7uY-Fy-l5a">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                                <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <string key="text">Icons provided by:
+- Icons8: https://icons8.com
+- FlatIcon: http://www.flaticon.com
+  - Empty view icon made by Popcorns Arts
+  - App icon made by Popcorns Arts
+</string>
+                                <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7uY-Fy-l5a" secondAttribute="trailing" id="BFg-K2-AMp"/>
+                            <constraint firstItem="a5V-wH-U57" firstAttribute="top" secondItem="7uY-Fy-l5a" secondAttribute="bottom" id="EGJ-3n-NqS"/>
+                            <constraint firstItem="7uY-Fy-l5a" firstAttribute="leading" secondItem="iET-xD-4Xp" secondAttribute="leading" id="ON6-hm-c1R"/>
+                            <constraint firstItem="7uY-Fy-l5a" firstAttribute="top" secondItem="iET-xD-4Xp" secondAttribute="top" id="umv-bn-jy9"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cuu-Ow-ZGR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dhh-IN-IT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-17" y="-1322"/>
+            <point key="canvasLocation" x="-17.39130434782609" y="-1322.2826086956522"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="E0t-Ds-j9e">
