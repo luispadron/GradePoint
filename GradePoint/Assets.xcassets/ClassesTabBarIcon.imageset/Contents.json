@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Class.png",
+      "filename" : "classes1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Class@2x.png",
+      "filename" : "classes1x 2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Class@3x.png",
+      "filename" : "classes1x 3.png",
       "scale" : "3x"
     }
   ],

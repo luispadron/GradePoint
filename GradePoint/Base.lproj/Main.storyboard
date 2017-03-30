@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,7 +32,7 @@
                 <pageViewController storyboardIdentifier="OnboardPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="BBe-6J-vmz" customClass="OnboardPageViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qIT-bi-efh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1303" y="-664"/>
+            <point key="canvasLocation" x="1303" y="-588"/>
         </scene>
         <!--Onboard1 View Controller-->
         <scene sceneID="Exe-4u-Npr">
@@ -47,7 +47,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
-                                <rect key="frame" x="148" y="674.66666666666652" width="118" height="21.333333333333371"/>
+                                <rect key="frame" x="148" y="674" width="118" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -56,7 +56,7 @@
                                 <rect key="frame" x="52" y="168" width="310" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3M-0G-RiU" userLabel="Header">
-                                        <rect key="frame" x="28.666666666666686" y="8" width="253" height="60"/>
+                                        <rect key="frame" x="29" y="8" width="253" height="60"/>
                                         <string key="text">Hey there,
 welcome to GradePoint</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
@@ -64,7 +64,7 @@ welcome to GradePoint</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaE-dd-6Ge">
-                                        <rect key="frame" x="22.666666666666686" y="346" width="266" height="46"/>
+                                        <rect key="frame" x="23" y="346" width="266" height="46"/>
                                         <string key="text">A simple application to help you
 keep track of your grades</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
@@ -72,7 +72,7 @@ keep track of your grades</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircularAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mxw-jp-MjA">
-                                        <rect key="frame" x="57.666666666666686" y="103" width="195" height="195"/>
+                                        <rect key="frame" x="58" y="103" width="195" height="195"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -106,7 +106,7 @@ keep track of your grades</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2W-U1-wGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="-664"/>
+            <point key="canvasLocation" x="2054" y="-588"/>
         </scene>
         <!--Onboard2 View Controller-->
         <scene sceneID="bGw-DV-Pcc">
@@ -121,19 +121,19 @@ keep track of your grades</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ytd-2x-re8">
-                                <rect key="frame" x="36.666666666666657" y="145.66666666666663" width="341" height="445"/>
+                                <rect key="frame" x="37" y="146" width="341" height="445"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClassExample" translatesAutoresizingMaskIntoConstraints="NO" id="zgK-u3-JKI">
-                                        <rect key="frame" x="29" y="71" width="285" height="81.000000000000028"/>
+                                        <rect key="frame" x="29" y="71" width="285" height="81"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out the weights for your class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
-                                        <rect key="frame" x="20" y="160.00000000000003" width="301.33333333333331" height="21.666666666666629"/>
+                                        <rect key="frame" x="19" y="160" width="302" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-xb-j7a">
-                                        <rect key="frame" x="27" y="189.00000000000003" width="289" height="235.99999999999997"/>
+                                        <rect key="frame" x="27" y="189" width="289" height="236"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView1" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-Z3-Sei">
                                                 <rect key="frame" x="0.0" y="0.0" width="289" height="59"/>
@@ -145,7 +145,7 @@ keep track of your grades</string>
                                                 <rect key="frame" x="0.0" y="118" width="289" height="59"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView4" translatesAutoresizingMaskIntoConstraints="NO" id="dv2-dN-6cX">
-                                                <rect key="frame" x="0.0" y="177" width="289" height="58.999999999999943"/>
+                                                <rect key="frame" x="0.0" y="177" width="289" height="59"/>
                                             </imageView>
                                         </subviews>
                                     </stackView>
@@ -172,7 +172,7 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
-                                <rect key="frame" x="135.66666666666669" y="674.33333333333348" width="143.00000000000006" height="21.666666666666629"/>
+                                <rect key="frame" x="136" y="674" width="143" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -200,7 +200,7 @@ simply add your classes</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZE-QV-FIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2814" y="-664"/>
+            <point key="canvasLocation" x="2813" y="-588"/>
         </scene>
         <!--Onboard3 View Controller-->
         <scene sceneID="XXY-DJ-cAb">
@@ -260,7 +260,7 @@ keeping track of your assignments</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGN-eO-2Aa">
-                                <rect key="frame" x="141.66666666666669" y="660" width="131.00000000000006" height="36"/>
+                                <rect key="frame" x="142" y="660" width="131" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="Cool, lets start!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -286,7 +286,56 @@ keeping track of your assignments</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ9-wb-ncy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3551" y="-664"/>
+            <point key="canvasLocation" x="3551" y="-588"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="zMm-DX-3v0">
+            <objects>
+                <tableViewController title="Settings" id="kk2-pO-G0k" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="PSI-o5-GyM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="Ik5-mr-KXi">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8dG-8I-bu9">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8dG-8I-bu9" id="OEq-XH-CTu">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lFu-RV-RbZ">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lFu-RV-RbZ" id="OGz-Ag-xse">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8lO-QR-BdR">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8lO-QR-BdR" id="29S-h7-m6Q">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="kk2-pO-G0k" id="6Ue-xv-bvk"/>
+                            <outlet property="delegate" destination="kk2-pO-G0k" id="eSw-oX-R0E"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="hjh-Hv-tu7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qq2-Yp-2qU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-706" y="-1322"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hv5-2k-zId">
@@ -300,6 +349,7 @@ keeping track of your assignments</string>
                     <connections>
                         <segue destination="H1p-Uh-vWS" kind="relationship" relationship="viewControllers" id="HRl-AO-2bh"/>
                         <segue destination="QYF-7m-Ffp" kind="relationship" relationship="viewControllers" id="Tei-Cz-iEe"/>
+                        <segue destination="bGL-pC-e7a" kind="relationship" relationship="viewControllers" id="2um-mL-ReJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t9i-sL-kdo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -505,7 +555,7 @@ keeping track of your assignments</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-QN-zvc">
-                                                <rect key="frame" x="129.33333333333337" y="0.0" width="119.66666666666666" height="25"/>
+                                                <rect key="frame" x="129" y="0.0" width="120" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -621,7 +671,7 @@ keeping track of your assignments</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spring 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-1j-1fm">
-                                                        <rect key="frame" x="119.99999999999999" y="8" width="91.666666666666643" height="44"/>
+                                                        <rect key="frame" x="120" y="8" width="92" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -750,19 +800,19 @@ keeping track of your assignments</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">
-                                            <rect key="frame" x="5" y="41.666666666666657" width="397" height="14.333333333333336"/>
+                                            <rect key="frame" x="5" y="42" width="397" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMd-0W-qFo">
-                                            <rect key="frame" x="5" y="23.666666666666664" width="392" height="15.999999999999993"/>
+                                            <rect key="frame" x="5" y="24" width="392" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignment Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJl-j5-uRc">
-                                            <rect key="frame" x="5" y="0.0" width="397" height="24.666666666666668"/>
+                                            <rect key="frame" x="5" y="0.0" width="397" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1033,20 +1083,20 @@ Progress is saved when calculated.</string>
                                         <rect key="frame" x="0.0" y="333.66666666666674" width="374" height="313.33333333333326"/>
                                         <subviews>
                                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBb-36-tL0">
-                                                <rect key="frame" x="0.47199427142103817" y="-0.40163595622652759" width="373.4662827904956" height="49.615085877974565"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3Lb-AW-kxi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="373.4662827904956" height="49.615085877974565"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-fZ-Od7">
-                                                            <rect key="frame" x="0.028005728579046263" y="2.7349692895597855" width="373.5" height="48.5"/>
+                                                            <rect key="frame" x="0.0" y="2.5" width="374" height="49"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="gHL-8m-Vuv">
-                                                                <rect key="frame" x="0.0" y="0.0" width="373.5" height="48.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="49"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exam Grade Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Ik6-ev-wOI">
-                                                                        <rect key="frame" x="7.5" y="9" width="358" height="33.5"/>
+                                                                        <rect key="frame" x="7.5" y="9" width="358.5" height="34"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1071,7 +1121,7 @@ Progress is saved when calculated.</string>
                                                 </userDefinedRuntimeAttributes>
                                             </visualEffectView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
-                                                <rect key="frame" x="8" y="57.666666666666629" width="358" height="248.00000000000006"/>
+                                                <rect key="frame" x="8" y="58" width="358" height="247.33333333333331"/>
                                                 <string key="text">Determine the score, on an exam, needed to 
 maintain or achieve a desired grade.</string>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
@@ -1449,7 +1499,7 @@ maintain or achieve a desired grade.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kq3-JF-roX">
-                                                <rect key="frame" x="120.00000000000001" y="0.0" width="120.33333333333336" height="25"/>
+                                                <rect key="frame" x="120" y="0.0" width="121" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1605,19 +1655,40 @@ maintain or achieve a desired grade.</string>
             </objects>
             <point key="canvasLocation" x="-2245" y="2044"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="sBr-PR-Gro">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bGL-pC-e7a" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="settingsIcon" selectedImage="settingsIconFilled" id="HgH-RZ-CZE"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="amT-7U-iUg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kk2-pO-G0k" kind="relationship" relationship="rootViewController" id="tF6-YT-PjD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qL2-dP-URI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1613" y="-1322"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="CalcTabBarIcon" width="17" height="21"/>
-        <image name="CalcTabBarIconFilled" width="17" height="21"/>
+        <image name="CalcTabBarIcon" width="30" height="30"/>
+        <image name="CalcTabBarIconFilled" width="30" height="30"/>
         <image name="CircularAppIcon" width="195" height="195"/>
         <image name="ClassExample" width="285" height="81"/>
-        <image name="ClassesTabBarIcon" width="25" height="19"/>
-        <image name="ClassesTabBarIconFilled" width="25" height="19"/>
+        <image name="ClassesTabBarIcon" width="30" height="30"/>
+        <image name="ClassesTabBarIconFilled" width="30" height="30"/>
         <image name="DeleteIcon" width="33" height="33"/>
         <image name="RubricView1" width="289" height="59"/>
         <image name="RubricView2" width="289" height="59"/>
         <image name="RubricView3" width="289" height="59"/>
         <image name="RubricView4" width="289" height="59"/>
+        <image name="settingsIcon" width="30" height="30"/>
+        <image name="settingsIconFilled" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5kc-o4-kea"/>

@@ -82,7 +82,7 @@ class UIAddGPAView: UIView {
     
     private func drawButton() {
         let circle = UIBezierPath(arcCenter: CGPoint(x: bounds.minX + circleSpacing, y: bounds.midY), radius: buttonRadius,
-                                  startAngle: CGFloat(0), endAngle: CGFloat(M_PI * 2),
+                                  startAngle: CGFloat(0), endAngle: CGFloat.pi*2,
                                   clockwise: true)
         
         circleLayer = CAShapeLayer()
