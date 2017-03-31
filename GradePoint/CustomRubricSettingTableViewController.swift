@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CustomRubricSettingTableViewController: UITableViewController {
     
     // MARK: Views
-    @IBOutlet var weightFields: Array<UISafeTextField>?
+    @IBOutlet var weightFields: Array<UISafeTextField>!
+    @IBOutlet weak var fieldToggle: UISwitch!
     
     /// The rows which will contain any + or - fields
     let plusRows = [0, 2, 3, 5, 6,  8, 9, 11]
-
-    var isPlusEnabled = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,19 +26,38 @@ class CustomRubricSettingTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = UIColor.tableViewSeperator
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onSaveTapped))
-        // Customize the fields
-        for field in weightFields! {
+        
+        
+        let scale = try! Realm().objects(GPAScale.self)[0]
+
+        // See if field toggle has been disabled or enabled previously
+        self.fieldToggle.isOn = scale.gpaScaleType.rawValue == 1 ? true : false
+        
+        // Customize the fields and initialize them to their stored values
+        var relatedIndex = 0 // The index related the GPAScale rubrics
+        for (index, field) in weightFields.enumerated() {
             let config = NumberConfiguration(allowsSignedNumbers: false, range: 0...99)
             field.configuration = config
             field.fieldType = .number
             field.keyboardType = .numbersAndPunctuation
             field.delegate = self
             field.returnKeyType = .done
-            field.attributedPlaceholder = NSAttributedString(string: "Test", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.mutedText])
             field.font = UIFont.systemFont(ofSize: 18)
             field.tintColor = UIColor.highlight
-            field.textColor = UIColor.white
+            field.textColor = UIColor.highlight
+            // Load the stored values as the text and place holders
+            if !self.fieldToggle.isOn && plusRows.contains(index) {
+                field.attributedPlaceholder = NSAttributedString(string: "Points",
+                                                            attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.mutedText])
+                relatedIndex -= 1
+            } else {
+                field.text = "\(scale.gpaRubrics[relatedIndex].gradePoints)"
+                field.attributedPlaceholder = NSAttributedString(string: "\(scale.gpaRubrics[relatedIndex].gradePoints)",
+                                                            attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.mutedText])
+            }
+            relatedIndex += 1
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +67,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
     // MARK: - TableView Methods
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 && plusRows.contains(indexPath.row) && !isPlusEnabled {
+        if indexPath.section == 1 && plusRows.contains(indexPath.row) && !fieldToggle.isOn {
             return 0
         }
         
@@ -90,12 +110,31 @@ class CustomRubricSettingTableViewController: UITableViewController {
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         // Toggle the cells
-        self.isPlusEnabled = sender.isOn
         self.tableView.reloadData()
     }
     
     func onSaveTapped() {
-        self.navigationController?.popToRootViewController(animated: true)
+        // Collect all the user entered data
+        var points = [Double]()
+        for (index, field) in weightFields.enumerated() {
+            // Skip over plus fields if they're disabled
+            if !fieldToggle.isOn && plusRows.contains(index) { continue }
+            
+            if field.safeText.isEmpty || Double(field.safeText) == nil {
+                self.presentErrorAlert(title: "Unable To Save", message: "Please make sure all fields are filled out")
+                return
+            }
+            
+            points.append(Double(field.safeText)!.roundedUpTo(2))
+        }
+        
+        // Save changes to the GPAScale
+        let type = self.fieldToggle.isOn ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
+        if !GPAScale.overwriteScale(type: type, gradePoints: points) {
+            self.presentErrorAlert(title: "Unable To Save", message: "Something went wrong when saving, please verify that all information has been entered correctly.")
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
 
 }
