@@ -23,12 +23,15 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
 
         dataSource = self
         delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         if let firstVC = onboardControllers.first {
             self.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
             self.view.backgroundColor = firstVC.view.backgroundColor?.lighter(by: 20)
         }
-        
     }
     
     private var backgroundColor: UIColor? {

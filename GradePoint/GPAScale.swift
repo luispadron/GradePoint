@@ -18,7 +18,7 @@ class GPAScale: Object {
     /// The primary key for the GPAScale
     dynamic var id: Int = 1
     /// Scale type
-    dynamic var gpaScaleType: GPAScaleType = .plusScale
+    dynamic var scaleType: GPAScaleType = .plusScale
     /// Realm array of GPA Rubrics
     var gpaRubrics = List<GPARubric>()
     
@@ -87,7 +87,7 @@ class GPAScale: Object {
         }
         
         // Finally if we did write the above, change the scale to whatever we updated it to
-        if didWrite { try! realm.write { scale.gpaScaleType = type } }
+        if didWrite { try! realm.write { scale.scaleType = type } }
         
         return didWrite
         

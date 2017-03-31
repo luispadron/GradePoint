@@ -100,14 +100,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // TODO: REMOVE BEFORE RELEASE
     func checkForMigrations() {
         let config = Realm.Configuration(
-            schemaVersion: 2,
+            schemaVersion: 3,
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 1 {
                     migration.enumerateObjects(ofType: Class.className(), { (oldObject, newObject) in
                         newObject!["creditHours"] = 3
                     })
-                } else if oldSchemaVersion < 2 {
-                    
+                } else if oldSchemaVersion < 3 {
+                    migration.enumerateObjects(ofType: GPAScale.className(), { (oldObject, newObject) in
+                        newObject!["scaleType"] = GPAScaleType.plusScale.rawValue
+                    })
                 }
             }
         )

@@ -34,9 +34,7 @@ class Onboard1ViewController: UIViewController {
         super.viewDidAppear(animated)
         // Animate the views
         if !hasAnimated {
-            // View did appear was getting called to fast which caused animation to not show on initial presentation.
-            // Perform animation for this controller 0.5 seconds after appearing
-            self.perform(#selector(self.animateViews), with: nil, afterDelay: 0.5)
+            self.animateViews()
         }
         hasAnimated = true
     }

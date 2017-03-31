@@ -73,7 +73,7 @@ class Class: Object {
     var letterGrade: String {
         get {
             let scale = try! Realm().objects(GPAScale.self)[0]
-            switch scale.gpaScaleType {
+            switch scale.scaleType {
             case .plusScale:
                 switch self.score {
                 case 0.00...59.99:

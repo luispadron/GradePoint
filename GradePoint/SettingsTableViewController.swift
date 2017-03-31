@@ -37,7 +37,7 @@ class SettingsTableViewController: UITableViewController {
         case 1:
             return 2
         case 2:
-            return 3
+            return 4
         case 3:
             return 2
         default:
@@ -106,7 +106,7 @@ class SettingsTableViewController: UITableViewController {
             }
         case 2:
             switch indexPath.row {
-            case 0:
+            case 1:
                 let presentError = { self.presentErrorAlert(title: "Unable to email", message: "Couldn't open email client.\nFeel free to email me at Luis@luispadron.com") }
                 let toEmail = "luis@luispadron.com"
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed), let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
@@ -114,9 +114,9 @@ class SettingsTableViewController: UITableViewController {
                 } else {
                     presentError()
                 }
-            case 1:
-                UIApplication.shared.openURL(URL(string: "https://luispadron.com")!)
             case 2:
+                UIApplication.shared.openURL(URL(string: "https://luispadron.com")!)
+            case 3:
                 UIApplication.shared.openURL(URL(string: "https://github.com/luispadron")!)
             default:
                 return

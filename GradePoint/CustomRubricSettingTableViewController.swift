@@ -31,7 +31,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         let scale = try! Realm().objects(GPAScale.self)[0]
 
         // See if field toggle has been disabled or enabled previously
-        self.fieldToggle.isOn = scale.gpaScaleType.rawValue == 1 ? true : false
+        self.fieldToggle.isOn = scale.scaleType.rawValue == 1 ? true : false
         
         // Customize the fields and initialize them to their stored values
         var relatedIndex = 0 // The index related the GPAScale rubrics
@@ -117,7 +117,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         let realm = try! Realm()
         // Get the old state before changing it
         let scale = realm.objects(GPAScale.self)[0]
-        let previousType = scale.gpaScaleType
+        let previousType = scale.scaleType
         
         // Collect all the user entered data
         var points = [Double]()
