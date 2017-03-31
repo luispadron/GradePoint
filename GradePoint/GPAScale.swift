@@ -22,6 +22,8 @@ class GPAScale: Object {
     /// Realm array of GPA Rubrics
     var gpaRubrics = List<GPARubric>()
     
+    // MARK: Public methods
+    
     /// Creates a new scale with default values in Realm, returns the created scale
     @discardableResult static func createInitialScale() -> GPAScale {
         let realm = try! Realm()
@@ -54,6 +56,16 @@ class GPAScale: Object {
         return newScale
     }
     
+    static func restoreScale() {
+        // Delete the scale
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(realm.objects(GPAScale.self))
+        }
+        // Create it again
+        createInitialScale()
+    }
+    
     /// Overwrites the scale in Realm with the new gradePoints and type provided, returns whether succesfully wrote or not
     static func overwriteScale(type: GPAScaleType, gradePoints: [Double]) -> Bool {
         let realm = try! Realm()
@@ -80,6 +92,8 @@ class GPAScale: Object {
         return didWrite
         
     }
+    
+    // MARK: Helper Methods
     
     /// Helper method which returns a grade letter given the index and gpa scale type
     private static func gradeLetter(forIndex index: Int, withScaleType type: GPAScaleType) -> String? {

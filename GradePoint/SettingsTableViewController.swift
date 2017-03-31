@@ -33,9 +33,16 @@ class SettingsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 2 { return 3 }
-        else if section == 3 { return 2 }
-        else { return 1 }
+        switch section {
+        case 1:
+            return 2
+        case 2:
+            return 3
+        case 3:
+            return 2
+        default:
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -73,21 +80,47 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.section == 2 else { return }
-        
-        switch indexPath.row {
-        case 0:
-            let presentError = { self.presentErrorAlert(title: "Unable to email", message: "Couldn't open email client.\nFeel free to email me at Luis@luispadron.com") }
-            let toEmail = "luis@luispadron.com"
-            if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed), let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
-                if !UIApplication.shared.openURL(url) { presentError() }
-            } else {
-                presentError()
-            }
+        switch indexPath.section {
         case 1:
-            UIApplication.shared.openURL(URL(string: "https://luispadron.com")!)
+            if indexPath.row == 1 {
+                // Warn the user about restoring settings
+                let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
+                                                  title: NSAttributedString(string: "Restore Defaults"),
+                                                  message: NSAttributedString(string: "Are you sure you want to restore to default configuration?\nThis cannot be undone",
+                                                                              attributes: [NSForegroundColorAttributeName: UIColor.sunsetOrange, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
+                let restore = UIButton()
+                restore.setTitle("Restore", for: .normal)
+                restore.setTitleColor(UIColor.white, for: .normal)
+                restore.backgroundColor = UIColor.sunsetOrange
+                let cancel = UIButton()
+                cancel.setTitle("Cancel", for: .normal)
+                cancel.setTitleColor(UIColor.white, for: .normal)
+                cancel.backgroundColor = UIColor.lapisLazuli
+                alert.addButton(button: cancel, handler: nil)
+                alert.addButton(button: restore, handler: { 
+                    // Handle restoring settings
+                    GPAScale.restoreScale()
+                })
+                alert.presentAlert(presentingViewController: self)
+                
+            }
         case 2:
-            UIApplication.shared.openURL(URL(string: "https://github.com/luispadron")!)
+            switch indexPath.row {
+            case 0:
+                let presentError = { self.presentErrorAlert(title: "Unable to email", message: "Couldn't open email client.\nFeel free to email me at Luis@luispadron.com") }
+                let toEmail = "luis@luispadron.com"
+                if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed), let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
+                    if !UIApplication.shared.openURL(url) { presentError() }
+                } else {
+                    presentError()
+                }
+            case 1:
+                UIApplication.shared.openURL(URL(string: "https://luispadron.com")!)
+            case 2:
+                UIApplication.shared.openURL(URL(string: "https://github.com/luispadron")!)
+            default:
+                return
+            }
         default:
             return
         }
