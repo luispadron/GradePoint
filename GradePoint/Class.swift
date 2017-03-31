@@ -69,36 +69,53 @@ class Class: Object {
         }
     }
     
-    /// Returns the letter grade based on the score
+    /// Returns the letter grade based on the score and the GPA Scale the user has set
     var letterGrade: String {
         get {
-            switch score {
-            case 0.00...59.99:
-                return "F"
-            case 60.00...62.99:
-                return "D-"
-            case 63.00...66.99:
-                return "D"
-            case 67.00...69.99:
-                return "D+"
-            case 70.00...72.99:
-                return "C-"
-            case 73.00...76.99:
-                return "C"
-            case 77.00...79.99:
-                return "C+"
-            case 80.00...82.99:
-                return "B-"
-            case 83.00...86.99:
-                return "B"
-            case 87.00...89.99:
-                return "B+"
-            case 90.00...92.99:
-                return "A-"
-            case 93.00...99.99:
-                return "A"
-            default:
-                return "A+"
+            let scale = try! Realm().objects(GPAScale.self)[0]
+            switch scale.gpaScaleType {
+            case .plusScale:
+                switch self.score {
+                case 0.00...59.99:
+                    return "F"
+                case 60.00...62.99:
+                    return "D-"
+                case 63.00...66.99:
+                    return "D"
+                case 67.00...69.99:
+                    return "D+"
+                case 70.00...72.99:
+                    return "C-"
+                case 73.00...76.99:
+                    return "C"
+                case 77.00...79.99:
+                    return "C+"
+                case 80.00...82.99:
+                    return "B-"
+                case 83.00...86.99:
+                    return "B"
+                case 87.00...89.99:
+                    return "B+"
+                case 90.00...92.99:
+                    return "A-"
+                case 93.00...99.99:
+                    return "A"
+                default:
+                    return "A+"
+                }
+            case .nonPlusScale:
+                switch self.score {
+                case 0.00...59.99:
+                    return "F"
+                case 60.00...69.99:
+                    return "D"
+                case 70.00...79.99:
+                    return "C"
+                case 80.00...89.99:
+                    return "B"
+                default:
+                    return "A"
+                }
             }
         }
     }

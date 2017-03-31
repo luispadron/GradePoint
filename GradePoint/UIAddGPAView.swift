@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 enum UIAddGPAViewState: Int {
     case add = 1
@@ -444,7 +445,13 @@ extension UIAddGPAView: UITextFieldDelegate {
 
 extension UIAddGPAView: UIPickerViewDelegate, UIPickerViewDataSource {
     // The grades which can be picked from the picker
-    var grades: [String] { get { return ["A+", "A", "B+", "B", "C+", "C", "D+", "D", "F"] } }
+    var grades: [String] {
+        get {
+            let scale = try! Realm().objects(GPAScale.self)[0]
+            return scale.gpaRubrics.map { $0.gradeLetter }
+        }
+    }
+    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
