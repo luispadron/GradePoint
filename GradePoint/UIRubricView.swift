@@ -73,13 +73,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     override func layoutSubviews() {
-        // Remove these views and redraw them
+        // Update view frame
         drawButton()
-        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
         let width = bounds.width - (plusLayer.bounds.maxX + 50)
+        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 30 - plusLayer.bounds.width
         promptLabel.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height)
-        nameField.frame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
-        weightField.frame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        nameField.frame = CGRect(x: plusLayer.bounds.maxX + 30, y: bounds.minY, width: actualWidth*0.65, height: bounds.height)
+        weightField.frame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth*0.35, height: bounds.height)
         updateIsRubricValid()
         super.layoutSubviews()
     }
@@ -154,9 +154,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     private func drawTextFields() {
-        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 50 - plusLayer.bounds.width
-        
-        let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        let actualWidth = bounds.width - (plusLayer.bounds.maxX + 50) - 30 - plusLayer.bounds.width
+        let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 30, y: bounds.minY, width: actualWidth*0.65, height: bounds.height)
         nameField = UIFloatingPromptTextField(frame: nameFieldFrame, fieldType: .text, configuration: TextConfiguration())
         nameField.placeholder = nameFieldPrompt
         nameField.textColor = UIColor.lightText
@@ -171,7 +170,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField.addTarget(self, action: #selector(self.updateIsRubricValid), for: .editingChanged)
         self.addSubview(nameField)
         
-        let weightFieldFrame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth/2, height: bounds.height)
+        let weightFieldFrame = CGRect(x: nameField.bounds.maxX + 100, y: bounds.minY, width: actualWidth*0.35, height: bounds.height)
         let config = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
         weightField = UIFloatingPromptTextField(frame: weightFieldFrame, fieldType: .percent, configuration: config)
         weightField.placeholder = weightFieldPrompt

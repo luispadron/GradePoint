@@ -406,7 +406,7 @@ keeping track of your assignments</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
-                                            <rect key="frame" x="4" y="7" width="4" height="45"/>
+                                            <rect key="frame" x="10" y="7" width="4" height="45"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="A2l-ld-z5i"/>
@@ -414,13 +414,13 @@ keeping track of your assignments</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Class Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG5-cK-vFE">
-                                            <rect key="frame" x="14" y="7" width="359" height="25"/>
+                                            <rect key="frame" x="20" y="7" width="353" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8D-SY-jtX">
-                                            <rect key="frame" x="14" y="32" width="353" height="20"/>
+                                            <rect key="frame" x="20" y="32" width="341" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="s8k-dN-Zgd"/>
                                             </constraints>
@@ -433,7 +433,6 @@ keeping track of your assignments</string>
                                         <constraint firstAttribute="bottomMargin" secondItem="O8D-SY-jtX" secondAttribute="bottom" constant="-0.5" id="SEO-6Y-7Wp"/>
                                         <constraint firstItem="O8D-SY-jtX" firstAttribute="centerX" secondItem="37f-cq-3Eg" secondAttribute="centerX" id="V4q-6y-F1h"/>
                                         <constraint firstItem="E4B-vY-3vy" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="YCw-G6-BNQ"/>
-                                        <constraint firstItem="E4B-vY-3vy" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" constant="-4" id="aVa-0b-E7c"/>
                                         <constraint firstItem="cG5-cK-vFE" firstAttribute="leading" secondItem="E4B-vY-3vy" secondAttribute="trailing" constant="6" id="ilO-wn-OKO"/>
                                         <constraint firstItem="cG5-cK-vFE" firstAttribute="top" secondItem="37f-cq-3Eg" secondAttribute="topMargin" constant="-1" id="mHU-IE-FDr"/>
                                         <constraint firstItem="O8D-SY-jtX" firstAttribute="leading" secondItem="cG5-cK-vFE" secondAttribute="leading" id="nta-De-Bju"/>
@@ -443,6 +442,7 @@ keeping track of your assignments</string>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="cG5-cK-vFE" secondAttribute="trailing" constant="41" id="8jj-EK-9pB"/>
+                                    <constraint firstItem="E4B-vY-3vy" firstAttribute="leading" secondItem="WCw-Qf-5nD" secondAttribute="leading" constant="10" id="UMN-gG-zYD"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="classDateLabel" destination="O8D-SY-jtX" id="yga-Qk-5dd"/>
@@ -545,17 +545,17 @@ keeping track of your assignments</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMy-Q1-gjJ">
-                                                        <rect key="frame" x="8" y="8" width="398" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <color key="textColor" red="0.7803921568627451" green="0.7803921568627451" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <rect key="frame" x="20" y="8" width="386" height="34"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <color key="textColor" red="0.78048413991928101" green="0.78009569644927979" blue="0.80003052949905396" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.392374187707901" green="0.39150160551071167" blue="0.43537738919258118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="8k5-em-6m7"/>
                                                     <constraint firstAttribute="trailing" secondItem="wMy-Q1-gjJ" secondAttribute="trailing" constant="8" id="D3R-o1-A54"/>
-                                                    <constraint firstItem="wMy-Q1-gjJ" firstAttribute="leading" secondItem="AX7-Lh-nnI" secondAttribute="leading" constant="8" id="Ydm-ym-Hed"/>
+                                                    <constraint firstItem="wMy-Q1-gjJ" firstAttribute="leading" secondItem="AX7-Lh-nnI" secondAttribute="leading" constant="20" id="Ydm-ym-Hed"/>
                                                     <constraint firstItem="wMy-Q1-gjJ" firstAttribute="top" secondItem="AX7-Lh-nnI" secondAttribute="top" constant="8" id="uVL-GY-bka"/>
                                                     <constraint firstAttribute="bottom" secondItem="wMy-Q1-gjJ" secondAttribute="bottom" constant="8" id="usI-eL-jb9"/>
                                                 </constraints>
@@ -564,13 +564,13 @@ keeping track of your assignments</string>
                                                 <rect key="frame" x="0.0" y="51" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn2-bl-OaP">
-                                                        <rect key="frame" x="8" y="8" width="45" height="44"/>
+                                                        <rect key="frame" x="20" y="8" width="45" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Etm-4N-cqR" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                                        <rect key="frame" x="120" y="8" width="286" height="44"/>
+                                                        <rect key="frame" x="132" y="8" width="274" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
@@ -579,7 +579,7 @@ keeping track of your assignments</string>
                                                     <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="67" id="KfB-Yr-zFJ"/>
                                                     <constraint firstAttribute="height" constant="60" id="PiJ-Yq-cjD"/>
                                                     <constraint firstItem="Etm-4N-cqR" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="bRt-rp-TPX"/>
-                                                    <constraint firstItem="Yn2-bl-OaP" firstAttribute="leading" secondItem="CWj-ja-CWk" secondAttribute="leading" constant="8" id="iZb-Sl-vD2"/>
+                                                    <constraint firstItem="Yn2-bl-OaP" firstAttribute="leading" secondItem="CWj-ja-CWk" secondAttribute="leading" constant="20" id="iZb-Sl-vD2"/>
                                                     <constraint firstAttribute="bottom" secondItem="Yn2-bl-OaP" secondAttribute="bottom" constant="8" id="nG8-rq-EQc"/>
                                                     <constraint firstAttribute="bottom" secondItem="Etm-4N-cqR" secondAttribute="bottom" constant="8" id="oui-zt-nYS"/>
                                                     <constraint firstAttribute="trailing" secondItem="Etm-4N-cqR" secondAttribute="trailing" constant="8" id="sCu-kS-LOs"/>
@@ -590,19 +590,19 @@ keeping track of your assignments</string>
                                                 <rect key="frame" x="0.0" y="112" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-kB-Q6n" userLabel="Credit Hours">
-                                                        <rect key="frame" x="8" y="8" width="97" height="44"/>
+                                                        <rect key="frame" x="20" y="8" width="97" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPb-gC-sKS" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                                        <rect key="frame" x="120" y="8" width="286" height="44"/>
+                                                        <rect key="frame" x="132" y="8" width="274" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.23940511049999999" green="0.2388508469" blue="0.26677089929999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstItem="cRG-kB-Q6n" firstAttribute="leading" secondItem="WLa-Nn-0XS" secondAttribute="leading" constant="8" id="0uf-JE-VMJ"/>
+                                                    <constraint firstItem="cRG-kB-Q6n" firstAttribute="leading" secondItem="WLa-Nn-0XS" secondAttribute="leading" constant="20" id="0uf-JE-VMJ"/>
                                                     <constraint firstItem="cRG-kB-Q6n" firstAttribute="top" secondItem="WLa-Nn-0XS" secondAttribute="top" constant="8" id="3sI-mb-f7i"/>
                                                     <constraint firstAttribute="height" constant="60" id="9Xw-Q0-Mg8"/>
                                                     <constraint firstAttribute="trailing" secondItem="WPb-gC-sKS" secondAttribute="trailing" constant="8" id="VY1-0o-tVf"/>
@@ -616,13 +616,13 @@ keeping track of your assignments</string>
                                                 <rect key="frame" x="0.0" y="173" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ooq-5e-OoZ">
-                                                        <rect key="frame" x="8" y="8" width="73" height="44"/>
+                                                        <rect key="frame" x="20" y="8" width="73" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spring 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-1j-1fm">
-                                                        <rect key="frame" x="119.99999999999999" y="8" width="91.666666666666643" height="44"/>
+                                                        <rect key="frame" x="132" y="8" width="91.666666666666657" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -636,7 +636,7 @@ keeping track of your assignments</string>
                                                     <constraint firstAttribute="bottom" secondItem="Kwy-1j-1fm" secondAttribute="bottom" constant="8" id="Ra4-dk-C0V"/>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="leading" secondItem="Ooq-5e-OoZ" secondAttribute="trailing" constant="39" id="UCm-lC-8FW"/>
                                                     <constraint firstItem="Ooq-5e-OoZ" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="d4m-Qf-seR"/>
-                                                    <constraint firstItem="Ooq-5e-OoZ" firstAttribute="leading" secondItem="3OD-K4-8dK" secondAttribute="leading" constant="8" id="oOf-BV-xJs"/>
+                                                    <constraint firstItem="Ooq-5e-OoZ" firstAttribute="leading" secondItem="3OD-K4-8dK" secondAttribute="leading" constant="20" id="oOf-BV-xJs"/>
                                                     <constraint firstAttribute="bottom" secondItem="Ooq-5e-OoZ" secondAttribute="bottom" constant="8" id="rdx-sB-JhB"/>
                                                 </constraints>
                                                 <connections>
@@ -654,15 +654,15 @@ keeping track of your assignments</string>
                                                 <rect key="frame" x="0.0" y="235" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Rubric" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-LP-ed3">
-                                                        <rect key="frame" x="8" y="8" width="398" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <rect key="frame" x="20" y="8" width="386" height="34"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <color key="textColor" red="0.78048413991928101" green="0.78009569644927979" blue="0.80003052949905396" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.3921568627" green="0.3921568627" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.39237418769999999" green="0.39150160550000002" blue="0.43537738920000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstItem="nqD-LP-ed3" firstAttribute="leading" secondItem="9HN-th-0OK" secondAttribute="leading" constant="8" id="2gK-F4-qRJ"/>
+                                                    <constraint firstItem="nqD-LP-ed3" firstAttribute="leading" secondItem="9HN-th-0OK" secondAttribute="leading" constant="20" id="2gK-F4-qRJ"/>
                                                     <constraint firstAttribute="height" constant="50" id="dim-Uf-Apv"/>
                                                     <constraint firstItem="nqD-LP-ed3" firstAttribute="top" secondItem="9HN-th-0OK" secondAttribute="top" constant="8" id="j6u-qJ-lB3"/>
                                                     <constraint firstAttribute="bottom" secondItem="nqD-LP-ed3" secondAttribute="bottom" constant="8" id="ju2-nv-ZnC"/>
@@ -751,38 +751,40 @@ keeping track of your assignments</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">
-                                            <rect key="frame" x="5" y="42" width="397" height="14"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <rect key="frame" x="20" y="42" width="382" height="14"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMd-0W-qFo">
-                                            <rect key="frame" x="5" y="24" width="392" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <rect key="frame" x="20" y="24" width="377" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignment Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJl-j5-uRc">
-                                            <rect key="frame" x="5" y="0.0" width="397" height="25"/>
+                                            <rect key="frame" x="20" y="0.0" width="382" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="KMd-0W-qFo" firstAttribute="leading" secondItem="hY2-4Y-CQe" secondAttribute="leadingMargin" constant="-3" id="3k5-UH-N9b"/>
                                         <constraint firstItem="KMd-0W-qFo" firstAttribute="top" secondItem="MJl-j5-uRc" secondAttribute="bottom" constant="-1" id="4r2-DJ-t4o"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="KMd-0W-qFo" secondAttribute="trailing" constant="9" id="AKc-Xi-Hby"/>
-                                        <constraint firstItem="Teo-NC-rhr" firstAttribute="leading" secondItem="hY2-4Y-CQe" secondAttribute="leadingMargin" constant="-3" id="F4i-JW-RzT"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Teo-NC-rhr" secondAttribute="bottom" constant="0.5" id="Xe3-4a-jUa"/>
                                         <constraint firstItem="KMd-0W-qFo" firstAttribute="centerY" secondItem="hY2-4Y-CQe" secondAttribute="centerY" id="dy0-r5-p0G"/>
                                         <constraint firstItem="Teo-NC-rhr" firstAttribute="top" secondItem="KMd-0W-qFo" secondAttribute="bottom" constant="2" id="egq-VD-LDb"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="MJl-j5-uRc" secondAttribute="trailing" constant="4" id="ixz-ic-aPY"/>
                                         <constraint firstItem="MJl-j5-uRc" firstAttribute="top" secondItem="hY2-4Y-CQe" secondAttribute="topMargin" constant="-8" id="kGe-pN-fUS"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Teo-NC-rhr" secondAttribute="trailing" constant="4" id="ro6-e4-D2h"/>
-                                        <constraint firstItem="MJl-j5-uRc" firstAttribute="leading" secondItem="hY2-4Y-CQe" secondAttribute="leadingMargin" constant="-3" id="vpq-zR-SzU"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstItem="KMd-0W-qFo" firstAttribute="leading" secondItem="sMI-EQ-Anf" secondAttribute="leading" constant="20" id="QW9-Cv-i3J"/>
+                                    <constraint firstItem="MJl-j5-uRc" firstAttribute="leading" secondItem="sMI-EQ-Anf" secondAttribute="leading" constant="20" id="U4B-87-TUG"/>
+                                    <constraint firstItem="Teo-NC-rhr" firstAttribute="leading" secondItem="sMI-EQ-Anf" secondAttribute="leading" constant="20" id="vcx-4t-bOJ"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="dateLabel" destination="Teo-NC-rhr" id="Kpa-bW-mAZ"/>
                                     <outlet property="nameLabel" destination="MJl-j5-uRc" id="S8c-EN-2Kh"/>
@@ -1650,7 +1652,7 @@ maintain or achieve a desired grade.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOU-fx-1Fq">
-                                                    <rect key="frame" x="8" y="8" width="61" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="61" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1659,13 +1661,15 @@ maintain or achieve a desired grade.</string>
                                             <constraints>
                                                 <constraint firstItem="lo4-Mx-ibC" firstAttribute="trailing" secondItem="g5L-Hk-TWN" secondAttribute="trailingMargin" id="6YB-nK-Y8d"/>
                                                 <constraint firstItem="GOU-fx-1Fq" firstAttribute="bottom" secondItem="g5L-Hk-TWN" secondAttribute="bottomMargin" id="Akl-Ke-NfI"/>
-                                                <constraint firstItem="GOU-fx-1Fq" firstAttribute="leading" secondItem="g5L-Hk-TWN" secondAttribute="leadingMargin" id="MDT-CP-f56"/>
                                                 <constraint firstItem="GOU-fx-1Fq" firstAttribute="top" secondItem="g5L-Hk-TWN" secondAttribute="topMargin" id="SeT-5m-KH0"/>
                                                 <constraint firstItem="lo4-Mx-ibC" firstAttribute="bottom" secondItem="g5L-Hk-TWN" secondAttribute="bottomMargin" id="cmK-XA-QWa"/>
                                                 <constraint firstItem="lo4-Mx-ibC" firstAttribute="top" secondItem="g5L-Hk-TWN" secondAttribute="topMargin" id="sGp-zA-GgH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="GOU-fx-1Fq" firstAttribute="leading" secondItem="LhC-JI-f9o" secondAttribute="leading" constant="20" id="Ip9-26-uts"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1679,7 +1683,7 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade letters and points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uz5-tH-YSK">
-                                                    <rect key="frame" x="8" y="8" width="355" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="343" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1689,10 +1693,12 @@ maintain or achieve a desired grade.</string>
                                                 <constraint firstAttribute="bottomMargin" secondItem="uz5-tH-YSK" secondAttribute="bottom" id="0eJ-iw-sie"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="uz5-tH-YSK" secondAttribute="trailing" constant="10" id="UFW-DO-M4u"/>
                                                 <constraint firstItem="uz5-tH-YSK" firstAttribute="top" secondItem="d5x-F0-ksf" secondAttribute="topMargin" id="hTB-2r-yqH"/>
-                                                <constraint firstItem="uz5-tH-YSK" firstAttribute="leading" secondItem="d5x-F0-ksf" secondAttribute="leadingMargin" id="jAh-ls-X3s"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="uz5-tH-YSK" firstAttribute="leading" secondItem="zJJ-py-eHc" secondAttribute="leading" constant="20" id="sAx-Pc-pFQ"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="KmB-hO-tc9" kind="show" id="YSV-dp-ipR"/>
                                         </connections>
@@ -1705,20 +1711,22 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restore defaults" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJe-Tb-sgM">
-                                                    <rect key="frame" x="8" y="8" width="355" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="343" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="CJe-Tb-sgM" firstAttribute="leading" secondItem="8iG-LM-bAc" secondAttribute="leadingMargin" id="o6N-yn-ZZe"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="CJe-Tb-sgM" secondAttribute="bottom" id="sw5-Vk-EwL"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="CJe-Tb-sgM" secondAttribute="trailing" constant="10" id="tdG-lI-ZMK"/>
                                                 <constraint firstItem="CJe-Tb-sgM" firstAttribute="top" secondItem="8iG-LM-bAc" secondAttribute="topMargin" id="ysZ-Nb-E05"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="CJe-Tb-sgM" firstAttribute="leading" secondItem="r48-MR-svw" secondAttribute="leading" constant="20" id="DYO-bx-lzf"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1732,20 +1740,22 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewatch Intro Screen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bK9-TG-NEb">
-                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="333" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="bK9-TG-NEb" firstAttribute="leading" secondItem="PqZ-Vz-s6i" secondAttribute="leadingMargin" id="1q3-Sf-4yS"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="bK9-TG-NEb" secondAttribute="trailing" constant="20" id="Psq-0f-PRz"/>
                                                 <constraint firstItem="bK9-TG-NEb" firstAttribute="top" secondItem="PqZ-Vz-s6i" secondAttribute="topMargin" id="Ve6-94-PQ1"/>
                                                 <constraint firstItem="bK9-TG-NEb" firstAttribute="bottom" secondItem="PqZ-Vz-s6i" secondAttribute="bottomMargin" id="g9L-0D-XBk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="bK9-TG-NEb" firstAttribute="leading" secondItem="Snx-4N-sSJ" secondAttribute="leading" constant="20" id="vxL-N0-aVp"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="BBe-6J-vmz" kind="presentation" id="X4t-Yi-YB0"/>
                                         </connections>
@@ -1758,7 +1768,7 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtC-68-wQ7">
-                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="333" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1768,10 +1778,12 @@ maintain or achieve a desired grade.</string>
                                                 <constraint firstItem="dtC-68-wQ7" firstAttribute="bottom" secondItem="e5b-lT-tVb" secondAttribute="bottomMargin" id="31m-jc-iPx"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="dtC-68-wQ7" secondAttribute="trailing" constant="20" id="RPG-CJ-fXS"/>
                                                 <constraint firstItem="dtC-68-wQ7" firstAttribute="top" secondItem="e5b-lT-tVb" secondAttribute="topMargin" id="aWx-ib-8uD"/>
-                                                <constraint firstItem="dtC-68-wQ7" firstAttribute="leading" secondItem="e5b-lT-tVb" secondAttribute="leadingMargin" id="bhc-uy-56K"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="dtC-68-wQ7" firstAttribute="leading" secondItem="mgj-SE-E83" secondAttribute="leading" constant="20" id="HwH-yG-EXd"/>
+                                        </constraints>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="0tk-lt-o3D">
                                         <rect key="frame" x="0.0" y="276" width="414" height="44"/>
@@ -1781,7 +1793,7 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XA-eb-vRz">
-                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="333" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1789,12 +1801,14 @@ maintain or achieve a desired grade.</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="4XA-eb-vRz" firstAttribute="top" secondItem="sm5-sz-qAT" secondAttribute="topMargin" id="8de-Fl-XtA"/>
-                                                <constraint firstItem="4XA-eb-vRz" firstAttribute="leading" secondItem="sm5-sz-qAT" secondAttribute="leadingMargin" id="Ym0-9X-tyS"/>
                                                 <constraint firstItem="4XA-eb-vRz" firstAttribute="bottom" secondItem="sm5-sz-qAT" secondAttribute="bottomMargin" id="cm7-0s-M9M"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="4XA-eb-vRz" secondAttribute="trailing" constant="20" id="syf-G6-OhZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="4XA-eb-vRz" firstAttribute="leading" secondItem="0tk-lt-o3D" secondAttribute="leading" constant="20" id="rDw-MZ-27S"/>
+                                        </constraints>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="uL4-j3-vPL">
                                         <rect key="frame" x="0.0" y="320" width="414" height="44"/>
@@ -1804,7 +1818,7 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTT-q4-aB8">
-                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="333" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1813,11 +1827,13 @@ maintain or achieve a desired grade.</string>
                                             <constraints>
                                                 <constraint firstItem="yTT-q4-aB8" firstAttribute="top" secondItem="2GX-0O-gnp" secondAttribute="topMargin" id="6ep-Sm-d2V"/>
                                                 <constraint firstItem="yTT-q4-aB8" firstAttribute="bottom" secondItem="2GX-0O-gnp" secondAttribute="bottomMargin" id="ION-5J-yZa"/>
-                                                <constraint firstItem="yTT-q4-aB8" firstAttribute="leading" secondItem="2GX-0O-gnp" secondAttribute="leadingMargin" id="NfX-6Y-qah"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yTT-q4-aB8" secondAttribute="trailing" constant="20" id="dTg-hj-ce7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="yTT-q4-aB8" firstAttribute="leading" secondItem="uL4-j3-vPL" secondAttribute="leading" constant="20" id="oQK-OT-cYB"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1831,7 +1847,7 @@ maintain or achieve a desired grade.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2o-ho-hRz">
-                                                    <rect key="frame" x="8" y="8" width="345" height="27"/>
+                                                    <rect key="frame" x="20" y="8" width="333" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1841,10 +1857,12 @@ maintain or achieve a desired grade.</string>
                                                 <constraint firstItem="h2o-ho-hRz" firstAttribute="bottom" secondItem="e9c-H6-P8a" secondAttribute="bottomMargin" id="4ge-R7-yI2"/>
                                                 <constraint firstItem="h2o-ho-hRz" firstAttribute="top" secondItem="e9c-H6-P8a" secondAttribute="topMargin" id="SFr-je-E2F"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="h2o-ho-hRz" secondAttribute="trailing" constant="20" id="eAJ-NJ-742"/>
-                                                <constraint firstItem="h2o-ho-hRz" firstAttribute="leading" secondItem="e9c-H6-P8a" secondAttribute="leadingMargin" id="kCL-Ar-bGT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.34540385010000002" green="0.35997679830000001" blue="0.41185268759999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="h2o-ho-hRz" firstAttribute="leading" secondItem="WDW-Kj-IwF" secondAttribute="leading" constant="20" id="nn7-y4-Roy"/>
+                                        </constraints>
                                         <connections>
                                             <segue destination="jLS-Cl-QAa" kind="show" id="dqN-bV-Y0l"/>
                                         </connections>
@@ -2711,8 +2729,8 @@ maintain or achieve a desired grade.</string>
         <image name="settingsIconFilled" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Eyw-f5-vuE"/>
+        <segue reference="pVc-mS-YSd"/>
         <segue reference="5kc-o4-kea"/>
-        <segue reference="X4t-Yi-YB0"/>
+        <segue reference="Eyw-f5-vuE"/>
     </inferredMetricsTieBreakers>
 </document>
