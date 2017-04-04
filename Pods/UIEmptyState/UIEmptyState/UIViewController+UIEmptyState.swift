@@ -52,6 +52,8 @@ extension UIViewController {
     /// The method responsible for show and hiding the `UIEmptyStateDataSource.viewForEmptyState` view
     /// 
     /// **Important:** This should be called whenever changes are made to the tableView data source or after reloading the tableview
+    ///                 
+    /// DO NOT override this method/implement it unless you need custom behavior. 
     public func reloadEmptyState(forTableView tableView: UITableView) {
         guard let source = emptyStateDataSource, source.shouldShowEmptyStateView(forTableView: tableView) else {
             // If shouldnt show view remove from superview, enable scrolling again
@@ -61,8 +63,13 @@ extension UIViewController {
         }
         
         // Check whether scrolling for tableview is allowed or not
-        tableView.isScrollEnabled = source.emptyStateViewAllowsScrolling()
-        showView(forSource: source)
+        tableView.isScrollEnabled = source.emptyStateViewCanScroll
+        let emptyView = showView(forSource: source)
+        // Adjust if allowed
+        if source.emptyStateViewAdjustsToFitBars { self.edgesForExtendedLayout = [] }
+        else { self.edgesForExtendedLayout = .all }
+        // Call the did show view delegate
+        self.emptyStateDelegate?.emptyStateViewDidShow(view: emptyView)
     }
     
     /// The method responsible for show and hiding the `UIEmptyStateDataSource.viewForEmptyState` view
@@ -77,33 +84,59 @@ extension UIViewController {
         }
         
         // Check to see if scrolling is enabled
-        collectionView.isScrollEnabled = source.emptyStateViewAllowsScrolling()
-        showView(forSource: source)
+        collectionView.isScrollEnabled = source.emptyStateViewCanScroll
+        let emptyView = showView(forSource: source)
+        // Adjust if allowed
+        if source.emptyStateViewAdjustsToFitBars { self.edgesForExtendedLayout = [] }
+        else { self.edgesForExtendedLayout = .all }
+        // Call the did show view delegate
+        self.emptyStateDelegate?.emptyStateViewDidShow(view: emptyView)
     }
     
     /// Private helper method which will create the empty state view if not created, or show it if hidden
-    private func showView(forSource source: UIEmptyStateDataSource) {
+    private func showView(forSource source: UIEmptyStateDataSource) -> UIView {
         if let createdView = emptyStateView {
             // View has been created, update it and then reshow
             createdView.isHidden = false
-            if let view = createdView as? UIEmptyStateView {
-                view.backgroundColor = source.backgroundColorForEmptyStateView()
-                view.title = source.titleForEmptyStateView()
-                view.image = source.imageForEmptyStateView()
-                view.detailMessage = source.detailMessageForEmptyStateView()
-                view.buttonTitle = source.buttonTitleForEmptyStateView()
-                view.buttonImage = source.buttonImageForEmptyStateView()
-                view.buttonSize = source.buttonSizeForEmptyStateView()
-                view.spacing = source.spacingForViewsInEmptyStateView()
+            guard let view = createdView as? UIEmptyStateView else { return createdView}
+            
+            view.backgroundColor = source.emptyStateBackgroundColor
+            view.image = source.emptyStateImage
+            view.imageSize = source.emptyStateImageSize
+            view.detailMessage = source.emptyStateDetailMessage
+            view.buttonTitle = source.emptyStateButtonTitle
+            view.buttonImage = source.emptyStateButtonImage
+            view.buttonSize = source.emptyStateButtonSize
+            view.spacing = source.emptyStateViewSpacing
+            // Animate now
+            if source.emptyStateViewCanAnimate && source.emptyStateViewAnimatesEverytime {
+                DispatchQueue.main.async {
+                    source.emptyStateViewAnimation(forView: view, animationDuration: source.emptyStateViewAnimationDuration, completion: { finished in
+                        self.emptyStateDelegate?.emptyStateViewAnimationCompleted(forEmptyStateView: view, didFinish: finished)
+                    })
+                }
             }
+            
+            return view
+        
         } else {
             // We can create the view now
-            let newView = source.viewForEmptyState()
+            let newView = source.emptyStateView
             // Add to emptyStateView property
             emptyStateView = newView
             // Add as a subView, bring it infront of the tableView
             self.view.addSubview(newView)
             self.view.bringSubview(toFront: newView)
+            // Animate now
+            if source.emptyStateViewCanAnimate {
+                DispatchQueue.main.async {
+                    source.emptyStateViewAnimation(forView: newView, animationDuration: source.emptyStateViewAnimationDuration, completion: { finished in
+                        self.emptyStateDelegate?.emptyStateViewAnimationCompleted(forEmptyStateView: newView, didFinish: finished)
+                    })
+                }
+            }
+            
+            return newView
         }
     }
     

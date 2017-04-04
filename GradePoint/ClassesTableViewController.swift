@@ -227,38 +227,28 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
         return try! Realm().objects(Class.self).isEmpty
     }
     
-    func titleForEmptyStateView() -> NSAttributedString {
+    var emptyStateTitle: NSAttributedString {
         let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Classes Added", attributes: attrs)
     }
     
-    func detailMessageForEmptyStateView() -> NSAttributedString? {
-        return nil
+    var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
+    
+    var emptyStateButtonTitle: NSAttributedString? {
+        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        return NSAttributedString(string: "Add a class", attributes: attrs)
     }
     
-    func imageForEmptyStateView() -> UIImage? {
-        return #imageLiteral(resourceName: "EmptyClassesIcon")
-    }
+    var emptyStateButtonImage: UIImage? { return #imageLiteral(resourceName: "buttonBg") }
     
-    func buttonImageForEmptyStateView() -> UIImage? {
-        return #imageLiteral(resourceName: "buttonBg")
-    }
-    
-    func buttonSizeForEmptyStateView() -> CGSize? {
-        return CGSize(width: 160, height: 45)
-    }
+    var emptyStateButtonSize: CGSize? { return CGSize(width: 160, height: 45) }
     
     // Empty State Delegate
     
     func emptyStatebuttonWasTapped(button: UIButton) {
         self.performSegue(withIdentifier: .addEditClass, sender: button)
-    }
-    
-    func buttonTitleForEmptyStateView() -> NSAttributedString? {
-        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
-        return NSAttributedString(string: "Add a class", attributes: attrs)
     }
 }
 

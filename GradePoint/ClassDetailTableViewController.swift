@@ -243,7 +243,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         return noAssignments && !shouldShowBlank
     }
     
-    func titleForEmptyStateView() -> NSAttributedString {
+    var emptyStateTitle: NSAttributedString {
         // If no class selected, tell user to select one
         guard let _ = _classObj else {
             let attrsForSelect = [NSForegroundColorAttributeName: UIColor.mutedText,
@@ -256,7 +256,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         return NSAttributedString(string: "No Assignments Added", attributes: attrs)
     }
     
-    func detailMessageForEmptyStateView() -> NSAttributedString? {
+    var emptyStateDetailMessage: NSAttributedString? {
         guard let _ = _classObj else { return nil }
         
         let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
@@ -264,7 +264,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
     }
     
-    func buttonTitleForEmptyStateView() -> NSAttributedString? {
+    var emptyStateButtonTitle: NSAttributedString? {
         guard let _ = _classObj else { return nil }
         
         let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
@@ -272,17 +272,21 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         return NSAttributedString(string: "Add assignment", attributes: attrs)
     }
     
-    func buttonImageForEmptyStateView() -> UIImage? {
+    var emptyStateButtonImage: UIImage? {
         guard let _ = _classObj else { return nil }
         
         return #imageLiteral(resourceName: "buttonBg")
     }
     
-    func buttonSizeForEmptyStateView() -> CGSize? {
+    var emptyStateButtonSize: CGSize? {
         guard let _ = _classObj else { return nil }
         
         return CGSize(width: 170, height: 50)
     }
+    
+    var emptyStateViewAnimatesEverytime: Bool { return false }
+    
+    var emptyStateViewAnimationDuration: TimeInterval { return 0.8 }
     
     // Delegate
     
