@@ -19,6 +19,15 @@ class AddEditAssignmentTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     /// The parent class which owns this Assignment, passed in via segue inside of ClassDetailTableViewController
     var parentClass: Class!
+    
+    /// The static cells, resused in cellForRow
+    var nameCell: UITableViewCell?
+    var dateLabelCell: UITableViewCell?
+    var dateCell: UITableViewCell?
+    var rubricLabelCell: UITableViewCell?
+    var rubricCell: UITableViewCell?
+    var scoreCell: UITableViewCell?
+    
     /// The date label, which displays the value picked from the date picker
     var dateLabel: UILabel!
     /// The rubric label, which displays the value picked from the rubric picker
@@ -127,6 +136,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
+                if let cachedCell = self.nameCell { return cachedCell }
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.inputLabel.text = "Name"
                 cell.contentView.backgroundColor = UIColor.darkBg
@@ -136,8 +146,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
                 if let assignment = assignmentForEdit { cell.inputField.text = assignment.name }
                 self.nameField = cell.inputField
+                self.nameCell = cell
                 return cell
             case 1:
+                if let cachedCell = self.dateLabelCell { return cachedCell }
                 let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.leftLabel.text = "Date"
                 // Init the right label 'date label', set text to todays date
@@ -149,15 +161,19 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 self.dateLabel = cell.rightLabel
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                self.dateLabelCell = cell
                 return cell
             case 2:
+                if let cachedCell = self.dateCell { return cachedCell }
                 let cell = BasicInfoDatePickerTableViewCell(style: .default, reuseIdentifier: nil)
                 // Add action from date picker
                 cell.datePicker.addTarget(self, action: #selector(self.datePickerChange), for: .valueChanged)
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                self.dateCell = cell
                 return cell
             case 3:
+                if let cachedCell = self.rubricLabelCell { return cachedCell }
                 let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.leftLabel.text = "Rubric"
                 if let assignment = assignmentForEdit { cell.rightLabel.text = assignment.associatedRubric!.name }
@@ -165,13 +181,16 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 self.rubricLabel = cell.rightLabel
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                self.rubricLabelCell = cell
                 return cell
             case 4:
+                if let cachedCell = self.rubricCell { return cachedCell }
                 let cell = BasicInfoRubricPickerTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.rubricPicker.delegate = self
                 cell.rubricPicker.dataSource = self
                 cell.contentView.backgroundColor = UIColor.darkBg
                 cell.selectionStyle = .none
+                self.rubricCell = cell
                 return cell
             default:
                 break
@@ -179,6 +198,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
+                if let cachedCell = self.scoreCell { return cachedCell }
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
                 let config = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
                 let textField = UISafeTextField(frame: .zero, fieldType: .percent, configuration: config)
@@ -203,6 +223,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
                 if let assignment = assignmentForEdit { cell.inputField.text = "\(assignment.score.roundedUpTo(2))%" }
                 self.scoreField = cell.inputField as? UISafeTextField
+                self.scoreCell = cell
                 return cell
             default:
                 break
