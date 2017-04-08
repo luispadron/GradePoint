@@ -95,7 +95,6 @@ open class UICalculateViewController: UIBlurViewController {
         let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         if (self.calculateView.frame.maxY) >= keyboardFrame.minY {
-            print("Covered")
             // Calculate view is covered adjust height
             self.calcViewYConstraint?.constant -= (self.calculateView.frame.maxY - keyboardFrame.minY) + 10
         }
