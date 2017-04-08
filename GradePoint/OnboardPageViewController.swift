@@ -15,7 +15,8 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
         return
            [self.newOnboardController(with: "Onboard1"),
             self.newOnboardController(with: "Onboard2"),
-            self.newOnboardController(with: "Onboard3")]
+            self.newOnboardController(with: "Onboard3"),
+            self.newOnboardController(with: "Onboard4")]
     }()
     
     override func viewDidLoad() {
@@ -64,6 +65,9 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         guard onboardControllers.count != nextIndex, onboardControllers.count > nextIndex else { return nil }
         
+        // Special case if were trying to move to the next controller and were in oboarding 3, then we need to make sure values are filled
+        if let vc = viewController as? Onboard3ViewController, !vc.isReadyToTransition { return nil }
+        
         return onboardControllers[nextIndex]
     }
     
@@ -83,6 +87,11 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         guard let toVC = pendingViewControllers.first else { return }
+        
+        // Set self as controller
+        if let vc = toVC as? Onboard3ViewController {
+            vc.pageController = self
+        }
         // Set the background color for this pageviewcontroller, which in turn sets the page controls color
         UIView.animate(withDuration: 0.2) { 
             self.backgroundColor = toVC.view.backgroundColor?.lighter(by: 10)

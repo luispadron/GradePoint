@@ -67,11 +67,12 @@
 		A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */; };
 		A0E8B6921E497A9800EC4470 /* AddEditClassViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6911E497A9800EC4470 /* AddEditClassViewDelegate.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
-		A0E8CAA51E5BF31E0029565A /* Onboard3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard3ViewController.swift */; };
+		A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */; };
 		A0E8CAA71E5BFE640029565A /* UserPreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA61E5BFE640029565A /* UserPreferenceKeys.swift */; };
 		A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */; };
 		A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF11E5900E20062F9F2 /* Double+Round.swift */; };
 		A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */; };
+		A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,11 +161,12 @@
 		A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewState.swift; sourceTree = "<group>"; };
 		A0E8B6911E497A9800EC4470 /* AddEditClassViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewDelegate.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
-		A0E8CAA41E5BF31E0029565A /* Onboard3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard3ViewController.swift; sourceTree = "<group>"; };
+		A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard4ViewController.swift; sourceTree = "<group>"; };
 		A0E8CAA61E5BFE640029565A /* UserPreferenceKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferenceKeys.swift; sourceTree = "<group>"; };
 		A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentViewDelegate.swift; sourceTree = "<group>"; };
 		A0F89EF11E5900E20062F9F2 /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
+		A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard3ViewController.swift; sourceTree = "<group>"; };
 		A70F0F8F4B5AE0A62E9DB397 /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
 		AF245C4173E1A735DC005B11 /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,7 +271,8 @@
 				A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */,
 				A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */,
 				A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */,
-				A0E8CAA41E5BF31E0029565A /* Onboard3ViewController.swift */,
+				A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */,
+				A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */,
 			);
 			name = Onboarding;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */,
 				A045BE841E78C3760046AC09 /* GPACalculatorViewController.swift in Sources */,
+				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
 				A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */,
@@ -753,7 +757,7 @@
 				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
-				A0E8CAA51E5BF31E0029565A /* Onboard3ViewController.swift in Sources */,
+				A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */,
 				A0E8CAA71E5BFE640029565A /* UserPreferenceKeys.swift in Sources */,
 				A0082BC11E3ED27300C91B3F /* Segueable.swift in Sources */,
 			);

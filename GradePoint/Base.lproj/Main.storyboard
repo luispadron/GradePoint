@@ -203,9 +203,118 @@ simply add your classes</string>
             <point key="canvasLocation" x="2813" y="-588"/>
         </scene>
         <!--Onboard3 View Controller-->
+        <scene sceneID="vY2-fY-Y1a">
+            <objects>
+                <viewController storyboardIdentifier="Onboard3" id="PYQ-dE-ErG" customClass="Onboard3ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G7q-7c-gIN"/>
+                        <viewControllerLayoutGuide type="bottom" id="6ra-zI-VWt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tz1-qI-5Nz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6p-N0-AhA">
+                                <rect key="frame" x="19.666666666666657" y="165.66666666666663" width="374.66666666666663" height="405"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you a college or high school student?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCS-68-gLt">
+                                        <rect key="frame" x="8" y="99.000000000000028" width="358.66666666666663" height="21.666666666666629"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does your school use A+ or non-A+ grading?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-UK-B8A">
+                                        <rect key="frame" x="8" y="240.66666666666666" width="358.66666666666663" height="21.666666666666714"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="TLo-Ok-BH9">
+                                        <rect key="frame" x="8" y="140.66666666666666" width="358.66666666666663" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="GPC-oi-fwm"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="College"/>
+                                            <segment title="High School"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.2125631719827652" green="0.22421877086162567" blue="0.3765733540058136" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <action selector="schoolTypeChanged:" destination="PYQ-dE-ErG" eventType="valueChanged" id="Vdz-Ap-z7A"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="rv3-c6-bhc">
+                                        <rect key="frame" x="8" y="282.33333333333337" width="358.66666666666663" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Hwj-4p-ju0"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="A+"/>
+                                            <segment title="Non-A+"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.21256317199999999" green="0.2242187709" blue="0.37657335400000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <action selector="gradingTypeChanged:" destination="PYQ-dE-ErG" eventType="valueChanged" id="l6t-S4-Flw"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a few more questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrY-If-ell">
+                                        <rect key="frame" x="8" y="8" width="358.66666666666663" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="fCS-68-gLt" firstAttribute="leading" secondItem="o6p-N0-AhA" secondAttribute="leading" constant="8" id="9GN-83-DXW"/>
+                                    <constraint firstAttribute="trailing" secondItem="rv3-c6-bhc" secondAttribute="trailing" constant="8" id="CSV-yM-uTG"/>
+                                    <constraint firstAttribute="height" constant="405" id="DS0-7q-Jab"/>
+                                    <constraint firstAttribute="trailing" secondItem="TLo-Ok-BH9" secondAttribute="trailing" constant="8" id="GyN-q0-GxX"/>
+                                    <constraint firstItem="rv3-c6-bhc" firstAttribute="leading" secondItem="o6p-N0-AhA" secondAttribute="leading" constant="8" id="Hiz-x1-BbQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="fCS-68-gLt" secondAttribute="trailing" constant="8" id="Obo-WK-Fev"/>
+                                    <constraint firstItem="QrY-If-ell" firstAttribute="leading" secondItem="o6p-N0-AhA" secondAttribute="leading" constant="8" id="RCa-db-yH6"/>
+                                    <constraint firstItem="Sxd-UK-B8A" firstAttribute="top" secondItem="TLo-Ok-BH9" secondAttribute="bottom" constant="60" id="ZO1-Uf-go2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Sxd-UK-B8A" secondAttribute="trailing" constant="8" id="aYJ-ka-XK1"/>
+                                    <constraint firstItem="QrY-If-ell" firstAttribute="top" secondItem="o6p-N0-AhA" secondAttribute="top" constant="8" id="bNd-dx-I0F"/>
+                                    <constraint firstItem="rv3-c6-bhc" firstAttribute="top" secondItem="Sxd-UK-B8A" secondAttribute="bottom" constant="20" id="ea3-2n-Aay"/>
+                                    <constraint firstItem="Sxd-UK-B8A" firstAttribute="leading" secondItem="o6p-N0-AhA" secondAttribute="leading" constant="8" id="iVi-gZ-ToD"/>
+                                    <constraint firstItem="TLo-Ok-BH9" firstAttribute="top" secondItem="fCS-68-gLt" secondAttribute="bottom" constant="20" id="my0-bu-skc"/>
+                                    <constraint firstItem="TLo-Ok-BH9" firstAttribute="leading" secondItem="o6p-N0-AhA" secondAttribute="leading" constant="8" id="sdB-h3-W2l"/>
+                                    <constraint firstItem="fCS-68-gLt" firstAttribute="top" secondItem="QrY-If-ell" secondAttribute="bottom" constant="70" id="t6L-2x-XP7"/>
+                                    <constraint firstAttribute="trailing" secondItem="QrY-If-ell" secondAttribute="trailing" constant="8" id="v6h-z6-Hnp"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1l-7a-6MR">
+                                <rect key="frame" x="135.66666666666669" y="674.33333333333348" width="143.00000000000006" height="21.666666666666629"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.51764705882352935" green="0.69411764705882351" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="6ra-zI-VWt" firstAttribute="top" secondItem="K1l-7a-6MR" secondAttribute="bottom" constant="40" id="EWp-fO-0Dd"/>
+                            <constraint firstItem="K1l-7a-6MR" firstAttribute="centerX" secondItem="Tz1-qI-5Nz" secondAttribute="centerX" id="EYi-Xu-ycR"/>
+                            <constraint firstItem="o6p-N0-AhA" firstAttribute="centerX" secondItem="Tz1-qI-5Nz" secondAttribute="centerX" id="StY-dQ-9Yy"/>
+                            <constraint firstItem="o6p-N0-AhA" firstAttribute="centerY" secondItem="Tz1-qI-5Nz" secondAttribute="centerY" id="tI3-CQ-8OO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gradingTypeLabel" destination="Sxd-UK-B8A" id="xNh-ef-9ad"/>
+                        <outlet property="gradingTypeSegementControl" destination="rv3-c6-bhc" id="Jj9-cY-Qei"/>
+                        <outlet property="schoolTypeLabel" destination="fCS-68-gLt" id="2zZ-E8-x3n"/>
+                        <outlet property="schoolTypeSegmentControl" destination="TLo-Ok-BH9" id="xDL-hq-dRz"/>
+                        <outlet property="titleLabel" destination="QrY-If-ell" id="hEM-aT-jYI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SKd-0s-eXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3534.7826086956525" y="-589.4021739130435"/>
+        </scene>
+        <!--Onboard4 View Controller-->
         <scene sceneID="XXY-DJ-cAb">
             <objects>
-                <viewController storyboardIdentifier="Onboard3" id="hau-QZ-vzB" customClass="Onboard3ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Onboard4" id="hau-QZ-vzB" customClass="Onboard4ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mn4-gi-NwI"/>
                         <viewControllerLayoutGuide type="bottom" id="gki-cI-ih5"/>
@@ -286,7 +395,7 @@ keeping track of your assignments</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ9-wb-ncy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3551" y="-588"/>
+            <point key="canvasLocation" x="4262" y="-589"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hv5-2k-zId">
