@@ -58,7 +58,7 @@ class Onboard3ViewController: UIViewController {
         }) { (finished) in
             if finished {
                 // Animate the progress ring
-                self.progressRing.setProgress(value: 100, animationDuration: 3.0, completion: { [weak self] in
+                self.progressRing.setProgress(value: 100, animationDuration: 2.0, completion: { [weak self] in
                     // When done animate the button alpha
                     UIView.animate(withDuration: 0.5, animations: { 
                         self?.button.alpha = 1.0
