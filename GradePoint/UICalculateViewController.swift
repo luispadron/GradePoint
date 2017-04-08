@@ -18,10 +18,13 @@ open class UICalculateViewController: UIBlurViewController {
     
     /// The calculate view instance
     open lazy var calculateView: UICalculateView = {
-        let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 320, height: 220)))
+        let view = UICalculateView(frame: CGRect(origin: self.view.center, size: CGSize(width: 310, height: 210)))
         view.delegate = self
         return view
     }()
+    
+    private var calcViewYConstraint: NSLayoutConstraint?
+    private var calcViewInitialY: CGFloat?
     
     // MARK: Initializers
     
@@ -41,20 +44,41 @@ open class UICalculateViewController: UIBlurViewController {
         self.view.addSubview(calculateView)
         calculateView.center = self.view.center
         
+        let width = self.view.frame.width > 310 ? 310 : self.view.frame.width - 15
+        let height: CGFloat = 210.0
         // Add constraints
         let widthConstraint = NSLayoutConstraint(item: calculateView, attribute: .width, relatedBy: .equal, toItem: nil,
-                                                 attribute: .notAnAttribute, multiplier: 1.0, constant: calculateView.frame.width)
+                                                 attribute: .notAnAttribute, multiplier: 1.0, constant: width)
         let heightConstraint = NSLayoutConstraint(item: calculateView, attribute: .height, relatedBy: .equal, toItem: nil,
-                                                  attribute: .notAnAttribute, multiplier: 1.0, constant: calculateView.frame.height)
+                                                  attribute: .notAnAttribute, multiplier: 1.0, constant: height)
         let xConstraint = NSLayoutConstraint(item: calculateView, attribute: .centerX, relatedBy: .equal, toItem: self.view,
                                              attribute: .centerX, multiplier: 1.0, constant: 0)
-        let yConstraint = NSLayoutConstraint(item: calculateView, attribute: .centerY, relatedBy: .equal, toItem: self.view,
+        self.calcViewYConstraint = NSLayoutConstraint(item: calculateView, attribute: .centerY, relatedBy: .equal, toItem: self.view,
                                              attribute: .centerY, multiplier: 1.0, constant: 0)
-        NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, yConstraint])
+        NSLayoutConstraint.activate([widthConstraint, heightConstraint, xConstraint, self.calcViewYConstraint!])
         
         // Add recognizer to view
         let tap = UITapGestureRecognizer(target: self, action: #selector(viewWasTapped))
         self.view.addGestureRecognizer(tap)
+        
+        // Register for keyboard notifications
+        // If not on iPad where the view will be presented as a popover
+        if !(UIDevice.current.userInterfaceIdiom == .pad) {
+            // Setup keyboard notifications
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        }
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.calcViewInitialY = self.calcViewYConstraint?.constant
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Remove notifications for keyboard
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Actions
@@ -63,6 +87,24 @@ open class UICalculateViewController: UIBlurViewController {
         let tapPoint = recognizer.location(in: self.view)
         if calculateView.frame.contains(tapPoint) { return }
         else { self.animateOut(completion: nil) }
+    }
+    
+    /// Called whenever keyboard is shown, adjusts scroll view
+    func keyboardDidShow(notification: Notification) {
+        let userInfo = notification.userInfo!
+        let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        if (self.calculateView.frame.maxY) >= keyboardFrame.minY {
+            print("Covered")
+            // Calculate view is covered adjust height
+            self.calcViewYConstraint?.constant -= (self.calculateView.frame.maxY - keyboardFrame.minY) + 10
+        }
+    }
+    
+    /// Called whenever keyboard is shown, adjusts scroll view
+    func keyboardWillHide(notification: Notification) {
+        // Revert constraint
+        self.calcViewYConstraint?.constant = self.calcViewInitialY ?? self.view.center.y
     }
     
     // MARK: Animations
