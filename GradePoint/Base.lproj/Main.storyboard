@@ -304,6 +304,7 @@ simply add your classes</string>
                         <outlet property="gradingTypeSegementControl" destination="rv3-c6-bhc" id="Jj9-cY-Qei"/>
                         <outlet property="schoolTypeLabel" destination="fCS-68-gLt" id="2zZ-E8-x3n"/>
                         <outlet property="schoolTypeSegmentControl" destination="TLo-Ok-BH9" id="xDL-hq-dRz"/>
+                        <outlet property="swipeLabel" destination="K1l-7a-6MR" id="Ow9-EA-Eny"/>
                         <outlet property="titleLabel" destination="QrY-If-ell" id="hEM-aT-jYI"/>
                     </connections>
                 </viewController>
