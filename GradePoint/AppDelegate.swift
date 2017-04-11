@@ -10,10 +10,9 @@ import UIKit
 import RealmSwift
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var hasOnboardedUser: Bool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
@@ -21,13 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         // Checks for any required migrations
         checkForMigrations()
-        
-        let splitViewController = self.window!.rootViewController!.childViewControllers.first as! UISplitViewController
-        let detailNavController = splitViewController.viewControllers.last as? UINavigationController
-        detailNavController?.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        splitViewController.delegate = self
-        splitViewController.preferredDisplayMode = .allVisible
-        
         
         // Custom color for status bar
         UIApplication.shared.statusBarStyle = .lightContent
@@ -53,49 +45,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Change keyboard to dark version
         UITextField.appearance().keyboardAppearance = .dark
         
-        // Figure out whether we have onboarded the user or not
-        let defaults = UserDefaults.standard
-        self.hasOnboardedUser = defaults.bool(forKey: UserPreferenceKeys.onboardingComplete.rawValue)
-        
         // If no initial GPA Scale has been created then create that now, this will only be the case on first start up
         let realm = try! Realm()
         if realm.objects(GPAScale.self).count < 1 { GPAScale.createInitialScale() }
         
+        // Figure out whether we have onboarded the user or not
+        let defaults = UserDefaults.standard
+        let hasOnboarded = defaults.bool(forKey: UserPreferenceKeys.onboardingComplete.rawValue)
+
+        if !hasOnboarded { self.presentOnboarding() }
+        
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-    // MARK: - Split view
-
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        guard let detailNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let detailController = detailNavController.topViewController as? ClassDetailTableViewController else { return false }
-        if detailController.classObj == nil { return true }
-        return false
-    }
-
     // MARK: Helper Methods
+    
+    private func presentOnboarding() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let onboarding = storyboard.instantiateViewController(withIdentifier: "OnboardPageViewController") as! OnboardPageViewController
+        self.window?.rootViewController = onboarding
+    }
+    
     
     // TODO: REMOVE BEFORE RELEASE
     func checkForMigrations() {

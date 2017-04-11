@@ -28,6 +28,12 @@ class ClassesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Split view delegation and customization
+        self.splitViewController?.delegate = self
+        self.splitViewController?.preferredDisplayMode = .allVisible
+    
+        
         // Set delegate and data source for UIEmptyState
         self.emptyStateDataSource = self
         self.emptyStateDelegate = self
@@ -50,12 +56,6 @@ class ClassesTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
-        
-        // If user has not been onboarded then present onboarding
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        if let onboarded = delegate?.hasOnboardedUser, !onboarded {
-            self.performSegue(withIdentifier: .onboarding, sender: self)
-        }
     }
 
     // MARK: - Table View
@@ -357,5 +357,18 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
             }
         }
         return indexOfMatch
+    }
+}
+
+// MARK: - Split vie
+
+extension ClassesTableViewController: UISplitViewControllerDelegate {
+
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController,
+                             onto primaryViewController:UIViewController) -> Bool {
+        guard let detailNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let detailController = detailNavController.topViewController as? ClassDetailTableViewController else { return false }
+        if detailController.classObj == nil { return true }
+        return false
     }
 }
