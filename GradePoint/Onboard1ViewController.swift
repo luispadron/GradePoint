@@ -58,8 +58,8 @@ class Onboard1ViewController: UIViewController {
                 self.appIcon.transform = CGAffineTransform.identity
             })
             
-        }) { (finished) in
-            if finished { self.animateLabels() }
+        }) { _ in
+            self.animateLabels()
         }
         
     }
@@ -79,21 +79,19 @@ class Onboard1ViewController: UIViewController {
                 self.swipeLabel.alpha = 1.0
             })
             
-        }, completion: { (finished) in
+        }, completion: { _ in
             // Keep animating the alpha value for the swipe label
-            if finished {
-                UIView.animateKeyframes(withDuration: self.animationDuration, delay: 0.0, options: .repeat, animations: {
-                    
-                    UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: { 
-                        self.swipeLabel.alpha = 0.5
-                    })
-                    
-                    UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: { 
-                        self.swipeLabel.alpha = 1.0
-                    })
-                    
-                }, completion: nil)
-            }
+            UIView.animateKeyframes(withDuration: self.animationDuration, delay: 0.0, options: .repeat, animations: {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                    self.swipeLabel.alpha = 0.5
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
+                    self.swipeLabel.alpha = 1.0
+                })
+                
+            }, completion: nil)
         })
     }
 

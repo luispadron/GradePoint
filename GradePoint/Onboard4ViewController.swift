@@ -55,16 +55,14 @@ class Onboard4ViewController: UIViewController {
                 self.progressRing.alpha = 1.0
             })
             
-        }) { (finished) in
-            if finished {
-                // Animate the progress ring
-                self.progressRing.setProgress(value: 100, animationDuration: 2.0, completion: { [weak self] in
-                    // When done animate the button alpha
-                    UIView.animate(withDuration: 0.5, animations: { 
-                        self?.button.alpha = 1.0
-                    })
+        }) { _ in
+            // Animate the progress ring
+            self.progressRing.setProgress(value: 100, animationDuration: 2.0, completion: { [weak self] in
+                // When done animate the button alpha
+                UIView.animate(withDuration: 0.5, animations: {
+                    self?.button.alpha = 1.0
                 })
-            }
+            })
         }
     }
     
