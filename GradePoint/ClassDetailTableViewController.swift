@@ -165,7 +165,7 @@ class ClassDetailTableViewController: UITableViewController {
             self?.deleteAssignment(at: indexPath)
         })
         
-        deleteAction.backgroundColor = .sunsetOrange
+        deleteAction.backgroundColor = .warning
     
         return [deleteAction]
     }
@@ -251,7 +251,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
             return NSAttributedString(string: "Select a class", attributes: attrsForSelect)
         }
         // Display the title
-        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
+        let attrs = [NSForegroundColorAttributeName: UIColor.mainText,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Assignments Added", attributes: attrs)
     }
@@ -267,7 +267,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateButtonTitle: NSAttributedString? {
         guard let _ = _classObj else { return nil }
         
-        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+        let attrs = [NSForegroundColorAttributeName: UIColor.accentGreen,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add assignment", attributes: attrs)
     }

@@ -21,23 +21,15 @@ extension UIColor {
     
     static let tableViewHeader = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
     static let tableViewSeperator = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
-    
-    
-    // MARK: - Main Theme
-    static let lightBg = UIColor(colorLiteralRed:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
+
     static let highlight = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
+    static let mainText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // FAFAFA
+    static let info = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* #247BA0 */
+    static let warning = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* #F25F5C */
     static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
-    static let lightText = UIColor(colorLiteralRed:0.98, green:0.98, blue:0.98, alpha:1.0) /* FAFAFA */
-    static let darkText = UIColor(colorLiteralRed:0.21, green:0.21, blue:0.21, alpha:1.0) /* 363636 */
     static let mutedText = UIColor(colorLiteralRed: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
-    
-    // MARK: - Misc. Colors
-    
-    static let lapisLazuli = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* #247BA0 */
-    static let sunsetOrange = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* #F25F5C */
-    static let mustard = UIColor(colorLiteralRed:1.00, green:0.88, blue:0.40, alpha:1.0) /* #FFE066 */
-    static let tronGreen = UIColor(red:0.40, green:0.84, blue:0.71, alpha:1.0) /* #67D5B5 */
-    static let palePurple = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00) /* #a593e0 */
+    static let accentGreen = UIColor(red:0.40, green:0.84, blue:0.71, alpha:1.0) /* #67D5B5 */
+    static let accentPalePurple = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00) /* #a593e0 */
 }
 
 /// Random color generation extension

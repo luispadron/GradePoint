@@ -35,7 +35,7 @@ class BasicInfoDatePickerTableViewCell: UITableViewCell {
         layoutViews()
         
         datePicker.datePickerMode = .date
-        datePicker.setValue(UIColor.lightText, forKey: "textColor")
+        datePicker.setValue(UIColor.mainText, forKey: "textColor")
         
         self.addSubview(datePicker)
     }

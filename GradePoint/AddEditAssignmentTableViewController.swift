@@ -377,7 +377,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             cell.datePicker.alpha = datePickerIsVisible ? 0.0 : 1.0
             // Animate the show
             UIView.animate(withDuration: 0.3) {
-                self.dateLabel.textColor = self.datePickerIsVisible ? UIColor.highlight : UIColor.lightText
+                self.dateLabel.textColor = self.datePickerIsVisible ? UIColor.highlight : UIColor.mainText
                 cell.datePicker.alpha = self.datePickerIsVisible ? 1.0 : 0.0
             }
         case 3:
@@ -390,7 +390,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             cell.rubricPicker.alpha = rubricPickerIsVisible ? 0.0 : 1.0
             // Animate the show
             UIView.animate(withDuration: 0.3) {
-                self.rubricLabel.textColor = self.rubricPickerIsVisible ? UIColor.highlight : UIColor.lightText
+                self.rubricLabel.textColor = self.rubricPickerIsVisible ? UIColor.highlight : UIColor.mainText
                 cell.rubricPicker.alpha = self.rubricPickerIsVisible ? 1.0 : 0.0
             }
         default:
@@ -458,7 +458,7 @@ extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let name = parentClass.rubrics[row].name
         let title = NSMutableAttributedString(string: name)
-        title.addAttributes([NSForegroundColorAttributeName: UIColor.lightText,
+        title.addAttributes([NSForegroundColorAttributeName: UIColor.mainText,
                              NSFontAttributeName: UIFont.systemFont(ofSize: 20)],
                             range: (name as NSString).range(of: name))
         return title
