@@ -20,6 +20,7 @@ class AssignmentTableViewCell: UITableViewCell {
         nameLabel.textColor = UIColor.lightText
         scoreLabel.textColor = UIColor.mutedText
         dateLabel.textColor = UIColor.mutedText
+        self.backgroundColor = UIColor.lightBackground
     }
 
 }

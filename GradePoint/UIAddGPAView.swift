@@ -44,14 +44,14 @@ class UIAddGPAView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.darkBg
+        self.backgroundColor = UIColor.lightBackground
         self.drawButton()
         self.addFields()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor.darkBg
+        self.backgroundColor = UIColor.lightBackground
         self.drawButton()
         self.addFields()
     }

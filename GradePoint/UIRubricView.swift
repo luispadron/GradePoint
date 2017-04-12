@@ -56,16 +56,16 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.darkBg
-        drawButton()
-        drawPromptLabel()
-        drawTextFields()
-        initGestureRecognizer()
+        self.initialize()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.darkBg
+        self.initialize()
+    }
+    
+    private func initialize() {
+        backgroundColor = UIColor.lightBackground
         drawButton()
         drawPromptLabel()
         drawTextFields()
@@ -196,7 +196,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonTap))
         ]
         inputFieldToolbar.sizeToFit()
-        inputFieldToolbar.barTintColor = UIColor.darkBg
+        inputFieldToolbar.barTintColor = UIColor.lightBackground
         inputFieldToolbar.isTranslucent = false
         weightField.inputAccessoryView = inputFieldToolbar
         

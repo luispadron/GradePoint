@@ -24,8 +24,6 @@ extension UIColor {
     
     
     // MARK: - Main Theme
-    
-    static let darkBg = UIColor(red: 0.290, green: 0.294, blue: 0.349, alpha: 1.00)
     static let lightBg = UIColor(colorLiteralRed:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
     static let highlight = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
     static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */

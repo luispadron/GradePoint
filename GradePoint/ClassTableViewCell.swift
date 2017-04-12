@@ -29,7 +29,7 @@ class ClassTableViewCell: UITableViewCell {
         classTitleLabel.textColor = UIColor.lightText
         classDateLabel.textColor = UIColor.mutedText
         // Set background color for the cell
-        self.backgroundColor = UIColor.darkBg
+        self.backgroundColor = UIColor.lightBackground
     }
     
     override func prepareForReuse() {

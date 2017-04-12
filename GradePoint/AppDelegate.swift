@@ -27,11 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Custom color for navigation bar
         UINavigationBar.appearance().tintColor = UIColor.highlight
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.lightText]
-        UINavigationBar.appearance().barTintColor = UIColor.background
+        UINavigationBar.appearance().barTintColor = UIColor.bars
         
         // Custom color for tab bar
         UITabBar.appearance().tintColor = UIColor.highlight
-        UITabBar.appearance().barTintColor = UIColor.background
+        UITabBar.appearance().barTintColor = UIColor.bars
         
         // Custom color for table view
         UITableView.appearance().backgroundColor = UIColor.background
@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Change keyboard to dark version
         UITextField.appearance().keyboardAppearance = .dark
+        UITextField.appearance().tintColor = UIColor.highlight
         
         // If no initial GPA Scale has been created then create that now, this will only be the case on first start up
         let realm = try! Realm()
