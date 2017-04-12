@@ -11,20 +11,27 @@ import UIKit
 
 ///  Static Color extensions
 extension UIColor {
+    
+    // MARK: - App Colors
+    
+    static let background = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
+    static let lightBackground = UIColor(red: 0.290, green: 0.294, blue: 0.345, alpha: 1.00) // #4a4b58
+    
+    static let bars = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
+    
+    static let tableViewHeader = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
+    static let tableViewSeperator = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
+    
+    
     // MARK: - Main Theme
-    static let navBar = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
-    static let darkBg = UIColor(colorLiteralRed:0.24, green:0.24, blue:0.27, alpha:1.0) /* #3c3c46 */
+    
+    static let darkBg = UIColor(red: 0.290, green: 0.294, blue: 0.349, alpha: 1.00)
     static let lightBg = UIColor(colorLiteralRed:0.26, green:0.27, blue:0.31, alpha:1.0) /* #43454f */
     static let highlight = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
     static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
     static let lightText = UIColor(colorLiteralRed:0.98, green:0.98, blue:0.98, alpha:1.0) /* FAFAFA */
     static let darkText = UIColor(colorLiteralRed:0.21, green:0.21, blue:0.21, alpha:1.0) /* 363636 */
     static let mutedText = UIColor(colorLiteralRed: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
-    
-    // MARK: - TableView & Cells Theme
-    
-    static let tableViewHeader = UIColor(colorLiteralRed: 100/255, green: 100/255, blue: 112/255, alpha: 1.0) /* #646470 */
-    static let tableViewSeperator = UIColor(colorLiteralRed: 78/255, green: 81/255, blue: 94/255, alpha: 1.0) /* #4e515e */
     
     // MARK: - Misc. Colors
     
