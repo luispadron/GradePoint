@@ -56,16 +56,16 @@ class UIRubricView: UIView, UITextFieldDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.darkBg
-        drawButton()
-        drawPromptLabel()
-        drawTextFields()
-        initGestureRecognizer()
+        self.initialize()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.darkBg
+        self.initialize()
+    }
+    
+    private func initialize() {
+        backgroundColor = UIColor.lightBackground
         drawButton()
         drawPromptLabel()
         drawTextFields()
@@ -158,7 +158,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 30, y: bounds.minY, width: actualWidth*0.65, height: bounds.height)
         nameField = UIFloatingPromptTextField(frame: nameFieldFrame, fieldType: .text, configuration: TextConfiguration())
         nameField.placeholder = nameFieldPrompt
-        nameField.textColor = UIColor.lightText
+        nameField.textColor = UIColor.mainText
         nameField.borderStyle = .none
         nameField.font = UIFont.systemFont(ofSize: fontSize)
         nameField.tintColor = UIColor.highlight
@@ -174,7 +174,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let config = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
         weightField = UIFloatingPromptTextField(frame: weightFieldFrame, fieldType: .percent, configuration: config)
         weightField.placeholder = weightFieldPrompt
-        weightField.textColor = UIColor.lightText
+        weightField.textColor = UIColor.mainText
         weightField.borderStyle = .none
         weightField.tintColor = UIColor.highlight
         weightField.font = UIFont.systemFont(ofSize: fontSize)
@@ -196,7 +196,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonTap))
         ]
         inputFieldToolbar.sizeToFit()
-        inputFieldToolbar.barTintColor = UIColor.darkBg
+        inputFieldToolbar.barTintColor = UIColor.lightBackground
         inputFieldToolbar.isTranslucent = false
         weightField.inputAccessoryView = inputFieldToolbar
         

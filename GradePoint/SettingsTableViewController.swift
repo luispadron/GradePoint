@@ -87,15 +87,15 @@ class SettingsTableViewController: UITableViewController {
                 let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
                                                   title: NSAttributedString(string: "Restore Defaults"),
                                                   message: NSAttributedString(string: "Are you sure you want to restore to default configuration?\nThis cannot be undone",
-                                                                              attributes: [NSForegroundColorAttributeName: UIColor.sunsetOrange, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
+                                                                              attributes: [NSForegroundColorAttributeName: UIColor.warning, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
                 let restore = UIButton()
                 restore.setTitle("Restore", for: .normal)
                 restore.setTitleColor(UIColor.white, for: .normal)
-                restore.backgroundColor = UIColor.sunsetOrange
+                restore.backgroundColor = UIColor.warning
                 let cancel = UIButton()
                 cancel.setTitle("Cancel", for: .normal)
                 cancel.setTitleColor(UIColor.white, for: .normal)
-                cancel.backgroundColor = UIColor.lapisLazuli
+                cancel.backgroundColor = UIColor.info
                 alert.addButton(button: cancel, handler: nil)
                 alert.addButton(button: restore, handler: { 
                     // Handle restoring settings

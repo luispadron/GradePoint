@@ -139,7 +139,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 if let cachedCell = self.nameCell { return cachedCell }
                 let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.inputLabel.text = "Name"
-                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.contentView.backgroundColor = UIColor.lightBackground
                 cell.selectionStyle = .none
                 cell.promptText = "Assignment Name"
                 cell.inputField.delegate = self
@@ -159,7 +159,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 if let assignment = assignmentForEdit { cell.rightLabel.text = formatter.string(from: assignment.date) }
                 else { cell.rightLabel.text = formatter.string(from: Date()) }
                 self.dateLabel = cell.rightLabel
-                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.contentView.backgroundColor = UIColor.lightBackground
                 cell.selectionStyle = .none
                 self.dateLabelCell = cell
                 return cell
@@ -168,7 +168,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 let cell = BasicInfoDatePickerTableViewCell(style: .default, reuseIdentifier: nil)
                 // Add action from date picker
                 cell.datePicker.addTarget(self, action: #selector(self.datePickerChange), for: .valueChanged)
-                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.contentView.backgroundColor = UIColor.lightBackground
                 cell.selectionStyle = .none
                 self.dateCell = cell
                 return cell
@@ -179,7 +179,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 if let assignment = assignmentForEdit { cell.rightLabel.text = assignment.associatedRubric!.name }
                 else { cell.rightLabel.text = self.parentClass.rubrics[0].name }
                 self.rubricLabel = cell.rightLabel
-                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.contentView.backgroundColor = UIColor.lightBackground
                 cell.selectionStyle = .none
                 self.rubricLabelCell = cell
                 return cell
@@ -188,7 +188,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 let cell = BasicInfoRubricPickerTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.rubricPicker.delegate = self
                 cell.rubricPicker.dataSource = self
-                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.contentView.backgroundColor = UIColor.lightBackground
                 cell.selectionStyle = .none
                 self.rubricCell = cell
                 return cell
@@ -212,12 +212,12 @@ class AddEditAssignmentTableViewController: UITableViewController {
                     UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accesoryKeyboardDone))
                 ]
                 inputFieldToolbar.sizeToFit()
-                inputFieldToolbar.barTintColor = UIColor.darkBg
+                inputFieldToolbar.barTintColor = UIColor.lightBackground
                 inputFieldToolbar.isTranslucent = false
                 cell.inputField.inputAccessoryView = inputFieldToolbar
                 cell.inputLabel.text = "Score"
                 cell.promptText = "Assignment Score"
-                cell.contentView.backgroundColor = UIColor.darkBg
+                cell.contentView.backgroundColor = UIColor.lightBackground
                 cell.selectionStyle = .none
                 cell.inputField.delegate = self
                 cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
@@ -377,7 +377,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             cell.datePicker.alpha = datePickerIsVisible ? 0.0 : 1.0
             // Animate the show
             UIView.animate(withDuration: 0.3) {
-                self.dateLabel.textColor = self.datePickerIsVisible ? UIColor.highlight : UIColor.lightText
+                self.dateLabel.textColor = self.datePickerIsVisible ? UIColor.highlight : UIColor.mainText
                 cell.datePicker.alpha = self.datePickerIsVisible ? 1.0 : 0.0
             }
         case 3:
@@ -390,7 +390,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             cell.rubricPicker.alpha = rubricPickerIsVisible ? 0.0 : 1.0
             // Animate the show
             UIView.animate(withDuration: 0.3) {
-                self.rubricLabel.textColor = self.rubricPickerIsVisible ? UIColor.highlight : UIColor.lightText
+                self.rubricLabel.textColor = self.rubricPickerIsVisible ? UIColor.highlight : UIColor.mainText
                 cell.rubricPicker.alpha = self.rubricPickerIsVisible ? 1.0 : 0.0
             }
         default:
@@ -458,7 +458,7 @@ extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let name = parentClass.rubrics[row].name
         let title = NSMutableAttributedString(string: name)
-        title.addAttributes([NSForegroundColorAttributeName: UIColor.lightText,
+        title.addAttributes([NSForegroundColorAttributeName: UIColor.mainText,
                              NSFontAttributeName: UIFont.systemFont(ofSize: 20)],
                             range: (name as NSString).range(of: name))
         return title

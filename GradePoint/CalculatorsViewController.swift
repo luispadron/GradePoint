@@ -27,7 +27,7 @@ class CalculatorsViewController: UIViewController {
 
         
         // Set the progress ring and label
-        let attrs = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.lightText.withAlphaComponent(0.6)]
+        let attrs = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.mainText.withAlphaComponent(0.6)]
         let savedCalc = try! Realm().objects(GPACalculation.self)
         
         if savedCalc.count > 0 {

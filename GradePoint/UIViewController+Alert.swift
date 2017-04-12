@@ -19,7 +19,7 @@ extension UIViewController {
         alert.alertFeedbackType = .error
         let ok = UIButton()
         ok.setTitle("OK", for: .normal)
-        ok.backgroundColor = UIColor.lapisLazuli
+        ok.backgroundColor = UIColor.info
         alert.addButton(button: ok) {
             completion?()
         }

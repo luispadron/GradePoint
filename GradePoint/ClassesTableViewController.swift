@@ -109,24 +109,24 @@ class ClassesTableViewController: UITableViewController {
             self.performSegue(withIdentifier: .addEditClass, sender: action)
         })
         
-        editAction.backgroundColor = UIColor.lapisLazuli
+        editAction.backgroundColor = UIColor.info
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
             
             // Present alert to user
             let title = NSAttributedString(string: "Delete This Class", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20)])
-            let messageAttrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.sunsetOrange]
+            let messageAttrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.warning]
             let message = NSAttributedString(string: "This cannot be undone, are you sure?", attributes: messageAttrs)
             var size = CGSize(width: self.view.bounds.size.width - 50, height: 200)
             size = size.width >= 300 ? CGSize(width: 300, height: 200) : CGSize(width: size.width, height: 200)
             let alert = UIBlurAlertController(size: size, title: title, message: message)
             let cancel = UIButton()
             cancel.setTitle("Cancel", for: .normal)
-            cancel.backgroundColor = UIColor.lapisLazuli
+            cancel.backgroundColor = UIColor.info
             
             let delete = UIButton()
             delete.setTitle("Delete", for: .normal)
-            delete.backgroundColor = UIColor.sunsetOrange
+            delete.backgroundColor = UIColor.warning
             
             alert.addButton(button: cancel, handler: { [weak self] in
                 self?.tableView.isEditing = false
@@ -138,7 +138,7 @@ class ClassesTableViewController: UITableViewController {
             })
             alert.presentAlert(presentingViewController: self)
         })
-        deleteAction.backgroundColor = UIColor.sunsetOrange
+        deleteAction.backgroundColor = UIColor.warning
         
         return [deleteAction, editAction]
     }
@@ -228,7 +228,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs = [NSForegroundColorAttributeName: UIColor.lightText,
+        let attrs = [NSForegroundColorAttributeName: UIColor.mainText,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Classes Added", attributes: attrs)
     }
@@ -236,7 +236,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs = [NSForegroundColorAttributeName: UIColor.tronGreen,
+        let attrs = [NSForegroundColorAttributeName: UIColor.accentGreen,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add a class", attributes: attrs)
     }

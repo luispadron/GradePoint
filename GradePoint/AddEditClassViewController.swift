@@ -71,7 +71,7 @@ class AddEditClassViewController: UIViewController {
         
         // UI Setup
         self.navigationView.backgroundColor = colorForView
-        let visibleColor = colorForView.visibleTextColor(lightColor: UIColor.lightText, darkColor: UIColor.darkText)
+        let visibleColor = colorForView.visibleTextColor(lightColor: UIColor.mainText, darkColor: UIColor.darkText)
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
         let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.mutedText, darkColor: UIColor.gray)
@@ -226,7 +226,7 @@ class AddEditClassViewController: UIViewController {
                 let title = NSAttributedString(string: "Can't Save 💔", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
                 // Construct attributed message
                 let invalidRowSubmessage = "row \(index + 1)"
-                let attrsForSub = [NSForegroundColorAttributeName : UIColor.sunsetOrange, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
+                let attrsForSub = [NSForegroundColorAttributeName : UIColor.warning, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
                 let attrsForMessage = [NSForegroundColorAttributeName : UIColor.mutedText, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
@@ -436,7 +436,7 @@ class AddEditClassViewController: UIViewController {
             // Add the ok button
             let button = UIButton()
             button.setTitle("OK", for: .normal)
-            button.backgroundColor = UIColor.lapisLazuli
+            button.backgroundColor = UIColor.info
             alert.addButton(button: button, handler: nil)
             
         case .deletion:
@@ -445,13 +445,13 @@ class AddEditClassViewController: UIViewController {
             // Create and add the cancel button
             let cancel = UIButton()
             cancel.setTitle("Cancel", for: .normal)
-            cancel.backgroundColor = UIColor.lapisLazuli
+            cancel.backgroundColor = UIColor.info
             alert.addButton(button: cancel, handler: nil)
             
             // Create and add the delete button
             let delete = UIButton()
             delete.setTitle("Delete", for: .normal)
-            delete.backgroundColor = UIColor.sunsetOrange
+            delete.backgroundColor = UIColor.warning
             alert.addButton(button: delete, handler: { [weak self] in
                 guard let strongSelf = self else {
                     print("Unable to get self inside delete handler, class: \(AddEditClassViewController.self)")
@@ -537,7 +537,7 @@ extension AddEditClassViewController: UIRubricViewDelegate {
         case .open:
             // User is about to close a rubric which was previously created, warn them what this means
             if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: view).first as? String {
-                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.sunsetOrange]
+                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.warning]
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
                 let messageAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName : UIColor.mutedText]
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"

@@ -22,8 +22,8 @@ class UIAddGPAView: UIView {
     var circleSpacing: CGFloat = 30
     var buttonRadius: CGFloat = 15
     var addButtonOffSet: CGFloat = 1
-    var addColor: UIColor = .palePurple
-    var deleteColor: UIColor = .sunsetOrange
+    var addColor: UIColor = .accentPalePurple
+    var deleteColor: UIColor = .warning
     var plusColor: UIColor = UIColor.white
     lazy var circleLayer = CAShapeLayer()
     lazy var plusButtonLayer = CAShapeLayer()
@@ -44,14 +44,14 @@ class UIAddGPAView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.darkBg
+        self.backgroundColor = UIColor.lightBackground
         self.drawButton()
         self.addFields()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor.darkBg
+        self.backgroundColor = UIColor.lightBackground
         self.drawButton()
         self.addFields()
     }
@@ -317,10 +317,10 @@ class UIAddGPAView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .text, configuration: TextConfiguration())
         field.placeholder = "Name"
         field.titleText = "Name"
-        field.titleTextColor = .palePurple
-        field.textColor = .lightText
+        field.titleTextColor = .accentPalePurple
+        field.textColor = .mainText
         field.borderStyle = .none
-        field.tintColor = .palePurple
+        field.tintColor = .accentPalePurple
         field.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.returnKeyType = .next
         field.delegate = self
@@ -335,10 +335,10 @@ class UIAddGPAView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .text, configuration: TextConfiguration(maxCharacters: 2))
         field.placeholder = "Grade"
         field.titleText = "Grade"
-        field.titleTextColor = .palePurple
-        field.textColor = .lightText
+        field.titleTextColor = .accentPalePurple
+        field.textColor = .mainText
         field.borderStyle = .none
-        field.tintColor = .palePurple
+        field.tintColor = .accentPalePurple
         field.attributedPlaceholder = NSAttributedString(string: "Grade", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.returnKeyType = .next
         field.delegate = self
@@ -350,7 +350,7 @@ class UIAddGPAView: UIView {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 40))
         toolBar.layer.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height-20.0)
         toolBar.tintColor = .white
-        toolBar.barTintColor = .palePurple
+        toolBar.barTintColor = .accentPalePurple
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.tappedOnDoneGradeFieldButton(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width / 3, height: self.frame.size.height))
@@ -374,10 +374,10 @@ class UIAddGPAView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .number, configuration: config)
         field.placeholder = "Credits"
         field.titleText = "Credits"
-        field.titleTextColor = .palePurple
-        field.textColor = .lightText
+        field.titleTextColor = .accentPalePurple
+        field.textColor = .mainText
         field.borderStyle = .none
-        field.tintColor = .palePurple
+        field.tintColor = .accentPalePurple
         field.keyboardType = .numbersAndPunctuation
         field.attributedPlaceholder = NSAttributedString(string: "Credits", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
         field.returnKeyType = .done
