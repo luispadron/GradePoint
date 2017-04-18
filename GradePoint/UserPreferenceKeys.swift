@@ -8,4 +8,6 @@
 
 enum UserPreferenceKeys: String {
     case onboardingComplete = "com.luispadron.GradePoint.onboardingComplete"
+    case studentType = "com.luispadron.GradePoint.studentType"
+    case gradingType = "com.luispadron.GradePoint.gradingType"
 }

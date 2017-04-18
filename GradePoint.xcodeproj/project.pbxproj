@@ -33,6 +33,8 @@
 		A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */; };
 		A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
+		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
+		A067DBA41EA5BB5A00F09EA9 /* GradingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA31EA5BB5A00F09EA9 /* GradingType.swift */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */; };
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
@@ -127,6 +129,8 @@
 		A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterPickerDelegate.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
+		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
+		A067DBA31EA5BB5A00F09EA9 /* GradingType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradingType.swift; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewController.swift; sourceTree = "<group>"; };
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
@@ -437,6 +441,8 @@
 				A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */,
 				A0B94AB41E34747000CF73F2 /* AlertType.swift */,
 				A0E8CAA61E5BFE640029565A /* UserPreferenceKeys.swift */,
+				A067DBA11EA5BB3700F09EA9 /* StudentType.swift */,
+				A067DBA31EA5BB5A00F09EA9 /* GradingType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -706,6 +712,7 @@
 				A00F8DD41E29A70E009F8C5D /* GenericLabelTableViewCell.swift in Sources */,
 				A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */,
 				A021E8BD1E7A20F40014818F /* CGFloat+ToRads.swift in Sources */,
+				A067DBA41EA5BB5A00F09EA9 /* GradingType.swift in Sources */,
 				A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */,
 				A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */,
 				A00705131DAF0E9B00AD740A /* ClassDetailTableViewController.swift in Sources */,
@@ -727,6 +734,7 @@
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,
 				A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */,
 				A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */,
+				A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */,
 				A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */,
 				A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */,
 				A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */,

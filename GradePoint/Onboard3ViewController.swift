@@ -79,6 +79,11 @@ class Onboard3ViewController: UIViewController {
                 })
             }, completion: nil)
         }
+        
+        // Update the user defaults key
+        let defaults = UserDefaults.standard
+        let type  = sender.selectedSegmentIndex == 0 ? StudentType.college : StudentType.highSchool
+        defaults.set(type.rawValue, forKey: UserPreferenceKeys.studentType.rawValue)
     }
     
     
@@ -100,6 +105,11 @@ class Onboard3ViewController: UIViewController {
                 
             }, completion: nil)
         }
+        
+        // Update the user defaults key
+        let defaults = UserDefaults.standard
+        let type  = sender.selectedSegmentIndex == 0 ? GradingType.plus : GradingType.nonPlus
+        defaults.set(type.rawValue, forKey: UserPreferenceKeys.studentType.rawValue)
     }
     
     // MARK: Helpers
