@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class Onboard3ViewController: UIViewController {
 
@@ -106,10 +107,13 @@ class Onboard3ViewController: UIViewController {
             }, completion: nil)
         }
         
-        // Update the user defaults key
-        let defaults = UserDefaults.standard
-        let type  = sender.selectedSegmentIndex == 0 ? GradingType.plus : GradingType.nonPlus
-        defaults.set(type.rawValue, forKey: UserPreferenceKeys.studentType.rawValue)
+        // Update the grading type for the rubnic
+        let realm = try! Realm()
+        let type  = sender.selectedSegmentIndex == 0 ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
+        let scale = realm.objects(GPAScale.self).first
+        try! realm.write {
+            scale?.scaleType = type
+        }
     }
     
     // MARK: Helpers
