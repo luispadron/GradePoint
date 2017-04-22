@@ -33,6 +33,11 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     // Fields
     @IBOutlet weak var nameField: UISafeTextField!
+    
+    @IBOutlet weak var classTypeView: UIView!
+    @IBOutlet weak var classTypeLabel: UILabel!
+    @IBOutlet weak var classTypePickerView: UIPickerView!
+    @IBOutlet weak var classTypePickerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var creditHoursField: UISafeTextField!
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
@@ -58,6 +63,8 @@ class AddEditClassViewController: UIViewController {
     var rubricsToDelete = [String]()
     
     ///// Variables
+    /// The class type, grabbed from the Picker
+    var classType: ClassType!
     /// The semester, grabbed from the UISemesterPickerView
     var semester: Semester!
     
@@ -88,9 +95,17 @@ class AddEditClassViewController: UIViewController {
         self.nameField.autocapitalizationType = .words
         self.nameField.returnKeyType = .next
         
+        // Get student type from user defaults
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))
+        
+        // Set default class type
+        self.classType = studentType == StudentType.college ? .college : .regular
+        self.classTypeLabel.text = studentType == StudentType.college ? nil : "Regular"
+        // Hide the class type view if student is a college student
+        self.classTypeView.isHidden = studentType == StudentType.college ? true : false
+        
         self.creditHoursField.textColor = UIColor.white
-        let studentType = UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue)
-        let defaultCredits = studentType == StudentType.college.rawValue ? "3" : "1"
+        let defaultCredits = studentType == StudentType.college ? "3" : "1"
         self.creditHoursField.attributedPlaceholder = NSAttributedString(string: defaultCredits, attributes: attrsForPrompt)
         self.creditHoursField.delegate = self
         self.creditHoursField.keyboardType = .numbersAndPunctuation
@@ -99,8 +114,10 @@ class AddEditClassViewController: UIViewController {
         self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.1...30)
         self.creditHoursField.fieldType = .number
         
-        // Set the delegate
-        semesterPickerView.delegate = self
+        // Set the delegate for the pickers
+        self.classTypePickerView.delegate = self
+        self.classTypePickerView.dataSource = self
+        self.semesterPickerView.delegate = self
         
         // Initially we need to have at least one rubric view added to the view
         if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
@@ -111,6 +128,8 @@ class AddEditClassViewController: UIViewController {
         if let classObj = self.classObj {
             self.navigationTitle.text = "Edit \(classObj.name)"
             self.nameField.text = classObj.name
+            self.classTypeLabel.text = classObj.classType.name()
+            updateClassTypePicker(for: classObj)
             self.creditHoursField.text = "\(classObj.creditHours)"
             updateSemesterPicker(for: classObj)
             updateRubricViews(for: classObj)
@@ -160,6 +179,22 @@ class AddEditClassViewController: UIViewController {
             if finished { self.dismiss(animated: true, completion: nil) }
         }
     }
+    
+    @IBAction func onClassTypeTap(_ sender: UITapGestureRecognizer) {
+        let wasHidden = classTypePickerView.isHidden
+        self.classTypePickerView.isHidden = false
+        let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
+        let toHeight: CGFloat = wasHidden ? 120.0 : 0.0
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            self.classTypePickerView.alpha = toAlpha
+            self.classTypePickerViewConstraint.constant = toHeight
+            self.classTypeLabel.textColor = wasHidden ? UIColor.highlight : UIColor.white
+        }, completion: { finished in
+            if finished { self.classTypePickerView.isHidden = !wasHidden }
+        })
+    }
+    
     
     @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
         let wasHidden = semesterPickerView.isHidden
@@ -278,7 +313,8 @@ class AddEditClassViewController: UIViewController {
         
         let credits = Int(self.creditHoursField.safeText)!
         // Create the new class
-        let newClass = Class(withName: self.nameField.text!, creditHours: credits, inSemester: semester, withRubrics: List<Rubric>(rubrics))
+        let newClass = Class(withName: self.nameField.text!, classType: self.classType, creditHours: credits,
+                             inSemester: semester, withRubrics: List<Rubric>(rubrics))
         newClass.colorData = colorForView.toData()
         
         try! realm.write {
@@ -300,6 +336,7 @@ class AddEditClassViewController: UIViewController {
         // Write name and semester changes to realm
         try! realm.write {
             classObj.name = self.nameField.safeText
+            classObj.classType = self.classType
             classObj.creditHours = Int(self.creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
@@ -394,6 +431,12 @@ class AddEditClassViewController: UIViewController {
         rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
         
         self.saveButton.isEnabled = nameValid && rubricsAreValid
+    }
+    
+    func updateClassTypePicker(for classObj: Class) {
+        let row = classObj.classType.rawValue - 1
+        self.classTypePickerView.selectRow(row, inComponent: 0, animated: false)
+        self.pickerView(self.classTypePickerView, didSelectRow: row, inComponent: 0)
     }
     
     /// Updates the semester picker with values of the class that is passed in
@@ -510,6 +553,34 @@ extension AddEditClassViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
         updateSaveButton()
+    }
+}
+
+// MAKR: Class Type Picker Delegation
+extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    var classTypes: [String] {
+        get {
+            return ["Regular", "Honors", "AP", "IB", "College"]
+        }
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return classTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: classTypes[row], attributes: [NSForegroundColorAttributeName: UIColor.white])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // Update the label and the class type
+        self.classTypeLabel.text = classTypes[row]
+        self.classType = ClassType(rawValue: row + 1)
     }
 }
 

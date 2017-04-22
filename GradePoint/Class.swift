@@ -12,11 +12,26 @@ import UIKit
 /// The type of the GPA Scale
 @objc enum ClassType: Int {
     // College students only have college option, highschool students have all options
-    case college = 1
-    case regular = 2
-    case honors = 3
-    case ap = 4
-    case ib = 5
+    case regular = 1
+    case honors = 2
+    case ap = 3
+    case ib = 4
+    case college = 5
+    
+    func name() -> String {
+        switch self {
+        case .regular:
+            return "Regular"
+        case .honors:
+            return "Honors"
+        case .ap:
+            return "AP"
+        case .ib:
+            return "IB"
+        case .college:
+            return "College"
+        }
+    }
 }
 
 class Class: Object {
@@ -25,18 +40,20 @@ class Class: Object {
     
     dynamic var id = UUID().uuidString
     dynamic var name = ""
+    dynamic var classType: ClassType = .college
     dynamic var creditHours = 3
     dynamic var semester: Semester?
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
     dynamic var colorData = Data()
-    dynamic var classType: ClassType = .college
     
     // MARK: - Initializers
     
-    convenience init(withName name: String, creditHours: Int, inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
+    convenience init(withName name: String, classType: ClassType, creditHours: Int,
+                     inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
         self.init()
         self.name = name
+        self.classType = classType
         self.creditHours = creditHours
         self.semester = semester
         self.rubrics = rubrics
