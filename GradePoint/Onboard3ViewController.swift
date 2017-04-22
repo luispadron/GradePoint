@@ -107,13 +107,9 @@ class Onboard3ViewController: UIViewController {
             }, completion: nil)
         }
         
-        // Update the grading type for the rubnic
-        let realm = try! Realm()
         let type  = sender.selectedSegmentIndex == 0 ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
-        let scale = realm.objects(GPAScale.self).first
-        try! realm.write {
-            scale?.scaleType = type
-        }
+        // Create the grading scale
+        GPAScale.createScale(forType: type)
     }
     
     // MARK: Helpers
