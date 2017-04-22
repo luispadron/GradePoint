@@ -89,14 +89,14 @@ class AddEditClassViewController: UIViewController {
         self.nameField.returnKeyType = .next
         
         self.creditHoursField.textColor = UIColor.white
-        self.creditHoursField.attributedPlaceholder = NSAttributedString(string: "3", attributes: attrsForPrompt)
+        let studentType = UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue)
+        let defaultCredits = studentType == StudentType.college.rawValue ? "3" : "1"
+        self.creditHoursField.attributedPlaceholder = NSAttributedString(string: defaultCredits, attributes: attrsForPrompt)
         self.creditHoursField.delegate = self
         self.creditHoursField.keyboardType = .numbersAndPunctuation
         self.creditHoursField.returnKeyType = .done
         self.creditHoursField.autocorrectionType = .no
-        var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...30)
-        config.allowsFloating = false
-        self.creditHoursField.configuration = config
+        self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.1...30)
         self.creditHoursField.fieldType = .number
         
         // Set the delegate
