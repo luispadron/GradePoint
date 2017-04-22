@@ -9,6 +9,16 @@
 import RealmSwift
 import UIKit
 
+/// The type of the GPA Scale
+@objc enum ClassType: Int {
+    // College students only have college option, highschool students have all options
+    case college = 1
+    case regular = 2
+    case honors = 3
+    case ap = 4
+    case ib = 5
+}
+
 class Class: Object {
     
     // MARK: - Properties
@@ -20,6 +30,7 @@ class Class: Object {
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
     dynamic var colorData = Data()
+    dynamic var classType: ClassType = .college
     
     // MARK: - Initializers
     
