@@ -59,8 +59,35 @@ class Class: Object {
     
     // MARK: Helper Methods
     
-    /// Returns the calculated score based on assignments, also mutates the Grade objects score property
-    
+    /// Returns the calculated score based on assignments, also mutates the Grade objects score property if detects a change
+    func calculateScore() -> Double {
+        if self.assignments.count == 0 { return 0.00 }
+        
+        let assignmentsSectionedByRubric = self.rubrics.map { self.assignments.filter("associatedRubric = %@", $0) }
+        
+        var weights = 0.0
+        var totalScore = 0.0
+        
+        for assignments in assignmentsSectionedByRubric {
+            if assignments.count == 0 { continue }
+            weights += assignments[0].associatedRubric!.weight
+            
+            var sumTotal = 0.0
+            for assignment in assignments { sumTotal += assignment.score }
+            
+            sumTotal /= Double(assignments.count)
+            totalScore += assignments[0].associatedRubric!.weight * sumTotal
+        }
+        
+        let score = Double(totalScore / weights).roundedUpTo(2)
+        // Also update the models Grade.score property in the DB, if its different
+        if self.grade!.score != score {
+            try! Realm().write {
+                self.grade?.score = score
+            }
+        }
+        return score
+    }
     
     // MARK: - Computed Properties
     
