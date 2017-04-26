@@ -31,9 +31,9 @@ class AddEditClassViewController: UIViewController {
     // View content
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
-    // Fields
+    // Controls
+    @IBOutlet weak var typeSwitcher: UISegmentedControl!
     @IBOutlet weak var nameField: UISafeTextField!
-    
     @IBOutlet weak var classTypeView: UIView!
     @IBOutlet weak var classTypeLabel: UILabel!
     @IBOutlet weak var classTypePickerView: UIPickerView!
@@ -230,8 +230,15 @@ class AddEditClassViewController: UIViewController {
     
     @IBAction func onSave(_ sender: UIButton) {
         guard isSaveReady() else { return }
-        guard let classObj = self.classObj else { saveNewClass(); return }
-        saveChangesTo(classObj)
+        switch typeSwitcher.selectedSegmentIndex {
+        case 0:
+            guard let classObj = self.classObj else { saveNewClass(); return }
+            saveChangesTo(classObj)
+        case 1:
+            break
+        default:
+            return
+        }
     }
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
@@ -621,7 +628,7 @@ extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelega
             self.classType = ClassType(rawValue: row + 1)
         } else {
             self.gradeLabel.text = gradeLetters[row]
-            
+            self.classGrade = Grade(gradeLetter: gradeLetters[row])
         }
     }
 }

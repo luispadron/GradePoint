@@ -925,6 +925,7 @@ keeping track of your assignments</string>
                         <outlet property="semesterPickerConstraint" destination="zjo-Hq-6E3" id="Y2r-QX-hfN"/>
                         <outlet property="semesterPickerView" destination="0Fj-pb-dLM" id="R2t-R5-ONk"/>
                         <outlet property="stackView" destination="vdY-dK-mYM" id="Mp2-Fa-QzQ"/>
+                        <outlet property="typeSwitcher" destination="zt0-wK-84s" id="1yD-hO-deF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYS-Df-2Ku" userLabel="First Responder" sceneMemberID="firstResponder"/>

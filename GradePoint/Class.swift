@@ -84,6 +84,7 @@ class Class: Object {
         if self.grade!.score != score {
             try! Realm().write {
                 self.grade?.score = score
+                self.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
             }
         }
         return score
