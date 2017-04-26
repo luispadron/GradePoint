@@ -25,8 +25,7 @@ class Class: Object {
     
     // MARK: - Initializers
     
-    convenience init(withName name: String, classType: ClassType, creditHours: Int,
-                     inSemester semester: Semester, withRubrics rubrics:  List<Rubric>) {
+    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester, rubrics:  List<Rubric>) {
         self.init()
         self.name = name
         self.classType = classType
@@ -34,6 +33,7 @@ class Class: Object {
         self.semester = semester
         self.rubrics = rubrics
         self.colorData = UIColor.randomPastel.toData()
+        self.grade = Grade(score: 0.0)
     }
     
     convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester,  grade: Grade, rubrics:  List<Rubric>) {
@@ -57,8 +57,12 @@ class Class: Object {
         return ["color"]
     }
     
+    // MARK: Helper Methods
     
-    // MARK: - Helper Properties
+    /// Returns the calculated score based on assignments, also mutates the Grade objects score property
+    
+    
+    // MARK: - Computed Properties
     
     /// Returns the color after getting it from the color data
     var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }

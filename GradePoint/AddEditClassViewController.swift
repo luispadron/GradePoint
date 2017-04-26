@@ -313,8 +313,8 @@ class AddEditClassViewController: UIViewController {
         
         let credits = Int(self.creditHoursField.safeText)!
         // Create the new class
-        let newClass = Class(withName: self.nameField.text!, classType: self.classType, creditHours: credits,
-                             inSemester: semester, withRubrics: List<Rubric>(rubrics))
+        let newClass = Class(name: self.nameField.text!, classType: self.classType,
+                             creditHours: credits, semester: semester, rubrics: List<Rubric>(rubrics))
         newClass.colorData = colorForView.toData()
         
         try! realm.write {
