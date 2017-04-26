@@ -214,20 +214,26 @@ class AddEditClassViewController: UIViewController {
         for view in rubricViews { view.isHidden = false }
         let toAlphaRubricViews: CGFloat = rubricViewsWereHidden ? 1.0 : 0.0
         
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.gradeFieldContainerView.alpha = toAlphaGradeField
             self.gradePickerView.alpha = toAlphaGradePicker
-            self.rubricHeaderView.alpha = toAlphaHeader
-            for view in self.rubricViews { view.alpha = toAlphaRubricViews }
         }, completion: { _ in
+            // Update visibility
             self.gradeFieldContainerView.isHidden = !gradeFieldWasHidden
             self.gradePickerView.isHidden = !gradePickerWasHidden
-            self.rubricHeaderView.isHidden = !headerWasHidden
+            // First toggle the title labels from the rubric views
             for view in self.rubricViews {
-                view.isHidden = !rubricViewsWereHidden
                 view.nameField.setTitleVisible(titleVisible: !rubricViewsWereHidden)
                 view.weightField.setTitleVisible(titleVisible: !rubricViewsWereHidden)
             }
+            // Now animate the rubric views
+            UIView.animate(withDuration: 0.2, animations: {
+                self.rubricHeaderView.alpha = toAlphaHeader
+                for view in self.rubricViews { view.alpha = toAlphaRubricViews }
+            }, completion: { _ in
+                self.rubricHeaderView.isHidden = !headerWasHidden
+                for view in self.rubricViews { view.isHidden = !rubricViewsWereHidden }
+            })
         })
 
     }
