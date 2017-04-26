@@ -264,6 +264,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         
         // Animate opacity of views
         if promptLabel.isHidden { // The user has clicked the delete button and the two textfields will be hidden
+            self.endEditing(true)
             // Prepare for animation
             nameField.layer.opacity = 1.0
             weightField.layer.opacity = 1.0
@@ -285,10 +286,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
                 
                 }, completion: { _ in
                     self.isAnimating = false
-                    self.toggleFields()
                     self.nameField.isHidden = true
                     self.weightField.isHidden = true
-                    self.toggleFields()
                     self.isDeleteButton = self.isDeleteButton.toggle
                     completion?()
             })
