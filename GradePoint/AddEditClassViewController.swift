@@ -42,6 +42,10 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gradeLabel: UILabel!
+    @IBOutlet weak var gradePickerView: UIPickerView!
+    @IBOutlet weak var gradePickerViewConstraint: NSLayoutConstraint!
+    
     
     /// Properties to handle the save button
     var canSave = false { didSet { saveButton.isEnabled = canSave } }
@@ -67,6 +71,8 @@ class AddEditClassViewController: UIViewController {
     var classType: ClassType!
     /// The semester, grabbed from the UISemesterPickerView
     var semester: Semester!
+    /// The Grade earned for the class, default is a Grade with a .score of 0.0, unless user creates a past class
+    lazy var classGrade: Grade = Grade(score: 0.0)
     
     /// The delegate for this view, will be notified when finished editing or creating new class
     weak var delegate: AddEditClassViewDelegate?
@@ -118,6 +124,8 @@ class AddEditClassViewController: UIViewController {
         self.classTypePickerView.delegate = self
         self.classTypePickerView.dataSource = self
         self.semesterPickerView.delegate = self
+        self.gradePickerView.delegate = self
+        self.gradePickerView.dataSource = self
         
         // Initially we need to have at least one rubric view added to the view
         if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
@@ -134,9 +142,14 @@ class AddEditClassViewController: UIViewController {
             updateSemesterPicker(for: classObj)
             updateRubricViews(for: classObj)
         } else {
+            // Set a default semester
             let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
             self.semesterLabel.text = "\(semester.term) \(semester.year)"
             self.semester = semester
+            // Set a default grade
+            let scale = try! Realm().objects(GPAScale.self).first!
+            let defaultGrade = scale.gpaRubrics[0].gradeLetter
+            self.gradeLabel.text = defaultGrade
         }
         
         // If not on iPad where the view will be presented as a popover
@@ -180,35 +193,20 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
-    @IBAction func onClassTypeTap(_ sender: UITapGestureRecognizer) {
-        let wasHidden = classTypePickerView.isHidden
-        self.classTypePickerView.isHidden = false
-        let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
-        let toHeight: CGFloat = wasHidden ? 120.0 : 0.0
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            self.classTypePickerView.alpha = toAlpha
-            self.classTypePickerViewConstraint.constant = toHeight
-            self.classTypeLabel.textColor = wasHidden ? UIColor.highlight : UIColor.white
-        }, completion: { finished in
-            if finished { self.classTypePickerView.isHidden = !wasHidden }
-        })
+    @IBAction func onViewSwitchTapped(_ sender: UISegmentedControl) {
+        print(sender.selectedSegmentIndex)
     }
     
+    @IBAction func onClassTypeTap(_ sender: UITapGestureRecognizer) {
+        toggleVisibilty(for: self.classTypePickerView)
+    }
     
     @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
-        let wasHidden = semesterPickerView.isHidden
-        self.semesterPickerView.isHidden = false
-        let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
-        let toHeight: CGFloat = wasHidden ? 120.0 : 0.0
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            self.semesterPickerView.alpha = toAlpha
-            self.semesterPickerConstraint.constant = toHeight
-            self.semesterLabel.textColor = wasHidden ? UIColor.highlight : UIColor.white
-        }, completion: { finished in
-            if finished { self.semesterPickerView.isHidden = !wasHidden }
-        })
+        toggleVisibilty(for: self.semesterPickerView)
+    }
+    
+    @IBAction func onGradeFieldTap(_ sender: UITapGestureRecognizer) {
+        toggleVisibilty(for: self.gradePickerView)
     }
 
     /// Called whenever keyboard is shown, adjusts scroll view
@@ -468,6 +466,37 @@ class AddEditClassViewController: UIViewController {
         appendRubricView()
     }
     
+    /// Shows or hides a pickerview
+    private func toggleVisibilty(for pickerView: UIView) {
+        
+        var constraint: NSLayoutConstraint?
+        var label: UILabel?
+        
+        if pickerView === classTypePickerView {
+            label = self.classTypeLabel
+            constraint = self.classTypePickerViewConstraint
+        } else if pickerView === gradePickerView {
+            label = self.gradeLabel
+            constraint = self.gradePickerViewConstraint
+        } else {
+            label = self.semesterLabel
+            constraint = self.semesterPickerConstraint
+        }
+        
+        let wasHidden = pickerView.isHidden
+        pickerView.isHidden = false
+        let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
+        let toHeight: CGFloat = wasHidden ? 120.0 : 0.0
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            pickerView.alpha = toAlpha
+            constraint?.constant = toHeight
+            label?.textColor = wasHidden ? UIColor.highlight : UIColor.white
+        }, completion: { _ in
+            pickerView.isHidden = !wasHidden
+        })
+    }
+    
     /// Presents an alert when provided the specified alertType
     func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
         // The alert controller
@@ -556,12 +585,19 @@ extension AddEditClassViewController: UITextFieldDelegate {
     }
 }
 
-// MAKR: Class Type Picker Delegation
+// MAKR: Class Type & Grade Picker Delegation/DataSource
 extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     var classTypes: [String] {
         get {
             return ["Regular", "Honors", "AP", "IB", "College"]
+        }
+    }
+    
+    var gradeLetters: [String] {
+        get {
+            let scale = try! Realm().objects(GPAScale.self)[0]
+            return scale.gpaRubrics.map { $0.gradeLetter }
         }
     }
 
@@ -570,17 +606,23 @@ extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelega
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return classTypes.count
+        return pickerView === self.classTypePickerView ? classTypes.count : gradeLetters.count
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: classTypes[row], attributes: [NSForegroundColorAttributeName: UIColor.white])
+        let title = pickerView === self.classTypePickerView ? classTypes[row] : gradeLetters[row]
+        return NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: UIColor.white])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // Update the label and the class type
-        self.classTypeLabel.text = classTypes[row]
-        self.classType = ClassType(rawValue: row + 1)
+        if pickerView === self.classTypePickerView {
+            self.classTypeLabel.text = classTypes[row]
+            self.classType = ClassType(rawValue: row + 1)
+        } else {
+            self.gradeLabel.text = gradeLetters[row]
+            
+        }
     }
 }
 

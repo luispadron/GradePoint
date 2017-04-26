@@ -16,6 +16,7 @@ class Grade: Object {
     dynamic var id = UUID().uuidString
     /// The score
     dynamic var score: Double = 0.0
+    /// 
     
     
     // MARK: Initializers & Overrides

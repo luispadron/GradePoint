@@ -650,10 +650,34 @@ keeping track of your assignments</string>
                                 <rect key="frame" x="0.0" y="80" width="414" height="666"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="347"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4D-M2-qW9" userLabel="Type Switcher">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zt0-wK-84s">
+                                                        <rect key="frame" x="20" y="8" width="374" height="25"/>
+                                                        <segments>
+                                                            <segment title="In progress"/>
+                                                            <segment title="Past class"/>
+                                                        </segments>
+                                                        <color key="tintColor" red="0.66274509803921566" green="0.87058823529411766" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="onViewSwitchTapped:" destination="quP-G3-hBI" eventType="valueChanged" id="yGb-hb-V9D"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="zt0-wK-84s" secondAttribute="trailing" constant="20" id="9jX-Mj-sig"/>
+                                                    <constraint firstItem="zt0-wK-84s" firstAttribute="top" secondItem="B4D-M2-qW9" secondAttribute="top" constant="8" id="EQn-eO-gHi"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Kmy-fd-3Po"/>
+                                                    <constraint firstAttribute="bottom" secondItem="zt0-wK-84s" secondAttribute="bottom" constant="8" id="dF1-Nq-bpX"/>
+                                                    <constraint firstItem="zt0-wK-84s" firstAttribute="leading" secondItem="B4D-M2-qW9" secondAttribute="leading" constant="20" id="kRC-QZ-VPE"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX7-Lh-nnI" userLabel="Header View 1">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="41" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMy-Q1-gjJ">
                                                         <rect key="frame" x="20" y="8" width="386" height="34"/>
@@ -672,7 +696,7 @@ keeping track of your assignments</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWj-ja-CWk" userLabel="Name Field">
-                                                <rect key="frame" x="0.0" y="51" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="92" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn2-bl-OaP">
                                                         <rect key="frame" x="20" y="8" width="45" height="44"/>
@@ -698,7 +722,7 @@ keeping track of your assignments</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ras-O3-QCQ" userLabel="Class Type Field">
-                                                <rect key="frame" x="0.0" y="112" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="153" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaC-ML-MjP">
                                                         <rect key="frame" x="20" y="8" width="83.666666666666671" height="44"/>
@@ -729,14 +753,14 @@ keeping track of your assignments</string>
                                                 </connections>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TX2-IU-NZy" userLabel="Class Type Picker View" customClass="UIPickerView">
-                                                <rect key="frame" x="0.0" y="173" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="214" width="414" height="0.0"/>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="79P-5U-Bgj"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLa-Nn-0XS" userLabel="Credit Hour Field">
-                                                <rect key="frame" x="0.0" y="174" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="215" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-kB-Q6n" userLabel="Credit Hours">
                                                         <rect key="frame" x="20" y="8" width="97" height="44"/>
@@ -762,7 +786,7 @@ keeping track of your assignments</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-K4-8dK" userLabel="Semester Field">
-                                                <rect key="frame" x="0.0" y="235" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="276" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ooq-5e-OoZ">
                                                         <rect key="frame" x="20" y="8" width="73" height="44"/>
@@ -793,14 +817,52 @@ keeping track of your assignments</string>
                                                 </connections>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="296" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="337" width="414" height="0.0"/>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="zjo-Hq-6E3"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
+                                                <rect key="frame" x="0.0" y="338" width="414" height="60"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade Earned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oub-lJ-dYZ">
+                                                        <rect key="frame" x="19.999999999999993" y="8" width="105.33333333333331" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A+" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k54-nl-9CU">
+                                                        <rect key="frame" x="164.33333333333337" y="8" width="21.666666666666657" height="44"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="k54-nl-9CU" secondAttribute="bottom" constant="8" id="0nr-rV-xHZ"/>
+                                                    <constraint firstItem="k54-nl-9CU" firstAttribute="leading" secondItem="Oub-lJ-dYZ" secondAttribute="trailing" constant="39" id="DjS-Ho-OYE"/>
+                                                    <constraint firstItem="Oub-lJ-dYZ" firstAttribute="top" secondItem="ucc-Km-1Rd" secondAttribute="top" constant="8" id="FTf-Hh-vTx"/>
+                                                    <constraint firstItem="Oub-lJ-dYZ" firstAttribute="leading" secondItem="ucc-Km-1Rd" secondAttribute="leading" constant="20" id="H9l-V4-TpG"/>
+                                                    <constraint firstItem="k54-nl-9CU" firstAttribute="top" secondItem="ucc-Km-1Rd" secondAttribute="top" constant="8" id="J1q-D9-D1v"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Oub-lJ-dYZ" secondAttribute="bottom" constant="8" id="e8S-92-bxP"/>
+                                                    <constraint firstAttribute="height" constant="60" id="nti-m6-x6n"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="r6a-1A-V7T" appends="YES" id="prI-mI-P7H"/>
+                                                </connections>
+                                            </view>
+                                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFZ-5A-KW7" userLabel="Grade Picker View" customClass="UIPickerView">
+                                                <rect key="frame" x="0.0" y="399" width="414" height="0.0"/>
+                                                <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="3er-hr-LnH"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-th-0OK" userLabel="Header View 2">
-                                                <rect key="frame" x="0.0" y="297" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="400" width="414" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Rubric" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-LP-ed3">
                                                         <rect key="frame" x="20" y="8" width="386" height="34"/>
@@ -851,6 +913,9 @@ keeping track of your assignments</string>
                         <outlet property="classTypePickerViewConstraint" destination="79P-5U-Bgj" id="hzZ-49-DYL"/>
                         <outlet property="classTypeView" destination="ras-O3-QCQ" id="gnd-Wt-Qfl"/>
                         <outlet property="creditHoursField" destination="WPb-gC-sKS" id="pb3-Rd-67b"/>
+                        <outlet property="gradeLabel" destination="k54-nl-9CU" id="JFP-UA-Bqu"/>
+                        <outlet property="gradePickerView" destination="AFZ-5A-KW7" id="MsQ-vn-23f"/>
+                        <outlet property="gradePickerViewConstraint" destination="3er-hr-LnH" id="jAt-l2-L1m"/>
                         <outlet property="nameField" destination="Etm-4N-cqR" id="mwH-Gf-wZA"/>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
@@ -863,14 +928,19 @@ keeping track of your assignments</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYS-Df-2Ku" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="0U3-vF-PUo">
+                <tapGestureRecognizer id="r6a-1A-V7T">
                     <connections>
-                        <action selector="onClassTypeTap:" destination="quP-G3-hBI" id="K5E-xk-qNK"/>
+                        <action selector="onGradeFieldTap:" destination="quP-G3-hBI" id="6LN-NC-pAg"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="3sc-xd-X33">
                     <connections>
                         <action selector="onSemesterTap:" destination="quP-G3-hBI" id="kcf-Br-GHF"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="0U3-vF-PUo">
+                    <connections>
+                        <action selector="onClassTypeTap:" destination="quP-G3-hBI" id="K5E-xk-qNK"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
