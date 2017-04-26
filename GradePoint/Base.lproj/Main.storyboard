@@ -823,7 +823,7 @@ keeping track of your assignments</string>
                                                     <constraint firstAttribute="height" id="zjo-Hq-6E3"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
+                                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
                                                 <rect key="frame" x="0.0" y="338" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade Earned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oub-lJ-dYZ">
@@ -913,12 +913,14 @@ keeping track of your assignments</string>
                         <outlet property="classTypePickerViewConstraint" destination="79P-5U-Bgj" id="hzZ-49-DYL"/>
                         <outlet property="classTypeView" destination="ras-O3-QCQ" id="gnd-Wt-Qfl"/>
                         <outlet property="creditHoursField" destination="WPb-gC-sKS" id="pb3-Rd-67b"/>
+                        <outlet property="gradeFieldContainerView" destination="ucc-Km-1Rd" id="s7n-Xw-Cg0"/>
                         <outlet property="gradeLabel" destination="k54-nl-9CU" id="JFP-UA-Bqu"/>
                         <outlet property="gradePickerView" destination="AFZ-5A-KW7" id="MsQ-vn-23f"/>
                         <outlet property="gradePickerViewConstraint" destination="3er-hr-LnH" id="jAt-l2-L1m"/>
                         <outlet property="nameField" destination="Etm-4N-cqR" id="mwH-Gf-wZA"/>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
+                        <outlet property="rubricHeaderView" destination="9HN-th-0OK" id="saT-CF-j4m"/>
                         <outlet property="saveButton" destination="Szm-TS-1Oc" id="ie4-NT-oUf"/>
                         <outlet property="scrollView" destination="faa-9i-Psk" id="lSN-tM-tAQ"/>
                         <outlet property="semesterLabel" destination="Kwy-1j-1fm" id="0pR-Wy-5PN"/>

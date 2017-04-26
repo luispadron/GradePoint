@@ -42,10 +42,11 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gradeFieldContainerView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var gradePickerView: UIPickerView!
     @IBOutlet weak var gradePickerViewConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var rubricHeaderView: UIView!
     
     /// Properties to handle the save button
     var canSave = false { didSet { saveButton.isEnabled = canSave } }
@@ -194,7 +195,41 @@ class AddEditClassViewController: UIViewController {
     }
     
     @IBAction func onViewSwitchTapped(_ sender: UISegmentedControl) {
-        print(sender.selectedSegmentIndex)
+        // End any editing
+        self.view.endEditing(true)
+        // Animate the views not needed out or show views we need to show
+        // Grade field
+        let gradeFieldWasHidden = gradeFieldContainerView.isHidden
+        gradeFieldContainerView.isHidden = false
+        let toAlphaGradeField: CGFloat = gradeFieldWasHidden ? 1.0 : 0.0
+        let gradePickerWasHidden = gradePickerView.isHidden
+        gradePickerView.isHidden = false
+        let toAlphaGradePicker: CGFloat = gradePickerWasHidden ? 1.0 : 0.0
+        // Rubric Header
+        let headerWasHidden = rubricHeaderView.isHidden
+        rubricHeaderView.isHidden = false
+        let toAlphaHeader: CGFloat = headerWasHidden ? 1.0 : 0.0
+        // The rubric views
+        let rubricViewsWereHidden = rubricViews.first!.isHidden
+        for view in rubricViews { view.isHidden = false }
+        let toAlphaRubricViews: CGFloat = rubricViewsWereHidden ? 1.0 : 0.0
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            self.gradeFieldContainerView.alpha = toAlphaGradeField
+            self.gradePickerView.alpha = toAlphaGradePicker
+            self.rubricHeaderView.alpha = toAlphaHeader
+            for view in self.rubricViews { view.alpha = toAlphaRubricViews }
+        }, completion: { _ in
+            self.gradeFieldContainerView.isHidden = !gradeFieldWasHidden
+            self.gradePickerView.isHidden = !gradePickerWasHidden
+            self.rubricHeaderView.isHidden = !headerWasHidden
+            for view in self.rubricViews {
+                view.isHidden = !rubricViewsWereHidden
+                view.nameField.setTitleVisible(titleVisible: !rubricViewsWereHidden)
+                view.weightField.setTitleVisible(titleVisible: !rubricViewsWereHidden)
+            }
+        })
+
     }
     
     @IBAction func onClassTypeTap(_ sender: UITapGestureRecognizer) {
