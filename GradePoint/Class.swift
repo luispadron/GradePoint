@@ -9,31 +9,6 @@
 import RealmSwift
 import UIKit
 
-/// The type of the GPA Scale
-@objc enum ClassType: Int {
-    // College students only have college option, highschool students have all options
-    case regular = 1
-    case honors = 2
-    case ap = 3
-    case ib = 4
-    case college = 5
-    
-    func name() -> String {
-        switch self {
-        case .regular:
-            return "Regular"
-        case .honors:
-            return "Honors"
-        case .ap:
-            return "AP"
-        case .ib:
-            return "IB"
-        case .college:
-            return "College"
-        }
-    }
-}
-
 class Class: Object {
     
     // MARK: - Properties
@@ -43,6 +18,7 @@ class Class: Object {
     dynamic var classType: ClassType = .college
     dynamic var creditHours = 3
     dynamic var semester: Semester?
+    dynamic var grade: Grade?
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
     dynamic var colorData = Data()
@@ -60,10 +36,25 @@ class Class: Object {
         self.colorData = UIColor.randomPastel.toData()
     }
     
+    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester,  grade: Grade, rubrics:  List<Rubric>) {
+        self.init()
+        self.name = name
+        self.classType = classType
+        self.creditHours = creditHours
+        self.semester = semester
+        self.rubrics = rubrics
+        self.colorData = UIColor.randomPastel.toData()
+        self.grade = grade
+    }
+    
     // MARK: - Overrides
     
     override class func primaryKey() -> String? {
         return "id"
+    }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["color"]
     }
     
     
@@ -72,79 +63,4 @@ class Class: Object {
     /// Returns the color after getting it from the color data
     var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }
     
-    /// Returns the score after calculating all the assignments and rubrics
-    var score: Double {
-        get {
-            if self.assignments.count == 0 { return 0.00 }
-            
-            let assignmentsSectionedByRubric = self.rubrics.map { self.assignments.filter("associatedRubric = %@", $0) }
-            
-            var weights = 0.0
-            var totalScore = 0.0
-            
-            for assignments in assignmentsSectionedByRubric {
-                if assignments.count == 0 { continue }
-                weights += assignments[0].associatedRubric!.weight
-                
-                var sumTotal = 0.0
-                for assignment in assignments { sumTotal += assignment.score }
-                
-                sumTotal /= Double(assignments.count)
-                totalScore += assignments[0].associatedRubric!.weight * sumTotal
-            }
-            
-            return Double(totalScore / weights).roundedUpTo(2)
-        }
-    }
-    
-    /// Returns the letter grade based on the score and the GPA Scale the user has set
-    var letterGrade: String {
-        get {
-            let scale = try! Realm().objects(GPAScale.self)[0]
-            switch scale.scaleType {
-            case .plusScale:
-                switch self.score {
-                case 0.00...59.99:
-                    return "F"
-                case 60.00...62.99:
-                    return "D-"
-                case 63.00...66.99:
-                    return "D"
-                case 67.00...69.99:
-                    return "D+"
-                case 70.00...72.99:
-                    return "C-"
-                case 73.00...76.99:
-                    return "C"
-                case 77.00...79.99:
-                    return "C+"
-                case 80.00...82.99:
-                    return "B-"
-                case 83.00...86.99:
-                    return "B"
-                case 87.00...89.99:
-                    return "B+"
-                case 90.00...92.99:
-                    return "A-"
-                case 93.00...99.99:
-                    return "A"
-                default:
-                    return "A+"
-                }
-            case .nonPlusScale:
-                switch self.score {
-                case 0.00...59.99:
-                    return "F"
-                case 60.00...69.99:
-                    return "D"
-                case 70.00...79.99:
-                    return "C"
-                case 80.00...89.99:
-                    return "B"
-                default:
-                    return "A"
-                }
-            }
-        }
-    }
 }

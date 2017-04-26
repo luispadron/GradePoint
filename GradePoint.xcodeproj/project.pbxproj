@@ -22,6 +22,8 @@
 		A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01599101E2AC47E003B63F2 /* TextInputTableViewCell.swift */; };
 		A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */; };
 		A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */; };
+		A019325C1EB128EB000E18A3 /* ClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A019325B1EB128EB000E18A3 /* ClassType.swift */; };
+		A019325E1EB12917000E18A3 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A019325D1EB12917000E18A3 /* Grade.swift */; };
 		A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87811DBD273A00A85E2D /* Rubric.swift */; };
 		A01B87841DBD275300A85E2D /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87831DBD275300A85E2D /* Semester.swift */; };
 		A01B87861DBD276000A85E2D /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87851DBD276000A85E2D /* Class.swift */; };
@@ -117,6 +119,8 @@
 		A01599101E2AC47E003B63F2 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard1ViewController.swift; sourceTree = "<group>"; };
 		A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard2ViewController.swift; sourceTree = "<group>"; };
+		A019325B1EB128EB000E18A3 /* ClassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassType.swift; sourceTree = "<group>"; };
+		A019325D1EB12917000E18A3 /* Grade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		A01B87811DBD273A00A85E2D /* Rubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rubric.swift; sourceTree = "<group>"; };
 		A01B87831DBD275300A85E2D /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		A01B87851DBD276000A85E2D /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
@@ -316,6 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				A01B87851DBD276000A85E2D /* Class.swift */,
+				A019325B1EB128EB000E18A3 /* ClassType.swift */,
+				A019325D1EB12917000E18A3 /* Grade.swift */,
 				A09CEC6C1DF669FC00280F93 /* Assignment.swift */,
 				A01B87811DBD273A00A85E2D /* Rubric.swift */,
 				A01B87831DBD275300A85E2D /* Semester.swift */,
@@ -713,6 +719,8 @@
 				A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */,
 				A00705131DAF0E9B00AD740A /* ClassDetailTableViewController.swift in Sources */,
 				A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */,
+				A019325C1EB128EB000E18A3 /* ClassType.swift in Sources */,
+				A019325E1EB12917000E18A3 /* Grade.swift in Sources */,
 				A021E8BB1E7A1FE40014818F /* UIAddGPAViewDelegate.swift in Sources */,
 				A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */,
 				A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */,

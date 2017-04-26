@@ -198,7 +198,7 @@ class ClassDetailTableViewController: UITableViewController {
     /// Calculates the percentage for the progress ring
     func calculateProgress() {
         guard let classObj = _classObj else { return }
-        self.progressRing.setProgress(value: CGFloat(classObj.score), animationDuration: 1.5)
+        self.progressRing.setProgress(value: CGFloat(classObj.grade!.score), animationDuration: 1.5)
     }
     
     func assignment(for indexPath: IndexPath) -> Assignment {

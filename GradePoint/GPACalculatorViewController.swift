@@ -130,7 +130,7 @@ class GPACalculatorViewController: UIViewController {
     @discardableResult func populate(gpaView: UIAddGPAView, withClass classObj: Class) -> UIAddGPAView {
         // Update the fields with the class values
         gpaView.nameField.text = classObj.name
-        gpaView.gradeField.text = classObj.letterGrade
+        gpaView.gradeField.text = classObj.grade!.gradeLetter
         gpaView.creditsField.text = "\(classObj.creditHours)"
         gpaView.toDeleteState()
         
