@@ -9,6 +9,11 @@
 import UIKit
 import RealmSwift
 
+enum ViewState {
+    case inProgress
+    case past
+}
+
 class AddEditClassViewController: UIViewController {
 
     // MARK: Properties
@@ -197,44 +202,56 @@ class AddEditClassViewController: UIViewController {
     @IBAction func onViewSwitchTapped(_ sender: UISegmentedControl) {
         // End any editing
         self.view.endEditing(true)
-        // Animate the views not needed out or show views we need to show
-        // Grade field
-        let gradeFieldWasHidden = gradeFieldContainerView.isHidden
-        gradeFieldContainerView.isHidden = false
-        let toAlphaGradeField: CGFloat = gradeFieldWasHidden ? 1.0 : 0.0
-        let gradePickerWasHidden = gradePickerView.isHidden
-        gradePickerView.isHidden = false
-        let toAlphaGradePicker: CGFloat = gradePickerWasHidden ? 1.0 : 0.0
-        // Rubric Header
-        let headerWasHidden = rubricHeaderView.isHidden
-        rubricHeaderView.isHidden = false
-        let toAlphaHeader: CGFloat = headerWasHidden ? 1.0 : 0.0
-        // The rubric views
-        let rubricViewsWereHidden = rubricViews.first!.isHidden
-        for view in rubricViews { view.isHidden = false }
-        let toAlphaRubricViews: CGFloat = rubricViewsWereHidden ? 1.0 : 0.0
+        // Update the view
         
-        UIView.animate(withDuration: 0.2, animations: {
-            self.gradeFieldContainerView.alpha = toAlphaGradeField
-            self.gradePickerView.alpha = toAlphaGradePicker
-        }, completion: { _ in
-            // Update visibility
-            self.gradeFieldContainerView.isHidden = !gradeFieldWasHidden
-            self.gradePickerView.isHidden = !gradePickerWasHidden
-            // First toggle the title labels from the rubric views
-            for view in self.rubricViews {
-                view.nameField.setTitleVisible(titleVisible: !rubricViewsWereHidden)
-                view.weightField.setTitleVisible(titleVisible: !rubricViewsWereHidden)
-            }
-            // Now animate the rubric views
-            UIView.animate(withDuration: 0.2, animations: {
-                self.rubricHeaderView.alpha = toAlphaHeader
-                for view in self.rubricViews { view.alpha = toAlphaRubricViews }
+        switch sender.selectedState {
+        // Show all the views EXCEPT the grade selection view
+        case .inProgress:
+            // Initial set up
+            self.rubricHeaderView.isHidden = false
+            for v in self.rubricViews { v.isHidden = false }
+            
+            UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeCubic, animations: { 
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                    self.gradeFieldContainerView.layoutIfNeeded()
+                    self.gradeFieldContainerView.alpha = 0.0
+                    self.gradePickerView.alpha = 0.0
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: { 
+                    self.rubricHeaderView.alpha = 1.0
+                    for v in self.rubricViews { v.alpha = 1.0 }
+                })
+                
             }, completion: { _ in
-                self.rubricHeaderView.isHidden = !headerWasHidden
-                for view in self.rubricViews { view.isHidden = !rubricViewsWereHidden }
+                self.gradeFieldContainerView.isHidden = true
+                self.gradePickerView.isHidden = true
+                self.updateSaveButton()
             })
-        })
+        // Hide any rubric views, and show the grade selection view
+        case .past:
+            // Initial set up
+            self.gradeFieldContainerView.isHidden = false
+            self.gradePickerView.isHidden = false
+            UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeCubic, animations: {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
+                    self.rubricHeaderView.alpha = 0.0
+                    for v in self.rubricViews { v.alpha = 0.0 }
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
+                    self.gradeFieldContainerView.alpha = 1.0
+                    self.gradePickerView.alpha = 1.0
+                })
+                
+            }, completion: { _ in
+                self.rubricHeaderView.isHidden = true
+                for v in self.rubricViews { v.isHidden = true }
+                self.updateSaveButton()
+            })
+        }
 
     }
     
@@ -463,20 +480,28 @@ class AddEditClassViewController: UIViewController {
         view.animateViews()
         UIView.animate(withDuration: view.animationDuration, animations: {
             view.alpha = 0.0
-        }, completion: { finished in
-            if finished { self.stackView.removeArrangedSubview(view) }
+        }, completion: { _ in
+            self.stackView.removeArrangedSubview(view)
         })
     }
     
     func updateSaveButton() {
         // Checks to see whether should enable save button
         let nameValid = self.nameField.safeText.isValid()
-        var rubricsAreValid = false
-        var validCount = 0
-        for view in rubricViews { if view.isRubricValid { validCount += 1 } }
-        rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
         
-        self.saveButton.isEnabled = nameValid && rubricsAreValid
+        // Different case for selected states
+        switch self.typeSwitcher.selectedState {
+        case .inProgress:
+            var rubricsAreValid = false
+            var validCount = 0
+            for view in rubricViews { if view.isRubricValid { validCount += 1 } }
+            rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
+            
+            self.saveButton.isEnabled = nameValid && rubricsAreValid
+        case .past:
+            self.saveButton.isEnabled = nameValid
+            break
+        }
     }
     
     func updateClassTypePicker(for classObj: Class) {
