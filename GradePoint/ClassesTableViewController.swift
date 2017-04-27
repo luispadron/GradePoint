@@ -143,6 +143,10 @@ class ClassesTableViewController: UITableViewController {
         return [deleteAction, editAction]
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: .showDetail, sender: tableView.cellForRow(at: indexPath)!)
+    }
+    
     // MARK: - Helpers
     
     /// This generates all of the possible Semester combinations, this array will be the sections for the table view, currently 48 sections total

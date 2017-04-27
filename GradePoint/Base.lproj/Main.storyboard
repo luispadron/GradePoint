@@ -559,7 +559,6 @@ keeping track of your assignments</string>
                                     <outlet property="classDateLabel" destination="O8D-SY-jtX" id="yga-Qk-5dd"/>
                                     <outlet property="classRibbon" destination="E4B-vY-3vy" id="vWc-In-ccX"/>
                                     <outlet property="classTitleLabel" destination="cG5-cK-vFE" id="gJC-zq-rY3"/>
-                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="5kc-o4-kea"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -581,6 +580,7 @@ keeping track of your assignments</string>
                     </navigationItem>
                     <connections>
                         <segue destination="BBe-6J-vmz" kind="presentation" identifier="onboardingSegue" id="pVc-mS-YSd"/>
+                        <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="1XK-ni-xRt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -2963,7 +2963,7 @@ maintain or achieve a desired grade.</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="pVc-mS-YSd"/>
-        <segue reference="5kc-o4-kea"/>
+        <segue reference="1XK-ni-xRt"/>
         <segue reference="Eyw-f5-vuE"/>
     </inferredMetricsTieBreakers>
 </document>
