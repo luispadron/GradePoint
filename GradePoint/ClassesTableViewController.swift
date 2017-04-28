@@ -183,6 +183,7 @@ class ClassesTableViewController: UITableViewController {
         let rubricsToDel = classToDel.rubrics
         let semesterToDel = classToDel.semester!
         let assignmentsToDel = classToDel.assignments
+        let gradeToDel = classToDel.grade!
         
         // Figure out whether we need to update the state of the detail controller or not
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
@@ -196,6 +197,7 @@ class ClassesTableViewController: UITableViewController {
             realm.delete(rubricsToDel)
             realm.delete(semesterToDel)
             realm.delete(assignmentsToDel)
+            realm.delete(gradeToDel)
             realm.delete(classToDel)
         }
         

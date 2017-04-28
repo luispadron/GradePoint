@@ -25,6 +25,7 @@ class Class: Object {
     
     // MARK: - Initializers
     
+    /// Used to create an in-progress class
     convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester, rubrics:  List<Rubric>) {
         self.init()
         self.name = name
@@ -36,15 +37,15 @@ class Class: Object {
         self.grade = Grade(score: 0.0)
     }
     
-    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester,  grade: Grade, rubrics:  List<Rubric>) {
+    /// Used to create a past class
+    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester,  grade: Grade) {
         self.init()
         self.name = name
         self.classType = classType
         self.creditHours = creditHours
         self.semester = semester
-        self.rubrics = rubrics
-        self.colorData = UIColor.randomPastel.toData()
         self.grade = grade
+        self.colorData = UIColor.randomPastel.toData()
     }
     
     // MARK: - Overrides

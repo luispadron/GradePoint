@@ -77,8 +77,6 @@ class AddEditClassViewController: UIViewController {
     var classType: ClassType!
     /// The semester, grabbed from the UISemesterPickerView
     var semester: Semester!
-    /// The Grade earned for the class, default is a Grade with a .score of 0.0, unless user creates a past class
-    lazy var classGrade: Grade = Grade(score: 0.0)
     
     /// The delegate for this view, will be notified when finished editing or creating new class
     weak var delegate: AddEditClassViewDelegate?
@@ -288,19 +286,21 @@ class AddEditClassViewController: UIViewController {
     
     @IBAction func onSave(_ sender: UIButton) {
         guard isSaveReady() else { return }
-        switch typeSwitcher.selectedSegmentIndex {
-        case 0:
-            guard let classObj = self.classObj else { saveNewClass(); return }
-            saveChangesTo(classObj)
-        case 1:
-            break
-        default:
-            return
+        // Switch on state, save the correct type of class
+        switch typeSwitcher.selectedState {
+        case .inProgress:
+            guard let classObj = self.classObj else { saveNewInProgressClass(); return }
+            saveChangesTo(inProgressClass: classObj)
+        case .past:
+            guard let classObj = self.classObj else { saveNewPastClass(); return }
+            saveChangesTo(pastClass: classObj)
         }
     }
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
+        // If adding a past class, this checking of rubrics can be skipped
+        guard self.typeSwitcher.selectedState == .inProgress else { return true }
         // Want all rubric cells except the last one, since its always empty
         var views = rubricViews
         views.removeLast()
@@ -313,10 +313,6 @@ class AddEditClassViewController: UIViewController {
                 presentErrorAlert(title: "Unable to save", message: "Some data is incorrect and cannot save, please check values and try again")
                 return false
             }
-            
-            // Default the credit hours field to 3
-            let creditString = self.creditHoursField.safeText
-            if !creditString.isValid() { self.creditHoursField.text = "3" }
             
             if percent <= 0 {
                 // Present alert warning user about zero percent
@@ -356,7 +352,7 @@ class AddEditClassViewController: UIViewController {
     }
     
     /// Saves a new class object to realm with all the data the user entered
-    func saveNewClass() {
+    func saveNewInProgressClass() {
         // Want all rubric cells except the last one, since its always empty
         var views = rubricViews
         views.removeLast()
@@ -374,9 +370,9 @@ class AddEditClassViewController: UIViewController {
         // Create the semester
         let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
         
-        let credits = Int(self.creditHoursField.safeText)!
+        let credits = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
         // Create the new class
-        let newClass = Class(name: self.nameField.text!, classType: self.classType,
+        let newClass = Class(name: self.nameField.safeText, classType: self.classType,
                              creditHours: credits, semester: semester, rubrics: List<Rubric>(rubrics))
         newClass.colorData = colorForView.toData()
         
@@ -392,15 +388,33 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
+    func saveNewPastClass() {
+        let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
+        let credits = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
+        let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
+                             semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
+        newClass.colorData = colorForView.toData()
+        // Write the new class to realm
+        try! realm.write {
+            realm.add(newClass)
+        }
+        
+        // Dismisses
+        self.dismiss(animated: true) { [weak self] in
+            // Call delegate, notify of new class
+            self?.delegate?.didFinishCreating(newClass: newClass)
+        }
+    }
+    
     /// Saves the edits the user made to the object
-    func saveChangesTo(_ classObj: Class) {
+    func saveChangesTo(inProgressClass classObj: Class) {
         // Lets save the changes made to the Class object, again can force unwrap since already checked for values
         
         // Write name and semester changes to realm
         try! realm.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
-            classObj.creditHours = Int(self.creditHoursField.safeText)!
+            classObj.creditHours = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
         }
@@ -438,6 +452,9 @@ class AddEditClassViewController: UIViewController {
             // Call the delegate method, tell it were done updating the class
             self?.delegate?.didFinishUpdating(classObj: classObj)
         }
+    }
+    
+    func saveChangesTo(pastClass classObj: Class) {
     }
     
     /// Deletes all rubrics inside of the rubricsToDelete array
@@ -694,7 +711,6 @@ extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelega
             self.classType = ClassType(rawValue: row + 1)
         } else {
             self.gradeLabel.text = gradeLetters[row]
-            self.classGrade = Grade(gradeLetter: gradeLetters[row])
         }
     }
 }
