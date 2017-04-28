@@ -81,6 +81,9 @@ class AddEditClassViewController: UIViewController {
     /// The delegate for this view, will be notified when finished editing or creating new class
     weak var delegate: AddEditClassViewDelegate?
     
+    /// The current state the view is in, this doesn't change when editing a Class
+    var viewState: ViewState = .inProgress
+    
     // MARK: Overrides
     
     override func viewDidLoad() {
@@ -131,20 +134,35 @@ class AddEditClassViewController: UIViewController {
         self.gradePickerView.delegate = self
         self.gradePickerView.dataSource = self
         
-        // Initially we need to have at least one rubric view added to the view
-        if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
-        
         self.saveButton.isEnabled = false
         
         // If were editing a class then update the UI
-        if let classObj = self.classObj {
-            self.navigationTitle.text = "Edit \(classObj.name)"
-            self.nameField.text = classObj.name
-            self.classTypeLabel.text = classObj.classType.name()
-            updateClassTypePicker(for: classObj)
-            self.creditHoursField.text = "\(classObj.creditHours)"
-            updateSemesterPicker(for: classObj)
-            updateRubricViews(for: classObj)
+        // Handle case of editing an in progress class
+        if let inProgressClass = self.classObj, inProgressClass.rubrics.count > 1 {
+            // Set view state to in progress
+            self.viewState = .inProgress
+            self.prepareView(forState: viewState, isEditing: true)
+            // Update fields with edited classes attributes
+            self.navigationTitle.text = "Edit \(inProgressClass.name)"
+            self.nameField.text = inProgressClass.name
+            self.classTypeLabel.text = inProgressClass.classType.name()
+            updateClassTypePicker(for: inProgressClass)
+            self.creditHoursField.text = "\(inProgressClass.creditHours)"
+            updateSemesterPicker(for: inProgressClass)
+            updateRubricViews(for: inProgressClass)
+        } else if let pastClass = self.classObj, pastClass.rubrics.count == 0 {
+            // Set view state to past
+            self.viewState = .past
+            self.prepareView(forState: viewState, isEditing: true)
+            // Update fields with edited classes attributes
+            self.navigationTitle.text = "Edit \(pastClass.name)"
+            self.nameField.text = pastClass.name
+            self.classTypeLabel.text = pastClass.classType.name()
+            updateClassTypePicker(for: pastClass)
+            self.creditHoursField.text = "\(pastClass.creditHours)"
+            updateSemesterPicker(for: pastClass)
+            self.gradeLabel.text = pastClass.grade?.gradeLetter
+            updateGradePicker(for: pastClass)
         } else {
             // Set a default semester
             let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
@@ -154,6 +172,8 @@ class AddEditClassViewController: UIViewController {
             let scale = try! Realm().objects(GPAScale.self).first!
             let defaultGrade = scale.gpaRubrics[0].gradeLetter
             self.gradeLabel.text = defaultGrade
+            // Prepare for add state
+            prepareView(forState: self.viewState, isEditing: false)
         }
         
         // If not on iPad where the view will be presented as a popover
@@ -185,6 +205,35 @@ class AddEditClassViewController: UIViewController {
     }
     
     
+    // MARK: UI Update Methods
+    
+    func prepareView(forState state: ViewState, isEditing: Bool) {
+        if isEditing {
+            // Remove the switcher
+            self.typeSwitcher.superview?.removeFromSuperview()
+            self.typeSwitcher.removeFromSuperview()
+        }
+        
+        // Hide and show specific views
+        switch state {
+        case .inProgress:
+            // Initially we need to have at least one rubric view added to the view
+            if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
+            // The other views are hidden by default
+            break
+        case .past:
+            // Hide the rubric views, show the grade field
+            self.gradeFieldContainerView.isHidden = false
+            self.gradeLabel.isHidden = false
+            self.gradePickerView.isHidden = false
+            self.gradeFieldContainerView.alpha = 1.0
+            self.gradeLabel.alpha = 1.0
+            self.gradePickerView.alpha = 1.0
+            // Remove rubric header view
+            self.rubricHeaderView.removeFromSuperview()
+        }
+    }
+    
     
     // MARK: Actions
     
@@ -200,9 +249,11 @@ class AddEditClassViewController: UIViewController {
     @IBAction func onViewSwitchTapped(_ sender: UISegmentedControl) {
         // End any editing
         self.view.endEditing(true)
-        // Update the view
         
-        switch sender.selectedState {
+        self.viewState = sender.selectedSegmentIndex == 0 ? .inProgress : .past
+        
+        // Update the view
+        switch self.viewState {
         // Show all the views EXCEPT the grade selection view
         case .inProgress:
             // Initial set up
@@ -212,7 +263,6 @@ class AddEditClassViewController: UIViewController {
             UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeCubic, animations: { 
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
-                    self.gradeFieldContainerView.layoutIfNeeded()
                     self.gradeFieldContainerView.alpha = 0.0
                     self.gradePickerView.alpha = 0.0
                 })
@@ -287,7 +337,7 @@ class AddEditClassViewController: UIViewController {
     @IBAction func onSave(_ sender: UIButton) {
         guard isSaveReady() else { return }
         // Switch on state, save the correct type of class
-        switch typeSwitcher.selectedState {
+        switch self.viewState {
         case .inProgress:
             guard let classObj = self.classObj else { saveNewInProgressClass(); return }
             saveChangesTo(inProgressClass: classObj)
@@ -300,7 +350,7 @@ class AddEditClassViewController: UIViewController {
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
         // If adding a past class, this checking of rubrics can be skipped
-        guard self.typeSwitcher.selectedState == .inProgress else { return true }
+        guard self.viewState == .inProgress else { return true }
         // Want all rubric cells except the last one, since its always empty
         var views = rubricViews
         views.removeLast()
@@ -505,9 +555,9 @@ class AddEditClassViewController: UIViewController {
     func updateSaveButton() {
         // Checks to see whether should enable save button
         let nameValid = self.nameField.safeText.isValid()
-        
+    
         // Different case for selected states
-        switch self.typeSwitcher.selectedState {
+        switch self.viewState {
         case .inProgress:
             var rubricsAreValid = false
             var validCount = 0
@@ -521,6 +571,7 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
+    /// Updates the class type picker for the appropriate class
     func updateClassTypePicker(for classObj: Class) {
         let row = classObj.classType.rawValue - 1
         self.classTypePickerView.selectRow(row, inComponent: 0, animated: false)
@@ -543,6 +594,23 @@ class AddEditClassViewController: UIViewController {
         self.semester = classObj.semester!
     }
     
+    /// Updates the grade picker for a past class that is being edited
+    func updateGradePicker(for classObj: Class) {
+        var row: Int!
+        let letter = classObj.grade!.gradeLetter
+        // If the user hasnt changed their grade letter config, this will work
+        if let r = self.gradeLetters.index(of: letter) {
+            row = r
+        } else { // User has gone from A+ scale to non A+ scale, thus cannot be found, strip any of the - and + from the letter grade.
+            let strippedLetter = letter.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "-", with: "")
+            row = self.gradeLetters.index(of: strippedLetter)
+        }
+        
+        self.gradePickerView.selectRow(row, inComponent: 0, animated: false)
+        self.pickerView(self.gradePickerView, didSelectRow: row, inComponent: 0)
+    }
+    
+    /// Updates all rubric views and sets the fields to the editing class' attributes
     func updateRubricViews(for classObj: Class) {
         for rubric in classObj.rubrics {
             let view = appendRubricView()

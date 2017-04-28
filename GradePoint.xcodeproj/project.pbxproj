@@ -47,7 +47,6 @@
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
-		A0933A551EB299E9005F8D45 /* UISegmentedControl+ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0933A541EB299E9005F8D45 /* UISegmentedControl+ViewState.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
 		A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6C1DF669FC00280F93 /* Assignment.swift */; };
 		A0A0A4C81E3713190055B0D4 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A0A4C71E3713190055B0D4 /* ModelTests.swift */; };
@@ -145,7 +144,6 @@
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
-		A0933A541EB299E9005F8D45 /* UISegmentedControl+ViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+ViewState.swift"; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
 		A09CEC6C1DF669FC00280F93 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		A0A0A4C71E3713190055B0D4 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
@@ -421,7 +419,6 @@
 				A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */,
 				A0F89EF11E5900E20062F9F2 /* Double+Round.swift */,
 				A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */,
-				A0933A541EB299E9005F8D45 /* UISegmentedControl+ViewState.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -752,7 +749,6 @@
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
-				A0933A551EB299E9005F8D45 /* UISegmentedControl+ViewState.swift in Sources */,
 				A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */,
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */,
