@@ -177,11 +177,17 @@ class ClassDetailTableViewController: UITableViewController {
         self.tableView.reloadData()
         self.tableView.layoutIfNeeded()
         
-        if let classObj = self._classObj {
+        if let classObj = self._classObj, classObj.rubrics.count > 0 {
+            // Class is an in progress class, then allow + button to be enabled
             self.title = classObj.name
             self.addButton.isEnabled = true
             self.splitViewController?.displayModeButtonItem.isEnabled = true
-        } else if shouldShowBlank {
+        } else if let classObj = self._classObj, classObj.rubrics.count == 0 {
+            // Class is a past class, dont allow + button
+            self.title = classObj.name
+            self.addButton.isEnabled = false
+            self.splitViewController?.displayModeButtonItem.isEnabled = true
+        } else if shouldShowBlank  {
             self.title = nil
             self.addButton.isEnabled = false
             self.splitViewController?.displayModeButtonItem.isEnabled = false
@@ -244,28 +250,49 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     var emptyStateTitle: NSAttributedString {
-        // If no class selected, tell user to select one
-        guard let _ = _classObj else {
-            let attrsForSelect = [NSForegroundColorAttributeName: UIColor.mutedText,
-                                  NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
-            return NSAttributedString(string: "Select a class", attributes: attrsForSelect)
+    
+        // Attributes for the attributed string
+        var attributes: [String : Any] = [NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        
+        if let inProgress = _classObj, inProgress.rubrics.count > 0 {
+            // Class is in progress but has no assignments
+            attributes[NSForegroundColorAttributeName] = UIColor.mainText
+            return NSAttributedString(string: "No assignments added", attributes: attributes)
+        } else if let pastClass = _classObj, pastClass.rubrics.count == 0 {
+            // Class is a past class, assignments cannot be added
+            attributes[NSForegroundColorAttributeName] = UIColor.mainText
+            return NSAttributedString(string: "Past class: " + pastClass.name, attributes: attributes)
+        } else {
+            // No class selected
+            attributes[NSForegroundColorAttributeName] = UIColor.mutedText
+            return NSAttributedString(string: "Select a class", attributes: attributes)
         }
-        // Display the title
-        let attrs = [NSForegroundColorAttributeName: UIColor.mainText,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
-        return NSAttributedString(string: "No Assignments Added", attributes: attrs)
     }
     
     var emptyStateDetailMessage: NSAttributedString? {
-        guard let _ = _classObj else { return nil }
+        guard let classObj = _classObj else { return nil }
         
-        let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-        return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
+        if classObj.rubrics.count > 0 {
+            // Class is in progress, thus assignments can be added
+            let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
+                         NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+            return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
+        } else {
+            // Class is not in progress, is a past class. Display a detail message and thats it
+            let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
+                         NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+            let detail = "This is a past class, assignments cannot be added.\n" +
+                        "Past classes are only used for calculating GPA.\n" +
+                        "\nYou earned a \(classObj.grade!.gradeLetter) in this class.\n\n" +
+                        "To track assignments create an In Progress class."
+            return NSAttributedString(string: detail, attributes: attrs)
+        }
+
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        guard let _ = _classObj else { return nil }
+        // If no class selected, or if class is a past class, then dont show the button
+        if _classObj == nil || (_classObj?.rubrics.count ?? 0) == 0 { return nil }
         
         let attrs = [NSForegroundColorAttributeName: UIColor.accentGreen,
                      NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
@@ -273,13 +300,15 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     var emptyStateButtonImage: UIImage? {
-        guard let _ = _classObj else { return nil }
+        // If no class selected, or if class is a past class, then dont show the button image
+        if _classObj == nil || (_classObj?.rubrics.count ?? 0) == 0 { return nil }
         
         return #imageLiteral(resourceName: "buttonBg")
     }
     
     var emptyStateButtonSize: CGSize? {
-        guard let _ = _classObj else { return nil }
+        // If no class selected, or if class is a past class, then dont return button size
+        if _classObj == nil || (_classObj?.rubrics.count ?? 0) == 0 { return nil }
         
         return CGSize(width: 170, height: 50)
     }
