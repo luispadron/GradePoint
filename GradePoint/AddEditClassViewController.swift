@@ -138,7 +138,7 @@ class AddEditClassViewController: UIViewController {
         
         // If were editing a class then update the UI
         // Handle case of editing an in progress class
-        if let inProgressClass = self.classObj, inProgressClass.rubrics.count > 1 {
+        if let inProgressClass = self.classObj, inProgressClass.rubrics.count > 0 {
             // Set view state to in progress
             self.viewState = .inProgress
             self.prepareView(forState: viewState, isEditing: true)
