@@ -11,8 +11,8 @@ import UIKit
 open class UIFloatingPromptTextField: UISafeTextField {
     
     open lazy var titleLabel = UILabel()
-    open var titleText: String = ""
-    open var titleTextColor: UIColor = UIColor.highlight
+    open var titleText: String = "" { didSet { self.titleLabel.text = self.titleText.uppercased() } }
+    open var titleTextColor: UIColor = UIColor.highlight { didSet { self.titleLabel.textColor = self.titleTextColor } }
     open var animationDuration: TimeInterval = 0.3
     open var titleTextSpacing: CGFloat = 0.0
     
@@ -86,6 +86,7 @@ open class UIFloatingPromptTextField: UISafeTextField {
             self.titleLabel.alpha = alpha
             self.titleLabel.frame = frame
         }
+        
         if animated {
             let animationOptions:UIViewAnimationOptions = .curveEaseOut;
             let duration = animationDuration

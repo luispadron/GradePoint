@@ -27,10 +27,7 @@
 		A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87811DBD273A00A85E2D /* Rubric.swift */; };
 		A01B87841DBD275300A85E2D /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87831DBD275300A85E2D /* Semester.swift */; };
 		A01B87861DBD276000A85E2D /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87851DBD276000A85E2D /* Class.swift */; };
-		A021E8B91E7A1C180014818F /* UIAddGPAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8B81E7A1C180014818F /* UIAddGPAView.swift */; };
-		A021E8BB1E7A1FE40014818F /* UIAddGPAViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8BA1E7A1FE40014818F /* UIAddGPAViewDelegate.swift */; };
 		A021E8BD1E7A20F40014818F /* CGFloat+ToRads.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */; };
-		A045BE841E78C3760046AC09 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A045BE831E78C3760046AC09 /* GPACalculatorViewController.swift */; };
 		A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */; };
 		A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */; };
 		A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */; };
@@ -64,6 +61,8 @@
 		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
 		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
 		A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */; };
+		A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */; };
+		A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
 		A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */; };
@@ -128,10 +127,7 @@
 		A01B87811DBD273A00A85E2D /* Rubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rubric.swift; sourceTree = "<group>"; };
 		A01B87831DBD275300A85E2D /* Semester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		A01B87851DBD276000A85E2D /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
-		A021E8B81E7A1C180014818F /* UIAddGPAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAddGPAView.swift; sourceTree = "<group>"; };
-		A021E8BA1E7A1FE40014818F /* UIAddGPAViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAddGPAViewDelegate.swift; sourceTree = "<group>"; };
 		A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+ToRads.swift"; sourceTree = "<group>"; };
-		A045BE831E78C3760046AC09 /* GPACalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculatorViewController.swift; sourceTree = "<group>"; };
 		A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterPickerDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +161,8 @@
 		A0C5170C1E78A64C0089527D /* GPAScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAScale.swift; sourceTree = "<group>"; };
 		A0C517131E78AC0B0089527D /* GPARubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPARubric.swift; sourceTree = "<group>"; };
 		A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorsViewController.swift; sourceTree = "<group>"; };
+		A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGPAView.swift; sourceTree = "<group>"; };
+		A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculatorViewController.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExentions.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -309,7 +307,6 @@
 				A0F517F71E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift */,
 				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
 				A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */,
-				A021E8BA1E7A1FE40014818F /* UIAddGPAViewDelegate.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -319,7 +316,7 @@
 			children = (
 				A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */,
 				A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */,
-				A045BE831E78C3760046AC09 /* GPACalculatorViewController.swift */,
+				A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */,
 			);
 			name = Calculators;
 			sourceTree = "<group>";
@@ -446,7 +443,7 @@
 				A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */,
 				A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */,
 				A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */,
-				A021E8B81E7A1C180014818F /* UIAddGPAView.swift */,
+				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -737,17 +734,16 @@
 				A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */,
 				A019325C1EB128EB000E18A3 /* ClassType.swift in Sources */,
 				A019325E1EB12917000E18A3 /* Grade.swift in Sources */,
-				A021E8BB1E7A1FE40014818F /* UIAddGPAViewDelegate.swift in Sources */,
 				A0F517F81E2DC0A600E887BA /* AddEditAssignmentViewDelegate.swift in Sources */,
 				A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */,
 				A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */,
-				A021E8B91E7A1C180014818F /* UIAddGPAView.swift in Sources */,
 				A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */,
 				A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */,
 				A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */,
 				A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */,
 				A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */,
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
+				A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
 				A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */,
@@ -761,7 +757,6 @@
 				A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */,
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */,
-				A045BE841E78C3760046AC09 /* GPACalculatorViewController.swift in Sources */,
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
 				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
@@ -784,6 +779,7 @@
 				A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */,
 				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
+				A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
 				A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */,
 				A0E8CAA71E5BFE640029565A /* UserPreferenceKeys.swift in Sources */,

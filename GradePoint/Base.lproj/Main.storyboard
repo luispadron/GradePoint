@@ -448,7 +448,7 @@
                                                     <constraint firstAttribute="height" id="zjo-Hq-6E3"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
+                                            <view hidden="YES" verifyAmbiguity="off" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
                                                 <rect key="frame" x="0.0" y="348" width="414" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grade Earned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oub-lJ-dYZ">
