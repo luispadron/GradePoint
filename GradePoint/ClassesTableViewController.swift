@@ -28,7 +28,7 @@ class ClassesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Split view delegation and customization
         self.splitViewController?.delegate = self
         self.splitViewController?.preferredDisplayMode = .allVisible
@@ -247,7 +247,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
         return NSAttributedString(string: "Add a class", attributes: attrs)
     }
     
-    var emptyStateButtonImage: UIImage? { return #imageLiteral(resourceName: "buttonBg") }
+    var emptyStateButtonImage: UIImage? { return #imageLiteral(resourceName: "ButtonBg") }
     
     var emptyStateButtonSize: CGSize? { return CGSize(width: 160, height: 45) }
     

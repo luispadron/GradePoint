@@ -114,6 +114,6 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
     // MARK: Helper methods
     
     private func newOnboardController(with id: String) -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: id)
+        return UIStoryboard(name: "Onboarding", bundle: nil).instantiateViewController(withIdentifier: id)
     }
 }

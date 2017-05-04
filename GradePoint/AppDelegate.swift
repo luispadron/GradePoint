@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Helper Methods
     
     private func presentOnboarding() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
         let onboarding = storyboard.instantiateViewController(withIdentifier: "OnboardPageViewController") as! OnboardPageViewController
         self.window?.rootViewController = onboarding
     }

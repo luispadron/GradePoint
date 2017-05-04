@@ -43,6 +43,10 @@
 		A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A61E3078C100CE4F43 /* StringExtensions.swift */; };
 		A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59761E86EDB5007EEE1E /* GPACalculation.swift */; };
 		A07B59791E86EDFF007EEE1E /* GPAClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59781E86EDFF007EEE1E /* GPAClass.swift */; };
+		A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96881EBBCBDF00382E45 /* Calculators.storyboard */; };
+		A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */; };
+		A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */; };
+		A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96901EBBCC6500382E45 /* Settings.storyboard */; };
 		A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084437F1E55808F00C32F52 /* UICalculateViewController.swift */; };
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
@@ -140,6 +144,10 @@
 		A076F5A61E3078C100CE4F43 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		A07B59761E86EDB5007EEE1E /* GPACalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculation.swift; sourceTree = "<group>"; };
 		A07B59781E86EDFF007EEE1E /* GPAClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClass.swift; sourceTree = "<group>"; };
+		A07B96891EBBCBDF00382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Calculators.storyboard; sourceTree = "<group>"; };
+		A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClassDetail.storyboard; sourceTree = "<group>"; };
+		A07B968E1EBBCC3500382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Onboarding.storyboard; sourceTree = "<group>"; };
+		A07B96901EBBCC6500382E45 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		A084437F1E55808F00C32F52 /* UICalculateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateViewController.swift; sourceTree = "<group>"; };
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
@@ -402,6 +410,10 @@
 			isa = PBXGroup;
 			children = (
 				A00705141DAF0E9B00AD740A /* Main.storyboard */,
+				A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */,
+				A07B96881EBBCBDF00382E45 /* Calculators.storyboard */,
+				A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */,
+				A07B96901EBBCC6500382E45 /* Settings.storyboard */,
 				A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
@@ -591,7 +603,11 @@
 			files = (
 				A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */,
 				A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */,
+				A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */,
+				A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */,
+				A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */,
 				A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */,
+				A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,6 +836,22 @@
 				A007051A1DAF0E9B00AD740A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A07B96881EBBCBDF00382E45 /* Calculators.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A07B96891EBBCBDF00382E45 /* Base */,
+			);
+			name = Calculators.storyboard;
+			sourceTree = "<group>";
+		};
+		A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A07B968E1EBBCC3500382E45 /* Base */,
+			);
+			name = Onboarding.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
