@@ -28,16 +28,15 @@ class CalculatorsViewController: UIViewController {
         
         // Set the progress ring and label
         let attrs = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.mainText.withAlphaComponent(0.6)]
-        let savedCalc = try! Realm().objects(GPACalculation.self)
+        let savedCalculations = try! Realm().objects(GPACalculation.self).sorted(byKeyPath: "date", ascending: true)
         
-        if savedCalc.count > 0 {
-            let calculation = savedCalc[0]
-            gpaRing.setProgress(value: CGFloat(calculation.calculatedGpa), animationDuration: 0)
+        if let lastCalculation = savedCalculations.last {
+            gpaRing.setProgress(value: CGFloat(lastCalculation.calculatedGpa), animationDuration: 0)
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
-            lastCalculationLabel.attributedText = NSAttributedString(string: "Last calculated on: \(formatter.string(from: calculation.date))", attributes: attrs)
+            lastCalculationLabel.attributedText = NSAttributedString(string: "Last calculated on: \(formatter.string(from: lastCalculation.date))", attributes: attrs)
         } else {
-            gpaRing.setProgress(value: 4.0, animationDuration: 0)
+            gpaRing.setProgress(value: 0.0, animationDuration: 0)
             lastCalculationLabel.attributedText = NSAttributedString(string: "Never calculated, calculate now", attributes: attrs)
         }
     }

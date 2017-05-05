@@ -90,16 +90,16 @@ class GPACalculatorViewController: UIViewController {
                 self.progressRingView.superview!.alpha = 1.0
                 
             }, completion: { _ in
-                //                self.calculateGpa()
+                self.calculateGPA()
             })
         } else {
             // just calculate the GPA
-            //            self.calculateGpa()
+            calculateGPA()
         }
         
         // Scroll up
         self.view.endEditing(true)
-        self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
     }
     
     
@@ -122,7 +122,8 @@ class GPACalculatorViewController: UIViewController {
     
     // MARK: Helper Methods
     
-    func prepareGPAViews() {
+    /// Prepares all the GPA views and populates them with the values of their respective Class
+    private func prepareGPAViews() {
         let realm = try! Realm()
         // Only want classes which are past classes, or in progress classes with more than one assignment
         var validClasses = [Class]()
@@ -142,6 +143,37 @@ class GPACalculatorViewController: UIViewController {
             // Create height constraint and add to stackview
             newView.heightAnchor.constraint(equalToConstant: heightForGPAViews).isActive = true
             stackView.addArrangedSubview(newView)
+        }
+    }
+    
+    /// Calculates the GPA depending on the student type
+    private func calculateGPA() {
+        let scale = try! Realm().objects(GPAScale.self).first!
+        var totalPoints: Double = 0.0
+        var totalCreditHours: Int = 0
+        
+        // Unweighted calculation
+        for gpaView in gpaViews {
+            let creditHours = Int(gpaView.creditsField.safeText)!
+            totalCreditHours += creditHours
+            let gradeMultiplier = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }.first!.gradePoints
+            totalPoints += Double(creditHours) * gradeMultiplier
+        }
+        
+        let gpa = Double(totalPoints / Double(totalCreditHours)).roundedUpTo(2)
+        // Set progress ring
+        self.progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+        // Save the calculated GPA
+        saveCalculation(withGpa: gpa)
+        
+    }
+    
+    /// Saves the calculation to realm
+    private func saveCalculation(withGpa gpa: Double) {
+        let realm = try! Realm()
+        try! realm.write {
+            let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date())
+            realm.add(newGPACalc)
         }
     }
 

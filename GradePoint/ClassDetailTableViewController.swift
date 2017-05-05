@@ -303,7 +303,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         // If no class selected, or if class is a past class, then dont show the button image
         guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
         
-        return #imageLiteral(resourceName: "buttonBg")
+        return #imageLiteral(resourceName: "ButtonBg")
     }
     
     var emptyStateButtonSize: CGSize? {

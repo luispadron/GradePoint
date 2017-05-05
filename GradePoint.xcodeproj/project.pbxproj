@@ -39,7 +39,6 @@
 		A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */; };
 		A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A61E3078C100CE4F43 /* StringExtensions.swift */; };
 		A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59761E86EDB5007EEE1E /* GPACalculation.swift */; };
-		A07B59791E86EDFF007EEE1E /* GPAClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59781E86EDFF007EEE1E /* GPAClass.swift */; };
 		A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96881EBBCBDF00382E45 /* Calculators.storyboard */; };
 		A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */; };
 		A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */; };
@@ -139,7 +138,6 @@
 		A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Resize.swift"; sourceTree = "<group>"; };
 		A076F5A61E3078C100CE4F43 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		A07B59761E86EDB5007EEE1E /* GPACalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculation.swift; sourceTree = "<group>"; };
-		A07B59781E86EDFF007EEE1E /* GPAClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAClass.swift; sourceTree = "<group>"; };
 		A07B96891EBBCBDF00382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Calculators.storyboard; sourceTree = "<group>"; };
 		A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClassDetail.storyboard; sourceTree = "<group>"; };
 		A07B968E1EBBCC3500382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Onboarding.storyboard; sourceTree = "<group>"; };
@@ -293,7 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				A07B59741E86ED7D007EEE1E /* Main Models */,
-				A0C5170E1E78A65E0089527D /* GPA Scale */,
+				A0C5170E1E78A65E0089527D /* GPA */,
 				A07B59751E86ED8B007EEE1E /* GPA Calculations */,
 			);
 			name = "Data Models";
@@ -337,8 +335,6 @@
 		A07B59751E86ED8B007EEE1E /* GPA Calculations */ = {
 			isa = PBXGroup;
 			children = (
-				A07B59761E86EDB5007EEE1E /* GPACalculation.swift */,
-				A07B59781E86EDFF007EEE1E /* GPAClass.swift */,
 			);
 			name = "GPA Calculations";
 			sourceTree = "<group>";
@@ -379,13 +375,14 @@
 			name = UIBlurAlert;
 			sourceTree = "<group>";
 		};
-		A0C5170E1E78A65E0089527D /* GPA Scale */ = {
+		A0C5170E1E78A65E0089527D /* GPA */ = {
 			isa = PBXGroup;
 			children = (
 				A0C5170C1E78A64C0089527D /* GPAScale.swift */,
 				A0C517131E78AC0B0089527D /* GPARubric.swift */,
+				A07B59761E86EDB5007EEE1E /* GPACalculation.swift */,
 			);
-			name = "GPA Scale";
+			name = GPA;
 			sourceTree = "<group>";
 		};
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
@@ -765,7 +762,6 @@
 				A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */,
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
-				A07B59791E86EDFF007EEE1E /* GPAClass.swift in Sources */,
 				A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
 				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,

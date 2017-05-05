@@ -114,11 +114,6 @@ class CustomRubricSettingTableViewController: UITableViewController {
     }
     
     func onSaveTapped() {
-        let realm = try! Realm()
-        // Get the old state before changing it
-        let scale = realm.objects(GPAScale.self)[0]
-        let previousType = scale.scaleType
-        
         // Collect all the user entered data
         var points = [Double]()
         for (index, field) in weightFields.enumerated() {
@@ -138,16 +133,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         if !GPAScale.overwriteScale(type: type, gradePoints: points) {
             self.presentErrorAlert(title: "Unable To Save", message: "Something went wrong when saving, please verify that all information has been entered correctly.")
         } else {
-            // If we changed types and went from plus scale to non plus scale, we want to make sure to change any GPAClasses to the correct scale type, this means replacing "A+" with "A", etc
-            if previousType == .plusScale && type == .nonPlusScale {
-                let gpaClasses = realm.objects(GPAClass.self)
-                for gpaClass in gpaClasses {
-                    guard gpaClass.gradeLetter.contains("+") || gpaClass.gradeLetter.contains("-") else { continue }
-                    try! realm.write {
-                        gpaClass.gradeLetter = gpaClass.gradeLetter.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "-", with: "")
-                    }
-                }
-            }
+            // Dismiss
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
