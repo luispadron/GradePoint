@@ -96,4 +96,9 @@ class Class: Object {
     /// Returns the color after getting it from the color data
     var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }
     
+    /// Returns whether or not the class is inprogress or not
+    /// Does so by checking whether or not at least 1 rubric has been added, if this is false then
+    /// it must be a Past Class due to the fact past classes cannot have rubrics
+    var isClassInProgress: Bool { get { return self.rubrics.count > 0 } }
+    
 }

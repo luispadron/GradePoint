@@ -124,9 +124,16 @@ class GPACalculatorViewController: UIViewController {
     
     func prepareGPAViews() {
         let realm = try! Realm()
-        let classes = realm.objects(Class.self)
+        // Only want classes which are past classes, or in progress classes with more than one assignment
+        var validClasses = [Class]()
+        for classObj in realm.objects(Class.self) {
+            if !classObj.isClassInProgress || classObj.assignments.count > 0 {
+                validClasses.append(classObj)
+            }
+        }
         
-        for classObj in classes {
+        // Update each of the views with their appropriate class object
+        for classObj in validClasses {
             // Create a GPA View and add it to the stack view
             let newView = UIGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGPAViews))
             newView.nameField.text = classObj.name

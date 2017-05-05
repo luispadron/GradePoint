@@ -138,7 +138,7 @@ class AddEditClassViewController: UIViewController {
         
         // If were editing a class then update the UI
         // Handle case of editing an in progress class
-        if let inProgressClass = self.classObj, inProgressClass.rubrics.count > 0 {
+        if let inProgressClass = self.classObj, inProgressClass.isClassInProgress {
             // Set view state to in progress
             self.viewState = .inProgress
             self.prepareView(forState: viewState, isEditing: true)
@@ -150,7 +150,7 @@ class AddEditClassViewController: UIViewController {
             self.creditHoursField.text = "\(inProgressClass.creditHours)"
             updateSemesterPicker(for: inProgressClass)
             updateRubricViews(for: inProgressClass)
-        } else if let pastClass = self.classObj, pastClass.rubrics.count == 0 {
+        } else if let pastClass = self.classObj, !pastClass.isClassInProgress {
             // Set view state to past
             self.viewState = .past
             self.prepareView(forState: viewState, isEditing: true)

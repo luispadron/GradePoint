@@ -21,6 +21,9 @@ class ModelTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        try! realm.write {
+            realm.deleteAll()
+        }
     }
     
     // MARK: - Class
@@ -33,11 +36,13 @@ class ModelTests: XCTestCase {
         let expectedRubric2 = Rubric(withName: "Rubric 2", andWeight: 50)
         let rubricList = List<Rubric>([expectedRubric1, expectedRubric2])
         // Create class object
-        let classObj = Class(withName: "Test Class", inSemester: expectedSemester, withRubrics: rubricList)
+        let classObj = Class(name: "Test Class", classType: .college, creditHours: 3, semester: expectedSemester, rubrics: rubricList)
         
         // Do the tests
         XCTAssertNotNil(classObj.id)
         XCTAssertEqual(classObj.name, "Test Class")
+        XCTAssertEqual(classObj.classType, ClassType.college)
+        XCTAssertEqual(classObj.creditHours, 3)
         XCTAssertEqual(classObj.semester, expectedSemester)
         XCTAssertEqual(classObj.rubrics, rubricList)
         XCTAssertNotNil(classObj.colorData)
@@ -201,7 +206,7 @@ class ModelTests: XCTestCase {
         let assignment1 = Assignment(name: "Assignment 1", date: Date(), score: 80, associatedRubric: expectedRubric1)
         let assignment2 = Assignment(name: "Assignment 2", date: Date(), score: 100, associatedRubric: expectedRubric2)
         // Create class object
-        let classObj = Class(withName: "Test Class", inSemester: expectedSemester, withRubrics: rubricList)
+        let classObj = Class(name: "Test Class", classType: .college, creditHours: 3, semester: expectedSemester, rubrics: rubricList)
         classObj.assignments.append(contentsOf: [assignment1, assignment2])
         // Write to realm
         try! realm.write {
