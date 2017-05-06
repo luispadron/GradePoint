@@ -197,22 +197,22 @@ simply add your classes</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6p-N0-AhA">
-                                <rect key="frame" x="0.0" y="131" width="375" height="405"/>
+                                <rect key="frame" x="8" y="131" width="359" height="405"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you a college or high school student?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCS-68-gLt">
-                                        <rect key="frame" x="8" y="100" width="359" height="22"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you a college or high school student?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fCS-68-gLt">
+                                        <rect key="frame" x="8" y="100" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does your school use A+ or non-A+ grading?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-UK-B8A">
-                                        <rect key="frame" x="8" y="242" width="359" height="22"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does your school use A+ or non-A+ grading?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-UK-B8A">
+                                        <rect key="frame" x="8" y="240.5" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="TLo-Ok-BH9">
-                                        <rect key="frame" x="8" y="142" width="359" height="41"/>
+                                        <rect key="frame" x="8" y="140.5" width="343" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="GPC-oi-fwm"/>
                                         </constraints>
@@ -226,7 +226,7 @@ simply add your classes</string>
                                         </connections>
                                     </segmentedControl>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="rv3-c6-bhc">
-                                        <rect key="frame" x="8" y="284" width="359" height="41"/>
+                                        <rect key="frame" x="8" y="281" width="343" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Hwj-4p-ju0"/>
                                         </constraints>
@@ -240,7 +240,7 @@ simply add your classes</string>
                                         </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a few more questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrY-If-ell">
-                                        <rect key="frame" x="8" y="8" width="359" height="22"/>
+                                        <rect key="frame" x="8" y="8" width="343" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -277,6 +277,8 @@ simply add your classes</string>
                         <constraints>
                             <constraint firstItem="6ra-zI-VWt" firstAttribute="top" secondItem="K1l-7a-6MR" secondAttribute="bottom" constant="40" id="EWp-fO-0Dd"/>
                             <constraint firstItem="K1l-7a-6MR" firstAttribute="centerX" secondItem="Tz1-qI-5Nz" secondAttribute="centerX" id="EYi-Xu-ycR"/>
+                            <constraint firstItem="o6p-N0-AhA" firstAttribute="leading" secondItem="Tz1-qI-5Nz" secondAttribute="leading" constant="8" id="MZh-YW-a0a"/>
+                            <constraint firstAttribute="trailing" secondItem="o6p-N0-AhA" secondAttribute="trailing" constant="8" id="OBc-RR-bVC"/>
                             <constraint firstItem="o6p-N0-AhA" firstAttribute="centerX" secondItem="Tz1-qI-5Nz" secondAttribute="centerX" id="StY-dQ-9Yy"/>
                             <constraint firstItem="o6p-N0-AhA" firstAttribute="centerY" secondItem="Tz1-qI-5Nz" secondAttribute="centerY" id="tI3-CQ-8OO"/>
                         </constraints>

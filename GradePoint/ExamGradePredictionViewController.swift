@@ -59,7 +59,13 @@ class ExamGradePredictionViewController: UIViewController {
         self.calculateButton.setTitleColor(.lightGray, for: .disabled)
         self.calculateButton.isEnabled = false
         
-        self.progressRing.font = UIFont.systemFont(ofSize: 55)
+        self.progressRing.font = UIFont.systemFont(ofSize: 50)
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+        }
     }
 
     @IBAction func onExitButtonTap(_ sender: UIButton) {
@@ -109,6 +115,12 @@ class ExamGradePredictionViewController: UIViewController {
         guard let currentGrade = Double(currentGradeField.safeText), let desiredGrade = Double(desiredGradeField.safeText),
         let examWorth = Double(examWorthField.safeText) else {
             self.progressRing.setProgress(value: 0.0, animationDuration: 0)
+            return
+        }
+        
+        // If desired grade is less than current grade, tell user
+        if desiredGrade < currentGrade {
+            self.presentErrorAlert(title: "Can't Calculate", message: "Current grade is greater than desired grade.")
             return
         }
         
