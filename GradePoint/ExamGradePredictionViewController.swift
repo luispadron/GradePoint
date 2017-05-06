@@ -14,7 +14,6 @@ class ExamGradePredictionViewController: UIViewController {
     // MARK: Properties
     
     // Buttons
-    @IBOutlet weak var buttonEnclosingView: UIView!
     @IBOutlet weak var calculateButton: UIButton!
     // Fields
     @IBOutlet weak var currentGradeField: UISafeTextField!
@@ -57,22 +56,10 @@ class ExamGradePredictionViewController: UIViewController {
         self.examWorthField.keyboardType = .numbersAndPunctuation
         self.examWorthField.returnKeyType = .done
         
-        self.calculateButton.layer.cornerRadius = 5
-        self.calculateButton.layer.backgroundColor = UIColor(red: 0.404, green: 0.835, blue: 0.710, alpha: 1.00).cgColor
-        self.calculateButton.setTitleColor(UIColor.mutedText, for: .disabled)
+        self.calculateButton.setTitleColor(.lightGray, for: .disabled)
         self.calculateButton.isEnabled = false
         
         self.progressRing.font = UIFont.systemFont(ofSize: 55)
-    }
-
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        // Layer for the button
-        var widthForButton = (self.buttonEnclosingView.frame.width/2.0) - 170
-        widthForButton = widthForButton > 30.0 ? widthForButton : 30.0
-        
-        self.calculateButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: widthForButton, bottom: 15, right: widthForButton)
     }
 
     @IBAction func onExitButtonTap(_ sender: UIButton) {

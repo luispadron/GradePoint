@@ -279,7 +279,7 @@ maintain or achieve a desired grade.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2Q-xG-TLK" userLabel="NavBar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-Pq-PGm">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-Pq-PGm">
                                         <rect key="frame" x="15" y="28" width="345" height="25"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-Di-dkF">
@@ -295,11 +295,21 @@ maintain or achieve a desired grade.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Grade Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gz-Cf-Af0">
-                                                <rect key="frame" x="25" y="0.0" width="320" height="25"/>
+                                                <rect key="frame" x="69.5" y="0.0" width="182.5" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Awq-hy-vTX">
+                                                <rect key="frame" x="273" y="0.0" width="72" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Calculate">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onCalculateButtonTap:" destination="hNm-xK-bvc" eventType="touchUpInside" id="Ftk-dv-j7E"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -318,7 +328,7 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="aqm-WR-eCz">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="604"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="523"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qk-bx-Wfl" userLabel="Current Grade Field">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -419,27 +429,8 @@ maintain or achieve a desired grade.</string>
                                                     <constraint firstItem="lDg-Hb-xSo" firstAttribute="top" secondItem="RYa-z4-oH2" secondAttribute="top" constant="8" id="rKE-pc-wcJ"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FYw-MY-uGv">
-                                                <rect key="frame" x="0.0" y="183" width="375" height="80"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x27-dd-NXO">
-                                                        <rect key="frame" x="155.5" y="25" width="64" height="30"/>
-                                                        <state key="normal" title="Calculate">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="onCalculateButtonTap:" destination="hNm-xK-bvc" eventType="touchUpInside" id="p2a-1H-caP"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="29b-RP-dTJ"/>
-                                                    <constraint firstItem="x27-dd-NXO" firstAttribute="centerY" secondItem="FYw-MY-uGv" secondAttribute="centerY" id="4Co-gD-i62"/>
-                                                    <constraint firstItem="x27-dd-NXO" firstAttribute="centerX" secondItem="FYw-MY-uGv" secondAttribute="centerX" id="eeO-B1-gAK"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2k-K0-Igu">
-                                                <rect key="frame" x="0.0" y="264" width="375" height="340"/>
+                                                <rect key="frame" x="0.0" y="183" width="375" height="340"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to get" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2oU-qv-vdn">
                                                         <rect key="frame" x="8" y="0.0" width="359" height="21.5"/>
@@ -516,8 +507,7 @@ maintain or achieve a desired grade.</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonEnclosingView" destination="FYw-MY-uGv" id="Bgc-oZ-V03"/>
-                        <outlet property="calculateButton" destination="x27-dd-NXO" id="9J6-v9-jeM"/>
+                        <outlet property="calculateButton" destination="Awq-hy-vTX" id="vyA-8z-JMI"/>
                         <outlet property="currentGradeField" destination="XLn-3x-gf4" id="6kG-G4-Jc3"/>
                         <outlet property="desiredGradeField" destination="Xgx-9C-guj" id="PvR-55-Q63"/>
                         <outlet property="examWorthField" destination="lDg-Hb-xSo" id="PMN-5x-sXu"/>

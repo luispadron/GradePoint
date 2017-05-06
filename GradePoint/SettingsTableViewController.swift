@@ -12,6 +12,8 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var versionLabel: UILabel!
     
+    // Constants for the rows and sections
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set version number
@@ -34,14 +36,16 @@ class SettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case 0:
+            return 1
         case 1:
             return 2
         case 2:
-            return 4
+            return 3
         case 3:
             return 2
         default:
-            return 1
+            return 0
         }
     }
     
