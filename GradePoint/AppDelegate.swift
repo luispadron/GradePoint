@@ -17,9 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
         if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 { print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)") }
-
-        // Checks for any required migrations
-        checkForMigrations()
         
         // Custom color for status bar
         UIApplication.shared.statusBarStyle = .lightContent
@@ -61,28 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
         let onboarding = storyboard.instantiateViewController(withIdentifier: "OnboardPageViewController") as! OnboardPageViewController
         self.window?.rootViewController = onboarding
-    }
-    
-    
-    // TODO: REMOVE BEFORE RELEASE
-    func checkForMigrations() {
-        let config = Realm.Configuration(
-            schemaVersion: 3,
-            migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 1 {
-                    migration.enumerateObjects(ofType: Class.className(), { (oldObject, newObject) in
-                        newObject!["creditHours"] = 3
-                    })
-                } else if oldSchemaVersion < 3 {
-                    migration.enumerateObjects(ofType: GPAScale.className(), { (oldObject, newObject) in
-                        newObject!["scaleType"] = GPAScaleType.plusScale.rawValue
-                    })
-                }
-            }
-        )
-        
-        Realm.Configuration.defaultConfiguration = config
-        let _ = try! Realm()
     }
 }
 
