@@ -40,7 +40,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     /// The accesor for the class obj, this will check if invalidated in realm or not before returning
-    var _classObj: Class? {
+    fileprivate var _classObj: Class? {
         get {
             guard let obj = self.classObj, !obj.isInvalidated else {
                 // Has become invalidated, set classObj to nil
@@ -57,9 +57,6 @@ class ClassDetailTableViewController: UITableViewController {
     /// The assignments sorted by rubric
     var assignments = [Results<Assignment>]()
     
-    /// If no classes, then this controller should be blank and no interaction should be allowed.
-    /// The view and what to display is handled inside the UIEmptyStateDataSource methods
-    var shouldShowBlank: Bool { get { return try! Realm().objects(Class.self).count == 0 } }
     
     // MARK: - Overrides
     
@@ -187,10 +184,6 @@ class ClassDetailTableViewController: UITableViewController {
             self.title = classObj.name
             self.addButton.isEnabled = false
             self.splitViewController?.displayModeButtonItem.isEnabled = true
-        } else if shouldShowBlank  {
-            self.title = nil
-            self.addButton.isEnabled = false
-            self.splitViewController?.displayModeButtonItem.isEnabled = false
         } else {
             self.title = nil
             self.addButton.isEnabled = false
@@ -241,12 +234,14 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         // If no assignments for this class then hide the progress ring and show empty state view
         guard let classObj = self._classObj else {
             self.progressRing.isHidden = true
-            return !shouldShowBlank
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+            return false
         }
         
         let noAssignments = classObj.assignments.count == 0
         self.progressRing.isHidden = noAssignments
-        return noAssignments && !shouldShowBlank
+        return noAssignments
     }
     
     var emptyStateTitle: NSAttributedString {
