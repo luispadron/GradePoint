@@ -505,6 +505,20 @@ class AddEditClassViewController: UIViewController {
     }
     
     func saveChangesTo(pastClass classObj: Class) {
+        try! realm.write {
+            classObj.name = self.nameField.safeText
+            classObj.classType = self.classType
+            classObj.creditHours = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
+            classObj.semester?.term = self.semester.term
+            classObj.semester?.year = self.semester.year
+            classObj.grade?.gradeLetter = self.gradeLabel.text!
+        }
+        
+        // Dismiss controller
+        self.dismiss(animated: true) { [weak self] in
+            // Call the delegate method, tell it were done updating the class
+            self?.delegate?.didFinishUpdating(classObj: classObj)
+        }
     }
     
     /// Deletes all rubrics inside of the rubricsToDelete array

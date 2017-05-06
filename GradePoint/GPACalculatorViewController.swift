@@ -14,11 +14,13 @@ class GPACalculatorViewController: UIViewController {
 
     // MARK: Views/Outlets
     
+    @IBOutlet weak var navBar: UIView!
     @IBOutlet weak var calculateButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
     @IBOutlet weak var weightSwitcher: UISegmentedControl!
+    @IBOutlet var emptyView: UIView!
     
     
     // MARK: Properties
@@ -40,11 +42,23 @@ class GPACalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Add progress ring view
+        // UI Setup
+        calculateButton.setTitleColor(UIColor.white, for: .normal)
+        calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
         progressRingView.font = UIFont.systemFont(ofSize: 30)
         
-        // Prepare GPA Views, and load up all the required information
-        prepareGPAViews()
+        // Check to see if there any classes for which a calculation can be made
+        if try! Realm().objects(Class.self).count > 0 {
+            // Prepare GPA Views, and load up all the required information
+            prepareGPAViews()
+        } else {
+            // Add the empty view which displays a message to the user, and disable the calculate button
+            stackView.removeFromSuperview()
+            scrollView.removeFromSuperview()
+            calculateButton.isEnabled = false
+            self.view.addSubview(emptyView)
+        }
+        
         
         // Setup keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
@@ -53,11 +67,17 @@ class GPACalculatorViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        // Update each field in the UIGPAViews array to show
-        for view in gpaViews {
-            view.nameField.editingChanged()
-            view.gradeField.editingChanged()
-            view.creditsField.editingChanged()
+        
+        // If empty view is presenting set its size, else update the title labels on the Gpa views
+        if self.view.subviews.contains(emptyView) {
+            self.emptyView.frame = CGRect(x: 0, y: navBar.frame.maxY, width: self.view.frame.width, height: self.view.frame.height - 50)
+        } else {
+            // Update each field in the UIGPAViews array to show
+            for view in gpaViews {
+                view.nameField.editingChanged()
+                view.gradeField.editingChanged()
+                view.creditsField.editingChanged()
+            }
         }
     }
 
@@ -182,9 +202,8 @@ class GPACalculatorViewController: UIViewController {
                 let gradePoint = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }.first!.gradePoints
                 // If calculation is weighted, then add up any additional points
                 if isWeighted && studentType == .highSchool {
-                    totalPoints += associatedClass.classType.additionalGradePoints()
                     // Make sure to take into account credits, since weighted
-                    totalPoints += Double(creditHours) * gradePoint
+                    totalPoints += (gradePoint + associatedClass.classType.additionalGradePoints()) * Double(creditHours)
                     totalCreditHours += creditHours
                 } else if !isWeighted && studentType == .highSchool {
                     // Dont care about credits since unweighted & highschool student

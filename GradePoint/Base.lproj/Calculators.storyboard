@@ -654,6 +654,8 @@ maintain or achieve a desired grade.</string>
                     </view>
                     <connections>
                         <outlet property="calculateButton" destination="mmc-s9-kTp" id="yQh-60-1Wk"/>
+                        <outlet property="emptyView" destination="f8K-5m-bBM" id="dHW-CO-zpZ"/>
+                        <outlet property="navBar" destination="QmB-qs-q0L" id="Rg8-k2-qvH"/>
                         <outlet property="progressRingView" destination="rSW-Pn-BaS" id="NtL-OP-YbS"/>
                         <outlet property="scrollView" destination="BSA-Ck-DB3" id="XVt-SF-nb9"/>
                         <outlet property="stackView" destination="QU2-Ph-hGp" id="ttl-sZ-lWF"/>
@@ -661,6 +663,28 @@ maintain or achieve a desired grade.</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hfk-HI-zuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="f8K-5m-bBM" userLabel="Empty View">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fNt-gg-MEz">
+                            <rect key="frame" x="8" y="8" width="224" height="112"/>
+                            <string key="text">No classes avaliable to calculate GPA.
+
+Add some classes or assignments!</string>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="fNt-gg-MEz" firstAttribute="top" secondItem="f8K-5m-bBM" secondAttribute="top" constant="8" id="Feg-RW-SBN"/>
+                        <constraint firstItem="fNt-gg-MEz" firstAttribute="leading" secondItem="f8K-5m-bBM" secondAttribute="leading" constant="8" id="QUK-zY-oNZ"/>
+                        <constraint firstAttribute="bottom" secondItem="fNt-gg-MEz" secondAttribute="bottom" constant="8" id="YDT-Vu-lh6"/>
+                        <constraint firstAttribute="trailing" secondItem="fNt-gg-MEz" secondAttribute="trailing" constant="8" id="cRg-hr-53e"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eH-Ha-sGS" userLabel="GPA Progress Ring View">
                     <rect key="frame" x="0.0" y="0.0" width="200" height="220"/>
                     <subviews>
