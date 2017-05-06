@@ -71,7 +71,11 @@ class GPACalculatorViewController: UIViewController {
     
     @IBAction func onWeightSwitcherValueChanged(_ sender: UISegmentedControl) {
         // Relculate GPA
-        calculateGPA()
+        // Dispatch the calculation after 0.1 seconds since there seems to be a bug with UISegmenetedControl
+        // Not sending the correct value exactly at the correct time, thus causing issues with the progress ring animation
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { 
+            self.calculateGPA()
+        }
     }
     
     @IBAction func onExitButtonPressed(_ sender: UIButton) {
@@ -198,28 +202,37 @@ class GPACalculatorViewController: UIViewController {
         
         switch studentType {
         case .college:
+            // Get GPA
             let gpa = calculate(false)
+            // Update progress ring
+            progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
             // Set max value of ring to 4, since unweighted
             progressRingView.maxValue = 4.0
-            // Update progress ring
+            // Set value to gpa
             progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
             // Save the calculated GPA
             saveCalculation(withGpa: gpa, weighted: false)
         case .highSchool:
             // Determine if we want weighted or unweighted
             if weightSwitcher.selectedSegmentIndex == 0 {
+                // Get GPA
                 let gpa = calculate(true)
-                // Set max value of ring to 5, since unweighted
-                progressRingView.maxValue = 5.0
                 // Update progress ring
+                progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
+                // Set max value of ring to 5, since weighted
+                progressRingView.maxValue = 5.0
+                // Set value to gpa
                 progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
                 // Save the calculated GPA
                 saveCalculation(withGpa: gpa, weighted: true)
             } else {
+                // Get GPA
                 let gpa = calculate(false)
+                // Update progress ring
+                progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
                 // Set max value of ring to 4, since unweighted
                 progressRingView.maxValue = 4.0
-                // Update progress ring
+                // Set value to gpa
                 progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
                 //Save the calculated GPA
                 saveCalculation(withGpa: gpa, weighted: false)
