@@ -31,6 +31,9 @@ class CalculatorsViewController: UIViewController {
         let savedCalculations = try! Realm().objects(GPACalculation.self).sorted(byKeyPath: "date", ascending: true)
         
         if let lastCalculation = savedCalculations.last {
+            // Set max value of progress ring depending on weighted or not
+            let max: CGFloat = lastCalculation.isWeighted ? 5.0 : 4.0
+            gpaRing.maxValue = max
             gpaRing.setProgress(value: CGFloat(lastCalculation.calculatedGpa), animationDuration: 0)
             let formatter = DateFormatter()
             formatter.dateStyle = .medium

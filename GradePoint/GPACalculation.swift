@@ -13,11 +13,13 @@ class GPACalculation: Object {
     dynamic var id = UUID().uuidString
     dynamic var calculatedGpa = 0.0
     dynamic var date = Date()
+    dynamic var isWeighted = true
     
-    convenience init(calculatedGpa: Double, date: Date) {
+    convenience init(calculatedGpa: Double, date: Date, weighted: Bool) {
         self.init()
         self.calculatedGpa = calculatedGpa
         self.date = date
+        self.isWeighted = weighted
     }
     
     override class func primaryKey() -> String? {

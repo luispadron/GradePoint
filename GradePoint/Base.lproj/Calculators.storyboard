@@ -594,10 +594,24 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-Ph-hGp">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
                                         <subviews>
+                                            <segmentedControl hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="RHy-mn-cDc"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="Weighted"/>
+                                                    <segment title="Unweighted"/>
+                                                </segments>
+                                                <color key="tintColor" red="0.6470588235294118" green="0.57647058823529407" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="onWeightSwitcherValueChanged:" destination="XO0-0A-Hk9" eventType="valueChanged" id="YMe-zE-Eij"/>
+                                                </connections>
+                                            </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJD-3p-kJC" userLabel="Loaded Header">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                <rect key="frame" x="0.0" y="36" width="375" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-cw-udx" userLabel="Classes">
                                                         <rect key="frame" x="8" y="8" width="359" height="34"/>
@@ -643,6 +657,7 @@ maintain or achieve a desired grade.</string>
                         <outlet property="progressRingView" destination="rSW-Pn-BaS" id="NtL-OP-YbS"/>
                         <outlet property="scrollView" destination="BSA-Ck-DB3" id="XVt-SF-nb9"/>
                         <outlet property="stackView" destination="QU2-Ph-hGp" id="ttl-sZ-lWF"/>
+                        <outlet property="weightSwitcher" destination="Hv5-ra-Cg3" id="UQO-94-iVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hfk-HI-zuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

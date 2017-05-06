@@ -18,6 +18,7 @@ class GPACalculatorViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
+    @IBOutlet weak var weightSwitcher: UISegmentedControl!
     
     
     // MARK: Properties
@@ -68,6 +69,10 @@ class GPACalculatorViewController: UIViewController {
     
     // MARK: Actions
     
+    @IBAction func onWeightSwitcherValueChanged(_ sender: UISegmentedControl) {
+        // Relculate GPA
+        calculateGPA()
+    }
     
     @IBAction func onExitButtonPressed(_ sender: UIButton) {
         // Quickly animate the exit button rotation and dismiss
@@ -82,13 +87,22 @@ class GPACalculatorViewController: UIViewController {
     @IBAction func onCalculateButtonPressed(_ sender: UIButton) {
         // Add the views if not already added
         if !stackView.arrangedSubviews.contains(progressRingView.superview!) {
+            // End all editing
             self.view.endEditing(true)
+            // Get the student type
+            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))
+            // Add the progress ring to the stack view
+            self.stackView.insertArrangedSubview(progressRingView.superview!, at: 0)
             // Animate the addition
             progressRingView.superview!.alpha = 0.0
-            self.stackView.insertArrangedSubview(progressRingView.superview!, at: 0)
+            
             UIView.animate(withDuration: 0.5, animations: {
                 self.progressRingView.superview!.alpha = 1.0
-                
+                // If the student is Highschool then show the type switcher
+                if studentType == .highSchool {
+                    self.weightSwitcher.isHidden = false
+                    self.weightSwitcher.alpha = 1.0
+                }
             }, completion: { _ in
                 self.calculateGPA()
             })
@@ -149,30 +163,75 @@ class GPACalculatorViewController: UIViewController {
     /// Calculates the GPA depending on the student type
     private func calculateGPA() {
         let scale = try! Realm().objects(GPAScale.self).first!
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))!
+        let classes = try! Realm().objects(Class.self)
         var totalPoints: Double = 0.0
         var totalCreditHours: Int = 0
-        
-        // Unweighted calculation
-        for gpaView in gpaViews {
-            let creditHours = Int(gpaView.creditsField.safeText)!
-            totalCreditHours += creditHours
-            let gradeMultiplier = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }.first!.gradePoints
-            totalPoints += Double(creditHours) * gradeMultiplier
+
+        /// Calculation of gpa closure block
+        let calculate: (Bool) -> Double = { isWeighted in
+            for (index, gpaView) in self.gpaViews.enumerated() {
+                // The class associated with this view
+                let associatedClass = classes[index]
+                let creditHours = associatedClass.creditHours
+                // The grade letter is grabbed from the view instead of the class since this can be changed
+                let gradePoint = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }.first!.gradePoints
+                // If calculation is weighted, then add up any additional points
+                if isWeighted && studentType == .highSchool {
+                    totalPoints += associatedClass.classType.additionalGradePoints()
+                    // Make sure to take into account credits, since weighted
+                    totalPoints += Double(creditHours) * gradePoint
+                    totalCreditHours += creditHours
+                } else if !isWeighted && studentType == .highSchool {
+                    // Dont care about credits since unweighted & highschool student
+                    totalPoints += gradePoint
+                    totalCreditHours += 1
+                } else {
+                    // College student, take into account credits but dont add additional points per class type
+                    totalPoints += Double(creditHours) * gradePoint
+                    totalCreditHours += creditHours
+                }
+            }
+            
+            return Double(totalPoints / Double(totalCreditHours)).roundedUpTo(2)
         }
         
-        let gpa = Double(totalPoints / Double(totalCreditHours)).roundedUpTo(2)
-        // Set progress ring
-        self.progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
-        // Save the calculated GPA
-        saveCalculation(withGpa: gpa)
-        
+        switch studentType {
+        case .college:
+            let gpa = calculate(false)
+            // Set max value of ring to 4, since unweighted
+            progressRingView.maxValue = 4.0
+            // Update progress ring
+            progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+            // Save the calculated GPA
+            saveCalculation(withGpa: gpa, weighted: false)
+        case .highSchool:
+            // Determine if we want weighted or unweighted
+            if weightSwitcher.selectedSegmentIndex == 0 {
+                let gpa = calculate(true)
+                // Set max value of ring to 5, since unweighted
+                progressRingView.maxValue = 5.0
+                // Update progress ring
+                progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+                // Save the calculated GPA
+                saveCalculation(withGpa: gpa, weighted: true)
+            } else {
+                let gpa = calculate(false)
+                // Set max value of ring to 4, since unweighted
+                progressRingView.maxValue = 4.0
+                // Update progress ring
+                progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+                //Save the calculated GPA
+                saveCalculation(withGpa: gpa, weighted: false)
+            }
+        }
     }
     
     /// Saves the calculation to realm
-    private func saveCalculation(withGpa gpa: Double) {
+    private func saveCalculation(withGpa gpa: Double, weighted: Bool) {
         let realm = try! Realm()
         try! realm.write {
-            let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date())
+            let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date(), weighted: weighted)
             realm.add(newGPACalc)
         }
     }

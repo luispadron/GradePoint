@@ -17,6 +17,7 @@ import Foundation
     case ib = 4
     case college = 5
     
+    /// Convenience function which returns a name to associate with a case in the enum
     func name() -> String {
         switch self {
         case .regular:
@@ -29,6 +30,22 @@ import Foundation
             return "IB"
         case .college:
             return "College"
+        }
+    }
+    
+    /// Returns the amount of additional grade points awarded, for specific class type
+    func additionalGradePoints() -> Double {
+        switch self {
+        case .regular:
+            return 0.0
+        case .honors:
+            return 0.5
+        case .ap:
+            return 1.0
+        case .ib:
+            return 1.0
+        case .college:
+            return 1.0
         }
     }
 }
