@@ -225,10 +225,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5w9-fD-BWU" userLabel="NavBar">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OKL-ri-BEn">
-                                        <rect key="frame" x="15" y="28" width="384" height="25"/>
+                                        <rect key="frame" x="15" y="23" width="384" height="25"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0h-Og-cBT">
                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -262,9 +262,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="PvY-qq-dCJ">
-                                        <variation key="heightClass=compact-widthClass=compact" constant="60"/>
-                                    </constraint>
+                                    <constraint firstAttribute="height" constant="70" id="PvY-qq-dCJ"/>
                                     <constraint firstItem="OKL-ri-BEn" firstAttribute="leading" secondItem="5w9-fD-BWU" secondAttribute="leading" constant="15" id="SaF-Vc-GE3"/>
                                     <constraint firstItem="OKL-ri-BEn" firstAttribute="centerY" secondItem="5w9-fD-BWU" secondAttribute="centerY" id="cTm-yf-fjb"/>
                                     <constraint firstAttribute="trailing" secondItem="OKL-ri-BEn" secondAttribute="trailing" constant="15" id="mVz-4J-FKq"/>
@@ -272,7 +270,7 @@
                                 </constraints>
                             </view>
                             <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
-                                <rect key="frame" x="0.0" y="80" width="414" height="666"/>
+                                <rect key="frame" x="0.0" y="70" width="414" height="676"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="460"/>
