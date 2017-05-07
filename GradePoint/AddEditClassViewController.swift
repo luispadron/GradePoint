@@ -349,8 +349,16 @@ class AddEditClassViewController: UIViewController {
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
+        
+        // Check credits are greater than 0
+        guard let credits = Double(creditHoursField.safeText), credits > 0 else {
+            self.presentErrorAlert(title: "Can't Save 💔", message: "Invalid number for credits field.")
+            return false
+        }
+        
         // If adding a past class, this checking of rubrics can be skipped
         guard self.viewState == .inProgress else { return true }
+        
         // Want all rubric cells except the last one, since its always empty
         var views = rubricViews
         views.removeLast()
@@ -360,7 +368,7 @@ class AddEditClassViewController: UIViewController {
         
         for (index, view) in views.enumerated() {
             guard let percent = Double(view.weightField.safeText) else {
-                presentErrorAlert(title: "Unable to save", message: "Some data is incorrect and cannot save, please check values and try again")
+                presentErrorAlert(title: "Unable to save", message: "Some data is incorrect and cannot save, please check values and try again.")
                 return false
             }
             
@@ -390,7 +398,7 @@ class AddEditClassViewController: UIViewController {
             let title = NSAttributedString(string: "Can't Save 💔", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
-            let message = "Weights must add up to 100%" + percentSubMessage
+            let message = "Weights must add up to 100%." + percentSubMessage
             let attrsForMessage = [NSForegroundColorAttributeName : UIColor.mutedText, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             
