@@ -2,6 +2,8 @@ platform :ios, '9.0'
 
 target 'GradePoint' do
   use_frameworks!
+  # this will disable all the warnings for all pods
+  inhibit_all_warnings!
 
   # Pods for GradePoint
   pod 'RealmSwift'
@@ -11,6 +13,8 @@ end
 
 target 'GradePointTests' do 
   use_frameworks!
+  # this will disable all the warnings for all pods
+  inhibit_all_warnings!
 
   # Pods for tests
   
