@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Custom view for table view cell
         let bgView = UIView()
-        bgView.backgroundColor = UIColor.highlight
+        bgView.backgroundColor = UIColor.highlight.darker(by: 25)
         UITableViewCell.appearance().selectedBackgroundView = bgView
         UITableViewCell.appearance().backgroundColor = UIColor.clear
         
