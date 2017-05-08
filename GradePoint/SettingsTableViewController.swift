@@ -92,7 +92,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 1:
-            if indexPath.row == 1 {
+            if indexPath.row == 2 {
                 // Warn the user about restoring settings
                 let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
                                                   title: NSAttributedString(string: "Restore Defaults"),
