@@ -665,11 +665,15 @@ class AddEditClassViewController: UIViewController {
         
         let wasHidden = pickerView.isHidden
         
-        // If were about to show the picker view then scroll to it
-        if wasHidden {
+        // If were about to show the picker view then scroll to it, IF its not going to be visible
+        let scrollFrame = CGRect(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y,
+                                 width: scrollView.frame.width, height: scrollView.frame.height)
+        if wasHidden && !scrollFrame.intersects(pickerView.frame) {
             let toScroll = self.scrollView.bounds.origin.y + 120.0
             self.scrollView.setContentOffset(CGPoint(x: 0, y: toScroll), animated: true)
         }
+        
+        // Prepare for animations
         
         pickerView.isHidden = false
         let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0

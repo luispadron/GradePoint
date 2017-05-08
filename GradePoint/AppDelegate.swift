@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITextField.appearance().keyboardAppearance = .dark
         UITextField.appearance().tintColor = UIColor.highlight
         
+        // Change appearance for pickers
+        UIPickerView.appearance().backgroundColor = UIColor.background
+        
         // Figure out whether we have onboarded the user or not
         let defaults = UserDefaults.standard
         let hasOnboarded = defaults.bool(forKey: UserPreferenceKeys.onboardingComplete.rawValue)

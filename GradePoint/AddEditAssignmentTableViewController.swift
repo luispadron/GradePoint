@@ -100,7 +100,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             case 2:
                 return datePickerIsVisible ? 120 : 0
             case 4:
-                return rubricPickerIsVisible ? 80 : 0
+                return rubricPickerIsVisible ? 120 : 0
             default:
                 return 60
             }
