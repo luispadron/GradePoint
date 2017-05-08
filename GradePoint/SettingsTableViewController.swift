@@ -28,6 +28,8 @@ class SettingsTableViewController: UITableViewController {
         // Set inital student type switcher to whatever value we have in the stored preferences
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))
         studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 0) - 1
+        
+        self.title = "Settings"
     }
     
     override func viewDidAppear(_ animated: Bool) {
