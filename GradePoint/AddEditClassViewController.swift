@@ -730,15 +730,6 @@ class AddEditClassViewController: UIViewController {
     }
 }
 
-// MARK: ScrollView Delegate
-extension AddEditClassViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Remove first responder from name field, since keyboard is really annoying
-        if nameField.isFirstResponder { nameField.resignFirstResponder() }
-        else if creditHoursField.isFirstResponder { creditHoursField.resignFirstResponder() }
-    }
-}
-
 // MARK: - Text Field Delegate
 extension AddEditClassViewController: UITextFieldDelegate {
     
