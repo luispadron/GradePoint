@@ -34,6 +34,9 @@ class ClassesTableViewController: UITableViewController {
         self.splitViewController?.preferredDisplayMode = .allVisible
     
         
+        // Add scrolls to top gesture
+        self.tableView.scrollsToTop = true
+        
         // Set delegate and data source for UIEmptyState
         self.emptyStateDataSource = self
         self.emptyStateDelegate = self

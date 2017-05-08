@@ -33,7 +33,8 @@ class ClassDetailTableViewController: UITableViewController {
             // Set up the assignments array, sorted by its associated rubric
             assignments.removeAll()
             for rubric in rubrics {
-                let assignmentsForRubric = classObj.assignments.filter("associatedRubric = %@", rubric)
+                // Filter by rubric association and sort the assignments by date
+                let assignmentsForRubric = classObj.assignments.filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: true)
                 assignments.append(assignmentsForRubric)
             }
         }
@@ -81,6 +82,8 @@ class ClassDetailTableViewController: UITableViewController {
         }
         
         self.progressRing.font = UIFont.systemFont(ofSize: 40)
+        
+        self.tableView.scrollsToTop = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
