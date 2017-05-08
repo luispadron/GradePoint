@@ -21,6 +21,8 @@
 
 #include "shared_realm.hpp"
 
+#include "sync_user.hpp"
+
 #include <realm/sync/client.hpp>
 #include <realm/util/logger.hpp>
 #include <realm/util/optional.hpp>
@@ -83,10 +85,6 @@ public:
     void set_client_should_reconnect_immediately(bool reconnect_immediately);
     bool client_should_reconnect_immediately() const noexcept;
 
-    /// Control whether the sync client validates SSL certificates. Should *always* be `true` in production use.
-    void set_client_should_validate_ssl(bool validate_ssl);
-    bool client_should_validate_ssl() const noexcept;
-    
     /// Force sync client to reconnect immediately if the connection was lost.
     void reconnect();
 
@@ -104,7 +102,7 @@ public:
     std::shared_ptr<SyncUser> get_user(const std::string& identity,
                                        std::string refresh_token,
                                        util::Optional<std::string> auth_server_url=none,
-                                       bool is_admin=false);
+                                       SyncUser::TokenType token_type=SyncUser::TokenType::Normal);
     // Get an existing user for a given identity, if one exists and is logged in.
     std::shared_ptr<SyncUser> get_existing_logged_in_user(const std::string& identity) const;
     // Get all the users that are logged in and not errored out.
@@ -146,7 +144,6 @@ private:
     util::Logger::Level m_log_level = util::Logger::Level::info;
     SyncLoggerFactory* m_logger_factory = nullptr;
     ReconnectMode m_client_reconnect_mode = ReconnectMode::normal;
-    bool m_client_validate_ssl = true;
 
     bool run_file_action(const SyncFileActionMetadata&);
 
