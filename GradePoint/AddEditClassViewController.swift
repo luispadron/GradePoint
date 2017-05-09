@@ -351,7 +351,7 @@ class AddEditClassViewController: UIViewController {
     func isSaveReady() -> Bool {
         
         // Check credits are greater than 0
-        guard let credits = Double(creditHoursField.safeText), credits > 0 else {
+        if let creditsText = creditHoursField.text, let credits = Double(creditsText), credits <= 0.0 {
             self.presentErrorAlert(title: "Can't Save 💔", message: "Invalid number for credits field.")
             return false
         }
