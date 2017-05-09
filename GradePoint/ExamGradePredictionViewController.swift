@@ -35,7 +35,7 @@ class ExamGradePredictionViewController: UIViewController {
         let placeHolderAttrs = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
         self.currentGradeField.configuration = percentConfig
         self.currentGradeField.fieldType = .percent
-        self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 86%", attributes: placeHolderAttrs)
+        self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 89%", attributes: placeHolderAttrs)
         self.currentGradeField.textColor = UIColor.white
         self.currentGradeField.keyboardType = .numbersAndPunctuation
         self.currentGradeField.returnKeyType = .next
@@ -51,7 +51,7 @@ class ExamGradePredictionViewController: UIViewController {
         examWorthConfig.allowsZeroPercent = false
         self.examWorthField.configuration = examWorthConfig
         self.examWorthField.fieldType = .percent
-        self.examWorthField.attributedPlaceholder = NSAttributedString(string: "Example: 15%", attributes: placeHolderAttrs)
+        self.examWorthField.attributedPlaceholder = NSAttributedString(string: "Example: 20%", attributes: placeHolderAttrs)
         self.examWorthField.textColor = UIColor.white
         self.examWorthField.keyboardType = .numbersAndPunctuation
         self.examWorthField.returnKeyType = .done
