@@ -282,7 +282,7 @@
                                                         <rect key="frame" x="20" y="8" width="374" height="35"/>
                                                         <segments>
                                                             <segment title="In progress"/>
-                                                            <segment title="Past class"/>
+                                                            <segment title="Previous class"/>
                                                         </segments>
                                                         <color key="tintColor" red="0.66274509803921566" green="0.87058823529411766" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                                         <connections>

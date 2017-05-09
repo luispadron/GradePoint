@@ -28,7 +28,7 @@ class Grade: Object {
         self.gradeLetter = Grade.gradeLetter(forScore: score)
     }
     
-    /// Used when creating a Past class
+    /// Used when creating a Previous class
     convenience init(gradeLetter: String) {
         self.init()
         self.gradeLetter = gradeLetter

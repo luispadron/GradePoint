@@ -165,7 +165,7 @@ class GPACalculatorViewController: UIViewController {
     /// Prepares all the GPA views and populates them with the values of their respective Class
     private func prepareGPAViews() {
         let realm = try! Realm()
-        // Only want classes which are past classes, or in progress classes with more than one assignment
+        // Only want classes which are previous classes, or in progress classes with more than one assignment
         let classes = realm.objects(Class.self).filter { !$0.isClassInProgress || $0.assignments.count > 0 }
         
         // Update each of the views with their appropriate class object

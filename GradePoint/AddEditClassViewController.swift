@@ -11,7 +11,7 @@ import RealmSwift
 
 enum ViewState {
     case inProgress
-    case past
+    case previous
 }
 
 class AddEditClassViewController: UIViewController {
@@ -150,19 +150,19 @@ class AddEditClassViewController: UIViewController {
             self.creditHoursField.text = "\(inProgressClass.creditHours)"
             updateSemesterPicker(for: inProgressClass)
             updateRubricViews(for: inProgressClass)
-        } else if let pastClass = self.classObj, !pastClass.isClassInProgress {
-            // Set view state to past
-            self.viewState = .past
+        } else if let previousClass = self.classObj, !previousClass.isClassInProgress {
+            // Set view state to previous
+            self.viewState = .previous
             self.prepareView(forState: viewState, isEditing: true)
             // Update fields with edited classes attributes
-            self.navigationTitle.text = "Edit \(pastClass.name)"
-            self.nameField.text = pastClass.name
-            self.classTypeLabel.text = pastClass.classType.name()
-            updateClassTypePicker(for: pastClass)
-            self.creditHoursField.text = "\(pastClass.creditHours)"
-            updateSemesterPicker(for: pastClass)
-            self.gradeLabel.text = pastClass.grade?.gradeLetter
-            updateGradePicker(for: pastClass)
+            self.navigationTitle.text = "Edit \(previousClass.name)"
+            self.nameField.text = previousClass.name
+            self.classTypeLabel.text = previousClass.classType.name()
+            updateClassTypePicker(for: previousClass)
+            self.creditHoursField.text = "\(previousClass.creditHours)"
+            updateSemesterPicker(for: previousClass)
+            self.gradeLabel.text = previousClass.grade?.gradeLetter
+            updateGradePicker(for: previousClass)
         } else {
             // Set a default semester
             let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
@@ -221,7 +221,7 @@ class AddEditClassViewController: UIViewController {
             if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
             // The other views are hidden by default
             break
-        case .past:
+        case .previous:
             // Hide the rubric views, show the grade field
             self.gradeFieldContainerView.isHidden = false
             self.gradeLabel.isHidden = false
@@ -250,7 +250,7 @@ class AddEditClassViewController: UIViewController {
         // End any editing
         self.view.endEditing(true)
         
-        self.viewState = sender.selectedSegmentIndex == 0 ? .inProgress : .past
+        self.viewState = sender.selectedSegmentIndex == 0 ? .inProgress : .previous
         
         // Update the view
         switch self.viewState {
@@ -278,7 +278,7 @@ class AddEditClassViewController: UIViewController {
                 self.updateSaveButton()
             })
         // Hide any rubric views, and show the grade selection view
-        case .past:
+        case .previous:
             // Initial set up
             self.gradeFieldContainerView.isHidden = false
             self.gradePickerView.isHidden = false
@@ -341,9 +341,9 @@ class AddEditClassViewController: UIViewController {
         case .inProgress:
             guard let classObj = self.classObj else { saveNewInProgressClass(); return }
             saveChangesTo(inProgressClass: classObj)
-        case .past:
-            guard let classObj = self.classObj else { saveNewPastClass(); return }
-            saveChangesTo(pastClass: classObj)
+        case .previous:
+            guard let classObj = self.classObj else { saveNewPreviousClass(); return }
+            saveChangesTo(previousClass: classObj)
         }
     }
     
@@ -356,7 +356,7 @@ class AddEditClassViewController: UIViewController {
             return false
         }
         
-        // If adding a past class, this checking of rubrics can be skipped
+        // If adding a previous class, this checking of rubrics can be skipped
         guard self.viewState == .inProgress else { return true }
         
         // Want all rubric cells except the last one, since its always empty
@@ -446,7 +446,7 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
-    func saveNewPastClass() {
+    func saveNewPreviousClass() {
         let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
         let credits = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
         let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
@@ -512,7 +512,7 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
-    func saveChangesTo(pastClass classObj: Class) {
+    func saveChangesTo(previousClass classObj: Class) {
         try! realm.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
@@ -587,7 +587,7 @@ class AddEditClassViewController: UIViewController {
             rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
             
             self.saveButton.isEnabled = nameValid && rubricsAreValid
-        case .past:
+        case .previous:
             self.saveButton.isEnabled = nameValid
             break
         }
@@ -616,7 +616,7 @@ class AddEditClassViewController: UIViewController {
         self.semester = classObj.semester!
     }
     
-    /// Updates the grade picker for a past class that is being edited
+    /// Updates the grade picker for a previous class that is being edited
     func updateGradePicker(for classObj: Class) {
         var row: Int!
         let letter = classObj.grade!.gradeLetter

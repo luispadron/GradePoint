@@ -183,7 +183,7 @@ class ClassDetailTableViewController: UITableViewController {
             self.addButton.isEnabled = true
             self.splitViewController?.displayModeButtonItem.isEnabled = true
         } else if let classObj = self._classObj, !classObj.isClassInProgress {
-            // Class is a past class, dont allow + button
+            // Class is a previous class, dont allow + button
             self.title = classObj.name
             self.addButton.isEnabled = false
             self.splitViewController?.displayModeButtonItem.isEnabled = true
@@ -256,10 +256,10 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
             // Class is in progress but has no assignments
             attributes[NSForegroundColorAttributeName] = UIColor.mainText
             return NSAttributedString(string: "No assignments added", attributes: attributes)
-        } else if let pastClass = _classObj, !pastClass.isClassInProgress {
-            // Class is a past class, assignments cannot be added
+        } else if let previousClass = _classObj, !previousClass.isClassInProgress {
+            // Class is a previous class, assignments cannot be added
             attributes[NSForegroundColorAttributeName] = UIColor.mainText
-            return NSAttributedString(string: "Past class: " + pastClass.name, attributes: attributes)
+            return NSAttributedString(string: "Previous class: " + previousClass.name, attributes: attributes)
         } else {
             // No class selected
             attributes[NSForegroundColorAttributeName] = UIColor.mutedText
@@ -276,11 +276,11 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
                          NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
             return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
         } else {
-            // Class is not in progress, is a past class. Display a detail message and thats it
+            // Class is not in progress, is a previous class. Display a detail message and thats it
             let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
                          NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-            let detail = "This is a past class, assignments cannot be added.\n" +
-                        "Past classes are only used for calculating GPA.\n" +
+            let detail = "This is a previous class, assignments cannot be added.\n" +
+                        "Previous classes are only used for calculating GPA.\n" +
                         "\nYou earned a \(classObj.grade!.gradeLetter) in this class.\n\n" +
                         "To track assignments create an In Progress class."
             return NSAttributedString(string: detail, attributes: attrs)
@@ -289,7 +289,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        // If no class selected, or if class is a past class, then dont show the button
+        // If no class selected, or if class is a previous class, then dont show the button
         guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
         
         let attrs = [NSForegroundColorAttributeName: UIColor.accentGreen,
@@ -298,14 +298,14 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     }
     
     var emptyStateButtonImage: UIImage? {
-        // If no class selected, or if class is a past class, then dont show the button image
+        // If no class selected, or if class is a previous class, then dont show the button image
         guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
         
         return #imageLiteral(resourceName: "ButtonBg")
     }
     
     var emptyStateButtonSize: CGSize? {
-        // If no class selected, or if class is a past class, then dont return button size
+        // If no class selected, or if class is a previous class, then dont return button size
         guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
         
         return CGSize(width: 170, height: 50)

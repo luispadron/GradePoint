@@ -37,7 +37,7 @@ class Class: Object {
         self.grade = Grade(score: 0.0)
     }
     
-    /// Used to create a past class
+    /// Used to create a previous class
     convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester,  grade: Grade) {
         self.init()
         self.name = name
@@ -98,7 +98,7 @@ class Class: Object {
     
     /// Returns whether or not the class is inprogress or not
     /// Does so by checking whether or not at least 1 rubric has been added, if this is false then
-    /// it must be a Past Class due to the fact past classes cannot have rubrics
+    /// it must be a Previous Class due to the fact previous classes cannot have rubrics
     var isClassInProgress: Bool { get { return self.rubrics.count > 0 } }
     
 }
