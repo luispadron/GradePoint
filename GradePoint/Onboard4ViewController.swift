@@ -30,7 +30,6 @@ class Onboard4ViewController: UIViewController {
         self.button.layer.backgroundColor = self.view.backgroundColor?.lighter(by: 20)?.cgColor
         self.button.layer.cornerRadius = 6.0
         
-        self.progressRing.font = UIFont.systemFont(ofSize: 60)
         // Customization for progress ring
         self.progressRing.animationStyle = kCAMediaTimingFunctionEaseInEaseOut
     }
@@ -40,6 +39,24 @@ class Onboard4ViewController: UIViewController {
         
         if !hasAnimated { self.animateViews() }
         self.hasAnimated = true
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // Customize font size/ring properties
+        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+            switch traitCollection.horizontalSizeClass {
+            case .compact:
+                progressRing.font = UIFont.systemFont(ofSize: 60)
+                progressRing.outerRingWidth = 14
+                progressRing.innerRingWidth = 10
+            case .unspecified: fallthrough
+            case .regular:
+                progressRing.font = UIFont.systemFont(ofSize: 90)
+                progressRing.outerRingWidth = 20
+                progressRing.innerRingWidth = 16
+            }
+            
+        }
     }
 
     // MARK: Animations

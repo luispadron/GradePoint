@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="ipad9_7" orientation="portrait">
+    <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,14 +27,14 @@
                         <viewControllerLayoutGuide type="bottom" id="bYO-Nv-k4j"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qv0-rO-Z9V">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJv-DB-hZO" userLabel="IntroView">
-                                <rect key="frame" x="20" y="40" width="728" height="944"/>
+                                <rect key="frame" x="20" y="40" width="984" height="688"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3M-0G-RiU" userLabel="Header">
-                                        <rect key="frame" x="0.0" y="141.5" width="728" height="95.5"/>
+                                        <rect key="frame" x="0.0" y="13.5" width="984" height="95.5"/>
                                         <string key="text">Hey there,
 welcome to GradePoint</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
@@ -44,7 +45,7 @@ welcome to GradePoint</string>
                                         </variation>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircularAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mxw-jp-MjA">
-                                        <rect key="frame" x="189" y="297" width="350" height="350"/>
+                                        <rect key="frame" x="317" y="169" width="350" height="350"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="210" id="9h2-Q7-oAy">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="350"/>
@@ -55,14 +56,14 @@ welcome to GradePoint</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaE-dd-6Ge">
-                                        <rect key="frame" x="0.0" y="707" width="728" height="76.5"/>
+                                        <rect key="frame" x="0.0" y="569" width="984" height="72"/>
                                         <string key="text">A simple application to help you
 keep track of your grades</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
                                         </variation>
                                     </label>
                                 </subviews>
@@ -76,13 +77,13 @@ keep track of your grades</string>
                                     <constraint firstItem="oaE-dd-6Ge" firstAttribute="leading" secondItem="nJv-DB-hZO" secondAttribute="leading" id="H0I-uH-Mgb"/>
                                     <constraint firstItem="mxw-jp-MjA" firstAttribute="centerY" secondItem="nJv-DB-hZO" secondAttribute="centerY" id="ocY-AJ-FZQ"/>
                                     <constraint firstItem="oaE-dd-6Ge" firstAttribute="top" secondItem="mxw-jp-MjA" secondAttribute="bottom" constant="40" id="q72-MT-XlJ">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                     </constraint>
                                     <constraint firstItem="w3M-0G-RiU" firstAttribute="leading" secondItem="nJv-DB-hZO" secondAttribute="leading" id="uxj-g1-smZ"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
-                                <rect key="frame" x="40" y="954" width="688" height="30"/>
+                                <rect key="frame" x="40" y="703" width="944" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -100,7 +101,7 @@ keep track of your grades</string>
                             <constraint firstItem="IQY-4H-pV6" firstAttribute="leading" secondItem="qv0-rO-Z9V" secondAttribute="leadingMargin" constant="20" id="TcL-6q-OEE"/>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" id="bYR-4H-zJr"/>
                             <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="8" id="hJt-a6-ts0">
-                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                <variation key="heightClass=regular-widthClass=regular" constant="35"/>
                             </constraint>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="top" secondItem="Ul1-c7-xM0" secondAttribute="bottom" constant="20" id="nEr-nb-oDz"/>
                             <constraint firstAttribute="trailing" secondItem="nJv-DB-hZO" secondAttribute="trailing" constant="20" id="rdS-0e-T1Z"/>
@@ -127,14 +128,14 @@ keep track of your grades</string>
                         <viewControllerLayoutGuide type="bottom" id="Qg6-wR-hUA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Dgg-cm-cLx">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ytd-2x-re8" userLabel="Holder View">
-                                <rect key="frame" x="28" y="40" width="712" height="944"/>
+                                <rect key="frame" x="28" y="40" width="968" height="688"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbV-mL-HJU">
-                                        <rect key="frame" x="0.0" y="177" width="712" height="76.5"/>
+                                        <rect key="frame" x="0.0" y="48.5" width="968" height="76.5"/>
                                         <string key="text">Keeping track is easy,
 simply add your classes</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
@@ -145,7 +146,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClassExample" translatesAutoresizingMaskIntoConstraints="NO" id="zgK-u3-JKI">
-                                        <rect key="frame" x="131" y="293.5" width="450" height="120"/>
+                                        <rect key="frame" x="259" y="165" width="450" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="81" id="PSD-t7-ukk">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="120"/>
@@ -156,7 +157,7 @@ simply add your classes</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out your information" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
-                                        <rect key="frame" x="161" y="453.5" width="391.5" height="38.5"/>
+                                        <rect key="frame" x="289" y="325" width="391.5" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -164,8 +165,8 @@ simply add your classes</string>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
                                         </variation>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-xb-j7a">
-                                        <rect key="frame" x="131" y="512" width="450" height="400"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-xb-j7a">
+                                        <rect key="frame" x="259" y="378" width="450" height="400"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView1" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-Z3-Sei">
                                                 <rect key="frame" x="0.0" y="0.0" width="450" height="100"/>
@@ -192,7 +193,7 @@ simply add your classes</string>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RubricView3" translatesAutoresizingMaskIntoConstraints="NO" id="plG-Nt-Pt5">
                                                 <rect key="frame" x="0.0" y="200" width="450" height="100"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="272" id="OIE-uZ-eYi">
+                                                    <constraint firstAttribute="width" priority="750" constant="272" id="OIE-uZ-eYi">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="450"/>
                                                     </constraint>
                                                     <constraint firstAttribute="height" constant="59" id="s6y-z0-5qQ">
@@ -235,9 +236,7 @@ simply add your classes</string>
                                     <constraint firstItem="tTx-lb-47M" firstAttribute="centerY" secondItem="Ytd-2x-re8" secondAttribute="centerY" id="QmJ-c4-DvN"/>
                                     <constraint firstItem="fbV-mL-HJU" firstAttribute="leading" secondItem="Ytd-2x-re8" secondAttribute="leading" id="V4V-Of-qbt"/>
                                     <constraint firstItem="kUE-xb-j7a" firstAttribute="centerX" secondItem="Ytd-2x-re8" secondAttribute="centerX" id="b3F-fJ-cCB"/>
-                                    <constraint firstItem="kUE-xb-j7a" firstAttribute="top" secondItem="tTx-lb-47M" secondAttribute="bottom" constant="15" id="eex-CH-UoZ">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="20"/>
-                                    </constraint>
+                                    <constraint firstItem="kUE-xb-j7a" firstAttribute="top" secondItem="tTx-lb-47M" secondAttribute="bottom" constant="15" id="eex-CH-UoZ"/>
                                     <constraint firstAttribute="trailing" secondItem="fbV-mL-HJU" secondAttribute="trailing" id="qzP-Br-p28"/>
                                     <constraint firstItem="tTx-lb-47M" firstAttribute="centerX" secondItem="Ytd-2x-re8" secondAttribute="centerX" id="twd-CT-c95"/>
                                     <constraint firstItem="zgK-u3-JKI" firstAttribute="top" secondItem="fbV-mL-HJU" secondAttribute="bottom" constant="30" id="yUG-b2-YK2">
@@ -246,7 +245,7 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
-                                <rect key="frame" x="28" y="954" width="712" height="30"/>
+                                <rect key="frame" x="28" y="698" width="968" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -261,13 +260,29 @@ simply add your classes</string>
                             <constraint firstItem="Ytd-2x-re8" firstAttribute="leading" secondItem="Dgg-cm-cLx" secondAttribute="leadingMargin" constant="8" id="7jN-Zu-en1"/>
                             <constraint firstItem="Ytd-2x-re8" firstAttribute="centerX" secondItem="Dgg-cm-cLx" secondAttribute="centerX" id="DeR-2Q-peK"/>
                             <constraint firstItem="aUF-LX-xP6" firstAttribute="leading" secondItem="Dgg-cm-cLx" secondAttribute="leadingMargin" constant="8" id="FZi-w0-4Li"/>
+                            <constraint firstItem="Qg6-wR-hUA" firstAttribute="top" secondItem="Ytd-2x-re8" secondAttribute="bottom" constant="40" id="MCM-FU-Xy5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aUF-LX-xP6" secondAttribute="trailing" constant="8" id="aWC-ej-0iR"/>
                             <constraint firstItem="Qg6-wR-hUA" firstAttribute="top" secondItem="aUF-LX-xP6" secondAttribute="bottom" constant="8" id="h0w-93-AzY">
                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                             </constraint>
+                            <constraint firstItem="aUF-LX-xP6" firstAttribute="top" secondItem="kUE-xb-j7a" secondAttribute="bottom" constant="7.5" id="lsn-zf-DTZ">
+                                <variation key="heightClass=regular-widthClass=regular" constant="8"/>
+                            </constraint>
                             <constraint firstItem="Ytd-2x-re8" firstAttribute="centerY" secondItem="Dgg-cm-cLx" secondAttribute="centerY" id="od7-dd-h9P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ytd-2x-re8" secondAttribute="trailing" constant="8" id="qrd-Hx-1W3"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lsn-zf-DTZ"/>
+                                <exclude reference="MCM-FU-Xy5"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="lsn-zf-DTZ"/>
+                                <include reference="MCM-FU-Xy5"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="classAddExample" destination="zgK-u3-JKI" id="YZR-nj-PmN"/>
@@ -294,14 +309,14 @@ simply add your classes</string>
                         <viewControllerLayoutGuide type="bottom" id="6ra-zI-VWt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tz1-qI-5Nz">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6p-N0-AhA" userLabel="Holder View">
-                                <rect key="frame" x="20" y="40" width="728" height="944"/>
+                                <rect key="frame" x="20" y="40" width="984" height="688"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a few more questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrY-If-ell">
-                                        <rect key="frame" x="8" y="196.5" width="712" height="48"/>
+                                        <rect key="frame" x="8" y="68.5" width="968" height="48"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -310,7 +325,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you a college or high school student?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fCS-68-gLt">
-                                        <rect key="frame" x="8" y="284.5" width="712" height="38.5"/>
+                                        <rect key="frame" x="8" y="156.5" width="968" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -319,7 +334,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="TLo-Ok-BH9">
-                                        <rect key="frame" x="139" y="363" width="450" height="51"/>
+                                        <rect key="frame" x="267" y="235" width="450" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HEQ-qb-veA">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -338,7 +353,7 @@ simply add your classes</string>
                                         </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does your school use A+ or non-A+ grading?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-UK-B8A">
-                                        <rect key="frame" x="8" y="453" width="712" height="38.5"/>
+                                        <rect key="frame" x="8" y="325" width="968" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -347,7 +362,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="rv3-c6-bhc">
-                                        <rect key="frame" x="139" y="531.5" width="450" height="51"/>
+                                        <rect key="frame" x="267" y="403.5" width="450" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="osO-k9-m3I">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -393,10 +408,13 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1l-7a-6MR">
-                                <rect key="frame" x="312.5" y="962" width="143" height="22"/>
+                                <rect key="frame" x="415" y="698" width="194" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.30980392156862746" green="0.52549019607843139" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
@@ -434,72 +452,86 @@ simply add your classes</string>
                         <viewControllerLayoutGuide type="bottom" id="gki-cI-ih5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UW5-bK-R64">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VA-2q-n9N">
-                                <rect key="frame" x="213" y="302" width="342" height="420"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7X-xJ-Ohx">
-                                        <rect key="frame" x="34" y="0.0" width="274" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <string key="text">You're now ready to begin
-keeping track of your assignments</string>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="foL-z5-pkU" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                        <rect key="frame" x="21" y="60" width="300" height="300"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
-                                                <color key="value" red="0.40535759929999998" green="0.83694922920000003" blue="0.70983439680000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
-                                                <color key="value" red="0.33256985086825769" green="0.69844939115751592" blue="0.59262468188945339" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
-                                                <real key="value" value="13"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="342" id="6lW-Gu-0Ok"/>
-                                    <constraint firstAttribute="height" constant="420" id="IHL-Tq-rUY"/>
-                                </constraints>
-                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're now ready to keep track of your grades" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7X-xJ-Ohx">
+                                <rect key="frame" x="60" y="71" width="904" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
+                                </variation>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGN-eO-2Aa">
-                                <rect key="frame" x="318.5" y="948" width="131" height="36"/>
+                                <rect key="frame" x="28" y="680" width="968" height="48"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="Cool, lets start!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="onButtonTap:" destination="hau-QZ-vzB" eventType="touchUpInside" id="eK9-a5-d6A"/>
                                     <segue destination="J2t-Xk-b1O" kind="show" id="eql-I5-npt"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="foL-z5-pkU" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                <rect key="frame" x="287" y="159" width="450" height="450"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="HJP-Zy-XrC">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="450"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" secondItem="foL-z5-pkU" secondAttribute="height" multiplier="1:1" id="ScP-Qf-cEQ"/>
+                                    <constraint firstAttribute="height" constant="280" id="l2t-IO-pA3">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="450"/>
+                                    </constraint>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                        <color key="value" red="0.40535759929999998" green="0.83694922920000003" blue="0.70983439680000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                        <color key="value" red="0.33256985086825769" green="0.69844939115751592" blue="0.59262468188945339" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470588235294" green="0.22352941176470587" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="9VA-2q-n9N" firstAttribute="centerX" secondItem="UW5-bK-R64" secondAttribute="centerX" id="HIf-Gs-GM7"/>
-                            <constraint firstItem="9VA-2q-n9N" firstAttribute="centerY" secondItem="UW5-bK-R64" secondAttribute="centerY" id="b92-7s-5RB"/>
-                            <constraint firstItem="gki-cI-ih5" firstAttribute="top" secondItem="YGN-eO-2Aa" secondAttribute="bottom" constant="40" id="fcW-0W-4o6"/>
-                            <constraint firstItem="YGN-eO-2Aa" firstAttribute="centerX" secondItem="UW5-bK-R64" secondAttribute="centerX" id="kvI-jN-nMv"/>
+                            <constraint firstItem="foL-z5-pkU" firstAttribute="centerY" secondItem="UW5-bK-R64" secondAttribute="centerY" id="D4R-L2-zpw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="w7X-xJ-Ohx" secondAttribute="trailing" constant="8" id="ITl-TG-bzR">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
+                            <constraint firstItem="foL-z5-pkU" firstAttribute="top" secondItem="w7X-xJ-Ohx" secondAttribute="bottom" constant="20" id="Omr-3Q-2tw">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="YGN-eO-2Aa" secondAttribute="trailing" constant="8" id="e9S-lc-Utr"/>
+                            <constraint firstItem="YGN-eO-2Aa" firstAttribute="leading" secondItem="UW5-bK-R64" secondAttribute="leadingMargin" constant="8" id="oVD-A8-xhm"/>
+                            <constraint firstItem="w7X-xJ-Ohx" firstAttribute="leading" secondItem="UW5-bK-R64" secondAttribute="leadingMargin" constant="8" id="xUW-p7-nez">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
+                            <constraint firstItem="foL-z5-pkU" firstAttribute="centerX" secondItem="UW5-bK-R64" secondAttribute="centerX" id="zOi-ql-dbw"/>
+                            <constraint firstItem="gki-cI-ih5" firstAttribute="top" secondItem="YGN-eO-2Aa" secondAttribute="bottom" constant="8" id="zc1-zv-zqt">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
                         </constraints>
                     </view>
                     <connections>

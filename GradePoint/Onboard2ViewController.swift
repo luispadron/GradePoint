@@ -27,6 +27,8 @@ class Onboard2ViewController: UIViewController {
     private var yForRubricView3: CGFloat = 0.0
     private var yForRubricView4: CGFloat = 0.0
     
+    private var previousFrame: CGRect? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +47,41 @@ class Onboard2ViewController: UIViewController {
         super.viewDidAppear(animated)
         if !hasAnimated { self.animateViews() }
         self.hasAnimated = true
+    }
+    
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        updateUI(withOrientation: toInterfaceOrientation)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if previousFrame != self.view.bounds {
+            updateUI(withOrientation: UIApplication.shared.statusBarOrientation)
+        }
+        
+        previousFrame = self.view.bounds
+    }
+    
+    private func updateUI(withOrientation orientation: UIInterfaceOrientation) {
+        let height = self.view.bounds.height
+
+        if UIDevice.current.userInterfaceIdiom == .pad && height < 1000 {
+            switch orientation {
+            case .portraitUpsideDown: fallthrough
+            case .portrait:
+                rubricView3.alpha = 1.0
+                rubricView4.alpha = 1.0
+                rubricStackView.addArrangedSubview(rubricView3)
+                rubricStackView.addArrangedSubview(rubricView4)
+            case .unknown: fallthrough
+            case .landscapeLeft: fallthrough
+            case .landscapeRight:
+                rubricView3.removeFromSuperview()
+                rubricView4.removeFromSuperview()
+            }
+        }
     }
     
 
@@ -96,13 +133,17 @@ class Onboard2ViewController: UIViewController {
             })
             
             UIView.addKeyframe(withRelativeStartTime: 2/5, relativeDuration: 1/5, animations: {
-                self.rubricView3.alpha = 1.0
-                self.rubricView3.center.y = self.yForRubricView3
+                if self.rubricStackView.arrangedSubviews.contains(self.rubricView3) {
+                    self.rubricView3.alpha = 1.0
+                    self.rubricView3.center.y = self.yForRubricView3
+                }
             })
             
             UIView.addKeyframe(withRelativeStartTime: 3/5, relativeDuration: 1/5, animations: {
-                self.rubricView4.alpha = 1.0
-                self.rubricView4.center.y = self.yForRubricView4
+                if self.rubricStackView.arrangedSubviews.contains(self.rubricView4) {
+                    self.rubricView4.alpha = 1.0
+                    self.rubricView4.center.y = self.yForRubricView4
+                }
             })
             
             UIView.addKeyframe(withRelativeStartTime: 4/5, relativeDuration: 1/5, animations: { 
