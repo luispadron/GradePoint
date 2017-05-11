@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,57 +26,84 @@
                         <viewControllerLayoutGuide type="bottom" id="bYO-Nv-k4j"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qv0-rO-Z9V">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
-                                <rect key="frame" x="128.5" y="605" width="118" height="22"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJv-DB-hZO" userLabel="IntroView">
-                                <rect key="frame" x="32.5" y="133.5" width="310" height="400"/>
+                                <rect key="frame" x="20" y="40" width="728" height="944"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3M-0G-RiU" userLabel="Header">
-                                        <rect key="frame" x="29" y="8" width="253" height="60"/>
+                                        <rect key="frame" x="0.0" y="141" width="728" height="95.5"/>
                                         <string key="text">Hey there,
 welcome to GradePoint</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
+                                        </variation>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircularAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mxw-jp-MjA">
+                                        <rect key="frame" x="189" y="296.5" width="350" height="350"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="210" id="9h2-Q7-oAy">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="350"/>
+                                            </constraint>
+                                            <constraint firstAttribute="width" constant="210" id="jgp-2Q-TGM">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="350"/>
+                                            </constraint>
+                                        </constraints>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaE-dd-6Ge">
-                                        <rect key="frame" x="22" y="346" width="266" height="46"/>
+                                        <rect key="frame" x="0.0" y="706.5" width="728" height="76.5"/>
                                         <string key="text">A simple application to help you
 keep track of your grades</string>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
+                                        </variation>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircularAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mxw-jp-MjA">
-                                        <rect key="frame" x="58" y="103" width="195" height="195"/>
-                                    </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="02c-Af-kb4"/>
-                                    <constraint firstItem="oaE-dd-6Ge" firstAttribute="top" secondItem="mxw-jp-MjA" secondAttribute="bottom" constant="48" id="1Sz-YX-7ht"/>
-                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="top" secondItem="w3M-0G-RiU" secondAttribute="bottom" constant="35" id="5Fa-Cg-Wnr"/>
-                                    <constraint firstAttribute="bottom" secondItem="oaE-dd-6Ge" secondAttribute="bottom" constant="8" id="Dql-CQ-duD"/>
-                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="G2e-Ci-vPS"/>
-                                    <constraint firstItem="oaE-dd-6Ge" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="I1G-D2-rTB"/>
-                                    <constraint firstAttribute="width" constant="310" id="Lrz-1C-LEu"/>
-                                    <constraint firstItem="w3M-0G-RiU" firstAttribute="top" secondItem="nJv-DB-hZO" secondAttribute="top" constant="8" id="W4j-xr-YRt"/>
-                                    <constraint firstItem="w3M-0G-RiU" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="cEg-YO-yAC"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="top" secondItem="w3M-0G-RiU" secondAttribute="bottom" constant="40" id="62Q-Wr-HCZ">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="oaE-dd-6Ge" secondAttribute="trailing" id="66D-P8-8Zb"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerX" secondItem="nJv-DB-hZO" secondAttribute="centerX" id="9p8-RY-8zd"/>
+                                    <constraint firstAttribute="trailing" secondItem="w3M-0G-RiU" secondAttribute="trailing" id="E1W-lf-UzR"/>
+                                    <constraint firstItem="oaE-dd-6Ge" firstAttribute="leading" secondItem="nJv-DB-hZO" secondAttribute="leading" id="H0I-uH-Mgb"/>
+                                    <constraint firstItem="mxw-jp-MjA" firstAttribute="centerY" secondItem="nJv-DB-hZO" secondAttribute="centerY" id="ocY-AJ-FZQ"/>
+                                    <constraint firstItem="oaE-dd-6Ge" firstAttribute="top" secondItem="mxw-jp-MjA" secondAttribute="bottom" constant="40" id="q72-MT-XlJ">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
+                                    <constraint firstItem="w3M-0G-RiU" firstAttribute="leading" secondItem="nJv-DB-hZO" secondAttribute="leading" id="uxj-g1-smZ"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
+                                <rect key="frame" x="40" y="954" width="688" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="9Qn-5w-cjg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IQY-4H-pV6" secondAttribute="trailing" constant="20" id="36N-ff-Fef"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="Azh-XV-xly"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="leading" secondItem="qv0-rO-Z9V" secondAttribute="leading" constant="20" id="DcC-kf-44T"/>
                             <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="QgI-MA-2y0"/>
-                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" id="apo-Qx-FPz"/>
-                            <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="40" id="hJt-a6-ts0"/>
+                            <constraint firstItem="IQY-4H-pV6" firstAttribute="leading" secondItem="qv0-rO-Z9V" secondAttribute="leadingMargin" constant="20" id="TcL-6q-OEE"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" id="bYR-4H-zJr"/>
+                            <constraint firstItem="nJv-DB-hZO" firstAttribute="top" secondItem="qv0-rO-Z9V" secondAttribute="top" constant="40" id="fRu-oL-ohQ"/>
+                            <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="8" id="hJt-a6-ts0">
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="nJv-DB-hZO" secondAttribute="trailing" constant="20" id="rdS-0e-T1Z"/>
                         </constraints>
                     </view>
                     <connections>
@@ -88,7 +116,7 @@ keep track of your grades</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2W-U1-wGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="-588"/>
+            <point key="canvasLocation" x="2053.125" y="-588.75"/>
         </scene>
         <!--Onboard2 View Controller-->
         <scene sceneID="bGw-DV-Pcc">
@@ -99,11 +127,11 @@ keep track of your grades</string>
                         <viewControllerLayoutGuide type="bottom" id="Qg6-wR-hUA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Dgg-cm-cLx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ytd-2x-re8">
-                                <rect key="frame" x="17" y="111" width="341" height="445"/>
+                                <rect key="frame" x="213.5" y="289.5" width="341" height="445"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClassExample" translatesAutoresizingMaskIntoConstraints="NO" id="zgK-u3-JKI">
                                         <rect key="frame" x="29" y="71" width="285" height="81"/>
@@ -154,7 +182,7 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
-                                <rect key="frame" x="116" y="605.5" width="143" height="21.5"/>
+                                <rect key="frame" x="312.5" y="962.5" width="143" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -193,26 +221,26 @@ simply add your classes</string>
                         <viewControllerLayoutGuide type="bottom" id="6ra-zI-VWt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tz1-qI-5Nz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6p-N0-AhA">
-                                <rect key="frame" x="8" y="131" width="359" height="405"/>
+                                <rect key="frame" x="8" y="309.5" width="752" height="405"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you a college or high school student?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fCS-68-gLt">
-                                        <rect key="frame" x="8" y="100" width="343" height="20.5"/>
+                                        <rect key="frame" x="8" y="100" width="736" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does your school use A+ or non-A+ grading?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-UK-B8A">
-                                        <rect key="frame" x="8" y="240.5" width="343" height="20.5"/>
+                                        <rect key="frame" x="8" y="240.5" width="736" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="TLo-Ok-BH9">
-                                        <rect key="frame" x="8" y="140.5" width="343" height="41"/>
+                                        <rect key="frame" x="8" y="140.5" width="736" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="GPC-oi-fwm"/>
                                         </constraints>
@@ -226,7 +254,7 @@ simply add your classes</string>
                                         </connections>
                                     </segmentedControl>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="rv3-c6-bhc">
-                                        <rect key="frame" x="8" y="281" width="343" height="41"/>
+                                        <rect key="frame" x="8" y="281" width="736" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Hwj-4p-ju0"/>
                                         </constraints>
@@ -240,7 +268,7 @@ simply add your classes</string>
                                         </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a few more questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrY-If-ell">
-                                        <rect key="frame" x="8" y="8" width="343" height="22"/>
+                                        <rect key="frame" x="8" y="8" width="736" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -267,7 +295,7 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1l-7a-6MR">
-                                <rect key="frame" x="116" y="605" width="143" height="22"/>
+                                <rect key="frame" x="312.5" y="962" width="143" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -305,11 +333,11 @@ simply add your classes</string>
                         <viewControllerLayoutGuide type="bottom" id="gki-cI-ih5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UW5-bK-R64">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VA-2q-n9N">
-                                <rect key="frame" x="16.5" y="123.5" width="342" height="420"/>
+                                <rect key="frame" x="213" y="302" width="342" height="420"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7X-xJ-Ohx">
                                         <rect key="frame" x="34" y="0.0" width="274" height="43"/>
@@ -354,7 +382,7 @@ keeping track of your assignments</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGN-eO-2Aa">
-                                <rect key="frame" x="122" y="591" width="131" height="36"/>
+                                <rect key="frame" x="318.5" y="948" width="131" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <state key="normal" title="Cool, lets start!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
