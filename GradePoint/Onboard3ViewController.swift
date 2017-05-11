@@ -43,6 +43,22 @@ class Onboard3ViewController: UIViewController {
         self.animateViews()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        // Customize font size for segmented control
+        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+            switch traitCollection.horizontalSizeClass {
+            case .compact:
+                schoolTypeSegmentControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 16)], for: .normal)
+                gradingTypeSegementControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 16)], for: .normal)
+            case .unspecified: fallthrough
+            case .regular:
+                schoolTypeSegmentControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 25)], for: .normal)
+                gradingTypeSegementControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 25)], for: .normal)
+            }
+            
+        }
+    }
+    
     func animateViews() {
         // First animate the title, school type label and segment control
         // When user selects a school type, animate the grading type segment
