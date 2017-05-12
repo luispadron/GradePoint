@@ -73,11 +73,15 @@ class Onboard2ViewController: UIViewController {
                 
             case .portraitUpsideDown: fallthrough
             case .portrait:
-                rubricView3.alpha = 1.0
-                rubricView4.alpha = 1.0
-                rubricStackView.addArrangedSubview(rubricView3)
-                rubricStackView.addArrangedSubview(rubricView4)
-                
+                if !self.rubricStackView.arrangedSubviews.contains(rubricView3) ||
+                    !self.rubricStackView.arrangedSubviews.contains(rubricView4) {
+                    
+                    rubricView3.alpha = 1.0
+                    rubricView4.alpha = 1.0
+                    rubricStackView.addArrangedSubview(rubricView3)
+                    rubricStackView.addArrangedSubview(rubricView4)
+                    
+                }
             case .unknown: fallthrough
             case .landscapeLeft: fallthrough
             case .landscapeRight:
