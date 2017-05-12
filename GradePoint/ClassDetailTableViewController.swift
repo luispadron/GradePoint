@@ -336,6 +336,10 @@ extension ClassDetailTableViewController: Segueable {
         switch segueIdentifier(forSegue: segue) {
         case .addAssignment:
             // Prepare view for segue
+            let nav = segue.destination
+            let screenSize = UIScreen.main.bounds.size
+            nav.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
+            
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = self._classObj
             vc.delegate = self
@@ -343,8 +347,12 @@ extension ClassDetailTableViewController: Segueable {
         case .editAssignment:
             guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
             // Prepare view for segue
+            let nav = segue.destination
+            nav.popoverPresentationController?.barButtonItem = addButton
+            let screenSize = UIScreen.main.bounds.size
+            nav.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
+            
             let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
-            vc.popoverPresentationController?.sourceView = cell
             vc.parentClass = self._classObj
             vc.delegate = self
             vc.assignmentForEdit = self.assignment(for: indexPath)

@@ -291,6 +291,9 @@ extension ClassesTableViewController: Segueable {
             }
             // Assign the delegate
             controller.delegate = self
+            let screenSize = UIScreen.main.bounds.size
+            controller.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
+        
             // Collapse any edit actions for the tableview, so theyre not opened when returning
             self.tableView.isEditing = false
             
