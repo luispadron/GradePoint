@@ -32,7 +32,7 @@ class ExamGradePredictionViewController: UIViewController {
         // UI Setup
         
         let percentConfig = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
-        let placeHolderAttrs = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
+        let placeHolderAttrs = [NSForegroundColorAttributeName: UIColor.mutedText]
         self.currentGradeField.configuration = percentConfig
         self.currentGradeField.fieldType = .percent
         self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 89%", attributes: placeHolderAttrs)
@@ -65,6 +65,25 @@ class ExamGradePredictionViewController: UIViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        // Customize font size for segmented control
+        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+            switch traitCollection.horizontalSizeClass {
+            case .compact:
+                self.progressRing.font = UIFont.systemFont(ofSize: 50)
+                self.progressRing.outerRingWidth = 13
+                self.progressRing.innerRingWidth = 11
+            case .unspecified: fallthrough
+            case .regular:
+                self.progressRing.font = UIFont.systemFont(ofSize: 70)
+                self.progressRing.outerRingWidth = 16
+                self.progressRing.innerRingWidth = 14
+            }
+            
         }
     }
 
@@ -118,18 +137,15 @@ class ExamGradePredictionViewController: UIViewController {
             return
         }
         
-        // If desired grade is less than current grade, tell user
-        if desiredGrade < currentGrade {
-            self.presentErrorAlert(title: "Can't Calculate", message: "Current grade is greater than desired grade.")
-            return
-        }
-        
         let gradeNeeded = CGFloat((100.0 * desiredGrade - (100.0 - examWorth) * currentGrade)/examWorth)
         
         // Number too big and will look weird in UI, also very unrealistic, notify the user
         if gradeNeeded > 999 {
             self.progressRing.setProgress(value: 0, animationDuration: 0)
-            self.messageLabel.text = "Woah there percent needed too big, check your percents and try again."
+            self.messageLabel.text = "Score needed too high, try again."
+        } else if gradeNeeded < 0 {
+            self.progressRing.setProgress(value: 0, animationDuration: 0)
+            self.messageLabel.text = "Score needed less than zero, try again"
         } else {
             self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [unowned self] in
                 self.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)

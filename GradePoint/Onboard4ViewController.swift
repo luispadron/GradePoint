@@ -42,6 +42,7 @@ class Onboard4ViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         // Customize font size/ring properties
         if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
             switch traitCollection.horizontalSizeClass {

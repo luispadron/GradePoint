@@ -50,36 +50,42 @@ class Onboard2ViewController: UIViewController {
     }
     
     
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        updateUI(withOrientation: toInterfaceOrientation)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        updateUI(withOrientation: UIDevice.current.orientation)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         if previousFrame != self.view.bounds {
-            updateUI(withOrientation: UIApplication.shared.statusBarOrientation)
+            updateUI(withOrientation: UIDevice.current.orientation)
         }
         
         previousFrame = self.view.bounds
     }
     
-    private func updateUI(withOrientation orientation: UIInterfaceOrientation) {
+    private func updateUI(withOrientation orientation: UIDeviceOrientation) {
         let height = self.view.bounds.height
 
         if UIDevice.current.userInterfaceIdiom == .pad && height < 1000 {
             switch orientation {
+                
             case .portraitUpsideDown: fallthrough
             case .portrait:
                 rubricView3.alpha = 1.0
                 rubricView4.alpha = 1.0
                 rubricStackView.addArrangedSubview(rubricView3)
                 rubricStackView.addArrangedSubview(rubricView4)
+                
             case .unknown: fallthrough
             case .landscapeLeft: fallthrough
             case .landscapeRight:
                 rubricView3.removeFromSuperview()
                 rubricView4.removeFromSuperview()
+                
+            case .faceUp: break
+            case .faceDown: break
             }
         }
     }

@@ -44,6 +44,7 @@ class Onboard3ViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         // Customize font size for segmented control
         if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
             switch traitCollection.horizontalSizeClass {
