@@ -620,7 +620,7 @@ maintain or achieve a desired grade.</string>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-Ph-hGp">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
                                         <subviews>
-                                            <segmentedControl verifyAmbiguity="off" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
+                                            <segmentedControl hidden="YES" verifyAmbiguity="off" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RHy-mn-cDc"/>
