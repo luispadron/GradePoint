@@ -310,7 +310,10 @@ extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = tableView.indexPathForRow(at: location), let cell = tableView.cellForRow(at: indexPath) else { return nil }
         guard let peekVC = storyboard?.instantiateViewController(withIdentifier: "ClassPeekViewController") as? ClassPeekViewController else { return nil }
         
+        // Only allow peeking for in progress classes
         let classObj = self.classObj(forIndexPath: indexPath)
+        guard classObj.isClassInProgress else { return nil }
+        
         peekVC.setProgress(for: classObj)
         peekVC.preferredContentSize = CGSize(width: 240.0, height: 240.0)
         peekVC.indexPathForPeek = indexPath
