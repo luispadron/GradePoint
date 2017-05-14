@@ -128,6 +128,30 @@ class CustomRubricSettingTableViewController: UITableViewController {
             points.append(Double(field.safeText)!.roundedUpTo(2))
         }
         
+        // Warn the user that this cant be undone
+        let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
+                                        title: NSAttributedString(string: "Save Grade Rubric"),
+                                        message: NSAttributedString(string: "Are you sure you want to save?\nThis can't be undone"))
+        let cancel = UIButton()
+        cancel.setTitle("Cancel", for: .normal)
+        cancel.setTitleColor(.white, for: .normal)
+        cancel.backgroundColor = UIColor.info
+        
+        let save = UIButton()
+        save.setTitle("Save", for: .normal)
+        save.setTitleColor(.white, for: .normal)
+        save.backgroundColor = UIColor.warning
+        
+        alert.addButton(button: cancel, handler: nil)
+        alert.addButton(button: save) { [weak self] in
+            self?.saveChanges(withPoints: points)
+        }
+        
+        alert.presentAlert(presentingViewController: self)
+    }
+    
+    private func saveChanges(withPoints points: [Double]) {
+        
         // Save changes to the GPAScale
         let type = self.fieldToggle.isOn ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
         if !GPAScale.overwriteScale(type: type, gradePoints: points) {

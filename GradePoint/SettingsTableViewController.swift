@@ -47,7 +47,7 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 3
+            return 2
         case 2:
             return 3
         case 3:
@@ -93,29 +93,6 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 1:
-            if indexPath.row == 2 {
-                // Warn the user about restoring settings
-                let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
-                                                  title: NSAttributedString(string: "Restore Defaults"),
-                                                  message: NSAttributedString(string: "Are you sure you want to restore to default configuration?\nThis cannot be undone",
-                                                                              attributes: [NSForegroundColorAttributeName: UIColor.warning, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
-                let restore = UIButton()
-                restore.setTitle("Restore", for: .normal)
-                restore.setTitleColor(UIColor.white, for: .normal)
-                restore.backgroundColor = UIColor.warning
-                let cancel = UIButton()
-                cancel.setTitle("Cancel", for: .normal)
-                cancel.setTitleColor(UIColor.white, for: .normal)
-                cancel.backgroundColor = UIColor.info
-                alert.addButton(button: cancel, handler: nil)
-                alert.addButton(button: restore, handler: { 
-                    // Handle restoring settings
-                    GPAScale.restoreScale()
-                })
-                alert.presentAlert(presentingViewController: self)
-                
-            }
         case 2:
             switch indexPath.row {
             case 0:
@@ -127,7 +104,7 @@ class SettingsTableViewController: UITableViewController {
                     presentError()
                 }
             case 1:
-                UIApplication.shared.openURL(URL(string: "https://luispadron.com")!)
+                UIApplication.shared.openURL(URL(string: "http://gradepoint.luispadron.com")!)
             case 2:
                 UIApplication.shared.openURL(URL(string: "https://github.com/luispadron")!)
             default:
