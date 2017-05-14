@@ -270,12 +270,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateDetailMessage: NSAttributedString? {
         guard let classObj = _classObj else { return nil }
         
-        if classObj.isClassInProgress {
-            // Class is in progress, thus assignments can be added
-            let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
-                         NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-            return NSAttributedString(string: "Add an assignment to this class to get started.", attributes: attrs)
-        } else {
+        if !classObj.isClassInProgress {
             // Class is not in progress, is a previous class. Display a detail message and thats it
             let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
                          NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
@@ -286,6 +281,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
             return NSAttributedString(string: detail, attributes: attrs)
         }
 
+        return nil
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
