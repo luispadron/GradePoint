@@ -270,15 +270,32 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateDetailMessage: NSAttributedString? {
         guard let classObj = _classObj else { return nil }
         
+        // Class is not in progress, its a previous class. Display a detail message and thats it
         if !classObj.isClassInProgress {
-            // Class is not in progress, is a previous class. Display a detail message and thats it
-            let attrs = [NSForegroundColorAttributeName: UIColor.mutedText,
-                         NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
-            let detail = "This is a previous class, assignments cannot be added.\n" +
-                        "Previous classes are only used for calculating GPA.\n" +
-                        "\nYou earned a \(classObj.grade!.gradeLetter) in this class.\n\n" +
-                        "To track assignments create an In Progress class."
-            return NSAttributedString(string: detail, attributes: attrs)
+            // Construct the detail message
+            let detailString = "This is a previous class, assignments cannot be added.\n" +
+            "Previous classes are used in GPA calculations.\n\nGrade earned: "
+            let detailAttrs = [NSForegroundColorAttributeName: UIColor.mutedText,
+                               NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+            
+            let detail = NSAttributedString(string: detailString, attributes: detailAttrs)
+            
+            let gradeString = classObj.grade!.gradeLetter
+            let gradeAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 15),
+                              NSForegroundColorAttributeName : UIColor.highlight]
+            let grade = NSAttributedString(string: gradeString, attributes: gradeAttrs)
+            
+            let hintString = "\n\nTo track assignments create an In Progress class"
+            let hintAttrs = [NSFontAttributeName : UIFont.italicSystemFont(ofSize: 15),
+                             NSForegroundColorAttributeName : UIColor.mutedText]
+            let hint = NSAttributedString(string: hintString, attributes: hintAttrs)
+            
+            let fullDetail = NSMutableAttributedString()
+            fullDetail.append(detail)
+            fullDetail.append(grade)
+            fullDetail.append(hint)
+            
+            return fullDetail
         }
 
         return nil
