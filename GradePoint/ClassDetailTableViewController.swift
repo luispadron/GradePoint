@@ -78,7 +78,10 @@ class ClassDetailTableViewController: UITableViewController {
         // Set color for progress ring
         if let color = _classObj?.color {
             self.progressRing.innerRingColor = color
-            self.progressRing.outerRingColor = color.darker(by: 15) ?? UIColor.lightGray
+            self.progressRing.outerRingColor = UIColor.background.lighter(by: 20) ?? UIColor.background
+            self.progressRing.gradientColors = [color.lighter(by: 40) ?? color,
+                                                color,
+                                                color.darker(by: 30) ?? color]
         }
         
         self.progressRing.font = UIFont.systemFont(ofSize: 40)
