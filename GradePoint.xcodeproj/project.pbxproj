@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		005DF1BBD790369C05D72312 /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6050E0E3E4EF7BDCF2B1257D /* Pods_GradePoint.framework */; };
-		49D5134D248CA5EB1D8C076E /* Pods_GradePointTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E6177F6F4ABF812E35580DF /* Pods_GradePointTests.framework */; };
+		0B570637F59A1BC008FE6428 /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 303AD15E5E7D3978517E11F5 /* Pods_GradePoint.framework */; };
+		24A09BB4129CA2AB517653DD /* Pods_GradePointTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C827910CB9A16A16BCC889 /* Pods_GradePointTests.framework */; };
 		A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */; };
 		A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007050E1DAF0E9B00AD740A /* AppDelegate.swift */; };
 		A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */; };
@@ -98,10 +98,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18623BCDFB8538FEE949F881 /* Pods-GradePointTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.debug.xcconfig"; sourceTree = "<group>"; };
-		1A418DB8DD56B462539670AB /* Pods-GradePoint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.debug.xcconfig"; sourceTree = "<group>"; };
-		1E6177F6F4ABF812E35580DF /* Pods_GradePointTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePointTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6050E0E3E4EF7BDCF2B1257D /* Pods_GradePoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F57A40BBD1FF9B7C3814DB3 /* Pods-GradePoint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.debug.xcconfig"; sourceTree = "<group>"; };
+		12C827910CB9A16A16BCC889 /* Pods_GradePointTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePointTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		303AD15E5E7D3978517E11F5 /* Pods_GradePoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67F518A2E77DF6856210BD64 /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
+		6C8BB0B2D082803E8C17B4B3 /* Pods-GradePointTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardPageViewController.swift; sourceTree = "<group>"; };
 		A007050B1DAF0E9B00AD740A /* GradePoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradePoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A007050E1DAF0E9B00AD740A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -177,8 +178,7 @@
 		A0F89EF11E5900E20062F9F2 /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
 		A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard3ViewController.swift; sourceTree = "<group>"; };
-		A70F0F8F4B5AE0A62E9DB397 /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
-		AF245C4173E1A735DC005B11 /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
+		D5F676F20762277968916FDC /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005DF1BBD790369C05D72312 /* Pods_GradePoint.framework in Frameworks */,
+				0B570637F59A1BC008FE6428 /* Pods_GradePoint.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D5134D248CA5EB1D8C076E /* Pods_GradePointTests.framework in Frameworks */,
+				24A09BB4129CA2AB517653DD /* Pods_GradePointTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,13 +208,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3200974F7C2D6A6066BF4634 /* Pods */ = {
+		433CB22B912293EE4C613781 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1A418DB8DD56B462539670AB /* Pods-GradePoint.debug.xcconfig */,
-				AF245C4173E1A735DC005B11 /* Pods-GradePoint.release.xcconfig */,
-				18623BCDFB8538FEE949F881 /* Pods-GradePointTests.debug.xcconfig */,
-				A70F0F8F4B5AE0A62E9DB397 /* Pods-GradePointTests.release.xcconfig */,
+				0F57A40BBD1FF9B7C3814DB3 /* Pods-GradePoint.debug.xcconfig */,
+				67F518A2E77DF6856210BD64 /* Pods-GradePoint.release.xcconfig */,
+				6C8BB0B2D082803E8C17B4B3 /* Pods-GradePointTests.debug.xcconfig */,
+				D5F676F20762277968916FDC /* Pods-GradePointTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -226,8 +226,8 @@
 				A00705241DAF0E9B00AD740A /* GradePointTests */,
 				A007052F1DAF0E9B00AD740A /* GradePointUITests */,
 				A007050C1DAF0E9B00AD740A /* Products */,
-				3200974F7C2D6A6066BF4634 /* Pods */,
-				C2241854CBB0D559AE12EB68 /* Frameworks */,
+				433CB22B912293EE4C613781 /* Pods */,
+				AA64258E044D0D718AA3A130 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -470,11 +470,11 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
-		C2241854CBB0D559AE12EB68 /* Frameworks */ = {
+		AA64258E044D0D718AA3A130 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6050E0E3E4EF7BDCF2B1257D /* Pods_GradePoint.framework */,
-				1E6177F6F4ABF812E35580DF /* Pods_GradePointTests.framework */,
+				303AD15E5E7D3978517E11F5 /* Pods_GradePoint.framework */,
+				12C827910CB9A16A16BCC889 /* Pods_GradePointTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -486,12 +486,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A00705351DAF0E9B00AD740A /* Build configuration list for PBXNativeTarget "GradePoint" */;
 			buildPhases = (
-				816F1AEDB3A91664A130C04F /* [CP] Check Pods Manifest.lock */,
+				46FC8B5C7F43D91E03705020 /* [CP] Check Pods Manifest.lock */,
 				A00705071DAF0E9B00AD740A /* Sources */,
 				A00705081DAF0E9B00AD740A /* Frameworks */,
 				A00705091DAF0E9B00AD740A /* Resources */,
-				E0C38BB39BC3B2C298A2B76E /* [CP] Embed Pods Frameworks */,
-				0B56E29F390F86F5CA0FF10E /* [CP] Copy Pods Resources */,
+				E5034636AE11A5ED54480CFD /* [CP] Embed Pods Frameworks */,
+				C507C3BF9D07C64D73661701 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -506,12 +506,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A00705381DAF0E9B00AD740A /* Build configuration list for PBXNativeTarget "GradePointTests" */;
 			buildPhases = (
-				C2FBB61D12A39262454228A1 /* [CP] Check Pods Manifest.lock */,
+				D7B3E89720D6F88FBF5B568A /* [CP] Check Pods Manifest.lock */,
 				A007051D1DAF0E9B00AD740A /* Sources */,
 				A007051E1DAF0E9B00AD740A /* Frameworks */,
 				A007051F1DAF0E9B00AD740A /* Resources */,
-				DA19D5EE6F9F74DF9A1F1C68 /* [CP] Embed Pods Frameworks */,
-				A09A61CF9F285BA86C3D5271 /* [CP] Copy Pods Resources */,
+				49B894B3876D0675DED1E0F0 /* [CP] Embed Pods Frameworks */,
+				C8F329E163166AA54AB7C152 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -622,22 +622,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B56E29F390F86F5CA0FF10E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		816F1AEDB3A91664A130C04F /* [CP] Check Pods Manifest.lock */ = {
+		46FC8B5C7F43D91E03705020 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -652,37 +637,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A09A61CF9F285BA86C3D5271 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C2FBB61D12A39262454228A1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		DA19D5EE6F9F74DF9A1F1C68 /* [CP] Embed Pods Frameworks */ = {
+		49B894B3876D0675DED1E0F0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -697,7 +652,52 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E0C38BB39BC3B2C298A2B76E /* [CP] Embed Pods Frameworks */ = {
+		C507C3BF9D07C64D73661701 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8F329E163166AA54AB7C152 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7B3E89720D6F88FBF5B568A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E5034636AE11A5ED54480CFD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -950,7 +950,7 @@
 		};
 		A00705361DAF0E9B00AD740A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A418DB8DD56B462539670AB /* Pods-GradePoint.debug.xcconfig */;
+			baseConfigurationReference = 0F57A40BBD1FF9B7C3814DB3 /* Pods-GradePoint.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -965,7 +965,7 @@
 		};
 		A00705371DAF0E9B00AD740A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF245C4173E1A735DC005B11 /* Pods-GradePoint.release.xcconfig */;
+			baseConfigurationReference = 67F518A2E77DF6856210BD64 /* Pods-GradePoint.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -980,7 +980,7 @@
 		};
 		A00705391DAF0E9B00AD740A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18623BCDFB8538FEE949F881 /* Pods-GradePointTests.debug.xcconfig */;
+			baseConfigurationReference = 6C8BB0B2D082803E8C17B4B3 /* Pods-GradePointTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -996,7 +996,7 @@
 		};
 		A007053A1DAF0E9B00AD740A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A70F0F8F4B5AE0A62E9DB397 /* Pods-GradePointTests.release.xcconfig */;
+			baseConfigurationReference = D5F676F20762277968916FDC /* Pods-GradePointTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
