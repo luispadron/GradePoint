@@ -82,14 +82,13 @@ class ClassesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Set content offset for searchbar
-        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height +
-                                                        self.tableView.contentOffset.y)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height +
+                                                        self.tableView.contentOffset.y)
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
     }
