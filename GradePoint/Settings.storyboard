@@ -148,7 +148,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester ordering" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbY-Nh-uHl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester configuration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbY-Nh-uHl">
                                                     <rect key="frame" x="20" y="8" width="249" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
@@ -1135,10 +1135,10 @@
             </objects>
             <point key="canvasLocation" x="-842" y="-840"/>
         </scene>
-        <!--Semester Ordering Table View Controller-->
+        <!--Semester Configuration Table View Controller-->
         <scene sceneID="jYK-az-XfN">
             <objects>
-                <tableViewController id="s91-VN-OvI" customClass="SemesterOrderingTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="s91-VN-OvI" customClass="SemesterConfigurationTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Bk7-0s-Uub">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -100,6 +100,7 @@ class ClassesTableViewController: UITableViewController {
                 self.classesBySection.removeAll()
                 self.initClassesBySection()
                 self.tableView.reloadData()
+                self.reloadEmptyState()
             }
         }
     }
@@ -356,7 +357,17 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If not items then empty, show empty state
-        return try! Realm().objects(Class.self).isEmpty
+        let isEmpty = try! Realm().objects(Class.self).isEmpty
+        
+        if isEmpty {
+            // Remove the searchbar
+            self.tableView.tableHeaderView = nil
+        } else {
+            // Readd search
+            self.tableView.tableHeaderView = searchController.searchBar
+        }
+        
+        return isEmpty
     }
     
     var emptyStateTitle: NSAttributedString {
