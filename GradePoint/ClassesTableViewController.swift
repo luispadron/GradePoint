@@ -14,10 +14,15 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Properties
     
-    lazy var semesterSections: [Semester] = {
-        // Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
-        return self.generateSemestersForSections()
-    }()
+    /// The last valid loaded terms from user defaults
+    var lastLoadedTerms: [String]?
+    
+    /// Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
+    var semesterSections: [Semester] {
+        get {
+            return self.generateSemestersForSections()
+        }
+    }
 
     /// The search controller used to filter the table view
     let searchController: UISearchController = UISearchController(searchResultsController: nil)
@@ -80,10 +85,6 @@ class ClassesTableViewController: UITableViewController {
         self.reloadEmptyState()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -91,6 +92,16 @@ class ClassesTableViewController: UITableViewController {
                                                         self.tableView.contentOffset.y)
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
+        
+        // Check to see if saved terms have changed
+        let key = UserDefaultKeys.terms.rawValue
+        if let t = UserDefaults.standard.stringArray(forKey: key), let terms = self.lastLoadedTerms {
+            if terms != t {
+                self.classesBySection.removeAll()
+                self.initClassesBySection()
+                self.tableView.reloadData()
+            }
+        }
     }
 
     // MARK: - Table View
@@ -210,7 +221,18 @@ class ClassesTableViewController: UITableViewController {
     
     /// This generates all of the possible Semester combinations, this array will be the sections for the table view, currently 48 sections total
     func generateSemestersForSections() -> [Semester] {
-        let terms = Semester.terms
+        let terms: [String]
+        
+        /// Load semesters from user defaults, if for some reason this isnt saved, fall back to default semesters
+        if let t = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
+            terms = t
+        } else {
+            print("WARNING: Something went wrong when loading semesters from UserDefaults, loading default set instead.")
+            terms = ["Spring", "Summer", "Fall", "Winter"]
+        }
+        
+        lastLoadedTerms = terms
+    
         let years = UISemesterPickerView.createArrayOfYears()
         var results = [Semester]()
         

@@ -26,7 +26,7 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.separatorColor = UIColor.tableViewSeperator
         
         // Set inital student type switcher to whatever value we have in the stored preferences
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
         studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 0) - 1
         
         self.title = "Settings"
@@ -47,7 +47,7 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 2
+            return 3
         case 2:
             return 3
         case 3:
@@ -155,7 +155,7 @@ class SettingsTableViewController: UITableViewController {
             // Update the user defaults key
             let defaults = UserDefaults.standard
             let type  = sender.selectedSegmentIndex == 0 ? StudentType.college : StudentType.highSchool
-            defaults.set(type.rawValue, forKey: UserPreferenceKeys.studentType.rawValue)
+            defaults.set(type.rawValue, forKey: UserDefaultKeys.studentType.rawValue)
             
             // Update all the classes depending on type switched to
             let realm = try! Realm()

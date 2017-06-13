@@ -12,7 +12,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     
     var semesterPicker: UIPickerView!
     lazy var years = { UISemesterPickerView.createArrayOfYears() }()
-    let terms = Semester.terms
+    var terms = [String]()
     weak var delegate: SemesterPickerDelegate?
     var selectedSemester: String!
     var selectedYear: Int!
@@ -79,6 +79,10 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     // MARK: - Helper methods
     
     private func initView() {
+        // Load semesters/terms from user defaults
+        if let sems = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
+            terms = sems
+        }
         semesterPicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
         semesterPicker.dataSource = self
         semesterPicker.delegate = self

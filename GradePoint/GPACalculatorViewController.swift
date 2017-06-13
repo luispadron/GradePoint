@@ -116,7 +116,7 @@ class GPACalculatorViewController: UIViewController {
             // End all editing
             self.view.endEditing(true)
             // Get the student type
-            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))
+            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
             // Add the progress ring to the stack view
             self.stackView.insertArrangedSubview(progressRingView.superview!, at: 0)
             // Animate the addition
@@ -184,7 +184,7 @@ class GPACalculatorViewController: UIViewController {
     /// Calculates the GPA depending on the student type
     private func calculateGPA() {
         let scale = try! Realm().objects(GPAScale.self).first!
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserPreferenceKeys.studentType.rawValue))!
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))!
         let classes = try! Realm().objects(Class.self)
         var totalPoints: Double = 0.0
         var totalCreditHours: Int = 0

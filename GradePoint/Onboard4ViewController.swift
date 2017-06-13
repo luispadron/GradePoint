@@ -89,7 +89,7 @@ class Onboard4ViewController: UIViewController {
     @IBAction func onButtonTap(_ sender: UIButton) {
         // Set the has onboarded use to true
         let defaults = UserDefaults.standard
-        defaults.set(true, forKey: UserPreferenceKeys.onboardingComplete.rawValue)
+        defaults.set(true, forKey: UserDefaultKeys.onboardingComplete.rawValue)
     }
     
 }

@@ -13,7 +13,6 @@ class Semester: Object {
     // MARK: - Properties
     
     dynamic var id = UUID().uuidString
-    static let terms = ["Spring", "Summer", "Fall", "Winter"]
     dynamic var term = ""
     dynamic var year = 0
     

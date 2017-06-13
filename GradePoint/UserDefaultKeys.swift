@@ -6,8 +6,9 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
-enum UserPreferenceKeys: String {
+enum UserDefaultKeys: String {
     case onboardingComplete = "com.luispadron.GradePoint.onboardingComplete"
     case studentType = "com.luispadron.GradePoint.studentType"
     case gradingType = "com.luispadron.GradePoint.gradingType"
+    case terms = "com.luispadron.GradePoint.terms"
 }

@@ -52,8 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Figure out whether we have onboarded the user or not
         let defaults = UserDefaults.standard
-        let hasOnboarded = defaults.bool(forKey: UserPreferenceKeys.onboardingComplete.rawValue)
+        let hasOnboarded = defaults.bool(forKey: UserDefaultKeys.onboardingComplete.rawValue)
 
+        if defaults.stringArray(forKey: UserDefaultKeys.terms.rawValue) == nil {
+            // Save a default string array of terms
+            defaults.set(["Spring", "Summer", "Fall", "Winter"], forKey: UserDefaultKeys.terms.rawValue)
+        }
+        
         if !hasOnboarded { self.presentOnboarding() }
         
         return true
