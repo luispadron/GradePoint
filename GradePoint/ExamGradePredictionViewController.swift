@@ -185,16 +185,18 @@ extension ExamGradePredictionViewController: UITextFieldDelegate {
 struct ScoreMessage {
     
     private static var easyMessages = ["Thats easy, nice job!", "Wow, you easily got this!",
-                                       "Too easy...", "Does 2 + 2 = 4? Thats how hard you need to try."]
+                                       "Too easy...", "Does 2 + 2 = 4? Thats how hard you need to try.",
+                                       "Really easy, nice!", "Piece of cake!" ]
     
-    private static var mediumMessage = ["Not too bad, study a bit", "Meh, I've seen harder.",
-                                        "Learn some Swift while studying, you should be okay!"]
+    private static var mediumMessage = ["Not too bad, study a bit", "Meh, I've seen worse.",
+                                        "Doesn't seem to hard, you got this", "Not too difficult."]
     
-    private static var hardMessage = ["Dang! Goodluck", "You can do it, I believe in you! Sort of.",
+    private static var hardMessage = ["Dang! Goodluck", "I believe in you... Sort of.", "It's going to take some work.",
                                       "Hmmm... Maybe you can do it?", "Get to studying now!"]
     
-    private static var extremelyHardMessage = ["Ok I don't know about this one, but goodluck!",
-                                               "Is this even possible?", "Beg for extra credit", "I'm so sorry..."]
+    private static var extremelyHardMessage = ["Ok I don't know about this one, but goodluck!", "Ouch...",
+                                               "Is this even possible?", "Beg for extra credit", "I'm so sorry...",
+                                               "Wow thats tough.", "Good luck..."]
     
     
     static func createMessage(forScore score: CGFloat) -> String {
