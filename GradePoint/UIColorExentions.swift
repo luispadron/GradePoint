@@ -17,7 +17,7 @@ extension UIColor {
     static let background = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
     static let lightBackground = UIColor(red: 0.290, green: 0.294, blue: 0.345, alpha: 1.00) // #4a4b58
     
-    static let bars = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
+    static let bars = UIColor(red: 0.263, green: 0.267, blue: 0.318, alpha: 1.00)
     
     static let tableViewHeader = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
     static let tableViewSeperator = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f

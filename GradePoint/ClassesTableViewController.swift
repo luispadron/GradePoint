@@ -19,10 +19,24 @@ class ClassesTableViewController: UITableViewController {
         return self.generateSemestersForSections()
     }()
 
+    /// The search controller used to filter the table view
+    let searchController: UISearchController = UISearchController(searchResultsController: nil)
+    
     /// A 2D array of Realm results grouped by their appropriate section
     var classesBySection = [Results<Class>]()
     
+    /// A filtered array of classes, filtered using text entered in the search contoller
+    var filteredClasses = [Class]()
+    
+    /// The index path of the class the user wants to edit
     var editingIndexPath: IndexPath?
+    
+    /// Helper property to determine whether search bar is active
+    var isSearchActive: Bool {
+        get {
+            return searchController.isActive  && searchController.searchBar.text != ""
+        }
+    }
     
     // MARK: - Overrides
     
@@ -41,9 +55,20 @@ class ClassesTableViewController: UITableViewController {
         self.emptyStateDataSource = self
         self.emptyStateDelegate = self
         
-        // Remove seperator lines from empty cells
+        // Set delegates and view settings for SearchController
+        searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search classes"
+        searchController.searchBar.barTintColor = UIColor.bars
+        self.navigationController?.extendedLayoutIncludesOpaqueBars = true
+        
+        tableView.tableHeaderView = searchController.searchBar
+        
+        
+        // Remove seperator lines from empty cells, and remove white background around navbars
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.tableView.backgroundView = UIView()
         
         // Add 3D touch support to this view
         if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
@@ -55,6 +80,14 @@ class ClassesTableViewController: UITableViewController {
         self.reloadEmptyState()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Set content offset for searchbar
+        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height +
+                                                        self.tableView.contentOffset.y)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -64,18 +97,29 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return classesBySection.count
+        if isSearchActive {
+            return 1
+        } else {
+            return classesBySection.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classesBySection[section].count
+        if isSearchActive {
+            return filteredClasses.count
+        } else {
+            return classesBySection[section].count
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return classesBySection[section].count > 0 ? 44 : 0
+        if isSearchActive { return 0 }
+        else { return classesBySection[section].count > 0 ? 44 : 0 }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard !isSearchActive else { return nil }
+        
         // Create the correct headerView for the section
         let semForSection = semesterSections[section]
         
@@ -97,7 +141,14 @@ class ClassesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
-        let classItem = classObj(forIndexPath: indexPath)
+        let classItem: Class
+        
+        if isSearchActive {
+            classItem = filteredClasses[indexPath.row]
+        } else {
+            classItem = classObj(forIndexPath: indexPath)
+        }
+        
         // Set the cell labels
         cell.classTitleLabel.text = classItem.name
         cell.classDateLabel.text = "\(classItem.semester!.term) \(classItem.semester!.year)"
@@ -139,7 +190,13 @@ class ClassesTableViewController: UITableViewController {
                 // Delete the class
                 self?.deleteClassObj(at: indexPath)
             })
-            alert.presentAlert(presentingViewController: self)
+            
+            if self.searchController.isActive {
+                alert.presentAlert(presentingViewController: self.searchController)
+            } else {
+                alert.presentAlert(presentingViewController: self)
+            }
+        
         })
         deleteAction.backgroundColor = UIColor.warning
         
@@ -179,10 +236,29 @@ class ClassesTableViewController: UITableViewController {
         return classesBySection[indexPath.section][indexPath.row]
     }
     
+    /// Updates the tableview to the filtered classes array user searched for
+    func filterClasses(forSearchText searchText: String, scope: String = "All") {
+        // First flatten the 2D array
+        let flatClasses = Array(classesBySection.joined())
+        
+        filteredClasses = flatClasses.filter { classObj in
+            return classObj.name.lowercased().contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+    }
+    
     /// Deletes a classObj from Realm using a specified indexPath
     func deleteClassObj(at indexPath: IndexPath) {
         // Grab the objects to delete from DB, sincce realm doesnt delete associated objects
-        let classToDel = classObj(forIndexPath: indexPath)
+        let classToDel: Class
+        
+        if isSearchActive {
+            classToDel = filteredClasses[indexPath.row]
+        } else {
+            classToDel = classObj(forIndexPath: indexPath)
+        }
+        
         let rubricsToDel = classToDel.rubrics
         let semesterToDel = classToDel.semester!
         let assignmentsToDel = classToDel.assignments
@@ -213,14 +289,40 @@ class ClassesTableViewController: UITableViewController {
             detailController?.updateUI()
         }
         
-        // Refresh tableView 
+        // Refresh tableView
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        // If were in the search controller also remove this class from the filtered classes array
+        // Since this array is just a flat copy of classesBySection, but hasn't been updated when deleting
+        if isSearchActive {
+            filteredClasses.remove(at: indexPath.row)
+        }
         // Check to see if this row is the last one in the section, if so reload that section also so the header goes away
         if classesBySection[indexPath.section].isEmpty {
             self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         }
         self.tableView.endUpdates()
+        self.reloadEmptyState()
+    }
+}
+
+// MARK: Conformance for UISearchController
+
+extension ClassesTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText != "" else {
+            self.searchController.isActive = false
+            self.tableView.reloadData()
+            self.reloadEmptyState()
+            return
+        }
+        
+        filterClasses(forSearchText: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchController.isActive = false
+        self.tableView.reloadData()
         self.reloadEmptyState()
     }
 }
@@ -277,7 +379,19 @@ extension ClassesTableViewController: Segueable {
         case .showDetail:
             guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
             
-            let classItem = classObj(forIndexPath: indexPath)
+            let classItem: Class
+            
+            if isSearchActive {
+                classItem = filteredClasses[indexPath.row]
+            } else {
+                classItem = classObj(forIndexPath: indexPath)
+            }
+            
+            // Revert and undo any searches
+            searchController.isActive = false
+            self.tableView.reloadData()
+            self.reloadEmptyState()
+            
             let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
             controller.classObj = classItem
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
@@ -285,10 +399,21 @@ extension ClassesTableViewController: Segueable {
             
         case .addEditClass:
             guard let controller = segue.destination as? AddEditClassViewController else { return }
+            
             // If editing then set the appropriate obj into the view controller
             if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
-                controller.classObj = classObj(forIndexPath: path)
+                if isSearchActive {
+                    controller.classObj = filteredClasses[path.row]
+                } else {
+                    controller.classObj = classObj(forIndexPath: path)
+                }
             }
+            
+            // Revert and undo any searches
+            searchController.isActive = false
+            self.tableView.reloadData()
+            self.reloadEmptyState()
+            
             // Assign the delegate
             controller.delegate = self
             let screenSize = UIScreen.main.bounds.size
@@ -380,7 +505,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
     }
 }
 
-// MARK: - Split vie
+// MARK: - Split view
 
 extension ClassesTableViewController: UISplitViewControllerDelegate {
 

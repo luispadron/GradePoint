@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.highlight
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.mainText]
         UINavigationBar.appearance().barTintColor = UIColor.bars
+        UINavigationBar.appearance().isTranslucent = false
         
         // Custom color for tab bar
         UITabBar.appearance().tintColor = UIColor.highlight
@@ -45,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Change appearance for pickers
         UIPickerView.appearance().backgroundColor = UIColor.background
+        
+        // Change appearance for searchbars
+        UISearchBar.appearance().tintColor = UIColor.highlight
         
         // Figure out whether we have onboarded the user or not
         let defaults = UserDefaults.standard
