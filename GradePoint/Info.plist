@@ -2,6 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Add new class</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.luispadron.GradePoint.addNewClass</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>CalcTabBarIcon</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.luispadron.GradePoint.calculateGPA</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Calculate GPA</string>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

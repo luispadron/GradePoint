@@ -41,6 +41,13 @@ class Onboard4ViewController: UIViewController {
         self.hasAnimated = true
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Notify delegate were done onboarding
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        delegate.finishedPresentingOnboarding()
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         // Customize font size/ring properties
@@ -87,7 +94,7 @@ class Onboard4ViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func onButtonTap(_ sender: UIButton) {
-        // Set the has onboarded use to true
+        // Set the has onboarded user to true
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: UserDefaultKeys.onboardingComplete.rawValue)
     }

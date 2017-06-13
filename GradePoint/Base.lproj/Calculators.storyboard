@@ -265,7 +265,7 @@ maintain or achieve a desired grade.</string>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="4uw-vn-TQr" userLabel="GPA Calc Gesture">
                     <connections>
-                        <segue destination="XO0-0A-Hk9" kind="presentation" id="zUc-Oa-BJv"/>
+                        <segue destination="XO0-0A-Hk9" kind="presentation" identifier="presentGPACalculator" id="zUc-Oa-BJv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

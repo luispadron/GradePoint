@@ -43,6 +43,10 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
+    /// Wheter or not the tableview content offset has been adjusted for searchbar height alread
+    /// if true, then dont adjust again
+    var hasAdjustedForSearchBar: Bool = false
+    
     // MARK: - Overrides
     
     override func viewDidLoad() {
@@ -88,8 +92,11 @@ class ClassesTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height +
-                                                        self.tableView.contentOffset.y)
+        if !hasAdjustedForSearchBar {
+            self.tableView.contentOffset = CGPoint(x: 0, y: self.tableView.contentOffset.y +
+                                                            searchController.searchBar.frame.height)
+            self.hasAdjustedForSearchBar = true
+        }
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         
@@ -364,7 +371,9 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
             self.tableView.tableHeaderView = nil
         } else {
             // Readd search
-            self.tableView.tableHeaderView = searchController.searchBar
+            if self.tableView.tableHeaderView == nil {
+                self.tableView.tableHeaderView = searchController.searchBar
+            }
         }
         
         return isEmpty
