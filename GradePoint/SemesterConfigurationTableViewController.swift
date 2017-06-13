@@ -70,67 +70,18 @@ class SemesterConfigurationTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let termDeleting = semesters[indexPath.row]
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, path) in
-            // At least one semester must be saved
-            guard self.semesters.count > 1 else {
-                self.presentErrorAlert(title: "Cannot Delete", message: "At least one semester must be stored")
-                self.tableView.setEditing(false, animated: true)
-                return
-            }
-            
-            // If no classes associated with this semester, then just delete, no need to warn user
-            let realm = try! Realm()
-            let classes = realm.objects(Class.self).filter { $0.semester!.term  == termDeleting }
-            if classes.count == 0 {
-                self.tableView.beginUpdates()
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self.semesters.remove(at: indexPath.row)
-                self.tableView.endUpdates()
-                return
-            }
-            
-            // Make sure user knows deleting a semester will delete any associated classes
-            let title = NSAttributedString(string: "Delete Semester")
-            let message = NSAttributedString(string: "Deleting this semester will delete any associated classes, are you sure?",
-                                             attributes: [NSForegroundColorAttributeName: UIColor.warning])
-            let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
-                                              title: title,
-                                              message: message)
-            let cancel = UIButton()
-            cancel.backgroundColor = UIColor.info
-            cancel.setTitle("Cancel", for: .normal)
-            
-            let delete = UIButton()
-            delete.backgroundColor = UIColor.warning
-            delete.setTitle("Delete", for: .normal)
-            
-            alert.addButton(button: cancel, handler: nil)
-            alert.addButton(button: delete, handler: { [weak self] in
-                // Get any classes with this semester
-                try! realm.write {
-                    for classObj in classes {
-                        realm.delete(classObj.rubrics)
-                        realm.delete(classObj.semester!)
-                        realm.delete(classObj.assignments)
-                        realm.delete(classObj.grade!)
-                        realm.delete(classObj)
-                    }
-                }
-                
-                self?.tableView.beginUpdates()
-                self?.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self?.semesters.remove(at: indexPath.row)
-                self?.tableView.endUpdates()
-            })
-            
-            alert.presentAlert(presentingViewController: self)
+            self.deleteSemester(action: action, path: path)
         }
-        
         delete.backgroundColor = UIColor.warning
         
-        return [delete]
+        let edit = UITableViewRowAction(style: .destructive, title: "Edit") { (action, path) in
+           self.editSemester(action: action, path: path)
+        }
+        edit.backgroundColor = UIColor.info
+        
+        return [delete, edit]
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -145,6 +96,102 @@ class SemesterConfigurationTableViewController: UITableViewController {
     }
  
     // MARK: - Actions
+    
+    func editSemester(action: UITableViewRowAction, path: IndexPath) {
+        let termEditing = self.semesters[path.row]
+        
+        // Ask user for new semester name
+        let alert = UIAlertController(title: "Change Semester Name", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = termEditing
+            textField.borderStyle = .roundedRect
+            textField.autocapitalizationType = .words
+            textField.attributedText = NSAttributedString(string: "",
+                                                          attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+        }
+        
+        let save = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
+            if let text = alert.textFields?.first?.text {
+                let realm = try! Realm()
+                // Change the semester names for all associated classes
+                let classes = realm.objects(Class.self).filter { $0.semester!.term  == termEditing }
+                for classObj in classes {
+                    try! realm.write {
+                        classObj.semester!.term = text
+                    }
+                }
+                self?.semesters[path.row] = text
+                self?.tableView.reloadData()
+            }
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(save)
+        
+        
+        self.present(alert, animated: true, completion: nil)
+
+    }
+    
+    func deleteSemester(action: UITableViewRowAction, path: IndexPath) {
+        // At least one semester must be saved
+        guard self.semesters.count > 1 else {
+            self.presentErrorAlert(title: "Cannot Delete", message: "At least one semester must be stored")
+            self.tableView.setEditing(false, animated: true)
+            return
+        }
+        
+        // If no classes associated with this semester, then just delete, no need to warn user
+        let realm = try! Realm()
+        let termDeleting = semesters[path.row]
+        let classes = realm.objects(Class.self).filter { $0.semester!.term  == termDeleting }
+        if classes.count == 0 {
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [path], with: .automatic)
+            self.semesters.remove(at: path.row)
+            self.tableView.endUpdates()
+            return
+        }
+        
+        // Make sure user knows deleting a semester will delete any associated classes
+        let title = NSAttributedString(string: "Delete Semester")
+        let message = NSAttributedString(string: "Deleting this semester will delete any associated classes, are you sure?",
+                                         attributes: [NSForegroundColorAttributeName: UIColor.warning])
+        let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
+                                          title: title,
+                                          message: message)
+        let cancel = UIButton()
+        cancel.backgroundColor = UIColor.info
+        cancel.setTitle("Cancel", for: .normal)
+        
+        let delete = UIButton()
+        delete.backgroundColor = UIColor.warning
+        delete.setTitle("Delete", for: .normal)
+        
+        alert.addButton(button: cancel, handler: nil)
+        alert.addButton(button: delete, handler: { [weak self] in
+            // Get any classes with this semester
+            try! realm.write {
+                for classObj in classes {
+                    realm.delete(classObj.rubrics)
+                    realm.delete(classObj.semester!)
+                    realm.delete(classObj.assignments)
+                    realm.delete(classObj.grade!)
+                    realm.delete(classObj)
+                }
+            }
+            
+            self?.tableView.beginUpdates()
+            self?.tableView.deleteRows(at: [path], with: .automatic)
+            self?.semesters.remove(at: path.row)
+            self?.tableView.endUpdates()
+        })
+        
+        alert.presentAlert(presentingViewController: self)
+
+    }
     
     func addButtonTouched() {
         // Ask user for name of semester
