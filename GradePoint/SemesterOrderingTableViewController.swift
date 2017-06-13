@@ -81,6 +81,13 @@ class SemesterOrderingTableViewController: UITableViewController {
         return true
     }
  
+    // MARK: - Actions
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        // Save any ordering
+        UserDefaults.standard.set(semesters, forKey: UserDefaultKeys.terms.rawValue)
+    }
 
 
 }
