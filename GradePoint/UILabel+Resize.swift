@@ -24,7 +24,7 @@ extension UILabel {
         self.lineBreakMode = .byWordWrapping
         
         let maxLabelSize = CGSize(width: self.frame.size.width, height: CGFloat.greatestFiniteMagnitude)
-        let attributedString = NSAttributedString(string: self.text ?? "", attributes: [NSFontAttributeName: self.font])
+        let attributedString = NSAttributedString(string: self.text ?? "", attributes: [.font: self.font])
         let rect = attributedString.boundingRect(with: maxLabelSize, options: .usesLineFragmentOrigin, context: nil)
         return rect.height
     }

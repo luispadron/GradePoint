@@ -65,8 +65,13 @@ open class UICalculateViewController: UIBlurViewController {
         // If not on iPad where the view will be presented as a popover
         if !(UIDevice.current.userInterfaceIdiom == .pad) {
             // Setup keyboard notifications
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardDidShow),
+                                                   name: .UIKeyboardDidShow, object: nil)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardWillHide),
+                                                   name: .UIKeyboardWillHide, object: nil)
         }
     }
     
@@ -83,14 +88,14 @@ open class UICalculateViewController: UIBlurViewController {
     
     // MARK: Actions
     
-    func viewWasTapped(recognizer: UITapGestureRecognizer) {
+    @objc func viewWasTapped(recognizer: UITapGestureRecognizer) {
         let tapPoint = recognizer.location(in: self.view)
         if calculateView.frame.contains(tapPoint) { return }
         else { self.animateOut(completion: nil) }
     }
     
     /// Called whenever keyboard is shown, adjusts scroll view
-    func keyboardDidShow(notification: Notification) {
+    @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
         let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
@@ -101,7 +106,7 @@ open class UICalculateViewController: UIBlurViewController {
     }
     
     /// Called whenever keyboard is shown, adjusts scroll view
-    func keyboardWillHide(notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         // Revert constraint
         self.calcViewYConstraint?.constant = self.calcViewInitialY ?? self.view.center.y
     }

@@ -22,13 +22,15 @@ class TextInputTableViewCell: UITableViewCell {
     var promptText: String? {
         didSet {
             inputField.attributedPlaceholder = NSAttributedString(string: promptText ?? "",
-                                                                 attributes: [NSForegroundColorAttributeName: promptColor ?? UIColor.mutedText])
+                                                                 attributes: [.foregroundColor:
+                                                                                promptColor ?? UIColor.mutedText])
         }
     }
     var promptColor: UIColor? {
         didSet {
             inputField.attributedPlaceholder = NSAttributedString(string: promptText ?? "",
-                                                                 attributes: [NSForegroundColorAttributeName: promptColor ?? UIColor.mutedText])
+                                                                 attributes: [.foregroundColor:
+                                                                                promptColor ?? UIColor.mutedText])
         }
     }
     
@@ -53,7 +55,9 @@ class TextInputTableViewCell: UITableViewCell {
         inputLabel.font = UIFont.systemFont(ofSize: 17)
         
         // Init the input field
-        inputField.attributedPlaceholder = NSAttributedString(string: promptText ?? "", attributes: [NSForegroundColorAttributeName: promptColor ?? UIColor.mutedText])
+        inputField.attributedPlaceholder = NSAttributedString(string: promptText ?? "",
+                                                              attributes: [.foregroundColor:
+                                                                             promptColor ?? UIColor.mutedText])
         inputField.autocapitalizationType = .words
         inputField.font = UIFont.systemFont(ofSize: 17)
         inputField.textColor = UIColor.white

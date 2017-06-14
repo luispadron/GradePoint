@@ -25,7 +25,9 @@ class CustomRubricSettingTableViewController: UITableViewController {
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = UIColor.tableViewSeperator
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onSaveTapped))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                                 target: self,
+                                                                 action: #selector(self.onSaveTapped))
         
         
         let scale = try! Realm().objects(GPAScale.self)[0]
@@ -48,12 +50,14 @@ class CustomRubricSettingTableViewController: UITableViewController {
             // Load the stored values as the text and place holders
             if !self.fieldToggle.isOn && plusRows.contains(index) {
                 field.attributedPlaceholder = NSAttributedString(string: "Points",
-                                                            attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.mutedText])
+                                                            attributes: [.font: UIFont.systemFont(ofSize: 18),
+                                                                         .foregroundColor: UIColor.mutedText])
                 relatedIndex -= 1
             } else {
                 field.text = "\(scale.gpaRubrics[relatedIndex].gradePoints)"
                 field.attributedPlaceholder = NSAttributedString(string: "\(scale.gpaRubrics[relatedIndex].gradePoints)",
-                                                            attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.mutedText])
+                                                            attributes: [.font: UIFont.systemFont(ofSize: 18),
+                                                                         .foregroundColor: UIColor.mutedText])
             }
             relatedIndex += 1
         }
@@ -113,7 +117,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func onSaveTapped() {
+    @objc func onSaveTapped() {
         // Collect all the user entered data
         var points = [Double]()
         for (index, field) in weightFields.enumerated() {
@@ -155,7 +159,8 @@ class CustomRubricSettingTableViewController: UITableViewController {
         // Save changes to the GPAScale
         let type = self.fieldToggle.isOn ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
         if !GPAScale.overwriteScale(type: type, gradePoints: points) {
-            self.presentErrorAlert(title: "Unable To Save", message: "Something went wrong when saving, please verify that all information has been entered correctly.")
+            self.presentErrorAlert(title: "Unable To Save",
+                                   message: "Something went wrong when saving, please verify that all information has been entered correctly.")
         } else {
             // Dismiss
             self.navigationController?.popToRootViewController(animated: true)

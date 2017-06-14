@@ -27,7 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Custom color for navigation bar
         UINavigationBar.appearance().tintColor = UIColor.highlight
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.mainText]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:
+                                                                UIColor.mainText]
+        
         UINavigationBar.appearance().barTintColor = UIColor.bars
         UINavigationBar.appearance().isTranslucent = false
         

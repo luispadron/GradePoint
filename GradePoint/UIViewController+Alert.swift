@@ -11,10 +11,10 @@ import UIKit
 extension UIViewController {
     /// Presents an error blur alert with given title and message, optional completion handler
     func presentErrorAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let t = NSAttributedString(string: title, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17),
-                                                                   NSForegroundColorAttributeName: UIColor.red])
-        let m = NSAttributedString(string: message, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 15),
-                                                               NSForegroundColorAttributeName: UIColor.mutedText])
+        let t = NSAttributedString(string: title, attributes: [.font : UIFont.systemFont(ofSize: 17),
+                                                                   .foregroundColor: UIColor.red])
+        let m = NSAttributedString(string: message, attributes: [.font : UIFont.systemFont(ofSize: 15),
+                                                               .foregroundColor: UIColor.mutedText])
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: t, message: m)
         alert.alertFeedbackType = .error
         let ok = UIButton()
@@ -28,10 +28,10 @@ extension UIViewController {
     
     /// Presents and information blur alert
     func presentInfoAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        let t = NSAttributedString(string: title, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17),
-                                                               NSForegroundColorAttributeName: UIColor.red])
-        let m = NSAttributedString(string: message, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 15),
-                                                                 NSForegroundColorAttributeName: UIColor.mutedText])
+        let t = NSAttributedString(string: title, attributes: [.font: UIFont.systemFont(ofSize: 17),
+                                                               .foregroundColor: UIColor.red])
+        let m = NSAttributedString(string: message, attributes: [.font: UIFont.systemFont(ofSize: 15),
+                                                                 .foregroundColor: UIColor.mutedText])
         
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: t, message: m)
         alert.alertFeedbackType = .success

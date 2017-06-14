@@ -126,7 +126,8 @@ open class UICalculateView: UIView {
         field.borderStyle = .roundedRect
         field.keyboardType = .numbersAndPunctuation
         field.returnKeyType = .next
-        field.attributedPlaceholder = NSAttributedString(string: "Score", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.attributedPlaceholder = NSAttributedString(string: "Score",
+                                                         attributes: [.foregroundColor: UIColor.mutedText])
         field.delegate = self
         return field
     }()
@@ -134,7 +135,8 @@ open class UICalculateView: UIView {
     /// The label in between the score and total fields
     open lazy var seperatorLabel: UILabel = {
         let label = UILabel()
-        let attrs = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+                                                   .font: UIFont.systemFont(ofSize: 15)]
         label.attributedText = NSAttributedString(string: "OUT OF", attributes: attrs)
         label.textAlignment = .center
         label.resizeToFitText()
@@ -151,7 +153,8 @@ open class UICalculateView: UIView {
         field.font = UIFont.systemFont(ofSize: 18)
         field.returnKeyType = .done
         field.keyboardType = .numbersAndPunctuation
-        field.attributedPlaceholder = NSAttributedString(string: "Total", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.attributedPlaceholder = NSAttributedString(string: "Total",
+                                                         attributes: [.foregroundColor: UIColor.mutedText])
         field.delegate = self
         return field
     }()
@@ -159,7 +162,8 @@ open class UICalculateView: UIView {
     /// The button which the user will click to calculate the percentage
     open lazy var calculateButton: UIButton = {
         let button = UIButton(type: .custom)
-        let attrs = [NSForegroundColorAttributeName: UIColor.mainText, NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainText,
+                                                   .font: UIFont.systemFont(ofSize: 18)]
         button.layer.backgroundColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00).cgColor
         button.clipsToBounds = true
         button.setAttributedTitle(NSAttributedString(string: "Calculate", attributes: attrs), for: .normal)

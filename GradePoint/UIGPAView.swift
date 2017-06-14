@@ -70,7 +70,8 @@ class UIGPAView: UIView {
         field.borderStyle = .none
         field.tintColor = .accentPalePurple
         field.isUserInteractionEnabled = false
-        field.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.attributedPlaceholder = NSAttributedString(string: "Name",
+                                                         attributes: [.foregroundColor: UIColor.mutedText])
         field.returnKeyType = .next
         field.font = self.font
         
@@ -87,7 +88,8 @@ class UIGPAView: UIView {
         field.textColor = .mainText
         field.borderStyle = .none
         field.tintColor = .accentPalePurple
-        field.attributedPlaceholder = NSAttributedString(string: "Grade", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.attributedPlaceholder = NSAttributedString(string: "Grade",
+                                                         attributes: [.foregroundColor: UIColor.mutedText])
         field.returnKeyType = .next
         field.font = self.font
         // Add the picker view as an input view
@@ -122,7 +124,8 @@ class UIGPAView: UIView {
         field.borderStyle = .none
         field.tintColor = .accentPalePurple
         field.isUserInteractionEnabled = false
-        field.attributedPlaceholder = NSAttributedString(string: "Credits", attributes: [NSForegroundColorAttributeName: UIColor.mutedText])
+        field.attributedPlaceholder = NSAttributedString(string: "Credits",
+                                                         attributes: [.foregroundColor: UIColor.mutedText])
         field.returnKeyType = .next
         field.font = self.font
         

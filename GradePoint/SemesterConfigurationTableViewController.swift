@@ -31,8 +31,8 @@ class SemesterConfigurationTableViewController: UITableViewController {
         let text = "\n\nHere you can add and rearrange semesters.\nChanges will be reflected when sorting and adding classes.\n\n"
         let label = UILabel()
         label.attributedText = NSAttributedString(string: text,
-                                                  attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17),
-                                                                NSForegroundColorAttributeName: UIColor.white])
+                                                  attributes: [.font: UIFont.systemFont(ofSize: 17),
+                                                                .foregroundColor: UIColor.white])
         label.textAlignment = .center
         label.resizeToFitText()
         self.tableView.tableHeaderView = label
@@ -107,7 +107,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
             textField.borderStyle = .roundedRect
             textField.autocapitalizationType = .words
             textField.attributedText = NSAttributedString(string: "",
-                                                          attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+                                                          attributes: [.font : UIFont.systemFont(ofSize: 17)])
         }
         
         let save = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
@@ -158,7 +158,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         // Make sure user knows deleting a semester will delete any associated classes
         let title = NSAttributedString(string: "Delete Semester")
         let message = NSAttributedString(string: "Deleting this semester will delete any associated classes, are you sure?",
-                                         attributes: [NSForegroundColorAttributeName: UIColor.warning])
+                                         attributes: [.foregroundColor: UIColor.warning])
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
                                           title: title,
                                           message: message)
@@ -193,7 +193,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
 
     }
     
-    func addButtonTouched() {
+    @objc func addButtonTouched() {
         // Ask user for name of semester
         let alert = UIAlertController(title: "Add Semester", message: nil, preferredStyle: .alert)
         alert.addTextField { (textField) in
@@ -201,7 +201,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
             textField.borderStyle = .roundedRect
             textField.autocapitalizationType = .words
             textField.attributedText = NSAttributedString(string: "",
-                                                          attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+                                                          attributes: [.font : UIFont.systemFont(ofSize: 17)])
         }
         
         let create = UIAlertAction(title: "Create", style: .default) { [weak self] _ in

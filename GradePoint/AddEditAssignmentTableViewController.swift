@@ -316,7 +316,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         }
     }
     
-    func datePickerChange(sender: UIDatePicker) {
+    @objc func datePickerChange(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
@@ -324,7 +324,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.dateLabel.text = formatter.string(from: sender.date)
     }
     
-    func assignmentNeedsCalculate(sender: UIBarButtonItem) {
+    @objc func assignmentNeedsCalculate(sender: UIBarButtonItem) {
         let controller = UICalculateViewController { [weak self] (percent) in
             self?.scoreField?.text = "\(percent)%"
             if let field = self?.scoreField { self?.textFieldChanged(field) }
@@ -334,7 +334,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     // MARK: Helper Methods
     
-    func accesoryKeyboardDone() {
+    @objc func accesoryKeyboardDone() {
         guard let textField = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextInputTableViewCell)?.inputField else {
             print("Couldn't get keyboard to when user clicked on done, method: accesoryKeyboardDone")
             return
@@ -421,7 +421,7 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldChanged(_ textField: UITextField) {
+    @objc func textFieldChanged(_ textField: UITextField) {
         guard let nameF = nameField, let scoreF = scoreField else {
             print("Error couldn't get instances of textfields")
             saveButton.isEnabled = false
@@ -458,8 +458,8 @@ extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let name = parentClass.rubrics[row].name
         let title = NSMutableAttributedString(string: name)
-        title.addAttributes([NSForegroundColorAttributeName: UIColor.mainText,
-                             NSFontAttributeName: UIFont.systemFont(ofSize: 20)],
+        title.addAttributes([.foregroundColor: UIColor.mainText,
+                             .font: UIFont.systemFont(ofSize: 20)],
                             range: (name as NSString).range(of: name))
         return title
     }

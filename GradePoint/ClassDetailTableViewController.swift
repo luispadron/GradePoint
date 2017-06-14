@@ -253,19 +253,19 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateTitle: NSAttributedString {
     
         // Attributes for the attributed string
-        var attributes: [String : Any] = [NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        var attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20)]
         
         if let inProgress = _classObj, inProgress.isClassInProgress {
             // Class is in progress but has no assignments
-            attributes[NSForegroundColorAttributeName] = UIColor.mainText
+            attributes[.foregroundColor] = UIColor.mainText
             return NSAttributedString(string: "No assignments added", attributes: attributes)
         } else if let previousClass = _classObj, !previousClass.isClassInProgress {
             // Class is a previous class, assignments cannot be added
-            attributes[NSForegroundColorAttributeName] = UIColor.mainText
+            attributes[.foregroundColor] = UIColor.mainText
             return NSAttributedString(string: "Previous class: " + previousClass.name, attributes: attributes)
         } else {
             // No class selected
-            attributes[NSForegroundColorAttributeName] = UIColor.mutedText
+            attributes[.foregroundColor] = UIColor.mutedText
             return NSAttributedString(string: "Select a class", attributes: attributes)
         }
     }
@@ -278,19 +278,19 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
             // Construct the detail message
             let detailString = "This is a previous class, assignments cannot be added.\n" +
             "Previous classes are used in GPA calculations.\n\nGrade earned: "
-            let detailAttrs = [NSForegroundColorAttributeName: UIColor.mutedText,
-                               NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+            let detailAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+                                                             .font: UIFont.systemFont(ofSize: 15)]
             
             let detail = NSAttributedString(string: detailString, attributes: detailAttrs)
             
             let gradeString = classObj.grade!.gradeLetter
-            let gradeAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 15),
-                              NSForegroundColorAttributeName : UIColor.highlight]
+            let gradeAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 15),
+                                                              .foregroundColor: UIColor.highlight]
             let grade = NSAttributedString(string: gradeString, attributes: gradeAttrs)
             
             let hintString = "\n\nTo track assignments create an In Progress class"
-            let hintAttrs = [NSFontAttributeName : UIFont.italicSystemFont(ofSize: 15),
-                             NSForegroundColorAttributeName : UIColor.mutedText]
+            let hintAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.italicSystemFont(ofSize: 15),
+                                                           .foregroundColor: UIColor.mutedText]
             let hint = NSAttributedString(string: hintString, attributes: hintAttrs)
             
             let fullDetail = NSMutableAttributedString()
@@ -308,8 +308,8 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         // If no class selected, or if class is a previous class, then dont show the button
         guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
         
-        let attrs = [NSForegroundColorAttributeName: UIColor.accentGreen,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
+                                                   .font: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add assignment", attributes: attrs)
     }
     
@@ -382,7 +382,9 @@ extension ClassDetailTableViewController: Segueable {
 extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     func didFinishCreating(assignment: Assignment) {
 
-        guard let section = rubrics.index(of: assignment.associatedRubric!), let row = assignments[section].index(of: assignment) else {
+        guard let section = rubrics.index(of: assignment.associatedRubric!),
+            let row = assignments[section].index(of: assignment) else
+        {
             print("WARNING: Could not find section or row for created assignment")
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()

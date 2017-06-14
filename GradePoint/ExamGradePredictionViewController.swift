@@ -32,7 +32,7 @@ class ExamGradePredictionViewController: UIViewController {
         // UI Setup
         
         let percentConfig = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
-        let placeHolderAttrs = [NSForegroundColorAttributeName: UIColor.mutedText]
+        let placeHolderAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText]
         self.currentGradeField.configuration = percentConfig
         self.currentGradeField.fieldType = .percent
         self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 89%", attributes: placeHolderAttrs)

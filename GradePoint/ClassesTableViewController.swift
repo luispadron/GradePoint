@@ -186,9 +186,13 @@ class ClassesTableViewController: UITableViewController {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
             
             // Present alert to user
-            let title = NSAttributedString(string: "Delete This Class", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20)])
-            let messageAttrs = [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: UIColor.warning]
+            let title = NSAttributedString(string: "Delete This Class",
+                                           attributes: [.font: UIFont.systemFont(ofSize: 20)])
+            
+            let messageAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 16),
+                                                              .foregroundColor: UIColor.warning]
             let message = NSAttributedString(string: "This cannot be undone, are you sure?", attributes: messageAttrs)
+            
             var size = CGSize(width: self.view.bounds.size.width - 50, height: 200)
             size = size.width >= 300 ? CGSize(width: 300, height: 200) : CGSize(width: size.width, height: 200)
             let alert = UIBlurAlertController(size: size, title: title, message: message)
@@ -380,16 +384,16 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs = [NSForegroundColorAttributeName: UIColor.mainText,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 20)]
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainText,
+                                                   .font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Classes Added", attributes: attrs)
     }
     
     var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs = [NSForegroundColorAttributeName: UIColor.accentGreen,
-                     NSFontAttributeName: UIFont.systemFont(ofSize: 18)]
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
+                                                   .font: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add a class", attributes: attrs)
     }
     

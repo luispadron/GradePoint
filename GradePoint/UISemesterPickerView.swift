@@ -66,9 +66,9 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         switch component {
         case 0:
-            return NSAttributedString(string: terms[row], attributes: [NSForegroundColorAttributeName: titleColor])
+            return NSAttributedString(string: terms[row], attributes: [.foregroundColor: titleColor])
         case 1:
-            return NSAttributedString(string: String(years[row]), attributes: [NSForegroundColorAttributeName: titleColor])
+            return NSAttributedString(string: String(years[row]), attributes: [.foregroundColor: titleColor])
         default:
             fatalError("Some how the UIPickerView title for row passed in wrong range")
         }

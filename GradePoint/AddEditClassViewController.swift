@@ -99,7 +99,8 @@ class AddEditClassViewController: UIViewController {
         self.navigationTitle.textColor = visibleColor
         
         // Customization for the fields
-        let attrsForPrompt = [NSForegroundColorAttributeName: UIColor.mutedText, NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
+        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+                                                            .font: UIFont.systemFont(ofSize: 17)]
         
         self.nameField.textColor = UIColor.white
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
@@ -165,7 +166,8 @@ class AddEditClassViewController: UIViewController {
             updateGradePicker(for: previousClass)
         } else {
             // Set a default semester
-            let semester = Semester(withTerm: self.semesterPickerView.selectedSemester, andYear: self.semesterPickerView.selectedYear)
+            let semester = Semester(withTerm: self.semesterPickerView.selectedSemester,
+                                    andYear: self.semesterPickerView.selectedYear)
             self.semesterLabel.text = "\(semester.term) \(semester.year)"
             self.semester = semester
             // Set a default grade
@@ -179,8 +181,13 @@ class AddEditClassViewController: UIViewController {
         // If not on iPad where the view will be presented as a popover
         if !(UIDevice.current.userInterfaceIdiom == .pad) {
             // Setup keyboard notifications
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardDidShow),
+                                                   name: .UIKeyboardDidShow, object: nil)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardWillHide),
+                                                   name: .UIKeyboardWillHide, object: nil)
         }
         // Notify of nav bar color changes
         self.setNeedsStatusBarAppearanceUpdate()
@@ -375,11 +382,14 @@ class AddEditClassViewController: UIViewController {
             if percent <= 0 {
                 // Present alert warning user about zero percent
                 // Construct title
-                let title = NSAttributedString(string: "Can't Save 💔", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+                let title = NSAttributedString(string: "Can't Save 💔",
+                                               attributes: [.font : UIFont.systemFont(ofSize: 17)])
                 // Construct attributed message
                 let invalidRowSubmessage = "row \(index + 1)"
-                let attrsForSub = [NSForegroundColorAttributeName : UIColor.warning, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
-                let attrsForMessage = [NSForegroundColorAttributeName : UIColor.mutedText, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
+                let attrsForSub: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.warning,
+                                                                 .font: UIFont.systemFont(ofSize: 15)]
+                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+                                                                     .font: UIFont.systemFont(ofSize: 15)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
                 messageAttributed.addAttributes(attrsForSub, range: (message as NSString).range(of: invalidRowSubmessage))
@@ -395,11 +405,13 @@ class AddEditClassViewController: UIViewController {
             print("Percent not equal to 100, not ready to save. Presenting alert")
             // Present alert telling user weights must add up to 100
             // Construct title
-            let title = NSAttributedString(string: "Can't Save 💔", attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 17)])
+            let title = NSAttributedString(string: "Can't Save 💔",
+                                           attributes: [.font : UIFont.systemFont(ofSize: 17)])
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
             let message = "Weights must add up to 100%." + percentSubMessage
-            let attrsForMessage = [NSForegroundColorAttributeName : UIColor.mutedText, NSFontAttributeName : UIFont.systemFont(ofSize: 15)]
+            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.mutedText,
+                                                                 .font : UIFont.systemFont(ofSize: 15)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             
             self.present(alert: .message, withTitle: title, andMessage: messageAttributed)
@@ -793,7 +805,7 @@ extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelega
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let title = pickerView === self.classTypePickerView ? classTypes[row] : gradeLetters[row]
-        return NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName: UIColor.white])
+        return NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.white])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -831,9 +843,14 @@ extension AddEditClassViewController: UIRubricViewDelegate {
         case .open:
             // User is about to close a rubric which was previously created, warn them what this means
             if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: view).first as? String {
-                let titleAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 17), NSForegroundColorAttributeName : UIColor.warning]
+                let titleAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.systemFont(ofSize: 17),
+                                                                .foregroundColor : UIColor.warning]
+                
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
-                let messageAttrs = [NSFontAttributeName : UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName : UIColor.mutedText]
+                
+                let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.systemFont(ofSize: 14),
+                                                                  .foregroundColor : UIColor.mutedText]
+                
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
                 let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)
                 

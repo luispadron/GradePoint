@@ -49,12 +49,16 @@ class Onboard3ViewController: UIViewController {
         if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
             switch traitCollection.horizontalSizeClass {
             case .compact:
-                schoolTypeSegmentControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 16)], for: .normal)
-                gradingTypeSegementControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 16)], for: .normal)
+                schoolTypeSegmentControl.setTitleTextAttributes([NSAttributedStringKey.font.rawValue:
+                                                                UIFont.systemFont(ofSize: 16)], for: .normal)
+                gradingTypeSegementControl.setTitleTextAttributes([NSAttributedStringKey.font.rawValue:
+                                                                    UIFont.systemFont(ofSize: 16)], for: .normal)
             case .unspecified: fallthrough
             case .regular:
-                schoolTypeSegmentControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 25)], for: .normal)
-                gradingTypeSegementControl.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 25)], for: .normal)
+                schoolTypeSegmentControl.setTitleTextAttributes([NSAttributedStringKey.font.rawValue:
+                                                                    UIFont.systemFont(ofSize: 25)], for: .normal)
+                gradingTypeSegementControl.setTitleTextAttributes([NSAttributedStringKey.font.rawValue:
+                                                                    UIFont.systemFont(ofSize: 25)], for: .normal)
             }
             
         }
