@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                 UIColor.mainText]
         
         UINavigationBar.appearance().barTintColor = UIColor.bars
-        UINavigationBar.appearance().isTranslucent = false
         
         // Custom color for tab bar
         UITabBar.appearance().tintColor = UIColor.highlight

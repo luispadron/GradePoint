@@ -43,15 +43,16 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
-    /// Wheter or not the tableview content offset has been adjusted for searchbar height alread
-    /// if true, then dont adjust again
-    var hasAdjustedForSearchBar: Bool = false
-    
     // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Set up large titles if on iOS 11
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        
         // Split view delegation and customization
         self.splitViewController?.delegate = self
         self.splitViewController?.preferredDisplayMode = .allVisible
@@ -65,14 +66,7 @@ class ClassesTableViewController: UITableViewController {
         self.emptyStateDelegate = self
         
         // Set delegates and view settings for SearchController
-        searchController.searchBar.delegate = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search classes"
-        searchController.searchBar.barTintColor = UIColor.bars
-        self.navigationController?.extendedLayoutIncludesOpaqueBars = true
-        
-        tableView.tableHeaderView = searchController.searchBar
-        
+        setupSearchbar()
         
         // Remove seperator lines from empty cells, and remove white background around navbars
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -91,12 +85,6 @@ class ClassesTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if !hasAdjustedForSearchBar {
-            self.tableView.contentOffset = CGPoint(x: 0, y: self.tableView.contentOffset.y +
-                                                            searchController.searchBar.frame.height)
-            self.hasAdjustedForSearchBar = true
-        }
         
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         
@@ -231,7 +219,40 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
-    /// This generates all of the possible Semester combinations, this array will be the sections for the table view, currently 48 sections total
+    /// Search bar handeling different for iOS 11, is added as part of the navigation controller instead
+    private func setupSearchbar() {
+        guard #available(iOS 11.0, *) else {
+            setupLegacySearchbar()
+            return
+        }
+        
+        setupLargeSearchbar()
+    }
+    
+    /// Search bar is added as part of the navigation controller in new iOS 11
+    @available(iOS 11.0, *)
+    private func setupLargeSearchbar() {
+        searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search classes"
+        self.navigationItem.searchController = searchController
+    }
+    
+    /// Search bar is added under and hidden behind navigation bar in older iOS version than 11
+    private func setupLegacySearchbar() {
+        searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search classes"
+        searchController.searchBar.barTintColor = UIColor(red: 0.337, green: 0.337, blue: 0.376, alpha: 1.00)
+        
+        self.tableView.contentOffset = CGPoint(x: 0, y: self.tableView.contentOffset.y +
+                                                            searchController.searchBar.frame.height)
+        
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    /// This generates all of the possible Semester combinations,
+    /// this array will be the sections for the table view, currently 48 sections total
     func generateSemestersForSections() -> [Semester] {
         let terms: [String]
         
@@ -370,14 +391,20 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
         // If not items then empty, show empty state
         let isEmpty = try! Realm().objects(Class.self).isEmpty
         
-        if isEmpty {
-            // Remove the searchbar
-            self.tableView.tableHeaderView = nil
-        } else {
-            // Readd search
-            if self.tableView.tableHeaderView == nil {
-                self.tableView.tableHeaderView = searchController.searchBar
+        guard #available(iOS 11.0, *) else {
+            // Make sure to remove search bar on any iOS less than 11.0 from the header view
+            // Not needed for >= 11.0 since this is all handled
+            if isEmpty {
+                // Remove the searchbar
+                self.tableView.tableHeaderView = nil
+            } else {
+                // Readd search
+                if self.tableView.tableHeaderView == nil {
+                    self.tableView.tableHeaderView = searchController.searchBar
+                }
             }
+            
+            return isEmpty
         }
         
         return isEmpty
@@ -400,6 +427,8 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateButtonImage: UIImage? { return #imageLiteral(resourceName: "ButtonBg") }
     
     var emptyStateButtonSize: CGSize? { return CGSize(width: 160, height: 45) }
+    
+    var emptyStateViewAnimatesEverytime: Bool { return false }
     
     // Empty State Delegate
     
