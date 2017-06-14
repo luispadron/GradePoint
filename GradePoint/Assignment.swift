@@ -12,11 +12,11 @@ class Assignment: Object {
     
     // MARK: - Properties
     
-    dynamic var id = UUID().uuidString
-    dynamic var name = ""
-    dynamic var date = Date()
-    dynamic var score: Double = 0.0
-    dynamic var associatedRubric: Rubric?
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var name = ""
+    @objc dynamic var date = Date()
+    @objc dynamic var score: Double = 0.0
+    @objc dynamic var associatedRubric: Rubric?
     let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
     // MARK: - Initializers

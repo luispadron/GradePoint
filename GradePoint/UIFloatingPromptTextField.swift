@@ -51,7 +51,7 @@ open class UIFloatingPromptTextField: UISafeTextField {
         addTarget(self, action: #selector(self.editingChanged), for: .editingChanged)
     }
     
-    public func editingChanged() {
+    @objc public func editingChanged() {
         updateTitleLabel(animated: true)
     }
     

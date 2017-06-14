@@ -67,7 +67,7 @@ open class UICalculateView: UIView {
     
     // MARK: - Actions
     
-    func calculateButtonTapped(button: UIButton) {
+    @objc func calculateButtonTapped(button: UIButton) {
         button.animateWithPulse(withDuration: 0.3) { [weak self] in
             guard let `self` = self else { return }
             let score = self.scoreField.text ?? ""
@@ -76,7 +76,7 @@ open class UICalculateView: UIView {
         }
     }
     
-    func exitButtonTapped(button: UIButton) {
+    @objc func exitButtonTapped(button: UIButton) {
         self.endEditing(true)
         self.delegate?.exitButtonWasTapped(for: self)
     }

@@ -221,11 +221,11 @@ class UIRubricView: UIView, UITextFieldDelegate {
         }
     }
     
-    func calculateButtonTap() {
+    @objc func calculateButtonTap() {
         delegate?.calculateButtonWasTapped(forView: self, textField: self.weightField)
     }
     
-    func doneButtonTap() {
+    @objc func doneButtonTap() {
         self.weightField.resignFirstResponder()
     }
     
@@ -347,7 +347,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     
-    func updateIsRubricValid() {
+    @objc func updateIsRubricValid() {
         // The user hasnt opened the rubric view, thus, no checking required
         if !isDeleteButton {
             isRubricValid = true

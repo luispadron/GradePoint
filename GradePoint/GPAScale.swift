@@ -16,9 +16,9 @@ import RealmSwift
 
 class GPAScale: Object {
     /// The primary key for the GPAScale
-    dynamic var id: Int = 1
+    @objc dynamic var id: Int = 1
     /// Scale type
-    dynamic var scaleType: GPAScaleType = .plusScale 
+    @objc dynamic var scaleType: GPAScaleType = .plusScale 
 
     /// Realm array of GPA Rubrics
     var gpaRubrics = List<GPARubric>()

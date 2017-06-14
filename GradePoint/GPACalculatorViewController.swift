@@ -144,7 +144,7 @@ class GPACalculatorViewController: UIViewController {
     
     
     /// Called whenever keyboard is shown, adjusts scroll view
-    func keyboardDidShow(notification: Notification) {
+    @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
         var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
@@ -155,7 +155,7 @@ class GPACalculatorViewController: UIViewController {
     }
     
     /// Called whenever keyboard is shown, adjusts scroll view
-    func keyboardWillHide(notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         scrollView.contentInset = .zero
         scrollView.scrollIndicatorInsets = .zero
     }

@@ -13,11 +13,11 @@ class Grade: Object {
     
     // MARK: Properties
     /// The id of the score in Realm
-    dynamic var id = UUID().uuidString
+    @objc dynamic var id = UUID().uuidString
     /// The score
-    dynamic var score: Double = 0.0
+    @objc dynamic var score: Double = 0.0
     /// The grade letter
-    dynamic var gradeLetter: String = "F"
+    @objc dynamic var gradeLetter: String = "F"
     
     // MARK: Initializers & Overrides
     

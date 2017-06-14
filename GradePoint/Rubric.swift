@@ -12,9 +12,9 @@ class Rubric: Object {
     
     // MARK: - Properties
     
-    dynamic var id = UUID().uuidString
-    dynamic var name = ""
-    dynamic var weight: Double = 0.0
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var name = ""
+    @objc dynamic var weight: Double = 0.0
     let parentClass = LinkingObjects(fromType: Class.self, property: "rubrics")
     
     // MARK: - Initializers

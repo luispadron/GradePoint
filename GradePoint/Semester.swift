@@ -12,9 +12,9 @@ class Semester: Object {
     
     // MARK: - Properties
     
-    dynamic var id = UUID().uuidString
-    dynamic var term = ""
-    dynamic var year = 0
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var term = ""
+    @objc dynamic var year = 0
     
     // MARK: - Initializers
     

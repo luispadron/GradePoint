@@ -316,7 +316,7 @@ class AddEditClassViewController: UIViewController {
     }
 
     /// Called whenever keyboard is shown, adjusts scroll view
-    func keyboardDidShow(notification: Notification) {
+    @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
         var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
@@ -327,7 +327,7 @@ class AddEditClassViewController: UIViewController {
     }
     
     /// Called whenever keyboard is shown, adjusts scroll view
-    func keyboardWillHide(notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         self.scrollView.contentInset = .zero
         self.scrollView.scrollIndicatorInsets = .zero
     }
@@ -574,7 +574,7 @@ class AddEditClassViewController: UIViewController {
         })
     }
     
-    func updateSaveButton() {
+    @objc func updateSaveButton() {
         // Checks to see whether should enable save button
         let nameValid = self.nameField.safeText.isValid()
     

@@ -10,11 +10,11 @@ import RealmSwift
 
 /// The GPA Rubric class, has grade letter and grade points property
 class GPARubric: Object {
-    dynamic var id = UUID().uuidString
+    @objc dynamic var id = UUID().uuidString
     /// The letter grade, such as "A+"
-    dynamic var gradeLetter: String = ""
+    @objc dynamic var gradeLetter: String = ""
     /// The amount of grade points for this grade, such as 4.0
-    dynamic var gradePoints: Double = 0.0
+    @objc dynamic var gradePoints: Double = 0.0
     /// The scale associated with this rubric in realm
     let associatedScale = LinkingObjects(fromType: GPAScale.self, property: "gpaRubrics")
     

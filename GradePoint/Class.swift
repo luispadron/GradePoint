@@ -13,15 +13,15 @@ class Class: Object {
     
     // MARK: - Properties
     
-    dynamic var id = UUID().uuidString
-    dynamic var name = ""
-    dynamic var classType: ClassType = .college
-    dynamic var creditHours = 3
-    dynamic var semester: Semester?
-    dynamic var grade: Grade?
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var name = ""
+    @objc dynamic var classType: ClassType = .college
+    @objc dynamic var creditHours = 3
+    @objc dynamic var semester: Semester?
+    @objc dynamic var grade: Grade?
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
-    dynamic var colorData = Data()
+    @objc dynamic var colorData = Data()
     
     // MARK: - Initializers
     

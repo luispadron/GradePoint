@@ -10,10 +10,10 @@ import RealmSwift
 
 /// A realm object which will store calculation done in the GPA Calculator
 class GPACalculation: Object {
-    dynamic var id = UUID().uuidString
-    dynamic var calculatedGpa = 0.0
-    dynamic var date = Date()
-    dynamic var isWeighted = true
+    @objc dynamic var id = UUID().uuidString
+    @objc dynamic var calculatedGpa = 0.0
+    @objc dynamic var date = Date()
+    @objc dynamic var isWeighted = true
     
     convenience init(calculatedGpa: Double, date: Date, weighted: Bool) {
         self.init()
