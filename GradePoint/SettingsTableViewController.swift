@@ -18,6 +18,11 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        
         // Set version number
         versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         // TableView customization
@@ -28,8 +33,6 @@ class SettingsTableViewController: UITableViewController {
         // Set inital student type switcher to whatever value we have in the stored preferences
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
         studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 0) - 1
-        
-        self.title = "Settings"
     }
     
     override func viewDidAppear(_ animated: Bool) {

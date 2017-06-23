@@ -312,7 +312,7 @@
                             <outlet property="delegate" destination="Jox-LX-oxb" id="rc6-1U-FBi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Js1-E5-0xC"/>
+                    <navigationItem key="navigationItem" title="Settings" id="Js1-E5-0xC"/>
                     <connections>
                         <outlet property="studentTypeSwitcher" destination="b2C-GZ-Q0V" id="NBb-BG-NHu"/>
                         <outlet property="versionLabel" destination="lo4-Mx-ibC" id="c8o-f6-fwf"/>
@@ -1090,7 +1090,7 @@
         <!--License-->
         <scene sceneID="pca-iA-kte">
             <objects>
-                <viewController title="License" id="jLS-Cl-QAa" sceneMemberID="viewController">
+                <viewController title="License" id="jLS-Cl-QAa" customClass="LicenseViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XsZ-r3-CYD"/>
                         <viewControllerLayoutGuide type="bottom" id="a5V-wH-U57"/>
@@ -1122,7 +1122,7 @@
                             <constraint firstItem="7uY-Fy-l5a" firstAttribute="top" secondItem="iET-xD-4Xp" secondAttribute="top" id="umv-bn-jy9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="cuu-Ow-ZGR"/>
+                    <navigationItem key="navigationItem" title="License" id="cuu-Ow-ZGR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dhh-IN-IT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
