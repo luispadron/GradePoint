@@ -79,6 +79,11 @@ class ClassesTableViewController: UITableViewController {
         // Create the 2D array of Class objects, segmented by their appropriate section in the tableview
         initClassesBySection()
         
+        // Setup tableview estimates
+        self.tableView.estimatedRowHeight = 60
+        self.tableView.estimatedSectionHeaderHeight = 44
+        self.tableView.estimatedSectionFooterHeight = 0
+        
         // Inital state for empty state view
         self.reloadEmptyState()
     }

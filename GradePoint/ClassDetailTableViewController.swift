@@ -87,6 +87,11 @@ class ClassDetailTableViewController: UITableViewController {
         self.progressRing.font = UIFont.systemFont(ofSize: 40)
         
         self.tableView.scrollsToTop = true
+        
+        // Setup tableview estimates
+        self.tableView.estimatedRowHeight = 65
+        self.tableView.estimatedSectionHeaderHeight = 44
+        self.tableView.estimatedSectionFooterHeight = 0
     }
 
     override func viewWillAppear(_ animated: Bool) {

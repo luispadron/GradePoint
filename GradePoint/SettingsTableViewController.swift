@@ -33,6 +33,11 @@ class SettingsTableViewController: UITableViewController {
         // Set inital student type switcher to whatever value we have in the stored preferences
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
         studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 0) - 1
+        
+        // Setup tableview estimates
+        self.tableView.estimatedRowHeight = 44
+        self.tableView.estimatedSectionHeaderHeight = 30
+        self.tableView.estimatedSectionFooterHeight = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
