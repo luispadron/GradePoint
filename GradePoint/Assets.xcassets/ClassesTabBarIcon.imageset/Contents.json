@@ -2,22 +2,25 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "classes1x.png",
+      "filename" : "ClassesTabBarIcon.pdf",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "classes1x 2.png",
+      "filename" : "ClassesTabBarIcon@2x.pdf",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "classes1x 3.png",
+      "filename" : "ClassesTabBarIcon@3x.pdf",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

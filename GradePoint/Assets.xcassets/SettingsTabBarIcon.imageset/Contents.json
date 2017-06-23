@@ -2,22 +2,25 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "calcfilled1x.png",
+      "filename" : "SettingsTabBarIcon.pdf",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "calcfilled2x.png",
+      "filename" : "SettingsTabBarIcon@2x.pdf",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "calcfilled3x.png",
+      "filename" : "SettingsTabBarIcon@3x.pdf",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }
