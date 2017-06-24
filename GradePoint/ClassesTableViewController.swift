@@ -215,7 +215,7 @@ class ClassesTableViewController: UITableViewController {
         })
         deleteAction.backgroundColor = UIColor.warning
         
-        return [deleteAction, editAction]
+        return [editAction, deleteAction]
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
