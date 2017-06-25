@@ -205,19 +205,13 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] _, indexPath in
-            self.performSegue(withIdentifier: .addEditClass, sender: indexPath)
-        })
+        guard #available(iOS 11.0, *) else {
+            // Use older swipe actions for any iOS less than 11.0
+            return createLegacySwipeActions()
+        }
         
-        editAction.backgroundColor = UIColor.info
-        
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] _, path in
-            self.presentDeleteAlert(at: path)
-        })
-        
-        deleteAction.backgroundColor = UIColor.warning
-        
-        return [editAction, deleteAction]
+        // Use new swipe actions API in iOS 11.0 +
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -391,6 +385,35 @@ class ClassesTableViewController: UITableViewController {
         }
         self.tableView.endUpdates()
         self.reloadEmptyState()
+    }
+    
+    /// Creates the older legacy swipe actiions for a tableview used in iOS versions less than 11.0
+    private func createLegacySwipeActions() -> [UITableViewRowAction] {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] _, path in
+            self.performSegue(withIdentifier: .addEditClass, sender: path)
+        })
+        
+        editAction.backgroundColor = UIColor.info
+        
+        let favoriteAction = UITableViewRowAction(style: .normal, title: "Favorite", handler: { [unowned self] _, path in
+            let classAtPath = self.classObj(forIndexPath: path)
+            let realm = try! Realm()
+            try! realm.write {
+                classAtPath.isFavorite = !classAtPath.isFavorite
+            }
+            self.tableView.setEditing(false, animated: true)
+        })
+        
+        favoriteAction.backgroundColor = UIColor.yellow
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] _, path in
+            self.presentDeleteAlert(at: path)
+        })
+        
+        deleteAction.backgroundColor = UIColor.warning
+        
+        
+        return [deleteAction, editAction, favoriteAction]
     }
 }
 
