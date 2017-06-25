@@ -66,6 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if !hasOnboarded { self.presentOnboarding() }
         
+        // Check for any required migrations
+        MigrationManager.checkMigrations()
+        
         return true
     }
     

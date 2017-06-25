@@ -19,6 +19,7 @@ class Class: Object {
     @objc dynamic var creditHours = 3
     @objc dynamic var semester: Semester?
     @objc dynamic var grade: Grade?
+    @objc dynamic var isFavorite: Bool = false
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
     @objc dynamic var colorData = Data()
