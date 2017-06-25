@@ -168,51 +168,53 @@ class ClassesTableViewController: UITableViewController {
         return cell
     }
     
+    @available(iOS 11.0, *)
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { _, _, finished in
+            let classAtPath = self.classObj(forIndexPath: indexPath)
+            let realm = try! Realm()
+            try! realm.write {
+                classAtPath.isFavorite = !classAtPath.isFavorite
+            }
+            finished(true)
+        })
+        
+        favorite.backgroundColor = UIColor.yellow
+        let configuration = UISwipeActionsConfiguration(actions: [favorite])
+        return configuration
+    }
+    
+    @available(iOS 11.0, *)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "Edit", handler: { _, _, finished in
+            self.performSegue(withIdentifier: .addEditClass, sender: indexPath)
+            finished(true)
+        })
+        
+        edit.backgroundColor = UIColor.info
+        
+        let delete = UIContextualAction(style: .normal, title: "Delete", handler: { _, _, finished in
+            self.presentDeleteAlert(at: indexPath)
+            finished(true)
+        })
+        
+        delete.backgroundColor = UIColor.warning
+        
+        let configuration = UISwipeActionsConfiguration(actions: [edit, delete])
+        return configuration
+    }
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] action, indexPath in
-            self.editingIndexPath = indexPath
-            self.performSegue(withIdentifier: .addEditClass, sender: action)
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] _, indexPath in
+            self.performSegue(withIdentifier: .addEditClass, sender: indexPath)
         })
         
         editAction.backgroundColor = UIColor.info
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] action, indexPath in
-            
-            // Present alert to user
-            let title = NSAttributedString(string: "Delete This Class",
-                                           attributes: [.font: UIFont.systemFont(ofSize: 20)])
-            
-            let messageAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 16),
-                                                              .foregroundColor: UIColor.warning]
-            let message = NSAttributedString(string: "This cannot be undone, are you sure?", attributes: messageAttrs)
-            
-            var size = CGSize(width: self.view.bounds.size.width - 50, height: 200)
-            size = size.width >= 300 ? CGSize(width: 300, height: 200) : CGSize(width: size.width, height: 200)
-            let alert = UIBlurAlertController(size: size, title: title, message: message)
-            let cancel = UIButton()
-            cancel.setTitle("Cancel", for: .normal)
-            cancel.backgroundColor = UIColor.info
-            
-            let delete = UIButton()
-            delete.setTitle("Delete", for: .normal)
-            delete.backgroundColor = UIColor.warning
-            
-            alert.addButton(button: cancel, handler: { [weak self] in
-                self?.tableView.isEditing = false
-            })
-            alert.addButton(button: delete, handler: { [weak self] in
-                self?.tableView.isEditing = false
-                // Delete the class
-                self?.deleteClassObj(at: indexPath)
-            })
-            
-            if self.searchController.isActive {
-                alert.presentAlert(presentingViewController: self.searchController)
-            } else {
-                alert.presentAlert(presentingViewController: self)
-            }
-        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] _, path in
+            self.presentDeleteAlert(at: path)
         })
+        
         deleteAction.backgroundColor = UIColor.warning
         
         return [editAction, deleteAction]
@@ -298,8 +300,44 @@ class ClassesTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    private func presentDeleteAlert(at indexPath: IndexPath) {
+        // Present alert to user
+        let title = NSAttributedString(string: "Delete This Class",
+                                       attributes: [.font: UIFont.systemFont(ofSize: 20)])
+        
+        let messageAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 16),
+                                                          .foregroundColor: UIColor.warning]
+        let message = NSAttributedString(string: "This cannot be undone, are you sure?", attributes: messageAttrs)
+        
+        var size = CGSize(width: self.view.bounds.size.width - 50, height: 200)
+        size = size.width >= 300 ? CGSize(width: 300, height: 200) : CGSize(width: size.width, height: 200)
+        let alert = UIBlurAlertController(size: size, title: title, message: message)
+        let cancel = UIButton()
+        cancel.setTitle("Cancel", for: .normal)
+        cancel.backgroundColor = UIColor.info
+        
+        let delete = UIButton()
+        delete.setTitle("Delete", for: .normal)
+        delete.backgroundColor = UIColor.warning
+        
+        alert.addButton(button: cancel, handler: { [weak self] in
+            self?.tableView.isEditing = false
+        })
+        alert.addButton(button: delete, handler: { [weak self] in
+            self?.tableView.isEditing = false
+            // Delete the class
+            self?.deleteClassObj(at: indexPath)
+        })
+    
+        if self.searchController.isActive {
+            alert.presentAlert(presentingViewController: self.searchController)
+        } else {
+            alert.presentAlert(presentingViewController: self)
+        }
+    }
+    
     /// Deletes a classObj from Realm using a specified indexPath
-    func deleteClassObj(at indexPath: IndexPath) {
+    private func deleteClassObj(at indexPath: IndexPath) {
         // Grab the objects to delete from DB, sincce realm doesnt delete associated objects
         let classToDel: Class
         
@@ -472,8 +510,9 @@ extension ClassesTableViewController: Segueable {
         case .addEditClass:
             guard let controller = segue.destination as? AddEditClassViewController else { return }
             
-            // If editing then set the appropriate obj into the view controller
-            if let _ = sender as? UITableViewRowAction, let path = editingIndexPath {
+            // If editing then set the appropriate obj into the view controller, when user clicks edit
+            // the sender provided will be an index path, using this we can get the object at that path
+            if let path = sender as? IndexPath {
                 if isSearchActive {
                     controller.classObj = filteredClasses[path.row]
                 } else {

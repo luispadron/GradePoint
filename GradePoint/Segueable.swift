@@ -14,7 +14,7 @@ protocol Segueable {
 
 extension Segueable where Self: UIViewController, SegueIdentifier.RawValue == String {
     /// Performs a segue given the identifier
-    func performSegue(withIdentifier identifier: SegueIdentifier, sender: AnyObject?) {
+    func performSegue(withIdentifier identifier: SegueIdentifier, sender: Any?) {
         performSegue(withIdentifier: identifier.rawValue, sender: sender)
     }
     
