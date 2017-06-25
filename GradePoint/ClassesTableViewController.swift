@@ -179,7 +179,8 @@ class ClassesTableViewController: UITableViewController {
             finished(true)
         })
         
-        favorite.backgroundColor = UIColor.yellow
+        favorite.backgroundColor = UIColor.customYellow
+        
         let configuration = UISwipeActionsConfiguration(actions: [favorite])
         return configuration
     }
@@ -404,7 +405,7 @@ class ClassesTableViewController: UITableViewController {
             self.tableView.setEditing(false, animated: true)
         })
         
-        favoriteAction.backgroundColor = UIColor.yellow
+        favoriteAction.backgroundColor = UIColor.customYellow
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] _, path in
             self.presentDeleteAlert(at: path)
