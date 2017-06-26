@@ -33,13 +33,21 @@ class ClassesTableViewController: UITableViewController {
     /// A filtered array of classes, filtered using text entered in the search contoller
     var filteredClasses = [Class]()
     
+    /// An array of classes that have been favorited by the user, ordered by date
+    var favoritedClasses: [Class] {
+        get {
+            let realm = try! Realm()
+            return realm.objects(Class.self).filter { $0.isFavorite }.sorted { $0.semester!.year > $1.semester!.year }
+        }
+    }
+    
     /// The index path of the class the user wants to edit
     var editingIndexPath: IndexPath?
     
     /// Helper property to determine whether search bar is active
     var isSearchActive: Bool {
         get {
-            return searchController.isActive  && searchController.searchBar.text != ""
+            return searchController.isActive && searchController.searchBar.text != ""
         }
     }
     
@@ -111,7 +119,8 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return 1
         } else {
-            return classesBySection.count
+            // Add a section if there are any favorited classes
+            return favoritedClasses.count > 0 ? classesBySection.count + 1 : classesBySection.count
         }
     }
 
@@ -119,20 +128,34 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return filteredClasses.count
         } else {
-            return classesBySection[section].count
+            if favoritedClasses.count > 0 && section == 0{
+                // The favorites section will only contain favorited classes duh...
+                return favoritedClasses.count
+            } else if favoritedClasses.count > 0 && section != 0 {
+                return classesBySection[section - 1].count
+            } else {
+                return classesBySection[section].count
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if isSearchActive { return 0 }
-        else { return classesBySection[section].count > 0 ? 44 : 0 }
+        if isSearchActive {
+            return 0
+        } else {
+            if favoritedClasses.count > 0 && section == 0 {
+                return 44
+            } else if favoritedClasses.count > 0 && section != 0 {
+                return classesBySection[section - 1].count > 0 ? 44 : 0
+            } else {
+                return classesBySection[section].count > 0 ? 44 : 0
+            }
+        }
     }
     
+    /// Creates a custom header view for a section
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard !isSearchActive else { return nil }
-        
-        // Create the correct headerView for the section
-        let semForSection = semesterSections[section]
         
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.tableViewHeader
@@ -143,8 +166,16 @@ class ClassesTableViewController: UITableViewController {
         label.backgroundColor = UIColor.tableViewHeader
         mainView.addSubview(label)
         
-        // Set the correct label text
-        label.text = "\(semForSection.term) \(semForSection.year)"
+        // Set correct label text
+        if favoritedClasses.count > 0 && section == 0 {
+            label.text = "Favorites"
+        } else if favoritedClasses.count > 0 && section != 0 {
+            let semForSection = semesterSections[section - 1]
+            label.text = "\(semForSection.term) \(semForSection.year)"
+        } else {
+            let semForSection = semesterSections[section]
+            label.text = "\(semForSection.term) \(semForSection.year)"
+        }
         
         return mainView
     }
@@ -152,13 +183,7 @@ class ClassesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
-        let classItem: Class
-        
-        if isSearchActive {
-            classItem = filteredClasses[indexPath.row]
-        } else {
-            classItem = classObj(forIndexPath: indexPath)
-        }
+        let classItem: Class = classObj(at: indexPath)
         
         // Set the cell labels
         cell.classTitleLabel.text = classItem.name
@@ -170,13 +195,15 @@ class ClassesTableViewController: UITableViewController {
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let classAtPath = classObj(forIndexPath: indexPath)
+        let classAtPath = classObj(at: indexPath)
 
         let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
             let realm = try! Realm()
             try! realm.write {
                 classAtPath.isFavorite = !classAtPath.isFavorite
             }
+            
+            self.tableView.reloadData()
             
             finished(true)
         })
@@ -287,8 +314,16 @@ class ClassesTableViewController: UITableViewController {
     }
     
     /// Returns a classObj for the sent in index path, used for tableview methods
-    func classObj(forIndexPath indexPath: IndexPath) -> Class {
-        return classesBySection[indexPath.section][indexPath.row]
+    func classObj(at indexPath: IndexPath) -> Class {
+        if isSearchActive {
+            return filteredClasses[indexPath.row]
+        } else if favoritedClasses.count > 0 && indexPath.section == 0 {
+            return favoritedClasses[indexPath.row]
+        } else if favoritedClasses.count > 0 && indexPath.section != 0 {
+            return classesBySection[indexPath.section - 1][indexPath.row]
+        } else {
+            return classesBySection[indexPath.section][indexPath.row]
+        }
     }
     
     /// Updates the tableview to the filtered classes array user searched for
@@ -342,32 +377,23 @@ class ClassesTableViewController: UITableViewController {
     /// Deletes a classObj from Realm using a specified indexPath
     private func deleteClassObj(at indexPath: IndexPath) {
         // Grab the objects to delete from DB, sincce realm doesnt delete associated objects
-        let classToDel: Class
         
-        if isSearchActive {
-            classToDel = filteredClasses[indexPath.row]
-        } else {
-            classToDel = classObj(forIndexPath: indexPath)
-        }
-        
-        let rubricsToDel = classToDel.rubrics
-        let semesterToDel = classToDel.semester!
-        let assignmentsToDel = classToDel.assignments
-        let gradeToDel = classToDel.grade!
+        let classToDel: Class = classObj(at: indexPath)
         
         // Figure out whether we need to update the state of the detail controller or not
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
         var shouldUpdateDetail = false
-        let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
+        let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first
+                                                                                    as? ClassDetailTableViewController
         if detailController?.classObj == classToDel { shouldUpdateDetail = true }
         
         // Delete class object and its associated properties from Realm
         let realm = try! Realm()
         try! realm.write {
-            realm.delete(rubricsToDel)
-            realm.delete(semesterToDel)
-            realm.delete(assignmentsToDel)
-            realm.delete(gradeToDel)
+            realm.delete(classToDel.rubrics)
+            realm.delete(classToDel.semester!)
+            realm.delete(classToDel.assignments)
+            realm.delete(classToDel.grade!)
             realm.delete(classToDel)
         }
         
@@ -381,18 +407,7 @@ class ClassesTableViewController: UITableViewController {
         }
         
         // Refresh tableView
-        self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-        // If were in the search controller also remove this class from the filtered classes array
-        // Since this array is just a flat copy of classesBySection, but hasn't been updated when deleting
-        if isSearchActive {
-            filteredClasses.remove(at: indexPath.row)
-        }
-        // Check to see if this row is the last one in the section, if so reload that section also so the header goes away
-        if classesBySection[indexPath.section].isEmpty {
-            self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
-        }
-        self.tableView.endUpdates()
+        self.tableView.reloadData()
         self.reloadEmptyState()
     }
     
@@ -405,12 +420,13 @@ class ClassesTableViewController: UITableViewController {
         editAction.backgroundColor = UIColor.info
         
         let favoriteAction = UITableViewRowAction(style: .normal, title: "Favorite", handler: { [unowned self] _, path in
-            let classAtPath = self.classObj(forIndexPath: path)
+            let classAtPath = self.classObj(at: path)
             let realm = try! Realm()
             try! realm.write {
                 classAtPath.isFavorite = !classAtPath.isFavorite
             }
             self.tableView.setEditing(false, animated: true)
+            self.tableView.reloadData()
         })
         
         favoriteAction.backgroundColor = UIColor.favorite
@@ -521,13 +537,7 @@ extension ClassesTableViewController: Segueable {
         case .showDetail:
             guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
             
-            let classItem: Class
-            
-            if isSearchActive {
-                classItem = filteredClasses[indexPath.row]
-            } else {
-                classItem = classObj(forIndexPath: indexPath)
-            }
+            let classItem: Class = classObj(at: indexPath)
             
             // Revert and undo any searches
             searchController.isActive = false
@@ -545,11 +555,7 @@ extension ClassesTableViewController: Segueable {
             // If editing then set the appropriate obj into the view controller, when user clicks edit
             // the sender provided will be an index path, using this we can get the object at that path
             if let path = sender as? IndexPath {
-                if isSearchActive {
-                    controller.classObj = filteredClasses[path.row]
-                } else {
-                    controller.classObj = classObj(forIndexPath: path)
-                }
+                controller.classObj = classObj(at: path)
             }
             
             // Revert and undo any searches
@@ -584,7 +590,7 @@ extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
         guard let peekVC = storyboard?.instantiateViewController(withIdentifier: "ClassPeekViewController") as? ClassPeekViewController else { return nil }
         
         // Only allow peeking for in progress classes
-        let classObj = self.classObj(forIndexPath: indexPath)
+        let classObj = self.classObj(at: indexPath)
         guard classObj.isClassInProgress else { return nil }
         
         peekVC.setProgress(for: classObj)
@@ -617,12 +623,20 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
     }
     
     func didFinishCreating(newClass classObj: Class) {
-        guard let section = self.section(forMatchingSemester: classObj.semester!), let row = classesBySection[section].index(of: classObj) else {
-            print("Couldnt get index for newly created class object, simply reloading tableview and exiting...")
-            return
+        guard let section = self.section(forMatchingSemester: classObj.semester!),
+            let row = classesBySection[section].index(of: classObj) else {
+                
+                print("Couldnt get index for newly created class object")
+                return
         }
         
-        let indexPath = IndexPath(row: row, section: section)
+        var indexPath: IndexPath
+        
+        if favoritedClasses.count > 0 {
+            indexPath = IndexPath(row: row, section: section + 1)
+        } else {
+            indexPath = IndexPath(row: row, section: section)
+        }
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [indexPath], with: .automatic)
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
