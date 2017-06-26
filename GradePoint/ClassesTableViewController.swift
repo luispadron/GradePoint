@@ -170,16 +170,22 @@ class ClassesTableViewController: UITableViewController {
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { _, _, finished in
-            let classAtPath = self.classObj(forIndexPath: indexPath)
+        let classAtPath = classObj(forIndexPath: indexPath)
+
+        let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
             let realm = try! Realm()
             try! realm.write {
                 classAtPath.isFavorite = !classAtPath.isFavorite
             }
+            
             finished(true)
         })
         
-        favorite.backgroundColor = UIColor.customYellow
+        favorite.backgroundColor = UIColor.favorite
+        
+        let image: UIImage = classAtPath.isFavorite ? #imageLiteral(resourceName: "FavoriteIconFilled") : #imageLiteral(resourceName: "FavoriteIcon")
+        
+        favorite.image = image
         
         let configuration = UISwipeActionsConfiguration(actions: [favorite])
         return configuration
@@ -193,6 +199,7 @@ class ClassesTableViewController: UITableViewController {
         })
         
         edit.backgroundColor = UIColor.info
+        edit.image = #imageLiteral(resourceName: "EditIcon")
         
         let delete = UIContextualAction(style: .normal, title: "Delete", handler: { _, _, finished in
             self.presentDeleteAlert(at: indexPath)
@@ -200,6 +207,7 @@ class ClassesTableViewController: UITableViewController {
         })
         
         delete.backgroundColor = UIColor.warning
+        delete.image = #imageLiteral(resourceName: "EraseIcon")
         
         let configuration = UISwipeActionsConfiguration(actions: [edit, delete])
         return configuration
@@ -405,7 +413,7 @@ class ClassesTableViewController: UITableViewController {
             self.tableView.setEditing(false, animated: true)
         })
         
-        favoriteAction.backgroundColor = UIColor.customYellow
+        favoriteAction.backgroundColor = UIColor.favorite
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] _, path in
             self.presentDeleteAlert(at: path)
