@@ -119,8 +119,8 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return 1
         } else {
-            // Add a section if there are any favorited classes
-            return favoritedClasses.count > 0 ? classesBySection.count + 1 : classesBySection.count
+            // Add a section since favorited classes
+            return classesBySection.count + 1
         }
     }
 
@@ -128,13 +128,11 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return filteredClasses.count
         } else {
-            if favoritedClasses.count > 0 && section == 0{
+            if section == 0{
                 // The favorites section will only contain favorited classes duh...
                 return favoritedClasses.count
-            } else if favoritedClasses.count > 0 && section != 0 {
-                return classesBySection[section - 1].count
             } else {
-                return classesBySection[section].count
+                return classesBySection[section - 1].count
             }
         }
     }
@@ -143,12 +141,10 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return 0
         } else {
-            if favoritedClasses.count > 0 && section == 0 {
-                return 44
-            } else if favoritedClasses.count > 0 && section != 0 {
+            if section == 0 {
+                return favoritedClasses.count > 0 ? 44 : 0
+            } else  {
                 return classesBySection[section - 1].count > 0 ? 44 : 0
-            } else {
-                return classesBySection[section].count > 0 ? 44 : 0
             }
         }
     }
@@ -195,19 +191,15 @@ class ClassesTableViewController: UITableViewController {
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let classAtPath = classObj(at: indexPath)
 
         let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
-            let realm = try! Realm()
-            try! realm.write {
-                classAtPath.isFavorite = !classAtPath.isFavorite
-            }
-            
-            self.tableView.reloadData()
-            
             finished(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.updateFavoriteState(at: indexPath)
+            }
         })
         
+        let classAtPath = classObj(at: indexPath)
         favorite.backgroundColor = UIColor.favorite
         
         let image: UIImage = classAtPath.isFavorite ? #imageLiteral(resourceName: "FavoriteIconFilled") : #imageLiteral(resourceName: "FavoriteIcon")
@@ -317,13 +309,11 @@ class ClassesTableViewController: UITableViewController {
     func classObj(at indexPath: IndexPath) -> Class {
         if isSearchActive {
             return filteredClasses[indexPath.row]
-        } else if favoritedClasses.count > 0 && indexPath.section == 0 {
+        } else if indexPath.section == 0 {
             return favoritedClasses[indexPath.row]
-        } else if favoritedClasses.count > 0 && indexPath.section != 0 {
-            return classesBySection[indexPath.section - 1][indexPath.row]
         } else {
-            return classesBySection[indexPath.section][indexPath.row]
-        }
+            return classesBySection[indexPath.section - 1][indexPath.row]
+        } 
     }
     
     /// Updates the tableview to the filtered classes array user searched for
@@ -420,13 +410,8 @@ class ClassesTableViewController: UITableViewController {
         editAction.backgroundColor = UIColor.info
         
         let favoriteAction = UITableViewRowAction(style: .normal, title: "Favorite", handler: { [unowned self] _, path in
-            let classAtPath = self.classObj(at: path)
-            let realm = try! Realm()
-            try! realm.write {
-                classAtPath.isFavorite = !classAtPath.isFavorite
-            }
+            self.updateFavoriteState(at: path)
             self.tableView.setEditing(false, animated: true)
-            self.tableView.reloadData()
         })
         
         favoriteAction.backgroundColor = UIColor.favorite
@@ -439,6 +424,49 @@ class ClassesTableViewController: UITableViewController {
         
         
         return [deleteAction, editAction, favoriteAction]
+    }
+    
+    /// Updates a classes favorite state at the specified index path
+    private func updateFavoriteState(at indexPath: IndexPath) {
+        let realm = try! Realm()
+        let classAtPath = self.classObj(at: indexPath)
+        
+        if classAtPath.isFavorite {
+            // Remove from favorites section
+            if let index = favoritedClasses.index(of: classAtPath) {
+                self.tableView.beginUpdates()
+                self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                // Update property in realm, which will also remove it from the favoritedClasses array
+                try! realm.write {
+                    classAtPath.isFavorite = false
+                }
+                self.tableView.endUpdates()
+            } else {
+                // Fallback and just reload the tableview
+                self.tableView.reloadData()
+            }
+        } else { // Add to favorites section
+            // Update property in realm which will add class to favoritedClasses array
+            try! realm.write {
+                classAtPath.isFavorite = true
+            }
+            // Find index of class since its now in the favoritedClasses array
+            if let index = favoritedClasses.index(of: classAtPath) {
+                self.tableView.beginUpdates()
+                if favoritedClasses.count - 1 == 0 {
+                    // This section was previously empty, thus has no header, reload entire seciton
+                    self.tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
+                    self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                } else {
+                    self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                }
+                
+                self.tableView.endUpdates()
+            } else {
+                // Fallback and just reload tableview
+                self.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -630,13 +658,8 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
                 return
         }
         
-        var indexPath: IndexPath
+        let indexPath: IndexPath = IndexPath(row: row, section: section + 1)
         
-        if favoritedClasses.count > 0 {
-            indexPath = IndexPath(row: row, section: section + 1)
-        } else {
-            indexPath = IndexPath(row: row, section: section)
-        }
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [indexPath], with: .automatic)
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
