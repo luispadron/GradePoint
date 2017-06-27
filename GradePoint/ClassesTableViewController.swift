@@ -363,9 +363,32 @@ class ClassesTableViewController: UITableViewController {
     
     /// Deletes a classObj from Realm using a specified indexPath
     private func deleteClassObj(at indexPath: IndexPath) {
-        // Grab the objects to delete from DB, sincce realm doesnt delete associated objects
-        
+        let realm = try! Realm()
         let classToDel: Class = classObj(at: indexPath)
+        
+        // Block which deletes all associated objects and the class from realm db
+        let deleteAll = {
+            try! realm.write {
+                realm.delete(classToDel.rubrics)
+                realm.delete(classToDel.semester!)
+                realm.delete(classToDel.assignments)
+                realm.delete(classToDel.grade!)
+                realm.delete(classToDel)
+            }
+        }
+        
+        // Block for reloading class sections if required
+        let reloadClassSectionIfNeeded: (IndexPath) -> Void = { path in
+            if self.classesBySection[path.section].count == 0 {
+                self.tableView.reloadSections(IndexSet.init(integer: path.section), with: .automatic)
+            }
+        }
+        // Block for reloading the favorites section if required
+        let reloadFavoritesSectionIfNeeded: (IndexPath) -> Void = { path in
+            if self.favoritedClasses.count == 0 {
+                self.tableView.reloadSections(IndexSet.init(integer: path.section), with: .automatic)
+            }
+        }
         
         // Figure out whether we need to update the state of the detail controller or not
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
@@ -374,15 +397,72 @@ class ClassesTableViewController: UITableViewController {
                                                                                     as? ClassDetailTableViewController
         if detailController?.classObj == classToDel { shouldUpdateDetail = true }
         
-        // Delete class object and its associated properties from Realm
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(classToDel.rubrics)
-            realm.delete(classToDel.semester!)
-            realm.delete(classToDel.assignments)
-            realm.delete(classToDel.grade!)
-            realm.delete(classToDel)
+        // Remove the cell from the tableView, if the class was a also a favorite, remove the cell from that section too
+        if classToDel.isFavorite && !isSearchActive {
+            if indexPath.section == 0 {
+                // The user selected delete from the favorites section, delete from realm and reload both rows
+                // First find the index path under the favorites section for the class were deleting
+                var row: Int?
+                var section: Int = 1 // Start at 1 since favorites section is always 0
+                for classArray in classesBySection { // Find the correct class in the 2D array
+                    if let r = classArray.index(of: classToDel) {
+                        row = r
+                        break
+                    }
+                    section += 1
+                }
+                
+                deleteAll()
+                
+                if let r = row {
+                    // We have a second indexpath now, so we can delete both rows with nice animation
+                    self.tableView.beginUpdates()
+                    let secondPath = IndexPath(row: r, section: section)
+                    self.tableView.deleteRows(at: [indexPath, ], with: .automatic)
+                    
+                    reloadClassSectionIfNeeded(secondPath)
+                    reloadFavoritesSectionIfNeeded(indexPath)
+                    
+                    self.tableView.endUpdates()
+                } else {
+                    // Fallback and simply reload the tableView
+                    self.tableView.reloadData()
+                }
+            } else {
+                // User is deleting class from normal section, but we also need to remove from favorites section
+                if let row = favoritedClasses.index(of: classToDel) {
+                    deleteAll()
+                    self.tableView.beginUpdates()
+                    
+                    let secondPath = IndexPath(row: row, section: 0)
+                    self.tableView.deleteRows(at: [secondPath, indexPath], with: .automatic)
+                    
+                    reloadClassSectionIfNeeded(indexPath)
+                    reloadFavoritesSectionIfNeeded(secondPath)
+                    
+                    self.tableView.endUpdates()
+                } else {
+                    deleteAll()
+                    // Fallback and simply reload the tableView
+                    self.tableView.reloadData()
+                }
+            }
+        } else {
+            self.tableView.beginUpdates()
+            deleteAll()
+            // If were in the search controller also remove this class from the filtered classes array
+            // Since this array is just a flat copy of classesBySection, but hasn't been updated when deleting
+            if isSearchActive {
+                filteredClasses.remove(at: indexPath.row)
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            reloadClassSectionIfNeeded(indexPath)
+            
+            self.tableView.endUpdates()
         }
+        
+        self.reloadEmptyState()
         
         // Update detail if needed
         if shouldUpdateDetail {
@@ -392,16 +472,6 @@ class ClassesTableViewController: UITableViewController {
         else {
             detailController?.updateUI()
         }
-        
-        // If were in the search controller also remove this class from the filtered classes array
-        // Since this array is just a flat copy of classesBySection, but hasn't been updated when deleting
-        if isSearchActive {
-            filteredClasses.remove(at: indexPath.row)
-        }
-        
-        // Refresh tableView
-        self.tableView.reloadData()
-        self.reloadEmptyState()
     }
     
     /// Creates the older legacy swipe actiions for a tableview used in iOS versions less than 11.0
