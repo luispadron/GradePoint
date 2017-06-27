@@ -27,6 +27,7 @@ extension UIColor {
     static let info = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* #247BA0 */
     static let warning = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* #F25F5C */
     static let favorite = UIColor(red: 0.808, green: 0.227, blue: 0.376, alpha: 1.00) /* ce3a60 */
+    static let customYellow = UIColor(red: 0.965, green: 0.918, blue: 0.549, alpha: 1.00) /*f9d423*/
     static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
     static let mutedText = UIColor(colorLiteralRed: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
     static let accentGreen = UIColor(red:0.40, green:0.84, blue:0.71, alpha:1.0) /* #67D5B5 */

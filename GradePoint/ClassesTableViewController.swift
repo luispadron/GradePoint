@@ -163,13 +163,10 @@ class ClassesTableViewController: UITableViewController {
         mainView.addSubview(label)
         
         // Set correct label text
-        if favoritedClasses.count > 0 && section == 0 {
+        if section == 0 {
             label.text = "Favorites"
-        } else if favoritedClasses.count > 0 && section != 0 {
-            let semForSection = semesterSections[section - 1]
-            label.text = "\(semForSection.term) \(semForSection.year)"
         } else {
-            let semForSection = semesterSections[section]
+            let semForSection = semesterSections[section - 1]
             label.text = "\(semForSection.term) \(semForSection.year)"
         }
         
@@ -396,6 +393,12 @@ class ClassesTableViewController: UITableViewController {
             detailController?.updateUI()
         }
         
+        // If were in the search controller also remove this class from the filtered classes array
+        // Since this array is just a flat copy of classesBySection, but hasn't been updated when deleting
+        if isSearchActive {
+            filteredClasses.remove(at: indexPath.row)
+        }
+        
         // Refresh tableView
         self.tableView.reloadData()
         self.reloadEmptyState()
@@ -414,7 +417,7 @@ class ClassesTableViewController: UITableViewController {
             self.tableView.setEditing(false, animated: true)
         })
         
-        favoriteAction.backgroundColor = UIColor.favorite
+        favoriteAction.backgroundColor = UIColor.customYellow
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [unowned self] _, path in
             self.presentDeleteAlert(at: path)
