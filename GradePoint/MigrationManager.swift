@@ -8,23 +8,18 @@
 
 import RealmSwift
 
+/// Class helper to handle Realm configurations and migrations
 final class MigrationManager {
     
-    public static func checkMigrations() {
-        do {
-            let _ = try Realm()
-        } catch {
-            // Migration needed since failed to open file
-            print("Peforming migration.")
-            // Peform any migrations
-            performMigrations()
-        }
-    }
+    /// The current schema version of the Realm file, this is not the version of the actual Realm file on the device
+    /// but instead what the version should be, this version number should be changed whenever the schema is updated.
+    // And any migration code should be added in `performMigration`
+    public static var currentSchemaVersion: UInt64 = 1
     
-    private static func performMigrations() {
-        let version: UInt64 = 1
+    /// Performs migration and updates any old schemas to `currentSchemaVersion`
+    public static func performMigrations() {
         let config = Realm.Configuration(
-            schemaVersion: version,
+            schemaVersion: currentSchemaVersion,
             migrationBlock: { migration, oldVersion in
                 if (oldVersion < 1) {
                     migration.enumerateObjects(ofType: Class.className()) { _, newObj in
@@ -33,13 +28,12 @@ final class MigrationManager {
                 }
             }
         )
-        
         // Set config
         Realm.Configuration.defaultConfiguration = config
         // Try to open realm again
         do {
             let _ = try Realm()
-            print("Migration complete for version: \(version)")
+            print("Migration complete for version: \(currentSchemaVersion)")
         } catch {
             fatalError("Error opening Realm after migration: \(error)")
         }
