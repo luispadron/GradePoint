@@ -1101,6 +1101,7 @@
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				INFOPLIST_FILE = GradePoint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited) -Xfrontend -disable-typo-correction";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

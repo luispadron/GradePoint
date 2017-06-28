@@ -1,5 +1,5 @@
 PODS:
-  - LPIntegratedRating (0.1.0)
+  - LPIntegratedRating (1.0.0)
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
   - Realm/Headers (2.8.3)
@@ -15,7 +15,7 @@ DEPENDENCIES:
   - UIEmptyState
 
 SPEC CHECKSUMS:
-  LPIntegratedRating: f043091f3bec8a427bdea16179efe3d21237c016
+  LPIntegratedRating: 6f9f4978ba2bc27304994193fe9908ed65bfb401
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
   RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
   UICircularProgressRing: 99419d03525be7b4ad29c0021e0fbb7d913b0030

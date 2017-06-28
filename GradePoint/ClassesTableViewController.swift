@@ -828,7 +828,7 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
 // MARK: - Rating delegation
 
 extension ClassesTableViewController: LPRatingViewDelegate {
-    func ratingViewConfiguration(for state: LPRatingViewState) -> LPRatingViewConfiguration? {
+    func ratingViewConfiguration(_ view: LPRatingView, for state: LPRatingViewState) -> LPRatingViewConfiguration? {
         let titleAttrs: [NSAttributedStringKey: Any] = [
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 20)
@@ -862,8 +862,8 @@ extension ClassesTableViewController: LPRatingViewDelegate {
         }
     }
     
-    func ratingViewDidFinish(with statu: LPRatingViewCompletionStatus) {
-        switch statu {
+    func ratingViewDidFinish(_ view: LPRatingView, with status: LPRatingViewCompletionStatus) {
+        switch status {
         case .ratingApproved:
             print("rate approved")
         case .ratingDenied:
