@@ -67,6 +67,9 @@ class ClassesTableViewController: UITableViewController {
     /// This number needs to be subtracted from sections when accessing classesBySections
     private let accessorySections: Int = 2
     
+    /// The rating view cell, once created it will be reused
+    private var ratingViewCell: LPRatingTableViewCell?
+    
     // MARK: - Overrides
     
     override func viewDidLoad() {
@@ -206,7 +209,7 @@ class ClassesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // If section is for rating, then add the rating cell, else do normal cells
-        if shouldPresentRating && indexPath.section == ratingsSection {
+        if indexPath.section == ratingsSection {
             return createRatingCell()
         }
         
@@ -340,8 +343,16 @@ class ClassesTableViewController: UITableViewController {
     
     /// Creates a rating cell and returns it
     private func createRatingCell() -> LPRatingTableViewCell {
-        let cell = LPRatingTableViewCell(style: .default, reuseIdentifier: nil)
-        cell.delegate = self
+        guard let cell = ratingViewCell else {
+            // Create the cell
+            let newCell = LPRatingTableViewCell(style: .default, reuseIdentifier: nil)
+            newCell.delegate = self
+            if ratingViewCell == nil {
+                ratingViewCell = newCell
+            }
+            return newCell
+        }
+        
         return cell
     }
     
@@ -852,7 +863,16 @@ extension ClassesTableViewController: LPRatingViewDelegate {
     }
     
     func ratingViewDidFinish(with statu: LPRatingViewCompletionStatus) {
-        
+        switch statu {
+        case .ratingApproved:
+            print("rate approved")
+        case .ratingDenied:
+            print("rate denied")
+        case .feedbackApproved:
+            print("feed approved")
+        case .feedbackDenied:
+            print("feed denied")
+        }
     }
     
 }
