@@ -818,7 +818,37 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
 
 extension ClassesTableViewController: LPRatingViewDelegate {
     func ratingViewConfiguration(for state: LPRatingViewState) -> LPRatingViewConfiguration? {
-        return nil
+        let titleAttrs: [NSAttributedStringKey: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 20)
+        ]
+        let approvalAttrs: [NSAttributedStringKey : Any] = [
+            .foregroundColor: UIColor(red: 0.553, green: 0.694, blue: 0.910, alpha: 1.00)
+        ]
+        let rejectionAttrs: [NSAttributedStringKey: Any] = [
+            .foregroundColor: UIColor.white
+        ]
+        
+        switch state {
+        case .initial:
+            return LPRatingViewConfiguration(
+                title: NSAttributedString(string: "Enjoying GradePoint?", attributes: titleAttrs),
+                approvalButtonTitle: NSAttributedString(string: "Yes!", attributes: approvalAttrs),
+                rejectionButtonTitle: NSAttributedString(string: "Not really", attributes: rejectionAttrs)
+            )
+        case .approval:
+            return LPRatingViewConfiguration(
+                title: NSAttributedString(string: "Would you mind rating in the App Store?", attributes: titleAttrs),
+                approvalButtonTitle: NSAttributedString(string: "Sure!", attributes: approvalAttrs),
+                rejectionButtonTitle: NSAttributedString(string: "Not right now", attributes: rejectionAttrs)
+            )
+        case .rejection:
+            return LPRatingViewConfiguration(
+                title: NSAttributedString(string: "I'd love to hear why", attributes: titleAttrs),
+                approvalButtonTitle: NSAttributedString(string: "Give feedback", attributes: approvalAttrs),
+                rejectionButtonTitle: NSAttributedString(string: "Not now", attributes: rejectionAttrs)
+            )
+        }
     }
     
     func ratingViewDidFinish(with statu: LPRatingViewCompletionStatus) {
