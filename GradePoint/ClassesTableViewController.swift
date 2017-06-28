@@ -446,7 +446,7 @@ class ClassesTableViewController: UITableViewController {
                 // The user selected delete from the favorites section, delete from realm and reload both rows
                 // First find the index path under the favorites section for the class were deleting
                 var row: Int?
-                var section: Int = 1 // Start at 1 since favorites section is always 0
+                var section: Int = accessorySections // Start here since want to skip the accessory sections
                 for classArray in classesBySection { // Find the correct class in the 2D array
                     if let r = classArray.index(of: classToDel) {
                         row = r
@@ -461,7 +461,7 @@ class ClassesTableViewController: UITableViewController {
                     // We have a second indexpath now, so we can delete both rows with nice animation
                     self.tableView.beginUpdates()
                     let secondPath = IndexPath(row: r, section: section)
-                    self.tableView.deleteRows(at: [indexPath, ], with: .automatic)
+                    self.tableView.deleteRows(at: [indexPath, secondPath], with: .automatic)
                     
                     reloadClassSectionIfNeeded(secondPath)
                     reloadFavoritesSectionIfNeeded(indexPath)
@@ -774,7 +774,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
                 return
         }
         
-        let indexPath: IndexPath = IndexPath(row: row, section: section + 1)
+        let indexPath: IndexPath = IndexPath(row: row, section: section + accessorySections)
         
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [indexPath], with: .automatic)
