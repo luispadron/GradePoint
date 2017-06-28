@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Realm" "$PODS_CONFIGURATION_BUILD_DIR/RealmSwift" "$PODS_CONFIGURATION_BUILD_DIR/UICircularProgressRing" "$PODS_CONFIGURATION_BUILD_DIR/UIEmptyState"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/LPIntegratedRating" "$PODS_CONFIGURATION_BUILD_DIR/Realm" "$PODS_CONFIGURATION_BUILD_DIR/RealmSwift" "$PODS_CONFIGURATION_BUILD_DIR/UICircularProgressRing" "$PODS_CONFIGURATION_BUILD_DIR/UIEmptyState"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Realm/Realm.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/RealmSwift/RealmSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/UICircularProgressRing/UICircularProgressRing.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/UIEmptyState/UIEmptyState.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -ObjC -framework "Realm" -framework "RealmSwift" -framework "UICircularProgressRing" -framework "UIEmptyState"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/LPIntegratedRating/LPIntegratedRating.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Realm/Realm.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/RealmSwift/RealmSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/UICircularProgressRing/UICircularProgressRing.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/UIEmptyState/UIEmptyState.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "LPIntegratedRating" -framework "Realm" -framework "RealmSwift" -framework "UICircularProgressRing" -framework "UIEmptyState"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

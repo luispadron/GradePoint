@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import UIEmptyState
+import LPIntegratedRating
 
 class ClassesTableViewController: UITableViewController {
     
@@ -50,6 +51,21 @@ class ClassesTableViewController: UITableViewController {
             return searchController.isActive && searchController.searchBar.text != ""
         }
     }
+    
+    /// Whether or not the tableview should show a rating view
+    lazy var shouldPresentRating: Bool = {
+        return RatingManager.shared.shouldPresentRating()
+    }()
+    
+    /// The section number for the favorites section
+    private let favoritesSection: Int = 0
+    
+    /// The section number for the ratings section
+    private let ratingsSection: Int = 1
+    
+    /// The number of extra sections in the tableview, not counting classesBySection
+    /// This number needs to be subtracted from sections when accessing classesBySections
+    private let accessorySections: Int = 2
     
     // MARK: - Overrides
     
@@ -119,8 +135,8 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return 1
         } else {
-            // Add a section since favorited classes
-            return classesBySection.count + 1
+            // Determine number of sections, add any accessory sections for favorites and ratings
+            return classesBySection.count + accessorySections
         }
     }
 
@@ -128,11 +144,14 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return filteredClasses.count
         } else {
-            if section == 0{
+            if section == favoritesSection {
                 // The favorites section will only contain favorited classes duh...
                 return favoritedClasses.count
+            } else if section == ratingsSection {
+                // Determine if showing rating
+                return shouldPresentRating ? 1 : 0
             } else {
-                return classesBySection[section - 1].count
+                return classesBySection[section - accessorySections].count
             }
         }
     }
@@ -141,11 +160,21 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return 0
         } else {
-            if section == 0 {
+            if section == favoritesSection {
                 return favoritedClasses.count > 0 ? 44 : 0
+            } else if section == ratingsSection {
+                return shouldPresentRating ? 44 : 0
             } else  {
-                return classesBySection[section - 1].count > 0 ? 44 : 0
+                return classesBySection[section - accessorySections].count > 0 ? 44 : 0
             }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == ratingsSection {
+            return 120
+        } else {
+            return 60
         }
     }
     
@@ -163,10 +192,12 @@ class ClassesTableViewController: UITableViewController {
         mainView.addSubview(label)
         
         // Set correct label text
-        if section == 0 {
+        if section == favoritesSection {
             label.text = "Favorites"
+        } else if section == ratingsSection {
+            label.text = "Rate"
         } else {
-            let semForSection = semesterSections[section - 1]
+            let semForSection = semesterSections[section - accessorySections]
             label.text = "\(semForSection.term) \(semForSection.year)"
         }
         
@@ -174,6 +205,11 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // If section is for rating, then add the rating cell, else do normal cells
+        if shouldPresentRating && indexPath.section == ratingsSection {
+            return createRatingCell()
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
         let classItem: Class = classObj(at: indexPath)
@@ -302,14 +338,21 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
+    /// Creates a rating cell and returns it
+    private func createRatingCell() -> LPRatingTableViewCell {
+        let cell = LPRatingTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.delegate = self
+        return cell
+    }
+    
     /// Returns a classObj for the sent in index path, used for tableview methods
-    func classObj(at indexPath: IndexPath) -> Class {
+    private func classObj(at indexPath: IndexPath) -> Class {
         if isSearchActive {
             return filteredClasses[indexPath.row]
-        } else if indexPath.section == 0 {
+        } else if indexPath.section == favoritesSection {
             return favoritedClasses[indexPath.row]
         } else {
-            return classesBySection[indexPath.section - 1][indexPath.row]
+            return classesBySection[indexPath.section - accessorySections][indexPath.row]
         } 
     }
     
@@ -399,7 +442,7 @@ class ClassesTableViewController: UITableViewController {
         
         // Remove the cell from the tableView, if the class was a also a favorite, remove the cell from that section too
         if classToDel.isFavorite && !isSearchActive {
-            if indexPath.section == 0 {
+            if indexPath.section == favoritesSection {
                 // The user selected delete from the favorites section, delete from realm and reload both rows
                 // First find the index path under the favorites section for the class were deleting
                 var row: Int?
@@ -769,4 +812,17 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
         if detailController.classObj == nil { return true }
         return false
     }
+}
+
+// MARK: - Rating delegation
+
+extension ClassesTableViewController: LPRatingViewDelegate {
+    func ratingViewConfiguration(for state: LPRatingViewState) -> LPRatingViewConfiguration? {
+        return nil
+    }
+    
+    func ratingViewDidFinish(with statu: LPRatingViewCompletionStatus) {
+        
+    }
+    
 }
