@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import LPIntegratedRating
 
 class RatingManager {
     static let shared: RatingManager = RatingManager()
@@ -38,7 +39,7 @@ class RatingManager {
         }
         
         let toEmail = "luispadronn@gmail.com"
-        if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
+        if let subject = "Feedback For GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
             let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
             
                 if !UIApplication.shared.openURL(url) {
@@ -48,5 +49,9 @@ class RatingManager {
         } else {
             presentError()
         }
+    }
+    
+    func update(with status: LPRatingViewCompletionStatus) {
+
     }
 }

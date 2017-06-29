@@ -912,13 +912,17 @@ extension ClassesTableViewController: LPRatingViewDelegate {
         case .ratingApproved:
             // Open the app store
             RatingManager.shared.openAppStore()
-        case .ratingDenied:
-            print("rate denied")
+            
         case .feedbackApproved:
+            // Open mail client to provide feedback
             RatingManager.shared.openFeedback(ontop: self)
-        case .feedbackDenied:
-            print("feed denied")
+            
+        case .ratingDenied: break
+            
+        case .feedbackDenied: break
         }
+        
+        // Finally update the rating manager on the status
+        RatingManager.shared.update(with: status)
     }
-    
 }
