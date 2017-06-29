@@ -915,7 +915,7 @@ extension ClassesTableViewController: LPRatingViewDelegate {
         case .ratingDenied:
             print("rate denied")
         case .feedbackApproved:
-            print("feed approved")
+            RatingManager.shared.openFeedback(ontop: self)
         case .feedbackDenied:
             print("feed denied")
         }

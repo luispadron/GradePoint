@@ -104,8 +104,8 @@ class SettingsTableViewController: UITableViewController {
         case 2:
             switch indexPath.row {
             case 0:
-                let presentError = { self.presentErrorAlert(title: "Unable to email", message: "Couldn't open email client.\nFeel free to email me at Luis@luispadron.com") }
-                let toEmail = "luis@luispadron.com"
+                let presentError = { self.presentErrorAlert(title: "Unable to email", message: "Couldn't open email client.\nFeel free to email me at LuisPadronn@gmail.com") }
+                let toEmail = "LuisPadronn@gmail.com"
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed), let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
                     if !UIApplication.shared.openURL(url) { presentError() }
                 } else {

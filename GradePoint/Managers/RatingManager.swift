@@ -17,8 +17,9 @@ class RatingManager {
         return try! Realm().objects(Class.self).count > 0 ? true : false
     }
     
+    /// Opens the appstore allowing the user to rate the app
     func openAppStore() {
-//        let reviewUrl = "itms-apps://itunes.apple.com/app/id\(RatingManager.appId)?action=write-review"
+        // let reviewUrl = "itms-apps://itunes.apple.com/app/id\(RatingManager.appId)?action=write-review"
         let reviewUrl = "itms-apps://itunes.apple.com/app/id\(RatingManager.appId)"
         if let url = URL(string: reviewUrl) {
             if #available(iOS 10.0, *) {
@@ -27,6 +28,25 @@ class RatingManager {
                 UIApplication.shared.openURL(url)
             }
         }
+    }
+    
+    /// Opens the mail client if it can, if not lets the user know where to contact for feedback
+    func openFeedback(ontop controller: UIViewController) {
+        let presentError = {
+            controller.presentErrorAlert(title: "Unable to email",
+                                   message: "Couldn't open email client.\nFeel free to email me at LuisPadronn@gmail.com")
+        }
         
+        let toEmail = "luispadronn@gmail.com"
+        if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
+            let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
+            
+                if !UIApplication.shared.openURL(url) {
+                    presentError()
+                }
+            
+        } else {
+            presentError()
+        }
     }
 }
