@@ -225,9 +225,22 @@ class ClassesTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Do nothing if ratings section
+        if indexPath.section == ratingsSection {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
+        // Do nothing if ratings section
+        guard indexPath.section != ratingsSection else {
+            return nil
+        }
+        
         let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
             finished(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -248,6 +261,11 @@ class ClassesTableViewController: UITableViewController {
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Do nothing if ratings section
+        guard indexPath.section != ratingsSection else {
+            return nil
+        }
+        
         let edit = UIContextualAction(style: .normal, title: "Edit", handler: { _, _, finished in
             self.performSegue(withIdentifier: .addEditClass, sender: indexPath)
             finished(true)
@@ -269,6 +287,11 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        // Do nothing if ratings section
+        guard indexPath.section != ratingsSection else {
+            return nil
+        }
+        
         guard #available(iOS 11.0, *) else {
             // Use older swipe actions for any iOS less than 11.0
             return createLegacySwipeActions()
@@ -279,6 +302,11 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // No action if touching ratingsViewCell
+        guard indexPath.section != ratingsSection else {
+            return
+        }
+        
         self.performSegue(withIdentifier: .showDetail, sender: tableView.cellForRow(at: indexPath)!)
     }
     
@@ -690,7 +718,9 @@ extension ClassesTableViewController: Segueable {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segueIdentifier(forSegue: segue) {
         case .showDetail:
-            guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
+            guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else {
+                return
+            }
             
             let classItem: Class = classObj(at: indexPath)
             
@@ -834,38 +864,54 @@ extension ClassesTableViewController: LPRatingViewDelegate {
             .font: UIFont.systemFont(ofSize: 20)
         ]
         let approvalAttrs: [NSAttributedStringKey : Any] = [
-            .foregroundColor: UIColor(red: 0.553, green: 0.694, blue: 0.910, alpha: 1.00)
+            .foregroundColor: UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
         ]
         let rejectionAttrs: [NSAttributedStringKey: Any] = [
             .foregroundColor: UIColor.white
         ]
         
         switch state {
+            
         case .initial:
-            return LPRatingViewConfiguration(
-                title: NSAttributedString(string: "Enjoying GradePoint?", attributes: titleAttrs),
+            var config = LPRatingViewConfiguration(
+                title: NSAttributedString(string: "Enjoying GadePoint?", attributes: titleAttrs),
                 approvalButtonTitle: NSAttributedString(string: "Yes!", attributes: approvalAttrs),
                 rejectionButtonTitle: NSAttributedString(string: "Not really", attributes: rejectionAttrs)
             )
+            
+            config.backgroundColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
+            config.rejectionButtonColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
+            return config
+            
         case .approval:
-            return LPRatingViewConfiguration(
+            var config = LPRatingViewConfiguration(
                 title: NSAttributedString(string: "Would you mind rating in the App Store?", attributes: titleAttrs),
                 approvalButtonTitle: NSAttributedString(string: "Sure!", attributes: approvalAttrs),
                 rejectionButtonTitle: NSAttributedString(string: "Not right now", attributes: rejectionAttrs)
             )
+            
+            config.backgroundColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
+            config.rejectionButtonColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
+            return config
+            
         case .rejection:
-            return LPRatingViewConfiguration(
+            var config = LPRatingViewConfiguration(
                 title: NSAttributedString(string: "I'd love to hear why", attributes: titleAttrs),
                 approvalButtonTitle: NSAttributedString(string: "Give feedback", attributes: approvalAttrs),
                 rejectionButtonTitle: NSAttributedString(string: "Not now", attributes: rejectionAttrs)
             )
+            
+            config.backgroundColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
+            config.rejectionButtonColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
+            return config
         }
     }
     
     func ratingViewDidFinish(_ view: LPRatingView, with status: LPRatingViewCompletionStatus) {
         switch status {
         case .ratingApproved:
-            print("rate approved")
+            // Open the app store
+            RatingManager.shared.openAppStore()
         case .ratingDenied:
             print("rate denied")
         case .feedbackApproved:
