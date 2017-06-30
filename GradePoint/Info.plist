@@ -34,7 +34,7 @@
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconFile</key>
-			<string>CalcTabBarIcon</string>
+			<string>CalculatorTabBarIcon</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Calculate GPA</string>
 			<key>UIApplicationShortcutItemType</key>
