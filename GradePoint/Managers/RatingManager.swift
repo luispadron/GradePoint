@@ -51,7 +51,24 @@ class RatingManager {
     
     /// Updates the rating manager on the final status
     func update(with status: LPRatingViewCompletionStatus) {
+        // Update the rating info object
         
+        try! Realm().write {
+            switch status {
+            case .ratingApproved:
+                ratingInfo.lastStatus = .ratingAllowed
+            case .ratingDenied:
+                ratingInfo.lastStatus = .ratingRejected
+            case .feedbackApproved:
+                ratingInfo.lastStatus = .feedbackAllowed
+            case .feedbackDenied:
+                ratingInfo.lastStatus = .feedbackRejected
+            }
+            
+            ratingInfo.lastAsked = Date()
+            ratingInfo.timesAsked += 1
+            ratingInfo.lastAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        }
     }
     
     /// Opens the appstore allowing the user to rate the app

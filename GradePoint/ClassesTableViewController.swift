@@ -53,9 +53,9 @@ class ClassesTableViewController: UITableViewController {
     }
     
     /// Whether or not the tableview should show a rating view
-    lazy var shouldPresentRating: Bool = {
-        return RatingManager.shared.shouldPresentRating()
-    }()
+    var shouldPresentRating: Bool {
+        get { return RatingManager.shared.shouldPresentRating() }
+    }
     
     /// The section number for the favorites section
     private let favoritesSection: Int = 0
@@ -924,6 +924,7 @@ extension ClassesTableViewController: LPRatingViewDelegate {
         
         // Finally update the rating manager on the status
         RatingManager.shared.update(with: status)
+        
         /// Remove the view from the table view
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [IndexPath(row: 0, section: ratingsSection)], with: .automatic)
