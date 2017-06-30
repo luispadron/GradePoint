@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// This is used when onboarding must be presented, because after onboarding is presented 
     /// we must fix the root view controllers to their orignal positions
     var initialRootController: UIViewController?
+    /// The last time the app was active
+    var lastTimeActive: Date?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
@@ -67,9 +69,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !hasOnboarded { self.presentOnboarding() }
         
         // Perform any required migrations
-        MigrationManager.performMigrations()
+        MigrationManager.performMigrations() {
+            // App has launched and migrations finished, increase sessions
+            RatingManager.shared.incrementSessions()
+        }
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Increase sessions if last session longer than two hours
+        if let last = lastTimeActive {
+            let secondsSince = abs(Int(Date().timeIntervalSince(last)))
+            if secondsSince / 3600 >= 2 {
+                RatingManager.shared.incrementSessions()
+            }
+        }
+        
+        // Update last active time
+        lastTimeActive = Date()
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem,

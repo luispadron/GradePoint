@@ -17,7 +17,7 @@ final class MigrationManager {
     public static var currentSchemaVersion: UInt64 = 1
     
     /// Performs migration and updates any old schemas to `currentSchemaVersion`
-    public static func performMigrations() {
+    public static func performMigrations(completion: (() -> Void)? = nil) {
         let config = Realm.Configuration(
             schemaVersion: currentSchemaVersion,
             migrationBlock: { migration, oldVersion in
@@ -37,5 +37,8 @@ final class MigrationManager {
         } catch {
             fatalError("Error opening Realm after migration: \(error)")
         }
+        
+        // Call completion
+        completion?()
     }
 }

@@ -924,5 +924,10 @@ extension ClassesTableViewController: LPRatingViewDelegate {
         
         // Finally update the rating manager on the status
         RatingManager.shared.update(with: status)
+        /// Remove the view from the table view
+        self.tableView.beginUpdates()
+        self.tableView.deleteRows(at: [IndexPath(row: 0, section: ratingsSection)], with: .automatic)
+        self.tableView.reloadSections(IndexSet.init(integer: ratingsSection), with: .automatic)
+        self.tableView.endUpdates()
     }
 }
