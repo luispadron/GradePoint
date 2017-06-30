@@ -103,7 +103,7 @@ class RatingManager {
     // MARK: Private helper methods/values
     
     /// Returns the day since the user was last asked to rate
-    var daysSinceAsked: Int?  {
+    private var daysSinceAsked: Int?  {
         get {
             guard let askDate = ratingInfo.lastAsked else {
                 return nil
@@ -112,6 +112,15 @@ class RatingManager {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.day], from: askDate, to: Date())
             return components.day
+        }
+    }
+    
+    /// Returns whether the app has been updated since the last time the user was asked to rate
+    private var hasAppBeenUpdated: Bool {
+        get {
+            let lastVersion = ratingInfo.lastAppVersion ?? "nil"
+            let current = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "nil"
+            return current != lastVersion
         }
     }
     
@@ -128,22 +137,26 @@ class RatingManager {
     
     /// Returns whether user should be asked to rate, if they have already rated the app
     private func shouldAskAfterRating() -> Bool {
-        return false
+        if #available(iOS 11.0, *) {
+            return false
+        } else {
+            return hasAppBeenUpdated && daysSinceAsked ?? 0 > 15 && ratingInfo.timesAsked <= 2
+        }
     }
     
     /// Returns whether user should be asked to rate, if they have rejected rating before
     private func shouldAskAfterRatingRejected() -> Bool {
-        return false
+        return daysSinceAsked ?? 0 > 15 || (hasAppBeenUpdated && daysSinceAsked ?? 0 > 10) && ratingInfo.timesAsked <= 3
     }
     
     /// Returns whether user should be asked to rate, if they have submitted feedback
     private func shouldAskAfterFeedback() -> Bool {
-        return false
+        return hasAppBeenUpdated && daysSinceAsked ?? 0 > 10 && ratingInfo.timesAsked <= 2
     }
     
     /// Returns whether user should be asked to rate, if they rejected to submit feedback
     private func shouldAskAfterFeedbackRejected() -> Bool {
-        return false
+        return hasAppBeenUpdated && daysSinceAsked ?? 0 > 60 && ratingInfo.timesAsked <= 2
     }
     
     

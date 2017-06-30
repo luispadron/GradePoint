@@ -32,14 +32,6 @@ class RatingInfo: Object {
     @objc dynamic var appSessions: Int = 0
     /// The amount of times the user has been asked to rate the app
     @objc dynamic var timesAsked: Int = 0
-    /// The amount of times the user has allowed/accepted to rate the app
-    @objc dynamic var timesAllowedRating: Int = 0
-    /// The amount of times the user has allowed/accepted to give feedback about the app
-    @objc dynamic var timesAllowedFeedback: Int = 0
-    /// The amount of times the user has denied to rate the app
-    @objc dynamic var timesRejectedRating: Int = 0
-    /// The amount of times the user has denied to give feedback about the app
-    @objc dynamic var timesRejectedFeedback: Int = 0
     /// The last date the user was asked to rate the app
     @objc dynamic var lastAsked: Date? = nil
     /// The last app version the user was asked to rate
