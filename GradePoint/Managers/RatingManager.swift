@@ -8,22 +8,21 @@
 
 import UIKit
 import RealmSwift
-import LPIntegratedRating
 
 class RatingManager {
     /// The rating manager singelton/shared instance
     static let shared: RatingManager = RatingManager()
     /// The applications ID
     static let appId = 1207588479
-    /// Returns the only RatingInfo object stored in realm, if never created before, creates one and returns it
-    private var ratingInfo: RatingInfo {
+    /// Returns the only AppInfo object stored in realm, if never created before, creates one and returns it
+    private var appInfo: AppInfo {
         get {
             let realm = try! Realm()
-            guard let info = realm.objects(RatingInfo.self).first else {
+            guard let info = realm.objects(AppInfo.self).first else {
                 // Create an object, return it
-                let newInfo = RatingInfo()
+                let newInfo = AppInfo()
                 try! realm.write {
-                    realm.create(RatingInfo.self, value: newInfo, update: false)
+                    realm.create(AppInfo.self, value: newInfo, update: false)
                 }
                 return newInfo
             }
@@ -35,146 +34,19 @@ class RatingManager {
     
     /// Whether the rating dialog should be presented to the user or not
     func shouldPresentRating() -> Bool {
-        switch ratingInfo.lastStatus {
-        case .neverAsked:
-            return shouldAskFirstTime()
-        case .ratingAllowed:
-            return shouldAskAfterRating()
-        case .ratingRejected:
-            return shouldAskAfterRatingRejected()
-        case .feedbackAllowed:
-            return shouldAskAfterFeedback()
-        case .feedbackRejected:
-            return shouldAskAfterFeedbackRejected()
-        }
+        return true
     }
     
-    /// Updates the rating manager on the final status
-    func update(with status: LPRatingViewCompletionStatus) {
-        // Update the rating info object
-        
-        try! Realm().write {
-            switch status {
-            case .ratingApproved:
-                ratingInfo.lastStatus = .ratingAllowed
-            case .ratingDenied:
-                ratingInfo.lastStatus = .ratingRejected
-            case .feedbackApproved:
-                ratingInfo.lastStatus = .feedbackAllowed
-            case .feedbackDenied:
-                ratingInfo.lastStatus = .feedbackRejected
-            }
-            
-            ratingInfo.lastAsked = Date()
-            ratingInfo.timesAsked += 1
-            ratingInfo.lastAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        }
-    }
-    
-    /// Opens the appstore allowing the user to rate the app
-    func openAppStore() {
-        // let reviewUrl = "itms-apps://itunes.apple.com/app/id\(RatingManager.appId)?action=write-review"
-        let reviewUrl = "itms-apps://itunes.apple.com/app/id\(RatingManager.appId)"
-        if let url = URL(string: reviewUrl) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
-    }
-    
-    /// Opens the mail client if it can, if not lets the user know where to contact for feedback
-    func openFeedback(ontop controller: UIViewController) {
-        let presentError = {
-            controller.presentErrorAlert(title: "Unable to email",
-                                         message: "Couldn't open email client.\nFeel free to email me at LuisPadronn@gmail.com")
-        }
-        
-        let toEmail = "luispadronn@gmail.com"
-        if let subject = "Feedback For GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
-            let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
-            
-            if !UIApplication.shared.openURL(url) {
-                presentError()
-            }
-            
-        } else {
-            presentError()
-        }
-    }
-    
-    /// Increments the appSessions count on the rating info by 1
+    /// Increments the appSessions count in the app info by 1
     func incrementSessions() {
         let realm = try! Realm()
-        let info = self.ratingInfo
+        let info = self.appInfo
         if realm.isInWriteTransaction {
             info.appSessions += 1
         } else {
             try! realm.write {
-                ratingInfo.appSessions += 1
+                appInfo.appSessions += 1
             }
         }
     }
-    
-    // MARK: Private helper methods/values
-    
-    /// Returns the day since the user was last asked to rate
-    private var daysSinceAsked: Int?  {
-        get {
-            guard let askDate = ratingInfo.lastAsked else {
-                return nil
-            }
-            
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.day], from: askDate, to: Date())
-            return components.day
-        }
-    }
-    
-    /// Returns whether the app has been updated since the last time the user was asked to rate
-    private var hasAppBeenUpdated: Bool {
-        get {
-            let lastVersion = ratingInfo.lastAppVersion ?? "nil"
-            let current = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "nil"
-            return current != lastVersion
-        }
-    }
-    
-    /// Returns whether user should be asked to rate, if this is the first time asking them
-    private func shouldAskFirstTime() -> Bool {
-        let classCount = try! Realm().objects(Class.self).count
-        let assignmentCount = try! Realm().objects(Assignment.self).count
-        let gpaCalcsCount = try! Realm().objects(GPACalculation.self).count
-        
-        let passesCounts = (classCount >= 3 && assignmentCount >= 5) || gpaCalcsCount >= 10
-        
-        return passesCounts && ratingInfo.appSessions >= 5
-    }
-    
-    /// Returns whether user should be asked to rate, if they have already rated the app
-    private func shouldAskAfterRating() -> Bool {
-        if #available(iOS 11.0, *) {
-            return false
-        } else {
-            return hasAppBeenUpdated && daysSinceAsked ?? 0 > 15 && ratingInfo.timesAsked <= 2
-        }
-    }
-    
-    /// Returns whether user should be asked to rate, if they have rejected rating before
-    private func shouldAskAfterRatingRejected() -> Bool {
-        return daysSinceAsked ?? 0 > 15 || (hasAppBeenUpdated && daysSinceAsked ?? 0 > 10) && ratingInfo.timesAsked <= 3
-    }
-    
-    /// Returns whether user should be asked to rate, if they have submitted feedback
-    private func shouldAskAfterFeedback() -> Bool {
-        return hasAppBeenUpdated && daysSinceAsked ?? 0 > 10 && ratingInfo.timesAsked <= 2
-    }
-    
-    /// Returns whether user should be asked to rate, if they rejected to submit feedback
-    private func shouldAskAfterFeedbackRejected() -> Bool {
-        return hasAppBeenUpdated && daysSinceAsked ?? 0 > 60 && ratingInfo.timesAsked <= 2
-    }
-    
-    
 }

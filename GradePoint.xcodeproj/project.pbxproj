@@ -64,7 +64,7 @@
 		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
 		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
 		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
-		A0C6642B1F05C6B400583C99 /* RatingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6642A1F05C6B400583C99 /* RatingInfo.swift */; };
+		A0C6642B1F05C6B400583C99 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6642A1F05C6B400583C99 /* AppInfo.swift */; };
 		A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */; };
 		A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */; };
 		A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */; };
@@ -174,7 +174,7 @@
 		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
 		A0C5170C1E78A64C0089527D /* GPAScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAScale.swift; sourceTree = "<group>"; };
 		A0C517131E78AC0B0089527D /* GPARubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPARubric.swift; sourceTree = "<group>"; };
-		A0C6642A1F05C6B400583C99 /* RatingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInfo.swift; sourceTree = "<group>"; };
+		A0C6642A1F05C6B400583C99 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorsViewController.swift; sourceTree = "<group>"; };
 		A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGPAView.swift; sourceTree = "<group>"; };
 		A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculatorViewController.swift; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 		A01B87801DBD272600A85E2D /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				A0C6642A1F05C6B400583C99 /* RatingInfo.swift */,
+				A0C6642A1F05C6B400583C99 /* AppInfo.swift */,
 				A07B59741E86ED7D007EEE1E /* Main Models */,
 				A0C5170E1E78A65E0089527D /* GPA */,
 				A07B59751E86ED8B007EEE1E /* GPA Calculations */,
@@ -848,7 +848,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0C6642B1F05C6B400583C99 /* RatingInfo.swift in Sources */,
+				A0C6642B1F05C6B400583C99 /* AppInfo.swift in Sources */,
 				A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */,
 				A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */,
 				A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */,

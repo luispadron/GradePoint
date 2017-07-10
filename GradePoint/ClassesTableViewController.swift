@@ -60,12 +60,9 @@ class ClassesTableViewController: UITableViewController {
     /// The section number for the favorites section
     private let favoritesSection: Int = 0
     
-    /// The section number for the ratings section
-    private let ratingsSection: Int = 1
-    
     /// The number of extra sections in the tableview, not counting classesBySection
     /// This number needs to be subtracted from sections when accessing classesBySections
-    private let accessorySections: Int = 2
+    private let accessorySections: Int = 1
     
     /// The rating view cell, once created it will be reused
     private var ratingViewCell: LPRatingTableViewCell?
@@ -150,9 +147,6 @@ class ClassesTableViewController: UITableViewController {
             if section == favoritesSection {
                 // The favorites section will only contain favorited classes duh...
                 return favoritedClasses.count
-            } else if section == ratingsSection {
-                // Determine if showing rating
-                return shouldPresentRating ? 1 : 0
             } else {
                 return classesBySection[section - accessorySections].count
             }
@@ -165,8 +159,6 @@ class ClassesTableViewController: UITableViewController {
         } else {
             if section == favoritesSection {
                 return favoritedClasses.count > 0 ? 44 : 0
-            } else if section == ratingsSection {
-                return shouldPresentRating ? 44 : 0
             } else  {
                 return classesBySection[section - accessorySections].count > 0 ? 44 : 0
             }
@@ -174,11 +166,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == ratingsSection {
-            return 120
-        } else {
-            return 60
-        }
+        return 60
     }
     
     /// Creates a custom header view for a section
@@ -197,8 +185,6 @@ class ClassesTableViewController: UITableViewController {
         // Set correct label text
         if section == favoritesSection {
             label.text = "Favorites"
-        } else if section == ratingsSection {
-            label.text = "Rate"
         } else {
             let semForSection = semesterSections[section - accessorySections]
             label.text = "\(semForSection.term) \(semForSection.year)"
@@ -208,11 +194,6 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // If section is for rating, then add the rating cell, else do normal cells
-        if indexPath.section == ratingsSection {
-            return createRatingCell()
-        }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         
         let classItem: Class = classObj(at: indexPath)
@@ -225,22 +206,8 @@ class ClassesTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Do nothing if ratings section
-        if indexPath.section == ratingsSection {
-            return false
-        } else {
-            return true
-        }
-    }
-    
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Do nothing if ratings section
-        guard indexPath.section != ratingsSection else {
-            return nil
-        }
-        
         let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
             finished(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -261,11 +228,6 @@ class ClassesTableViewController: UITableViewController {
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Do nothing if ratings section
-        guard indexPath.section != ratingsSection else {
-            return nil
-        }
-        
         let edit = UIContextualAction(style: .normal, title: "Edit", handler: { _, _, finished in
             self.performSegue(withIdentifier: .addEditClass, sender: indexPath)
             finished(true)
@@ -287,11 +249,6 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        // Do nothing if ratings section
-        guard indexPath.section != ratingsSection else {
-            return nil
-        }
-        
         guard #available(iOS 11.0, *) else {
             // Use older swipe actions for any iOS less than 11.0
             return createLegacySwipeActions()
@@ -302,11 +259,6 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // No action if touching ratingsViewCell
-        guard indexPath.section != ratingsSection else {
-            return
-        }
-        
         self.performSegue(withIdentifier: .showDetail, sender: tableView.cellForRow(at: indexPath)!)
     }
     
@@ -368,21 +320,7 @@ class ClassesTableViewController: UITableViewController {
             classesBySection.append(classesForSemester)
         }
     }
-    
-    /// Creates a rating cell and returns it
-    private func createRatingCell() -> LPRatingTableViewCell {
-        guard let cell = ratingViewCell else {
-            // Create the cell
-            let newCell = LPRatingTableViewCell(style: .default, reuseIdentifier: nil)
-            newCell.delegate = self
-            if ratingViewCell == nil {
-                ratingViewCell = newCell
-            }
-            return newCell
-        }
-        
-        return cell
-    }
+
     
     /// Returns a classObj for the sent in index path, used for tableview methods
     private func classObj(at indexPath: IndexPath) -> Class {
@@ -852,83 +790,5 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
         guard let detailController = detailNavController.topViewController as? ClassDetailTableViewController else { return false }
         if detailController.classObj == nil { return true }
         return false
-    }
-}
-
-// MARK: - Rating delegation
-
-extension ClassesTableViewController: LPRatingViewDelegate {
-    func ratingViewConfiguration(_ view: LPRatingView, for state: LPRatingViewState) -> LPRatingViewConfiguration? {
-        let titleAttrs: [NSAttributedStringKey: Any] = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont.systemFont(ofSize: 20)
-        ]
-        let approvalAttrs: [NSAttributedStringKey : Any] = [
-            .foregroundColor: UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-        ]
-        let rejectionAttrs: [NSAttributedStringKey: Any] = [
-            .foregroundColor: UIColor.white
-        ]
-        
-        switch state {
-            
-        case .initial:
-            var config = LPRatingViewConfiguration(
-                title: NSAttributedString(string: "Enjoying GadePoint?", attributes: titleAttrs),
-                approvalButtonTitle: NSAttributedString(string: "Yes!", attributes: approvalAttrs),
-                rejectionButtonTitle: NSAttributedString(string: "Not really", attributes: rejectionAttrs)
-            )
-            
-            config.backgroundColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-            config.rejectionButtonColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-            return config
-            
-        case .approval:
-            var config = LPRatingViewConfiguration(
-                title: NSAttributedString(string: "Would you mind rating in the App Store?", attributes: titleAttrs),
-                approvalButtonTitle: NSAttributedString(string: "Sure!", attributes: approvalAttrs),
-                rejectionButtonTitle: NSAttributedString(string: "Not right now", attributes: rejectionAttrs)
-            )
-            
-            config.backgroundColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-            config.rejectionButtonColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-            return config
-            
-        case .rejection:
-            var config = LPRatingViewConfiguration(
-                title: NSAttributedString(string: "I'd love to hear why", attributes: titleAttrs),
-                approvalButtonTitle: NSAttributedString(string: "Give feedback", attributes: approvalAttrs),
-                rejectionButtonTitle: NSAttributedString(string: "Not now", attributes: rejectionAttrs)
-            )
-            
-            config.backgroundColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-            config.rejectionButtonColor = UIColor(red: 0.518, green: 0.694, blue: 0.929, alpha: 1.00)
-            return config
-        }
-    }
-    
-    func ratingViewDidFinish(_ view: LPRatingView, with status: LPRatingViewCompletionStatus) {
-        switch status {
-        case .ratingApproved:
-            // Open the app store
-            RatingManager.shared.openAppStore()
-            
-        case .feedbackApproved:
-            // Open mail client to provide feedback
-            RatingManager.shared.openFeedback(ontop: self)
-            
-        case .ratingDenied: break
-            
-        case .feedbackDenied: break
-        }
-        
-        // Finally update the rating manager on the status
-        RatingManager.shared.update(with: status)
-        
-        /// Remove the view from the table view
-        self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: [IndexPath(row: 0, section: ratingsSection)], with: .automatic)
-        self.tableView.reloadSections(IndexSet.init(integer: ratingsSection), with: .automatic)
-        self.tableView.endUpdates()
     }
 }
