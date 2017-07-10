@@ -95,9 +95,6 @@ class AddEditClassViewController: UIViewController {
     /// The current state the view is in, this doesn't change when editing a Class
     var viewState: ViewState = .inProgress
     
-    /// The increments the credit hours slider will increase by when changing
-    let sliderStep: Float = 0.5
-    
     // MARK: Overrides
     
     override func viewDidLoad() {
@@ -121,7 +118,7 @@ class AddEditClassViewController: UIViewController {
         self.nameField.delegate = self
         self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         self.nameField.autocapitalizationType = .words
-        self.nameField.returnKeyType = .next
+        self.nameField.returnKeyType = .done
         
         // Get student type from user defaults
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
