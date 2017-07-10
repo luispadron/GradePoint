@@ -388,30 +388,33 @@
                                                     <constraint firstAttribute="height" id="79P-5U-Bgj"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLa-Nn-0XS" userLabel="Credit Hour Field">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGI-uk-XaS" userLabel="Credit Hour Field">
                                                 <rect key="frame" x="0.0" y="224" width="414" height="60"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-kB-Q6n" userLabel="Credit Hours">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27w-vS-bez" userLabel="Credit Hours">
                                                         <rect key="frame" x="20" y="8" width="97" height="44"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPb-gC-sKS" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                                        <rect key="frame" x="132" y="8" width="274" height="44"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    </view>
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="tft-q7-Rnn">
+                                                        <rect key="frame" x="135" y="8" width="261" height="45"/>
+                                                        <color key="tintColor" red="0.66274509803921566" green="0.87058823529411766" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="creditHourSliderChanged:" destination="quP-G3-hBI" eventType="valueChanged" id="kBL-1q-poS"/>
+                                                        </connections>
+                                                    </slider>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstItem="cRG-kB-Q6n" firstAttribute="leading" secondItem="WLa-Nn-0XS" secondAttribute="leading" constant="20" id="0uf-JE-VMJ"/>
-                                                    <constraint firstItem="cRG-kB-Q6n" firstAttribute="top" secondItem="WLa-Nn-0XS" secondAttribute="top" constant="8" id="3sI-mb-f7i"/>
-                                                    <constraint firstAttribute="height" constant="60" id="9Xw-Q0-Mg8"/>
-                                                    <constraint firstAttribute="trailing" secondItem="WPb-gC-sKS" secondAttribute="trailing" constant="8" id="VY1-0o-tVf"/>
-                                                    <constraint firstItem="WPb-gC-sKS" firstAttribute="leading" secondItem="cRG-kB-Q6n" secondAttribute="trailing" constant="15" id="X07-DE-p5h"/>
-                                                    <constraint firstItem="WPb-gC-sKS" firstAttribute="top" secondItem="WLa-Nn-0XS" secondAttribute="top" constant="8" id="ZWy-kE-gzg"/>
-                                                    <constraint firstAttribute="bottom" secondItem="WPb-gC-sKS" secondAttribute="bottom" constant="8" id="fKO-JE-Ztn"/>
-                                                    <constraint firstAttribute="bottom" secondItem="cRG-kB-Q6n" secondAttribute="bottom" constant="8" id="uVM-sA-TOL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="tft-q7-Rnn" secondAttribute="bottom" constant="8" id="Jyr-Rb-P7n"/>
+                                                    <constraint firstAttribute="height" constant="60" id="O2i-ZY-cSQ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="27w-vS-bez" secondAttribute="bottom" constant="8" id="Si8-G9-s0Q"/>
+                                                    <constraint firstItem="tft-q7-Rnn" firstAttribute="top" secondItem="sGI-uk-XaS" secondAttribute="top" constant="8" id="Svo-O5-lkw"/>
+                                                    <constraint firstItem="27w-vS-bez" firstAttribute="leading" secondItem="sGI-uk-XaS" secondAttribute="leading" constant="20" id="VgP-kI-gUS"/>
+                                                    <constraint firstItem="tft-q7-Rnn" firstAttribute="leading" secondItem="27w-vS-bez" secondAttribute="trailing" constant="20" id="bl6-Kp-HZB"/>
+                                                    <constraint firstItem="27w-vS-bez" firstAttribute="top" secondItem="sGI-uk-XaS" secondAttribute="top" constant="8" id="la9-54-rb5"/>
+                                                    <constraint firstAttribute="trailing" secondItem="tft-q7-Rnn" secondAttribute="trailing" constant="20" id="pKQ-4o-iWt"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-K4-8dK" userLabel="Semester Field">
@@ -541,7 +544,7 @@
                         <outlet property="classTypePickerView" destination="TX2-IU-NZy" id="dOT-0j-aAk"/>
                         <outlet property="classTypePickerViewConstraint" destination="79P-5U-Bgj" id="hzZ-49-DYL"/>
                         <outlet property="classTypeView" destination="ras-O3-QCQ" id="gnd-Wt-Qfl"/>
-                        <outlet property="creditHoursField" destination="WPb-gC-sKS" id="pb3-Rd-67b"/>
+                        <outlet property="creditHourSlider" destination="tft-q7-Rnn" id="Jm1-l6-JSo"/>
                         <outlet property="gradeFieldContainerView" destination="ucc-Km-1Rd" id="s7n-Xw-Cg0"/>
                         <outlet property="gradeLabel" destination="k54-nl-9CU" id="JFP-UA-Bqu"/>
                         <outlet property="gradePickerView" destination="AFZ-5A-KW7" id="MsQ-vn-23f"/>
@@ -576,7 +579,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1365" y="128"/>
+            <point key="canvasLocation" x="1362.3188405797102" y="127.98913043478262"/>
         </scene>
         <!--Calculators-->
         <scene sceneID="jFx-Dr-X0R">

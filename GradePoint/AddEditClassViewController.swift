@@ -28,6 +28,7 @@ class AddEditClassViewController: UIViewController {
     let heightForRubricView: CGFloat = 70.0
     
     ///// VIEWS
+    
     // Nav bar
     @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var navigationTitle: UILabel!
@@ -43,7 +44,7 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var classTypeLabel: UILabel!
     @IBOutlet weak var classTypePickerView: UIPickerView!
     @IBOutlet weak var classTypePickerViewConstraint: NSLayoutConstraint!
-    @IBOutlet weak var creditHoursField: UISafeTextField!
+    @IBOutlet weak var creditHourSlider: UISlider!
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
@@ -52,6 +53,13 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var gradePickerView: UIPickerView!
     @IBOutlet weak var gradePickerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var rubricHeaderView: UIView!
+    /// The label inside the image view of the creditHoursSlider, used to update the value
+    private lazy var creditHoursLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        return label
+    }()
     
     /// Properties to handle the save button
     var canSave = false { didSet { saveButton.isEnabled = canSave } }
@@ -69,12 +77,15 @@ class AddEditClassViewController: UIViewController {
     }
     /// Dict which holds any rubric views and that rubrics PK, which were intially added to the view due to editing a class
     var editingRubrics = [String: UIRubricView]()
+    
     /// Any rubrics which were being edited and the user now wants to delete will be added to this array, stores the pk of the rubric to delete
     var rubricsToDelete = [String]()
     
     ///// Variables
+    
     /// The class type, grabbed from the Picker
     var classType: ClassType!
+    
     /// The semester, grabbed from the UISemesterPickerView
     var semester: Semester!
     
@@ -83,6 +94,9 @@ class AddEditClassViewController: UIViewController {
     
     /// The current state the view is in, this doesn't change when editing a Class
     var viewState: ViewState = .inProgress
+    
+    /// The increments the credit hours slider will increase by when changing
+    let sliderStep: Float = 0.5
     
     // MARK: Overrides
     
@@ -118,15 +132,21 @@ class AddEditClassViewController: UIViewController {
         // Hide the class type view if student is a college student
         self.classTypeView.isHidden = studentType == StudentType.college ? true : false
         
-        self.creditHoursField.textColor = UIColor.white
+        // Add a label to the thumb of the UISlider (creditHourSlider)
+        if let thumbView = creditHourSlider.subviews.last as? UIImageView {
+            let label = UILabel(frame: thumbView.bounds)
+            label.backgroundColor = .clear
+            label.textAlignment = .center
+            thumbView.addSubview(label)
+            
+            self.creditHoursLabel = label
+        }
+        
+        // Set default values for slider and label
         let defaultCredits = studentType == StudentType.college ? "3" : "1"
-        self.creditHoursField.attributedPlaceholder = NSAttributedString(string: defaultCredits, attributes: attrsForPrompt)
-        self.creditHoursField.delegate = self
-        self.creditHoursField.keyboardType = .numbersAndPunctuation
-        self.creditHoursField.returnKeyType = .done
-        self.creditHoursField.autocorrectionType = .no
-        self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.1...30)
-        self.creditHoursField.fieldType = .number
+        self.creditHourSlider.value = studentType == StudentType.college ? 3.0: 1.0
+        self.creditHoursLabel.text = "\(defaultCredits)"
+        
         
         // Set the delegate for the pickers
         self.classTypePickerView.delegate = self
@@ -135,35 +155,21 @@ class AddEditClassViewController: UIViewController {
         self.gradePickerView.delegate = self
         self.gradePickerView.dataSource = self
         
+        // Disable save
         self.saveButton.isEnabled = false
+        
+        
         
         // If were editing a class then update the UI
         // Handle case of editing an in progress class
         if let inProgressClass = self.classObj, inProgressClass.isClassInProgress {
             // Set view state to in progress
             self.viewState = .inProgress
-            self.prepareView(forState: viewState, isEditing: true)
-            // Update fields with edited classes attributes
-            self.navigationTitle.text = "Edit \(inProgressClass.name)"
-            self.nameField.text = inProgressClass.name
-            self.classTypeLabel.text = inProgressClass.classType.name()
-            updateClassTypePicker(for: inProgressClass)
-            self.creditHoursField.text = "\(inProgressClass.creditHours)"
-            updateSemesterPicker(for: inProgressClass)
-            updateRubricViews(for: inProgressClass)
+            self.prepareView(for: viewState, with: inProgressClass, isEditing: true)
         } else if let previousClass = self.classObj, !previousClass.isClassInProgress {
             // Set view state to previous
             self.viewState = .previous
-            self.prepareView(forState: viewState, isEditing: true)
-            // Update fields with edited classes attributes
-            self.navigationTitle.text = "Edit \(previousClass.name)"
-            self.nameField.text = previousClass.name
-            self.classTypeLabel.text = previousClass.classType.name()
-            updateClassTypePicker(for: previousClass)
-            self.creditHoursField.text = "\(previousClass.creditHours)"
-            updateSemesterPicker(for: previousClass)
-            self.gradeLabel.text = previousClass.grade?.gradeLetter
-            updateGradePicker(for: previousClass)
+            self.prepareView(for: viewState, with: previousClass, isEditing: true)
         } else {
             // Set a default semester
             let semester = Semester(withTerm: self.semesterPickerView.selectedSemester,
@@ -175,7 +181,7 @@ class AddEditClassViewController: UIViewController {
             let defaultGrade = scale.gpaRubrics[0].gradeLetter
             self.gradeLabel.text = defaultGrade
             // Prepare for add state
-            prepareView(forState: self.viewState, isEditing: false)
+            self.prepareView(for: self.viewState, with: nil, isEditing: false)
         }
         
         // If not on iPad where the view will be presented as a popover
@@ -203,6 +209,16 @@ class AddEditClassViewController: UIViewController {
         updateSaveButton()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Add a label to the thumb of the UISlider (creditHourSlider)
+        if let thumbView = creditHourSlider.subviews.last as? UIImageView {
+            thumbView.addSubview(self.creditHoursLabel)
+            self.creditHoursLabel.frame = thumbView.bounds
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
@@ -214,21 +230,44 @@ class AddEditClassViewController: UIViewController {
     
     // MARK: UI Update Methods
     
-    func prepareView(forState state: ViewState, isEditing: Bool) {
+    func prepareView(for state: ViewState, with classObj: Class?, isEditing: Bool) {
         if isEditing {
             // Remove the switcher
             self.typeSwitcher.superview?.removeFromSuperview()
             self.typeSwitcher.removeFromSuperview()
         }
         
+        // Update fields with edited classes attributes
+        if let cls = classObj {
+            self.navigationTitle.text = "Edit \(cls.name)"
+            self.nameField.text = cls.name
+            self.classTypeLabel.text = cls.classType.name()
+            updateClassTypePicker(for: cls)
+            self.creditHoursLabel.text = "\(cls.creditHours)"
+            self.creditHourSlider.value = Float(cls.creditHours)
+            updateSemesterPicker(for: cls)
+            
+        }
+        
         // Hide and show specific views
         switch state {
         case .inProgress:
+            // Update fields specific to in progress class if available
+            if let cls = classObj {
+                updateRubricViews(for: cls)
+            }
+            
             // Initially we need to have at least one rubric view added to the view
             if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
             // The other views are hidden by default
             break
         case .previous:
+            // Update fields specific to previous class if available
+            if let cls = classObj {
+                self.gradeLabel.text = cls.grade?.gradeLetter
+                updateGradePicker(for: cls)
+            }
+            
             // Hide the rubric views, show the grade field
             self.gradeFieldContainerView.isHidden = false
             self.gradeLabel.isHidden = false
@@ -314,6 +353,12 @@ class AddEditClassViewController: UIViewController {
         toggleVisibilty(for: self.classTypePickerView)
     }
     
+    @IBAction func creditHourSliderChanged(_ sender: UISlider) {
+        // Update credits label
+        self.creditHoursLabel.text = "\(Int(sender.value))"
+    }
+    
+    
     @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
         toggleVisibilty(for: self.semesterPickerView)
     }
@@ -356,12 +401,6 @@ class AddEditClassViewController: UIViewController {
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
-        
-        // Check credits are greater than 0
-        if let creditsText = creditHoursField.text, let credits = Double(creditsText), credits <= 0.0 {
-            self.presentErrorAlert(title: "Can't Save 💔", message: "Invalid number for credits field.")
-            return false
-        }
         
         // If adding a previous class, this checking of rubrics can be skipped
         guard self.viewState == .inProgress else { return true }
@@ -440,7 +479,7 @@ class AddEditClassViewController: UIViewController {
         // Create the semester
         let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
         
-        let credits = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
+        let credits = Int(creditHourSlider.value)
         // Create the new class
         let newClass = Class(name: self.nameField.safeText, classType: self.classType,
                              creditHours: credits, semester: semester, rubrics: List<Rubric>(rubrics))
@@ -460,7 +499,7 @@ class AddEditClassViewController: UIViewController {
     
     func saveNewPreviousClass() {
         let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
-        let credits = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
+        let credits = Int(creditHourSlider.value)
         let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
                              semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
         newClass.colorData = colorForView.toData()
@@ -484,7 +523,7 @@ class AddEditClassViewController: UIViewController {
         try! realm.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
-            classObj.creditHours = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
+            classObj.creditHours = Int(creditHourSlider.value)
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
         }
@@ -528,7 +567,7 @@ class AddEditClassViewController: UIViewController {
         try! realm.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
-            classObj.creditHours = Int(self.creditHoursField.safeText) ?? Int(self.creditHoursField.placeholder!)!
+            classObj.creditHours = Int(creditHourSlider.value)
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
             classObj.grade?.gradeLetter = self.gradeLabel.text!
@@ -680,7 +719,7 @@ class AddEditClassViewController: UIViewController {
         // If were about to show the picker view then scroll to it, IF its not going to be visible
         let scrollFrame = CGRect(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y,
                                  width: scrollView.frame.width, height: scrollView.frame.height)
-        if wasHidden && (!scrollFrame.intersects(pickerView.frame) || nameField.isFirstResponder || creditHoursField.isFirstResponder) {
+        if wasHidden && (!scrollFrame.intersects(pickerView.frame) || nameField.isFirstResponder) {
             let toScroll = self.scrollView.bounds.origin.y + 120.0
             self.scrollView.setContentOffset(CGPoint(x: 0, y: toScroll), animated: true)
         }
@@ -762,11 +801,8 @@ extension AddEditClassViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === nameField { // When hitting next, go to credit hours field
+        if textField === nameField {
             textField.resignFirstResponder()
-            creditHoursField.becomeFirstResponder()
-        } else if textField === creditHoursField {
-            creditHoursField.resignFirstResponder()
         }
         
         updateSaveButton()
