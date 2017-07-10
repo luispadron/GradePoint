@@ -52,11 +52,6 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
-    /// Whether or not the tableview should show a rating view
-    var shouldPresentRating: Bool {
-        get { return RatingManager.shared.shouldPresentRating() }
-    }
-    
     /// The section number for the favorites section
     private let favoritesSection: Int = 0
     

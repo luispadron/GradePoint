@@ -18,7 +18,7 @@ class AppInfo: Object {
     /// The primary id for the AppInfo object
     @objc dynamic var id: Int = 1
     /// The number of times the user has opened the app
-    @objc dynamic var appSessions: Int = 0
+    @objc dynamic var sessions: Int = 0
     
     // MARK: - Overrides
     

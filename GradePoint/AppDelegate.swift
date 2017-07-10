@@ -13,12 +13,31 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    /// Returns the only AppInfo object stored in realm, if never created before, creates one and returns it
+    public static var appInfo: AppInfo {
+        get {
+            let realm = try! Realm()
+            guard let info = realm.objects(AppInfo.self).first else {
+                // Create an object, return it
+                let newInfo = AppInfo()
+                try! realm.write {
+                    realm.create(AppInfo.self, value: newInfo, update: false)
+                }
+                return newInfo
+            }
+            return info
+        }
+    }
+    
     /// The initial root controler, before adding the onboarding controller as the root
     /// This is used when onboarding must be presented, because after onboarding is presented 
     /// we must fix the root view controllers to their orignal positions
     var initialRootController: UIViewController?
+    
     /// The last time the app was active
     var lastTimeActive: Date?
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Prints the realm path
@@ -71,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Perform any required migrations
         MigrationManager.performMigrations() {
             // App has launched and migrations finished, increase sessions
-            RatingManager.shared.incrementSessions()
+            self.incrementSessions()
         }
         
         return true
@@ -82,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let last = lastTimeActive {
             let secondsSince = abs(Int(Date().timeIntervalSince(last)))
             if secondsSince / 3600 >= 2 {
-                RatingManager.shared.incrementSessions()
+                self.incrementSessions()
             }
         }
         
@@ -125,6 +144,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: Helper Methods
+    
+    /// Increments the appSessions count in the app info by 1
+    private func incrementSessions() {
+        let realm = try! Realm()
+        let info = AppDelegate.appInfo
+        if realm.isInWriteTransaction {
+            info.sessions += 1
+        } else {
+            try! realm.write {
+                AppDelegate.appInfo.sessions += 1
+            }
+        }
+    }
     
     /// Present the onboarding to the user
     private func presentOnboarding() {
