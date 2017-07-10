@@ -100,6 +100,18 @@ class AddEditClassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // If not on iPad where the view will be presented as a popover, dont have to worry about keyboard
+        if !(UIDevice.current.userInterfaceIdiom == .pad) {
+            // Setup keyboard notifications
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardDidShow),
+                                                   name: .UIKeyboardDidShow, object: nil)
+            
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(keyboardWillHide),
+                                                   name: .UIKeyboardWillHide, object: nil)
+        }
+        
         // UI Setup
         self.navigationView.backgroundColor = colorForView
         let visibleColor = colorForView.visibleTextColor(lightColor: UIColor.mainText, darkColor: UIColor.darkText)
@@ -112,7 +124,6 @@ class AddEditClassViewController: UIViewController {
         // Customization for the fields
         let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
                                                             .font: UIFont.systemFont(ofSize: 17)]
-        
         self.nameField.textColor = UIColor.white
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
@@ -129,21 +140,10 @@ class AddEditClassViewController: UIViewController {
         // Hide the class type view if student is a college student
         self.classTypeView.isHidden = studentType == StudentType.college ? true : false
         
-        // Add a label to the thumb of the UISlider (creditHourSlider)
-        if let thumbView = creditHourSlider.subviews.last as? UIImageView {
-            let label = UILabel(frame: thumbView.bounds)
-            label.backgroundColor = .clear
-            label.textAlignment = .center
-            thumbView.addSubview(label)
-            
-            self.creditHoursLabel = label
-        }
-        
         // Set default values for slider and label
         let defaultCredits = studentType == StudentType.college ? "3" : "1"
         self.creditHourSlider.value = studentType == StudentType.college ? 3.0: 1.0
         self.creditHoursLabel.text = "\(defaultCredits)"
-        
         
         // Set the delegate for the pickers
         self.classTypePickerView.delegate = self
@@ -154,8 +154,6 @@ class AddEditClassViewController: UIViewController {
         
         // Disable save
         self.saveButton.isEnabled = false
-        
-        
         
         // If were editing a class then update the UI
         // Handle case of editing an in progress class
@@ -181,17 +179,6 @@ class AddEditClassViewController: UIViewController {
             self.prepareView(for: self.viewState, with: nil, isEditing: false)
         }
         
-        // If not on iPad where the view will be presented as a popover
-        if !(UIDevice.current.userInterfaceIdiom == .pad) {
-            // Setup keyboard notifications
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(keyboardDidShow),
-                                                   name: .UIKeyboardDidShow, object: nil)
-            
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(keyboardWillHide),
-                                                   name: .UIKeyboardWillHide, object: nil)
-        }
         // Notify of nav bar color changes
         self.setNeedsStatusBarAppearanceUpdate()
     }
