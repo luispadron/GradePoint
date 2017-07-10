@@ -403,8 +403,12 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         self.tableView.layoutIfNeeded()
         
         self.reloadEmptyState()
+        
         // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well
         if let svc = splitViewController, !svc.isCollapsed { self.updateUI() }
+        
+        // Now that user has added a class, and hopefully enjoyed it, ask them to rate if possible
+        RatingManager.presentRating()
     }
     
     func didFinishUpdating(assignment: Assignment) {

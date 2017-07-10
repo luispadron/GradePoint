@@ -61,7 +61,6 @@ class GPACalculatorViewController: UIViewController {
             self.view.addSubview(emptyView)
         }
         
-        
         // Setup keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
@@ -263,7 +262,8 @@ class GPACalculatorViewController: UIViewController {
             let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date(), weighted: weighted)
             realm.add(newGPACalc)
         }
+        
+        // Since the user has finished calculating GPA and they feel good, lets ask them to rate the app now
+        RatingManager.presentRating()
     }
-
-    
 }
