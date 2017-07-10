@@ -6,7 +6,6 @@ def all_pods
   pod 'RealmSwift'
   pod 'UICircularProgressRing'
   pod 'UIEmptyState'
-  pod 'LPIntegratedRating'
 end
 
 target 'GradePoint' do

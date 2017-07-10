@@ -1,6 +1,0 @@
-framework module LPIntegratedRating {
-  umbrella header "LPIntegratedRating-umbrella.h"
-
-  export *
-  module * { export * }
-}

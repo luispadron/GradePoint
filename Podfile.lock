@@ -1,26 +1,23 @@
 PODS:
-  - LPIntegratedRating (1.0.0)
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
   - Realm/Headers (2.8.3)
   - RealmSwift (2.8.3):
     - Realm (= 2.8.3)
-  - UICircularProgressRing (1.6.1)
+  - UICircularProgressRing (1.6.2)
   - UIEmptyState (0.8.3)
 
 DEPENDENCIES:
-  - LPIntegratedRating
   - RealmSwift
   - UICircularProgressRing
   - UIEmptyState
 
 SPEC CHECKSUMS:
-  LPIntegratedRating: 6f9f4978ba2bc27304994193fe9908ed65bfb401
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
   RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
-  UICircularProgressRing: 99419d03525be7b4ad29c0021e0fbb7d913b0030
+  UICircularProgressRing: f25e366e0624d87973192b67e572c0712acbae85
   UIEmptyState: 2d7019069a6792e649366776c117ad7757854e14
 
-PODFILE CHECKSUM: e57b8c8bdf10d1894a74b252f6e721f3ee74c50f
+PODFILE CHECKSUM: 946893d87a7464a84ec4ca929203c28b575027ab
 
 COCOAPODS: 1.3.0.beta.2
