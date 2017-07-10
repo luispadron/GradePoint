@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 import UIEmptyState
-import LPIntegratedRating
 
 class ClassesTableViewController: UITableViewController {
     
@@ -58,9 +57,6 @@ class ClassesTableViewController: UITableViewController {
     /// The number of extra sections in the tableview, not counting classesBySection
     /// This number needs to be subtracted from sections when accessing classesBySections
     private let accessorySections: Int = 1
-    
-    /// The rating view cell, once created it will be reused
-    private var ratingViewCell: LPRatingTableViewCell?
     
     // MARK: - Overrides
     
@@ -130,7 +126,7 @@ class ClassesTableViewController: UITableViewController {
         if isSearchActive {
             return 1
         } else {
-            // Determine number of sections, add any accessory sections for favorites and ratings
+            // Determine number of sections, add any accessory sections for favorites 
             return classesBySection.count + accessorySections
         }
     }
