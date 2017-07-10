@@ -16,28 +16,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import "RLMSyncSessionRefreshHandle.h"
+#import <Realm/RLMCollection.h>
 
-#import "RLMSyncUtil_Private.h"
+#import <Realm/RLMRealm.h>
 
-#import <memory>
+@protocol RLMFastEnumerable;
 
-namespace realm {
-class SyncSession;
-class SyncUser;
-}
-
-@class RLMSyncUser;
-
-@interface RLMSyncSessionRefreshHandle ()
-
-NS_ASSUME_NONNULL_BEGIN
-
-- (instancetype)initWithRealmURL:(NSURL *)realmURL
-                            user:(std::shared_ptr<realm::SyncUser>)user
-                         session:(std::shared_ptr<realm::SyncSession>)session
-                 completionBlock:(nullable RLMSyncBasicErrorReportingBlock)completionBlock;
-
-NS_ASSUME_NONNULL_END
-
-@end
+NSArray *RLMCollectionValueForKey(id<RLMFastEnumerable> collection, NSString *key);
+void RLMCollectionSetValueForKey(id<RLMFastEnumerable> collection, NSString *key, id value);
+FOUNDATION_EXTERN NSString *RLMDescriptionWithMaxDepth(NSString *name, id<RLMCollection> collection, NSUInteger depth);

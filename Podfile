@@ -3,7 +3,12 @@ use_frameworks!
 inhibit_all_warnings!
 
 def all_pods
-  pod 'RealmSwift'
+  pod 'Realm',      :git => "https://github.com/realm/realm-cocoa.git", 
+                    :branch => "master", 
+                    :submodules => true
+  pod 'RealmSwift', :git => "https://github.com/realm/realm-cocoa.git", 
+                    :branch => "master", 
+                    :submodules => true
   pod 'UICircularProgressRing'
   pod 'UIEmptyState'
 end

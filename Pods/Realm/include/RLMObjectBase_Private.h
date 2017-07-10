@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-// Copyright 2016 Realm Inc.
+// Copyright 2017 Realm Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,28 +16,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#import "RLMSyncSessionRefreshHandle.h"
-
-#import "RLMSyncUtil_Private.h"
-
-#import <memory>
-
-namespace realm {
-class SyncSession;
-class SyncUser;
-}
-
-@class RLMSyncUser;
-
-@interface RLMSyncSessionRefreshHandle ()
+#import <Realm/RLMObjectBase.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-- (instancetype)initWithRealmURL:(NSURL *)realmURL
-                            user:(std::shared_ptr<realm::SyncUser>)user
-                         session:(std::shared_ptr<realm::SyncSession>)session
-                 completionBlock:(nullable RLMSyncBasicErrorReportingBlock)completionBlock;
+// RLMObjectBase private
+@interface RLMObjectBase ()
++ (void)initializeLinkedObjectSchemas;
+@end
 
 NS_ASSUME_NONNULL_END
-
-@end
