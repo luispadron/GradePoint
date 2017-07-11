@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -206,6 +206,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="vXQ-1o-GOk" kind="showDetail" identifier="showDetail" id="1XK-ni-xRt"/>
+                        <segue destination="HCV-Xs-az6" kind="showDetail" identifier="showPreviousDetail" id="RmT-KP-7Ef"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -371,6 +372,7 @@
                                                 <constraints>
                                                     <constraint firstItem="QRq-qq-drJ" firstAttribute="leading" secondItem="VaC-ML-MjP" secondAttribute="trailing" constant="39" id="6wl-sE-8Gc"/>
                                                     <constraint firstAttribute="bottom" secondItem="VaC-ML-MjP" secondAttribute="bottom" constant="8" id="FF1-90-wT1"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QRq-qq-drJ" secondAttribute="trailing" constant="20" symbolic="YES" id="MAX-do-F2e"/>
                                                     <constraint firstItem="QRq-qq-drJ" firstAttribute="top" secondItem="ras-O3-QCQ" secondAttribute="top" constant="8" id="S95-Gk-lks"/>
                                                     <constraint firstAttribute="height" constant="60" id="ZWr-tA-Ssw"/>
                                                     <constraint firstItem="VaC-ML-MjP" firstAttribute="top" secondItem="ras-O3-QCQ" secondAttribute="top" constant="8" id="qO9-pS-BuH"/>
@@ -437,6 +439,7 @@
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="49y-Mu-nlY"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Kwy-1j-1fm" secondAttribute="trailing" constant="20" symbolic="YES" id="4vN-0a-u5k"/>
                                                     <constraint firstAttribute="height" constant="60" id="8hV-Pl-iXD"/>
                                                     <constraint firstAttribute="bottom" secondItem="Kwy-1j-1fm" secondAttribute="bottom" constant="8" id="Ra4-dk-C0V"/>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="leading" secondItem="Ooq-5e-OoZ" secondAttribute="trailing" constant="39" id="UCm-lC-8FW"/>
@@ -481,6 +484,7 @@
                                                     <constraint firstItem="k54-nl-9CU" firstAttribute="top" secondItem="ucc-Km-1Rd" secondAttribute="top" constant="8" id="J1q-D9-D1v"/>
                                                     <constraint firstAttribute="bottom" secondItem="Oub-lJ-dYZ" secondAttribute="bottom" constant="8" id="e8S-92-bxP"/>
                                                     <constraint firstAttribute="height" constant="60" id="nti-m6-x6n"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k54-nl-9CU" secondAttribute="trailing" constant="20" symbolic="YES" id="xr3-2s-2Kp"/>
                                                 </constraints>
                                                 <connections>
                                                     <outletCollection property="gestureRecognizers" destination="r6a-1A-V7T" appends="YES" id="prI-mI-P7H"/>
@@ -591,13 +595,21 @@
             </objects>
             <point key="canvasLocation" x="-2244" y="660"/>
         </scene>
-        <!--ClassDetail-->
+        <!--ClassDetailController-->
         <scene sceneID="eIb-Xe-Irc">
             <objects>
-                <viewControllerPlaceholder storyboardName="ClassDetail" id="vXQ-1o-GOk" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="ClassDetail" referencedIdentifier="ClassDetailController" id="vXQ-1o-GOk" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xch-Us-NYa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-299" y="563"/>
+        </scene>
+        <!--PreviousClassDetailController-->
+        <scene sceneID="fbh-yP-tVW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClassDetail" referencedIdentifier="PreviousClassDetailController" id="HCV-Xs-az6" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KD0-sa-bsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="563"/>
         </scene>
         <!--Settings-->
         <scene sceneID="JB5-6G-mEt">

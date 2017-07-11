@@ -250,7 +250,13 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: .showDetail, sender: tableView.cellForRow(at: indexPath)!)
+        let classObjAtPath = classObj(at: indexPath)
+        
+        if classObjAtPath.isClassInProgress {
+            self.performSegue(withIdentifier: .showDetail, sender: indexPath)
+        } else {
+            self.performSegue(withIdentifier: .showPreviousDetail, sender: indexPath)
+        }
     }
     
     // MARK: - Helpers
@@ -640,28 +646,43 @@ extension ClassesTableViewController: Segueable {
     /// Conformance for Seguable protocol
     enum SegueIdentifier: String {
         case showDetail = "showDetail"
+        case showPreviousDetail = "showPreviousDetail"
         case addEditClass = "addEditClass"
         case onboarding = "onboardingSegue"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Revert and undo any searches
+        searchController.isActive = false
+        self.tableView.reloadData()
+        self.reloadEmptyState()
+        
+        // Do any preperations before performing segue
         switch segueIdentifier(forSegue: segue) {
+            
         case .showDetail:
-            guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else {
+            guard let indexPath = sender as? IndexPath else {
                 return
             }
             
             let classItem: Class = classObj(at: indexPath)
             
-            // Revert and undo any searches
-            searchController.isActive = false
-            self.tableView.reloadData()
-            self.reloadEmptyState()
-            
             let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
             controller.classObj = classItem
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
+            
+        case .showPreviousDetail:
+            guard let indexPath = sender as? IndexPath else {
+                return
+            }
+            
+            let classItem: Class = classObj(at: indexPath)
+            
+            let controller = (segue.destination as! UINavigationController).topViewController as! PreviousClassDetailViewController
+            controller.title = classItem.name
+            controller.gradeString = classItem.grade?.gradeLetter
+            
             
         case .addEditClass:
             guard let controller = segue.destination as? AddEditClassViewController else { return }
@@ -671,11 +692,6 @@ extension ClassesTableViewController: Segueable {
             if let path = sender as? IndexPath {
                 controller.classObj = classObj(at: path)
             }
-            
-            // Revert and undo any searches
-            searchController.isActive = false
-            self.tableView.reloadData()
-            self.reloadEmptyState()
             
             // Assign the delegate
             controller.delegate = self

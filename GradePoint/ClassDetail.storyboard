@@ -1,19 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vC3-pB-5Vb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Previous Class Detail View Controller-->
+        <scene sceneID="tuH-fK-Z4A">
+            <objects>
+                <viewController id="zpD-jS-fxp" customClass="PreviousClassDetailViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sV5-69-v6S"/>
+                        <viewControllerLayoutGuide type="bottom" id="b7A-Yo-FJj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="Uc4-Os-jyp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HH0-Dn-ckM">
+                                <rect key="frame" x="12.5" y="158.5" width="350" height="350"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkS-A2-4Og">
+                                        <rect key="frame" x="20" y="304" width="310" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Calculate GPA">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonWasTapped:" destination="zpD-jS-fxp" eventType="touchUpInside" id="RPE-Lw-gOG"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To track assignments add an In Progress class." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-d2-dA7">
+                                        <rect key="frame" x="8" y="267" width="334" height="18"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BmF-zm-GLg">
+                                        <rect key="frame" x="65" y="12" width="220" height="220"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osN-aU-h1e">
+                                                <rect key="frame" x="110" y="110" width="0.0" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="72"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.66274509803921566" green="0.87058823529411766" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="BmF-zm-GLg" secondAttribute="height" multiplier="1:1" id="95Q-mJ-NM3"/>
+                                            <constraint firstItem="osN-aU-h1e" firstAttribute="centerX" secondItem="BmF-zm-GLg" secondAttribute="centerX" id="ArO-dS-3Dn"/>
+                                            <constraint firstAttribute="width" constant="220" id="Z4h-jF-eHv"/>
+                                            <constraint firstItem="osN-aU-h1e" firstAttribute="centerY" secondItem="BmF-zm-GLg" secondAttribute="centerY" id="hQR-HO-2ya"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous classes are used in GPA calculations." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfg-Gs-g8p">
+                                        <rect key="frame" x="8" y="244" width="334" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.29019607843137252" green="0.29411764705882354" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="TkS-A2-4Og" secondAttribute="bottom" constant="12" id="1UD-FV-msT"/>
+                                    <constraint firstAttribute="trailing" secondItem="dHf-d2-dA7" secondAttribute="trailing" constant="8" id="DZA-el-q3s"/>
+                                    <constraint firstItem="kfg-Gs-g8p" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="HAa-Eh-2lM"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="top" constant="12" id="K3k-Wl-mkq"/>
+                                    <constraint firstAttribute="trailing" secondItem="kfg-Gs-g8p" secondAttribute="trailing" constant="8" id="TKG-FF-kLQ"/>
+                                    <constraint firstItem="kfg-Gs-g8p" firstAttribute="top" secondItem="BmF-zm-GLg" secondAttribute="bottom" constant="12" id="UkF-6e-r1T"/>
+                                    <constraint firstItem="TkS-A2-4Og" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="20" id="ZCl-wZ-Vbr"/>
+                                    <constraint firstAttribute="trailing" secondItem="TkS-A2-4Og" secondAttribute="trailing" constant="20" id="aBf-dp-1Q3"/>
+                                    <constraint firstAttribute="width" secondItem="HH0-Dn-ckM" secondAttribute="height" multiplier="1:1" id="hGU-r5-t7j"/>
+                                    <constraint firstItem="dHf-d2-dA7" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="hpk-uv-Sgv"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="centerX" secondItem="HH0-Dn-ckM" secondAttribute="centerX" id="lkk-wX-Nu8"/>
+                                    <constraint firstItem="dHf-d2-dA7" firstAttribute="top" secondItem="kfg-Gs-g8p" secondAttribute="bottom" constant="5" id="pP4-GY-TZ7"/>
+                                    <constraint firstAttribute="height" constant="350" id="vU9-Fk-8TA"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20784313725490194" green="0.21568627450980393" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="HH0-Dn-ckM" firstAttribute="centerX" secondItem="Uc4-Os-jyp" secondAttribute="centerX" id="Zft-1W-zOI"/>
+                            <constraint firstItem="HH0-Dn-ckM" firstAttribute="centerY" secondItem="Uc4-Os-jyp" secondAttribute="centerY" id="z3v-lG-eLm"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="oSY-yu-b9w"/>
+                    <connections>
+                        <outlet property="bgView" destination="HH0-Dn-ckM" id="MrZ-t8-WeS"/>
+                        <outlet property="button" destination="TkS-A2-4Og" id="LT7-kF-MKp"/>
+                        <outlet property="gradeHolderView" destination="BmF-zm-GLg" id="1nP-dn-Xl9"/>
+                        <outlet property="gradeLabel" destination="osN-aU-h1e" id="SOv-79-3Mf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mAp-of-eSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="445.60000000000002" y="318.89055472263868"/>
+        </scene>
         <!--Nav Controller 2-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
-                <navigationController title="Nav Controller 2" id="vC3-pB-5Vb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ClassDetailController" title="Nav Controller 2" id="vC3-pB-5Vb" sceneMemberID="viewController">
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -197,6 +290,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJP-R2-I6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1304" y="1046"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Zbm-xp-t2b">
+            <objects>
+                <navigationController storyboardIdentifier="PreviousClassDetailController" automaticallyAdjustsScrollViewInsets="NO" id="7ez-UV-x57" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YO6-Sg-e9y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zpD-jS-fxp" kind="relationship" relationship="rootViewController" id="ZTh-JS-Ldo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FsV-DK-fje" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-321.60000000000002" y="319.34032983508246"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
