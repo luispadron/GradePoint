@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
+    <device id="ipad10_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,23 +20,26 @@
                         <viewControllerLayoutGuide type="bottom" id="b7A-Yo-FJj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" id="Uc4-Os-jyp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HH0-Dn-ckM">
-                                <rect key="frame" x="15" y="144" width="384" height="512"/>
+                                <rect key="frame" x="40" y="164" width="754" height="848"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBQ-GF-0oG">
-                                        <rect key="frame" x="8" y="15" width="368" height="30"/>
+                                        <rect key="frame" x="8" y="35" width="738" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=compact">
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                         </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
+                                        </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkS-A2-4Og">
-                                        <rect key="frame" x="20" y="458" width="344" height="34"/>
+                                        <rect key="frame" x="30" y="779" width="694" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Calculate GPA">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,7 +52,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BmF-zm-GLg">
-                                        <rect key="frame" x="82" y="85" width="220" height="220"/>
+                                        <rect key="frame" x="267" y="133.5" width="220" height="220"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osN-aU-h1e">
                                                 <rect key="frame" x="110" y="110" width="0.0" height="0.0"/>
@@ -69,16 +72,22 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous classes are used in GPA calculations." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="kfg-Gs-g8p">
-                                        <rect key="frame" x="8" y="345" width="368" height="17"/>
+                                        <rect key="frame" x="8" y="413.5" width="738" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To track assignments add an In Progress class." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-d2-dA7">
-                                        <rect key="frame" x="8" y="367" width="368" height="18"/>
+                                        <rect key="frame" x="8" y="447.5" width="738" height="24"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
+                                        </variation>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.29019607843137252" green="0.29411764705882354" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,19 +99,32 @@
                                         <variation key="heightClass=compact" constant="20"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="yBQ-GF-0oG" secondAttribute="trailing" constant="8" id="74E-0y-MZS"/>
-                                    <constraint firstItem="yBQ-GF-0oG" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="top" constant="15" id="COb-2z-8kO"/>
+                                    <constraint firstItem="yBQ-GF-0oG" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="top" constant="15" id="COb-2z-8kO">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="35"/>
+                                    </constraint>
                                     <constraint firstItem="kfg-Gs-g8p" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="CUC-E2-pvd"/>
-                                    <constraint firstAttribute="trailing" secondItem="TkS-A2-4Og" secondAttribute="trailing" constant="20" id="Lib-Wk-Qnp"/>
+                                    <constraint firstAttribute="trailing" secondItem="TkS-A2-4Og" secondAttribute="trailing" constant="20" id="Lib-Wk-Qnp">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                    </constraint>
                                     <constraint firstItem="BmF-zm-GLg" firstAttribute="centerY" secondItem="HH0-Dn-ckM" secondAttribute="centerY" id="MW6-9A-fBX"/>
                                     <constraint firstAttribute="trailing" secondItem="kfg-Gs-g8p" secondAttribute="trailing" constant="8" id="Q2m-pV-vwl"/>
-                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="top" secondItem="yBQ-GF-0oG" secondAttribute="bottom" constant="40" id="QeG-yh-bZH"/>
-                                    <constraint firstItem="kfg-Gs-g8p" firstAttribute="top" secondItem="BmF-zm-GLg" secondAttribute="bottom" constant="40" id="UkF-6e-r1T"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="top" secondItem="yBQ-GF-0oG" secondAttribute="bottom" constant="40" id="QeG-yh-bZH">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
+                                    <constraint firstItem="kfg-Gs-g8p" firstAttribute="top" secondItem="BmF-zm-GLg" secondAttribute="bottom" constant="40" id="UkF-6e-r1T">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
                                     <constraint firstItem="dHf-d2-dA7" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="VOF-mb-30q"/>
                                     <constraint firstAttribute="bottom" secondItem="TkS-A2-4Og" secondAttribute="bottom" constant="20" id="Yz9-6N-LNe">
                                         <variation key="heightClass=compact" constant="12"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="35"/>
                                     </constraint>
-                                    <constraint firstItem="TkS-A2-4Og" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="20" id="m22-vq-yrK"/>
-                                    <constraint firstItem="dHf-d2-dA7" firstAttribute="top" secondItem="kfg-Gs-g8p" secondAttribute="bottom" constant="5" id="pP4-GY-TZ7"/>
+                                    <constraint firstItem="TkS-A2-4Og" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="20" id="m22-vq-yrK">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                    </constraint>
+                                    <constraint firstItem="dHf-d2-dA7" firstAttribute="top" secondItem="kfg-Gs-g8p" secondAttribute="bottom" constant="5" id="pP4-GY-TZ7">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                                    </constraint>
                                     <constraint firstItem="yBQ-GF-0oG" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="rze-4U-76o"/>
                                     <constraint firstItem="BmF-zm-GLg" firstAttribute="centerX" secondItem="HH0-Dn-ckM" secondAttribute="centerX" id="zVJ-3n-mZL"/>
                                 </constraints>
@@ -139,31 +161,47 @@
                         <color key="backgroundColor" red="0.20784313725490194" green="0.21568627450980393" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="HH0-Dn-ckM" secondAttribute="trailing" constant="15" id="4Mq-yy-Vap">
-                                <variation key="heightClass=compact" constant="40"/>
+                                <variation key="heightClass=compact" constant="60"/>
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                             </constraint>
                             <constraint firstItem="b7A-Yo-FJj" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="bottom" constant="80" id="cdD-oK-Xrg">
                                 <variation key="heightClass=compact" constant="20"/>
+                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                             </constraint>
                             <constraint firstItem="HH0-Dn-ckM" firstAttribute="leading" secondItem="Uc4-Os-jyp" secondAttribute="leading" constant="15" id="czO-ph-Lqd">
-                                <variation key="heightClass=compact" constant="40"/>
+                                <variation key="heightClass=compact" constant="60"/>
+                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                             </constraint>
                             <constraint firstItem="HH0-Dn-ckM" firstAttribute="top" secondItem="sV5-69-v6S" secondAttribute="bottom" constant="80" id="wpg-Jb-aVE">
                                 <variation key="heightClass=compact" constant="20"/>
+                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                             </constraint>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="oSY-yu-b9w"/>
                     <connections>
                         <outlet property="bgView" destination="HH0-Dn-ckM" id="MrZ-t8-WeS"/>
+                        <outlet property="bgViewBottomCons" destination="cdD-oK-Xrg" id="B5C-vD-kTF"/>
+                        <outlet property="bgViewLeadingCons" destination="czO-ph-Lqd" id="dj9-CY-05A"/>
+                        <outlet property="bgViewTopCons" destination="wpg-Jb-aVE" id="knX-HM-mP7"/>
+                        <outlet property="bgViewTrailingCons" destination="4Mq-yy-Vap" id="qYA-k8-5e5"/>
+                        <outlet property="bottomLabel" destination="dHf-d2-dA7" id="A2f-RH-NoA"/>
                         <outlet property="button" destination="TkS-A2-4Og" id="LT7-kF-MKp"/>
+                        <outlet property="buttonBottomCons" destination="Yz9-6N-LNe" id="8a6-12-GVP"/>
+                        <outlet property="gradeHolderBottomCons" destination="UkF-6e-r1T" id="ARl-dO-0SV"/>
+                        <outlet property="gradeHolderTopCons" destination="QeG-yh-bZH" id="fbM-CD-v6e"/>
                         <outlet property="gradeHolderView" destination="BmF-zm-GLg" id="1nP-dn-Xl9"/>
                         <outlet property="gradeLabel" destination="osN-aU-h1e" id="SOv-79-3Mf"/>
                         <outlet property="titleLabel" destination="yBQ-GF-0oG" id="ISf-GK-Dit"/>
+                        <outlet property="topLabel" destination="kfg-Gs-g8p" id="hNU-cm-g5Q"/>
+                        <outletCollection property="bottomLabelConstraints" destination="3sx-sq-nfM" collectionClass="NSMutableArray" id="ogm-p0-JmH"/>
+                        <outletCollection property="bottomLabelConstraints" destination="VOF-mb-30q" collectionClass="NSMutableArray" id="8WP-Ba-hll"/>
+                        <outletCollection property="bottomLabelConstraints" destination="pP4-GY-TZ7" collectionClass="NSMutableArray" id="tuv-nv-IWp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAp-of-eSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="445.60000000000002" y="318.89055472263868"/>
+            <point key="canvasLocation" x="444.53125" y="318.75"/>
         </scene>
         <!--Nav Controller 2-->
         <scene sceneID="r7l-gg-dq7">
@@ -187,31 +225,31 @@
             <objects>
                 <tableViewController id="Hro-Yl-liD" customClass="ClassDetailTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="OM0-4C-bXI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="assignmentTableViewCell" id="sMI-EQ-Anf" customClass="AssignmentTableViewCell" customModule="GradePoint" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="65"/>
+                                <rect key="frame" x="0.0" y="28" width="834" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMI-EQ-Anf" id="hY2-4Y-CQe">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="64.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="801" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teo-NC-rhr">
-                                            <rect key="frame" x="20" y="42" width="349" height="14"/>
+                                            <rect key="frame" x="20" y="42" width="769" height="14"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMd-0W-qFo">
-                                            <rect key="frame" x="20" y="24" width="344" height="16"/>
+                                            <rect key="frame" x="20" y="24" width="764" height="16"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignment Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJl-j5-uRc">
-                                            <rect key="frame" x="20" y="0.0" width="349" height="25"/>
+                                            <rect key="frame" x="20" y="0.0" width="769" height="25"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -306,7 +344,7 @@
             <objects>
                 <tableViewController id="5rj-OZ-eHu" customClass="AddEditAssignmentTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hp1-ot-58d">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections/>
@@ -340,7 +378,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CNu-9p-9u8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="q40-sX-1Oi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="q40-sX-1Oi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

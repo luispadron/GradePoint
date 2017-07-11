@@ -17,6 +17,8 @@ class PreviousClassDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var gradeHolderView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
+    @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     
     public var className: String? = nil
@@ -48,9 +50,9 @@ class PreviousClassDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         titleLabel.text = className
         gradeLabel.text = gradeString
+        
         if let classColor = self.classColor {
             gradeHolderView.backgroundColor = classColor
             button.layer.backgroundColor = classColor.cgColor
@@ -66,6 +68,7 @@ class PreviousClassDetailViewController: UIViewController {
             button.setTitleColor(.lightGray, for: .selected)
         }
         
+        updateUI(with: UIDevice.current.orientation, size: self.view.frame.size)
     }
 
     override func viewWillLayoutSubviews() {
@@ -75,7 +78,67 @@ class PreviousClassDetailViewController: UIViewController {
         gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        updateUI(with: UIDevice.current.orientation, size: size)
+    }
+    
     // MARK: Helpers
+    
+    /// Manages constraints and views depending on orientation and view size
+    private func updateUI(with orientation: UIDeviceOrientation, size: CGSize) {
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let isPortrait = orientation == .portrait || orientation == .portraitUpsideDown
+        let isLandscape = orientation == .landscapeLeft || orientation == .landscapeRight
+        let height = size.height
+        
+        // If height is less than 700 (i.e, iPhone 6) and in portrait, remove the second label, and adjust constraints
+        if  height < 700 && height > 600 && isPortrait {
+            DispatchQueue.main.async {
+                self.bgViewTopCons.constant = 70
+                self.bgViewBottomCons.constant = 70
+                self.gradeHolderTopCons.constant = 20
+                self.gradeHolderBottomCons.constant = 20
+                self.buttonBottomCons.constant = 12
+                self.bottomLabel.isHidden = true
+            }
+        } else if height < 600 && isPortrait { // For screens smaller than iPhone 6, remove label, and adjust constraints
+            DispatchQueue.main.async {
+                self.bgViewTopCons.constant = 40
+                self.bgViewBottomCons.constant = 40
+                self.gradeHolderTopCons.constant = 10
+                self.gradeHolderBottomCons.constant = 10
+                self.buttonBottomCons.constant = 10
+                self.bottomLabel.isHidden = true
+            }
+        } else if height < 600 && isLandscape {
+            DispatchQueue.main.async {
+                self.bgViewTopCons.constant = 15
+                self.bgViewBottomCons.constant = 15
+                self.gradeHolderTopCons.constant = 15
+                self.gradeHolderBottomCons.constant = 15
+                self.buttonBottomCons.constant = 8
+            }
+        } else if isIpad && isLandscape {
+            DispatchQueue.main.async {
+                if height < 800 {
+                    self.topLabel.isHidden = true
+                    self.bottomLabel.isHidden = true
+                } else {
+                    self.gradeHolderBottomCons.constant = 25
+                    self.bottomLabel.isHidden = true
+                }
+            }
+        } else if isIpad && isPortrait {
+            // Undo changes made in landscape
+            DispatchQueue.main.async {
+                self.topLabel.isHidden = false
+                self.bottomLabel.isHidden = false
+                self.gradeHolderBottomCons.constant = 60
+            }
+        }
+    }
     
     /// Hides all the views, this will be done if a class is deleted, and the application is in split screen mode
     public func hideViews() {
@@ -106,5 +169,15 @@ class PreviousClassDetailViewController: UIViewController {
             calcsVC.performSegue(withIdentifier: "presentGPACalculator", sender: nil)
         }
     }
+    
+    // MARK: View constraints
+    @IBOutlet weak var bgViewTopCons: NSLayoutConstraint!
+    @IBOutlet weak var bgViewBottomCons: NSLayoutConstraint!
+    @IBOutlet weak var bgViewLeadingCons: NSLayoutConstraint!
+    @IBOutlet weak var bgViewTrailingCons: NSLayoutConstraint!
+    @IBOutlet weak var gradeHolderTopCons: NSLayoutConstraint!
+    @IBOutlet weak var gradeHolderBottomCons: NSLayoutConstraint!
+    @IBOutlet var bottomLabelConstraints: [NSLayoutConstraint]!
+    @IBOutlet weak var buttonBottomCons: NSLayoutConstraint!
     
 }
