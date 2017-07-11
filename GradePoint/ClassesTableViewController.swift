@@ -680,7 +680,8 @@ extension ClassesTableViewController: Segueable {
             let classItem: Class = classObj(at: indexPath)
             
             let controller = (segue.destination as! UINavigationController).topViewController as! PreviousClassDetailViewController
-            controller.title = classItem.name
+            controller.title = "Previous Class"
+            controller.className = classItem.name
             controller.gradeString = classItem.grade?.gradeLetter
             
             

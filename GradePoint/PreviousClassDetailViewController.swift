@@ -14,10 +14,12 @@ class PreviousClassDetailViewController: UIViewController {
     // MARK: Properties
     
     @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var gradeHolderView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     
+    public var className: String? = nil
     public var gradeString: String? = nil
     
     // MARK: Overrides
@@ -32,7 +34,6 @@ class PreviousClassDetailViewController: UIViewController {
         bgView.layer.shadowOpacity = 0.5
         bgView.layer.shadowRadius = 10.0
         
-        gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
         gradeHolderView.layer.shadowColor = UIColor.black.cgColor
         gradeHolderView.layer.shadowOffset = CGSize(width: 0, height: 0)
         gradeHolderView.layer.shadowOpacity = 0.8
@@ -46,13 +47,19 @@ class PreviousClassDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.gradeLabel.text = self.gradeString
+        titleLabel.text = className
+        gradeLabel.text = gradeString
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        // Set full circle for radius
+        gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
     }
+    
+    
+    // MARK: Actions
     
     @IBAction func buttonWasTapped(_ sender: UIButton) {
     }
