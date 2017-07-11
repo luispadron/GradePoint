@@ -27,6 +27,7 @@ class PreviousClassDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.background
         // UI setup
         bgView.layer.cornerRadius = 10
         bgView.layer.shadowColor = UIColor.black.cgColor
@@ -58,10 +59,36 @@ class PreviousClassDetailViewController: UIViewController {
         gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
     }
     
+    // MARK: Helpers
+    
+    /// Hides all the views, this will be done if a class is deleted, and the application is in split screen mode
+    public func hideViews() {
+        self.title = nil
+        
+        bgView.isHidden = true
+        titleLabel.isHidden = true
+        gradeHolderView.isHidden = true
+        gradeLabel.isHidden = true
+        button.isHidden = true
+    }
     
     // MARK: Actions
     
     @IBAction func buttonWasTapped(_ sender: UIButton) {
+        button.animateWithPulse(withDuration: 0.2) {
+            let window = (UIApplication.shared.delegate as! AppDelegate).window
+            guard let tabBar = window?.rootViewController as? UITabBarController,
+                tabBar.childViewControllers.count > 1,
+                let calcsVC = tabBar.childViewControllers[1] as? CalculatorsViewController else {
+                    
+                    print("WARNING: Tried to find ClassesTableViewController but was not able.")
+                    return
+            }
+            
+            // Perform segue and show gpa calculator
+            tabBar.selectedIndex = 1
+            calcsVC.performSegue(withIdentifier: "presentGPACalculator", sender: nil)
+        }
     }
     
 }

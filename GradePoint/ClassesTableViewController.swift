@@ -410,9 +410,19 @@ class ClassesTableViewController: UITableViewController {
         // Figure out whether we need to update the state of the detail controller or not
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
         var shouldUpdateDetail = false
-        let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first
-                                                                                    as? ClassDetailTableViewController
-        if detailController?.classObj == classToDel { shouldUpdateDetail = true }
+        var detailController: ClassDetailTableViewController?
+        
+        if classToDel.isClassInProgress {
+            // In progress class
+            let navController = (splitViewController?.viewControllers.last as? UINavigationController)
+            detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
+            shouldUpdateDetail = detailController?.classObj == classToDel
+        } else {
+            // Previous class, different process, just hide all the views and move on
+            let navController = (splitViewController?.viewControllers.last as? UINavigationController)
+            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
+            prevDetailController?.hideViews()
+        }
         
         // Remove the cell from the tableView, if the class was a also a favorite, remove the cell from that section too
         if classToDel.isFavorite && !isSearchActive {
@@ -794,9 +804,16 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController,
                              onto primaryViewController:UIViewController) -> Bool {
-        guard let detailNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let detailController = detailNavController.topViewController as? ClassDetailTableViewController else { return false }
-        if detailController.classObj == nil { return true }
+        guard let detailNavController = secondaryViewController as? UINavigationController else { return true }
+        if let detailController = detailNavController.topViewController as? ClassDetailTableViewController {
+            // In progress class, only collapse if classObj is nil
+            return detailController.classObj == nil
+        } else if let prevDetailController = detailNavController.topViewController as? PreviousClassDetailViewController {
+            // Previous class, only collapse if views are hidden, if `bgView` is hidden, safe to assume they all are
+            return prevDetailController.bgView.isHidden
+        }
+        
+        
         return false
     }
 }
