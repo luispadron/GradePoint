@@ -649,7 +649,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
 }
 
-/// MARK: Segues
+// MARK: Segues
 
 extension ClassesTableViewController: Segueable {
     
@@ -688,7 +688,7 @@ extension ClassesTableViewController: Segueable {
             controller.title = "Previous Class"
             controller.className = classItem.name
             controller.gradeString = classItem.grade?.gradeLetter
-            
+            controller.classColor = classItem.color
             
         case .addEditClass:
             guard let controller = segue.destination as? AddEditClassViewController else { return }

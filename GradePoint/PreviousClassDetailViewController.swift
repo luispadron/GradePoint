@@ -21,6 +21,9 @@ class PreviousClassDetailViewController: UIViewController {
     
     public var className: String? = nil
     public var gradeString: String? = nil
+    public var classColor: UIColor? = nil
+    
+    private let fallbackColor: UIColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00)
     
     // MARK: Overrides
     
@@ -41,8 +44,6 @@ class PreviousClassDetailViewController: UIViewController {
         gradeHolderView.layer.shadowRadius = 8.0
         
         button.layer.cornerRadius = 10
-        button.layer.backgroundColor = UIColor.highlight.cgColor
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +51,21 @@ class PreviousClassDetailViewController: UIViewController {
         
         titleLabel.text = className
         gradeLabel.text = gradeString
+        if let classColor = self.classColor {
+            gradeHolderView.backgroundColor = classColor
+            button.layer.backgroundColor = classColor.cgColor
+            let visibleColor = classColor.visibleTextColor(lightColor: .mainText, darkColor: .darkText)
+            gradeLabel.textColor = visibleColor
+            button.setTitleColor(visibleColor, for: .normal)
+            button.setTitleColor(visibleColor.darker(by: 20), for: .selected)
+        } else {
+            gradeHolderView.backgroundColor = fallbackColor
+            button.layer.backgroundColor = fallbackColor.cgColor
+            gradeLabel.textColor = .white
+            button.setTitleColor(.white, for: .normal)
+            button.setTitleColor(.lightGray, for: .selected)
+        }
+        
     }
 
     override func viewWillLayoutSubviews() {

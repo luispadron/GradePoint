@@ -108,10 +108,10 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="5Uf-kk-9Lk"/>
                                         <exclude reference="29U-Yo-vHl"/>
                                         <exclude reference="MW6-9A-fBX"/>
                                         <exclude reference="zVJ-3n-mZL"/>
+                                        <exclude reference="5Uf-kk-9Lk"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
@@ -120,6 +120,11 @@
                                         <exclude reference="dHf-d2-dA7"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="0Wv-89-YFT"/>
+                                        <exclude reference="29U-Yo-vHl"/>
+                                        <include reference="MW6-9A-fBX"/>
+                                        <exclude reference="QeG-yh-bZH"/>
+                                        <include reference="zVJ-3n-mZL"/>
                                         <exclude reference="CUC-E2-pvd"/>
                                         <exclude reference="Q2m-pV-vwl"/>
                                         <exclude reference="UkF-6e-r1T"/>
@@ -127,11 +132,6 @@
                                         <exclude reference="VOF-mb-30q"/>
                                         <exclude reference="pP4-GY-TZ7"/>
                                         <exclude reference="5Uf-kk-9Lk"/>
-                                        <exclude reference="0Wv-89-YFT"/>
-                                        <exclude reference="29U-Yo-vHl"/>
-                                        <include reference="MW6-9A-fBX"/>
-                                        <exclude reference="QeG-yh-bZH"/>
-                                        <include reference="zVJ-3n-mZL"/>
                                     </mask>
                                 </variation>
                             </view>
