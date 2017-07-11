@@ -662,11 +662,6 @@ extension ClassesTableViewController: Segueable {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Revert and undo any searches
-        searchController.isActive = false
-        self.tableView.reloadData()
-        self.reloadEmptyState()
-        
         // Do any preperations before performing segue
         switch segueIdentifier(forSegue: segue) {
             
@@ -720,6 +715,12 @@ extension ClassesTableViewController: Segueable {
         case .onboarding:
             break
         }
+        
+        // Revert and undo any searches
+        searchController.isActive = false
+        self.tableView.reloadData()
+        self.reloadEmptyState()
+        
     }
 }
 
