@@ -45,7 +45,7 @@ open class UIBlurAlertController: UIBlurViewController {
         self._message = message
         super.init(nibName: nil, bundle: nil)
         
-        self.modalPresentationStyle = .overCurrentContext
+        self.modalPresentationStyle = .overFullScreen
     }
     
     

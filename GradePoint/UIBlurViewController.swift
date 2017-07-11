@@ -23,7 +23,7 @@ open class UIBlurViewController: UIViewController {
     convenience init(animationDuration: TimeInterval) {
         self.init()
         self.animationDuration = animationDuration
-        self.modalPresentationStyle = .overCurrentContext
+        self.modalPresentationStyle = .overFullScreen
     }
     
     override open func viewDidLoad() {
