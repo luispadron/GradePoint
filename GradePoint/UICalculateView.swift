@@ -112,6 +112,7 @@ open class UICalculateView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "DeleteIcon"), for: .normal)
         button.contentMode = .scaleAspectFit
+        button.tintColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00)
         button.addTarget(self, action: #selector(self.exitButtonTapped), for: .touchUpInside)
         return button
     }()
