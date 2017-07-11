@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HH0-Dn-ckM">
-                                <rect key="frame" x="15" y="104" width="384" height="592"/>
+                                <rect key="frame" x="15" y="144" width="384" height="512"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBQ-GF-0oG">
                                         <rect key="frame" x="8" y="15" width="368" height="30"/>
@@ -35,11 +35,24 @@
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                         </variation>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkS-A2-4Og">
+                                        <rect key="frame" x="20" y="458" width="344" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Calculate GPA">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="heightClass=compact">
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="buttonWasTapped:" destination="zpD-jS-fxp" eventType="touchUpInside" id="RPE-Lw-gOG"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BmF-zm-GLg">
-                                        <rect key="frame" x="81.666666666666686" y="185.66666666666669" width="220" height="220"/>
+                                        <rect key="frame" x="82" y="85" width="220" height="220"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osN-aU-h1e">
-                                                <rect key="frame" x="109.99999999999999" y="110" width="0.0" height="0.0"/>
+                                                <rect key="frame" x="110" y="110" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="72"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -56,50 +69,51 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous classes are used in GPA calculations." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="kfg-Gs-g8p">
-                                        <rect key="frame" x="8" y="425.66666666666663" width="368" height="17"/>
+                                        <rect key="frame" x="8" y="345" width="368" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To track assignments add an In Progress class." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-d2-dA7">
-                                        <rect key="frame" x="8" y="447.66666666666663" width="368" height="18"/>
+                                        <rect key="frame" x="8" y="367" width="368" height="18"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkS-A2-4Og">
-                                        <rect key="frame" x="20" y="538" width="344" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Calculate GPA">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="heightClass=compact">
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        </variation>
-                                        <connections>
-                                            <action selector="buttonWasTapped:" destination="zpD-jS-fxp" eventType="touchUpInside" id="RPE-Lw-gOG"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.29019607843137252" green="0.29411764705882354" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="centerX" secondItem="kfg-Gs-g8p" secondAttribute="centerX" id="0Wv-89-YFT"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="82" id="29U-Yo-vHl"/>
                                     <constraint firstAttribute="trailing" secondItem="dHf-d2-dA7" secondAttribute="trailing" constant="8" id="3sx-sq-nfM"/>
+                                    <constraint firstItem="TkS-A2-4Og" firstAttribute="top" secondItem="BmF-zm-GLg" secondAttribute="bottom" constant="29" id="5Uf-kk-9Lk">
+                                        <variation key="heightClass=compact" constant="20"/>
+                                    </constraint>
                                     <constraint firstAttribute="trailing" secondItem="yBQ-GF-0oG" secondAttribute="trailing" constant="8" id="74E-0y-MZS"/>
                                     <constraint firstItem="yBQ-GF-0oG" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="top" constant="15" id="COb-2z-8kO"/>
                                     <constraint firstItem="kfg-Gs-g8p" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="CUC-E2-pvd"/>
-                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="centerX" secondItem="HH0-Dn-ckM" secondAttribute="centerX" id="G28-ff-Z0z"/>
                                     <constraint firstAttribute="trailing" secondItem="TkS-A2-4Og" secondAttribute="trailing" constant="20" id="Lib-Wk-Qnp"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="centerY" secondItem="HH0-Dn-ckM" secondAttribute="centerY" id="MW6-9A-fBX"/>
                                     <constraint firstAttribute="trailing" secondItem="kfg-Gs-g8p" secondAttribute="trailing" constant="8" id="Q2m-pV-vwl"/>
-                                    <constraint firstItem="kfg-Gs-g8p" firstAttribute="top" secondItem="BmF-zm-GLg" secondAttribute="bottom" constant="20" id="UkF-6e-r1T"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="top" secondItem="yBQ-GF-0oG" secondAttribute="bottom" constant="40" id="QeG-yh-bZH"/>
+                                    <constraint firstItem="kfg-Gs-g8p" firstAttribute="top" secondItem="BmF-zm-GLg" secondAttribute="bottom" constant="40" id="UkF-6e-r1T"/>
                                     <constraint firstItem="dHf-d2-dA7" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="VOF-mb-30q"/>
                                     <constraint firstAttribute="bottom" secondItem="TkS-A2-4Og" secondAttribute="bottom" constant="20" id="Yz9-6N-LNe">
                                         <variation key="heightClass=compact" constant="12"/>
                                     </constraint>
                                     <constraint firstItem="TkS-A2-4Og" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="20" id="m22-vq-yrK"/>
                                     <constraint firstItem="dHf-d2-dA7" firstAttribute="top" secondItem="kfg-Gs-g8p" secondAttribute="bottom" constant="5" id="pP4-GY-TZ7"/>
-                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="centerY" secondItem="HH0-Dn-ckM" secondAttribute="centerY" id="rQV-Wy-Xzw"/>
                                     <constraint firstItem="yBQ-GF-0oG" firstAttribute="leading" secondItem="HH0-Dn-ckM" secondAttribute="leading" constant="8" id="rze-4U-76o"/>
+                                    <constraint firstItem="BmF-zm-GLg" firstAttribute="centerX" secondItem="HH0-Dn-ckM" secondAttribute="centerX" id="zVJ-3n-mZL"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5Uf-kk-9Lk"/>
+                                        <exclude reference="29U-Yo-vHl"/>
+                                        <exclude reference="MW6-9A-fBX"/>
+                                        <exclude reference="zVJ-3n-mZL"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="subviews">
                                         <exclude reference="kfg-Gs-g8p"/>
@@ -112,6 +126,12 @@
                                         <exclude reference="3sx-sq-nfM"/>
                                         <exclude reference="VOF-mb-30q"/>
                                         <exclude reference="pP4-GY-TZ7"/>
+                                        <exclude reference="5Uf-kk-9Lk"/>
+                                        <exclude reference="0Wv-89-YFT"/>
+                                        <exclude reference="29U-Yo-vHl"/>
+                                        <include reference="MW6-9A-fBX"/>
+                                        <exclude reference="QeG-yh-bZH"/>
+                                        <include reference="zVJ-3n-mZL"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -121,11 +141,15 @@
                             <constraint firstAttribute="trailing" secondItem="HH0-Dn-ckM" secondAttribute="trailing" constant="15" id="4Mq-yy-Vap">
                                 <variation key="heightClass=compact" constant="40"/>
                             </constraint>
-                            <constraint firstItem="b7A-Yo-FJj" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="bottom" constant="40" id="cdD-oK-Xrg"/>
+                            <constraint firstItem="b7A-Yo-FJj" firstAttribute="top" secondItem="HH0-Dn-ckM" secondAttribute="bottom" constant="80" id="cdD-oK-Xrg">
+                                <variation key="heightClass=compact" constant="20"/>
+                            </constraint>
                             <constraint firstItem="HH0-Dn-ckM" firstAttribute="leading" secondItem="Uc4-Os-jyp" secondAttribute="leading" constant="15" id="czO-ph-Lqd">
                                 <variation key="heightClass=compact" constant="40"/>
                             </constraint>
-                            <constraint firstItem="HH0-Dn-ckM" firstAttribute="top" secondItem="sV5-69-v6S" secondAttribute="bottom" constant="40" id="wpg-Jb-aVE"/>
+                            <constraint firstItem="HH0-Dn-ckM" firstAttribute="top" secondItem="sV5-69-v6S" secondAttribute="bottom" constant="80" id="wpg-Jb-aVE">
+                                <variation key="heightClass=compact" constant="20"/>
+                            </constraint>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="oSY-yu-b9w"/>
