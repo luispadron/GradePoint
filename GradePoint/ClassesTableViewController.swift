@@ -118,6 +118,11 @@ class ClassesTableViewController: UITableViewController {
                 self.reloadEmptyState()
             }
         }
+        
+        let snack = LPSnackbar(title: "Test", buttonTitle: "Undo")
+        snack.show()
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0 ) + 8.0
+        snack.view.backgroundColor = UIColor.lightBackground
     }
 
     // MARK: - Table View
