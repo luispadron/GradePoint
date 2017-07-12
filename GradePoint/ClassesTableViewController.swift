@@ -119,7 +119,7 @@ class ClassesTableViewController: UITableViewController {
             }
         }
         
-        let snack = LPSnackbar(title: "Test", buttonTitle: "Undo")
+        let snack = LPSnackbar(title: "Test", buttonTitle: nil)
         snack.show()
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0 ) + 8.0
         snack.view.backgroundColor = UIColor.lightBackground

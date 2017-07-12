@@ -42,14 +42,25 @@ open class LPSnackbar {
 
     // MARK: Initializers
     
-    public init (title: String, buttonTitle: String) {
+    public init (title: String, buttonTitle: String?) {
         view.titleLabel.text = title
-        view.button.setTitle(buttonTitle, for: .normal)
+        if let _ = buttonTitle {
+            view.button.setTitle(buttonTitle, for: .normal)
+        } else {
+            // Remove button
+            view.button.removeFromSuperview()
+        }
+        
     }
     
-    public init(attributedTitle: NSAttributedString, attributedButtonTitle: NSAttributedString) {
+    public init(attributedTitle: NSAttributedString, attributedButtonTitle: NSAttributedString?) {
         view.titleLabel.attributedText = attributedTitle
-        view.button.setAttributedTitle(attributedButtonTitle, for: .normal)
+        if let _ = attributedButtonTitle {
+            view.button.setAttributedTitle(attributedButtonTitle, for: .normal)
+        } else {
+            // Remove button
+            view.button.removeFromSuperview()
+        }
     }
     
     

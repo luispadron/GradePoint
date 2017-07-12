@@ -45,9 +45,16 @@ open class LPSnackbarView: UIView {
         self.frame = controller?.frameForView() ?? .zero
 
         // Set frame for subviews
-        let labelWidth = bounds.width * 0.75
-        titleLabel.frame = CGRect(x: leftPadding, y: 0, width: labelWidth, height: bounds.height)
-        button.frame = CGRect(x: labelWidth + leftPadding * 2, y: 0, width: bounds.width * 0.25 - leftPadding, height: bounds.height)
+        // If button, is a subview and hasnt been removed then share layout
+        if self.subviews.contains(button) {
+            let labelWidth = bounds.width * 0.75
+            titleLabel.frame = CGRect(x: leftPadding, y: 0, width: labelWidth, height: bounds.height)
+            button.frame = CGRect(x: labelWidth + leftPadding * 2, y: 0,
+                                  width: bounds.width * 0.25 - leftPadding, height: bounds.height)
+        } else {
+            // Title label takes up whole layout
+            titleLabel.frame = CGRect(x: leftPadding, y: 0, width: bounds.width - leftPadding, height: bounds.height)
+        }
     }
     
     // MARK: Private methods
