@@ -194,7 +194,6 @@ open class LPSnackbar {
     // MARK: Deinit
     
     deinit {
-        print("Deinitttttt")
         view.controller = nil
         view.removeFromSuperview()
     }

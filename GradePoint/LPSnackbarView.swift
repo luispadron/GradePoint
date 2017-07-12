@@ -74,7 +74,6 @@ open class LPSnackbarView: UIView {
         addSubview(button)
         
         // Register for device rotation notifications
-        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didRotate(notification:)),
                                                name: .UIDeviceOrientationDidChange, object: nil)
     }
