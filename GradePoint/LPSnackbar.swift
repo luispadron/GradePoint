@@ -97,6 +97,17 @@ open class LPSnackbar {
                                                 userInfo: nil,
                                                 repeats: false)
         }
+        
+        // Add gesture recognizers for swipes
+        let left = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipes(sender:)))
+        left.direction = .left
+        let right = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipes(sender:)))
+        right.direction = .right
+        let down = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipes(sender:)))
+        down.direction = .down
+        view.addGestureRecognizer(left)
+        view.addGestureRecognizer(right)
+        view.addGestureRecognizer(down)
     }
     
     
@@ -154,16 +165,37 @@ open class LPSnackbar {
     private func animateOut(completion: SnackbarCompletion?, wasButtonTapped: Bool = false) {
         let frame = view.frame
         let outY = frame.origin.y + height + bottomSpacing
+        let pos = CGPoint(x: frame.origin.x, y: outY)
         
         UIView.animate(
             withDuration: animationDuration,
             animations: {
-                self.view.frame = CGRect(x: frame.origin.x, y: outY, width: frame.width, height: frame.height)
+                self.view.frame = CGRect(origin: pos, size: frame.size)
                 self.view.layer.opacity = 0.0
             },
             completion: { _ in
                 // Call the completion handler
                 completion?(wasButtonTapped)
+                // Prepare to deinit
+                self.prepareForRemoval()
+            }
+        )
+    }
+    
+    private func animateSwipeOut(to position: CGPoint, completion: SnackbarCompletion?) {
+        // Invalidate timer
+        displayTimer?.invalidate()
+        displayTimer = nil
+        
+        UIView.animate(
+            withDuration: animationDuration,
+            animations: {
+                self.view.frame = CGRect(origin: position, size: self.view.frame.size)
+                self.view.layer.opacity = 0.0
+            },
+            completion: { _ in
+                // Call the completion handler
+                completion?(false)
                 // Prepare to deinit
                 self.prepareForRemoval()
             }
@@ -196,6 +228,22 @@ open class LPSnackbar {
             completion?(true)
             // Prepare to deinit
             prepareForRemoval()
+        }
+    }
+    
+    @objc private func handleSwipes(sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
+        case .left:
+            let position = CGPoint(x: view.frame.origin.x - view.frame.width / 2.0, y: view.frame.origin.y)
+            animateSwipeOut(to: position, completion: completion)
+        case .right:
+            let position = CGPoint(x: view.frame.origin.x + view.frame.width / 2.0, y: view.frame.origin.y)
+            animateSwipeOut(to: position, completion: completion)
+        case .down:
+            let position = CGPoint(x: view.frame.origin.x, y: view.frame.origin.y + view.frame.height + bottomSpacing)
+            animateSwipeOut(to: position, completion: completion)
+        case .up: fallthrough
+        default: break
         }
     }
     
