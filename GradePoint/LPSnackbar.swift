@@ -13,7 +13,9 @@ open class LPSnackbar {
     // MARK: Properties
     
     open lazy var view: LPSnackbarView = {
-        return LPSnackbarView(frame: .zero)
+        let snackView = LPSnackbarView(frame: .zero)
+        snackView.controller = self
+        return snackView
     }()
     
     open var height: CGFloat = 40.0 {
@@ -22,7 +24,7 @@ open class LPSnackbar {
             let oldFrame = self.view.frame
             self.view.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y,
                                      width: oldFrame.width, height: self.height)
-            self.view.layoutIfNeeded()
+            self.view.setNeedsLayout()
         }
     }
     
@@ -34,10 +36,12 @@ open class LPSnackbar {
             let oldFrame = self.view.frame
             self.view.frame = CGRect(x: oldFrame.origin.x, y: newY,
                                      width: oldFrame.width, height: oldFrame.height)
-            self.view.layoutIfNeeded()
+            self.view.setNeedsLayout()
         }
     }
 
+    // MARK: Initializers
+    
     public init (title: String, buttonTitle: String) {
         view.titleLabel.text = title
         view.button.setTitle(buttonTitle, for: .normal)
@@ -48,19 +52,34 @@ open class LPSnackbar {
         view.button.setAttributedTitle(attributedButtonTitle, for: .normal)
     }
     
-    open func show() {
+    
+    // MARK: Private methods
+    
+    internal func frameForView() -> CGRect {
         guard let window = UIApplication.shared.keyWindow else {
-            print("Unable to get window, thus cannot show LPSnackBar")
-            return
+            return .zero
         }
         
         // Set frame for view
         let width: CGFloat = window.bounds.width * 0.98
         let startX: CGFloat = (window.bounds.width - width) / 2.0
         let startY: CGFloat = window.bounds.maxY - height - bottomSpacing
-        view.frame = CGRect(x: startX, y: startY, width: width, height: height)
+        return CGRect(x: startX, y: startY, width: width, height: height)
+    }
+    
+    // MARK: Public methods
+    
+    open func show() {
+        guard let window = UIApplication.shared.keyWindow else {
+            print("Unable to get window, thus cannot show LPSnackBar")
+            return
+        }
         
+        view.setNeedsLayout()
         window.addSubview(view)
     }
-
+    
+    // MARK: Deinit
+    
+    
 }

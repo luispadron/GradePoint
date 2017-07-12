@@ -12,6 +12,8 @@ open class LPSnackbarView: UIView {
     
     // MARK: Properties
     
+    internal var controller: LPSnackbar?
+    
     open var leftPadding: CGFloat = 8.0 {
         didSet {
             self.layoutIfNeeded()
@@ -36,6 +38,20 @@ open class LPSnackbarView: UIView {
         initialize()
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Set frame for self
+        self.frame = controller?.frameForView() ?? .zero
+
+        // Set frame for subviews
+        let labelWidth = bounds.width * 0.75
+        titleLabel.frame = CGRect(x: leftPadding, y: 0, width: labelWidth, height: bounds.height)
+        button.frame = CGRect(x: labelWidth + leftPadding * 2, y: 0, width: bounds.width * 0.25 - leftPadding, height: bounds.height)
+    }
+    
+    // MARK: Private methods
+    
     private func initialize() {
         // Customize UI
         backgroundColor = UIColor(red: 0.180, green: 0.180, blue: 0.180, alpha: 1.00)
@@ -49,14 +65,18 @@ open class LPSnackbarView: UIView {
         // Add subviews
         addSubview(titleLabel)
         addSubview(button)
+        
+        // Register for device rotation notifications
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didRotate(notification:)),
+                                               name: .UIDeviceOrientationDidChange, object: nil)
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let labelWidth = bounds.width * 0.75
-        titleLabel.frame = CGRect(x: leftPadding, y: 0, width: labelWidth, height: bounds.height)
-        button.frame = CGRect(x: labelWidth + leftPadding * 2, y: 0, width: bounds.width * 0.25 - leftPadding, height: bounds.height)
+    @objc private func didRotate(notification: Notification) {
+        // Layout the view/subviews again
+        DispatchQueue.main.async {
+            self.setNeedsLayout()
+        }
     }
     
     // MARK: Actions
@@ -79,4 +99,10 @@ open class LPSnackbarView: UIView {
         button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: Deinit
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
