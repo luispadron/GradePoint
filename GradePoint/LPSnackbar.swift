@@ -10,7 +10,7 @@ import UIKit
 
 open class LPSnackbar {
     
-    // MARK: Properties
+    // MARK: Public Members
     
     open lazy var view: LPSnackbarView = {
         let snackView = LPSnackbarView(frame: .zero)
@@ -43,11 +43,16 @@ open class LPSnackbar {
     
     open var animationDuration: TimeInterval = 0.5
     
-    // MARK: Private Properties
+    public typealias SnackbarCompletion = (Bool) -> Void
     
+    // MARK: Private Members
+    
+    private var displayTimer: Timer?
     private var displayDuration: TimeInterval?
     
     private var wasAnimated: Bool = false
+    
+    private var completion: SnackbarCompletion?
     
     // MARK: Initializers
     
@@ -94,16 +99,16 @@ open class LPSnackbar {
         
         // Set timer for when view will be removed
         if let duration = displayDuration {
-            Timer.scheduledTimer(timeInterval: duration,
-                                 target: self,
-                                 selector: #selector(self.timerDidFinish),
-                                 userInfo: nil,
-                                 repeats: false)
+            displayTimer = Timer.scheduledTimer(timeInterval: duration,
+                                                target: self,
+                                                selector: #selector(self.timerDidFinish),
+                                                userInfo: nil,
+                                                repeats: false)
         }
     }
     
     
-    // MARK: Private Methods
+    // MARK: Helper Methods
     
     internal func frameForView() -> CGRect {
         guard let window = UIApplication.shared.keyWindow else {
@@ -116,6 +121,13 @@ open class LPSnackbar {
         let startY: CGFloat = window.bounds.maxY - height - bottomSpacing
         return CGRect(x: startX, y: startY, width: width, height: height)
     }
+    
+    private func prepareForRemoval() {
+        view.controller = nil
+        view.removeFromSuperview()
+    }
+    
+    // MARK: Animation
     
     private func animateIn() {
         let frame = frameForView()
@@ -144,7 +156,7 @@ open class LPSnackbar {
         wasAnimated = true
     }
     
-    private func animateOut() {
+    private func animateOut(completion: SnackbarCompletion?, wasButtonTapped: Bool = false) {
         let frame = view.frame
         let outY = frame.origin.y + height + bottomSpacing
         
@@ -155,27 +167,48 @@ open class LPSnackbar {
                 self.view.layer.opacity = 0.0
             },
             completion: { _ in
+                // Call the completion handler
+                completion?(wasButtonTapped)
+                // Prepare to deinit
                 self.prepareForRemoval()
             }
         )
     }
     
+    // MARK: Actions
+    
     @objc private func timerDidFinish() {
         if wasAnimated {
-            self.animateOut()
+            self.animateOut(completion: completion)
         } else {
+            // Call the completion handler, since no animation will be shown
+            completion?(false)
+            // Prepare to deinit
             prepareForRemoval()
         }
     }
     
-    private func prepareForRemoval() {
-        view.controller = nil
-        view.removeFromSuperview()
+    internal func viewButtonTapped() {
+        // If timer is active, invalidate since view will now dissapear no matter what
+        displayTimer?.invalidate()
+        displayTimer = nil
+        
+        if wasAnimated {
+            // Animate the view out, which will in turn call the completion handler
+            self.animateOut(completion: completion, wasButtonTapped: true)
+        } else {
+            // Call the completion handler, since no animation will be shown
+            completion?(true)
+            // Prepare to deinit
+            prepareForRemoval()
+        }
     }
     
     // MARK: Public Methods
     
-    open func show(animated: Bool = true) {
+    open func show(animated: Bool = true, completion: SnackbarCompletion? = nil) {
+        self.completion = completion
+        
         if animated {
             animateIn()
         } else {
@@ -185,7 +218,7 @@ open class LPSnackbar {
     
     open func remove(animated: Bool = true) {
         if animated {
-            self.animateOut()
+            self.animateOut(completion: completion)
         } else {
             prepareForRemoval()
         }
@@ -194,6 +227,7 @@ open class LPSnackbar {
     // MARK: Deinit
     
     deinit {
+        print("Snackbar has been deinitialized")
         view.controller = nil
         view.removeFromSuperview()
     }

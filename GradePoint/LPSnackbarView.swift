@@ -88,7 +88,8 @@ open class LPSnackbarView: UIView {
     // MARK: Actions
     
     @objc private func buttonTapped(sender: UIButton) {
-        print("Tap")
+        // Notify controller that button was tapped
+        controller?.viewButtonTapped()
     }
     
     // MARK: Subviews
