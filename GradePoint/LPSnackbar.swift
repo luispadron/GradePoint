@@ -19,12 +19,15 @@ open class LPSnackbar {
         return snackView
     }()
     
+    open var widthPercent: CGFloat = 0.98 {
+        didSet {
+            self.view.setNeedsLayout()
+        }
+    }
+    
     open var height: CGFloat = 40.0 {
         didSet {
             // Update height
-            let oldFrame = self.view.frame
-            self.view.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y,
-                                     width: oldFrame.width, height: self.height)
             self.view.setNeedsLayout()
         }
     }
@@ -32,11 +35,6 @@ open class LPSnackbar {
     open var bottomSpacing: CGFloat = 12.0 {
         didSet {
             // Update frame
-            let clearedY = view.frame.origin.y + oldValue
-            let newY = clearedY - self.bottomSpacing
-            let oldFrame = self.view.frame
-            self.view.frame = CGRect(x: oldFrame.origin.x, y: newY,
-                                     width: oldFrame.width, height: oldFrame.height)
             self.view.setNeedsLayout()
         }
     }
@@ -89,14 +87,6 @@ open class LPSnackbar {
     }
     
     private func finishInit() {
-        guard let window = UIApplication.shared.keyWindow else {
-            print("Unable to get window, was not able to add LPSnackbarView as a subview to the main UIWindow")
-            return
-        }
-        
-        // Add to window
-        window.addSubview(view)
-        
         // Set timer for when view will be removed
         if let duration = displayDuration {
             displayTimer = Timer.scheduledTimer(timeInterval: duration,
@@ -116,7 +106,10 @@ open class LPSnackbar {
         }
         
         // Set frame for view
-        let width: CGFloat = window.bounds.width * 0.98
+        if widthPercent < 0.0 || widthPercent > 1.0 {
+            widthPercent = 0.98
+        }
+        let width: CGFloat = window.bounds.width * widthPercent
         let startX: CGFloat = (window.bounds.width - width) / 2.0
         let startY: CGFloat = window.bounds.maxY - height - bottomSpacing
         return CGRect(x: startX, y: startY, width: width, height: height)
@@ -207,6 +200,15 @@ open class LPSnackbar {
     // MARK: Public Methods
     
     open func show(animated: Bool = true, completion: SnackbarCompletion? = nil) {
+        
+        guard let window = UIApplication.shared.keyWindow else {
+            print("Unable to get window, was not able to show\n Couldn't add LPSnackbarView as a subview to the main UIWindow")
+            return
+        }
+        
+        // Add to window
+        window.addSubview(view)
+        
         self.completion = completion
         
         if animated {

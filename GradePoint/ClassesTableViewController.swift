@@ -572,8 +572,8 @@ class ClassesTableViewController: UITableViewController {
         let snack = LPSnackbar(title: "Favorited", buttonTitle: "Undo", displayDuration: nil)
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0 ) + 8.0
         snack.view.backgroundColor = UIColor.lightBackground
-//        snack.view.button.layer.backgroundColor = UIColor.highlight.cgColor
-//        snack.view.button.layer.cornerRadius = 5.0
+        snack.height = 70
+        snack.widthPercent = 1.0
         snack.show(animated: true) { tapped in
             print("Finished showing snack, was button tapped: \(tapped)")
         }
