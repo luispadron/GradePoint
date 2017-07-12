@@ -220,7 +220,7 @@ open class LPSnackbar {
         }
     }
     
-    open func remove(animated: Bool = true) {
+    open func dismiss(animated: Bool = true) {
         if animated {
             self.animateOut(completion: completion)
         } else {
