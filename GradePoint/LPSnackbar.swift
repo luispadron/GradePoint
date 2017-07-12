@@ -162,7 +162,7 @@ open class LPSnackbar {
         wasAnimated = true
     }
     
-    private func animateOut(completion: SnackbarCompletion?, wasButtonTapped: Bool = false) {
+    private func animateOut(wasButtonTapped: Bool = false) {
         let frame = view.frame
         let outY = frame.origin.y + height + bottomSpacing
         let pos = CGPoint(x: frame.origin.x, y: outY)
@@ -175,28 +175,28 @@ open class LPSnackbar {
             },
             completion: { _ in
                 // Call the completion handler
-                completion?(wasButtonTapped)
+                self.completion?(wasButtonTapped)
                 // Prepare to deinit
                 self.prepareForRemoval()
             }
         )
     }
     
-    private func animateSwipeOut(to position: CGPoint, completion: SnackbarCompletion?) {
+    private func animateSwipeOut(to position: CGPoint) {
         // Invalidate timer
         displayTimer?.invalidate()
         displayTimer = nil
         
         UIView.animate(
             withDuration: animationDuration,
+            delay: 0.0,
+            options: .curveEaseOut,
             animations: {
+                // Animate to postion
                 self.view.frame = CGRect(origin: position, size: self.view.frame.size)
-                self.view.layer.opacity = 0.0
-            },
-            completion: { _ in
-                // Call the completion handler
-                completion?(false)
-                // Prepare to deinit
+                self.view.layer.opacity = 0.1
+            }, completion: { _ in
+                self.completion?(false)
                 self.prepareForRemoval()
             }
         )
@@ -206,7 +206,7 @@ open class LPSnackbar {
     
     @objc private func timerDidFinish() {
         if wasAnimated {
-            self.animateOut(completion: completion)
+            self.animateOut()
         } else {
             // Call the completion handler, since no animation will be shown
             completion?(false)
@@ -222,7 +222,7 @@ open class LPSnackbar {
         
         if wasAnimated {
             // Animate the view out, which will in turn call the completion handler
-            self.animateOut(completion: completion, wasButtonTapped: true)
+            self.animateOut(wasButtonTapped: true)
         } else {
             // Call the completion handler, since no animation will be shown
             completion?(true)
@@ -234,14 +234,14 @@ open class LPSnackbar {
     @objc private func handleSwipes(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case .left:
-            let position = CGPoint(x: view.frame.origin.x - view.frame.width / 2.0, y: view.frame.origin.y)
-            animateSwipeOut(to: position, completion: completion)
+            let position = CGPoint(x: view.frame.origin.x - view.frame.width, y: view.frame.origin.y)
+            animateSwipeOut(to: position)
         case .right:
-            let position = CGPoint(x: view.frame.origin.x + view.frame.width / 2.0, y: view.frame.origin.y)
-            animateSwipeOut(to: position, completion: completion)
+            let position = CGPoint(x: view.frame.origin.x + view.frame.width, y: view.frame.origin.y)
+            animateSwipeOut(to: position)
         case .down:
             let position = CGPoint(x: view.frame.origin.x, y: view.frame.origin.y + view.frame.height + bottomSpacing)
-            animateSwipeOut(to: position, completion: completion)
+            animateSwipeOut(to: position)
         case .up: fallthrough
         default: break
         }
@@ -270,7 +270,7 @@ open class LPSnackbar {
     
     open func dismiss(animated: Bool = true) {
         if animated {
-            self.animateOut(completion: completion)
+            self.animateOut()
         } else {
             prepareForRemoval()
         }
