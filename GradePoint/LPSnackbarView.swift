@@ -62,12 +62,12 @@ open class LPSnackbarView: UIView {
     private func initialize() {
         // Customize UI
         backgroundColor = UIColor(red: 0.180, green: 0.180, blue: 0.180, alpha: 1.00)
-        layer.opacity = 0.95
+        layer.opacity = 0.96
         translatesAutoresizingMaskIntoConstraints = false
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 4.0
-        layer.shadowOpacity = 0.3
-        layer.cornerRadius = 5.0
+        layer.shadowRadius = 5.0
+        layer.shadowOpacity = 0.4
+        layer.cornerRadius = 4.0
         
         // Add subviews
         addSubview(titleLabel)

@@ -569,12 +569,13 @@ class ClassesTableViewController: UITableViewController {
         }
         
         // TODO: Test code, remove this
-        let snack = LPSnackbar(title: "Favorited", buttonTitle: "Undo", displayDuration: nil)
-        snack.show(animated: false) { tapped in
-            print("Finished showing snack, was button tapped: \(tapped)")
-        }
+        let snack = LPSnackbar(title: "Favorited", buttonTitle: nil, displayDuration: nil)
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0 ) + 8.0
         snack.view.backgroundColor = UIColor.lightBackground
+        snack.view.titleLabel.textAlignment = .center
+        snack.show(animated: true) { tapped in
+            print("Finished showing snack, was button tapped: \(tapped)")
+        }
     }
 }
 
