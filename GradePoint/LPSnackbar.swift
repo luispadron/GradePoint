@@ -224,10 +224,28 @@ open class LPSnackbar {
         }
     }
     
+    // MARK: Static Methods
+    
+    open static func showSnack(title: String, displayDuration: TimeInterval? = 5.0, completion: SnackbarCompletion? = nil) {
+        let snack = LPSnackbar(title: title, buttonTitle: nil, displayDuration: displayDuration)
+        snack.view.titleLabel.textAlignment = .center
+        snack.show(animated: true) { _ in
+            completion?(false)
+        }
+    }
+    
+    open static func showSnack(attributedTitle: NSAttributedString, displayDuration: TimeInterval? = 5.0, completion: SnackbarCompletion? = nil) {
+        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle: nil, displayDuration: displayDuration)
+        snack.view.titleLabel.textAlignment = .center
+        snack.show(animated: true) { _ in
+            completion?(false)
+        }
+    }
+    
+    
     // MARK: Deinit
     
     deinit {
-        print("Snackbar has been deinitialized")
         view.controller = nil
         view.removeFromSuperview()
     }

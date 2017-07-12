@@ -38,32 +38,13 @@ open class LPSnackbarView: UIView {
         initialize()
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // Set frame for self
-        self.frame = controller?.frameForView() ?? .zero
-
-        // Set frame for subviews
-        // If button, is a subview and hasnt been removed then share layout
-        if self.subviews.contains(button) {
-            let labelWidth = bounds.width * 0.75
-            titleLabel.frame = CGRect(x: leftPadding, y: 0, width: labelWidth, height: bounds.height)
-            button.frame = CGRect(x: labelWidth + leftPadding * 2, y: 0,
-                                  width: bounds.width * 0.25 - leftPadding, height: bounds.height)
-        } else {
-            // Title label takes up whole layout
-            titleLabel.frame = CGRect(x: leftPadding, y: 0, width: bounds.width - leftPadding, height: bounds.height)
-        }
-    }
-    
     // MARK: Private methods
     
     private func initialize() {
         // Customize UI
+        autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundColor = UIColor(red: 0.180, green: 0.180, blue: 0.180, alpha: 1.00)
-        layer.opacity = 0.96
-        translatesAutoresizingMaskIntoConstraints = false
+        layer.opacity = 0.98
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 5.0
         layer.shadowOpacity = 0.4
@@ -73,6 +54,20 @@ open class LPSnackbarView: UIView {
         addSubview(titleLabel)
         addSubview(button)
         
+        //// Add constraints
+        // Pin title label to left
+        NSLayoutConstraint(item: titleLabel, attribute: .leading, relatedBy: .equal,
+                           toItem: self, attribute: .leadingMargin, multiplier: 1.0, constant: leftPadding).isActive = true
+        NSLayoutConstraint(item: titleLabel, attribute: .centerY, relatedBy: .equal,
+                           toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0).isActive = true
+        // Pin button to right
+        NSLayoutConstraint(item: button, attribute: .trailing, relatedBy: .equal,
+                           toItem: self, attribute: .trailingMargin, multiplier: 1.0, constant: -rightPadding).isActive = true
+        NSLayoutConstraint(item: button, attribute: .centerY, relatedBy: .equal,
+                           toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0).isActive = true
+        
+        
+        
         // Register for device rotation notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.didRotate(notification:)),
                                                name: .UIDeviceOrientationDidChange, object: nil)
@@ -81,7 +76,8 @@ open class LPSnackbarView: UIView {
     @objc private func didRotate(notification: Notification) {
         // Layout the view/subviews again
         DispatchQueue.main.async {
-            self.setNeedsLayout()
+            // Set frame for self
+            self.frame = self.controller?.frameForView() ?? .zero
         }
     }
     
@@ -96,6 +92,7 @@ open class LPSnackbarView: UIView {
     
     open lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = UIColor.white
         return label
@@ -103,6 +100,7 @@ open class LPSnackbarView: UIView {
     
     open lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         return button
     }()
