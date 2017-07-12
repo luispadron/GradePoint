@@ -232,7 +232,6 @@ open class LPSnackbar {
     
     open static func showSnack(title: String, displayDuration: TimeInterval? = 5.0, completion: SnackbarCompletion? = nil) {
         let snack = LPSnackbar(title: title, buttonTitle: nil, displayDuration: displayDuration)
-        snack.view.titleLabel.textAlignment = .center
         snack.show(animated: true) { _ in
             completion?(false)
         }
@@ -240,7 +239,6 @@ open class LPSnackbar {
     
     open static func showSnack(attributedTitle: NSAttributedString, displayDuration: TimeInterval? = 5.0, completion: SnackbarCompletion? = nil) {
         let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle: nil, displayDuration: displayDuration)
-        snack.view.titleLabel.textAlignment = .center
         snack.show(animated: true) { _ in
             completion?(false)
         }
