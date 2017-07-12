@@ -39,6 +39,8 @@ open class LPSnackbar {
         }
     }
     
+    open var viewToDisplayIn: UIView?
+    
     open var animationDuration: TimeInterval = 0.5
     
     public typealias SnackbarCompletion = (Bool) -> Void
@@ -101,7 +103,7 @@ open class LPSnackbar {
     // MARK: Helper Methods
     
     internal func frameForView() -> CGRect {
-        guard let window = UIApplication.shared.keyWindow else {
+        guard let superview = viewToDisplayIn ?? UIApplication.shared.keyWindow ?? nil else {
             return .zero
         }
         
@@ -109,9 +111,9 @@ open class LPSnackbar {
         if widthPercent < 0.0 || widthPercent > 1.0 {
             widthPercent = 0.98
         }
-        let width: CGFloat = window.bounds.width * widthPercent
-        let startX: CGFloat = (window.bounds.width - width) / 2.0
-        let startY: CGFloat = window.bounds.maxY - height - bottomSpacing
+        let width: CGFloat = superview.bounds.width * widthPercent
+        let startX: CGFloat = (superview.bounds.width - width) / 2.0
+        let startY: CGFloat = superview.bounds.maxY - height - bottomSpacing
         return CGRect(x: startX, y: startY, width: width, height: height)
     }
     
@@ -200,15 +202,15 @@ open class LPSnackbar {
     // MARK: Public Methods
     
     open func show(animated: Bool = true, completion: SnackbarCompletion? = nil) {
-        
-        guard let window = UIApplication.shared.keyWindow else {
-            print("Unable to get window, was not able to show\n Couldn't add LPSnackbarView as a subview to the main UIWindow")
+        guard let superview = viewToDisplayIn ?? UIApplication.shared.keyWindow ?? nil else {
+            print("Unable to get a superview, was not able to show\n Couldn't add LPSnackbarView as a subview to the main UIWindow")
             return
         }
         
-        // Add to window
-        window.addSubview(view)
+        // Add as subview
+        superview.addSubview(self.view)
         
+        // Set completion and animate the view if allowed
         self.completion = completion
         
         if animated {
