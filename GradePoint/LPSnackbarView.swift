@@ -65,8 +65,8 @@ open class LPSnackbarView: UIView {
         layer.opacity = 0.95
         translatesAutoresizingMaskIntoConstraints = false
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowRadius = 5.0
-        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 4.0
+        layer.shadowOpacity = 0.3
         layer.cornerRadius = 5.0
         
         // Add subviews

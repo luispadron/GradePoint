@@ -118,11 +118,6 @@ class ClassesTableViewController: UITableViewController {
                 self.reloadEmptyState()
             }
         }
-        
-        let snack = LPSnackbar(title: "Test", buttonTitle: nil)
-        snack.show()
-        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0 ) + 8.0
-        snack.view.backgroundColor = UIColor.lightBackground
     }
 
     // MARK: - Table View
@@ -572,6 +567,12 @@ class ClassesTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        
+        // TODO: Test code, remove this
+        let snack = LPSnackbar(title: "Favorited", buttonTitle: nil, displayDuration: nil)
+        snack.show()
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0 ) + 8.0
+        snack.view.backgroundColor = UIColor.lightBackground
     }
 }
 
