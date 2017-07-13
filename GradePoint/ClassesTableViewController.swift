@@ -560,6 +560,9 @@ class ClassesTableViewController: UITableViewController {
                 self.tableView.endUpdates()
             }
         }
+        
+        let snack = LPSnackbar(title: "Test snack.", buttonTitle: "Undo", displayDuration: nil)
+        snack.show()
     }
 }
 

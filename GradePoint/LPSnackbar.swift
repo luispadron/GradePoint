@@ -72,8 +72,9 @@ open class LPSnackbar {
         
         // Set labels/buttons
         view.titleLabel.text = title
-        if let _ = buttonTitle {
-            view.button.setTitle(buttonTitle, for: .normal)
+        
+        if let bTitle = buttonTitle {
+            view.button.setTitle(bTitle, for: .normal)
         } else {
             // Remove button
             view.button.removeFromSuperview()
@@ -88,8 +89,9 @@ open class LPSnackbar {
         
         // Set labels/buttons
         view.titleLabel.attributedText = attributedTitle
-        if let _ = attributedButtonTitle {
-            view.button.setAttributedTitle(attributedButtonTitle, for: .normal)
+        
+        if let bTitle = attributedButtonTitle {
+            view.button.setAttributedTitle(bTitle, for: .normal)
         } else {
             // Remove button
             view.button.removeFromSuperview()

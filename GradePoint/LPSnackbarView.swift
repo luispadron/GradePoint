@@ -132,6 +132,7 @@ open class LPSnackbarView: UIView {
     open lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor(red: 0.702, green: 0.867, blue: 0.969, alpha: 1.00), for: .normal)
         button.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         return button
     }()
