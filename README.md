@@ -2,7 +2,7 @@
 
 #### A simple application to help students keep track of their grades.
 
-Written in Swift 3 for iOS devices. GradePoint is a school tracking and calculations app.
+Written in Swift for iOS devices. GradePoint is a school tracking and calculations app.
 It helps students keep track of their progress in school with an _intuitive_ user interface.
 I worked on this in my spare time between school/internship. 
 
