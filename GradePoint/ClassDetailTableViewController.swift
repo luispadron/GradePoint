@@ -29,34 +29,30 @@ class ClassDetailTableViewController: UITableViewController {
                 assignments.removeAll()
                 return
             }
+            // Assign the rubrics array
             rubrics = Array(classObj.rubrics)
-            // Set up the assignments array, sorted by its associated rubric
-            assignments.removeAll()
-            for rubric in rubrics {
-                // Filter by rubric association and sort the assignments by date
-                let assignmentsForRubric = classObj.assignments.filter("associatedRubric = %@", rubric).sorted(byKeyPath: "date", ascending: true)
-                assignments.append(assignmentsForRubric)
-            }
+            // Assign/update the assignments 2D array
+            reloadAssignments()
         }
     }
     
     /// The accesor for the class obj, this will check if invalidated in realm or not before returning
-    fileprivate var _classObj: Class? {
+    private var _classObj: Class? {
         get {
             guard let obj = self.classObj, !obj.isInvalidated else {
                 // Has become invalidated, set classObj to nil
                 self.classObj = nil
                 return nil
             }
-            
             return obj
         }
     }
     
     /// The rubrics for this class
     var rubrics = [Rubric]()
-    /// The assignments sorted by rubric
-    var assignments = [Results<Assignment>]()
+    
+    /// The assignments grouped by rubric
+    var assignments = [[Assignment]]()
     
     
     // MARK: - Overrides
@@ -180,6 +176,24 @@ class ClassDetailTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
+    /// Reloads and updates the `assignments` array
+    private func reloadAssignments() {
+        guard let classObj = _classObj else {
+            print("Unable to reload assignments, no value for `_classObj`")
+            return
+        }
+        
+        var arr = [[Assignment]]()
+        rubrics.forEach {
+            let groupedAssignments = classObj.assignments.filter("associatedRubric = %@", $0).sorted(byKeyPath: "date",
+                                                                                                     ascending: true)
+            arr.append(Array(groupedAssignments))
+        }
+        
+        // Assign the assignments array
+        assignments = arr
+    }
+    
     /// Configures the view depending on if we have a detail item (classObj) or not
     func updateUI(shouldCalculateProgress: Bool = true) {
         self.tableView.reloadData()
@@ -208,7 +222,7 @@ class ClassDetailTableViewController: UITableViewController {
     /// Calculates the percentage for the progress ring
     func calculateProgress() {
         guard let classObj = _classObj else { return }
-        self.progressRing.setProgress(value: CGFloat(classObj.calculateScore()), animationDuration: 1.5)
+        self.progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.5)
     }
     
     func assignment(for indexPath: IndexPath) -> Assignment {
@@ -216,23 +230,42 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     func deleteAssignment(at indexPath: IndexPath) {
-        let assignmentToDelete = assignment(for: indexPath)
+        let assignment = self.assignment(for: indexPath)
         
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(assignmentToDelete)
-        }
-        
+        // Remove from array, but dont delete from Realm yet since user may undo
+        assignments[indexPath.section].remove(at: indexPath.row)
         self.tableView.beginUpdates()
         self.tableView.deleteRows(at: [indexPath], with: .left)
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .fade)
         self.tableView.endUpdates()
         self.reloadEmptyState()
-
+        
         calculateProgress()
+        
+        // Present snackbar with undo option
+        let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO")
+        snack.show(animated: true) { (undone) in
+            if undone {
+                // Re-add to array and reload tableview
+                self.assignments[indexPath.section].insert(assignment, at: indexPath.row)
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [indexPath], with: .automatic)
+                self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .fade)
+                self.tableView.endUpdates()
+                self.reloadEmptyState()
+                self.calculateProgress()
+            } else {
+                // Remove from Realm finally
+                try! Realm().write {
+                    try! Realm().delete(assignment)
+                }
+            }
+        }
     }
     
-    deinit { self.classObj = nil }
+    deinit {
+        self.classObj = nil
+    }
 }
 
 // MARK: - UIEmptyState DataSource & Delegate
@@ -243,14 +276,14 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If no assignments for this class then hide the progress ring and show empty state view
-        guard let classObj = self._classObj else {
+        guard let _ = self._classObj else {
             self.progressRing.isHidden = true
             self.navigationItem.rightBarButtonItem?.isEnabled = false
             self.navigationItem.leftBarButtonItem?.isEnabled = false
             return false
         }
         
-        let noAssignments = classObj.assignments.count == 0
+        let noAssignments = assignments.isTrueEmpty()
         self.progressRing.isHidden = noAssignments
         return noAssignments
     }
@@ -386,7 +419,9 @@ extension ClassDetailTableViewController: Segueable {
 
 extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     func didFinishCreating(assignment: Assignment) {
-
+        // Reload assignments, to get new object that was created
+        reloadAssignments()
+        
         guard let section = rubrics.index(of: assignment.associatedRubric!),
             let row = assignments[section].index(of: assignment) else
         {
@@ -404,6 +439,8 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         
         self.reloadEmptyState()
         
+        self.calculateProgress()
+        
         // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well
         if let svc = splitViewController, !svc.isCollapsed { self.updateUI() }
         
@@ -412,6 +449,7 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
     }
     
     func didFinishUpdating(assignment: Assignment) {
+        self.calculateProgress() 
         self.tableView.reloadData()
         self.reloadEmptyState()
         // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well

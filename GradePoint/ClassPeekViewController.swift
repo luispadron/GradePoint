@@ -31,7 +31,7 @@ class ClassPeekViewController: UIViewController {
 
     func setProgress(for classObj: Class) {
         self.color = classObj.color
-        self.progress = CGFloat(classObj.calculateScore())
+        self.progress = CGFloat(Class.calculateScore(in: classObj))
     }
     
 }

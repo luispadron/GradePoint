@@ -59,18 +59,49 @@ class Class: Object {
         return ["color"]
     }
     
-    // MARK: Helper Methods
+    // MARK: - Helper Methods
     
-    /// Returns the calculated score based on assignments, also mutates the Grade objects score property if detects a change
-    func calculateScore() -> Double {
-        if self.assignments.count == 0 { return 0.00 }
+    /// Calculates the score when assignments are already grouped,
+    /// SIDE EFFECT: -> Updates the Grade for the sent in class object
+    public static func calculateScore(for groupedAssignments: [[Assignment]], in classObj: Class) -> CGFloat {
+        let score = Class.calculateScore(for: groupedAssignments)
         
-        let assignmentsSectionedByRubric = self.rubrics.map { self.assignments.filter("associatedRubric = %@", $0) }
+        // Also update the models Grade.score property in the DB, if its different
+        if classObj.grade!.score != score {
+            try! Realm().write {
+                classObj.grade?.score = score
+                classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
+            }
+        }
         
+        return CGFloat(score)
+    }
+    
+    /// Calculates the score if only have a class object
+    /// SIDE EFFECT: -> Updates the Grade for the sent in class object
+    public static func calculateScore(in classObj: Class) -> CGFloat {
+        let rubrics = Array(classObj.rubrics)
+        let groupedAssignments = rubrics.map { Array(classObj.assignments.filter("associatedRubric = %@", $0)) }
+        
+        let score = Class.calculateScore(for: groupedAssignments)
+        
+        // Also update the models Grade.score property in the DB, if its different
+        if classObj.grade!.score != score {
+            try! Realm().write {
+                classObj.grade?.score = score
+                classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
+            }
+        }
+        
+        return CGFloat(score)
+    }
+    
+    /// Helper method to reduce code use between the two public static methods
+    private static func calculateScore(for groupedAssignments: [[Assignment]]) -> Double {
         var weights = 0.0
         var totalScore = 0.0
         
-        for assignments in assignmentsSectionedByRubric {
+        for assignments in groupedAssignments {
             if assignments.count == 0 { continue }
             weights += assignments[0].associatedRubric!.weight
             
@@ -81,16 +112,9 @@ class Class: Object {
             totalScore += assignments[0].associatedRubric!.weight * sumTotal
         }
         
-        let score = Double(totalScore / weights).roundedUpTo(2)
-        // Also update the models Grade.score property in the DB, if its different
-        if self.grade!.score != score {
-            try! Realm().write {
-                self.grade?.score = score
-                self.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
-            }
-        }
-        return score
+        return Double(totalScore / weights).roundedUpTo(2)
     }
+    
     
     // MARK: - Computed Properties
     
