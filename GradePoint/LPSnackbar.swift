@@ -121,6 +121,10 @@ open class LPSnackbar {
         view.addGestureRecognizer(left)
         view.addGestureRecognizer(right)
         view.addGestureRecognizer(down)
+        
+        // Register for snack removal notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(self.snackWasRemoved(notification:)),
+                                               name: snackRemoval, object: nil)
     }
     
     
@@ -141,7 +145,8 @@ open class LPSnackbar {
         var snackView: LPSnackbarView?
         for sub in superview.subviews {
             // Loop until we find the last snack view, since it should be the last one displayed in the superview
-            if let snack = sub as? LPSnackbarView, snack !== self.view {
+            // and the snack view should be below the current snack view
+            if let snack = sub as? LPSnackbarView, snack !== view, snack.frame.maxY > view.frame.maxY {
                 snackView = snack
             }
         }
@@ -156,6 +161,7 @@ open class LPSnackbar {
     }
     
     private func prepareForRemoval() {
+        NotificationCenter.default.removeObserver(self)
         view.controller = nil
         view.removeFromSuperview()
     }
@@ -258,6 +264,21 @@ open class LPSnackbar {
         }
     }
     
+    @objc private func snackWasRemoved(notification: Notification) {
+        // Recalculate the frame, since another snack view has been removed
+        // If this view was on top, it will look weird to have it floating in the same place
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0.0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 0.0,
+            options: .curveEaseOut,
+            animations: {
+                // Update the frame
+                self.view.frame = self.frameForView()
+            }, completion: nil)
+    }
+    
     @objc private func handleSwipes(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case .left:
@@ -317,13 +338,5 @@ open class LPSnackbar {
         snack.show(animated: true) { _ in
             completion?(false)
         }
-    }
-    
-    
-    // MARK: Deinit
-    
-    deinit {
-        view.controller = nil
-        view.removeFromSuperview()
     }
 }

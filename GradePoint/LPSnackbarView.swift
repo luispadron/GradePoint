@@ -8,6 +8,8 @@
 
 import UIKit
 
+internal let snackRemoval: Notification.Name = Notification.Name(rawValue: "com.luispadron.LPSnackbar.removalNotification")
+
 open class LPSnackbarView: UIView {
     
     // MARK: Properties
@@ -68,6 +70,13 @@ open class LPSnackbarView: UIView {
         let seperatorY = (frame.height - seperatorHeight) / 2
         seperator.frame = CGRect(x: button.frame.minX - seperatorWidth - seperatorPadding, y: seperatorY,
                                  width: seperatorWidth, height: seperatorHeight)
+    }
+    
+    open override func removeFromSuperview() {
+        super.removeFromSuperview()
+        // Will be removed from superview, post notification
+        let notification = Notification(name: snackRemoval)
+        NotificationCenter.default.post(notification)
     }
     
     // MARK: Private methods
