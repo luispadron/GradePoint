@@ -23,6 +23,7 @@
 		A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01599101E2AC47E003B63F2 /* TextInputTableViewCell.swift */; };
 		A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */; };
 		A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */; };
+		A018BD061F16E73C0094AC45 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018BD051F16E73C0094AC45 /* Array+Extensions.swift */; };
 		A019325C1EB128EB000E18A3 /* ClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A019325B1EB128EB000E18A3 /* ClassType.swift */; };
 		A019325E1EB12917000E18A3 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A019325D1EB12917000E18A3 /* Grade.swift */; };
 		A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87811DBD273A00A85E2D /* Rubric.swift */; };
@@ -136,6 +137,7 @@
 		A01599101E2AC47E003B63F2 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard1ViewController.swift; sourceTree = "<group>"; };
 		A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard2ViewController.swift; sourceTree = "<group>"; };
+		A018BD051F16E73C0094AC45 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		A019325B1EB128EB000E18A3 /* ClassType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassType.swift; sourceTree = "<group>"; };
 		A019325D1EB12917000E18A3 /* Grade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		A01B87811DBD273A00A85E2D /* Rubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rubric.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				A0F89EF11E5900E20062F9F2 /* Double+Round.swift */,
 				A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */,
 				A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */,
+				A018BD051F16E73C0094AC45 /* Array+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -922,6 +925,7 @@
 				A00F8DD21E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift in Sources */,
 				A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */,
 				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
+				A018BD061F16E73C0094AC45 /* Array+Extensions.swift in Sources */,
 				A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 				A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */,
