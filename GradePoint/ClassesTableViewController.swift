@@ -384,7 +384,6 @@ class ClassesTableViewController: UITableViewController {
         let reloadSectionsIfNeeded = {
             indexPaths.forEach {
                 guard !self.isSearchActive else { return }
-                print($0.section)
                 if $0.section == 0 && self.favoritedClasses.count == 0 {
                     // Reload favorites section
                     self.tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)

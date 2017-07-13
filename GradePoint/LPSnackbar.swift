@@ -39,6 +39,13 @@ open class LPSnackbar {
         }
     }
     
+    open var bottomSpacingWhenStacked: CGFloat = 8.0 {
+        didSet {
+            // Update any layouts
+            self.view.setNeedsLayout()
+        }
+    }
+    
     open var viewToDisplayIn: UIView?
     
     open var animationDuration: TimeInterval = 0.5
@@ -124,7 +131,24 @@ open class LPSnackbar {
         }
         let width: CGFloat = superview.bounds.width * widthPercent
         let startX: CGFloat = (superview.bounds.width - width) / 2.0
-        let startY: CGFloat = superview.bounds.maxY - height - bottomSpacing
+        
+        let startY: CGFloat
+        
+        // Check to see if a snackbar is already being presented in this view
+        var snackView: LPSnackbarView?
+        for sub in superview.subviews {
+            // Loop until we find the last snack view, since it should be the last one displayed in the superview
+            if let snack = sub as? LPSnackbarView, snack !== self.view {
+                snackView = snack
+            }
+        }
+        
+        if let snack = snackView {
+            startY = snack.frame.maxY - snack.frame.height - height - bottomSpacingWhenStacked
+        } else {
+            startY = superview.bounds.maxY - height - bottomSpacing
+        }
+
         return CGRect(x: startX, y: startY, width: width, height: height)
     }
     
