@@ -21,6 +21,10 @@ open class LPSnackbar {
     
     open var widthPercent: CGFloat = 0.98 {
         didSet {
+            // Clamp at between the range
+            if self.widthPercent < 0.0 || self.widthPercent > 1.0 {
+                self.widthPercent = 0.98
+            }
             self.view.setNeedsLayout()
         }
     }
@@ -126,9 +130,6 @@ open class LPSnackbar {
         }
         
         // Set frame for view
-        if widthPercent < 0.0 || widthPercent > 1.0 {
-            widthPercent = 0.98
-        }
         let width: CGFloat = superview.bounds.width * widthPercent
         let startX: CGFloat = (superview.bounds.width - width) / 2.0
         
