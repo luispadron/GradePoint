@@ -28,14 +28,12 @@ class GPAScale: Object {
     /// Creates a new scale with default values in Realm, returns the created scale
     /// If called when a scale has already been created, that scale will be deleted
     @discardableResult static func createScale(forType scaleType: GPAScaleType) -> GPAScale {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         // A scale already exists return that instead, we only want one of these scales to exist so overwrite this already
         // created scale
         if realm.objects(GPAScale.self).count > 0 {
-            try! realm.write {
-                realm.delete(realm.objects(GPARubric.self))
-                realm.delete(realm.objects(GPAScale.self))
-            }
+            DatabaseManager.shared.deleteObjects(realm.objects(GPARubric.self))
+            DatabaseManager.shared.deleteObjects(realm.objects(GPAScale.self))
         }
         
         // Create the object and add some rubrics
@@ -69,33 +67,30 @@ class GPAScale: Object {
             newScale.gpaRubrics.append(GPARubric(gradeLetter: "F", gradePoints: 0.0))
         }
 
-        try! realm.write {
-            realm.create(GPAScale.self, value: newScale, update: true)
-        }
-        
+        DatabaseManager.shared.createObject(GPAScale.self, value: newScale, update: true)
+
         return newScale
     }
     
     static func restoreScale() {
         // Delete the scale
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(realm.objects(GPARubric.self))
-            realm.delete(realm.objects(GPAScale.self))
-        }
+        let realm = DatabaseManager.shared.realm
+        DatabaseManager.shared.deleteObjects(realm.objects(GPARubric.self))
+        DatabaseManager.shared.deleteObjects(realm.objects(GPAScale.self))
+        
         // Create it again
         createScale(forType: .plusScale)
     }
     
     /// Overwrites the scale in Realm with the new gradePoints and type provided, returns whether succesfully wrote or not
     static func overwriteScale(type: GPAScaleType, gradePoints: [Double]) -> Bool {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         let scale = realm.objects(GPAScale.self)[0]
         var didWrite = true
         
         try! realm.write {
             // Delete any old rubrics
-            realm.delete(scale.gpaRubrics)
+            DatabaseManager.shared.deleteObjects(scale.gpaRubrics)
             // Write new grade rubrics, this may fail if for some reason we cant find a grade letter, thus it will break and return false
             for (index, point) in gradePoints.enumerated() {
                 if let gradeLetter = gradeLetter(forIndex: index, withScaleType: type) {

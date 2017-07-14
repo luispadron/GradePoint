@@ -35,7 +35,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
                                                                  action: #selector(self.onSaveTapped))
         
         
-        let scale = try! Realm().objects(GPAScale.self)[0]
+        let scale = DatabaseManager.shared.realm.objects(GPAScale.self)[0]
 
         // See if field toggle has been disabled or enabled previously
         self.fieldToggle.isOn = scale.scaleType.rawValue == 1 ? true : false

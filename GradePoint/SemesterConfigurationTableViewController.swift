@@ -116,7 +116,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         
         let save = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
             if let text = alert.textFields?.first?.text {
-                let realm = try! Realm()
+                let realm = DatabaseManager.shared.realm
                 // Change the semester names for all associated classes
                 let classes = realm.objects(Class.self).filter { $0.semester!.term  == termEditing }
                 for classObj in classes {
@@ -148,7 +148,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         }
         
         // If no classes associated with this semester, then just delete, no need to warn user
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         let termDeleting = semesters[path.row]
         let classes = realm.objects(Class.self).filter { $0.semester!.term  == termDeleting }
         if classes.count == 0 {
@@ -179,11 +179,9 @@ class SemesterConfigurationTableViewController: UITableViewController {
             // Get any classes with this semester
             try! realm.write {
                 for classObj in classes {
-                    realm.delete(classObj.rubrics)
-                    realm.delete(classObj.semester!)
-                    realm.delete(classObj.assignments)
-                    realm.delete(classObj.grade!)
-                    realm.delete(classObj)
+                    DatabaseManager.shared.deleteObjects(classObj.rubrics)
+                    DatabaseManager.shared.deleteObjects(classObj.assignments)
+                    DatabaseManager.shared.deleteObjects([classObj.semester!, classObj.grade!, classObj])
                 }
             }
             

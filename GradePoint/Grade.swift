@@ -43,7 +43,7 @@ class Grade: Object {
     
     /// Returns a string representation of the score object, the grade letter
     static func gradeLetter(forScore score: Double) -> String {
-        let scale = try! Realm().objects(GPAScale.self).first!
+        let scale = DatabaseManager.shared.realm.objects(GPAScale.self).first!
         switch scale.scaleType {
         case .plusScale:
             switch score {

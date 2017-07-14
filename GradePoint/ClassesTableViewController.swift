@@ -258,7 +258,7 @@ class ClassesTableViewController: UITableViewController {
     
     /// Reloads and updates the `classes` array
     private func reloadClasses() {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         self.classes.removeAll()
         // Set first array in the 2D array as an array of favorited classes
         let all = realm.objects(Class.self)
@@ -271,7 +271,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     private func filterClasses(for search: String) {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         self.classes.removeAll()
         let all = realm.objects(Class.self)
         self.classes.append(all.filter { $0.name.contains(search) })
@@ -410,18 +410,9 @@ class ClassesTableViewController: UITableViewController {
     /// Deletes a class from Realm
     private func delete(classObj: Class) {
         // Remove object from Realm
-        let realm = try! Realm()
-        do {
-            try realm.write {
-                realm.delete(classObj.rubrics)
-                realm.delete(classObj.semester!)
-                realm.delete(classObj.assignments)
-                realm.delete(classObj.grade!)
-                realm.delete(classObj)
-            }
-        } catch {
-            print("Error deleting class object from Realm.\n\(error)")
-        }
+        DatabaseManager.shared.deleteObjects(classObj.rubrics)
+        DatabaseManager.shared.deleteObjects(classObj.assignments)
+        DatabaseManager.shared.deleteObjects([classObj.semester!, classObj.grade!, classObj])
     }
     
   
@@ -452,7 +443,7 @@ class ClassesTableViewController: UITableViewController {
     
     /// Updates a classes favorite state at the specified index path
     private func updateFavoriteState(at indexPath: IndexPath) {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         let classAtPath = self.classObj(at: indexPath)
         
         // Reload tableview and write changes to Realm

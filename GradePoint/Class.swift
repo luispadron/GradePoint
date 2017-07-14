@@ -68,7 +68,7 @@ class Class: Object {
         
         // Also update the models Grade.score property in the DB, if its different
         if classObj.grade!.score != score {
-            try! Realm().write {
+            try! DatabaseManager.shared.realm.write {
                 classObj.grade?.score = score
                 classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
             }
@@ -87,7 +87,7 @@ class Class: Object {
         
         // Also update the models Grade.score property in the DB, if its different
         if classObj.grade!.score != score {
-            try! Realm().write {
+            try! DatabaseManager.shared.realm.write {
                 classObj.grade?.score = score
                 classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
             }

@@ -48,7 +48,7 @@ class GPACalculatorViewController: UIViewController {
         progressRingView.font = UIFont.systemFont(ofSize: 30)
         
         // Check to see if there any classes for which a calculation can be made
-        let classes = try! Realm().objects(Class.self).filter { !$0.isClassInProgress || $0.assignments.count > 0 }
+        let classes = DatabaseManager.shared.realm.objects(Class.self).filter { !$0.isClassInProgress || $0.assignments.count > 0 }
     
         if classes.count > 0 {
             // Prepare GPA Views, and load up all the required information
@@ -163,7 +163,7 @@ class GPACalculatorViewController: UIViewController {
     
     /// Prepares all the GPA views and populates them with the values of their respective Class
     private func prepareGPAViews() {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         // Only want classes which are previous classes, or in progress classes with more than one assignment
         let classes = realm.objects(Class.self).filter { !$0.isClassInProgress || $0.assignments.count > 0 }
         
@@ -182,9 +182,10 @@ class GPACalculatorViewController: UIViewController {
     
     /// Calculates the GPA depending on the student type
     private func calculateGPA() {
-        let scale = try! Realm().objects(GPAScale.self).first!
+        let realm = DatabaseManager.shared.realm
+        let scale = realm.objects(GPAScale.self).first!
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))!
-        let classes = try! Realm().objects(Class.self)
+        let classes = realm.objects(Class.self)
         var totalPoints: Double = 0.0
         var totalCreditHours: Int = 0
 
@@ -257,11 +258,8 @@ class GPACalculatorViewController: UIViewController {
     
     /// Saves the calculation to realm
     private func saveCalculation(withGpa gpa: Double, weighted: Bool) {
-        let realm = try! Realm()
-        try! realm.write {
-            let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date(), weighted: weighted)
-            realm.add(newGPACalc)
-        }
+        let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date(), weighted: weighted)
+        DatabaseManager.shared.addObject(newGPACalc)
         
         // Since the user has finished calculating GPA and they feel good, lets ask them to rate the app now
         RatingManager.presentRating()

@@ -29,7 +29,7 @@ class CalculatorsViewController: UIViewController {
         // Set the progress ring and label
         let attrs: [NSAttributedStringKey: Any] = [.font: UIFont.italicSystemFont(ofSize: 12),
                                                    .foregroundColor: UIColor.mainText.withAlphaComponent(0.6)]
-        let savedCalculations = try! Realm().objects(GPACalculation.self).sorted(byKeyPath: "date", ascending: true)
+        let savedCalculations = DatabaseManager.shared.realm.objects(GPACalculation.self).sorted(byKeyPath: "date", ascending: true)
         
         if let lastCalculation = savedCalculations.last {
             // Set max value of progress ring depending on weighted or not

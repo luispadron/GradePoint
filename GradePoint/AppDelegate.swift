@@ -17,13 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Returns the only AppInfo object stored in realm, if never created before, creates one and returns it
     public static var appInfo: AppInfo {
         get {
-            let realm = try! Realm()
+            let realm = DatabaseManager.shared.realm
             guard let info = realm.objects(AppInfo.self).first else {
                 // Create an object, return it
                 let newInfo = AppInfo()
-                try! realm.write {
-                    realm.create(AppInfo.self, value: newInfo, update: false)
-                }
+                DatabaseManager.shared.createObject(AppInfo.self, value: newInfo, update: false)
                 return newInfo
             }
             return info
@@ -94,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !hasOnboarded { self.presentOnboarding() }
         
         // Perform any required migrations
-        MigrationManager.performMigrations() {
+        DatabaseManager.performMigrations() {
             // App has launched and migrations finished, increase sessions
             self.incrementSessions()
         }
@@ -153,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// Increments the appSessions count in the app info by 1
     private func incrementSessions() {
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         let info = AppDelegate.appInfo
         if realm.isInWriteTransaction {
             info.sessions += 1

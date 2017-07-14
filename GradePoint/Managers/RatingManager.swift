@@ -43,7 +43,7 @@ class RatingManager {
     private static func shouldPresentRating() -> Bool {
         // If user has info sessions, and classes/assignments/gpa calculation then we can present
         // the rating dialog
-        let realm = try! Realm()
+        let realm = DatabaseManager.shared.realm
         let classCount = realm.objects(Class.self).count
         let assignmentCount = realm.objects(Assignment.self).count
         let gpaCalcCount = realm.objects(GPACalculation.self).count

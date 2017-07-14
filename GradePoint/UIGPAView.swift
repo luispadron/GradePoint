@@ -147,7 +147,7 @@ extension UIGPAView: UIPickerViewDelegate, UIPickerViewDataSource {
     // The grades which can be picked from the picker
     var grades: [String] {
         get {
-            let scale = try! Realm().objects(GPAScale.self)[0]
+            let scale = DatabaseManager.shared.realm.objects(GPAScale.self)[0]
             return scale.gpaRubrics.map { $0.gradeLetter }
         }
     }

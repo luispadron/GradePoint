@@ -272,14 +272,7 @@ class ClassDetailTableViewController: UITableViewController {
                 self?.calculateProgress()
             } else {
                 // Remove from Realm finally
-                let realm = try! Realm()
-                do {
-                    try realm.write {
-                        realm.delete(assignment)
-                    }
-                } catch {
-                    print("ERROR: deleting assignment from Realm.\n\(error)")
-                }
+                DatabaseManager.shared.deleteObjects([assignment])
             }
         }
     }

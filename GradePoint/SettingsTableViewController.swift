@@ -166,7 +166,7 @@ class SettingsTableViewController: UITableViewController {
             defaults.set(type.rawValue, forKey: UserDefaultKeys.studentType.rawValue)
             
             // Update all the classes depending on type switched to
-            let realm = try! Realm()
+            let realm = DatabaseManager.shared.realm
             let classes = realm.objects(Class.self)
             
             switch type {

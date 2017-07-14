@@ -40,7 +40,7 @@
 		A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
-		A067F1411F0041EA00EE23CE /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* MigrationManager.swift */; };
+		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */; };
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
@@ -152,7 +152,7 @@
 		A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
-		A067F1401F0041EA00EE23CE /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
+		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewController.swift; sourceTree = "<group>"; };
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
@@ -327,7 +327,7 @@
 		A027533E1F043B2A0021CDFF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				A067F1401F0041EA00EE23CE /* MigrationManager.swift */,
+				A067F1401F0041EA00EE23CE /* DatabaseManager.swift */,
 				A027533C1F043B240021CDFF /* RatingManager.swift */,
 			);
 			path = Managers;
@@ -903,7 +903,7 @@
 				A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */,
 				A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
-				A067F1411F0041EA00EE23CE /* MigrationManager.swift in Sources */,
+				A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */,
 				A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */,
 				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,
 				A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */,

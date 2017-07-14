@@ -18,7 +18,7 @@ class AddEditClassViewController: UIViewController {
 
     // MARK: Properties
     
-    let realm = try! Realm()
+    let realm = DatabaseManager.shared.realm
     var classObj: Class?
     lazy var colorForView: UIColor = {
         if let obj = self.classObj { return obj.color }
@@ -172,7 +172,7 @@ class AddEditClassViewController: UIViewController {
             self.semesterLabel.text = "\(semester.term) \(semester.year)"
             self.semester = semester
             // Set a default grade
-            let scale = try! Realm().objects(GPAScale.self).first!
+            let scale = self.realm.objects(GPAScale.self).first!
             let defaultGrade = scale.gpaRubrics[0].gradeLetter
             self.gradeLabel.text = defaultGrade
             // Prepare for add state
@@ -469,10 +469,8 @@ class AddEditClassViewController: UIViewController {
                              creditHours: credits, semester: semester, rubrics: List<Rubric>(rubrics))
         newClass.colorData = colorForView.toData()
         
-        try! realm.write {
-            realm.add(newClass)
-        }
-        
+        // Add to realm
+        DatabaseManager.shared.addObject(newClass)        
         
         // Dismiss controller
         self.dismiss(animated: true) { [weak self] in
@@ -487,10 +485,9 @@ class AddEditClassViewController: UIViewController {
         let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
                              semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
         newClass.colorData = colorForView.toData()
+        
         // Write the new class to realm
-        try! realm.write {
-            realm.add(newClass)
-        }
+        DatabaseManager.shared.addObject(newClass)
         
         // Dismisses
         self.dismiss(animated: true) { [weak self] in
@@ -573,13 +570,8 @@ class AddEditClassViewController: UIViewController {
             // Get the assignments associated with this rubric
             let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
             // Write deletion to realm
-            try! realm.write {
-                for assignment in assignments {
-                    realm.delete(assignment)
-                }
-                
-                realm.delete(rubric)
-            }
+            DatabaseManager.shared.deleteObjects(assignments)
+            DatabaseManager.shared.deleteObjects([rubric])
             
             // Remove this rubric from the editing rubrics array
             editingRubrics.removeValue(forKey: pk)
@@ -810,7 +802,7 @@ extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelega
     
     var gradeLetters: [String] {
         get {
-            let scale = try! Realm().objects(GPAScale.self)[0]
+            let scale = self.realm.objects(GPAScale.self)[0]
             return scale.gpaRubrics.map { $0.gradeLetter }
         }
     }

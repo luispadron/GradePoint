@@ -14,7 +14,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     // MARK: - Properties
     
     /// Realm database object
-    let realm = try! Realm()
+    let realm = DatabaseManager.shared.realm
     /// Outlet to the save button
     @IBOutlet weak var saveButton: UIBarButtonItem!
     /// The parent class which owns this Assignment, passed in via segue inside of ClassDetailTableViewController
