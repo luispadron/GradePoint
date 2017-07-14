@@ -55,6 +55,8 @@ class ClassDetailTableViewController: UITableViewController {
     /// The assignments grouped by rubric
     var assignments = [[Assignment]]()
     
+    /// Returns whether or not this is the first time the view was presented
+    var isFirstAppearance: Bool = true
     
     // MARK: - Overrides
     
@@ -95,13 +97,19 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         // Set seperator color
         self.tableView.separatorColor = UIColor.tableViewSeperator
-        // Configure the view for load
-        updateUI(shouldCalculateProgress: false) // Dont calculate progress here because too early for animations
+        // Configure the view for load, only initially
+        if isFirstAppearance {
+            updateUI(shouldCalculateProgress: false) // Dont calculate progress here because too early for animations
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateUI()
+        if isFirstAppearance {
+            updateUI()
+            // Only want to update the UI initially. Afterwards, other methods will handle calling for updates
+            isFirstAppearance = false
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -196,28 +204,27 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     /// Configures the view depending on if we have a detail item (classObj) or not
-    func updateUI(shouldCalculateProgress: Bool = true) {
-        self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
-        
-        if let classObj = self._classObj, classObj.isClassInProgress {
-            // Class is an in progress class, then allow + button to be enabled
-            self.title = classObj.name
-            self.addButton.isEnabled = true
-            self.splitViewController?.displayModeButtonItem.isEnabled = true
-        } else if let classObj = self._classObj, !classObj.isClassInProgress {
-            // Class is a previous class, dont allow + button
-            self.title = classObj.name
-            self.addButton.isEnabled = false
-            self.splitViewController?.displayModeButtonItem.isEnabled = true
-        } else {
-            self.title = nil
-            self.addButton.isEnabled = false
-            self.splitViewController?.displayModeButtonItem.isEnabled = false
-        }
-        
+    private func updateUI(shouldCalculateProgress: Bool = true) {
+        self.title = self._classObj?.name
+        self.addButton.isEnabled = self._classObj != nil
+        self.splitViewController?.displayModeButtonItem.isEnabled = self._classObj != nil
         self.reloadEmptyState()
         if shouldCalculateProgress { self.calculateProgress() }
+    }
+    
+    /// Updates the UI so that any changes to a related class will affect this view
+    /// This is called when a class is deleted inside of ClassesTableViewController
+    public func updateUIForClassChanges() {
+        // Update table view
+        self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
+        self.reloadEmptyState()
+        
+        // Update title and buttons
+        self.title = self._classObj?.name
+        self.addButton.isEnabled = self._classObj != nil
+        self.splitViewController?.displayModeButtonItem.isEnabled = self._classObj != nil
+        
     }
     
     /// Calculates the percentage for the progress ring
@@ -284,76 +291,20 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     // DataSource
 
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
-        // If no assignments for this class then hide the progress ring and show empty state view
-        guard let _ = self._classObj else {
-            self.progressRing.isHidden = true
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
-            return false
-        }
-        
-        let noAssignments = assignments.isTrueEmpty()
-        self.progressRing.isHidden = noAssignments
-        return noAssignments
+        return assignments.isTrueEmpty
     }
     
     var emptyStateTitle: NSAttributedString {
-    
+        guard let _ = self._classObj else { return NSAttributedString(string: "") }
         // Attributes for the attributed string
-        var attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20)]
-        
-        if let inProgress = _classObj, inProgress.isClassInProgress {
-            // Class is in progress but has no assignments
-            attributes[.foregroundColor] = UIColor.mainText
-            return NSAttributedString(string: "No assignments added", attributes: attributes)
-        } else if let previousClass = _classObj, !previousClass.isClassInProgress {
-            // Class is a previous class, assignments cannot be added
-            attributes[.foregroundColor] = UIColor.mainText
-            return NSAttributedString(string: "Previous class: " + previousClass.name, attributes: attributes)
-        } else {
-            // No class selected
-            attributes[.foregroundColor] = UIColor.mutedText
-            return NSAttributedString(string: "Select a class", attributes: attributes)
-        }
-    }
-    
-    var emptyStateDetailMessage: NSAttributedString? {
-        guard let classObj = _classObj else { return nil }
-        
-        // Class is not in progress, its a previous class. Display a detail message and thats it
-        if !classObj.isClassInProgress {
-            // Construct the detail message
-            let detailString = "This is a previous class, assignments cannot be added.\n" +
-            "Previous classes are used in GPA calculations.\n\nGrade earned: "
-            let detailAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
-                                                             .font: UIFont.systemFont(ofSize: 15)]
-            
-            let detail = NSAttributedString(string: detailString, attributes: detailAttrs)
-            
-            let gradeString = classObj.grade!.gradeLetter
-            let gradeAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.systemFont(ofSize: 15),
-                                                              .foregroundColor: UIColor.highlight]
-            let grade = NSAttributedString(string: gradeString, attributes: gradeAttrs)
-            
-            let hintString = "\n\nTo track assignments create an In Progress class"
-            let hintAttrs: [NSAttributedStringKey: Any] = [.font: UIFont.italicSystemFont(ofSize: 15),
-                                                           .foregroundColor: UIColor.mutedText]
-            let hint = NSAttributedString(string: hintString, attributes: hintAttrs)
-            
-            let fullDetail = NSMutableAttributedString()
-            fullDetail.append(detail)
-            fullDetail.append(grade)
-            fullDetail.append(hint)
-            
-            return fullDetail
-        }
-
-        return nil
+        let attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20),
+                                                         .foregroundColor: UIColor.mainText]
+        return NSAttributedString(string: "No assignments added", attributes: attributes)
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
         // If no class selected, or if class is a previous class, then dont show the button
-        guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
+        guard let _ = self._classObj else { return nil }
         
         let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
                                                    .font: UIFont.systemFont(ofSize: 18)]
@@ -362,14 +313,14 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     
     var emptyStateButtonImage: UIImage? {
         // If no class selected, or if class is a previous class, then dont show the button image
-        guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
+        guard let _ = self._classObj else { return nil }
         
         return #imageLiteral(resourceName: "ButtonBg")
     }
     
     var emptyStateButtonSize: CGSize? {
         // If no class selected, or if class is a previous class, then dont return button size
-        guard let classObj = _classObj, classObj.isClassInProgress else { return nil }
+        guard let _ = self._classObj else { return nil }
         
         return CGSize(width: 170, height: 50)
     }
@@ -379,6 +330,19 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateViewAnimationDuration: TimeInterval { return 0.8 }
     
     // Delegate
+    
+    func emptyStateViewWillShow(view: UIView) {
+        // Hide the progress ring
+        self.progressRing.isHidden = true
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
+    func emptyStateViewWillHide(view: UIView) {
+        self.progressRing.isHidden = false
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        self.navigationItem.leftBarButtonItem?.isEnabled = true
+    }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
         self.performSegue(withIdentifier: .addAssignment, sender: button)
@@ -446,22 +410,14 @@ extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
         self.tableView.endUpdates()
         self.tableView.layoutIfNeeded()
         
-        self.reloadEmptyState()
-        
-        self.calculateProgress()
-        
-        // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well
-        if let svc = splitViewController, !svc.isCollapsed { self.updateUI() }
+        self.updateUI()
         
         // Now that user has added a class, and hopefully enjoyed it, ask them to rate if possible
         RatingManager.presentRating()
     }
     
     func didFinishUpdating(assignment: Assignment) {
-        self.calculateProgress() 
         self.tableView.reloadData()
-        self.reloadEmptyState()
-        // Only call calculation of progress ring if in SPV, because this will be called inside viewDidAppear as well
-        if let svc = splitViewController, !svc.isCollapsed { self.updateUI() }
+        self.updateUI()
     }
 }

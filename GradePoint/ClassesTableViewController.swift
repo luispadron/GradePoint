@@ -374,9 +374,9 @@ class ClassesTableViewController: UITableViewController {
         // Update detail if needed
         if shouldUpdateDetail {
             detailController?.classObj = nil
-            detailController?.updateUI()
+            detailController?.updateUIForClassChanges()
         } else {
-            detailController?.updateUI()
+            detailController?.updateUIForClassChanges()
         }
         
         // Present snackbar to allow user to undo the deletion
@@ -524,27 +524,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     
     func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
         // If not items then empty, show empty state
-        let isEmpty = classes.isTrueEmpty()
-        
-        if #available(iOS 11.0, *) {
-            if isEmpty { searchController.isActive = false }
-            return isEmpty
-        } else {
-            // Make sure to remove search bar on any iOS less than 11.0 from the header view
-            // Not needed for >= 11.0 since this is all handled
-            if isEmpty {
-                // Remove the searchbar
-                self.searchController.isActive = false
-                self.tableView.tableHeaderView = nil
-            } else {
-                // Readd search
-                if self.tableView.tableHeaderView == nil {
-                    self.tableView.tableHeaderView = searchController.searchBar
-                }
-            }
-            
-            return isEmpty
-        }
+        return classes.isTrueEmpty
     }
     
     var emptyStateTitle: NSAttributedString {
@@ -568,6 +548,27 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateViewAnimatesEverytime: Bool { return false }
     
     // Empty State Delegate
+    
+    func emptyStateViewWillShow(view: UIView) {
+        // Deactivate the search controller
+        if #available(iOS 11.0, *) {
+            self.searchController.isActive = false
+        } else {
+            self.searchController.isActive = false
+            self.tableView.tableHeaderView = nil
+        }
+    }
+    
+    func emptyStateViewWillHide(view: UIView) {
+        // Re add the searchbar, only needs to be done for iOS 10.0 or lower
+        if #available(iOS 11.0, *) {
+            return
+        } else {
+            if self.tableView.tableHeaderView == nil {
+                self.tableView.tableHeaderView = self.searchController.searchBar
+            }
+        }
+    }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
         self.performSegue(withIdentifier: .addEditClass, sender: button)
@@ -686,7 +687,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         let detailController = (splitViewController?.viewControllers.last as? UINavigationController)?.childViewControllers.first as? ClassDetailTableViewController
         if detailController?.classObj == classObj {
             detailController?.classObj = classObj
-            detailController?.updateUI()
+            detailController?.updateUIForClassChanges()
         }
     }
     
@@ -714,11 +715,6 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         self.tableView.endUpdates()
         self.reloadEmptyState()
-        
-        // Also update the detail views context message
-        let detailNav = splitViewController?.viewControllers.last as? UINavigationController
-        let detailController = detailNav?.childViewControllers.first as? ClassDetailTableViewController
-        detailController?.updateUI()
     }
     
     
