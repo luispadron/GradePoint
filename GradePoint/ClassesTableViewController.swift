@@ -411,12 +411,16 @@ class ClassesTableViewController: UITableViewController {
     private func delete(classObj: Class) {
         // Remove object from Realm
         let realm = try! Realm()
-        try! realm.write {
-            realm.delete(classObj.rubrics)
-            realm.delete(classObj.semester!)
-            realm.delete(classObj.assignments)
-            realm.delete(classObj.grade!)
-            realm.delete(classObj)
+        do {
+            try realm.write {
+                realm.delete(classObj.rubrics)
+                realm.delete(classObj.semester!)
+                realm.delete(classObj.assignments)
+                realm.delete(classObj.grade!)
+                realm.delete(classObj)
+            }
+        } catch {
+            print("Error deleting class object from Realm.\n\(error)")
         }
     }
     
