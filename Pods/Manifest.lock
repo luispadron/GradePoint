@@ -1,4 +1,5 @@
 PODS:
+  - LPSnackbar (1.0.0)
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
   - Realm/Headers (2.8.3)
@@ -8,6 +9,7 @@ PODS:
   - UIEmptyState (0.8.3)
 
 DEPENDENCIES:
+  - LPSnackbar
   - Realm (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
   - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
   - UICircularProgressRing
@@ -25,20 +27,21 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Realm:
-    :commit: d8fa993fcaaca693e19cb59d7de2b244e154c6b9
+    :commit: 9fe17040e96d3d8acf9e19ad90967303c9c0e663
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
   RealmSwift:
-    :commit: d8fa993fcaaca693e19cb59d7de2b244e154c6b9
+    :commit: 9fe17040e96d3d8acf9e19ad90967303c9c0e663
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
 
 SPEC CHECKSUMS:
+  LPSnackbar: 45b6ac3d05b5fa4828dd760a5e6611ac721191e0
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
   RealmSwift: 8bba39ad585bfee78123d8e3536496698274d549
   UICircularProgressRing: f25e366e0624d87973192b67e572c0712acbae85
   UIEmptyState: 2d7019069a6792e649366776c117ad7757854e14
 
-PODFILE CHECKSUM: cd4be1f83839be5c71569aa310283f0bf5f466b4
+PODFILE CHECKSUM: 82f88d615547d03e9a0f57c43a13cd991501d50a
 
 COCOAPODS: 1.3.0.beta.2

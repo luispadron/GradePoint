@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import UIEmptyState
+import LPSnackbar
 
 class ClassesTableViewController: UITableViewController {
     

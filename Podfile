@@ -11,6 +11,7 @@ def all_pods
                     :submodules => true
   pod 'UICircularProgressRing'
   pod 'UIEmptyState'
+  pod 'LPSnackbar'
 end
 
 target 'GradePoint' do

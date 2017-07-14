@@ -74,8 +74,6 @@
 		A0CE8B471DAF19EF007968EE /* UIColorExentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
 		A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */; };
-		A0DE59561F15B55000A9031C /* LPSnackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE59551F15B55000A9031C /* LPSnackbar.swift */; };
-		A0DE59581F15B55A00A9031C /* LPSnackbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE59571F15B55A00A9031C /* LPSnackbarView.swift */; };
 		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
 		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */; };
 		A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */; };
@@ -188,8 +186,6 @@
 		A0CE8B461DAF19EF007968EE /* UIColorExentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExentions.swift; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 		A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
-		A0DE59551F15B55000A9031C /* LPSnackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LPSnackbar.swift; sourceTree = "<group>"; };
-		A0DE59571F15B55A00A9031C /* LPSnackbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LPSnackbarView.swift; sourceTree = "<group>"; };
 		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
 		A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFloatingPromptTextField.swift; sourceTree = "<group>"; };
 		A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewDelegate.swift; sourceTree = "<group>"; };
@@ -477,7 +473,6 @@
 		A0CE8B481DAF26E3007968EE /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
-				A0DE59541F15B4CC00A9031C /* UndoControl */,
 				A0E892E61DB97B4A0034DAB6 /* Cells */,
 				A0A27CFC1E5579DD00054935 /* UIBlurAlert */,
 				A0A27CFB1E55563D00054935 /* UISafeTextField */,
@@ -489,15 +484,6 @@
 				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
 			);
 			name = "Custom Controls";
-			sourceTree = "<group>";
-		};
-		A0DE59541F15B4CC00A9031C /* UndoControl */ = {
-			isa = PBXGroup;
-			children = (
-				A0DE59551F15B55000A9031C /* LPSnackbar.swift */,
-				A0DE59571F15B55A00A9031C /* LPSnackbarView.swift */,
-			);
-			name = UndoControl;
 			sourceTree = "<group>";
 		};
 		A0E705AD1DBBDE40008E04EC /* Enums */ = {
@@ -691,6 +677,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
@@ -698,6 +685,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
@@ -748,6 +736,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
@@ -755,6 +744,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
@@ -808,6 +798,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GradePointUITests/Pods-GradePointUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
@@ -815,6 +806,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
@@ -888,7 +880,6 @@
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
 				A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */,
-				A0DE59561F15B55000A9031C /* LPSnackbar.swift in Sources */,
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,
 				A0FE32B51F145BFB00F264EC /* PreviousClassDetailViewController.swift in Sources */,
 				A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */,
@@ -919,7 +910,6 @@
 				A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */,
 				A0E8B6921E497A9800EC4470 /* AddEditClassViewDelegate.swift in Sources */,
 				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
-				A0DE59581F15B55A00A9031C /* LPSnackbarView.swift in Sources */,
 				A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */,
 				A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */,
 				A00F8DD21E29A594009F8C5D /* BasicInfoRubricPickerTableViewCell.swift in Sources */,

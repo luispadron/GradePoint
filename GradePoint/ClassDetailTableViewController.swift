@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import UICircularProgressRing
 import UIEmptyState
+import LPSnackbar
 
 class ClassDetailTableViewController: UITableViewController {
 
