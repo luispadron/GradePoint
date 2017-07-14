@@ -684,6 +684,7 @@ extension ClassesTableViewController: Segueable {
         
         // Revert and undo any searches
         searchController.isActive = false
+        self.reloadClasses()
         self.tableView.reloadData()
         self.reloadEmptyState()
         
