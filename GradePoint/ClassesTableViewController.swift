@@ -25,24 +25,18 @@ class ClassesTableViewController: UITableViewController {
         }
     }
 
+    /**
+     The datasource for the tableview.
+     
+     This is a two dimensional array which contains array of Class objects.
+     The first array in the array is for any classes which are also favorites.
+     The rest are arrays of classes grouped by their semester.
+     */
+    var classes: [[Class]] = [[Class]]()
+
+    
     /// The search controller used to filter the table view
     let searchController: UISearchController = UISearchController(searchResultsController: nil)
-    
-    /// A 2D array of Class objects grouped by their Semester object
-    lazy var classes: [[Class]] = {
-        return self.createSectionedClasses()
-    }()
-    
-    /// A filtered array of classes, filtered using text entered in the search contoller
-    lazy var filteredClasses = [Class]()
-    
-    /// An array of classes that have been favorited by the user, ordered by date
-    lazy var favoritedClasses: [Class] = {
-        return try! Realm().objects(Class.self).filter { $0.isFavorite }.sorted { $0.semester!.year > $1.semester!.year }
-    }()
-    
-    /// The index path of the class the user wants to edit
-    var editingIndexPath: IndexPath?
     
     /// Helper property to determine whether search bar is active
     var isSearchActive: Bool {
@@ -53,10 +47,6 @@ class ClassesTableViewController: UITableViewController {
     
     /// The section number for the favorites section
     private let favoritesSection: Int = 0
-    
-    /// The number of extra sections in the tableview, not counting classesBySection
-    /// This number needs to be subtracted from sections when accessing classesBySections
-    private let accessorySections: Int = 1
     
     // MARK: - Overrides
     
@@ -72,6 +62,8 @@ class ClassesTableViewController: UITableViewController {
         self.splitViewController?.delegate = self
         self.splitViewController?.preferredDisplayMode = .allVisible
     
+        // Initially reload the classes array since empty at first launch
+        self.reloadClasses()
         
         // Add scrolls to top gesture
         self.tableView.scrollsToTop = true
@@ -119,37 +111,16 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if isSearchActive {
-            return 1
-        } else {
-            // Determine number of sections, add any accessory sections for favorites 
-            return classes.count + accessorySections
-        }
+        return classes.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearchActive {
-            return filteredClasses.count
-        } else {
-            if section == favoritesSection {
-                // The favorites section will only contain favorited classes duh...
-                return favoritedClasses.count
-            } else {
-                return classes[section - accessorySections].count
-            }
-        }
+        return classes[section].count
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if isSearchActive {
-            return 0
-        } else {
-            if section == favoritesSection {
-                return favoritedClasses.count > 0 ? 44 : 0
-            } else  {
-                return classes[section - accessorySections].count > 0 ? 44 : 0
-            }
-        }
+        guard !isSearchActive else { return 0 }
+        return classes[section].count > 0 ? 44 : 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -158,8 +129,6 @@ class ClassesTableViewController: UITableViewController {
     
     /// Creates a custom header view for a section
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard !isSearchActive else { return nil }
-        
         let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
         mainView.backgroundColor = UIColor.tableViewHeader
         
@@ -173,11 +142,16 @@ class ClassesTableViewController: UITableViewController {
         if section == favoritesSection {
             label.text = "Favorites"
         } else {
-            let semForSection = semesterSections[section - accessorySections]
+            let semForSection = semesterSections[section - 1] // - 1 due to the favorites section
             label.text = "\(semForSection.term) \(semForSection.year)"
         }
         
         return mainView
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Don't allow editing if search is active
+        return !isSearchActive
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -257,6 +231,52 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
+    /// This generates all of the possible Semester combinations, this array will be the sections for the table view
+    private func generateSemestersForSections() -> [Semester] {
+        let terms: [String]
+        
+        /// Load semesters from user defaults, if for some reason this isnt saved, fall back to default semesters
+        if let t = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
+            terms = t
+        } else {
+            print("WARNING: Something went wrong when loading semesters from UserDefaults, loading default set instead.")
+            terms = ["Spring", "Summer", "Fall", "Winter"]
+        }
+        
+        lastLoadedTerms = terms
+        
+        let years = UISemesterPickerView.createArrayOfYears()
+        var results = [Semester]()
+        
+        for year in years {
+            for term in terms {
+                results.append(Semester(withTerm: term, andYear: year))
+            }
+        }
+        return results
+    }
+    
+    /// Reloads and updates the `classes` array
+    private func reloadClasses() {
+        let realm = try! Realm()
+        self.classes.removeAll()
+        // Set first array in the 2D array as an array of favorited classes
+        let all = realm.objects(Class.self)
+        self.classes.append(all.filter { $0.isFavorite }.sorted { $0.semester!.year > $1.semester!.year})
+        // The rest of the arrays inside the `classes` array will be grouped by their semester
+        semesterSections.forEach {
+            let classes = Array(all.filter("semester.term == %@ AND semester.year == %@", $0.term, $0.year))
+            self.classes.append(classes)
+        }
+    }
+    
+    private func filterClasses(for search: String) {
+        let realm = try! Realm()
+        self.classes.removeAll()
+        let all = realm.objects(Class.self)
+        self.classes.append(all.filter { $0.name.contains(search) })
+    }
+    
     /// Sets up the search bar for the tableview
     private func setupSearchbar() {
         if #available(iOS 11.0, *)  {
@@ -279,207 +299,153 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
-    
-    /// Reloads and updates the `classes` array
-    func reloadClasses() {
-        self.classes = createSectionedClasses()
-    }
-    
-    // Reloads and updates the `favoritedClasses` array
-    func reloadFavoritedClasses() {
-        self.favoritedClasses = try! Realm().objects(Class.self).filter { $0.isFavorite }.sorted { $0.semester!.year > $1.semester!.year }
-    }
-    
-    /// This generates all of the possible Semester combinations, this array will be the sections for the table view
-    func generateSemestersForSections() -> [Semester] {
-        let terms: [String]
-        
-        /// Load semesters from user defaults, if for some reason this isnt saved, fall back to default semesters
-        if let t = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
-            terms = t
-        } else {
-            print("WARNING: Something went wrong when loading semesters from UserDefaults, loading default set instead.")
-            terms = ["Spring", "Summer", "Fall", "Winter"]
-        }
-        
-        lastLoadedTerms = terms
-    
-        let years = UISemesterPickerView.createArrayOfYears()
-        var results = [Semester]()
-        
-        for year in years {
-            for term in terms {
-                results.append(Semester(withTerm: term, andYear: year))
-            }
-        }
-        return results
-    }
-    
-    /// This creates a 2D array that has Class objects grouped by their semester
-    func createSectionedClasses() -> [[Class]] {
-        var array = [[Class]]()
-        for semester in semesterSections {
-            let classesForSemester = try! Realm().objects(Class.self).filter("semester.term == %@ AND semester.year == %@", semester.term, semester.year)
-            array.append(Array(classesForSemester))
-        }
-        
-        return array
-    }
-
-    
     /// Returns a classObj for the sent in index path, used for tableview methods
     private func classObj(at indexPath: IndexPath) -> Class {
-        if isSearchActive {
-            return filteredClasses[indexPath.row]
-        } else if indexPath.section == favoritesSection {
-            return favoritedClasses[indexPath.row]
-        } else {
-            return classes[indexPath.section - accessorySections][indexPath.row]
-        } 
+        return classes[indexPath.section][indexPath.row]
     }
     
-    /// Updates the tableview to the filtered classes array user searched for
-    func filterClasses(forSearchText searchText: String, scope: String = "All") {
-        // First flatten the 2D array
-        let flatClasses = classes.joined()
-        
-        filteredClasses = flatClasses.filter { classObj in
-            return classObj.name.lowercased().contains(searchText.lowercased())
-        }
-        
-        tableView.reloadData()
-    }
+//    /// Updates the tableview to the filtered classes array user searched for
+//    func filterClasses(forSearchText searchText: String, scope: String = "All") {
+//        // First flatten the 2D array
+//        let flatClasses = classes.joined()
+//
+//        filteredClasses = flatClasses.filter { classObj in
+//            return classObj.name.lowercased().contains(searchText.lowercased())
+//        }
+//
+//        tableView.reloadData()
+//    }
     
     /// Handles the deleting of a table view row and class object
     private func handleDelete(at deletePath: IndexPath) {
-        let classToDel = classObj(at: deletePath)
-        
-        guard classToDel.isFavorite == true else {
-            // Class isnt a favorite, we can just go ahead and remove the single cell
-            removeCells(at: [deletePath], classObj: classToDel)
-            return
-        }
-        
-        // Since favorited classes appear twice in the table view, we need to make sure we're removing both cells
-        if deletePath.section == 0 {
-            // Find path of class in `classes` array
-            if let indices = classes.indices(of: classToDel) {
-                removeCells(at: [deletePath, IndexPath(row: indices.1, section: indices.0 + accessorySections)],
-                            classObj: classToDel)
-            } else {
-                LPSnackbar.showSnack(title: "Error deleting class.")
-            }
-        } else {
-            // Find path of class in `favoritesArray`
-            if let index = favoritedClasses.index(of: classToDel) {
-                removeCells(at: [deletePath, IndexPath(row: index, section: 0)], classObj: classToDel)
-            } else {
-                LPSnackbar.showSnack(title: "Error deleting class.")
-            }
-        }
+//        let classToDel = classObj(at: deletePath)
+//
+//        guard classToDel.isFavorite == true else {
+//            // Class isnt a favorite, we can just go ahead and remove the single cell
+//            removeCells(at: [deletePath], classObj: classToDel)
+//            return
+//        }
+//
+//        // Since favorited classes appear twice in the table view, we need to make sure we're removing both cells
+//        if deletePath.section == 0 {
+//            // Find path of class in `classes` array
+//            if let indices = classes.indices(of: classToDel) {
+//                removeCells(at: [deletePath, IndexPath(row: indices.1, section: indices.0 + accessorySections)],
+//                            classObj: classToDel)
+//            } else {
+//                LPSnackbar.showSnack(title: "Error deleting class.")
+//            }
+//        } else {
+//            // Find path of class in `favoritesArray`
+//            if let index = favoritedClasses.index(of: classToDel) {
+//                removeCells(at: [deletePath, IndexPath(row: index, section: 0)], classObj: classToDel)
+//            } else {
+//                LPSnackbar.showSnack(title: "Error deleting class.")
+//            }
+//        }
     }
     
     /// Removes the cells from the table view and presents an LPSnackbar in order to allow undo
     private func removeCells(at indexPaths: [IndexPath], classObj: Class) {
-        // Block which reloads any sections if it is needed
-        let reloadSectionsIfNeeded = {
-            indexPaths.forEach {
-                guard !self.isSearchActive else { return }
-                if $0.section == 0 && self.favoritedClasses.count == 0 {
-                    // Reload favorites section
-                    self.tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
-                } else if $0.section > 0 && self.classes[$0.section - self.accessorySections].count == 0 {
-                    self.tableView.reloadSections(IndexSet.init(integer: $0.section), with: .automatic)
-                }
-            }
-        }
-        
-        // Remove objects from correct arrays
-        indexPaths.forEach { self.removeClass(at: $0) }
-        // Update the table view
-        self.tableView.beginUpdates()
-        self.tableView.deleteRows(at: indexPaths, with: .automatic)
-        // Reload any sections if needed
-        reloadSectionsIfNeeded()
-        self.tableView.endUpdates()
-        self.reloadEmptyState()
-        
-        // Figure out whether we need to update the state of the detail controller or not
-        // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
-        var shouldUpdateDetail = false
-        var detailController: ClassDetailTableViewController?
-        
-        if classObj.isClassInProgress {
-            // In progress class
-            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
-            detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
-            shouldUpdateDetail = detailController?.classObj == classObj
-        } else {
-            // Previous class, different process, just hide all the views and move on
-            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
-            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
-            prevDetailController?.hideViews()
-        }
-        
-        // Update detail if needed
-        if shouldUpdateDetail {
-            detailController?.classObj = nil
-            detailController?.updateUI()
-        } else {
-            detailController?.updateUI()
-        }
-        
-        // Show a snackbar to allow user to undo removal
-        let snack = LPSnackbar(title: "Class: \(classObj.name) - deleted.", buttonTitle: "UNDO")
-        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 15
-        snack.show(animated: true) { (undone) in
-            if undone {
-                // Re-add the classes back into their arrays and re-add the cells into the tableview, since undone
-                self.tableView.beginUpdates()
-                reloadSectionsIfNeeded()
-                indexPaths.forEach { self.addClass(classObj, at: $0) }
-                self.reloadEmptyState()
-                self.tableView.insertRows(at: indexPaths, with: .automatic)
-                self.tableView.endUpdates()
-            } else {
-                // Fully delete the object from Realm
-                self.delete(classObj: classObj)
-            }
-        }
+//        // Block which reloads any sections if it is needed
+//        let reloadSectionsIfNeeded = {
+//            indexPaths.forEach {
+//                guard !self.isSearchActive else { return }
+//                if $0.section == 0 && self.favoritedClasses.count == 0 {
+//                    // Reload favorites section
+//                    self.tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
+//                } else if $0.section > 0 && self.classes[$0.section - self.accessorySections].count == 0 {
+//                    self.tableView.reloadSections(IndexSet.init(integer: $0.section), with: .automatic)
+//                }
+//            }
+//        }
+//
+//        // Remove objects from correct arrays
+//        indexPaths.forEach { self.removeClass(at: $0) }
+//        // Update the table view
+//        self.tableView.beginUpdates()
+//        self.tableView.deleteRows(at: indexPaths, with: .automatic)
+//        // Reload any sections if needed
+//        reloadSectionsIfNeeded()
+//        self.tableView.endUpdates()
+//        self.reloadEmptyState()
+//
+//        // Figure out whether we need to update the state of the detail controller or not
+//        // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
+//        var shouldUpdateDetail = false
+//        var detailController: ClassDetailTableViewController?
+//
+//        if classObj.isClassInProgress {
+//            // In progress class
+//            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
+//            detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
+//            shouldUpdateDetail = detailController?.classObj == classObj
+//        } else {
+//            // Previous class, different process, just hide all the views and move on
+//            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
+//            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
+//            prevDetailController?.hideViews()
+//        }
+//
+//        // Update detail if needed
+//        if shouldUpdateDetail {
+//            detailController?.classObj = nil
+//            detailController?.updateUI()
+//        } else {
+//            detailController?.updateUI()
+//        }
+//
+//        // Show a snackbar to allow user to undo removal
+//        let snack = LPSnackbar(title: "Class: \(classObj.name) - deleted.", buttonTitle: "UNDO")
+//        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 15
+//        snack.show(animated: true) { (undone) in
+//            if undone {
+//                // Re-add the classes back into their arrays and re-add the cells into the tableview, since undone
+//                self.tableView.beginUpdates()
+//                reloadSectionsIfNeeded()
+//                indexPaths.forEach { self.addClass(classObj, at: $0) }
+//                self.reloadEmptyState()
+//                self.tableView.insertRows(at: indexPaths, with: .automatic)
+//                self.tableView.endUpdates()
+//            } else {
+//                // Fully delete the object from Realm
+//                self.delete(classObj: classObj)
+//            }
+//        }
     }
     
     /// Removes a Class object from its appropriate array according to the sent in IndexPath
     private func removeClass(at indexPath: IndexPath) {
-        // Remove from filtered classes
-        if isSearchActive {
-            filteredClasses.remove(at: indexPath.row)
-            return
-        }
-        
-        if indexPath.section == 0 {
-            // Remove from favorites
-            favoritedClasses.remove(at: indexPath.row)
-        } else {
-            // Remove from classes array
-            classes[indexPath.section - accessorySections].remove(at: indexPath.row)
-        }
+//        // Remove from filtered classes
+//        if isSearchActive {
+//            filteredClasses.remove(at: indexPath.row)
+//            return
+//        }
+//
+//        if indexPath.section == 0 {
+//            // Remove from favorites
+//            favoritedClasses.remove(at: indexPath.row)
+//        } else {
+//            // Remove from classes array
+//            classes[indexPath.section - accessorySections].remove(at: indexPath.row)
+//        }
     }
     
     /// Adds a class object into the appropriate array according to the sent in IndexPath
     private func addClass(_ classObj: Class, at indexPath: IndexPath) {
-        // Add to filtered classes
-        if isSearchActive {
-            filteredClasses.insert(classObj, at: indexPath.row)
-            return
-        }
-        
-        if indexPath.section == 0 {
-            // Add to favorites
-            favoritedClasses.insert(classObj, at: indexPath.row)
-        } else {
-            // Add to classes array
-            classes[indexPath.section - accessorySections].insert(classObj, at: indexPath.row)
-        }
+//        // Add to filtered classes
+//        if isSearchActive {
+//            filteredClasses.insert(classObj, at: indexPath.row)
+//            return
+//        }
+//
+//        if indexPath.section == 0 {
+//            // Add to favorites
+//            favoritedClasses.insert(classObj, at: indexPath.row)
+//        } else {
+//            // Add to classes array
+//            classes[indexPath.section - accessorySections].insert(classObj, at: indexPath.row)
+//        }
     }
     
     /// Deletes a class from Realm
@@ -529,41 +495,40 @@ class ClassesTableViewController: UITableViewController {
         // Reload tableview and write changes to Realm
         if classAtPath.isFavorite {
             // Remove from favorites section
-            if let index = favoritedClasses.index(of: classAtPath) {
-                self.tableView.beginUpdates()
-                self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                // Update property in realm, which will also remove it from the favoritedClasses array
-                try! realm.write {
-                    classAtPath.isFavorite = false
-                }
-                // Reload datasource
-                self.reloadFavoritedClasses()
-                self.tableView.endUpdates()
+            self.tableView.beginUpdates()
+            // Get the index of the class in the favorites part of the classes array
+            let index = classes[0].index(of: classAtPath)!
+            // Update property in realm, which will also remove it from the classes first array
+            try! realm.write {
+                classAtPath.isFavorite = false
             }
+            // Reload datasource
+            self.reloadClasses()
+            // Delete rows
+            self.tableView.deleteRows(at: [IndexPath(row: index, section: favoritesSection)], with: .automatic)
+            self.tableView.endUpdates()
         } else { // Add to favorites section
-            // Update property in realm which will add class to favoritedClasses array
+            // Update property in realm which will add class to classes array at the 0th index
             try! realm.write {
                 classAtPath.isFavorite = true
             }
             // Reload datasource
-            self.reloadFavoritedClasses()
-            // Find index of class since its now in the favoritedClasses array
-            if let index = favoritedClasses.index(of: classAtPath) {
-                self.tableView.beginUpdates()
-                if favoritedClasses.count - 1 == 0 {
-                    // This section was previously empty, thus has no header, reload entire seciton
-                    self.tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
-                    self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                } else {
-                    self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                }
-                
-                self.tableView.endUpdates()
+            self.reloadClasses()
+    
+            self.tableView.beginUpdates()
+            // Get the index of the class in the favorites part of the classes array
+            let index = classes[0].index(of: classAtPath)!
+            
+            // Update tableview
+            if classes[0].count - 1 == 0 {
+                // This section was previously empty, thus has no header, reload entire seciton
+                self.tableView.reloadSections(IndexSet.init(integer: favoritesSection), with: .automatic)
+                self.tableView.insertRows(at: [IndexPath(row: index, section: favoritesSection)], with: .automatic)
+            } else {
+                self.tableView.insertRows(at: [IndexPath(row: index, section: favoritesSection)], with: .automatic)
             }
+            self.tableView.endUpdates()
         }
-        
-        let snack = LPSnackbar(title: "Test snack.", buttonTitle: "Undo", displayDuration: nil)
-        snack.show()
     }
 }
 
@@ -573,12 +538,15 @@ extension ClassesTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard searchText != "" else {
             self.searchController.isActive = false
+            self.reloadClasses()
             self.tableView.reloadData()
             self.reloadEmptyState()
             return
         }
         
-        filterClasses(forSearchText: searchText)
+        // Update classes array to filter for name
+        self.filterClasses(for: searchText)
+        self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -766,14 +734,20 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
         // Reload classes since new object has been added
         self.reloadClasses()
         
-        guard let section = self.section(forMatchingSemester: classObj.semester!),
-            let row = classes[section].index(of: classObj) else {
-                
-                print("Couldnt get index for newly created class object")
+        guard var section = self.sectionforMatchingSemester(classObj.semester!) else {
+            print("ERROR: Unable to find a section for matching semester.")
+            return
+        }
+        
+        // Since favorites is always at the 0th in the classes array
+        section += 1
+        
+        guard let row = classes[section].index(of: classObj) else {
+            print("ERROR: Couldnt get index for newly created class object")
                 return
         }
         
-        let indexPath: IndexPath = IndexPath(row: row, section: section + accessorySections)
+        let indexPath: IndexPath = IndexPath(row: row, section: section)
         
         self.tableView.beginUpdates()
         self.tableView.insertRows(at: [indexPath], with: .automatic)
@@ -788,7 +762,7 @@ extension ClassesTableViewController: AddEditClassViewDelegate {
     }
     
     
-    private func section(forMatchingSemester semester: Semester) -> Int? {
+    private func sectionforMatchingSemester(_ semester: Semester) -> Int? {
         var indexOfMatch: Int?
         for (index, secSemester) in semesterSections.enumerated() {
             if semester.year == secSemester.year && semester.term == secSemester.term {

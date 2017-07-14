@@ -40,8 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Prints the realm path
-        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 { print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)") }
+        // DEBUG setup
+        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
+            print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+            // Catches all exceptions and prints
+            NSSetUncaughtExceptionHandler { (exception) in
+                print(exception)
+            }
+        }
         
         // Custom color for status bar
         UIApplication.shared.statusBarStyle = .lightContent
