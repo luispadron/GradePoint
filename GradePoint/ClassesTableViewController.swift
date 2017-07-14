@@ -304,148 +304,107 @@ class ClassesTableViewController: UITableViewController {
         return classes[indexPath.section][indexPath.row]
     }
     
-//    /// Updates the tableview to the filtered classes array user searched for
-//    func filterClasses(forSearchText searchText: String, scope: String = "All") {
-//        // First flatten the 2D array
-//        let flatClasses = classes.joined()
-//
-//        filteredClasses = flatClasses.filter { classObj in
-//            return classObj.name.lowercased().contains(searchText.lowercased())
-//        }
-//
-//        tableView.reloadData()
-//    }
-    
     /// Handles the deleting of a table view row and class object
     private func handleDelete(at deletePath: IndexPath) {
-//        let classToDel = classObj(at: deletePath)
-//
-//        guard classToDel.isFavorite == true else {
-//            // Class isnt a favorite, we can just go ahead and remove the single cell
-//            removeCells(at: [deletePath], classObj: classToDel)
-//            return
-//        }
-//
-//        // Since favorited classes appear twice in the table view, we need to make sure we're removing both cells
-//        if deletePath.section == 0 {
-//            // Find path of class in `classes` array
-//            if let indices = classes.indices(of: classToDel) {
-//                removeCells(at: [deletePath, IndexPath(row: indices.1, section: indices.0 + accessorySections)],
-//                            classObj: classToDel)
-//            } else {
-//                LPSnackbar.showSnack(title: "Error deleting class.")
-//            }
-//        } else {
-//            // Find path of class in `favoritesArray`
-//            if let index = favoritedClasses.index(of: classToDel) {
-//                removeCells(at: [deletePath, IndexPath(row: index, section: 0)], classObj: classToDel)
-//            } else {
-//                LPSnackbar.showSnack(title: "Error deleting class.")
-//            }
-//        }
+        let classToDel = classObj(at: deletePath)
+
+        guard classToDel.isFavorite == true else {
+            // Class isnt a favorite, we can just go ahead and remove the single cell
+            removeCells(at: [deletePath], classObj: classToDel)
+            return
+        }
+
+        // Since favorited classes appear twice in the table view, we need to make sure we're removing both cells
+        if deletePath.section == favoritesSection {
+            // Find path of class in `classes` not including the section which contains the favorites, which is the 0th element
+            var classesFavoritesRemoved = classes
+            classesFavoritesRemoved.remove(at: favoritesSection)
+            if let indices = classesFavoritesRemoved.indices(of: classToDel) {
+                removeCells(at: [deletePath, IndexPath(row: indices.1, section: indices.0 + 1)], classObj: classToDel)
+            } else {
+                LPSnackbar.showSnack(title: "Error deleting class.")
+            }
+        } else {
+            // Find path of class in favorites part of the classes array
+            if let index = classes[favoritesSection].index(of: classToDel) {
+                removeCells(at: [deletePath, IndexPath(row: index, section: favoritesSection)], classObj: classToDel)
+            } else {
+                LPSnackbar.showSnack(title: "Error deleting class.")
+            }
+        }
     }
     
     /// Removes the cells from the table view and presents an LPSnackbar in order to allow undo
     private func removeCells(at indexPaths: [IndexPath], classObj: Class) {
-//        // Block which reloads any sections if it is needed
-//        let reloadSectionsIfNeeded = {
-//            indexPaths.forEach {
-//                guard !self.isSearchActive else { return }
-//                if $0.section == 0 && self.favoritedClasses.count == 0 {
-//                    // Reload favorites section
-//                    self.tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
-//                } else if $0.section > 0 && self.classes[$0.section - self.accessorySections].count == 0 {
-//                    self.tableView.reloadSections(IndexSet.init(integer: $0.section), with: .automatic)
-//                }
-//            }
-//        }
-//
-//        // Remove objects from correct arrays
-//        indexPaths.forEach { self.removeClass(at: $0) }
-//        // Update the table view
-//        self.tableView.beginUpdates()
-//        self.tableView.deleteRows(at: indexPaths, with: .automatic)
-//        // Reload any sections if needed
-//        reloadSectionsIfNeeded()
-//        self.tableView.endUpdates()
-//        self.reloadEmptyState()
-//
-//        // Figure out whether we need to update the state of the detail controller or not
-//        // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
-//        var shouldUpdateDetail = false
-//        var detailController: ClassDetailTableViewController?
-//
-//        if classObj.isClassInProgress {
-//            // In progress class
-//            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
-//            detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
-//            shouldUpdateDetail = detailController?.classObj == classObj
-//        } else {
-//            // Previous class, different process, just hide all the views and move on
-//            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
-//            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
-//            prevDetailController?.hideViews()
-//        }
-//
-//        // Update detail if needed
-//        if shouldUpdateDetail {
-//            detailController?.classObj = nil
-//            detailController?.updateUI()
-//        } else {
-//            detailController?.updateUI()
-//        }
-//
-//        // Show a snackbar to allow user to undo removal
-//        let snack = LPSnackbar(title: "Class: \(classObj.name) - deleted.", buttonTitle: "UNDO")
-//        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 15
-//        snack.show(animated: true) { (undone) in
-//            if undone {
-//                // Re-add the classes back into their arrays and re-add the cells into the tableview, since undone
-//                self.tableView.beginUpdates()
-//                reloadSectionsIfNeeded()
-//                indexPaths.forEach { self.addClass(classObj, at: $0) }
-//                self.reloadEmptyState()
-//                self.tableView.insertRows(at: indexPaths, with: .automatic)
-//                self.tableView.endUpdates()
-//            } else {
-//                // Fully delete the object from Realm
-//                self.delete(classObj: classObj)
-//            }
-//        }
-    }
+        // Block which reloads any sections if it's needed
+        let reloadSectionsIfNeed: () -> Void = { [weak self] in
+            indexPaths.forEach {
+                if self?.classes[$0.section].count ?? -1 == 0 || (self?.classes[$0.section].count ?? 2) - 1 == 0 {
+                    self?.tableView.reloadSections(IndexSet.init(integer: $0.section), with: .automatic)
+                }
+            }
+        }
+        // Begin updates for the tableview
+        self.tableView.beginUpdates()
+        // Remove class object from classes array
+        indexPaths.forEach { self.classes[$0.section].remove(at: $0.row) }
+        self.tableView.deleteRows(at: indexPaths, with: .automatic)
+        // Reload sections, if needed
+        reloadSectionsIfNeed()
+        self.tableView.endUpdates()
+        self.reloadEmptyState()
+        
+        // Figure out whether we need to update the state of the detail controller or not
+        // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
+        var shouldUpdateDetail = false
+        var detailController: ClassDetailTableViewController?
+
+        if classObj.isClassInProgress {
+            // In progress class
+            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
+            detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
+            shouldUpdateDetail = detailController?.classObj == classObj
+        } else {
+            // Previous class, different process, just hide all the views and move on
+            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
+            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
+            prevDetailController?.hideViews()
+        }
+
+        // Update detail if needed
+        if shouldUpdateDetail {
+            detailController?.classObj = nil
+            detailController?.updateUI()
+        } else {
+            detailController?.updateUI()
+        }
+        
+        // Present snackbar to allow user to undo the deletion
+        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: nil)
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 12) + 15
+        snack.show() { [weak self] undone in
+            if undone {
+                self?.tableView.beginUpdates()
+                // Re-add the class object into the array, and re-add the cells
+                indexPaths.forEach {
+                    guard let count = self?.classes[$0.section].count else { return }
+                    if $0.row > count {
+                        self?.classes[$0.section].append(classObj)
+                        self?.tableView.insertRows(at: [IndexPath(row: count - 1, section: $0.section)], with: .automatic)
+                    } else {
+                        self?.classes[$0.section].insert(classObj, at: $0.row)
+                        self?.tableView.insertRows(at: [$0], with: .automatic)
+                    }
+                }
     
-    /// Removes a Class object from its appropriate array according to the sent in IndexPath
-    private func removeClass(at indexPath: IndexPath) {
-//        // Remove from filtered classes
-//        if isSearchActive {
-//            filteredClasses.remove(at: indexPath.row)
-//            return
-//        }
-//
-//        if indexPath.section == 0 {
-//            // Remove from favorites
-//            favoritedClasses.remove(at: indexPath.row)
-//        } else {
-//            // Remove from classes array
-//            classes[indexPath.section - accessorySections].remove(at: indexPath.row)
-//        }
-    }
-    
-    /// Adds a class object into the appropriate array according to the sent in IndexPath
-    private func addClass(_ classObj: Class, at indexPath: IndexPath) {
-//        // Add to filtered classes
-//        if isSearchActive {
-//            filteredClasses.insert(classObj, at: indexPath.row)
-//            return
-//        }
-//
-//        if indexPath.section == 0 {
-//            // Add to favorites
-//            favoritedClasses.insert(classObj, at: indexPath.row)
-//        } else {
-//            // Add to classes array
-//            classes[indexPath.section - accessorySections].insert(classObj, at: indexPath.row)
-//        }
+                reloadSectionsIfNeed()
+                self?.tableView.endUpdates()
+                self?.reloadEmptyState()
+            } else {
+                // Delete from Realm
+                self?.delete(classObj: classObj)
+            }
+        }
     }
     
     /// Deletes a class from Realm

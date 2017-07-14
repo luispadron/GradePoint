@@ -245,16 +245,24 @@ class ClassDetailTableViewController: UITableViewController {
         
         // Present snackbar with undo option
         let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO")
-        snack.show(animated: true) { (undone) in
+        snack.show(animated: true) { [weak self] (undone) in
             if undone {
+                guard let count = self?.assignments[indexPath.section].count else { return }
                 // Re-add to array and reload tableview
-                self.assignments[indexPath.section].insert(assignment, at: indexPath.row)
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [indexPath], with: .automatic)
-                self.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .fade)
-                self.tableView.endUpdates()
-                self.reloadEmptyState()
-                self.calculateProgress()
+                self?.tableView.beginUpdates()
+                if indexPath.row > count {
+                    self?.assignments[indexPath.section].append(assignment)
+                    self?.tableView.insertRows(at: [IndexPath(row: count - 1, section: indexPath.section)], with: .automatic)
+                    self?.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .fade)
+                } else {
+                    self?.assignments[indexPath.section].insert(assignment, at: indexPath.row)
+                    self?.tableView.insertRows(at: [indexPath], with: .automatic)
+                    self?.tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .fade)
+                    
+                }
+                self?.tableView.endUpdates()
+                self?.reloadEmptyState()
+                self?.calculateProgress()
             } else {
                 // Remove from Realm finally
                 try! Realm().write {
