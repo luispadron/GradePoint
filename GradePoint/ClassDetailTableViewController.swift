@@ -250,8 +250,19 @@ class ClassDetailTableViewController: UITableViewController {
         
         calculateProgress()
         
+        // Create attributed title and button title
+        let title = "Assignment \(assignment.name) deleted."
+        let attrsForSub: [NSAttributedStringKey : Any] = [.foregroundColor: UIColor.white,
+                                                          .font: UIFont.italicSystemFont(ofSize: 18)]
+        let attrsForTitle: [NSAttributedStringKey : Any] = [.foregroundColor: UIColor.white,
+                                                            .font: UIFont.systemFont(ofSize: 18)]
+        let attributedTitle = NSMutableAttributedString(string: title, attributes: attrsForTitle)
+        attributedTitle.addAttributes(attrsForSub, range: (title as NSString).range(of: assignment.name))
+        let buttonTitle = NSAttributedString(string: "UNDO", attributes: [.font: UIFont.systemFont(ofSize: 18),
+                                                                          .foregroundColor: UIColor.white])
         // Present snackbar with undo option
-        let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO")
+        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle:  buttonTitle)
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 12) + 15
         snack.show(animated: true) { [weak self] (undone) in
             if undone {
                 guard let count = self?.assignments[indexPath.section].count else { return }

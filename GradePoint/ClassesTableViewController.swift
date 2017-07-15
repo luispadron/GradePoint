@@ -380,8 +380,18 @@ class ClassesTableViewController: UITableViewController {
         }
         
         // Present snackbar to allow user to undo the deletion
-        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: nil)
+        let title = "Class \(classObj.name) deleted."
+        let attrsForSub: [NSAttributedStringKey : Any] = [.foregroundColor: UIColor.white,
+                                                          .font: UIFont.italicSystemFont(ofSize: 18)]
+        let attrsForTitle: [NSAttributedStringKey : Any] = [.foregroundColor: UIColor.white,
+                                                            .font: UIFont.systemFont(ofSize: 18)]
+        let attributedTitle = NSMutableAttributedString(string: title, attributes: attrsForTitle)
+        attributedTitle.addAttributes(attrsForSub, range: (title as NSString).range(of: classObj.name))
+        let buttonTitle = NSAttributedString(string: "UNDO", attributes: [.font: UIFont.systemFont(ofSize: 18),
+                                                                          .foregroundColor: UIColor.white])
+        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle:  buttonTitle)
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 12) + 15
+        
         snack.show() { [weak self] undone in
             if undone {
                 self?.tableView.beginUpdates()
