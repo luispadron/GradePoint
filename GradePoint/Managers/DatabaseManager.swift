@@ -22,9 +22,13 @@ final class DatabaseManager {
     
     /// Deletes sent in objects from Realm List if possible
     public func deleteObjects<T>(_ objects: List<T>) {
+        guard !objects.isInvalidated else {
+            print("ERROR: Canno't delete objects from Realm, they have been invalidated.")
+            return
+        }
+        
         do {
             try realm.write {
-                realm.delete(objects)
                 // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
                 let validObjects = objects.filter { !$0.isInvalidated }
                 validObjects.forEach { realm.delete($0) }
@@ -36,9 +40,13 @@ final class DatabaseManager {
     
     /// Deletes sent in objects from Realm Results if possible
     public func deleteObjects<T>(_ objects: Results<T>) {
+        guard !objects.isInvalidated else {
+            print("ERROR: Canno't delete objects from Realm, they have been invalidated.")
+            return
+        }
+        
         do {
             try realm.write {
-                realm.delete(objects)
                 // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
                 let validObjects = objects.filter { !$0.isInvalidated }
                 validObjects.forEach { realm.delete($0) }
@@ -52,7 +60,6 @@ final class DatabaseManager {
     public func deleteObjects(_ objects: [Object]) {
         do {
             try realm.write {
-                realm.delete(objects)
                 // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
                 let validObjects = objects.filter { !$0.isInvalidated }
                 validObjects.forEach { realm.delete($0) }
