@@ -50,13 +50,16 @@ class ClassDetailTableViewController: UITableViewController {
     }
     
     /// The rubrics for this class
-    var rubrics = [Rubric]()
+    private var rubrics = [Rubric]()
     
     /// The assignments grouped by rubric
-    var assignments = [[Assignment]]()
+    private var assignments = [[Assignment]]()
     
     /// Returns whether or not this is the first time the view was presented
-    var isFirstAppearance: Bool = true
+    private var isFirstAppearance: Bool = true
+    
+    /// The snackbars being shown currently on the screen
+    private lazy var snackbars: [LPSnackbar] = [LPSnackbar]()
     
     // MARK: - Overrides
     
@@ -110,6 +113,12 @@ class ClassDetailTableViewController: UITableViewController {
             // Only want to update the UI initially. Afterwards, other methods will handle calling for updates
             isFirstAppearance = false
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.dismissSnackbars()
     }
     
     override func viewWillLayoutSubviews() {
@@ -203,6 +212,14 @@ class ClassDetailTableViewController: UITableViewController {
         assignments = arr
     }
     
+    /// Dismisses any showing snackbars from the screen
+    private func dismissSnackbars() {
+        for (index, snack) in self.snackbars.enumerated() {
+            snack.dismiss()
+            self.snackbars.remove(at: index)
+        }
+    }
+    
     /// Configures the view depending on if we have a detail item (classObj) or not
     private func updateUI(shouldCalculateProgress: Bool = true) {
         self.title = self._classObj?.name
@@ -261,8 +278,11 @@ class ClassDetailTableViewController: UITableViewController {
         let buttonTitle = NSAttributedString(string: "UNDO", attributes: [.font: UIFont.systemFont(ofSize: 18),
                                                                           .foregroundColor: UIColor.white])
         // Present snackbar with undo option
-        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle:  buttonTitle)
+        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle:  buttonTitle, displayDuration: nil)
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 12) + 15
+        
+        self.snackbars.append(snack)
+        
         snack.show(animated: true) { [weak self] (undone) in
             if undone {
                 guard let count = self?.assignments[indexPath.section].count else { return }
@@ -284,6 +304,11 @@ class ClassDetailTableViewController: UITableViewController {
             } else {
                 // Remove from Realm finally
                 DatabaseManager.shared.deleteObjects([assignment])
+            }
+            
+            // Once done showing remove from snackbars array
+            if let index = self?.snackbars.index(of: snack) {
+                self?.snackbars.remove(at: index)
             }
         }
     }
@@ -391,6 +416,9 @@ extension ClassDetailTableViewController: Segueable {
             vc.delegate = self
             vc.assignmentForEdit = self.assignment(for: indexPath)
         }
+        
+        // Dismiss any snackbars
+        self.dismissSnackbars()
     }
 }
 
