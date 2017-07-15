@@ -58,6 +58,8 @@ class AddEditClassViewController: UIViewController {
         let label = UILabel(frame: .zero)
         label.backgroundColor = .clear
         label.textAlignment = .center
+        label.textColor = UIColor.highlight.darker(by: 30)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
     
