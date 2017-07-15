@@ -39,6 +39,7 @@
 		A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */; };
 		A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
+		A05F79061F1AB7B700C3637F /* ClassesTableViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */; };
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
@@ -151,6 +152,8 @@
 		A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplicationShortcutItem+QuickActionID.swift"; sourceTree = "<group>"; };
 		A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
+		A05F79041F1AB7B700C3637F /* GradePointUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GradePointUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesTableViewUITests.swift; sourceTree = "<group>"; };
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
 		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				A00705321DAF0E9B00AD740A /* Info.plist */,
+				A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */,
+				A05F79041F1AB7B700C3637F /* GradePointUITests-Bridging-Header.h */,
 			);
 			path = GradePointUITests;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 					A007052B1DAF0E9B00AD740A = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 4FNMZ7SN42;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A007050A1DAF0E9B00AD740A;
 					};
@@ -939,6 +945,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05F79061F1AB7B700C3637F /* ClassesTableViewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1176,11 +1183,14 @@
 			baseConfigurationReference = 33CA861DE3F2F6AE3102AEBE /* Pods-GradePointUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 4FNMZ7SN42;
 				INFOPLIST_FILE = GradePointUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePointUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GradePointUITests/GradePointUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = GradePoint;
 			};
@@ -1191,11 +1201,13 @@
 			baseConfigurationReference = 363400E80542A94FF203C8C2 /* Pods-GradePointUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 4FNMZ7SN42;
 				INFOPLIST_FILE = GradePointUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePointUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GradePointUITests/GradePointUITests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = GradePoint;
 			};
