@@ -343,8 +343,6 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     func emptyStateViewWillShow(view: UIView) {
         // Hide the progress ring
         self.progressRing.isHidden = true
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     func emptyStateViewWillHide(view: UIView) {
