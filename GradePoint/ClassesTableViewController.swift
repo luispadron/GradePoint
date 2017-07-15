@@ -16,10 +16,10 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Properties
     
     /// The last valid loaded terms from user defaults
-    var lastLoadedTerms: [String]?
+    private var lastLoadedTerms: [String]?
     
     /// Returns a uniquely sorted array of Semesters, these will be our sections for the tableview
-    var semesterSections: [Semester] {
+    private var semesterSections: [Semester] {
         get {
             return self.generateSemestersForSections()
         }
@@ -32,14 +32,19 @@ class ClassesTableViewController: UITableViewController {
      The first array in the array is for any classes which are also favorites.
      The rest are arrays of classes grouped by their semester.
      */
-    var classes: [[Class]] = [[Class]]()
+    private var classes: [[Class]] = [[Class]]()
 
+    /// The classes filtered by what the user has searched, used as data source when search controller is active
+    private var filteredClasses: [Class] = [Class]()
+    
+    // Any snackbars which are currently being presented on the screen.
+    private lazy var snackbars: [LPSnackbar] = [LPSnackbar]()
     
     /// The search controller used to filter the table view
-    let searchController: UISearchController = UISearchController(searchResultsController: nil)
+    private let searchController: UISearchController = UISearchController(searchResultsController: nil)
     
     /// Helper property to determine whether search bar is active
-    var isSearchActive: Bool {
+    private var isSearchActive: Bool {
         get {
             return searchController.isActive && searchController.searchBar.text != ""
         }
@@ -111,11 +116,19 @@ class ClassesTableViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return classes.count
+        if isSearchActive {
+            return 1
+        } else {
+            return classes.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classes[section].count
+        if isSearchActive {
+            return filteredClasses.count
+        } else {
+            return classes[section].count
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -169,6 +182,9 @@ class ClassesTableViewController: UITableViewController {
     
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Dismiss any snackbars from the screen, before allowing favorite since they both access Realm at the same time.
+        self.dissmissSnackbars()
+        
         let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
             finished(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -271,10 +287,8 @@ class ClassesTableViewController: UITableViewController {
     }
     
     private func filterClasses(for search: String) {
-        let realm = DatabaseManager.shared.realm
-        self.classes.removeAll()
-        let all = realm.objects(Class.self)
-        self.classes.append(all.filter { $0.name.contains(search) })
+        let all = classes.joined()
+        self.filteredClasses = all.filter { $0.name.contains(search) }
     }
     
     /// Sets up the search bar for the tableview
@@ -301,7 +315,20 @@ class ClassesTableViewController: UITableViewController {
     
     /// Returns a classObj for the sent in index path, used for tableview methods
     private func classObj(at indexPath: IndexPath) -> Class {
-        return classes[indexPath.section][indexPath.row]
+        if isSearchActive {
+            return filteredClasses[indexPath.row]
+        } else {
+            return classes[indexPath.section][indexPath.row]
+        }
+    }
+    
+    
+    /// Dismisses any snackbars from the screeen
+    private func dissmissSnackbars() {
+        for (index, snack) in self.snackbars.enumerated() {
+            snack.dismiss()
+            self.snackbars.remove(at: index)
+        }
     }
     
     /// Handles the deleting of a table view row and class object
@@ -389,10 +416,14 @@ class ClassesTableViewController: UITableViewController {
         attributedTitle.addAttributes(attrsForSub, range: (title as NSString).range(of: classObj.name))
         let buttonTitle = NSAttributedString(string: "UNDO", attributes: [.font: UIFont.systemFont(ofSize: 18),
                                                                           .foregroundColor: UIColor.white])
-        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle:  buttonTitle)
+        
+        let snack = LPSnackbar(attributedTitle: attributedTitle, attributedButtonTitle:  buttonTitle, displayDuration: nil)
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 12) + 15
+        // Add to the snackbars array
+        self.snackbars.append(snack)
         
         snack.show() { [weak self] undone in
+            // Handle undone or not
             if undone {
                 self?.tableView.beginUpdates()
                 // Re-add the class object into the array, and re-add the cells
@@ -414,6 +445,11 @@ class ClassesTableViewController: UITableViewController {
                 // Delete from Realm
                 self?.delete(classObj: classObj)
             }
+            
+            // Once finished, remove from snackbars array
+            if let index = self?.snackbars.index(of: snack) {
+                self?.snackbars.remove(at: index)
+            }
         }
     }
     
@@ -428,6 +464,9 @@ class ClassesTableViewController: UITableViewController {
   
     /// Creates the older legacy swipe actiions for a tableview used in iOS versions less than 11.0
     private func createLegacySwipeActions() -> [UITableViewRowAction] {
+        // Dismiss any snackbars from the screen.
+        self.dissmissSnackbars()
+        
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [unowned self] _, path in
             self.performSegue(withIdentifier: .addEditClass, sender: path)
         })
@@ -500,9 +539,11 @@ class ClassesTableViewController: UITableViewController {
 
 extension ClassesTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Dismiss any snackbars from the screen.
+        self.dissmissSnackbars()
+        
         guard searchText != "" else {
             self.searchController.isActive = false
-            self.reloadClasses()
             self.tableView.reloadData()
             self.reloadEmptyState()
             return
@@ -514,8 +555,10 @@ extension ClassesTableViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Dismiss any snackbars from the screen.
+        self.dissmissSnackbars()
+        
         self.searchController.isActive = false
-        self.reloadClasses()
         self.tableView.reloadData()
         self.reloadEmptyState()
     }
@@ -593,6 +636,9 @@ extension ClassesTableViewController: Segueable {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Dismiss any snackbars from the screen.
+        self.dissmissSnackbars()
+        
         // Do any preperations before performing segue
         switch segueIdentifier(forSegue: segue) {
             
@@ -648,11 +694,12 @@ extension ClassesTableViewController: Segueable {
         }
         
         // Revert and undo any searches
-        searchController.isActive = false
-        self.reloadClasses()
-        self.tableView.reloadData()
-        self.reloadEmptyState()
-        
+        if isSearchActive {
+            searchController.isActive = false
+            self.reloadClasses()
+            self.tableView.reloadData()
+            self.reloadEmptyState()
+        }
     }
 }
 

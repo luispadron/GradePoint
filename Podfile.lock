@@ -1,5 +1,5 @@
 PODS:
-  - LPSnackbar (1.0.0)
+  - LPSnackbar (1.1.1)
   - Realm (2.8.3):
     - Realm/Headers (= 2.8.3)
   - Realm/Headers (2.8.3)
@@ -36,7 +36,7 @@ CHECKOUT OPTIONS:
     :submodules: true
 
 SPEC CHECKSUMS:
-  LPSnackbar: 45b6ac3d05b5fa4828dd760a5e6611ac721191e0
+  LPSnackbar: 069fe6dc4255f30629d678166e43d4348c529aa3
   Realm: 3601ef091c8c499a31101d8563b991e75546cdce
   RealmSwift: 8bba39ad585bfee78123d8e3536496698274d549
   UICircularProgressRing: f25e366e0624d87973192b67e572c0712acbae85
