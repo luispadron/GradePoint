@@ -97,6 +97,20 @@ class AddEditClassViewController: UIViewController {
     /// The current state the view is in, this doesn't change when editing a Class
     var viewState: ViewState = .inProgress
     
+    /// Haptic feedback generator, used with the UISlider `creditHourSlider`
+    /// Since only in iOS 10.0 +, we need to work around this issue by creating this AnyObject, then converting if possible
+    private var _feedbackGenerator: AnyObject?
+    @available(iOS 10.0, *)
+    var feedbackGenerator: UIImpactFeedbackGenerator? {
+        get { return _feedbackGenerator as? UIImpactFeedbackGenerator }
+        set { _feedbackGenerator = newValue }
+    }
+    
+    /// The previous sliders value, used to determine when haptic feedback should be presented as well as if needed to
+    /// update the `creditHoursLabel`
+    private var previousSliderValue: Int?
+    
+    
     // MARK: Overrides
     
     override func viewDidLoad() {
@@ -339,11 +353,31 @@ class AddEditClassViewController: UIViewController {
         toggleVisibilty(for: self.classTypePickerView)
     }
     
-    @IBAction func creditHourSliderChanged(_ sender: UISlider) {
-        // Update credits label
-        self.creditHoursLabel.text = "\(Int(sender.value))"
+
+    @IBAction func creditHourSliderDidBegin(_ sender: UISlider) {
+        guard #available(iOS 10.0, *) else { return }
+        // Prepare the generator
+        if let generator = feedbackGenerator {
+            generator.prepare()
+        } else {
+            feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+            feedbackGenerator?.prepare()
+        }
     }
     
+    @IBAction func creditHourSliderChanged(_ sender: UISlider) {
+        let current = Int(sender.value)
+        guard previousSliderValue != current else {
+            return
+        }
+        // Create some haptic feedback if available
+        if #available(iOS 10.0, *) {
+            feedbackGenerator?.impactOccurred()
+        }
+        // Update credits label
+        self.creditHoursLabel.text = "\(current)"
+        previousSliderValue = current
+    }
     
     @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
         toggleVisibilty(for: self.semesterPickerView)
@@ -766,6 +800,13 @@ class AddEditClassViewController: UIViewController {
         
         // Present the alert
         alert.presentAlert(presentingViewController: self)
+    }
+    
+    deinit {
+        // Deinit the feedback generator
+        if #available(iOS 10.0, *) {
+            feedbackGenerator = nil
+        }
     }
 }
 

@@ -404,6 +404,7 @@
                                                         <color key="tintColor" red="0.66274509803921566" green="0.87058823529411766" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                                         <connections>
                                                             <action selector="creditHourSliderChanged:" destination="quP-G3-hBI" eventType="valueChanged" id="kBL-1q-poS"/>
+                                                            <action selector="creditHourSliderDidBegin:" destination="quP-G3-hBI" eventType="touchDown" id="p94-9G-wE1"/>
                                                         </connections>
                                                     </slider>
                                                 </subviews>
