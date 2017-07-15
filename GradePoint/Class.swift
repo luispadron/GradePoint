@@ -98,6 +98,8 @@ class Class: Object {
     
     /// Helper method to reduce code use between the two public static methods
     private static func calculateScore(for groupedAssignments: [[Assignment]]) -> Double {
+        guard !groupedAssignments.isTrueEmpty else { return 0.0 }
+        
         var weights = 0.0
         var totalScore = 0.0
         

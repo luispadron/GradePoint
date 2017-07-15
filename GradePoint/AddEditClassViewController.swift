@@ -425,7 +425,6 @@ class AddEditClassViewController: UIViewController {
         }
         
         if round(totalPercent) != 100 {
-            print("Percent not equal to 100, not ready to save. Presenting alert")
             // Present alert telling user weights must add up to 100
             // Construct title
             let title = NSAttributedString(string: "Can't Save 💔",
