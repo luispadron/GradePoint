@@ -9,12 +9,6 @@
 import Foundation
 
 extension String {
-    
-    /// Returns the full range of the specified String
-    func fullRange() -> NSRange {
-        return NSString(string: self).range(of: self)
-    }
-    
     /// Returns whether or not the string has characters NOT including whitespace
     func isValid() -> Bool {
         let trimmed = self.trimmingCharacters(in: CharacterSet.whitespaces)

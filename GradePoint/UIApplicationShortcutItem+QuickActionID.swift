@@ -13,7 +13,7 @@ extension UIApplicationShortcutItem {
         get {
             if let id = QuickActionId(rawValue: self.type) {
                 return id
-            }else {
+            } else {
                 return .unknown
             }
         }
