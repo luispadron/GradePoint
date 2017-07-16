@@ -171,8 +171,11 @@ class ClassesTableViewController: UITableViewController {
     private func registerNotifications(for results: Results<Class>, in section: Int) {
         let notification = results.addNotificationBlock { [weak self] (changes) in
             guard let tableView = self?.tableView else { return }
+            
             switch changes {
+                
             case .initial: tableView.reloadData()
+                
             case .update(let results, let deletions, let insertions, let modifications):
                 tableView.beginUpdates()
                 tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
@@ -184,7 +187,23 @@ class ClassesTableViewController: UITableViewController {
                 }
                 tableView.endUpdates()
                 self?.reloadEmptyState()
+                
+                // Also update the detail controller if in split view
+                guard let navController = (self?.splitViewController?.viewControllers.last as? UINavigationController),
+                    let detailController = navController.childViewControllers.first as? ClassDetailTableViewController,
+                    let strongSelf = self
+                    else { break }
+                
+                for index in modifications {
+                    let classObj = strongSelf.classObj(at: IndexPath(row: index, section: section))
+                    if detailController.classObj == classObj {
+                        detailController.classObj = classObj
+                        detailController.updateUIForClassChanges()
+                    }
+                }
+                
             case .error(let error): fatalError("Error in Realm notification change.\n \(error)")
+                
             }
         }
         notificationTokens.append(notification)
