@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UIEmptyState
 import LPSnackbar
 
 class ClassesTableViewController: UITableViewController {
@@ -36,6 +37,8 @@ class ClassesTableViewController: UITableViewController {
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .allVisible
         tableView.scrollsToTop = true
+        emptyStateDelegate = self
+        emptyStateDataSource = self
         
         // Remove seperator lines from empty cells, and remove white background around navbars
         tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -54,6 +57,12 @@ class ClassesTableViewController: UITableViewController {
         for (i, objs) in classes.enumerated() {
             registerNotifications(for: objs, in: i)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        reloadEmptyState()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -174,6 +183,7 @@ class ClassesTableViewController: UITableViewController {
                     tableView.reloadSections(IndexSet(integer: section), with: .automatic)
                 }
                 tableView.endUpdates()
+                self?.reloadEmptyState()
             case .error(let error): fatalError("Error in Realm notification change.\n \(error)")
             }
         }
@@ -232,14 +242,17 @@ class ClassesTableViewController: UITableViewController {
         // Delete from Realm
         deleteClass(classToDel)
     
+        reloadEmptyState()
+        
         // Present snack bar to allow undo
         let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
-        snack.bottomSpacing = (navigationController?.navigationBar.frame.height ?? 0) + 12
         snack.viewToDisplayIn = self.view
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
         
-        snack.show() { undone in
+        snack.show() { [weak self] undone in
             guard undone else { return }
             DatabaseManager.shared.addObject(copy)
+            self?.reloadEmptyState()
         }
     }
     
@@ -314,6 +327,53 @@ extension ClassesTableViewController: Segueable {
         }
     }
 }
+
+// MARK: UIEmptyState Data Source & Delegate
+
+extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
+    
+    // Empty State Data Source
+    
+    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+        // If not items then empty, show empty state
+        return DatabaseManager.shared.realm.objects(Class.self).count == 0
+    }
+    
+    var emptyStateTitle: NSAttributedString {
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainText,
+                                                   .font: UIFont.systemFont(ofSize: 20)]
+        return NSAttributedString(string: "No Classes Added", attributes: attrs)
+    }
+    
+    var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
+    
+    var emptyStateButtonTitle: NSAttributedString? {
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
+                                                   .font: UIFont.systemFont(ofSize: 18)]
+        return NSAttributedString(string: "Add a class", attributes: attrs)
+    }
+    
+    var emptyStateButtonImage: UIImage? { return #imageLiteral(resourceName: "ButtonBg") }
+    
+    var emptyStateButtonSize: CGSize? { return CGSize(width: 160, height: 45) }
+    
+    var emptyStateViewAnimatesEverytime: Bool { return false }
+    
+    // Empty State Delegate
+    
+    func emptyStateViewWillShow(view: UIView) {
+
+    }
+    
+    func emptyStateViewWillHide(view: UIView) {
+
+    }
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        self.performSegue(withIdentifier: .addEditClass, sender: button)
+    }
+}
+
 
 // MARK: Split View Delegation
 
