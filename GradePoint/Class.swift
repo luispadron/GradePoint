@@ -55,10 +55,6 @@ class Class: Object {
         return "id"
     }
     
-    override static func ignoredProperties() -> [String] {
-        return ["color"]
-    }
-    
     // MARK: - Helper Methods
     
     /// Calculates the score when assignments are already grouped,
@@ -128,4 +124,19 @@ class Class: Object {
     /// it must be a Previous Class due to the fact previous classes cannot have rubrics
     var isClassInProgress: Bool { get { return self.rubrics.count > 0 } }
     
+    override func copy() -> Any {
+        let semester = self.semester!.copy() as! Semester
+        let grade = self.grade!.copy() as! Grade
+        let rubrics = List<Rubric>(self.rubrics.map { $0.copy() as! Rubric })
+        let assignments = List<Assignment>(self.assignments.map { $0.copy() as! Assignment })
+        
+        let copy = Class(name: self.name, classType: self.classType, creditHours: self.creditHours,
+                         semester: semester, rubrics: rubrics)
+        copy.id = self.id
+        copy.grade = grade
+        copy.assignments = assignments
+        copy.colorData = self.colorData
+        
+        return copy
+    }
 }

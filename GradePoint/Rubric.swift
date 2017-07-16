@@ -15,7 +15,6 @@ class Rubric: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var name = ""
     @objc dynamic var weight: Double = 0.0
-    let parentClass = LinkingObjects(fromType: Class.self, property: "rubrics")
     
     // MARK: - Initializers
     
@@ -29,5 +28,20 @@ class Rubric: Object {
     
     override class func primaryKey() -> String? {
         return "id"
+    }
+    
+    override func copy() -> Any {
+        let copy = Rubric(withName: name, andWeight: weight)
+        copy.id = id
+        return copy
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let rubric = object as? Rubric else { return false }
+        return rubric == self
+    }
+    
+    static func ==(lhs: Rubric, rhs: Rubric) -> Bool {
+        return (lhs.id == rhs.id) && (lhs.name == rhs.name) && (lhs.weight == rhs.weight)
     }
 }

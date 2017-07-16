@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import LPSnackbar
 
 class ClassesTableViewController: UITableViewController {
     
@@ -184,9 +185,62 @@ class ClassesTableViewController: UITableViewController {
         return classes[path.section][path.row]
     }
     
+    /// Deletes a class from Realm
+    private func deleteClass(_ classObj: Class) {
+        // Remove object from Realm
+        DatabaseManager.shared.deleteObjects(classObj.rubrics)
+        DatabaseManager.shared.deleteObjects(classObj.assignments)
+        DatabaseManager.shared.deleteObjects([classObj.semester!, classObj.grade!, classObj])
+    }
+    
     /// Handles deleting a cell and class object from the table view
     private func handleDelete(at path: IndexPath) {
+        let classToDel = classObj(at: path)
+        // Create a copy in case the user undoes the deletion
+        let copy = classToDel.copy() as! Class
         
+        // Set the associated rubric for the assignment to the exact same rubric in the rubrics array
+        for assignment in copy.assignments {
+            var sameRubric: Rubric?
+            for rubric in copy.rubrics {
+                if rubric == assignment.associatedRubric {
+                    sameRubric = rubric
+                    break
+                }
+            }
+            
+            assignment.associatedRubric = sameRubric
+        }
+    
+        // Figure out whether we need to update the state of the detail controller or not
+        // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
+        if classToDel.isClassInProgress {
+            // In progress class
+            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
+            let detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
+            if  detailController?.classObj == classToDel {
+                detailController?.classObj = nil
+                detailController?.updateUIForClassChanges()
+            }
+        } else {
+            // Previous class, different process, just hide all the views and move on
+            let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
+            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
+            prevDetailController?.hideViews()
+        }
+        
+        // Delete from Realm
+        deleteClass(classToDel)
+    
+        // Present snack bar to allow undo
+        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
+        snack.bottomSpacing = (navigationController?.navigationBar.frame.height ?? 0) + 12
+        snack.viewToDisplayIn = self.view
+        
+        snack.show() { undone in
+            guard undone else { return }
+            DatabaseManager.shared.addObject(copy)
+        }
     }
     
     // MARK: Deinit

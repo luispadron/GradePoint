@@ -12,10 +12,13 @@ import RealmSwift
 class Grade: Object {
     
     // MARK: Properties
+    
     /// The id of the score in Realm
     @objc dynamic var id = UUID().uuidString
+    
     /// The score
     @objc dynamic var score: Double = 0.0
+    
     /// The grade letter
     @objc dynamic var gradeLetter: String = "F"
     
@@ -33,7 +36,6 @@ class Grade: Object {
         self.init()
         self.gradeLetter = gradeLetter
     }
-
 
     override class func primaryKey() -> String? {
         return "id"
@@ -88,6 +90,14 @@ class Grade: Object {
                 return "A"
             }
         }
+    }
+    
+    override func copy() -> Any {
+        let copy = Grade()
+        copy.id = id
+        copy.gradeLetter = gradeLetter
+        copy.score = score
+        return copy
     }
 }
 

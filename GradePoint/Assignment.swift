@@ -17,7 +17,6 @@ class Assignment: Object {
     @objc dynamic var date = Date()
     @objc dynamic var score: Double = 0.0
     @objc dynamic var associatedRubric: Rubric?
-    let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
     // MARK: - Initializers
     
@@ -35,5 +34,11 @@ class Assignment: Object {
     
     override class func primaryKey() -> String? {
         return "id"
+    }
+    
+    override func copy() -> Any {
+        let copy = Assignment(name: name, date: date, score: score, associatedRubric: associatedRubric!.copy() as! Rubric)
+        copy.id = id
+        return copy
     }
 }

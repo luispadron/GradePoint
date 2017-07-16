@@ -33,4 +33,10 @@ class Semester: Object {
     override static func ignoredProperties() -> [String] {
         return ["terms"]
     }
+    
+    override func copy() -> Any {
+        let copy = Semester(withTerm: term, andYear: year)
+        copy.id = id
+        return copy
+    }
 }
