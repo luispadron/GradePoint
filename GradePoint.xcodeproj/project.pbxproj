@@ -12,7 +12,7 @@
 		98D187D5DBF6A3F03EBDECA1 /* Pods_GradePointTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB72EBE5CA93946F00C9FC8 /* Pods_GradePointTests.framework */; };
 		A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */; };
 		A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007050E1DAF0E9B00AD740A /* AppDelegate.swift */; };
-		A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */; };
+		A00705111DAF0E9B00AD740A /* OldClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705101DAF0E9B00AD740A /* OldClassesTableViewController.swift */; };
 		A00705131DAF0E9B00AD740A /* ClassDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */; };
 		A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705141DAF0E9B00AD740A /* Main.storyboard */; };
 		A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00705171DAF0E9B00AD740A /* Assets.xcassets */; };
@@ -66,6 +66,7 @@
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
+		A0C15CFF1F1C01550013F68F /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */; };
 		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
 		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
 		A0C6642B1F05C6B400583C99 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6642A1F05C6B400583C99 /* AppInfo.swift */; };
@@ -120,7 +121,7 @@
 		A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardPageViewController.swift; sourceTree = "<group>"; };
 		A007050B1DAF0E9B00AD740A /* GradePoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradePoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A007050E1DAF0E9B00AD740A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
+		A00705101DAF0E9B00AD740A /* OldClassesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldClassesTableViewController.swift; sourceTree = "<group>"; };
 		A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailTableViewController.swift; sourceTree = "<group>"; };
 		A00705151DAF0E9B00AD740A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A00705171DAF0E9B00AD740A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -180,6 +181,7 @@
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
+		A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
 		A0C5170C1E78A64C0089527D /* GPAScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAScale.swift; sourceTree = "<group>"; };
 		A0C517131E78AC0B0089527D /* GPARubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPARubric.swift; sourceTree = "<group>"; };
 		A0C6642A1F05C6B400583C99 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
@@ -431,7 +433,8 @@
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A00705101DAF0E9B00AD740A /* ClassesTableViewController.swift */,
+				A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */,
+				A00705101DAF0E9B00AD740A /* OldClassesTableViewController.swift */,
 				A00705121DAF0E9B00AD740A /* ClassDetailTableViewController.swift */,
 				A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */,
 				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
@@ -861,6 +864,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0C6642B1F05C6B400583C99 /* AppInfo.swift in Sources */,
+				A0C15CFF1F1C01550013F68F /* ClassesTableViewController.swift in Sources */,
 				A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */,
 				A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */,
 				A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */,
@@ -900,7 +904,7 @@
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A027533D1F043B240021CDFF /* RatingManager.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
-				A00705111DAF0E9B00AD740A /* ClassesTableViewController.swift in Sources */,
+				A00705111DAF0E9B00AD740A /* OldClassesTableViewController.swift in Sources */,
 				A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */,
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */,
