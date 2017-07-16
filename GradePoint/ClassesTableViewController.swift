@@ -55,6 +55,12 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
+    }
+    
     // MARK: Table View Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,6 +94,31 @@ class ClassesTableViewController: UITableViewController {
         cell.classDateLabel.text = "\(classObj.semester!.term) \(classObj.semester!.year)"
         cell.ribbonColor = classObj.color
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if classObj(at: indexPath).isClassInProgress {
+            performSegue(withIdentifier: .showDetail, sender: indexPath)
+        } else {
+            performSegue(withIdentifier: .showPreviousDetail, sender: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { [weak self] _, path in
+            self?.performSegue(withIdentifier: .addEditClass, sender: path)
+        })
+        
+        editAction.backgroundColor = UIColor.info
+        
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [weak self] _, path in
+            self?.handleDelete(at: path)
+        })
+        
+        deleteAction.backgroundColor = UIColor.warning
+        
+        return [editAction, deleteAction]
     }
     
     // MARK: Helper Methods
@@ -153,11 +184,79 @@ class ClassesTableViewController: UITableViewController {
         return classes[path.section][path.row]
     }
     
+    /// Handles deleting a cell and class object from the table view
+    private func handleDelete(at path: IndexPath) {
+        
+    }
+    
     // MARK: Deinit
     
     deinit {
         notificationTokens.forEach {
             $0.stop()
+        }
+    }
+}
+
+// MARK: Segues
+
+extension ClassesTableViewController: Segueable {
+    
+    /// Conformance for Seguable protocol
+    enum SegueIdentifier: String {
+        case showDetail = "showDetail"
+        case showPreviousDetail = "showPreviousDetail"
+        case addEditClass = "addEditClass"
+        case onboarding = "onboardingSegue"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Do any preperations before performing segue
+        switch segueIdentifier(forSegue: segue) {
+            
+        case .showDetail:
+            guard let indexPath = sender as? IndexPath else { return }
+            
+            let classItem: Class = classObj(at: indexPath)
+            
+            let controller = (segue.destination as! UINavigationController).topViewController as! ClassDetailTableViewController
+            controller.classObj = classItem
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            
+        case .showPreviousDetail:
+            guard let indexPath = sender as? IndexPath else { return }
+            
+            let classItem: Class = classObj(at: indexPath)
+            
+            let controller = (segue.destination as! UINavigationController).topViewController as! PreviousClassDetailViewController
+            controller.title = "Previous Class"
+            controller.className = classItem.name
+            controller.gradeString = classItem.grade?.gradeLetter
+            controller.classColor = classItem.color
+            
+        case .addEditClass:
+            guard let controller = segue.destination as? AddEditClassViewController else { return }
+            
+            // If editing then set the appropriate obj into the view controller, when user clicks edit
+            // the sender provided will be an index path, using this we can get the object at that path
+            if let path = sender as? IndexPath {
+                controller.classObj = classObj(at: path)
+            }
+            
+            let screenSize = UIScreen.main.bounds.size
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                controller.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
+            } else {
+                controller.preferredContentSize = CGSize(width: screenSize.width * 0.65, height: screenSize.height * 0.85)
+            }
+            
+            // Collapse any edit actions for the tableview, so theyre not opened when returning
+            self.tableView.isEditing = false
+            
+        case .onboarding:
+            break
         }
     }
 }
