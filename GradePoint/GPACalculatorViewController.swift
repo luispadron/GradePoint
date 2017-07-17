@@ -48,7 +48,7 @@ class GPACalculatorViewController: UIViewController {
         progressRingView.font = UIFont.systemFont(ofSize: 30)
         
         // Check to see if there any classes for which a calculation can be made
-        let classes = DatabaseManager.shared.realm.objects(Class.self).filter { !$0.isClassInProgress || $0.assignments.count > 0 }
+        let classes = DatabaseManager.shared.realm.objects(Class.self).filter { !$0.isInProgress || $0.assignments.count > 0 }
     
         if classes.count > 0 {
             // Prepare GPA Views, and load up all the required information
@@ -165,7 +165,7 @@ class GPACalculatorViewController: UIViewController {
     private func prepareGPAViews() {
         let realm = DatabaseManager.shared.realm
         // Only want classes which are previous classes, or in progress classes with more than one assignment
-        let classes = realm.objects(Class.self).filter { !$0.isClassInProgress || $0.assignments.count > 0 }
+        let classes = realm.objects(Class.self).filter { !$0.isInProgress || $0.assignments.count > 0 }
         
         // Update each of the views with their appropriate class object
         for classObj in classes {

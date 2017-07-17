@@ -155,7 +155,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if classObj(at: indexPath).isClassInProgress {
+        if classObj(at: indexPath).isInProgress {
             performSegue(withIdentifier: .showDetail, sender: indexPath)
         } else {
             performSegue(withIdentifier: .showPreviousDetail, sender: indexPath)
@@ -361,7 +361,7 @@ class ClassesTableViewController: UITableViewController {
     
         // Figure out whether we need to update the state of the detail controller or not
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
-        if classToDel.isClassInProgress {
+        if classToDel.isInProgress {
             // In progress class
             let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
             let detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
@@ -593,7 +593,7 @@ extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
         
         // Only allow peeking for in progress classes
         let classObj = self.classObj(at: indexPath)
-        guard classObj.isClassInProgress else { return nil }
+        guard classObj.isInProgress else { return nil }
         
         peekVC.setUI(for: classObj)
         peekVC.preferredContentSize = CGSize(width: 240.0, height: 240.0)

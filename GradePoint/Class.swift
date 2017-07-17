@@ -114,7 +114,7 @@ class Class: Object {
     /// Returns whether or not the class is inprogress or not
     /// Does so by checking whether or not at least 1 rubric has been added, if this is false then
     /// it must be a Previous Class due to the fact previous classes cannot have rubrics
-    var isClassInProgress: Bool { get { return self.rubrics.count > 0 } }
+    var isInProgress: Bool { get { return self.rubrics.count > 0 } }
     
     override func copy() -> Any {
         let semester = self.semester!.copy() as! Semester
