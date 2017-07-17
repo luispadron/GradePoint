@@ -107,6 +107,21 @@ class ClassDetailTableViewController: UITableViewController {
         return assignments[section].count
     }
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return assignments[section].count > 0 ? 44 : 0
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return _classObj?.rubrics[section].name ?? nil
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.tintColor = UIColor.tableViewHeader
+        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        header.textLabel?.textColor = UIColor.unselected
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let assignment = self.assignment(at: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath) as! AssignmentTableViewCell
@@ -128,12 +143,15 @@ class ClassDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
             self?.handleDelete(at: indexPath)
+            DispatchQueue.main.async {
+                self?.setEditing(false, animated: true)
+            }
         }
 
         return [delete]
     }
 
-    /// MARK: Helper Methods
+    // MARK: Helper Methods
 
     /// Loads all assignments into the `assignments` array, called whenever a `classObj` is set
     private func loadAssignments() {
@@ -180,6 +198,8 @@ class ClassDetailTableViewController: UITableViewController {
     private func updateUI() {
         if let classObj = _classObj {
             title = classObj.name
+            navigationItem.leftBarButtonItem?.isEnabled = true
+            navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
             title = nil
             progressRing.isHidden = true
