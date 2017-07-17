@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+let semestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
+
 class SemesterConfigurationTableViewController: UITableViewController {
 
     var semesters = [String]()
@@ -46,6 +48,8 @@ class SemesterConfigurationTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         // Save any ordering
         UserDefaults.standard.set(semesters, forKey: UserDefaultKeys.terms.rawValue)
+        // Notify that semesters have been updated
+        NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
     }
     
     // MARK: - Table view data source
@@ -126,6 +130,8 @@ class SemesterConfigurationTableViewController: UITableViewController {
                 }
                 self?.semesters[path.row] = text
                 self?.tableView.reloadData()
+                // Notify that semesters have been updated
+                NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
             }
         }
         
@@ -142,7 +148,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
     func deleteSemester(action: UITableViewRowAction, path: IndexPath) {
         // At least one semester must be saved
         guard self.semesters.count > 1 else {
-            self.presentErrorAlert(title: "Cannot Delete", message: "At least one semester must be stored")
+            self.presentErrorAlert(title: "Cannot Delete", message: "At least one semester must be stored.")
             self.tableView.setEditing(false, animated: true)
             return
         }
@@ -189,6 +195,9 @@ class SemesterConfigurationTableViewController: UITableViewController {
             self?.tableView.deleteRows(at: [path], with: .automatic)
             self?.semesters.remove(at: path.row)
             self?.tableView.endUpdates()
+            
+            // Notify that semesters have been updated
+            NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
         })
         
         alert.presentAlert(presentingViewController: self)
@@ -227,6 +236,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+        
         if editing {
             let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                             target: self,
@@ -235,8 +245,12 @@ class SemesterConfigurationTableViewController: UITableViewController {
         } else {
             self.navigationItem.leftBarButtonItem = nil
         }
+        
         // Save any ordering
         UserDefaults.standard.set(semesters, forKey: UserDefaultKeys.terms.rawValue)
+        
+        // Notify that semesters have been updated
+        NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
     }
 
 

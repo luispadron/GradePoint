@@ -57,6 +57,10 @@ class ClassesTableViewController: UITableViewController {
         for (i, objs) in classes.enumerated() {
             registerNotifications(for: objs, in: i)
         }
+        
+        // Listen to semester update notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
+                                               name: semestersUpdatedNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,6 +210,7 @@ class ClassesTableViewController: UITableViewController {
                 
             }
         }
+        
         notificationTokens.append(notification)
     }
     
@@ -275,12 +280,32 @@ class ClassesTableViewController: UITableViewController {
         }
     }
     
+    /// Called whenever semesters are updated inside the `SemesterConfigurationViewController`
+    @objc private func semestersDidUpdate(notification: Notification) {
+        // Remove all classes and load them with again with new semesters
+        classes.removeAll()
+        loadClasses()
+        // Stop & remove all notification tokens
+        for (index, token) in notificationTokens.enumerated().reversed() {
+            token.stop()
+            notificationTokens.remove(at: index)
+        }
+        
+        // Add notifications for Class object changes
+        for (i, objs) in classes.enumerated() {
+            registerNotifications(for: objs, in: i)
+        }
+        
+        reloadEmptyState()
+    }
+    
     // MARK: Deinit
     
     deinit {
         notificationTokens.forEach {
             $0.stop()
         }
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -353,7 +378,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     
     // Empty State Data Source
     
-    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+    func shouldShowEmptyStateView(for tableView: UITableView) -> Bool {
         // If not items then empty, show empty state
         return DatabaseManager.shared.realm.objects(Class.self).count == 0
     }

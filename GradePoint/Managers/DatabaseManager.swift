@@ -28,10 +28,16 @@ final class DatabaseManager {
         }
         
         do {
-            try realm.write {
+            if realm.isInWriteTransaction {
                 // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
                 let validObjects = objects.filter { !$0.isInvalidated }
                 validObjects.forEach { realm.delete($0) }
+            } else {
+                try realm.write {
+                    // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
+                    let validObjects = objects.filter { !$0.isInvalidated }
+                    validObjects.forEach { realm.delete($0) }
+                }
             }
         } catch {
             print("ERROR: Unable to delete Realm object from database.\n\(error)")
@@ -46,10 +52,16 @@ final class DatabaseManager {
         }
         
         do {
-            try realm.write {
+            if realm.isInWriteTransaction {
                 // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
                 let validObjects = objects.filter { !$0.isInvalidated }
                 validObjects.forEach { realm.delete($0) }
+            } else {
+                try realm.write {
+                    // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
+                    let validObjects = objects.filter { !$0.isInvalidated }
+                    validObjects.forEach { realm.delete($0) }
+                }
             }
         } catch {
             print("ERROR: Unable to delete Realm object from database.\n\(error)")
@@ -59,10 +71,16 @@ final class DatabaseManager {
     /// Deletes sent in objects from Realm if possible
     public func deleteObjects(_ objects: [Object]) {
         do {
-            try realm.write {
+            if realm.isInWriteTransaction {
                 // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
                 let validObjects = objects.filter { !$0.isInvalidated }
                 validObjects.forEach { realm.delete($0) }
+            } else {
+                try realm.write {
+                    // Delete only objects that are valid, if invalidated, something went wrong and object has already been deleted.
+                    let validObjects = objects.filter { !$0.isInvalidated }
+                    validObjects.forEach { realm.delete($0) }
+                }
             }
         } catch {
             print("ERROR: Unable to delete Realm object from database.\n\(error)")
@@ -72,8 +90,12 @@ final class DatabaseManager {
     /// Adds a new object into Realm
     public func addObject(_ object: Object) {
         do {
-            try realm.write {
+            if realm.isInWriteTransaction {
                 realm.add(object)
+            } else {
+                try realm.write {
+                    realm.add(object)
+                }
             }
         } catch {
             print("ERROR: Unable to add Realm object.\n\(error)")
@@ -83,8 +105,12 @@ final class DatabaseManager {
     /// Creates a new object into realm
     public func createObject<T: Object>(_ type: T.Type, value: Any, update: Bool) {
         do {
-            try realm.write {
+            if realm.isInWriteTransaction {
                 realm.create(type, value: value, update: update)
+            } else {
+                try realm.write {
+                    realm.create(type, value: value, update: update)
+                }
             }
         } catch {
             print("ERROR: Unable to create Realm object.\n\(error)")
