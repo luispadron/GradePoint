@@ -223,7 +223,7 @@ class ClassDetailTableViewController: UITableViewController {
         DatabaseManager.shared.deleteObjects([assignment])
 
         // Present snack to allow user to undo deletion
-        let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO", displayDuration: nil)
+        let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
         snack.viewToDisplayIn = navigationController?.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
 
