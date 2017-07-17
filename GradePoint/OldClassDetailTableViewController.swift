@@ -12,16 +12,16 @@ import UICircularProgressRing
 import UIEmptyState
 import LPSnackbar
 
-class OldOldClassDetailTableViewController: UITableViewController {
+class OldClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     
-    /// Outlet for the add button in the navigation controller
-    @IBOutlet weak var addButton: UIBarButtonItem!
-    
-    /// Outlet to the Progress Ring View
-    @IBOutlet var progressRing: UICircularProgressRingView!
-    
+//    /// Outlet for the add button in the navigation controller
+    weak var addButton: UIBarButtonItem!
+//
+//    /// Outlet to the Progress Ring View
+    var progressRing: UICircularProgressRingView!
+//
     /// The class object which will be shown as detail, selected from the master controller ClassTableViewController
     var classObj: Class? {
         didSet {

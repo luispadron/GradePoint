@@ -201,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAp-of-eSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="444.53125" y="318.75"/>
+            <point key="canvasLocation" x="452" y="319"/>
         </scene>
         <!--Nav Controller 2-->
         <scene sceneID="r7l-gg-dq7">
@@ -218,7 +218,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-328" y="1046"/>
+            <point key="canvasLocation" x="-646" y="1223"/>
         </scene>
         <!--Class Detail Table View Controller-->
         <scene sceneID="0fr-qz-KTV">
@@ -295,7 +295,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="lU3-J9-LLO" id="ikC-8Z-Xqd"/>
                         <outlet property="progressRing" destination="Eau-ME-Idr" id="xAe-8H-r7A"/>
                         <segue destination="CNu-9p-9u8" kind="popoverPresentation" identifier="editAssignment" popoverAnchorView="OM0-4C-bXI" id="Eyw-f5-vuE">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -337,7 +336,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </objects>
-            <point key="canvasLocation" x="446" y="1046"/>
+            <point key="canvasLocation" x="100" y="1223"/>
         </scene>
         <!--Add Assignment-->
         <scene sceneID="PnO-Dy-7Dq">
@@ -371,7 +370,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JjR-ON-dwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="1046"/>
+            <point key="canvasLocation" x="1641" y="1223"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TBf-zy-7bH">
@@ -389,7 +388,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJP-R2-I6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1304" y="1046"/>
+            <point key="canvasLocation" x="834" y="1223"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zbm-xp-t2b">
