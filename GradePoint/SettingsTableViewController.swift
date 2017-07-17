@@ -172,7 +172,7 @@ class SettingsTableViewController: UITableViewController {
             switch type {
             case .college:
                 for classObj in classes {
-                    try! realm.write {
+                    DatabaseManager.shared.write {
                         // Update all class types to college, and credits to 3
                         classObj.classType = .college
                         classObj.creditHours = 3
@@ -180,7 +180,7 @@ class SettingsTableViewController: UITableViewController {
                 }
             case .highSchool:
                 for classObj in classes {
-                    try! realm.write {
+                    DatabaseManager.shared.write {
                         // Update all class types to regular, and credits to 1
                         classObj.classType = .regular
                         classObj.creditHours = 1

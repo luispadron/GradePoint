@@ -290,7 +290,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         let rubric = parentClass!.rubrics[indexOfRubric]
         
         // Write change to realm
-        try! realm.write {
+        DatabaseManager.shared.write {
             assignmentForEdit?.name = name
             assignmentForEdit?.score = score
             assignmentForEdit?.date = selectedDate
@@ -312,7 +312,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         
         let newAssignment = Assignment(name: name, date: selectedDate, score: score, associatedRubric: rubric)
 
-        try! realm.write {
+        DatabaseManager.shared.write {
             parentClass.assignments.append(newAssignment)
         }
 

@@ -152,14 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// Increments the appSessions count in the app info by 1
     private func incrementSessions() {
-        let realm = DatabaseManager.shared.realm
-        let info = AppDelegate.appInfo
-        if realm.isInWriteTransaction {
-            info.sessions += 1
-        } else {
-            try! realm.write {
-                AppDelegate.appInfo.sessions += 1
-            }
+        DatabaseManager.shared.write {
+            AppDelegate.appInfo.sessions += 1
         }
     }
     

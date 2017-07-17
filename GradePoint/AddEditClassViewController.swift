@@ -527,7 +527,7 @@ class AddEditClassViewController: UIViewController {
         // Lets save the changes made to the Class object, again can force unwrap since already checked for values
         
         // Write name and semester changes to realm
-        try! realm.write {
+        DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
             classObj.creditHours = Int(creditHourSlider.value)
@@ -545,7 +545,7 @@ class AddEditClassViewController: UIViewController {
         // Loop through the rubric views and save any changes/add new rubrics
         for (pk, rubricView) in editingRubrics {
             let savedRubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
-            try! realm.write {
+            DatabaseManager.shared.write {
                 savedRubric.name = rubricView.nameField.safeText
                 savedRubric.weight = Double(rubricView.weightField.safeText)!
             }
@@ -558,7 +558,7 @@ class AddEditClassViewController: UIViewController {
             let name = rubricView.nameField.safeText
             let weight = Double(rubricView.weightField.safeText)!
             let newRubric = Rubric(withName: name, andWeight: weight)
-            try! realm.write {
+            DatabaseManager.shared.write {
                 classObj.rubrics.append(newRubric)
             }
         }
@@ -568,7 +568,7 @@ class AddEditClassViewController: UIViewController {
     }
     
     func saveChangesTo(previousClass classObj: Class) {
-        try! realm.write {
+        DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
             classObj.creditHours = Int(creditHourSlider.value)

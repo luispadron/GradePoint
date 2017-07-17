@@ -88,7 +88,7 @@ class GPAScale: Object {
         let scale = realm.objects(GPAScale.self)[0]
         var didWrite = true
         
-        try! realm.write {
+        DatabaseManager.shared.write {
             // Delete any old rubrics
             DatabaseManager.shared.deleteObjects(scale.gpaRubrics)
             // Write new grade rubrics, this may fail if for some reason we cant find a grade letter, thus it will break and return false
@@ -103,7 +103,11 @@ class GPAScale: Object {
         }
         
         // Finally if we did write the above, change the scale to whatever we updated it to
-        if didWrite { try! realm.write { scale.scaleType = type } }
+        if didWrite {
+            DatabaseManager.shared.write {
+                scale.scaleType = type
+            }
+        }
         
         return didWrite
         

@@ -254,12 +254,8 @@ class ClassDetailTableViewController: UITableViewController {
             // Re-add assignment into Realm
             DatabaseManager.shared.addObject(copy)
             // Re-associate the assignment to the class
-            if DatabaseManager.shared.realm.isInWriteTransaction {
+            DatabaseManager.shared.write {
                 classObj.assignments.append(copy)
-            } else {
-                try! DatabaseManager.shared.realm.write {
-                    classObj.assignments.append(copy)
-                }
             }
         }
     }

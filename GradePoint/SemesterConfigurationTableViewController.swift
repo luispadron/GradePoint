@@ -124,7 +124,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
                 // Change the semester names for all associated classes
                 let classes = realm.objects(Class.self).filter { $0.semester!.term  == termEditing }
                 for classObj in classes {
-                    try! realm.write {
+                    DatabaseManager.shared.write {
                         classObj.semester!.term = text
                     }
                 }
@@ -183,7 +183,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         alert.addButton(button: cancel, handler: nil)
         alert.addButton(button: delete, handler: { [weak self] in
             // Get any classes with this semester
-            try! realm.write {
+            DatabaseManager.shared.write {
                 for classObj in classes {
                     DatabaseManager.shared.deleteObjects(classObj.rubrics)
                     DatabaseManager.shared.deleteObjects(classObj.assignments)

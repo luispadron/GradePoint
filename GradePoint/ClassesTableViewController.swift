@@ -376,7 +376,7 @@ class ClassesTableViewController: UITableViewController {
         }
         
         // Set is favorites to false, this way it will get removed from the favorites section as well
-        try! DatabaseManager.shared.realm.write {
+        DatabaseManager.shared.write {
             classToDel.isFavorite = false
         }
 
@@ -400,7 +400,7 @@ class ClassesTableViewController: UITableViewController {
     /// Called whenever a class is favorited. Will update the class in realm and add the appropriate cells to the table view
     private func didFavoriteClass(at path: IndexPath) {
         let classObj = self.classObj(at: path)
-        try! DatabaseManager.shared.realm.write {
+        DatabaseManager.shared.write {
             classObj.isFavorite = !classObj.isFavorite
         }
     }
