@@ -130,7 +130,7 @@ class Onboard3ViewController: UIViewController {
         
         let type  = sender.selectedSegmentIndex == 0 ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
         // Create the grading scale
-        GPAScale.createScale(forType: type)
+        GPAScale.createScale(with: type)
     }
     
     // MARK: Helpers

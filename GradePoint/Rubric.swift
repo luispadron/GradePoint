@@ -18,7 +18,7 @@ class Rubric: Object {
     
     // MARK: - Initializers
     
-    convenience init(withName name: String, andWeight weight: Double) {
+    convenience init(name: String, weight: Double) {
         self.init()
         self.name = name
         self.weight = weight
@@ -31,7 +31,7 @@ class Rubric: Object {
     }
     
     override func copy() -> Any {
-        let copy = Rubric(withName: name, andWeight: weight)
+        let copy = Rubric(name: name, weight: weight)
         copy.id = id
         return copy
     }

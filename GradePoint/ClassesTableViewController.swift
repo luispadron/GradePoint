@@ -252,7 +252,7 @@ class ClassesTableViewController: UITableViewController {
         
         for year in years {
             for term in terms {
-                results.append(Semester(withTerm: term, andYear: year))
+                results.append(Semester(term: term, year: year))
             }
         }
         return results

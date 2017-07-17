@@ -27,7 +27,7 @@ class GPAScale: Object {
     
     /// Creates a new scale with default values in Realm, returns the created scale
     /// If called when a scale has already been created, that scale will be deleted
-    @discardableResult static func createScale(forType scaleType: GPAScaleType) -> GPAScale {
+    @discardableResult static func createScale(with scaleType: GPAScaleType) -> GPAScale {
         let realm = DatabaseManager.shared.realm
         // A scale already exists return that instead, we only want one of these scales to exist so overwrite this already
         // created scale
@@ -79,7 +79,7 @@ class GPAScale: Object {
         DatabaseManager.shared.deleteObjects(realm.objects(GPAScale.self))
         
         // Create it again
-        createScale(forType: .plusScale)
+        createScale(with: .plusScale)
     }
     
     /// Overwrites the scale in Realm with the new gradePoints and type provided, returns whether succesfully wrote or not
@@ -93,7 +93,7 @@ class GPAScale: Object {
             DatabaseManager.shared.deleteObjects(scale.gpaRubrics)
             // Write new grade rubrics, this may fail if for some reason we cant find a grade letter, thus it will break and return false
             for (index, point) in gradePoints.enumerated() {
-                if let gradeLetter = gradeLetter(forIndex: index, withScaleType: type) {
+                if let gradeLetter = gradeLetter(for: index, withScaleType: type) {
                     scale.gpaRubrics.append(GPARubric(gradeLetter: gradeLetter, gradePoints: point))
                 } else {
                     didWrite = false
@@ -116,7 +116,7 @@ class GPAScale: Object {
     // MARK: Helper Methods
     
     /// Helper method which returns a grade letter given the index and gpa scale type
-    private static func gradeLetter(forIndex index: Int, withScaleType type: GPAScaleType) -> String? {
+    private static func gradeLetter(for index: Int, withScaleType type: GPAScaleType) -> String? {
         switch type {
         case .plusScale:
             switch index {

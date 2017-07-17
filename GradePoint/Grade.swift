@@ -28,7 +28,7 @@ class Grade: Object {
     convenience init(score: Double) {
         self.init()
         self.score = score
-        self.gradeLetter = Grade.gradeLetter(forScore: score)
+        self.gradeLetter = Grade.gradeLetter(for: score)
     }
     
     /// Used when creating a Previous class
@@ -44,7 +44,7 @@ class Grade: Object {
     // MARK: Helper Methods
     
     /// Returns a string representation of the score object, the grade letter
-    static func gradeLetter(forScore score: Double) -> String {
+    static func gradeLetter(for score: Double) -> String {
         let scale = DatabaseManager.shared.realm.objects(GPAScale.self).first!
         switch scale.scaleType {
         case .plusScale:

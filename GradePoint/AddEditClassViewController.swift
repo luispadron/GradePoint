@@ -180,8 +180,8 @@ class AddEditClassViewController: UIViewController {
             self.prepareView(for: viewState, with: previousClass, isEditing: true)
         } else {
             // Set a default semester
-            let semester = Semester(withTerm: self.semesterPickerView.selectedSemester,
-                                    andYear: self.semesterPickerView.selectedYear)
+            let semester = Semester(term: self.semesterPickerView.selectedSemester,
+                                    year: self.semesterPickerView.selectedYear)
             self.semesterLabel.text = "\(semester.term) \(semester.year)"
             self.semester = semester
             // Set a default grade
@@ -489,11 +489,11 @@ class AddEditClassViewController: UIViewController {
             // Get rubric info
             let rubricWeight = Double(view.weightField.safeText)!
             let rubricName = view.nameField.text!
-            rubrics.append(Rubric(withName: rubricName, andWeight: rubricWeight))
+            rubrics.append(Rubric(name: rubricName, weight: rubricWeight))
         }
         
         // Create the semester
-        let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
+        let semester = Semester(term: self.semester.term, year: self.semester.year)
         
         let credits = Int(creditHourSlider.value)
         // Create the new class
@@ -509,7 +509,7 @@ class AddEditClassViewController: UIViewController {
     }
     
     func saveNewPreviousClass() {
-        let semester = Semester(withTerm: self.semester.term, andYear: self.semester.year)
+        let semester = Semester(term: self.semester.term, year: self.semester.year)
         let credits = Int(creditHourSlider.value)
         let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
                              semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
@@ -557,7 +557,7 @@ class AddEditClassViewController: UIViewController {
         for rubricView in rubricViews {
             let name = rubricView.nameField.safeText
             let weight = Double(rubricView.weightField.safeText)!
-            let newRubric = Rubric(withName: name, andWeight: weight)
+            let newRubric = Rubric(name: name, weight: weight)
             DatabaseManager.shared.write {
                 classObj.rubrics.append(newRubric)
             }
@@ -863,7 +863,7 @@ extension AddEditClassViewController: SemesterPickerDelegate {
     /// Notifies delegate that a row was selected
     internal func pickerRowSelected(term: String, year: Int) {
         self.semesterLabel.text = "\(term) \(year)"
-        self.semester = Semester(withTerm: term, andYear: year)
+        self.semester = Semester(term: term, year: year)
     }
 }
 

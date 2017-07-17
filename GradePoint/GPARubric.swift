@@ -15,8 +15,6 @@ class GPARubric: Object {
     @objc dynamic var gradeLetter: String = ""
     /// The amount of grade points for this grade, such as 4.0
     @objc dynamic var gradePoints: Double = 0.0
-    /// The scale associated with this rubric in realm
-    let associatedScale = LinkingObjects(fromType: GPAScale.self, property: "gpaRubrics")
     
     convenience init(gradeLetter: String, gradePoints: Double) {
         self.init()

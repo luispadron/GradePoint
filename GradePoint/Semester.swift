@@ -18,7 +18,7 @@ class Semester: Object {
     
     // MARK: - Initializers
     
-    convenience init(withTerm term: String, andYear year: Int) {
+    convenience init(term: String, year: Int) {
         self.init()
         self.term = term
         self.year = year
@@ -35,7 +35,7 @@ class Semester: Object {
     }
     
     override func copy() -> Any {
-        let copy = Semester(withTerm: term, andYear: year)
+        let copy = Semester(term: term, year: year)
         copy.id = id
         return copy
     }

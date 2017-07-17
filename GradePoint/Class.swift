@@ -98,7 +98,7 @@ class Class: Object {
         if classObj.grade!.score != score {
             DatabaseManager.shared.write {
                 classObj.grade?.score = score
-                classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
+                classObj.grade?.gradeLetter = Grade.gradeLetter(for: score)
             }
         }
 

@@ -317,10 +317,8 @@
 		A01B87801DBD272600A85E2D /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				A0C6642A1F05C6B400583C99 /* AppInfo.swift */,
 				A07B59741E86ED7D007EEE1E /* Main Models */,
 				A0C5170E1E78A65E0089527D /* GPA */,
-				A07B59751E86ED8B007EEE1E /* GPA Calculations */,
 			);
 			name = "Data Models";
 			sourceTree = "<group>";
@@ -357,6 +355,7 @@
 		A07B59741E86ED7D007EEE1E /* Main Models */ = {
 			isa = PBXGroup;
 			children = (
+				A0C6642A1F05C6B400583C99 /* AppInfo.swift */,
 				A01B87851DBD276000A85E2D /* Class.swift */,
 				A019325B1EB128EB000E18A3 /* ClassType.swift */,
 				A019325D1EB12917000E18A3 /* Grade.swift */,
@@ -365,13 +364,6 @@
 				A01B87831DBD275300A85E2D /* Semester.swift */,
 			);
 			name = "Main Models";
-			sourceTree = "<group>";
-		};
-		A07B59751E86ED8B007EEE1E /* GPA Calculations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "GPA Calculations";
 			sourceTree = "<group>";
 		};
 		A084437E1E55805E00C32F52 /* UICalculateView */ = {
