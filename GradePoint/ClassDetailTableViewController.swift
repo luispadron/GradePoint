@@ -22,12 +22,7 @@ class ClassDetailTableViewController: UITableViewController {
     /// The public class object that is set when presenting this view controller
     public var classObj: Class? {
         didSet {
-            guard classObj != nil else {
-                // Update the UI
-                updateUI()
-                return
-            }
-
+            assignments.removeAll()
             loadAssignments()
             // Remove any active notifications
             notificationTokens.forEach { $0.stop() }
