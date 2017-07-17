@@ -120,7 +120,7 @@ class PreviousClassDetailViewController: UIViewController {
                 self.gradeHolderBottomCons.constant = 15
                 self.buttonBottomCons.constant = 8
             }
-        } else if isIpad && isLandscape || UIDevice.current.orientation == .unknown {
+        } else if isIpad && isLandscape || isIpad && UIDevice.current.orientation == .unknown {
             DispatchQueue.main.async {
                 if height < 800 {
                     self.topLabel.isHidden = true
