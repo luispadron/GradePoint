@@ -40,6 +40,11 @@ class ClassesTableViewController: UITableViewController {
         return controller
     }()
     
+    /// Returns whether the search controller is active or not
+    private var isSearchActive: Bool {
+        return searchController.isActive && searchController.searchBar.text != ""
+    }
+    
     // MARK: View Handeling
     
     override func viewDidLoad() {
@@ -99,7 +104,7 @@ class ClassesTableViewController: UITableViewController {
     // MARK: Table View Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if searchController.isActive {
+        if isSearchActive {
             return 1
         } else {
             return classes.count
@@ -107,7 +112,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive {
+        if isSearchActive {
             return filteredClasses?.count ?? 0
         } else {
             return classes[section].count
@@ -115,7 +120,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard !searchController.isActive else {
+        guard !isSearchActive else {
             return 0
         }
         
@@ -123,8 +128,12 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sem = semesters[section]
-        return "\(sem.term) \(sem.year)"
+        if section == 0 {
+            return "Favorites"
+        } else {
+            let sem = semesters[section]
+            return "\(sem.term) \(sem.year)"
+        }
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -152,8 +161,50 @@ class ClassesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard !searchController.isActive else { return false }
+        guard !isSearchActive else { return false }
         return true
+    }
+    
+    @available(iOS 11.0, *)
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let favorite = UIContextualAction(style: .normal, title: "Favorite", handler: { action, view, finished in
+            finished(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.didFavoriteClass(at: indexPath)
+            }
+        })
+        
+        let classAtPath = classObj(at: indexPath)
+        favorite.backgroundColor = UIColor.favorite
+        
+        let image: UIImage = classAtPath.isFavorite ? #imageLiteral(resourceName: "FavoriteIconFilled") : #imageLiteral(resourceName: "FavoriteIcon")
+        
+        favorite.image = image
+        
+        let configuration = UISwipeActionsConfiguration(actions: [favorite])
+        return configuration
+    }
+    
+    @available(iOS 11.0, *)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let edit = UIContextualAction(style: .normal, title: "Edit", handler: { _, _, finished in
+            self.performSegue(withIdentifier: .addEditClass, sender: indexPath)
+            finished(true)
+        })
+        
+        edit.backgroundColor = UIColor.info
+        edit.image = #imageLiteral(resourceName: "EditIcon")
+        
+        let delete = UIContextualAction(style: .normal, title: "Delete", handler: { _, _, finished in
+            self.handleDelete(at: indexPath)
+            finished(true)
+        })
+        
+        delete.backgroundColor = UIColor.warning
+        delete.image = #imageLiteral(resourceName: "EraseIcon")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [edit, delete])
+        return configuration
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -164,13 +215,20 @@ class ClassesTableViewController: UITableViewController {
         editAction.backgroundColor = UIColor.info
         
         
+        let favoriteAction = UITableViewRowAction(style: .normal, title: "Favorite", handler: { [weak self] _, path in
+            self?.didFavoriteClass(at: path)
+        })
+        
+        favoriteAction.backgroundColor = UIColor.customYellow
+        
+        
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [weak self] _, path in
             self?.handleDelete(at: path)
         })
         
         deleteAction.backgroundColor = UIColor.warning
         
-        return [editAction, deleteAction]
+        return [editAction, favoriteAction, deleteAction]
     }
     
     // MARK: Helper Methods
@@ -202,6 +260,8 @@ class ClassesTableViewController: UITableViewController {
     private func loadClasses() {
         let realm = DatabaseManager.shared.realm
         let all = realm.objects(Class.self)
+        // First append results of classes being favorited in row 0 of the 2D array
+        self.classes.append(all.filter("isFavorite == %@", true))
         // The rest of the arrays inside the `classes` array will be grouped by their semester
         semesters.forEach {
             let classes = all.filter("semester.term == %@ AND semester.year == %@", $0.term, $0.year)
@@ -213,7 +273,7 @@ class ClassesTableViewController: UITableViewController {
     private func registerNotifications(for results: Results<Class>, in section: Int) {
         let notification = results.addNotificationBlock { [weak self] (changes) in
             guard let tableView = self?.tableView else { return }
-            guard !(self?.searchController.isActive ?? false) else {
+            guard !(self?.isSearchActive ?? false) else {
                 tableView.reloadData()
                 return
             }
@@ -258,7 +318,7 @@ class ClassesTableViewController: UITableViewController {
     
     /// Returns a class object at a specified index path
     private func classObj(at path: IndexPath) -> Class {
-        if searchController.isActive {
+        if isSearchActive {
             return filteredClasses![path.row]
         } else {
             return classes[path.section][path.row]
@@ -275,7 +335,7 @@ class ClassesTableViewController: UITableViewController {
     
     /// Filters and updates the `filteredClasses` array with the passed in search text
     private func filterClasses(for searchText: String) {
-        filteredClasses = DatabaseManager.shared.realm.objects(Class.self).filter("name contains %@", searchText)
+        filteredClasses = DatabaseManager.shared.realm.objects(Class.self).filter("name CONTAINS[cd] %@", searchText)
     }
     
     /// Handles deleting a cell and class object from the table view
@@ -314,6 +374,11 @@ class ClassesTableViewController: UITableViewController {
             prevDetailController?.hideViews()
         }
         
+        // Set is favorites to false, this way it will get removed from the favorites section as well
+        try! DatabaseManager.shared.realm.write {
+            classToDel.isFavorite = false
+        }
+
         // Delete from Realm
         deleteClass(classToDel)
     
@@ -321,13 +386,20 @@ class ClassesTableViewController: UITableViewController {
         
         // Present snack bar to allow undo
         let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: nil)
-        snack.viewToDisplayIn = self.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
         
         snack.show() { [weak self] undone in
             guard undone else { return }
             DatabaseManager.shared.addObject(copy)
             self?.reloadEmptyState()
+        }
+    }
+    
+    /// Called whenever a class is favorited. Will update the class in realm and add the appropriate cells to the table view
+    private func didFavoriteClass(at path: IndexPath) {
+        let classObj = self.classObj(at: path)
+        try! DatabaseManager.shared.realm.write {
+            classObj.isFavorite = !classObj.isFavorite
         }
     }
     
