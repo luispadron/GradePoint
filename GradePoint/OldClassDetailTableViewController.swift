@@ -12,7 +12,7 @@ import UICircularProgressRing
 import UIEmptyState
 import LPSnackbar
 
-class ClassDetailTableViewController: UITableViewController {
+class OldOldClassDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     
@@ -320,7 +320,7 @@ class ClassDetailTableViewController: UITableViewController {
 
 // MARK: - UIEmptyState DataSource & Delegate
 
-extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
+extension OldClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
     
     // DataSource
 
@@ -384,7 +384,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
 // MARK: - Segues
 
-extension ClassDetailTableViewController: Segueable {
+extension OldClassDetailTableViewController: Segueable {
     /// Conformace to Segueable
     enum SegueIdentifier: String {
         case addAssignment = "addAssignment"
@@ -425,7 +425,7 @@ extension ClassDetailTableViewController: Segueable {
 
 // MARK: - AddEditAssignmentViewDelegate
 
-extension ClassDetailTableViewController: AddEditAssignmentViewDelegate {
+extension OldClassDetailTableViewController: AddEditAssignmentViewDelegate {
     func didFinishCreating(assignment: Assignment) {
         // Reload assignments, to get new object that was created
         reloadAssignments()
