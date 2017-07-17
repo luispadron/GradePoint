@@ -298,14 +298,15 @@ class ClassesTableViewController: UITableViewController {
                 
                 // Also update the detail controller if in split view
                 guard let navController = (self?.splitViewController?.viewControllers.last as? UINavigationController),
-                    let detailController = navController.childViewControllers.first as? ClassDetailTableViewController,
-                    let strongSelf = self
+                    let detailController = navController.childViewControllers.first as? ClassDetailTableViewController
                     else { break }
                 
                 for index in modifications {
-                    let classObj = strongSelf.classObj(at: IndexPath(row: index, section: section))
+                    let classObj = results[index]
                     if detailController.classObj == classObj {
-                        detailController.classObj = classObj
+                        DispatchQueue.main.async {
+                            detailController.classObj = classObj
+                        }
                     }
                 }
                 
