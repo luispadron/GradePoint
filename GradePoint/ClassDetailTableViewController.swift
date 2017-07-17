@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import UICircularProgressRing
+import LPSnackbar
 
 class ClassDetailTableViewController: UITableViewController {
 
@@ -57,7 +58,7 @@ class ClassDetailTableViewController: UITableViewController {
         // Set the progressRing as the tableHeaderView, encapsulates the view to stop clipping
         let encapsulationView = UIView() //
         encapsulationView.addSubview(progressRing)
-        tableView.tableHeaderView = encapsulationView
+//        tableView.tableHeaderView = encapsulationView
 
         // Remove seperator lines from empty cells
         tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -120,6 +121,18 @@ class ClassDetailTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: .editAssignment, sender: indexPath)
+    }
+
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (_, indexPath) in
+            self?.handleDelete(at: indexPath)
+        }
+
+        return [delete]
+    }
+
     /// MARK: Helper Methods
 
     /// Loads all assignments into the `assignments` array, called whenever a `classObj` is set
@@ -172,6 +185,40 @@ class ClassDetailTableViewController: UITableViewController {
             progressRing.isHidden = true
             navigationItem.leftBarButtonItem?.isEnabled = false
             navigationItem.rightBarButtonItem?.isEnabled = false
+            tableView.reloadData()
+        }
+    }
+
+    /// Handles deleting an Assignment at the specified IndexPath
+    private func handleDelete(at path: IndexPath) {
+        guard let classObj = _classObj else { return }
+        let assignment = self.assignment(at: path)
+        let rubric = assignment.associatedRubric
+        // Keep copy in case user undoes deletion
+        let copy = assignment.copy() as! Assignment
+        // Set rubric to same reference after copying assignment
+        copy.associatedRubric = rubric
+
+        // Remove from Realm
+        DatabaseManager.shared.deleteObjects([assignment])
+
+        // Present snack to allow user to undo deletion
+        let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO", displayDuration: nil)
+        snack.viewToDisplayIn = navigationController?.view
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
+
+        snack.show() { undone in
+            guard undone else { return }
+            // Re-add assignment into Realm
+            DatabaseManager.shared.addObject(copy)
+            // Re-associate the assignment to the class
+            if DatabaseManager.shared.realm.isInWriteTransaction {
+                classObj.assignments.append(copy)
+            } else {
+                try! DatabaseManager.shared.realm.write {
+                    classObj.assignments.append(copy)
+                }
+            }
         }
     }
 
@@ -205,7 +252,7 @@ extension ClassDetailTableViewController: Segueable {
             vc.parentClass = _classObj
 
         case .editAssignment:
-            guard let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) else { return }
+            guard let indexPath = sender as? IndexPath else { return }
             // Prepare view for segue
             let nav = segue.destination
             let screenSize = UIScreen.main.bounds.size
