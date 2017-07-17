@@ -15,8 +15,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     /// Realm database object
     let realm = DatabaseManager.shared.realm
+
     /// Outlet to the save button
     @IBOutlet weak var saveButton: UIBarButtonItem!
+
     /// The parent class which owns this Assignment, passed in via segue inside of ClassDetailTableViewController
     var parentClass: Class!
     
@@ -30,22 +32,28 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     /// The date label, which displays the value picked from the date picker
     var dateLabel: UILabel!
+
     /// The rubric label, which displays the value picked from the rubric picker
     var rubricLabel: UILabel!
+
     /// Boolean for determining whether datePicker is visible or not
     var datePickerIsVisible = false
+
     /// Boolean for determining whether rubricPicker is visible or not
     var rubricPickerIsVisible = false
+
     /// The name field textfield
     var nameField: UITextField?
+
     /// The score field textfield
     var scoreField: UISafeTextField?
+
     /// The selected date from the date picker
     var selectedDate: Date = Date()
+
     /// Assignment which will be edited if editing
     var assignmentForEdit: Assignment?
-    /// The delegate which will handle the completion of this view controller, edit and saving of Assignments
-    weak var delegate: AddEditAssignmentViewDelegate?
+
     
     // MARK: - Overrides
     
@@ -271,7 +279,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         else { saveNew() }
     }
     
-    /// Updates assignment in Realm, calls delegate and dismisses view
+    /// Updates assignment in Realm and dismisses view
     func saveChanges() {
         // Can force unwrap here since we checked in the guard of onSave(_:)
         let name = nameField!.text!
@@ -289,13 +297,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
             assignmentForEdit?.associatedRubric = rubric
         }
         
-        self.dismiss(animated: true) { [weak self] in
-            guard let assignment = self?.assignmentForEdit else { return }
-            self?.delegate?.didFinishUpdating(assignment: assignment)
-        }
+        self.dismiss(animated: true)
     }
     
-    /// Creates and saves a new assignment in Realm, calls delegate and dismisses view
+    /// Creates and saves a new assignment in Realm and dismisses view
     func saveNew() {
         // Can force unwrap because checked inside of onSave(_:)
         let name = nameField!.text!
@@ -311,9 +316,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             parentClass.assignments.append(newAssignment)
         }
 
-        self.dismiss(animated: true) { [weak self] in
-            self?.delegate?.didFinishCreating(assignment: newAssignment)
-        }
+        self.dismiss(animated: true)
     }
     
     @objc func datePickerChange(sender: UIDatePicker) {
