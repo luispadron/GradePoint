@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UIEmptyState
 import UICircularProgressRing
 import LPSnackbar
 
@@ -55,10 +56,13 @@ class ClassDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        emptyStateDelegate = self
+        emptyStateDataSource = self
+
         // Set the progressRing as the tableHeaderView, encapsulates the view to stop clipping
         let encapsulationView = UIView() //
         encapsulationView.addSubview(progressRing)
-//        tableView.tableHeaderView = encapsulationView
+        tableView.tableHeaderView = encapsulationView
 
         // Remove seperator lines from empty cells
         tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -85,6 +89,14 @@ class ClassDetailTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         updateUI()
+        reloadEmptyState()
+    }
+
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        updateProgressRing()
     }
 
     override func viewWillLayoutSubviews() {
@@ -181,6 +193,8 @@ class ClassDetailTableViewController: UITableViewController {
                     tableView.reloadSections(IndexSet(integer: section), with: .automatic)
                 }
                 tableView.endUpdates()
+                self?.updateProgressRing()
+                self?.reloadEmptyState()
 
             case .error(let error): fatalError("Error in Realm notification changes.\n\(error)")
             }
@@ -207,6 +221,12 @@ class ClassDetailTableViewController: UITableViewController {
             navigationItem.rightBarButtonItem?.isEnabled = false
             tableView.reloadData()
         }
+    }
+
+    /// Updates the progress on the progress ring
+    private func updateProgressRing() {
+        guard let classObj = _classObj else { return }
+        self.progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.3)
     }
 
     /// Handles deleting an Assignment at the specified IndexPath
@@ -250,6 +270,69 @@ class ClassDetailTableViewController: UITableViewController {
         assignments.removeAll()
     }
 }
+
+// MARK: Empty State Delegate & Data Source
+
+extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
+
+    // DataSource
+
+    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+        return assignments.isTrueEmpty
+    }
+
+    var emptyStateTitle: NSAttributedString {
+        guard _classObj != nil else { return NSAttributedString(string: "") }
+        let attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20),
+                                                         .foregroundColor: UIColor.mainText]
+
+        return NSAttributedString(string: "No assignments added", attributes: attributes)
+    }
+
+    var emptyStateButtonTitle: NSAttributedString? {
+        guard _classObj != nil else { return nil }
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
+                                                   .font: UIFont.systemFont(ofSize: 18)]
+
+        return NSAttributedString(string: "Add assignment", attributes: attrs)
+    }
+
+    var emptyStateButtonImage: UIImage? {
+        // If no class selected, or if class is a previous class, then dont show the button image
+        guard _classObj != nil else { return nil }
+
+        return #imageLiteral(resourceName: "ButtonBg")
+    }
+
+    var emptyStateButtonSize: CGSize? {
+        // If no class selected, or if class is a previous class, then dont return button size
+        guard _classObj != nil else { return nil }
+
+        return CGSize(width: 170, height: 50)
+    }
+
+    var emptyStateViewAnimatesEverytime: Bool { return false }
+
+    var emptyStateViewAnimationDuration: TimeInterval { return 0.8 }
+
+    // Delegate
+
+    func emptyStateViewWillShow(view: UIView) {
+        // Hide the progress ring
+        self.progressRing.isHidden = true
+    }
+
+    func emptyStateViewWillHide(view: UIView) {
+        self.progressRing.isHidden = false
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
+        self.navigationItem.leftBarButtonItem?.isEnabled = true
+    }
+
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        self.performSegue(withIdentifier: .addAssignment, sender: button)
+    }
+}
+
 
 // MARK: Segueable Protocol
 

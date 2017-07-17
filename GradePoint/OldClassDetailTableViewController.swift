@@ -246,8 +246,8 @@ class OldClassDetailTableViewController: UITableViewController {
     
     /// Calculates the percentage for the progress ring
     func calculateProgress() {
-        guard let classObj = _classObj else { return }
-        self.progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.5)
+//        guard let classObj = _classObj else { return }
+//        self.progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.5)
     }
     
     func assignment(for indexPath: IndexPath) -> Assignment {

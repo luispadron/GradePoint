@@ -56,44 +56,26 @@ class Class: Object {
     }
     
     // MARK: - Helper Methods
-    
-    /// Calculates the score when assignments are already grouped,
-    /// SIDE EFFECT: -> Updates the Grade for the sent in class object
-    public static func calculateScore(for groupedAssignments: [[Assignment]], in classObj: Class) -> CGFloat {
-        let score = Class.calculateScore(for: groupedAssignments)
-        
-        // Also update the models Grade.score property in the DB, if its different
-        if classObj.grade!.score != score {
-            try! DatabaseManager.shared.realm.write {
-                classObj.grade?.score = score
-                classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
-            }
-        }
-        
-        return CGFloat(score)
-    }
-    
+
     /// Calculates the score if only have a class object
     /// SIDE EFFECT: -> Updates the Grade for the sent in class object
     public static func calculateScore(in classObj: Class) -> CGFloat {
-        let rubrics = Array(classObj.rubrics)
-        let groupedAssignments = rubrics.map { Array(classObj.assignments.filter("associatedRubric = %@", $0)) }
-        
-        let score = Class.calculateScore(for: groupedAssignments)
-        
-        // Also update the models Grade.score property in the DB, if its different
-        if classObj.grade!.score != score {
-            try! DatabaseManager.shared.realm.write {
-                classObj.grade?.score = score
-                classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
-            }
+        let rubrics = classObj.rubrics
+        var assignments = [Results<Assignment>]()
+        // Group the assignments by their rubrics
+        rubrics.forEach {
+            let grouped = classObj.assignments.filter("associatedRubric = %@", $0)
+            assignments.append(grouped)
         }
         
-        return CGFloat(score)
+        let score = Class.calculateScore(for: assignments, in: classObj)
+        
+        return score
     }
     
     /// Helper method to reduce code use between the two public static methods
-    private static func calculateScore(for groupedAssignments: [[Assignment]]) -> Double {
+    /// SIDE EFFECT: -> Updates the Grade for the sent in class object
+    public static func calculateScore(for groupedAssignments: [Results<Assignment>], in classObj: Class) -> CGFloat {
         guard !groupedAssignments.isTrueEmpty else { return 0.0 }
         
         var weights = 0.0
@@ -109,8 +91,23 @@ class Class: Object {
             sumTotal /= Double(assignments.count)
             totalScore += assignments[0].associatedRubric!.weight * sumTotal
         }
-        
-        return Double(totalScore / weights).roundedUpTo(2)
+
+        let score = Double(totalScore / weights).roundedUpTo(2)
+
+        // Also update the models Grade.score property in the DB, if its different
+        if classObj.grade!.score != score {
+            if DatabaseManager.shared.realm.isInWriteTransaction {
+                classObj.grade?.score = score
+                classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
+            } else {
+                try! DatabaseManager.shared.realm.write {
+                    classObj.grade?.score = score
+                    classObj.grade?.gradeLetter = Grade.gradeLetter(forScore: score)
+                }
+            }
+        }
+
+        return CGFloat(score)
     }
     
     
