@@ -226,7 +226,9 @@ class ClassDetailTableViewController: UITableViewController {
     /// Updates the progress on the progress ring
     private func updateProgressRing() {
         guard let classObj = _classObj else { return }
-        self.progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.3)
+        if !progressRing.isAnimating {
+            progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.3)
+        }
     }
 
     /// Handles deleting an Assignment at the specified IndexPath
