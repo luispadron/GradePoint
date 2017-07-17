@@ -605,8 +605,7 @@ extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         guard let indexPath = (viewControllerToCommit as? ClassPeekViewController)?.indexPathForPeek else { return }
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        self.performSegue(withIdentifier: .showDetail, sender: cell)
+        self.performSegue(withIdentifier: .showDetail, sender: indexPath)
     }
 }
 
