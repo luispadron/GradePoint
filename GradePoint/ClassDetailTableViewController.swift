@@ -346,24 +346,23 @@ extension ClassDetailTableViewController: Segueable {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Prepare view for segue
+        let nav = segue.destination
+        let screenSize = UIScreen.main.bounds.size
+        let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
+        // Set correct size
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            nav.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
+        } else {
+            nav.preferredContentSize = CGSize(width: screenSize.width * 0.65, height: screenSize.height * 0.85)
+        }
+
         switch segueIdentifier(forSegue: segue) {
         case .addAssignment:
-            // Prepare view for segue
-            let nav = segue.destination
-            let screenSize = UIScreen.main.bounds.size
-            nav.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
-
-            let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = _classObj
 
         case .editAssignment:
             guard let indexPath = sender as? IndexPath else { return }
-            // Prepare view for segue
-            let nav = segue.destination
-            let screenSize = UIScreen.main.bounds.size
-            nav.preferredContentSize = CGSize(width: screenSize.width / 2, height: screenSize.height / 2)
-
-            let vc = (segue.destination as! UINavigationController).topViewController as! AddEditAssignmentTableViewController
             vc.parentClass = _classObj
             vc.assignmentForEdit = assignment(at: indexPath)
         }
