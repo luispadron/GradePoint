@@ -385,7 +385,8 @@ class ClassesTableViewController: UITableViewController {
         reloadEmptyState()
         
         // Present snack bar to allow undo
-        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: nil)
+        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
+        snack.viewToDisplayIn = navigationController?.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
         
         snack.show() { [weak self] undone in
