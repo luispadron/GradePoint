@@ -588,7 +588,7 @@ class AddEditClassViewController: UIViewController {
             // Get the rubric from realm using the pk
             let rubric = realm.object(ofType: Rubric.self, forPrimaryKey: pk)!
             // Get the assignments associated with this rubric
-            let assignments = realm.objects(Assignment.self).filter("associatedRubric = %@", rubric)
+            let assignments = realm.objects(Assignment.self).filter("rubric = %@", rubric)
             // Write deletion to realm
             DatabaseManager.shared.deleteObjects(assignments)
             DatabaseManager.shared.deleteObjects([rubric])

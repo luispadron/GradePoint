@@ -64,7 +64,7 @@ class Class: Object {
         var assignments = [Results<Assignment>]()
         // Group the assignments by their rubrics
         rubrics.forEach {
-            let grouped = classObj.assignments.filter("associatedRubric = %@", $0)
+            let grouped = classObj.assignments.filter("rubric = %@", $0)
             assignments.append(grouped)
         }
         
@@ -83,13 +83,13 @@ class Class: Object {
         
         for assignments in groupedAssignments {
             if assignments.count == 0 { continue }
-            weights += assignments[0].associatedRubric!.weight
+            weights += assignments[0].rubric!.weight
             
             var sumTotal = 0.0
             for assignment in assignments { sumTotal += assignment.score }
             
             sumTotal /= Double(assignments.count)
-            totalScore += assignments[0].associatedRubric!.weight * sumTotal
+            totalScore += assignments[0].rubric!.weight * sumTotal
         }
 
         let score = Double(totalScore / weights).roundedUpTo(2)

@@ -184,7 +184,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
                 if let cachedCell = self.rubricLabelCell { return cachedCell }
                 let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
                 cell.leftLabel.text = "Rubric"
-                if let assignment = assignmentForEdit { cell.rightLabel.text = assignment.associatedRubric!.name }
+                if let assignment = assignmentForEdit { cell.rightLabel.text = assignment.rubric!.name }
                 else { cell.rightLabel.text = self.parentClass.rubrics[0].name }
                 self.rubricLabel = cell.rightLabel
                 cell.contentView.backgroundColor = UIColor.lightBackground
@@ -294,7 +294,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             assignmentForEdit?.name = name
             assignmentForEdit?.score = score
             assignmentForEdit?.date = selectedDate
-            assignmentForEdit?.associatedRubric = rubric
+            assignmentForEdit?.rubric = rubric
         }
         
         self.dismiss(animated: true)
@@ -357,7 +357,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         // Update date picker
         datePicker.setDate(assignment.date, animated: false)
         // Update rubric picker
-        if let indexOfRubric = parentClass.rubrics.index(of: assignment.associatedRubric!) {
+        if let indexOfRubric = parentClass.rubrics.index(of: assignment.rubric!) {
             rubricPicker.selectRow(indexOfRubric, inComponent: 0, animated: false)
             self.pickerView(rubricPicker, didSelectRow: indexOfRubric, inComponent: 0)
         }

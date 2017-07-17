@@ -16,7 +16,7 @@ class Assignment: Object {
     @objc dynamic var name = ""
     @objc dynamic var date = Date()
     @objc dynamic var score: Double = 0.0
-    @objc dynamic var associatedRubric: Rubric?
+    @objc dynamic var rubric: Rubric?
     
     // MARK: - Initializers
     
@@ -27,7 +27,7 @@ class Assignment: Object {
         self.name = name
         self.date = date
         self.score = score
-        self.associatedRubric = associatedRubric
+        self.rubric = associatedRubric
     }
     
     // MARK: - Overrides
@@ -37,7 +37,7 @@ class Assignment: Object {
     }
     
     override func copy() -> Any {
-        let copy = Assignment(name: name, date: date, score: score, associatedRubric: associatedRubric!.copy() as! Rubric)
+        let copy = Assignment(name: name, date: date, score: score, associatedRubric: rubric!.copy() as! Rubric)
         copy.id = id
         return copy
     }

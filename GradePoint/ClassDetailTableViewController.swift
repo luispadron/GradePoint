@@ -169,7 +169,7 @@ class ClassDetailTableViewController: UITableViewController {
     private func loadAssignments() {
         guard let classObj = _classObj else { return }
         classObj.rubrics.forEach {
-            let grouped = classObj.assignments.filter("associatedRubric = %@", $0).sorted(byKeyPath: "date", ascending: true)
+            let grouped = classObj.assignments.filter("rubric = %@", $0).sorted(byKeyPath: "date", ascending: true)
             assignments.append(grouped)
         }
     }
@@ -235,11 +235,11 @@ class ClassDetailTableViewController: UITableViewController {
     private func handleDelete(at path: IndexPath) {
         guard let classObj = _classObj else { return }
         let assignment = self.assignment(at: path)
-        let rubric = assignment.associatedRubric
+        let rubric = assignment.rubric
         // Keep copy in case user undoes deletion
         let copy = assignment.copy() as! Assignment
         // Set rubric to same reference after copying assignment
-        copy.associatedRubric = rubric
+        copy.rubric = rubric
 
         // Remove from Realm
         DatabaseManager.shared.deleteObjects([assignment])

@@ -350,13 +350,13 @@ class ClassesTableViewController: UITableViewController {
         for assignment in copy.assignments {
             var sameRubric: Rubric?
             for rubric in copy.rubrics {
-                if rubric == assignment.associatedRubric {
+                if rubric == assignment.rubric {
                     sameRubric = rubric
                     break
                 }
             }
             
-            assignment.associatedRubric = sameRubric
+            assignment.rubric = sameRubric
         }
     
         // Figure out whether we need to update the state of the detail controller or not

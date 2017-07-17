@@ -101,10 +101,13 @@ final class DatabaseManager {
         let config = Realm.Configuration(
             schemaVersion: currentSchemaVersion,
             migrationBlock: { migration, oldVersion in
-                if (oldVersion < 1) {
+                if oldVersion < 1 {
+                    // Add new isFavorite property
                     migration.enumerateObjects(ofType: Class.className()) { _, newObj in
                         newObj!["isFavorite"] = false
                     }
+                    // Rename rubric property of Assignmet class
+                    migration.renameProperty(onType: Assignment.className(), from: "associatedRubric", to: "rubric")
                 }
             }
         )
