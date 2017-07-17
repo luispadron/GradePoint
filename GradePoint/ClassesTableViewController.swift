@@ -15,25 +15,46 @@ class ClassesTableViewController: UITableViewController {
     
     // MARK: Properties
     
+    /// Any Realm notification tokens that are active
     private var notificationTokens: [NotificationToken] = [NotificationToken]()
     
+    /// The semesters, which are the sections for the tableview
     private var semesters: [Semester] {
         get {
             return generateSemesters()
         }
     }
     
+    /// All the classes saved in Realm, grouped by their semesters
     private var classes: [Results<Class>] = [Results<Class>]()
+    
+    /// Classes filtered by search text from the `searchController`
+    private var filteredClasses: Results<Class>?
+    
+    /// The search controller used to filter the table view
+    private lazy var searchController: UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.searchBar.delegate = self
+        controller.dimsBackgroundDuringPresentation = false
+        controller.searchBar.placeholder = "Search classes"
+        return controller
+    }()
     
     // MARK: View Handeling
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Setup delegation a
+        // Setup search bar and titles
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.searchController = searchController
+        } else {
+            searchController.searchBar.barTintColor = UIColor(red: 0.337, green: 0.337, blue: 0.376, alpha: 1.00)
+            tableView.contentOffset = CGPoint(x: 0, y: tableView.contentOffset.y + searchController.searchBar.frame.height)
+            tableView.tableHeaderView = searchController.searchBar
         }
+        
         splitViewController?.delegate = self
         splitViewController?.preferredDisplayMode = .allVisible
         tableView.scrollsToTop = true
@@ -78,14 +99,26 @@ class ClassesTableViewController: UITableViewController {
     // MARK: Table View Methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return classes.count
+        if searchController.isActive {
+            return 1
+        } else {
+            return classes.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classes[section].count
+        if searchController.isActive {
+            return filteredClasses?.count ?? 0
+        } else {
+            return classes[section].count
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard !searchController.isActive else {
+            return 0
+        }
+        
         return classes[section].count > 0 ? 44 : 0
     }
     
@@ -116,6 +149,11 @@ class ClassesTableViewController: UITableViewController {
         } else {
             performSegue(withIdentifier: .showPreviousDetail, sender: indexPath)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard !searchController.isActive else { return false }
+        return true
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -175,6 +213,10 @@ class ClassesTableViewController: UITableViewController {
     private func registerNotifications(for results: Results<Class>, in section: Int) {
         let notification = results.addNotificationBlock { [weak self] (changes) in
             guard let tableView = self?.tableView else { return }
+            guard !(self?.searchController.isActive ?? false) else {
+                tableView.reloadData()
+                return
+            }
             
             switch changes {
                 
@@ -216,7 +258,11 @@ class ClassesTableViewController: UITableViewController {
     
     /// Returns a class object at a specified index path
     private func classObj(at path: IndexPath) -> Class {
-        return classes[path.section][path.row]
+        if searchController.isActive {
+            return filteredClasses![path.row]
+        } else {
+            return classes[path.section][path.row]
+        }
     }
     
     /// Deletes a class from Realm
@@ -225,6 +271,11 @@ class ClassesTableViewController: UITableViewController {
         DatabaseManager.shared.deleteObjects(classObj.rubrics)
         DatabaseManager.shared.deleteObjects(classObj.assignments)
         DatabaseManager.shared.deleteObjects([classObj.semester!, classObj.grade!, classObj])
+    }
+    
+    /// Filters and updates the `filteredClasses` array with the passed in search text
+    private func filterClasses(for searchText: String) {
+        filteredClasses = DatabaseManager.shared.realm.objects(Class.self).filter("name contains %@", searchText)
     }
     
     /// Handles deleting a cell and class object from the table view
@@ -269,7 +320,7 @@ class ClassesTableViewController: UITableViewController {
         reloadEmptyState()
         
         // Present snack bar to allow undo
-        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
+        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: nil)
         snack.viewToDisplayIn = self.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
         
@@ -282,7 +333,7 @@ class ClassesTableViewController: UITableViewController {
     
     /// Called whenever semesters are updated inside the `SemesterConfigurationViewController`
     @objc private func semestersDidUpdate(notification: Notification) {
-        // Remove all classes and load them with again with new semesters
+        // Remove all classes and load them again with new semesters
         classes.removeAll()
         loadClasses()
         // Stop & remove all notification tokens
@@ -306,6 +357,27 @@ class ClassesTableViewController: UITableViewController {
             $0.stop()
         }
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension ClassesTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText != "" else {
+            self.searchController.isActive = false
+            self.tableView.reloadData()
+            self.reloadEmptyState()
+            return
+        }
+        
+        // Update classes array to filter for name
+        self.filterClasses(for: searchText)
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchController.isActive = false
+        self.tableView.reloadData()
+        self.reloadEmptyState()
     }
 }
 
@@ -364,11 +436,16 @@ extension ClassesTableViewController: Segueable {
             }
             
             // Collapse any edit actions for the tableview, so theyre not opened when returning
-            self.tableView.isEditing = false
+            tableView.isEditing = false
             
         case .onboarding:
             break
         }
+        
+        // Remove any searches
+        filteredClasses = nil
+        searchController.isActive = false
+        tableView.reloadData()
     }
 }
 
@@ -406,11 +483,26 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     // Empty State Delegate
     
     func emptyStateViewWillShow(view: UIView) {
-
+        // Hide the search controller
+        if #available(iOS 11.0, *) {
+            navigationItem.hidesSearchBarWhenScrolling = true
+            searchController.isActive = false
+        } else {
+            searchController.isActive = false
+            // Remove from table view header
+            tableView.tableHeaderView = nil
+        }
     }
     
     func emptyStateViewWillHide(view: UIView) {
-
+        // Re add the search controller
+        if #available(iOS 11.0, *) {
+            // Nothing to do here
+        } else {
+            if tableView.tableHeaderView == nil {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        }
     }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
