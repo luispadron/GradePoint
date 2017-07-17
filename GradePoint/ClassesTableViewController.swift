@@ -87,6 +87,8 @@ class ClassesTableViewController: UITableViewController {
         // Listen to semester update notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
                                                name: semestersUpdatedNotification, object: nil)
+        // Add 3D touch support to this view
+        if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -583,6 +585,31 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
 }
 
+// MARK: 3D Touch Delegation
+
+extension ClassesTableViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location), let cell = tableView.cellForRow(at: indexPath) else { return nil }
+        guard let peekVC = storyboard?.instantiateViewController(withIdentifier: "ClassPeekViewController") as? ClassPeekViewController else { return nil }
+        
+        // Only allow peeking for in progress classes
+        let classObj = self.classObj(at: indexPath)
+        guard classObj.isClassInProgress else { return nil }
+        
+        peekVC.setUI(for: classObj)
+        peekVC.preferredContentSize = CGSize(width: 240.0, height: 240.0)
+        peekVC.indexPathForPeek = indexPath
+        previewingContext.sourceRect = cell.frame
+        
+        return peekVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        guard let indexPath = (viewControllerToCommit as? ClassPeekViewController)?.indexPathForPeek else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        self.performSegue(withIdentifier: .showDetail, sender: cell)
+    }
+}
 
 // MARK: Split View Delegation
 
