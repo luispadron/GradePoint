@@ -22,12 +22,22 @@ class ClassDetailTableViewController: UITableViewController {
     /// The public class object that is set when presenting this view controller
     public var classObj: Class? {
         didSet {
-            guard classObj != nil else { return }
+            guard classObj != nil else {
+                // Update the UI
+                updateUI()
+                return
+            }
+
             loadAssignments()
+            // Remove any active notifications
+            notificationTokens.forEach { $0.stop() }
+            notificationTokens.removeAll()
             // Register notifications now that assignments are set
             for (i, results) in assignments.enumerated() {
                 registerNotifications(for: results, in: i)
             }
+            // Update the UI
+            updateUI()
         }
     }
 
@@ -73,6 +83,12 @@ class ClassDetailTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 65
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        updateUI()
     }
 
     override func viewWillLayoutSubviews() {
@@ -154,13 +170,14 @@ class ClassDetailTableViewController: UITableViewController {
 
     /// Updates the UI
     private func updateUI() {
-
-    }
-
-    /// Updates the UI whenver modifications are made to the ClassObj that is being detailed in this controller.
-    /// Only called from within `ClassesTableViewController` when app is in SplitView mode.
-    public func updateUIForClassChanges() {
-
+        if let classObj = _classObj {
+            title = classObj.name
+        } else {
+            title = nil
+            progressRing.isHidden = true
+            navigationItem.leftBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
     }
 
     deinit {

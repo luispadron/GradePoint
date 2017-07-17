@@ -306,7 +306,6 @@ class ClassesTableViewController: UITableViewController {
                     let classObj = strongSelf.classObj(at: IndexPath(row: index, section: section))
                     if detailController.classObj == classObj {
                         detailController.classObj = classObj
-                        detailController.updateUIForClassChanges()
                     }
                 }
                 
@@ -367,7 +366,6 @@ class ClassesTableViewController: UITableViewController {
             let detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
             if  detailController?.classObj == classToDel {
                 detailController?.classObj = nil
-                detailController?.updateUIForClassChanges()
             }
         } else {
             // Previous class, different process, just hide all the views and move on
