@@ -91,9 +91,6 @@ class AddEditClassViewController: UIViewController {
     /// The semester, grabbed from the UISemesterPickerView
     var semester: Semester!
     
-    /// The delegate for this view, will be notified when finished editing or creating new class
-    weak var delegate: AddEditClassViewDelegate?
-    
     /// The current state the view is in, this doesn't change when editing a Class
     var viewState: ViewState = .inProgress
     
@@ -508,10 +505,7 @@ class AddEditClassViewController: UIViewController {
         DatabaseManager.shared.addObject(newClass)        
         
         // Dismiss controller
-        self.dismiss(animated: true) { [weak self] in
-            // Call the delegate tell it were done creating this class
-            self?.delegate?.didFinishCreating(newClass: newClass)
-        }
+        self.dismiss(animated: true)
     }
     
     func saveNewPreviousClass() {
@@ -525,10 +519,7 @@ class AddEditClassViewController: UIViewController {
         DatabaseManager.shared.addObject(newClass)
         
         // Dismisses
-        self.dismiss(animated: true) { [weak self] in
-            // Call delegate, notify of new class
-            self?.delegate?.didFinishCreating(newClass: newClass)
-        }
+        self.dismiss(animated: true)
     }
     
     /// Saves the edits the user made to the object
@@ -573,10 +564,7 @@ class AddEditClassViewController: UIViewController {
         }
         
         // Dismiss controller
-        self.dismiss(animated: true) { [weak self] in
-            // Call the delegate method, tell it were done updating the class
-            self?.delegate?.didFinishUpdating(classObj: classObj)
-        }
+        self.dismiss(animated: true)
     }
     
     func saveChangesTo(previousClass classObj: Class) {
@@ -590,10 +578,7 @@ class AddEditClassViewController: UIViewController {
         }
         
         // Dismiss controller
-        self.dismiss(animated: true) { [weak self] in
-            // Call the delegate method, tell it were done updating the class
-            self?.delegate?.didFinishUpdating(classObj: classObj)
-        }
+        self.dismiss(animated: true)
     }
     
     /// Deletes all rubrics inside of the rubricsToDelete array

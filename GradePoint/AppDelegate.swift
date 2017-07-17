@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             // Perform the add edit class segue
-//            classesVC.performSegue(withIdentifier: .addEditClass, sender: classesVC.navigationItem.rightBarButtonItem)
+            classesVC.performSegue(withIdentifier: .addEditClass, sender: classesVC.navigationItem.rightBarButtonItem)
             
         case .calculateGPA:
             guard let tabBar = window?.rootViewController as? UITabBarController,
