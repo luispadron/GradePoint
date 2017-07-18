@@ -92,6 +92,20 @@ class PreviousClassDetailViewController: UIViewController {
         let isPortrait = orientation == .portrait || orientation == .portraitUpsideDown
         let isLandscape = orientation == .landscapeLeft || orientation == .landscapeRight
         let height = size.height
+
+        guard !(UIDevice.current.orientation == .unknown) else {
+            // Fall back and use the least amount of space
+            DispatchQueue.main.async {
+                self.bgViewTopCons.constant = 15
+                self.bgViewBottomCons.constant = 15
+                self.gradeHolderTopCons.constant = 15
+                self.gradeHolderBottomCons.constant = 15
+                self.buttonBottomCons.constant = 8
+                self.topLabel.isHidden = true
+                self.bottomLabel.isHidden = true
+            }
+            return
+        }
         
         // If height is less than 700 (i.e, iPhone 6) and in portrait, remove the second label, and adjust constraints
         if  height < 700 && height > 600 && isPortrait {
@@ -120,7 +134,7 @@ class PreviousClassDetailViewController: UIViewController {
                 self.gradeHolderBottomCons.constant = 15
                 self.buttonBottomCons.constant = 8
             }
-        } else if isIpad && isLandscape || isIpad && UIDevice.current.orientation == .unknown {
+        } else if isIpad && isLandscape || isIpad {
             DispatchQueue.main.async {
                 if height < 800 {
                     self.topLabel.isHidden = true
