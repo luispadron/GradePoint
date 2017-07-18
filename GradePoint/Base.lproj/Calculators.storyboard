@@ -689,11 +689,11 @@ maintain or achieve a desired grade.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hfk-HI-zuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="f8K-5m-bBM" userLabel="Empty View">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <rect key="frame" x="0.0" y="0.0" width="551" height="311"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fNt-gg-MEz">
-                            <rect key="frame" x="8" y="8" width="224" height="112"/>
+                            <rect key="frame" x="8" y="8" width="535" height="295"/>
                             <string key="text">No classes avaliable to calculate GPA.
 
 Add some classes or assignments!</string>
@@ -701,9 +701,26 @@ Add some classes or assignments!</string>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwn-OI-RgK">
+                            <rect key="frame" x="217.5" y="216" width="116" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="DZY-sJ-H76"/>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="220" id="Py3-Nu-SWf"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="tintColor" red="0.75321447850000001" green="0.65167993310000005" blue="0.8314163685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <state key="normal" title="Add a class" backgroundImage="ButtonBg">
+                                <color key="titleColor" red="0.75321447850000001" green="0.65167993310000005" blue="0.8314163685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <connections>
+                                <action selector="emptyAddClassButtonTapped:" destination="XO0-0A-Hk9" eventType="touchUpInside" id="3du-Ca-k6A"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="cwn-OI-RgK" firstAttribute="centerX" secondItem="f8K-5m-bBM" secondAttribute="centerX" id="1Aj-ui-Lyv"/>
+                        <constraint firstAttribute="bottom" secondItem="cwn-OI-RgK" secondAttribute="bottom" constant="55" id="3VX-X9-EuD"/>
                         <constraint firstItem="fNt-gg-MEz" firstAttribute="top" secondItem="f8K-5m-bBM" secondAttribute="top" constant="8" id="Feg-RW-SBN"/>
                         <constraint firstItem="fNt-gg-MEz" firstAttribute="leading" secondItem="f8K-5m-bBM" secondAttribute="leading" constant="8" id="QUK-zY-oNZ"/>
                         <constraint firstAttribute="bottom" secondItem="fNt-gg-MEz" secondAttribute="bottom" constant="8" id="YDT-Vu-lh6"/>
@@ -768,6 +785,7 @@ Add some classes or assignments!</string>
         </scene>
     </scenes>
     <resources>
+        <image name="ButtonBg" width="116" height="30"/>
         <image name="CalculatorTabBarIcon" width="58" height="60"/>
         <image name="DeleteIcon" width="50" height="50"/>
     </resources>

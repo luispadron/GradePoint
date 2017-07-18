@@ -107,7 +107,21 @@ class GPACalculatorViewController: UIViewController {
             if finished { self.dismiss(animated: true, completion: nil) }
         }
     }
-    
+
+    @IBAction func emptyAddClassButtonTapped(_ sender: UIButton) {
+        // Switch to add class view
+        self.dismiss(animated: true) {
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            let tabController = delegate.window?.rootViewController as? UITabBarController
+            // Select first tab
+            tabController?.selectedIndex = 0
+            let splitNav = tabController?.childViewControllers.first?.childViewControllers.first
+            let classesViewController = splitNav?.childViewControllers.first as? ClassesTableViewController
+            // Add edit class segue
+            classesViewController?.performSegue(withIdentifier: .addEditClass, sender: nil)
+        }
+    }
+
     
     @IBAction func onCalculateButtonPressed(_ sender: UIButton) {
         // Add the views if not already added

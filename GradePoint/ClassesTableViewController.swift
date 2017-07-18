@@ -543,7 +543,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.highlight,
                                                    .font: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add a class", attributes: attrs)
     }
@@ -557,6 +557,11 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     // Empty State Delegate
     
     func emptyStateViewWillShow(view: UIView) {
+        guard let emptyView = view as? UIEmptyStateView else { return }
+
+        // Update tint for button
+        emptyView.button.tintColor = .highlight
+
         // Hide the search controller
         if #available(iOS 11.0, *) {
             navigationItem.hidesSearchBarWhenScrolling = true
