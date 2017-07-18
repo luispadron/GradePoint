@@ -12,13 +12,27 @@ class ClassesTableViewUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
-        
+
         continueAfterFailure = false
-        XCUIApplication().launch()
+        let app = XCUIApplication()
+        app.launchArguments = ["ResetState", "NoAnimations"]
+        app.launch()
     }
-    
-    override func tearDown() {
-        super.tearDown()
+
+    /// Tests the onboarding the user will see when first running the app
+    func testOnboarding() {
+        let app = XCUIApplication()
+        let window = app.windows.firstMatch
+        window.swipeLeft()
+        window.swipeLeft()
+
+        app.buttons["College"].tap()
+        app.buttons["A+"].tap()
+        window.swipeLeft()
+
+        let button = app.buttons["Cool, lets start!"]
+        waitForElementToAppear(element: button, timeout: 5.0)
+        button.tap()
     }
     
     /// Tests adding classes to the tableview for an inital class count of zero
@@ -81,4 +95,19 @@ class ClassesTableViewUITests: XCTestCase {
         
     }
     
+}
+
+extension ClassesTableViewUITests {
+    func waitForElementToAppear(element: XCUIElement, timeout: TimeInterval = 5,  file: String = #file, line: Int = #line) {
+        let existsPredicate = NSPredicate(format: "exists == true")
+
+        expectation(for: existsPredicate, evaluatedWith: element, handler: nil)
+
+        waitForExpectations(timeout: timeout) { (error) -> Void in
+            if (error != nil) {
+                let message = "Failed to find \(element) after \(timeout) seconds."
+                self.recordFailure(withDescription: message, inFile: file, atLine: line, expected: true)
+            }
+        }
+    }
 }

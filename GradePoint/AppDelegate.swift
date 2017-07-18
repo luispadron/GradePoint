@@ -46,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSSetUncaughtExceptionHandler { (exception) in
                 print(exception)
             }
+
+            // For UITesting, handle any launch options
+            prepareForUITesting()
         }
         
         // Custom color for status bar
@@ -168,6 +171,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Reset the root view controller to what it was initially
     func finishedPresentingOnboarding() {
         self.window?.rootViewController = initialRootController
+    }
+}
+
+// MARK: Methods for UI Testing
+
+extension AppDelegate {
+    func prepareForUITesting() {
+        var args = ProcessInfo.processInfo.arguments
+        args.removeFirst()
+        guard args.count > 0 else { return }
+
+        print("App is launching with arguments: \(args)")
+
+        for arg in args {
+            switch arg {
+            case "ClearState":
+                // Remove all objects from Realm and user defaults
+                DatabaseManager.shared.write {
+                    DatabaseManager.shared.realm.deleteAll()
+                }
+                UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            case "NoAnimations":
+                UIView.setAnimationsEnabled(false)
+            default:
+                break
+            }
+        }
     }
 }
 
