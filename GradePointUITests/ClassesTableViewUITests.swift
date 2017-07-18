@@ -14,14 +14,14 @@ class ClassesTableViewUITests: XCTestCase {
         super.setUp()
 
         continueAfterFailure = false
-        let app = XCUIApplication()
-        app.launchArguments = ["ResetState", "NoAnimations"]
-        app.launch()
     }
 
     /// Tests the onboarding the user will see when first running the app
-    func testOnboarding() {
+    func test_A_Onboarding() {
         let app = XCUIApplication()
+        app.launchArguments = ["ClearState", "NoAnimations"]
+        app.launch()
+        
         let window = app.windows.firstMatch
         window.swipeLeft()
         window.swipeLeft()
@@ -36,7 +36,7 @@ class ClassesTableViewUITests: XCTestCase {
     }
     
     /// Tests adding classes to the tableview for an inital class count of zero
-    func testAddClasses() {
+    func test_B_AddClasses() {
         
         let app = XCUIApplication()
         
@@ -90,7 +90,7 @@ class ClassesTableViewUITests: XCTestCase {
         XCTAssertEqual(app.tables.cells.count, 2)
     }
     
-    func testClassesDeletion() {
+    func test_C_ClassesDeletion() {
         
         
     }

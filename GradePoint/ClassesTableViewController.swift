@@ -133,7 +133,7 @@ class ClassesTableViewController: UITableViewController {
         if section == 0 {
             return "Favorites"
         } else {
-            let sem = semesters[section]
+            let sem = semesters[section - 1]
             return "\(sem.term) \(sem.year)"
         }
     }

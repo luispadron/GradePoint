@@ -187,10 +187,12 @@ extension AppDelegate {
         for arg in args {
             switch arg {
             case "ClearState":
-                // Remove all objects from Realm and user defaults
-                DatabaseManager.shared.write {
-                    DatabaseManager.shared.realm.deleteAll()
-                }
+                DatabaseManager.performMigrations(completion: {
+                    // Remove all objects from Realm and user defaults
+                    DatabaseManager.shared.write {
+                        DatabaseManager.shared.realm.deleteAll()
+                    }
+                })
                 UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             case "NoAnimations":
                 UIView.setAnimationsEnabled(false)
