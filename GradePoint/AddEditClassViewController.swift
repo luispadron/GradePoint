@@ -136,7 +136,7 @@ class AddEditClassViewController: UIViewController {
         
         // Customization for the fields
         let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
-                                                            .font: UIFont.systemFont(ofSize: 17)]
+                                                            .font: UIFont.preferredFont(forTextStyle: .body)]
         self.nameField.textColor = UIColor.white
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
@@ -439,13 +439,13 @@ class AddEditClassViewController: UIViewController {
                 // Present alert warning user about zero percent
                 // Construct title
                 let title = NSAttributedString(string: "Can't Save 💔",
-                                               attributes: [.font : UIFont.systemFont(ofSize: 17)])
+                                               attributes: [.font : UIFont.preferredFont(forTextStyle: .headline)])
                 // Construct attributed message
                 let invalidRowSubmessage = "row \(index + 1)"
                 let attrsForSub: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.warning,
-                                                                 .font: UIFont.systemFont(ofSize: 15)]
+                                                                 .font: UIFont.preferredFont(forTextStyle: .body)]
                 let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
-                                                                     .font: UIFont.systemFont(ofSize: 15)]
+                                                                     .font: UIFont.preferredFont(forTextStyle: .body)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
                 messageAttributed.addAttributes(attrsForSub, range: (message as NSString).range(of: invalidRowSubmessage))
@@ -461,12 +461,12 @@ class AddEditClassViewController: UIViewController {
             // Present alert telling user weights must add up to 100
             // Construct title
             let title = NSAttributedString(string: "Can't Save 💔",
-                                           attributes: [.font : UIFont.systemFont(ofSize: 17)])
+                                           attributes: [.font : UIFont.preferredFont(forTextStyle: .headline)])
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
             let message = "Weights must add up to 100%." + percentSubMessage
             let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.mutedText,
-                                                                 .font : UIFont.systemFont(ofSize: 15)]
+                                                                 .font : UIFont.preferredFont(forTextStyle: .body)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             
             self.present(alert: .message, withTitle: title, andMessage: messageAttributed)
@@ -882,12 +882,12 @@ extension AddEditClassViewController: UIRubricViewDelegate {
         case .open:
             // User is about to close a rubric which was previously created, warn them what this means
             if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: view).first as? String {
-                let titleAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.systemFont(ofSize: 17),
+                let titleAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .headline),
                                                                 .foregroundColor : UIColor.warning]
                 
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
                 
-                let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.systemFont(ofSize: 14),
+                let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .body),
                                                                   .foregroundColor : UIColor.mutedText]
                 
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
