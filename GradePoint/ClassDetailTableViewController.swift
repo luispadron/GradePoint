@@ -80,7 +80,7 @@ class ClassDetailTableViewController: UITableViewController {
         tableView.separatorColor = UIColor.tableViewSeperator
 
         // Setup tableview estimates
-        tableView.estimatedRowHeight = 65
+        tableView.estimatedRowHeight = 75
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0
     }
@@ -127,10 +127,14 @@ class ClassDetailTableViewController: UITableViewController {
         return _classObj?.rubrics[section].name ?? nil
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.tintColor = UIColor.tableViewHeader
-        header.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = UIColor.unselected
     }
 
