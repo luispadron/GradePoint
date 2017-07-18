@@ -36,7 +36,7 @@ class ClassesTableViewController: UITableViewController {
         let controller = UISearchController(searchResultsController: nil)
         controller.searchBar.delegate = self
         controller.dimsBackgroundDuringPresentation = false
-        controller.searchBar.placeholder = "Search classes"
+        controller.searchBar.placeholder = "Search"
         return controller
     }()
     
@@ -175,7 +175,7 @@ class ClassesTableViewController: UITableViewController {
                 self.didFavoriteClass(at: indexPath)
             }
         })
-        
+
         let classAtPath = classObj(at: indexPath)
         favorite.backgroundColor = UIColor.favorite
         
