@@ -100,6 +100,24 @@ class AddEditAssignmentTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Basic Information"
+        case 1:
+            return "Assignment Score"
+        default:
+            return nil
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.tintColor = UIColor.tableViewHeader
+        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        header.textLabel?.textColor = UIColor.unselected
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -116,29 +134,6 @@ class AddEditAssignmentTableViewController: UITableViewController {
         
         return 60
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 44))
-        mainView.backgroundColor = UIColor.tableViewHeader
-        
-        let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 44))
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = UIColor.unselected
-        label.backgroundColor = UIColor.tableViewHeader
-        mainView.addSubview(label)
-        
-        switch section {
-        case 0:
-            label.text = "Basic Info"
-            return mainView
-        case 1:
-            label.text = "Assignment Score"
-            return mainView
-        default:
-            return nil
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
@@ -462,7 +457,7 @@ extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerVi
         let name = parentClass.rubrics[row].name
         let title = NSMutableAttributedString(string: name)
         title.addAttributes([.foregroundColor: UIColor.mainText,
-                             .font: UIFont.systemFont(ofSize: 20)],
+                             .font: UIFont.preferredFont(forTextStyle: .body)],
                             range: (name as NSString).range(of: name))
         return title
     }
