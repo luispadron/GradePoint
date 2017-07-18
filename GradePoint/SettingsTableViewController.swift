@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import LPSnackbar
 
 class SettingsTableViewController: UITableViewController {
 
@@ -104,12 +105,13 @@ class SettingsTableViewController: UITableViewController {
         case 2:
             switch indexPath.row {
             case 0:
-                let presentError = { self.presentErrorAlert(title: "Unable to email", message: "Couldn't open email client.\nFeel free to email me at LuisPadronn@gmail.com") }
                 let toEmail = "LuisPadronn@gmail.com"
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed), let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
-                    if !UIApplication.shared.openURL(url) { presentError() }
+                    if !UIApplication.shared.openURL(url) {
+                        LPSnackbar.showSnack(title: "Email me @ LuisPadronn@gmail.com")
+                    }
                 } else {
-                    presentError()
+                    LPSnackbar.showSnack(title: "Email me @ LuisPadronn@gmail.com")
                 }
             case 1:
                 UIApplication.shared.openURL(URL(string: "http://gradepoint.luispadron.com")!)
