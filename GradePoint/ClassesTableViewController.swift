@@ -553,7 +553,9 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateButtonSize: CGSize? { return CGSize(width: 160, height: 45) }
     
     var emptyStateViewAnimatesEverytime: Bool { return false }
-    
+
+    var emptyStateViewSpacing: CGFloat { return 20 }
+
     // Empty State Delegate
     
     func emptyStateViewWillShow(view: UIView) {
