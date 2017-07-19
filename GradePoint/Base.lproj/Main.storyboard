@@ -140,7 +140,7 @@
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -178,7 +178,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="classDateLabel" destination="O8D-SY-jtX" id="yga-Qk-5dd"/>
+                                    <outlet property="classDetailLabel" destination="O8D-SY-jtX" id="azJ-fF-F2g"/>
                                     <outlet property="classRibbon" destination="E4B-vY-3vy" id="vWc-In-ccX"/>
                                     <outlet property="classTitleLabel" destination="cG5-cK-vFE" id="gJC-zq-rY3"/>
                                 </connections>

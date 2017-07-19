@@ -13,7 +13,7 @@ class ClassTableViewCell: UITableViewCell {
     // MARK: - Properties
     @IBOutlet weak var classRibbon: UIView!
     @IBOutlet weak var classTitleLabel: UILabel!
-    @IBOutlet weak var classDateLabel: UILabel!
+    @IBOutlet weak var classDetailLabel: UILabel!
     /// The color for the cells ribbon
     var ribbonColor: UIColor?
    
@@ -27,7 +27,7 @@ class ClassTableViewCell: UITableViewCell {
         classRibbon.layer.masksToBounds = false
         // Set the label text colors
         classTitleLabel.textColor = UIColor.mainText
-        classDateLabel.textColor = UIColor.mutedText
+        classDetailLabel.textColor = UIColor.mutedText
         // Set background color for the cell
         self.backgroundColor = UIColor.lightBackground
     }
@@ -37,7 +37,7 @@ class ClassTableViewCell: UITableViewCell {
         self.ribbonColor = nil
         classRibbon.backgroundColor = nil
         classTitleLabel.text = nil
-        classDateLabel.text = nil
+        classDetailLabel.text = nil
         super.prepareForReuse()
     }
 
@@ -58,7 +58,7 @@ class ClassTableViewCell: UITableViewCell {
         // reset the background color to the appropriate color
         self.classRibbon.backgroundColor = ribbonColor
         // Set white color for date text, so it looks better
-        if selected { self.classDateLabel.textColor = UIColor.mainText}
-        else { self.classDateLabel.textColor = UIColor.mutedText }
+        if selected { self.classDetailLabel.textColor = UIColor.mainText}
+        else { self.classDetailLabel.textColor = UIColor.mutedText }
     }
 }

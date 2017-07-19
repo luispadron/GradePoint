@@ -149,8 +149,18 @@ class ClassesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         let classObj = self.classObj(at: indexPath)
         cell.classTitleLabel.text = classObj.name
-        cell.classDateLabel.text = "\(classObj.semester!.term) \(classObj.semester!.year)"
         cell.ribbonColor = classObj.color
+
+        if classObj.isInProgress && classObj.assignments.count  == 0 {
+            // Since no assignments, new class, just say A
+            cell.classDetailLabel.text = "Grade: A"
+        } else {
+            guard let grade = classObj.grade else {
+                cell.classDetailLabel.text = nil
+                return cell
+            }
+            cell.classDetailLabel.text = "Grade: " + grade.gradeLetter
+        }
         return cell
     }
     
