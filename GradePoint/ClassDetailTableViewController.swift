@@ -293,7 +293,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
     var emptyStateButtonTitle: NSAttributedString? {
         guard _classObj != nil else { return nil }
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.accentGreen,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.highlight,
                                                    .font: UIFont.systemFont(ofSize: 18)]
 
         return NSAttributedString(string: "Add assignment", attributes: attrs)
@@ -320,6 +320,11 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     // Delegate
 
     func emptyStateViewWillShow(view: UIView) {
+        guard let emptyView = view as? UIEmptyStateView else { return }
+
+        // Update tint for button
+        emptyView.button.tintColor = .highlight
+
         // Hide the progress ring
         self.progressRing.isHidden = true
     }
