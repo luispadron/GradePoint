@@ -51,20 +51,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress is saved when calculated." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="GMN-Gr-kB3">
-                                                <rect key="frame" x="8" y="34.5" width="732" height="29"/>
-                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
-                                                </variation>
-                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-pV-zwe">
-                                                <rect key="frame" x="8" y="65.5" width="732" height="421.5"/>
+                                                <rect key="frame" x="8" y="34.5" width="732" height="452.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last calculated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkd-ku-Nlu">
-                                                        <rect key="frame" x="8" y="392" width="716" height="21.5"/>
+                                                        <rect key="frame" x="8" y="423" width="716" height="21.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -73,7 +64,7 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                        <rect key="frame" x="171.5" y="0.0" width="390" height="390"/>
+                                                        <rect key="frame" x="159" y="0.0" width="415" height="415"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="a3o-M4-3X8" secondAttribute="height" multiplier="1:1" id="8qj-gu-oAY"/>
@@ -115,7 +106,7 @@
                                                     <constraint firstItem="a3o-M4-3X8" firstAttribute="top" secondItem="0MN-pV-zwe" secondAttribute="top" id="Eam-r9-oey"/>
                                                     <constraint firstItem="Xkd-ku-Nlu" firstAttribute="leading" secondItem="0MN-pV-zwe" secondAttribute="leading" constant="8" id="SB7-co-7gd"/>
                                                     <constraint firstAttribute="trailing" secondItem="Xkd-ku-Nlu" secondAttribute="trailing" constant="8" id="UDN-OQ-bgy"/>
-                                                    <constraint firstItem="Xkd-ku-Nlu" firstAttribute="top" secondItem="a3o-M4-3X8" secondAttribute="bottom" constant="2" id="V41-bb-mTO"/>
+                                                    <constraint firstItem="Xkd-ku-Nlu" firstAttribute="top" secondItem="a3o-M4-3X8" secondAttribute="bottom" constant="8" id="V41-bb-mTO"/>
                                                     <constraint firstAttribute="bottom" secondItem="Xkd-ku-Nlu" secondAttribute="bottom" constant="8" id="h6g-5M-gwp"/>
                                                 </constraints>
                                             </view>
@@ -126,16 +117,13 @@
                                             <constraint firstAttribute="bottom" secondItem="0MN-pV-zwe" secondAttribute="bottom" id="BFL-ae-aeG"/>
                                             <constraint firstAttribute="trailing" secondItem="0MN-pV-zwe" secondAttribute="trailing" constant="8" id="HXA-h1-XJh"/>
                                             <constraint firstAttribute="trailing" secondItem="0MN-pV-zwe" secondAttribute="trailing" constant="8" id="HxW-zX-6ID"/>
+                                            <constraint firstItem="0MN-pV-zwe" firstAttribute="top" secondItem="dM1-fU-Gb7" secondAttribute="bottom" constant="8" id="Igi-g9-fgT"/>
                                             <constraint firstAttribute="bottom" secondItem="0MN-pV-zwe" secondAttribute="bottom" id="R7Z-Wa-e6Y"/>
                                             <constraint firstAttribute="trailing" secondItem="dM1-fU-Gb7" secondAttribute="trailing" id="UNg-Vq-zJN"/>
                                             <constraint firstItem="dM1-fU-Gb7" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" id="UqG-4N-FEf"/>
                                             <constraint firstItem="dM1-fU-Gb7" firstAttribute="top" secondItem="Yqb-F4-gRO" secondAttribute="top" id="XVe-OB-Rmb"/>
                                             <constraint firstItem="0MN-pV-zwe" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="dDQ-RJ-qb4"/>
                                             <constraint firstItem="0MN-pV-zwe" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="gB3-W1-i5q"/>
-                                            <constraint firstItem="GMN-Gr-kB3" firstAttribute="top" secondItem="dM1-fU-Gb7" secondAttribute="bottom" constant="8" id="lRg-SX-Jib"/>
-                                            <constraint firstItem="0MN-pV-zwe" firstAttribute="top" secondItem="GMN-Gr-kB3" secondAttribute="bottom" constant="2" id="o27-gl-gYV"/>
-                                            <constraint firstAttribute="trailing" secondItem="GMN-Gr-kB3" secondAttribute="trailing" constant="8" id="rqk-Uj-C5O"/>
-                                            <constraint firstItem="GMN-Gr-kB3" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="umC-uv-GyG"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -173,8 +161,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
-                                                <rect key="frame" x="146" y="215" width="456.5" height="57.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
+                                                <rect key="frame" x="20" y="215.5" width="708" height="57.5"/>
                                                 <string key="text">Determine the score, on an exam, needed to 
 maintain or achieve a desired grade.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -188,10 +176,11 @@ maintain or achieve a desired grade.</string>
                                         <color key="backgroundColor" red="0.33256985090000002" green="0.69844939120000005" blue="0.59262468189999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="centerY" secondItem="2K1-Xa-FLr" secondAttribute="centerY" id="2VZ-7T-BxA"/>
                                             <constraint firstAttribute="trailing" secondItem="UYq-8U-9Az" secondAttribute="trailing" id="4R7-jd-gY0"/>
+                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="centerY" secondItem="2K1-Xa-FLr" secondAttribute="centerY" id="EIT-Yw-WWP"/>
                                             <constraint firstItem="UYq-8U-9Az" firstAttribute="top" secondItem="2K1-Xa-FLr" secondAttribute="top" id="HAj-dM-euh"/>
-                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="centerX" secondItem="2K1-Xa-FLr" secondAttribute="centerX" id="nLI-hU-BC9"/>
+                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="leading" secondItem="2K1-Xa-FLr" secondAttribute="leading" constant="20" id="aMb-aG-cuR"/>
+                                            <constraint firstItem="Vnl-FE-RYJ" firstAttribute="centerX" secondItem="UYq-8U-9Az" secondAttribute="centerX" id="k5H-Hz-5uP"/>
                                             <constraint firstItem="UYq-8U-9Az" firstAttribute="leading" secondItem="2K1-Xa-FLr" secondAttribute="leading" id="rWW-Ky-UDZ"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
