@@ -76,6 +76,8 @@ class PreviousClassDetailViewController: UIViewController {
         
         // Set full circle for radius
         gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
+        // Set font size for grade label
+        gradeLabel.font = UIFont.systemFont(ofSize: CGFloat(Int(gradeHolderView.frame.width / 2.5)))
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
