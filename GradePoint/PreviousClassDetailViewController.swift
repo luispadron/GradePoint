@@ -42,8 +42,8 @@ class PreviousClassDetailViewController: UIViewController {
         
         gradeHolderView.layer.shadowColor = UIColor.black.cgColor
         gradeHolderView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        gradeHolderView.layer.shadowOpacity = 0.8
-        gradeHolderView.layer.shadowRadius = 8.0
+        gradeHolderView.layer.shadowOpacity = 0.4
+        gradeHolderView.layer.shadowRadius = 5.0
         
         button.layer.cornerRadius = 10
     }
