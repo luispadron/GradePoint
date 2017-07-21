@@ -371,6 +371,7 @@ class ClassesTableViewController: UITableViewController {
         }
     
         // Figure out whether we need to update the state of the detail controller or not
+        // ONLY done when view controllers are in split view mode
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
         if classToDel.isInProgress {
             // In progress class
@@ -636,8 +637,8 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
         
         guard let detailNavController = secondaryViewController as? UINavigationController else { return true }
         if let detailController = detailNavController.topViewController as? ClassDetailTableViewController {
-            // In progress class, only collapse if classObj is nil
-            return detailController.classObj == nil
+            // In progress class, only collapse if classObj is nil or invalidated
+            return detailController.classObj == nil || (detailController.classObj?.isInvalidated ?? true)
         } else if let prevDetailController = detailNavController.topViewController as? PreviousClassDetailViewController {
             // Previous class, only collapse if views are hidden, if `bgView` is hidden, safe to assume they all are
             return prevDetailController.bgView.isHidden

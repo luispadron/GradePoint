@@ -47,7 +47,17 @@ class PreviousClassDetailViewController: UIViewController {
         
         button.layer.cornerRadius = 10
     }
-    
+
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Hide all the views
+        className = nil
+        gradeString = nil
+        classColor = nil
+        hideViews()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         titleLabel.text = className
@@ -195,5 +205,4 @@ class PreviousClassDetailViewController: UIViewController {
     @IBOutlet weak var gradeHolderBottomCons: NSLayoutConstraint!
     @IBOutlet var bottomLabelConstraints: [NSLayoutConstraint]!
     @IBOutlet weak var buttonBottomCons: NSLayoutConstraint!
-    
 }
