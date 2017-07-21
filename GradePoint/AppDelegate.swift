@@ -83,6 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Change appearance for searchbars
         UISearchBar.appearance().tintColor = UIColor.highlight
+        if #available(iOS 11.0, *) {
+            let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = attrs
+        }
+
         
         // Figure out whether we have onboarded the user or not
         let defaults = UserDefaults.standard
