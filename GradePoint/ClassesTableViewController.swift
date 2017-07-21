@@ -50,6 +50,8 @@ class ClassesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barStyle = .black
+
         // Setup search bar and titles
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
