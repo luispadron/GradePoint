@@ -550,6 +550,8 @@
                         <outlet property="gradeLabel" destination="k54-nl-9CU" id="JFP-UA-Bqu"/>
                         <outlet property="gradePickerView" destination="AFZ-5A-KW7" id="MsQ-vn-23f"/>
                         <outlet property="gradePickerViewConstraint" destination="3er-hr-LnH" id="jAt-l2-L1m"/>
+                        <outlet property="headerView1" destination="AX7-Lh-nnI" id="Tzp-5R-LcU"/>
+                        <outlet property="headerView2" destination="9HN-th-0OK" id="Fao-H9-muK"/>
                         <outlet property="nameField" destination="Etm-4N-cqR" id="mwH-Gf-wZA"/>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>

@@ -37,6 +37,8 @@ class AddEditClassViewController: UIViewController {
     // View content
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var headerView1: UIView!
+    @IBOutlet weak var headerView2: UIView!
     // Controls
     @IBOutlet weak var typeSwitcher: UISegmentedControl!
     @IBOutlet weak var nameField: UISafeTextField!
@@ -116,16 +118,30 @@ class AddEditClassViewController: UIViewController {
         // If not on iPad where the view will be presented as a popover, dont have to worry about keyboard
         if !(UIDevice.current.userInterfaceIdiom == .pad) {
             // Setup keyboard notifications
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(keyboardDidShow),
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
                                                    name: .UIKeyboardDidShow, object: nil)
             
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(keyboardWillHide),
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
                                                    name: .UIKeyboardWillHide, object: nil)
         }
         
-        // UI Setup
+        //////// UI Setup //////
+
+        // Theme setup
+        self.view.backgroundColor = UIColor.background
+        self.typeSwitcher.superview?.backgroundColor = UIColor.lightBackground
+        self.headerView1.backgroundColor = UIColor.tableViewHeader
+        (self.headerView1.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
+        self.headerView2.backgroundColor = UIColor.tableViewHeader
+        (self.headerView2.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
+        self.nameField.superview?.backgroundColor = UIColor.lightBackground
+        self.creditHourSlider.superview?.backgroundColor = UIColor.lightBackground
+        self.semesterLabel.superview?.backgroundColor = UIColor.lightBackground
+        self.semesterLabel.textColor = UIColor.mainTextColor()
+        self.gradeLabel.superview?.backgroundColor = UIColor.lightBackground
+        self.gradeLabel.textColor = UIColor.mainTextColor()
+
+        // Navigation view random color setup
         self.navigationView.backgroundColor = colorForView
         let visibleColor = colorForView.visibleTextColor(lightColor: .lightText, darkColor: .darkText)
         self.cancelButton.tintColor = visibleColor
@@ -729,7 +745,7 @@ class AddEditClassViewController: UIViewController {
         UIView.animate(withDuration: 0.4, animations: {
             pickerView.alpha = toAlpha
             constraint?.constant = toHeight
-            label?.textColor = wasHidden ? UIColor.highlight : UIColor.white
+            label?.textColor = wasHidden ? UIColor.highlight : UIColor.mainTextColor()
         }, completion: { _ in
             pickerView.isHidden = !wasHidden
         })
@@ -844,7 +860,7 @@ extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelega
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let title = pickerView === self.classTypePickerView ? classTypes[row] : gradeLetters[row]
-        return NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.white])
+        return NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.mainTextColor()])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

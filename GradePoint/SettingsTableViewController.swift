@@ -82,9 +82,7 @@ class SettingsTableViewController: UITableViewController {
         for view in cell.contentView.subviews {
             if let label = view as? UILabel {
                 label.textColor = UIColor.mainTextColor()
-            } else if let segmentedControl = view as? UISegmentedControl {
-                segmentedControl.tintColor = .highlight
-            }
+            } 
         }
     }
     

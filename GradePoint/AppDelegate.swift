@@ -168,6 +168,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UIPickerView.appearance().backgroundColor = UIColor.background
 
+        UISegmentedControl.appearance().tintColor = UIColor.highlight
+
+        UISlider.appearance().tintColor = UIColor.highlight
+
         UISearchBar.appearance().tintColor = UIColor.highlight
         if #available(iOS 11.0, *) {
             let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.mainTextColor(in: theme)]

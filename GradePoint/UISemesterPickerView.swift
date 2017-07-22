@@ -16,7 +16,6 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     weak var delegate: SemesterPickerDelegate?
     var selectedSemester: String!
     var selectedYear: Int!
-    var titleColor = UIColor.white
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,9 +65,9 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         switch component {
         case 0:
-            return NSAttributedString(string: terms[row], attributes: [.foregroundColor: titleColor])
+            return NSAttributedString(string: terms[row], attributes: [.foregroundColor: UIColor.mainTextColor()])
         case 1:
-            return NSAttributedString(string: String(years[row]), attributes: [.foregroundColor: titleColor])
+            return NSAttributedString(string: String(years[row]), attributes: [.foregroundColor: UIColor.mainTextColor()])
         default:
             fatalError("Some how the UIPickerView title for row passed in wrong range")
         }
