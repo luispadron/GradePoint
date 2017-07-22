@@ -203,8 +203,24 @@ class SettingsTableViewController: UITableViewController {
 
     @IBAction func themeSegmentChanged(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex + 1
-        // Set value of theme
+        guard let theme = UITheme(rawValue: index) else { return }
+        // Update theme
         UserDefaults.standard.set(index, forKey: UserDefaultKeys.theme.rawValue)
+        (UIApplication.shared.delegate as? AppDelegate)?.setUITheme(for: theme)
+        // Since this view wont update until shown again, update nav and tab bar and cells right now
+        switch theme {
+        case .dark:
+            navigationController?.navigationBar.barStyle = .black
+        case .light:
+            navigationController?.navigationBar.barStyle = .default
+        }
+
+        navigationController?.navigationBar.barTintColor = UIColor.lightBackground
+        tabBarController?.tabBar.tintColor = UIColor.highlight
+        tabBarController?.tabBar.barTintColor = UIColor.lightBackground
+        self.view.backgroundColor = UIColor.background
+        self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
     }
 
 }
