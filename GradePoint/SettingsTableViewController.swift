@@ -78,31 +78,23 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
-        mainView.backgroundColor = UIColor.tableViewHeader
-        
-        let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 30))
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = UIColor.mutedText
-        label.backgroundColor = UIColor.tableViewHeader
-        mainView.addSubview(label)
-        
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            label.text = "Info"
-        case 1:
-            label.text = "Configuration"
-        case 2:
-            label.text = "Contact"
-        case 3:
-            label.text = "Legal"
+        case 0: return "Info"
+        case 1: return "Configuration"
+        case 2: return "Contact"
+        case 3: return "Legal"
         default:
             return nil
         }
-        
-        return mainView
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.tintColor = UIColor.tableViewHeader
+        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        header.textLabel?.textColor = UIColor.whiteText
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
