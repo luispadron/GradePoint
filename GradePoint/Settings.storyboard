@@ -114,7 +114,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="b2C-GZ-Q0V">
-                                                    <rect key="frame" x="145" y="8" width="167" height="29"/>
+                                                    <rect key="frame" x="152" y="8" width="160" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="KxY-iF-Iym"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="College"/>
                                                         <segment title="Highschool"/>
@@ -178,7 +181,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hAv-Dy-H3O">
-                                                    <rect key="frame" x="221" y="8" width="91" height="29"/>
+                                                    <rect key="frame" x="152" y="8" width="160" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="jut-By-RvT"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="Dark"/>
                                                         <segment title="Light"/>
