@@ -64,7 +64,7 @@ class ClassDetailTableViewController: UITableViewController {
         encapsulationView.addSubview(progressRing)
         if UIColor.theme == .light {
             // Set background color for view
-            encapsulationView.backgroundColor = UIColor.lightBackground.darker(by: 5)
+            encapsulationView.backgroundColor = UIColor.lightBackground
         }
         tableView.tableHeaderView = encapsulationView
 
