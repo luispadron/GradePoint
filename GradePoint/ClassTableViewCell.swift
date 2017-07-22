@@ -28,8 +28,6 @@ class ClassTableViewCell: UITableViewCell {
         // Set the label text colors
         classTitleLabel.textColor = UIColor.mainTextColor(in: UIColor.theme)
         classDetailLabel.textColor = UIColor.mutedText
-        // Set background color for the cell
-        self.backgroundColor = UIColor.lightBackground
     }
     
     override func prepareForReuse() {

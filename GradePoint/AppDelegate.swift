@@ -156,14 +156,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UINavigationBar.appearance().barTintColor = UIColor.lightBackground
 
-        // Custom color for tab bar
+        // Custom colors for tab bar
         UITabBar.appearance().tintColor = UIColor.highlight
         UITabBar.appearance().barTintColor = UIColor.lightBackground
 
-        // Custom color for table view
+        // Custom colors for table view
         UITableView.appearance().backgroundColor = UIColor.background
 
-        UITableViewCell.appearance().backgroundColor = UIColor.clear
+        UITableViewCell.appearance().backgroundColor = UIColor.lightBackground
 
         UITextField.appearance().tintColor = UIColor.highlight
 
