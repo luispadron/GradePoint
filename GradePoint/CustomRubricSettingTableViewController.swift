@@ -107,7 +107,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         
         let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 30))
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = UIColor.unselected
+        label.textColor = UIColor.mutedText
         label.backgroundColor = UIColor.tableViewHeader
         if section == 1 { label.text = "Grade Rubric" }
         mainView.addSubview(label)

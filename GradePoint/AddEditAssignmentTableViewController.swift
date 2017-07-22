@@ -116,7 +116,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.tintColor = UIColor.tableViewHeader
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.unselected
+        header.textLabel?.textColor = UIColor.mutedText
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
