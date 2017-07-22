@@ -60,7 +60,6 @@ class TextInputTableViewCell: UITableViewCell {
                                                                              promptColor ?? UIColor.mutedText])
         inputField.autocapitalizationType = .words
         inputField.font = UIFont.systemFont(ofSize: 17)
-        inputField.textColor = UIColor.white
         inputField.returnKeyType = .done
         
         

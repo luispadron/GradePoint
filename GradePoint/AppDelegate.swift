@@ -149,28 +149,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UITextField.appearance().keyboardAppearance = .default
         }
 
-        // Custom color for navigation bar
+        // Customize main view appearances, more fine grained customizations is done at appropriate times throughout the code
+
         UINavigationBar.appearance().tintColor = UIColor.highlight
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:
-            UIColor.mainTextColor(in: theme)]
+                                                            UIColor.mainTextColor(in: theme)]
 
         UINavigationBar.appearance().barTintColor = UIColor.lightBackground
 
-        // Custom colors for tab bar
         UITabBar.appearance().tintColor = UIColor.highlight
         UITabBar.appearance().barTintColor = UIColor.lightBackground
 
-        // Custom colors for table view
         UITableView.appearance().backgroundColor = UIColor.background
-
         UITableViewCell.appearance().backgroundColor = UIColor.lightBackground
 
         UITextField.appearance().tintColor = UIColor.highlight
+        UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = UIColor.mainTextColor(in: theme)
 
-        // Change appearance for pickers
         UIPickerView.appearance().backgroundColor = UIColor.background
 
-        // Change appearance for searchbars
         UISearchBar.appearance().tintColor = UIColor.highlight
         if #available(iOS 11.0, *) {
             let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.mainTextColor(in: theme)]

@@ -36,7 +36,7 @@ class GenericLabelTableViewCell: UITableViewCell {
         leftLabel.font = UIFont.systemFont(ofSize: 17)
         leftLabel.textColor = UIColor.mutedText
         rightLabel.font = UIFont.systemFont(ofSize: 17)
-        rightLabel.textColor = UIColor.lightText
+        rightLabel.textColor = UIColor.mainTextColor()
         
         self.addSubview(leftLabel)
         self.addSubview(rightLabel)
