@@ -37,8 +37,8 @@ class SemesterConfigurationTableViewController: UITableViewController {
         let text = "\n\nHere you can add and rearrange semesters.\nChanges will be reflected when sorting and adding classes.\n\n"
         let label = UILabel()
         label.attributedText = NSAttributedString(string: text,
-                                                  attributes: [.font: UIFont.systemFont(ofSize: 17),
-                                                                .foregroundColor: UIColor.white])
+                                                  attributes: [.font: UIFont.preferredFont(forTextStyle: .body),
+                                                                .foregroundColor: UIColor.mainTextColor()])
         label.textAlignment = .center
         label.resizeToFitText()
         self.tableView.tableHeaderView = label
@@ -70,7 +70,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "semesterCell", for: indexPath)
         cell.backgroundColor = UIColor.lightBackground
-        cell.textLabel?.textColor = .white
+        cell.textLabel?.textColor = UIColor.mainTextColor()
         cell.textLabel?.text = semesters[indexPath.row]
         cell.selectedBackgroundView = UIView()
         return cell
