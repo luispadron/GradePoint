@@ -172,6 +172,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UISlider.appearance().tintColor = UIColor.highlight
 
+        UISwitch.appearance().tintColor = UIColor.highlight
+        UISwitch.appearance().onTintColor = UIColor.highlight
+
         UISearchBar.appearance().tintColor = UIColor.highlight
         if #available(iOS 11.0, *) {
             let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.mainTextColor(in: theme)]

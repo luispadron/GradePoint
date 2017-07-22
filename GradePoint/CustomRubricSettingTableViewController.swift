@@ -98,23 +98,29 @@ class CustomRubricSettingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.selectionStyle = .none
+        for view in cell.contentView.subviews {
+            if let label = view as? UILabel {
+                label.textColor = UIColor.mainTextColor()
+            } else {
+                if let label = view.subviews.first as? UILabel {
+                    label.textColor = UIColor.mutedText
+                }
+            }
+        }
     }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let mainView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
-        mainView.backgroundColor = UIColor.tableViewHeader
-        
-        let label = UILabel(frame: CGRect(x: 20, y: 0, width: mainView.bounds.size.width, height: 30))
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.textColor = UIColor.mutedText
-        label.backgroundColor = UIColor.tableViewHeader
-        if section == 1 { label.text = "Grade Rubric" }
-        mainView.addSubview(label)
-        
-        return mainView
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard section == 1 else { return nil }
+        return "Grade Rubric"
     }
-    
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.tintColor = UIColor.tableViewHeader
+        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        header.textLabel?.textColor = UIColor.tableViewHeaderText
+    }
+
     // MARK: Actions
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
