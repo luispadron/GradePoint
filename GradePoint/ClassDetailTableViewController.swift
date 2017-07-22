@@ -62,15 +62,25 @@ class ClassDetailTableViewController: UITableViewController {
         // Set the progressRing as the tableHeaderView, encapsulates the view to stop clipping
         let encapsulationView = UIView() //
         encapsulationView.addSubview(progressRing)
+        if UIColor.theme == .light {
+            // Set background color for view
+            encapsulationView.backgroundColor = UIColor.lightBackground.darker(by: 5)
+        }
         tableView.tableHeaderView = encapsulationView
 
         // Remove seperator lines from empty cells
         tableView.tableFooterView = UIView(frame: CGRect.zero)
 
+        // Update text color
+        progressRing.fontColor = UIColor.mainTextColor()
+
         // Set color for progress ring
         if let color = _classObj?.color {
             progressRing.innerRingColor = color
-            progressRing.outerRingColor = UIColor.background.lighter(by: 20) ?? UIColor.background
+            switch UIColor.theme {
+            case .dark: progressRing.outerRingColor = UIColor.background.lighter(by: 20) ?? UIColor.background
+            case .light: progressRing.outerRingColor = UIColor.lightBackground.darker(by: 25) ?? UIColor.lightBackground
+            }
             progressRing.gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
         }
 
