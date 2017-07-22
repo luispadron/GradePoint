@@ -21,8 +21,10 @@ class CalculatorsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         // Set up the UI
         
+        self.view.backgroundColor = UIColor.background
         self.gpaRing.font = UIFont.systemFont(ofSize: self.gpaRing.frame.width/7.0)
 
         

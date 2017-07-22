@@ -348,8 +348,8 @@
 			isa = PBXGroup;
 			children = (
 				A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */,
-				A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */,
 				A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */,
+				A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */,
 			);
 			name = Calculators;
 			sourceTree = "<group>";

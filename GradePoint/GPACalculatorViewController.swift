@@ -18,6 +18,7 @@ class GPACalculatorViewController: UIViewController {
     @IBOutlet weak var calculateButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
     @IBOutlet weak var weightSwitcher: UISegmentedControl!
     @IBOutlet var emptyView: UIView!
@@ -43,6 +44,12 @@ class GPACalculatorViewController: UIViewController {
         super.viewDidLoad()
         
         // UI Setup
+        view.backgroundColor = UIColor.background
+        headerView.backgroundColor = UIColor.tableViewHeader
+        (headerView.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
+        progressRingView.superview?.backgroundColor = UIColor.lightBackground
+        progressRingView.fontColor = UIColor.mainTextColor()
+
         calculateButton.setTitleColor(UIColor.white, for: .normal)
         calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
         progressRingView.font = UIFont.systemFont(ofSize: 30)

@@ -635,6 +635,7 @@ maintain or achieve a desired grade.</string>
                     <connections>
                         <outlet property="calculateButton" destination="mmc-s9-kTp" id="yQh-60-1Wk"/>
                         <outlet property="emptyView" destination="f8K-5m-bBM" id="dHW-CO-zpZ"/>
+                        <outlet property="headerView" destination="dJD-3p-kJC" id="zYC-cD-4C5"/>
                         <outlet property="navBar" destination="QmB-qs-q0L" id="Rg8-k2-qvH"/>
                         <outlet property="progressRingView" destination="rSW-Pn-BaS" id="NtL-OP-YbS"/>
                         <outlet property="scrollView" destination="BSA-Ck-DB3" id="XVt-SF-nb9"/>

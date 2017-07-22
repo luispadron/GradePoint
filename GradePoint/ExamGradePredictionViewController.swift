@@ -29,21 +29,32 @@ class ExamGradePredictionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // UI Setup
-        
+        //////// UI Setup ///////
+
+        // UI Setup for theme
+        self.view.backgroundColor = UIColor.background
+        self.currentGradeField.superview?.backgroundColor = UIColor.lightBackground
+        self.currentGradeField.textColor = UIColor.mainTextColor()
+        self.desiredGradeField.superview?.backgroundColor = UIColor.lightBackground
+        self.desiredGradeField.textColor = UIColor.mainTextColor()
+        self.examWorthField.superview?.backgroundColor = UIColor.lightBackground
+        self.examWorthField.textColor = UIColor.mainTextColor()
+        self.needGetLabel.textColor = UIColor.mainTextColor()
+        self.progressRing.fontColor = UIColor.mainTextColor()
+        self.messageLabel.textColor = UIColor.mainTextColor()
+
+
         let percentConfig = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
         let placeHolderAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText]
         self.currentGradeField.configuration = percentConfig
         self.currentGradeField.fieldType = .percent
         self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 89%", attributes: placeHolderAttrs)
-        self.currentGradeField.textColor = UIColor.white
         self.currentGradeField.keyboardType = .numbersAndPunctuation
         self.currentGradeField.returnKeyType = .next
         
         self.desiredGradeField.configuration = percentConfig
         self.desiredGradeField.fieldType = .percent
         self.desiredGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 90%", attributes: placeHolderAttrs)
-        self.desiredGradeField.textColor = UIColor.white
         self.desiredGradeField.keyboardType = .numbersAndPunctuation
         self.desiredGradeField.returnKeyType = .next
         
@@ -52,7 +63,6 @@ class ExamGradePredictionViewController: UIViewController {
         self.examWorthField.configuration = examWorthConfig
         self.examWorthField.fieldType = .percent
         self.examWorthField.attributedPlaceholder = NSAttributedString(string: "Example: 20%", attributes: placeHolderAttrs)
-        self.examWorthField.textColor = UIColor.white
         self.examWorthField.keyboardType = .numbersAndPunctuation
         self.examWorthField.returnKeyType = .done
         
