@@ -81,7 +81,7 @@ class SettingsTableViewController: UITableViewController {
         // Set text color for label and highlight color if view has a segemented control
         for view in cell.contentView.subviews {
             if let label = view as? UILabel {
-                label.textColor = UIColor.mainTextColor(in: UIColor.theme)
+                label.textColor = UIColor.mainTextColor()
             } else if let segmentedControl = view as? UISegmentedControl {
                 segmentedControl.tintColor = .highlight
             }

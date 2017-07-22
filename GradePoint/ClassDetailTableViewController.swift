@@ -286,7 +286,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateTitle: NSAttributedString {
         guard _classObj != nil else { return NSAttributedString(string: "") }
         let attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20),
-                                                         .foregroundColor: UIColor.mainTextColor(in: UIColor.theme)]
+                                                         .foregroundColor: UIColor.mainTextColor()]
 
         return NSAttributedString(string: "No assignments added", attributes: attributes)
     }

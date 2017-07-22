@@ -85,7 +85,7 @@ class UIGPAView: UIView {
         field.placeholder = "Grade"
         field.titleText = "Grade"
         field.titleTextColor = .pastelPurple
-        field.textColor = UIColor.mainTextColor(in: UIColor.theme)
+        field.textColor = UIColor.mainTextColor()
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.attributedPlaceholder = NSAttributedString(string: "Grade",

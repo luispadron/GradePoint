@@ -17,7 +17,7 @@ class AssignmentTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        nameLabel.textColor = UIColor.mainTextColor(in: UIColor.theme)
+        nameLabel.textColor = UIColor.mainTextColor()
         scoreLabel.textColor = UIColor.mutedText
         dateLabel.textColor = UIColor.mutedText
     }

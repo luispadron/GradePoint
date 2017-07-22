@@ -74,7 +74,7 @@ extension UIColor {
         }
     }
 
-    class func mainTextColor(in content: UITheme) -> UIColor {
+    class func mainTextColor(in content: UITheme = UIColor.theme) -> UIColor {
         switch theme {
         case .dark: return whiteText
         case .light: return darkText

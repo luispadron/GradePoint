@@ -552,7 +552,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(in: UIColor.theme),
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(),
                                                    .font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Classes Added", attributes: attrs)
     }

@@ -26,7 +26,7 @@ class ClassTableViewCell: UITableViewCell {
         classRibbon.layer.cornerRadius = classRibbon.bounds.size.width / 2
         classRibbon.layer.masksToBounds = false
         // Set the label text colors
-        classTitleLabel.textColor = UIColor.mainTextColor(in: UIColor.theme)
+        classTitleLabel.textColor = UIColor.mainTextColor()
         classDetailLabel.textColor = UIColor.mutedText
     }
     
