@@ -26,7 +26,7 @@ class ClassTableViewCell: UITableViewCell {
         classRibbon.layer.cornerRadius = classRibbon.bounds.size.width / 2
         classRibbon.layer.masksToBounds = false
         // Set the label text colors
-        classTitleLabel.textColor = UIColor.mainText
+        classTitleLabel.textColor = UIColor.mainTextColor(in: UIColor.theme)
         classDetailLabel.textColor = UIColor.mutedText
         // Set background color for the cell
         self.backgroundColor = UIColor.lightBackground
@@ -58,7 +58,8 @@ class ClassTableViewCell: UITableViewCell {
         // reset the background color to the appropriate color
         self.classRibbon.backgroundColor = ribbonColor
         // Set white color for date text, so it looks better
-        if selected { self.classDetailLabel.textColor = UIColor.mainText}
+
+        if selected { self.classDetailLabel.textColor = UIColor.lightText }
         else { self.classDetailLabel.textColor = UIColor.mutedText }
     }
 }

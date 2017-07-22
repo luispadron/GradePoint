@@ -163,7 +163,7 @@ open class UICalculateView: UIView {
     /// The button which the user will click to calculate the percentage
     open lazy var calculateButton: UIButton = {
         let button = UIButton(type: .custom)
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainText,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.lightText,
                                                    .font: UIFont.systemFont(ofSize: 18)]
         button.layer.backgroundColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00).cgColor
         button.clipsToBounds = true

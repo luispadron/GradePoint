@@ -65,10 +65,10 @@ class UIGPAView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .text, configuration: TextConfiguration())
         field.placeholder = "Name"
         field.titleText = "Name"
-        field.titleTextColor = .accentPalePurple
+        field.titleTextColor = .pastelPurple
         field.textColor = .mutedText
         field.borderStyle = .none
-        field.tintColor = .accentPalePurple
+        field.tintColor = .pastelPurple
         field.isUserInteractionEnabled = false
         field.attributedPlaceholder = NSAttributedString(string: "Name",
                                                          attributes: [.foregroundColor: UIColor.mutedText])
@@ -84,10 +84,10 @@ class UIGPAView: UIView {
                                               configuration: TextConfiguration(maxCharacters: 2))
         field.placeholder = "Grade"
         field.titleText = "Grade"
-        field.titleTextColor = .accentPalePurple
-        field.textColor = .mainText
+        field.titleTextColor = .pastelPurple
+        field.textColor = UIColor.mainTextColor(in: UIColor.theme)
         field.borderStyle = .none
-        field.tintColor = .accentPalePurple
+        field.tintColor = .pastelPurple
         field.attributedPlaceholder = NSAttributedString(string: "Grade",
                                                          attributes: [.foregroundColor: UIColor.mutedText])
         field.returnKeyType = .next
@@ -98,7 +98,7 @@ class UIGPAView: UIView {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 40))
         toolBar.layer.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height-20.0)
         toolBar.tintColor = .white
-        toolBar.barTintColor = .accentPalePurple
+        toolBar.barTintColor = .pastelPurple
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.tappedOnDoneGradeFieldButton(sender:)))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width / 3, height: self.frame.size.height))
@@ -119,10 +119,10 @@ class UIGPAView: UIView {
         let field = UIFloatingPromptTextField(frame: .zero, fieldType: .text, configuration: TextConfiguration())
         field.placeholder = "Credits"
         field.titleText = "Credits"
-        field.titleTextColor = .accentPalePurple
+        field.titleTextColor = .pastelPurple
         field.textColor = .mutedText
         field.borderStyle = .none
-        field.tintColor = .accentPalePurple
+        field.tintColor = .pastelPurple
         field.isUserInteractionEnabled = false
         field.attributedPlaceholder = NSAttributedString(string: "Credits",
                                                          attributes: [.foregroundColor: UIColor.mutedText])

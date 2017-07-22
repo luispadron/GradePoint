@@ -1,5 +1,5 @@
 //
-//  UIColorExtension.swift
+//  UIColor+Exentions.swift
 //  GradePoint
 //
 //  Created by Luis Padron on 10/12/16.
@@ -8,30 +8,79 @@
 
 import UIKit
 
-
-///  Static Color extensions
+/// Colors for the app
 extension UIColor {
-    
-    // MARK: - App Colors
-    
-    static let background = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
-    static let lightBackground = UIColor(red: 0.290, green: 0.294, blue: 0.345, alpha: 1.00) // #4a4b58
-    
-    static let bars = UIColor(red: 0.263, green: 0.267, blue: 0.318, alpha: 1.00)
-    
-    static let tableViewHeader = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
-    static let tableViewSeperator = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
+    /// The theme for the application, used to determine which computed color to return
+    class var theme: UITheme {
+        let defaults = UserDefaults.standard
+        return UITheme(rawValue: defaults.integer(forKey: themeKey)) ?? .dark
+    }
 
-    static let highlight = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
-    static let mainText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // FAFAFA
+    // MARK: Static Application Colors
+
+    static let tuna = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
+    static let athensGray = UIColor(red: 0.937, green: 0.937, blue: 0.957, alpha: 1.00) // #efeff4
+    static let trout = UIColor(red: 0.290, green: 0.294, blue: 0.345, alpha: 1.00) // #4a4b58
+
+    static let blueGray = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
+    static let midGray = UIColor(red: 0.345, green: 0.349, blue: 0.408, alpha: 1.00) // #585968
+    static let bluewood = UIColor(red: 0.212, green: 0.227, blue: 0.376, alpha: 1.00) /* #363a60 */
+    static let ocean = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
+
+    static let whiteText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // #fafafa
+    static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) // #c7c7cd
+    static let mutedText = UIColor(colorLiteralRed: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) // #9b9b9b
+
     static let info = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* #247BA0 */
     static let warning = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* #F25F5C */
     static let favorite = UIColor(red: 0.808, green: 0.227, blue: 0.376, alpha: 1.00) /* ce3a60 */
-    static let customYellow = UIColor(red: 0.965, green: 0.918, blue: 0.549, alpha: 1.00) /*f9d423*/
-    static let unselected = UIColor(colorLiteralRed: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) /* #c7c7cd */
-    static let mutedText = UIColor(colorLiteralRed: 155/255, green: 155/255, blue: 155/255, alpha: 1.0) /* #9b9b9b */
-    static let accentGreen = UIColor(red:0.40, green:0.84, blue:0.71, alpha:1.0) /* #67D5B5 */
-    static let accentPalePurple = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00) /* #a593e0 */
+    static let goldenYellow = UIColor(red: 0.965, green: 0.918, blue: 0.549, alpha: 1.00) /*f9d423*/
+
+    static let pastelPurple = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00) /* #a593e0 */
+
+    // MARK: Computed Colors
+
+    class var highlight: UIColor {
+        switch theme {
+        case .dark: return ocean
+        case .light: return bluewood
+        }
+    }
+
+    class var background: UIColor {
+        switch theme {
+        case .dark: return tuna
+        case .light: return athensGray
+        }
+    }
+
+    class var lightBackground: UIColor {
+        switch theme {
+        case .dark: return trout
+        case .light: return white
+        }
+    }
+
+    class var tableViewHeader: UIColor {
+        switch theme {
+        case .dark: return blueGray
+        case .light: return athensGray
+        }
+    }
+
+    class var tableViewSeperator: UIColor {
+        switch theme {
+        case .dark: return midGray
+        case .light: return lightGray
+        }
+    }
+
+    class func mainTextColor(in content: UITheme) -> UIColor {
+        switch theme {
+        case .dark: return whiteText
+        case .light: return darkText
+        }
+    }
 }
 
 /// Random color generation extension
@@ -111,5 +160,4 @@ extension UIColor {
     public func visibleTextColor(lightColor: UIColor = UIColor.white, darkColor: UIColor = UIColor.black, threshold: CGFloat = 0.85) -> UIColor {
         return self.isLight(threshold: threshold) ? darkColor : lightColor
     }
-    
 }

@@ -158,7 +158,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 30, y: bounds.minY, width: actualWidth*0.65, height: bounds.height)
         nameField = UIFloatingPromptTextField(frame: nameFieldFrame, fieldType: .text, configuration: TextConfiguration())
         nameField.placeholder = nameFieldPrompt
-        nameField.textColor = UIColor.mainText
+        nameField.textColor = UIColor.mainTextColor(in: UIColor.theme)
         nameField.borderStyle = .none
         nameField.font = UIFont.systemFont(ofSize: fontSize)
         nameField.tintColor = UIColor.highlight
@@ -175,7 +175,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let config = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
         weightField = UIFloatingPromptTextField(frame: weightFieldFrame, fieldType: .percent, configuration: config)
         weightField.placeholder = weightFieldPrompt
-        weightField.textColor = UIColor.mainText
+        weightField.textColor = UIColor.mainTextColor(in: UIColor.theme)
         weightField.borderStyle = .none
         weightField.tintColor = UIColor.highlight
         weightField.font = UIFont.systemFont(ofSize: fontSize)

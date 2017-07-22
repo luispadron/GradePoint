@@ -66,7 +66,7 @@ class PreviousClassDetailViewController: UIViewController {
         if let classColor = self.classColor {
             gradeHolderView.backgroundColor = classColor
             button.layer.backgroundColor = classColor.cgColor
-            let visibleColor = classColor.visibleTextColor(lightColor: .mainText, darkColor: .darkText)
+            let visibleColor = classColor.visibleTextColor(lightColor: .lightText, darkColor: .darkText)
             gradeLabel.textColor = visibleColor
             button.setTitleColor(visibleColor, for: .normal)
             button.setTitleColor(visibleColor.darker(by: 20), for: .selected)

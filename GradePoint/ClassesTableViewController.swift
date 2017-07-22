@@ -234,7 +234,7 @@ class ClassesTableViewController: UITableViewController {
             self?.didFavoriteClass(at: path)
         })
         
-        favoriteAction.backgroundColor = UIColor.customYellow
+        favoriteAction.backgroundColor = UIColor.goldenYellow
         
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: { [weak self] _, path in
@@ -549,7 +549,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainText,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(in: UIColor.theme),
                                                    .font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No Classes Added", attributes: attrs)
     }

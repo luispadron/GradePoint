@@ -127,7 +127,7 @@ class AddEditClassViewController: UIViewController {
         
         // UI Setup
         self.navigationView.backgroundColor = colorForView
-        let visibleColor = colorForView.visibleTextColor(lightColor: UIColor.mainText, darkColor: UIColor.darkText)
+        let visibleColor = colorForView.visibleTextColor(lightColor: .lightText, darkColor: .darkText)
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
         let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.mutedText, darkColor: UIColor.gray)
