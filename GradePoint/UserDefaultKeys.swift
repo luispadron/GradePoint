@@ -11,4 +11,5 @@ enum UserDefaultKeys: String {
     case studentType = "com.luispadron.GradePoint.studentType"
     case gradingType = "com.luispadron.GradePoint.gradingType"
     case terms = "com.luispadron.GradePoint.terms"
+    case theme = "com.luispadron.GradePoint.theme"
 }

@@ -13,7 +13,7 @@ extension UIColor {
     /// The theme for the application, used to determine which computed color to return
     class var theme: UITheme {
         let defaults = UserDefaults.standard
-        return UITheme(rawValue: defaults.integer(forKey: themeKey)) ?? .dark
+        return UITheme(rawValue: defaults.integer(forKey: UserDefaultKeys.theme.rawValue)) ?? .dark
     }
 
     // MARK: Static Application Colors

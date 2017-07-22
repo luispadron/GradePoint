@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController {
         studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
 
         // Set initial theme for theme switcher
-        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: themeKey))
+        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.theme.rawValue))
         themeSwitcher.selectedSegmentIndex = (theme?.rawValue ?? 1) - 1
 
         // Setup tableview estimates
@@ -206,7 +206,7 @@ class SettingsTableViewController: UITableViewController {
     @IBAction func themeSegmentChanged(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex + 1
         // Set value of theme
-        UserDefaults.standard.set(index, forKey: themeKey)
+        UserDefaults.standard.set(index, forKey: UserDefaultKeys.theme.rawValue)
     }
 
 }

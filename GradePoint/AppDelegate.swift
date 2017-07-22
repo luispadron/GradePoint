@@ -54,11 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
 
         // Set the UI Theme for the saved theme key
-        if let theme = UITheme(rawValue: defaults.integer(forKey: themeKey)) {
+        if let theme = UITheme(rawValue: defaults.integer(forKey: UserDefaultKeys.theme.rawValue)) {
             setUITheme(for: theme)
         } else {
             // Set default theme to dark
-            defaults.set(UITheme.dark.rawValue, forKey: themeKey)
+            defaults.set(UITheme.dark.rawValue, forKey: UserDefaultKeys.theme.rawValue)
             setUITheme(for: .dark)
         }
 
