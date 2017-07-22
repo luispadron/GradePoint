@@ -25,7 +25,7 @@ extension UIColor {
     static let frenchGray = UIColor(red: 0.825, green: 0.824, blue: 0.844, alpha: 1.00) // #d2d2d7
     static let blueGray = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
     static let midGray = UIColor(red: 0.345, green: 0.349, blue: 0.408, alpha: 1.00) // #585968
-    static let bluewood = UIColor(red: 0.212, green: 0.227, blue: 0.376, alpha: 1.00) /* #363a60 */
+    static let blueWood = UIColor(red: 0.333, green: 0.365, blue: 0.552, alpha: 1.00) /* #363a60 */
     static let ocean = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
 
     static let whiteText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // #fafafa
@@ -43,7 +43,7 @@ extension UIColor {
     class var highlight: UIColor {
         switch theme {
         case .dark: return ocean
-        case .light: return bluewood
+        case .light: return blueWood
         }
     }
 
