@@ -73,6 +73,14 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.selectionStyle = .none
+        // Set text color for label and highlight color if view has a segemented control
+        for view in cell.contentView.subviews {
+            if let label = view as? UILabel {
+                label.textColor = UIColor.mainTextColor(in: UIColor.theme)
+            } else if let segmentedControl = view as? UISegmentedControl {
+                segmentedControl.tintColor = .highlight
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
