@@ -58,7 +58,7 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 3
+            return 4
         case 2:
             return 3
         case 3:
@@ -103,8 +103,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 2:
+        if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
                 let toEmail = "LuisPadronn@gmail.com"
@@ -122,14 +121,12 @@ class SettingsTableViewController: UITableViewController {
             default:
                 return
             }
-        default:
-            return
         }
     }
     
     // MARK: Actions
     
-    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
+    @IBAction func semesterSegmentChanged(_ sender: UISegmentedControl) {
         // User tapped to change, let make sure to inform them what will happen
         let title = "Change Student Type"
         var message = ""
@@ -196,6 +193,12 @@ class SettingsTableViewController: UITableViewController {
         
         // Present the alert
         alert.presentAlert(presentingViewController: self)
+    }
+
+    @IBAction func themeSegmentChanged(_ sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex + 1
+        // Set value of theme
+        UserDefaults.standard.set(index, forKey: themeKey)
     }
 
 }
