@@ -49,8 +49,11 @@ class ClassesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.barStyle = .black
+
+        switch UIColor.theme {
+        case .dark: navigationController?.navigationBar.barStyle = .black
+        case .light: navigationController?.navigationBar.barStyle = .default
+        }
 
         // Setup search bar and titles
         if #available(iOS 11.0, *) {
