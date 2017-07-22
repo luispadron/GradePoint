@@ -133,7 +133,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public func setUITheme(for theme: UITheme) {
         // TODO: Actually implement
 
-        UIApplication.shared.statusBarStyle = .lightContent
+        let cellBgView = UIView()
+
+        switch theme {
+        case .dark:
+            UIApplication.shared.statusBarStyle = .lightContent
+            cellBgView.backgroundColor = UIColor.highlight.darker(by: 25)
+            UITableViewCell.appearance().selectedBackgroundView = cellBgView
+            UITextField.appearance().keyboardAppearance = .dark
+        case .light:
+            UIApplication.shared.statusBarStyle = .default
+            // Custom view for table view cell
+            cellBgView.backgroundColor = UIColor.highlight
+            UITableViewCell.appearance().selectedBackgroundView = cellBgView
+            UITextField.appearance().keyboardAppearance = .default
+        }
 
         // Custom color for navigation bar
         UINavigationBar.appearance().tintColor = UIColor.highlight
@@ -149,14 +163,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Custom color for table view
         UITableView.appearance().backgroundColor = UIColor.background
 
-        // Custom view for table view cell
-        let bgView = UIView()
-        bgView.backgroundColor = UIColor.highlight.darker(by: 25)
-        UITableViewCell.appearance().selectedBackgroundView = bgView
         UITableViewCell.appearance().backgroundColor = UIColor.clear
 
-        // Change keyboard to dark version
-        UITextField.appearance().keyboardAppearance = .dark
         UITextField.appearance().tintColor = UIColor.highlight
 
         // Change appearance for pickers
@@ -165,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Change appearance for searchbars
         UISearchBar.appearance().tintColor = UIColor.highlight
         if #available(iOS 11.0, *) {
-            let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+            let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.mainTextColor(in: theme)]
             UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = attrs
         }
 
