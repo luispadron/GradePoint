@@ -351,6 +351,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="Js1-E5-0xC"/>
                     <connections>
                         <outlet property="studentTypeSwitcher" destination="b2C-GZ-Q0V" id="NBb-BG-NHu"/>
+                        <outlet property="themeSwitcher" destination="hAv-Dy-H3O" id="TuJ-Cn-fAi"/>
                         <outlet property="versionLabel" destination="lo4-Mx-ibC" id="c8o-f6-fwf"/>
                     </connections>
                 </tableViewController>

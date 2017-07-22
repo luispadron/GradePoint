@@ -14,6 +14,7 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var studentTypeSwitcher: UISegmentedControl!
+    @IBOutlet weak var themeSwitcher: UISegmentedControl!
     
     // Constants for the rows and sections
     
@@ -38,8 +39,12 @@ class SettingsTableViewController: UITableViewController {
         
         // Set inital student type switcher to whatever value we have in the stored preferences
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
-        studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 0) - 1
-        
+        studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
+
+        // Set initial theme for theme switcher
+        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: themeKey))
+        themeSwitcher.selectedSegmentIndex = (theme?.rawValue ?? 1) - 1
+
         // Setup tableview estimates
         self.tableView.estimatedRowHeight = 44
         self.tableView.estimatedSectionHeaderHeight = 30
