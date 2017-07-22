@@ -135,7 +135,7 @@ class ClassDetailTableViewController: UITableViewController {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.tintColor = UIColor.tableViewHeader
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.whiteText
+        header.textLabel?.textColor = UIColor.tableViewHeaderText
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

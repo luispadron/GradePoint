@@ -21,6 +21,7 @@ extension UIColor {
     static let tuna = UIColor(red: 0.208, green: 0.216, blue: 0.278, alpha: 1.00) // #353747
     static let athensGray = UIColor(red: 0.937, green: 0.937, blue: 0.957, alpha: 1.00) // #efeff4
     static let trout = UIColor(red: 0.290, green: 0.294, blue: 0.345, alpha: 1.00) // #4a4b58
+    static let silverSand = UIColor(red: 0.741, green: 0.749, blue: 0.753, alpha: 1.00) //#BDBFC0
     static let frenchGray = UIColor(red: 0.825, green: 0.824, blue: 0.844, alpha: 1.00) // #d2d2d7
     static let blueGray = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
     static let midGray = UIColor(red: 0.345, green: 0.349, blue: 0.408, alpha: 1.00) // #585968
@@ -63,7 +64,14 @@ extension UIColor {
     class var tableViewHeader: UIColor {
         switch theme {
         case .dark: return blueGray
-        case .light: return frenchGray
+        case .light: return background
+        }
+    }
+
+    class var tableViewHeaderText: UIColor {
+        switch theme {
+        case .dark: return mutedText
+        case .light: return silverSand
         }
     }
 
