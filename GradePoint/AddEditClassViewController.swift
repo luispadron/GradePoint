@@ -135,6 +135,7 @@ class AddEditClassViewController: UIViewController {
         self.headerView2.backgroundColor = UIColor.tableViewHeader
         (self.headerView2.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
         self.nameField.superview?.backgroundColor = UIColor.lightBackground
+        self.nameField.textColor = UIColor.mainTextColor()
         self.creditHourSlider.superview?.backgroundColor = UIColor.lightBackground
         self.semesterLabel.superview?.backgroundColor = UIColor.lightBackground
         self.semesterLabel.textColor = UIColor.mainTextColor()
@@ -235,9 +236,10 @@ class AddEditClassViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
-        UIApplication.shared.statusBarStyle = .lightContent
-        // Remove any notifications
-        NotificationCenter.default.removeObserver(self)
+        switch UIColor.theme {
+        case .dark: UIApplication.shared.statusBarStyle = .lightContent
+        case .light: UIApplication.shared.statusBarStyle = .default
+        }
     }
     
     
@@ -804,6 +806,9 @@ class AddEditClassViewController: UIViewController {
     }
     
     deinit {
+        // Remove any notifications
+        NotificationCenter.default.removeObserver(self)
+
         // Deinit the feedback generator
         if #available(iOS 10.0, *) {
             feedbackGenerator = nil
