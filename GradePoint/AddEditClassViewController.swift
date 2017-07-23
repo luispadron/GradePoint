@@ -154,7 +154,6 @@ class AddEditClassViewController: UIViewController {
         // Customization for the fields
         let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
-        self.nameField.textColor = UIColor.white
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
         self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)

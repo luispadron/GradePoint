@@ -65,6 +65,7 @@
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0BA9D011F22D865003CC441 /* UITheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BA9D001F22D865003CC441 /* UITheme.swift */; };
 		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
+		A0BF3B2A1F243782001CCE52 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BF3B291F243782001CCE52 /* Constants.swift */; };
 		A0C15CFF1F1C01550013F68F /* ClassesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */; };
 		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
 		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
@@ -178,6 +179,7 @@
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0BA9D001F22D865003CC441 /* UITheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITheme.swift; sourceTree = "<group>"; };
 		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
+		A0BF3B291F243782001CCE52 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesTableViewController.swift; sourceTree = "<group>"; };
 		A0C5170C1E78A64C0089527D /* GPAScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPAScale.swift; sourceTree = "<group>"; };
 		A0C517131E78AC0B0089527D /* GPARubric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPARubric.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
+				A0BF3B291F243782001CCE52 /* Constants.swift */,
 				A027533E1F043B2A0021CDFF /* Managers */,
 				A01B87801DBD272600A85E2D /* Data Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
@@ -874,6 +877,7 @@
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
 				A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
+				A0BF3B2A1F243782001CCE52 /* Constants.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
 				A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */,
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,

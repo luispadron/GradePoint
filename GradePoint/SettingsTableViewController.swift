@@ -207,6 +207,7 @@ class SettingsTableViewController: UITableViewController {
         // Update theme
         UserDefaults.standard.set(index, forKey: UserDefaultKeys.theme.rawValue)
         (UIApplication.shared.delegate as? AppDelegate)?.setUITheme(for: theme)
+
         // Since this view wont update until shown again, update nav and tab bar and cells right now
         switch theme {
         case .dark:
@@ -215,12 +216,18 @@ class SettingsTableViewController: UITableViewController {
             navigationController?.navigationBar.barStyle = .default
         }
 
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:
+                                                                UIColor.mainTextColor()]
         navigationController?.navigationBar.barTintColor = UIColor.lightBackground
         tabBarController?.tabBar.tintColor = UIColor.highlight
         tabBarController?.tabBar.barTintColor = UIColor.lightBackground
         self.view.backgroundColor = UIColor.background
+        self.tableView.separatorColor = UIColor.tableViewSeperator
+        
         self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
+
+        // Post notification to allow any other view controllers that need to update their UI
+        NotificationCenter.default.post(name: themeUpdatedNotification, object: nil)
     }
 
 }

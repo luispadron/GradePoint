@@ -60,7 +60,7 @@ class ClassesTableViewController: UITableViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationItem.searchController = searchController
         } else {
-            searchController.searchBar.barTintColor = UIColor(red: 0.337, green: 0.337, blue: 0.376, alpha: 1.00)
+            searchController.searchBar.barTintColor = UIColor.background
             tableView.contentOffset = CGPoint(x: 0, y: tableView.contentOffset.y + searchController.searchBar.frame.height)
             tableView.tableHeaderView = searchController.searchBar
         }
@@ -92,6 +92,9 @@ class ClassesTableViewController: UITableViewController {
         // Listen to semester update notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
                                                name: semestersUpdatedNotification, object: nil)
+        // Listen to theme changes notificaitons
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges),
+                                               name: themeUpdatedNotification, object: nil)
         // Add 3D touch support to this view
         if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
     }
@@ -156,6 +159,9 @@ class ClassesTableViewController: UITableViewController {
         let classObj = self.classObj(at: indexPath)
         cell.classTitleLabel.text = classObj.name
         cell.ribbonColor = classObj.color
+        // Set the label text colors
+        cell.classTitleLabel.textColor = UIColor.mainTextColor()
+        cell.classDetailLabel.textColor = UIColor.mutedText
 
         if classObj.isInProgress && classObj.assignments.count  == 0 {
             // Since no assignments, new class, just say A
@@ -421,28 +427,9 @@ class ClassesTableViewController: UITableViewController {
             classObj.isFavorite = !classObj.isFavorite
         }
     }
-    
-    /// Called whenever semesters are updated inside the `SemesterConfigurationViewController`
-    @objc private func semestersDidUpdate(notification: Notification) {
-        // Remove all classes and load them again with new semesters
-        classes.removeAll()
-        loadClasses()
-        // Stop & remove all notification tokens
-        for (index, token) in notificationTokens.enumerated().reversed() {
-            token.stop()
-            notificationTokens.remove(at: index)
-        }
-        
-        // Add notifications for Class object changes
-        for (i, objs) in classes.enumerated() {
-            registerNotifications(for: objs, in: i)
-        }
-        
-        reloadEmptyState()
-    }
-    
+
     // MARK: Deinit
-    
+
     deinit {
         notificationTokens.forEach {
             $0.stop()
@@ -651,5 +638,44 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
         
         
         return false
+    }
+}
+
+/// MARK: Notification methods
+
+extension ClassesTableViewController {
+    /// Called whenever semesters are updated inside the `SemesterConfigurationViewController`
+    @objc private func semestersDidUpdate(notification: Notification) {
+        // Remove all classes and load them again with new semesters
+        classes.removeAll()
+        loadClasses()
+        // Stop & remove all notification tokens
+        for (index, token) in notificationTokens.enumerated().reversed() {
+            token.stop()
+            notificationTokens.remove(at: index)
+        }
+
+        // Add notifications for Class object changes
+        for (i, objs) in classes.enumerated() {
+            registerNotifications(for: objs, in: i)
+        }
+
+        reloadEmptyState()
+    }
+
+    /// Called whenever the them is updated
+    @objc private func updateUIForThemeChanges(notification: Notification) {
+        switch UIColor.theme {
+        case .dark:
+            navigationController?.navigationBar.barStyle = .black
+        case .light:
+            navigationController?.navigationBar.barStyle = .default
+        }
+
+        searchController.searchBar.barTintColor = UIColor.background
+        tableView.separatorColor = UIColor.tableViewSeperator
+
+        tableView.reloadData()
+        reloadEmptyState()
     }
 }

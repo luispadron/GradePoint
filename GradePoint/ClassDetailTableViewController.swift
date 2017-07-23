@@ -93,6 +93,10 @@ class ClassDetailTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 75
         tableView.estimatedSectionHeaderHeight = 44
         tableView.estimatedSectionFooterHeight = 0
+
+        // Listen for them changes
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
+                                               name: themeUpdatedNotification, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -158,6 +162,10 @@ class ClassDetailTableViewController: UITableViewController {
         formatter.dateStyle = .long
         formatter.timeStyle = .none
         cell.dateLabel.text = "Date: " + formatter.string(from: assignment.date)
+
+        cell.nameLabel.textColor = UIColor.mainTextColor()
+        cell.scoreLabel.textColor = UIColor.mutedText
+        cell.dateLabel.textColor = UIColor.mutedText
 
         return cell
     }
@@ -231,6 +239,7 @@ class ClassDetailTableViewController: UITableViewController {
         } else {
             title = nil
             progressRing.isHidden = true
+            self.progressRing.superview?.isHidden = true
             navigationItem.leftBarButtonItem?.isEnabled = false
             navigationItem.rightBarButtonItem?.isEnabled = false
             tableView.reloadData()
@@ -336,11 +345,13 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         emptyView.button.tintColor = .highlight
 
         // Hide the progress ring
+        self.progressRing.superview?.isHidden = true
         self.progressRing.isHidden = true
     }
 
     func emptyStateViewWillHide(view: UIView) {
         self.progressRing.isHidden = false
+        self.progressRing.superview?.isHidden = false
         self.navigationItem.rightBarButtonItem?.isEnabled = true
         self.navigationItem.leftBarButtonItem?.isEnabled = true
     }
@@ -382,6 +393,27 @@ extension ClassDetailTableViewController: Segueable {
             vc.assignmentForEdit = assignment(at: indexPath)
         }
 
+    }
+}
+
+// MARK: Notification Methods
+
+extension ClassDetailTableViewController {
+    /// Called whenever the theme is changed, updates any UI that needs to change color, etc.
+    @objc func updateUIForThemeChanges(notification: Notification) {
+
+        progressRing.fontColor = UIColor.mainTextColor()
+        let val = progressRing.value
+        progressRing.setProgress(value: 0, animationDuration: 0)
+        progressRing.setProgress(value: val, animationDuration: 0)
+
+        if UIColor.theme == .light {
+            progressRing.superview?.backgroundColor = UIColor.lightBackground
+        } else {
+            progressRing.superview?.backgroundColor = .clear
+        }
+        self.tableView.reloadData()
+        self.reloadEmptyState()
     }
 }
 

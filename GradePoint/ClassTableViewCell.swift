@@ -25,9 +25,6 @@ class ClassTableViewCell: UITableViewCell {
         // Set the rounded corners and color for the ribbon
         classRibbon.layer.cornerRadius = classRibbon.bounds.size.width / 2
         classRibbon.layer.masksToBounds = false
-        // Set the label text colors
-        classTitleLabel.textColor = UIColor.mainTextColor()
-        classDetailLabel.textColor = UIColor.mutedText
     }
     
     override func prepareForReuse() {

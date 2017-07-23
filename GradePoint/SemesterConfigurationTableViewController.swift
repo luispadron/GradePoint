@@ -9,8 +9,6 @@
 import UIKit
 import RealmSwift
 
-let semestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
-
 class SemesterConfigurationTableViewController: UITableViewController {
 
     var semesters = [String]()

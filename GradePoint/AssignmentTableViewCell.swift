@@ -13,13 +13,5 @@ class AssignmentTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        nameLabel.textColor = UIColor.mainTextColor()
-        scoreLabel.textColor = UIColor.mutedText
-        dateLabel.textColor = UIColor.mutedText
-    }
 
 }
