@@ -161,7 +161,7 @@ class ClassesTableViewController: UITableViewController {
         cell.ribbonColor = classObj.color
         // Set the label text colors
         cell.classTitleLabel.textColor = UIColor.mainTextColor()
-        cell.classDetailLabel.textColor = UIColor.mutedText
+        cell.classDetailLabel.textColor = UIColor.secondaryTextColor()
 
         if classObj.isInProgress && classObj.assignments.count  == 0 {
             // Since no assignments, new class, just say A

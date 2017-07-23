@@ -160,8 +160,8 @@ class ClassDetailTableViewController: UITableViewController {
         cell.dateLabel.text = "Date: " + formatter.string(from: assignment.date)
 
         cell.nameLabel.textColor = UIColor.mainTextColor()
-        cell.scoreLabel.textColor = UIColor.mutedText
-        cell.dateLabel.textColor = UIColor.mutedText
+        cell.scoreLabel.textColor = UIColor.secondaryTextColor()
+        cell.dateLabel.textColor = UIColor.secondaryTextColor()
 
         return cell
     }

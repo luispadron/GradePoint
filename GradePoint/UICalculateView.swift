@@ -128,7 +128,7 @@ open class UICalculateView: UIView {
         field.keyboardType = .numbersAndPunctuation
         field.returnKeyType = .next
         field.attributedPlaceholder = NSAttributedString(string: "Score",
-                                                         attributes: [.foregroundColor: UIColor.mutedText])
+                                                         attributes: [.foregroundColor: UIColor.frenchGray])
         field.delegate = self
         return field
     }()
@@ -136,7 +136,7 @@ open class UICalculateView: UIView {
     /// The label in between the score and total fields
     open lazy var seperatorLabel: UILabel = {
         let label = UILabel()
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.frenchGray,
                                                    .font: UIFont.systemFont(ofSize: 15)]
         label.attributedText = NSAttributedString(string: "OUT OF", attributes: attrs)
         label.textAlignment = .center
@@ -155,7 +155,7 @@ open class UICalculateView: UIView {
         field.returnKeyType = .done
         field.keyboardType = .numbersAndPunctuation
         field.attributedPlaceholder = NSAttributedString(string: "Total",
-                                                         attributes: [.foregroundColor: UIColor.mutedText])
+                                                         attributes: [.foregroundColor: UIColor.frenchGray])
         field.delegate = self
         return field
     }()

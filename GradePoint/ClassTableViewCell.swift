@@ -52,9 +52,5 @@ class ClassTableViewCell: UITableViewCell {
         // After selection occurs the cells "colorRibbon" dissapears since the UIView will become clear
         // reset the background color to the appropriate color
         self.classRibbon.backgroundColor = ribbonColor
-        // Set white color for date text, so it looks better
-
-        if selected { self.classDetailLabel.textColor = UIColor.lightText }
-        else { self.classDetailLabel.textColor = UIColor.mutedText }
     }
 }

@@ -147,12 +147,12 @@ class AddEditClassViewController: UIViewController {
         let visibleColor = colorForView.visibleTextColor(lightColor: .whiteText, darkColor: .darkText)
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
-        let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.mutedText, darkColor: UIColor.gray)
+        let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.frenchGray, darkColor: UIColor.gray)
         self.saveButton.setTitleColor(visibleDisabledColor, for: .disabled)
         self.navigationTitle.textColor = visibleColor
         
         // Customization for the fields
-        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.frenchGray,
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
@@ -461,7 +461,7 @@ class AddEditClassViewController: UIViewController {
                 let invalidRowSubmessage = "row \(index + 1)"
                 let attrsForSub: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.warning,
                                                                  .font: UIFont.preferredFont(forTextStyle: .body)]
-                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mutedText,
+                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.frenchGray,
                                                                      .font: UIFont.preferredFont(forTextStyle: .body)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
@@ -482,7 +482,7 @@ class AddEditClassViewController: UIViewController {
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
             let message = "Weights must add up to 100%." + percentSubMessage
-            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.mutedText,
+            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.frenchGray,
                                                                  .font : UIFont.preferredFont(forTextStyle: .body)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             
@@ -908,7 +908,7 @@ extension AddEditClassViewController: UIRubricViewDelegate {
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
                 
                 let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .body),
-                                                                  .foregroundColor : UIColor.mutedText]
+                                                                  .foregroundColor : UIColor.frenchGray]
                 
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
                 let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)
