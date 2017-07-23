@@ -144,7 +144,7 @@ class AddEditClassViewController: UIViewController {
 
         // Navigation view random color setup
         self.navigationView.backgroundColor = colorForView
-        let visibleColor = colorForView.visibleTextColor(lightColor: .lightText, darkColor: .darkText)
+        let visibleColor = colorForView.visibleTextColor(lightColor: .whiteText, darkColor: .darkText)
         self.cancelButton.tintColor = visibleColor
         self.saveButton.setTitleColor(visibleColor, for: .normal)
         let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.mutedText, darkColor: UIColor.gray)
