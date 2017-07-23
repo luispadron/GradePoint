@@ -211,7 +211,7 @@ class SettingsTableViewController: UITableViewController {
         animateThemeChange()
     }
 
-    private func animateThemeChange(duration: TimeInterval = 0.45) {
+    private func animateThemeChange(duration: TimeInterval = 0.40) {
         // Create the scale animation
 
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
@@ -229,21 +229,25 @@ class SettingsTableViewController: UITableViewController {
         animationLayer.cornerRadius = radius/2
         animationLayer.opacity = 1
         animationLayer.backgroundColor = UIColor.background.cgColor
-        
-        // Add the animation
+
+
+        // Set completion
         CATransaction.begin()
         CATransaction.setCompletionBlock {
-            // Update the UI
-            self.updateUIForThemeChanges()
+            // Remove layer
             animationLayer.removeFromSuperlayer()
         }
+
         animationLayer.add(scaleAnimation, forKey: "pulse")
-        // Finally add the layer to this buttons main layer
-        self.navigationController?.view.layer.addSublayer(animationLayer)
+        // Finally add the layer to the top most view, this way it covers everything
+        self.tabBarController?.view.layer.addSublayer(animationLayer)
+        // Set timer to update UI
+        Timer.scheduledTimer(timeInterval: duration * 0.80, target: self, selector: #selector(self.updateUIForThemeChanges),
+                             userInfo: nil, repeats: false)
         CATransaction.commit()
     }
 
-    private func updateUIForThemeChanges() {
+    @objc private func updateUIForThemeChanges() {
         // Since this view wont update until shown again, update nav and tab bar and cells right now
         switch UIColor.theme {
         case .dark:
