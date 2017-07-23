@@ -211,7 +211,7 @@ class SettingsTableViewController: UITableViewController {
         animateThemeChange()
     }
 
-    private func animateThemeChange(duration: TimeInterval = 0.3) {
+    private func animateThemeChange(duration: TimeInterval = 0.45) {
         // Create the scale animation
 
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
@@ -222,12 +222,14 @@ class SettingsTableViewController: UITableViewController {
 
         // The animation layer which will be added ontop of the buttons current layer
         let animationLayer = CALayer()
-        let radius = max(self.view.frame.width, self.view.frame.height)
+        var radius = max(self.view.frame.width, self.view.frame.height)
+        radius += radius * 0.30
         animationLayer.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
         animationLayer.position = self.view.center
         animationLayer.cornerRadius = radius/2
         animationLayer.opacity = 1
         animationLayer.backgroundColor = UIColor.background.cgColor
+        
         // Add the animation
         CATransaction.begin()
         CATransaction.setCompletionBlock {
