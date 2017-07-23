@@ -62,10 +62,6 @@ class ClassDetailTableViewController: UITableViewController {
         // Set the progressRing as the tableHeaderView, encapsulates the view to stop clipping
         let encapsulationView = UIView() //
         encapsulationView.addSubview(progressRing)
-        if UIColor.theme == .light {
-            // Set background color for view
-            encapsulationView.backgroundColor = UIColor.lightBackground
-        }
         tableView.tableHeaderView = encapsulationView
 
         // Remove seperator lines from empty cells
@@ -407,11 +403,6 @@ extension ClassDetailTableViewController {
         progressRing.setProgress(value: 0, animationDuration: 0)
         progressRing.setProgress(value: val, animationDuration: 0)
 
-        if UIColor.theme == .light {
-            progressRing.superview?.backgroundColor = UIColor.lightBackground
-        } else {
-            progressRing.superview?.backgroundColor = .clear
-        }
         self.tableView.reloadData()
         self.reloadEmptyState()
     }
