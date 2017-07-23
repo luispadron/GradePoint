@@ -207,9 +207,43 @@ class SettingsTableViewController: UITableViewController {
         // Update theme
         UserDefaults.standard.set(index, forKey: UserDefaultKeys.theme.rawValue)
         (UIApplication.shared.delegate as? AppDelegate)?.setUITheme(for: theme)
+        // Animate
+        animateThemeChange()
+    }
 
+    private func animateThemeChange(duration: TimeInterval = 0.3) {
+        // Create the scale animation
+
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
+        scaleAnimation.duration = duration
+        scaleAnimation.fromValue = 0.0
+        scaleAnimation.toValue = 1.0
+        scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+
+        // The animation layer which will be added ontop of the buttons current layer
+        let animationLayer = CALayer()
+        let radius = max(self.view.frame.width, self.view.frame.height)
+        animationLayer.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
+        animationLayer.position = self.view.center
+        animationLayer.cornerRadius = radius/2
+        animationLayer.opacity = 1
+        animationLayer.backgroundColor = UIColor.background.cgColor
+        // Add the animation
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            // Update the UI
+            self.updateUIForThemeChanges()
+            animationLayer.removeFromSuperlayer()
+        }
+        animationLayer.add(scaleAnimation, forKey: "pulse")
+        // Finally add the layer to this buttons main layer
+        self.navigationController?.view.layer.addSublayer(animationLayer)
+        CATransaction.commit()
+    }
+
+    private func updateUIForThemeChanges() {
         // Since this view wont update until shown again, update nav and tab bar and cells right now
-        switch theme {
+        switch UIColor.theme {
         case .dark:
             navigationController?.navigationBar.barStyle = .black
         case .light:
@@ -217,17 +251,18 @@ class SettingsTableViewController: UITableViewController {
         }
 
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:
-                                                                UIColor.mainTextColor()]
+            UIColor.mainTextColor()]
         navigationController?.navigationBar.barTintColor = UIColor.lightBackground
         tabBarController?.tabBar.tintColor = UIColor.highlight
         tabBarController?.tabBar.barTintColor = UIColor.lightBackground
         self.view.backgroundColor = UIColor.background
         self.tableView.separatorColor = UIColor.tableViewSeperator
-        
+
         self.tableView.reloadData()
 
         // Post notification to allow any other view controllers that need to update their UI
         NotificationCenter.default.post(name: themeUpdatedNotification, object: nil)
     }
+
 
 }
