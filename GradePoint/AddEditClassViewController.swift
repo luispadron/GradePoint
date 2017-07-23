@@ -911,7 +911,7 @@ extension AddEditClassViewController: UIRubricViewDelegate {
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
                 
                 let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .body),
-                                                                  .foregroundColor : UIColor.frenchGray]
+                                                                  .foregroundColor : UIColor.mainTextColor(in: .light)]
                 
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
                 let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)

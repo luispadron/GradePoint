@@ -14,7 +14,7 @@ extension UIViewController {
         let t = NSAttributedString(string: title, attributes: [.font : UIFont.systemFont(ofSize: 17),
                                                                    .foregroundColor: UIColor.red])
         let m = NSAttributedString(string: message, attributes: [.font : UIFont.systemFont(ofSize: 15),
-                                                               .foregroundColor: UIColor.frenchGray])
+                                                               .foregroundColor: UIColor.mainTextColor(in: .light)])
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: t, message: m)
         alert.alertFeedbackType = .error
         let ok = UIButton()
@@ -31,7 +31,7 @@ extension UIViewController {
         let t = NSAttributedString(string: title, attributes: [.font: UIFont.systemFont(ofSize: 17),
                                                                .foregroundColor: UIColor.red])
         let m = NSAttributedString(string: message, attributes: [.font: UIFont.systemFont(ofSize: 15),
-                                                                 .foregroundColor: UIColor.frenchGray])
+                                                                 .foregroundColor: UIColor.mainTextColor(in: .light)])
         
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: t, message: m)
         alert.alertFeedbackType = .success
