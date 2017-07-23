@@ -34,7 +34,7 @@ class GenericLabelTableViewCell: UITableViewCell {
     
     private func initCell() {
         leftLabel.font = UIFont.systemFont(ofSize: 17)
-        leftLabel.textColor = UIColor.frenchGray
+        leftLabel.textColor = UIColor.secondaryTextColor()
         rightLabel.font = UIFont.systemFont(ofSize: 17)
         rightLabel.textColor = UIColor.mainTextColor()
         

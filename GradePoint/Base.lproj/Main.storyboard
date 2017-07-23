@@ -140,7 +140,7 @@
                                 <rect key="frame" x="0.0" y="22" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4B-vY-3vy">
@@ -563,6 +563,11 @@
                         <outlet property="semesterPickerView" destination="0Fj-pb-dLM" id="R2t-R5-ONk"/>
                         <outlet property="stackView" destination="vdY-dK-mYM" id="Mp2-Fa-QzQ"/>
                         <outlet property="typeSwitcher" destination="zt0-wK-84s" id="1yD-hO-deF"/>
+                        <outletCollection property="labels" destination="Yn2-bl-OaP" collectionClass="NSMutableArray" id="45T-gM-chv"/>
+                        <outletCollection property="labels" destination="VaC-ML-MjP" collectionClass="NSMutableArray" id="Pkg-ep-zEX"/>
+                        <outletCollection property="labels" destination="27w-vS-bez" collectionClass="NSMutableArray" id="Qfe-4Y-RCi"/>
+                        <outletCollection property="labels" destination="Ooq-5e-OoZ" collectionClass="NSMutableArray" id="MkE-0G-2Cg"/>
+                        <outletCollection property="labels" destination="Oub-lJ-dYZ" collectionClass="NSMutableArray" id="R0t-vV-s7g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XYS-Df-2Ku" userLabel="First Responder" sceneMemberID="firstResponder"/>

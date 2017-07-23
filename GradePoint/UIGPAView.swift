@@ -66,12 +66,12 @@ class UIGPAView: UIView {
         field.placeholder = "Name"
         field.titleText = "Name"
         field.titleTextColor = .pastelPurple
-        field.textColor = .frenchGray
+        field.textColor = UIColor.secondaryTextColor()
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.isUserInteractionEnabled = false
         field.attributedPlaceholder = NSAttributedString(string: "Name",
-                                                         attributes: [.foregroundColor: UIColor.frenchGray])
+                                                         attributes: [.foregroundColor: UIColor.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
         
@@ -89,7 +89,7 @@ class UIGPAView: UIView {
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.attributedPlaceholder = NSAttributedString(string: "Grade",
-                                                         attributes: [.foregroundColor: UIColor.frenchGray])
+                                                         attributes: [.foregroundColor: UIColor.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
         // Add the picker view as an input view
@@ -120,12 +120,12 @@ class UIGPAView: UIView {
         field.placeholder = "Credits"
         field.titleText = "Credits"
         field.titleTextColor = .pastelPurple
-        field.textColor = .frenchGray
+        field.textColor = UIColor.secondaryTextColor()
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.isUserInteractionEnabled = false
         field.attributedPlaceholder = NSAttributedString(string: "Credits",
-                                                         attributes: [.foregroundColor: UIColor.frenchGray])
+                                                         attributes: [.foregroundColor: UIColor.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
         

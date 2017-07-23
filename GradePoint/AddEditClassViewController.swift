@@ -40,6 +40,8 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var headerView1: UIView!
     @IBOutlet weak var headerView2: UIView!
     // Controls
+    
+    @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var typeSwitcher: UISegmentedControl!
     @IBOutlet weak var nameField: UISafeTextField!
     @IBOutlet weak var classTypeView: UIView!
@@ -129,7 +131,7 @@ class AddEditClassViewController: UIViewController {
 
         // Theme setup
         self.view.backgroundColor = UIColor.background
-        self.typeSwitcher.superview?.backgroundColor = UIColor.lightBackground
+        self.typeSwitcher.superview?.backgroundColor = UIColor.background
         self.headerView1.backgroundColor = UIColor.tableViewHeader
         (self.headerView1.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
         self.headerView2.backgroundColor = UIColor.tableViewHeader
@@ -141,6 +143,7 @@ class AddEditClassViewController: UIViewController {
         self.semesterLabel.textColor = UIColor.mainTextColor()
         self.gradeLabel.superview?.backgroundColor = UIColor.lightBackground
         self.gradeLabel.textColor = UIColor.mainTextColor()
+        labels.forEach { $0.textColor = UIColor.secondaryTextColor() }
 
         // Navigation view random color setup
         self.navigationView.backgroundColor = colorForView
@@ -152,7 +155,7 @@ class AddEditClassViewController: UIViewController {
         self.navigationTitle.textColor = visibleColor
         
         // Customization for the fields
-        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.frenchGray,
+        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.nameField.delegate = self

@@ -30,7 +30,7 @@ extension UIColor {
     static let ocean = UIColor(colorLiteralRed:0.66, green:0.87, blue:0.98, alpha:1.0) /* A9DEF9 */
 
     static let whiteText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // #fafafa
-    static let frenchGray = UIColor(red: 0.780, green: 0.780, blue: 0.804, alpha: 1.00) // #c7c7cd
+    static let frenchGray = UIColor(red: 0.780, green: 0.780, blue: 0.804, alpha: 1.00) // #c7c7cd/
 
     static let info = UIColor(colorLiteralRed:0.14, green:0.48, blue:0.63, alpha:1.0) /* #247BA0 */
     static let warning = UIColor(colorLiteralRed:0.95, green:0.37, blue:0.36, alpha:1.0) /* #F25F5C */

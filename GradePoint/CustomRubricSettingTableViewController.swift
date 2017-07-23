@@ -56,13 +56,13 @@ class CustomRubricSettingTableViewController: UITableViewController {
             if !self.fieldToggle.isOn && plusRows.contains(index) {
                 field.attributedPlaceholder = NSAttributedString(string: "Points",
                                                             attributes: [.font: UIFont.systemFont(ofSize: 18),
-                                                                         .foregroundColor: UIColor.frenchGray])
+                                                                         .foregroundColor: UIColor.secondaryTextColor()])
                 relatedIndex -= 1
             } else {
                 field.text = "\(scale.gpaRubrics[relatedIndex].gradePoints)"
                 field.attributedPlaceholder = NSAttributedString(string: "\(scale.gpaRubrics[relatedIndex].gradePoints)",
                                                             attributes: [.font: UIFont.systemFont(ofSize: 18),
-                                                                         .foregroundColor: UIColor.frenchGray])
+                                                                         .foregroundColor: UIColor.secondaryTextColor()])
             }
             relatedIndex += 1
         }
@@ -103,7 +103,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
                 label.textColor = UIColor.mainTextColor()
             } else {
                 if let label = view.subviews.first as? UILabel {
-                    label.textColor = UIColor.frenchGray
+                    label.textColor = UIColor.secondaryTextColor()
                 }
             }
         }

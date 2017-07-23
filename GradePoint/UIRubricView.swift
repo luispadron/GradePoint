@@ -149,7 +149,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         promptLabel = UILabel(frame: CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height))
         promptLabel.text = "Add a grade section"
         promptLabel.font = UIFont.systemFont(ofSize: fontSize)
-        promptLabel.textColor = UIColor.frenchGray
+        promptLabel.textColor = UIColor.secondaryTextColor()
         self.addSubview(promptLabel)
     }
     
@@ -164,7 +164,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         nameField.tintColor = UIColor.highlight
         nameField.titleText = nameFieldPrompt
         nameField.attributedPlaceholder = NSAttributedString(string: nameFieldPrompt,
-                                                             attributes: [.foregroundColor: UIColor.frenchGray])
+                                                             attributes: [.foregroundColor: UIColor.secondaryTextColor()])
         nameField.returnKeyType = .next
         nameField.isHidden = true
         nameField.delegate = self
@@ -181,7 +181,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         weightField.font = UIFont.systemFont(ofSize: fontSize)
         weightField.titleText = weightFieldPrompt
         weightField.attributedPlaceholder = NSAttributedString(string: weightFieldPrompt,
-                                                               attributes: [.foregroundColor: UIColor.frenchGray])
+                                                               attributes: [.foregroundColor: UIColor.secondaryTextColor()])
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self
