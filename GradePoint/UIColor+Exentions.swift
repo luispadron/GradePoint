@@ -84,14 +84,14 @@ extension UIColor {
     }
 
     class func mainTextColor(in content: UITheme = UIColor.theme) -> UIColor {
-        switch theme {
+        switch content {
         case .dark: return whiteText
         case .light: return darkText
         }
     }
 
     class func secondaryTextColor(in content: UITheme = UIColor.theme) -> UIColor {
-        switch theme {
+        switch content {
         case .dark: return frenchGray
         case .light: return darkSilver
         }
