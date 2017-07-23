@@ -32,6 +32,7 @@ class ExamGradePredictionViewController: UIViewController {
         //////// UI Setup ///////
 
         // UI Setup for theme
+        UIApplication.shared.statusBarStyle = .lightContent
         self.view.backgroundColor = UIColor.background
         self.currentGradeField.superview?.backgroundColor = UIColor.lightBackground
         self.currentGradeField.textColor = UIColor.mainTextColor()
@@ -70,6 +71,13 @@ class ExamGradePredictionViewController: UIViewController {
         self.calculateButton.isEnabled = false
         
         self.progressRing.font = UIFont.systemFont(ofSize: 50)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        switch UIColor.theme {
+        case .dark: UIApplication.shared.statusBarStyle = .lightContent
+        case .light: UIApplication.shared.statusBarStyle = .default
+        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

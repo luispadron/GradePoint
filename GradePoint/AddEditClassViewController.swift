@@ -464,7 +464,7 @@ class AddEditClassViewController: UIViewController {
                 let invalidRowSubmessage = "row \(index + 1)"
                 let attrsForSub: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.warning,
                                                                  .font: UIFont.preferredFont(forTextStyle: .body)]
-                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.frenchGray,
+                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(in: .light),
                                                                      .font: UIFont.preferredFont(forTextStyle: .body)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
@@ -485,7 +485,7 @@ class AddEditClassViewController: UIViewController {
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
             let message = "Weights must add up to 100%." + percentSubMessage
-            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.frenchGray,
+            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.mainTextColor(in: .light),
                                                                  .font : UIFont.preferredFont(forTextStyle: .body)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             

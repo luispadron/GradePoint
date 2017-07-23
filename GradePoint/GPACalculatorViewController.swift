@@ -47,7 +47,6 @@ class GPACalculatorViewController: UIViewController {
         view.backgroundColor = UIColor.background
         headerView.backgroundColor = UIColor.tableViewHeader
         (headerView.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
-        progressRingView.superview?.backgroundColor = UIColor.lightBackground
         progressRingView.fontColor = UIColor.mainTextColor()
 
         calculateButton.setTitleColor(UIColor.white, for: .normal)
