@@ -52,5 +52,11 @@ class ClassTableViewCell: UITableViewCell {
         // After selection occurs the cells "colorRibbon" dissapears since the UIView will become clear
         // reset the background color to the appropriate color
         self.classRibbon.backgroundColor = ribbonColor
+
+        switch UIColor.theme {
+        case .dark: break
+        case .light:
+            classTitleLabel.textColor = selected ? UIColor.mainTextColor(in: .dark) : UIColor.mainTextColor(in: .light)
+        }
     }
 }
