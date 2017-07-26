@@ -31,37 +31,37 @@ class PreviousClassDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
-        self.view.backgroundColor = UIColor.background
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        toggleViewVisibility(to: true)
+
         // UI setup
+        view.backgroundColor = UIColor.background
+
+        bgView.backgroundColor = UIColor.lightBackground
         bgView.layer.cornerRadius = 10
         bgView.layer.shadowColor = UIColor.black.cgColor
         bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
         bgView.layer.shadowOpacity = 0.5
         bgView.layer.shadowRadius = 10.0
-        
+
         gradeHolderView.layer.shadowColor = UIColor.black.cgColor
         gradeHolderView.layer.shadowOffset = CGSize(width: 0, height: 0)
         gradeHolderView.layer.shadowOpacity = 0.4
         gradeHolderView.layer.shadowRadius = 5.0
-        
+
         button.layer.cornerRadius = 10
-    }
 
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // Hide all the views
-        className = nil
-        gradeString = nil
-        classColor = nil
-        hideViews()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         titleLabel.text = className
+        titleLabel.textColor = UIColor.mainTextColor()
+
         gradeLabel.text = gradeString
+
+        topLabel.textColor = UIColor.mainTextColor()
+        bottomLabel.textColor = UIColor.mainTextColor()
         
         if let classColor = self.classColor {
             gradeHolderView.backgroundColor = classColor
@@ -79,6 +79,14 @@ class PreviousClassDetailViewController: UIViewController {
         }
         
         updateUI(with: UIDevice.current.orientation, size: self.view.frame.size)
+    }
+
+
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Hide all the views
+        toggleViewVisibility(to: false)
     }
 
     override func viewWillLayoutSubviews() {
@@ -167,14 +175,15 @@ class PreviousClassDetailViewController: UIViewController {
     }
     
     /// Hides all the views, this will be done if a class is deleted, and the application is in split screen mode
-    public func hideViews() {
-        self.title = nil
+    public func toggleViewVisibility(to visible: Bool) {
+
+        self.title = visible ? className : nil
         
-        bgView.isHidden = true
-        titleLabel.isHidden = true
-        gradeHolderView.isHidden = true
-        gradeLabel.isHidden = true
-        button.isHidden = true
+        bgView.isHidden = !visible
+        titleLabel.isHidden = !visible
+        gradeHolderView.isHidden = !visible
+        gradeLabel.isHidden = !visible
+        button.isHidden = !visible
     }
     
     // MARK: Actions

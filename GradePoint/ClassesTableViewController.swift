@@ -395,7 +395,7 @@ class ClassesTableViewController: UITableViewController {
             // Previous class, different process, just hide all the views and move on
             let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
             let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
-            prevDetailController?.hideViews()
+            prevDetailController?.toggleViewVisibility(to: false)
         }
         
         // Set is favorites to false, this way it will get removed from the favorites section as well
