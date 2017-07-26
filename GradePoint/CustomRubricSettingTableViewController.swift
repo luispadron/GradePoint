@@ -159,23 +159,38 @@ class CustomRubricSettingTableViewController: UITableViewController {
         
         alert.addButton(button: cancel, handler: nil)
         alert.addButton(button: save) { [weak self] in
-            self?.saveChanges(withPoints: points)
+            self?.saveChanges(with: points)
         }
         
         alert.presentAlert(presentingViewController: self)
     }
     
-    private func saveChanges(withPoints points: [Double]) {
+    private func saveChanges(with points: [Double]) {
         
         // Save changes to the GPAScale
         let type = self.fieldToggle.isOn ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
-        if !GPAScale.overwriteScale(type: type, gradePoints: points) {
+
+        guard GPAScale.overwriteScale(type: type, gradePoints: points) else {
+            // Present error
             self.presentErrorAlert(title: "Unable To Save",
-                                   message: "Something went wrong when saving, please verify that all information has been entered correctly.")
-        } else {
-            // Dismiss
-            self.navigationController?.popToRootViewController(animated: true)
+                                   message: "Something went wrong when saving, " +
+                                            "please verify that all information has been entered correctly.")
+            return
         }
+
+        // Once scale is overwritten, if user went from plus scale to non plus, we need to change all the class grades
+        // that have A+, B+, etc to their normal counter parts i.e A, B.
+        for classObj in DatabaseManager.shared.realm.objects(Class.self) {
+            if let grade = classObj.grade?.gradeLetter, grade.characters.count > 1 {
+                let stripped = grade.dropLast()
+                DatabaseManager.shared.write {
+                    classObj.grade?.gradeLetter = String(stripped)
+                }
+            }
+        }
+
+        // Dismiss
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
 }
