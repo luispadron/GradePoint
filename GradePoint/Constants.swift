@@ -10,5 +10,14 @@ import UIKit
 
 /// Any constants, usually strings for keys/notifications used throughout the app
 
+// User default keys
+let userDefaultOnboardingComplete = "com.luispadron.GradePoint.onboardingComplete"
+let userDefaultStudentType = "com.luispadron.GradePoint.studentType"
+let userDefaultGradingType = "com.luispadron.GradePoint.gradingType"
+let userDefaultTerms = "com.luispadron.GradePoint.terms"
+let userDefaultTheme = "com.luispadron.GradePoint.theme"
+
+// Notifications
 let semestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
 let themeUpdatedNotification = Notification.Name("com.luispadron.GradePoint.themeUpdated")
+

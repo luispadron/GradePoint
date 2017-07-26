@@ -262,7 +262,7 @@ class ClassesTableViewController: UITableViewController {
         let terms: [String]
         
         /// Load semesters from user defaults, if for some reason this isnt saved, fall back to default semesters
-        if let t = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
+        if let t = UserDefaults.standard.stringArray(forKey: userDefaultTerms) {
             terms = t
         } else {
             print("WARNING: Something went wrong when loading semesters from UserDefaults, loading default set instead.")

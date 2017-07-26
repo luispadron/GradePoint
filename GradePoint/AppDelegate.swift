@@ -54,20 +54,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
 
         // Set the UI Theme for the saved theme key
-        if let theme = UITheme(rawValue: defaults.integer(forKey: UserDefaultKeys.theme.rawValue)) {
+        if let theme = UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) {
             setUITheme(for: theme)
         } else {
             // Set default theme to dark
-            defaults.set(UITheme.dark.rawValue, forKey: UserDefaultKeys.theme.rawValue)
+            defaults.set(UITheme.dark.rawValue, forKey: userDefaultTheme)
             setUITheme(for: .dark)
         }
 
         // Figure out whether we have onboarded the user or not
-        let hasOnboarded = defaults.bool(forKey: UserDefaultKeys.onboardingComplete.rawValue)
+        let hasOnboarded = defaults.bool(forKey: userDefaultOnboardingComplete)
 
-        if defaults.stringArray(forKey: UserDefaultKeys.terms.rawValue) == nil {
+        if defaults.stringArray(forKey: userDefaultTerms) == nil {
             // Save a default string array of terms
-            defaults.set(["Spring", "Summer", "Fall", "Winter"], forKey: UserDefaultKeys.terms.rawValue)
+            defaults.set(["Spring", "Summer", "Fall", "Winter"], forKey: userDefaultTerms)
         }
         
         if !hasOnboarded { self.presentOnboarding() }

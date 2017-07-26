@@ -164,7 +164,7 @@ class AddEditClassViewController: UIViewController {
         self.nameField.returnKeyType = .done
         
         // Get student type from user defaults
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
         
         // Set default class type
         self.classType = studentType == StudentType.college ? .college : .regular

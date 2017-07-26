@@ -83,7 +83,6 @@
 		A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
 		A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */; };
-		A0E8CAA71E5BFE640029565A /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA61E5BFE640029565A /* UserDefaultKeys.swift */; };
 		A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF11E5900E20062F9F2 /* Double+Round.swift */; };
 		A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */; };
 		A0FA1A8F1F1D536000F5FF6E /* ClassDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */; };
@@ -197,7 +196,6 @@
 		A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewState.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
 		A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard4ViewController.swift; sourceTree = "<group>"; };
-		A0E8CAA61E5BFE640029565A /* UserDefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		A0F89EF11E5900E20062F9F2 /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
 		A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -488,7 +486,6 @@
 				A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */,
 				A0BA9D001F22D865003CC441 /* UITheme.swift */,
 				A0B94AB41E34747000CF73F2 /* AlertType.swift */,
-				A0E8CAA61E5BFE640029565A /* UserDefaultKeys.swift */,
 				A067DBA11EA5BB3700F09EA9 /* StudentType.swift */,
 				A0565AA91EF080F3005C23C0 /* QuickActionId.swift */,
 			);
@@ -920,7 +917,6 @@
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
 				A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */,
 				A024E92A1EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift in Sources */,
-				A0E8CAA71E5BFE640029565A /* UserDefaultKeys.swift in Sources */,
 				A0082BC11E3ED27300C91B3F /* Segueable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

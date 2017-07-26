@@ -135,7 +135,7 @@ class GPACalculatorViewController: UIViewController {
             // End all editing
             self.view.endEditing(true)
             // Get the student type
-            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
+            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
             // Add the progress ring to the stack view
             self.stackView.insertArrangedSubview(progressRingView.superview!, at: 0)
             // Animate the addition
@@ -204,7 +204,7 @@ class GPACalculatorViewController: UIViewController {
     private func calculateGPA() {
         let realm = DatabaseManager.shared.realm
         let scale = realm.objects(GPAScale.self).first!
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))!
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))!
         let classes = realm.objects(Class.self)
         var totalPoints: Double = 0.0
         var totalCreditHours: Int = 0

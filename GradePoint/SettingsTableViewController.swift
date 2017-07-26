@@ -38,11 +38,11 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.separatorColor = UIColor.tableViewSeperator
         
         // Set inital student type switcher to whatever value we have in the stored preferences
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.studentType.rawValue))
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
         studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
 
         // Set initial theme for theme switcher
-        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: UserDefaultKeys.theme.rawValue))
+        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: userDefaultTheme))
         themeSwitcher.selectedSegmentIndex = (theme?.rawValue ?? 1) - 1
 
         // Setup tableview estimates
@@ -170,7 +170,7 @@ class SettingsTableViewController: UITableViewController {
             // Update the user defaults key
             let defaults = UserDefaults.standard
             let type  = sender.selectedSegmentIndex == 0 ? StudentType.college : StudentType.highSchool
-            defaults.set(type.rawValue, forKey: UserDefaultKeys.studentType.rawValue)
+            defaults.set(type.rawValue, forKey: userDefaultStudentType)
             
             // Update all the classes depending on type switched to
             let realm = DatabaseManager.shared.realm
@@ -205,7 +205,7 @@ class SettingsTableViewController: UITableViewController {
         let index = sender.selectedSegmentIndex + 1
         guard let theme = UITheme(rawValue: index) else { return }
         // Update theme
-        UserDefaults.standard.set(index, forKey: UserDefaultKeys.theme.rawValue)
+        UserDefaults.standard.set(index, forKey: userDefaultTheme)
         (UIApplication.shared.delegate as? AppDelegate)?.setUITheme(for: theme)
         // Animate
         animateThemeChange()

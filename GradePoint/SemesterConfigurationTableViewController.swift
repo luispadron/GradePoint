@@ -28,7 +28,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         self.title = "Semesters"
     
         // Load the semesters from user defaults
-        if let terms = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
+        if let terms = UserDefaults.standard.stringArray(forKey: userDefaultTerms) {
             semesters = terms
         }
         
@@ -45,7 +45,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Save any ordering
-        UserDefaults.standard.set(semesters, forKey: UserDefaultKeys.terms.rawValue)
+        UserDefaults.standard.set(semesters, forKey: userDefaultTerms)
         // Notify that semesters have been updated
         NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
     }
@@ -245,7 +245,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         }
         
         // Save any ordering
-        UserDefaults.standard.set(semesters, forKey: UserDefaultKeys.terms.rawValue)
+        UserDefaults.standard.set(semesters, forKey: userDefaultTerms)
         
         // Notify that semesters have been updated
         NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))

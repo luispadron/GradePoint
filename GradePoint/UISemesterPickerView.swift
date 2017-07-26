@@ -79,7 +79,7 @@ class UISemesterPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     
     private func initView() {
         // Load semesters/terms from user defaults
-        if let sems = UserDefaults.standard.stringArray(forKey: UserDefaultKeys.terms.rawValue) {
+        if let sems = UserDefaults.standard.stringArray(forKey: userDefaultTerms) {
             terms = sems
         }
         semesterPicker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
