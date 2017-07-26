@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,11 +28,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yqb-F4-gRO" userLabel="GPA Calculator">
                                         <rect key="frame" x="0.0" y="0.0" width="748" height="487"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-fU-Gb7">
-                                                <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-fU-Gb7">
+                                                <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oiz-U7-WT4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -52,10 +52,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-pV-zwe">
-                                                <rect key="frame" x="8" y="34.5" width="732" height="452.5"/>
+                                                <rect key="frame" x="8" y="32" width="732" height="455"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last calculated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkd-ku-Nlu">
-                                                        <rect key="frame" x="8" y="423" width="716" height="21.5"/>
+                                                        <rect key="frame" x="8" y="425.5" width="716" height="21.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                        <rect key="frame" x="159" y="0.0" width="415" height="415"/>
+                                                        <rect key="frame" x="158" y="0.0" width="417.5" height="417.5"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="a3o-M4-3X8" secondAttribute="height" multiplier="1:1" id="8qj-gu-oAY"/>
@@ -125,12 +125,6 @@
                                             <constraint firstItem="0MN-pV-zwe" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="dDQ-RJ-qb4"/>
                                             <constraint firstItem="0MN-pV-zwe" firstAttribute="leading" secondItem="Yqb-F4-gRO" secondAttribute="leading" constant="8" id="gB3-W1-i5q"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="4uw-vn-TQr" appends="YES" id="sub-T7-gok"/>
                                         </connections>
@@ -138,11 +132,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K1-Xa-FLr" userLabel="Exam Calculator">
                                         <rect key="frame" x="0.0" y="497" width="748" height="487"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UYq-8U-9Az">
-                                                <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYq-8U-9Az">
+                                                <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Predicition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7e-UB-rtB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -183,12 +177,6 @@ maintain or achieve a desired grade.</string>
                                             <constraint firstItem="Vnl-FE-RYJ" firstAttribute="centerX" secondItem="UYq-8U-9Az" secondAttribute="centerX" id="k5H-Hz-5uP"/>
                                             <constraint firstItem="UYq-8U-9Az" firstAttribute="leading" secondItem="2K1-Xa-FLr" secondAttribute="leading" id="rWW-Ky-UDZ"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="GNP-7I-oQt" appends="YES" id="Rq8-ft-bzo"/>
                                         </connections>
@@ -209,6 +197,8 @@ maintain or achieve a desired grade.</string>
                     <navigationItem key="navigationItem" title="Calculators" id="nXz-Xi-Pgw"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="examCalculatorView" destination="2K1-Xa-FLr" id="yM8-ed-Grp"/>
+                        <outlet property="gpaCalculatorView" destination="Yqb-F4-gRO" id="mte-i1-CYb"/>
                         <outlet property="gpaRing" destination="a3o-M4-3X8" id="D1j-kI-qT7"/>
                         <outlet property="lastCalculationLabel" destination="Xkd-ku-Nlu" id="cbz-YG-4Cr"/>
                     </connections>
