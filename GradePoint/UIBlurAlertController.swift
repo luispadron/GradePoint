@@ -26,7 +26,7 @@ open class UIBlurAlertController: UIBlurViewController {
         get { return self._message }
     }
     /// The background color for the alert
-    open var alertBackgroundColor = UIColor(colorLiteralRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
+    open var alertBackgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.85)
 
     /// The alert view for the controller
     private lazy var alertView: UIBlurAlertView = {

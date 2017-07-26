@@ -256,8 +256,7 @@ class SettingsTableViewController: UITableViewController {
             navigationController?.navigationBar.barStyle = .default
         }
 
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:
-                                                                    UIColor.mainTextColor()]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.mainTextColor()]
         navigationController?.navigationBar.tintColor = UIColor.highlight
         navigationController?.navigationBar.barTintColor = UIColor.lightBackground
         tabBarController?.tabBar.tintColor = UIColor.highlight

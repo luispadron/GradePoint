@@ -152,8 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Customize main view appearances, more fine grained customizations is done at appropriate times throughout the code
 
         UINavigationBar.appearance().tintColor = UIColor.highlight
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:
-                                                            UIColor.mainTextColor(in: theme)]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.mainTextColor(in: theme)]
 
         UINavigationBar.appearance().barTintColor = UIColor.lightBackground
 
