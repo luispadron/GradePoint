@@ -227,7 +227,7 @@ class SettingsTableViewController: UITableViewController {
         animationLayer.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
         animationLayer.position = self.view.center
         animationLayer.cornerRadius = radius/2
-        animationLayer.opacity = 1
+        animationLayer.opacity = 0.95
         animationLayer.backgroundColor = UIColor.background.cgColor
 
 
