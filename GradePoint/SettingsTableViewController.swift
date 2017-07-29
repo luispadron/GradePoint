@@ -112,13 +112,14 @@ class SettingsTableViewController: UITableViewController {
         if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
-                let toEmail = "LuisPadronn@gmail.com"
-                if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed), let url = URL(string: "mailto:\(toEmail)?subject=\(subject)") {
+                if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
+                    let url = URL(string: "mailto:\(contactEmail)?subject=\(subject)")
+                {
                     if !UIApplication.shared.openURL(url) {
-                        LPSnackbar.showSnack(title: "Email me @ LuisPadronn@gmail.com")
+                        LPSnackbar.showSnack(title: "Email me @ \(contactEmail)")
                     }
                 } else {
-                    LPSnackbar.showSnack(title: "Email me @ LuisPadronn@gmail.com")
+                    LPSnackbar.showSnack(title: "Email me @ \(contactEmail)")
                 }
             case 1:
                 UIApplication.shared.openURL(URL(string: "http://gradepoint.luispadron.com")!)
