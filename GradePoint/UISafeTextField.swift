@@ -96,11 +96,19 @@ open class UISafeTextField: UITextField {
             // Append a percent to the end of the text field
             guard var currentText = self.text?.replacingOccurrences(of: "%", with: "") else { return }
             // If only entered a dot, prepend a 0, i.e .1 -> 0.1
-            if currentText == "." { currentText.insert("0", at: currentText.startIndex) }
-            // Remove the last char
-            if isBackspace { currentText = currentText.substring(to: currentText.index(before: currentText.endIndex)) }
+            if currentText == "." {
+                currentText.insert("0", at: currentText.startIndex)
+            }
+            // Remove the last chars
+            if isBackspace {
+                let i = currentText.index(currentText.endIndex, offsetBy: -1)
+                currentText.remove(at: i)
+            }
             // If after removing a char text is empty, then set self.text to nil since no text
-            if currentText == "" { self.text = nil; return }
+            if currentText == "" {
+                self.text = nil
+                return
+            }
             // All good to append a percent
             self.text = currentText.appending("%")
         case .text:

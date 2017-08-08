@@ -273,7 +273,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
         // Can force unwrap here since we checked in the guard of onSave(_:)
         let name = nameField!.text!
         var scoreText = scoreField!.safeText
-        if scoreText.characters.last == "." { scoreText = scoreText.substring(to: scoreText.index(before: scoreText.endIndex)) }
+        if scoreText.characters.last == "." {
+            let last = scoreText.index(scoreText.endIndex, offsetBy: -1)
+            scoreText.remove(at: last)
+        }
         let score = Double(scoreText) ?? 0.0
         let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
         let rubric = parentClass!.rubrics[indexOfRubric]
@@ -294,7 +297,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
         // Can force unwrap because checked inside of onSave(_:)
         let name = nameField!.text!
         var scoreText = scoreField!.safeText
-        if scoreText.characters.last == "." { scoreText = scoreText.substring(to: scoreText.index(before: scoreText.endIndex)) }
+        if scoreText.characters.last == "." {
+            let last = scoreText.index(scoreText.endIndex, offsetBy: -1)
+            scoreText.remove(at: last)
+        }
         let score = Double(scoreText) ?? 0.0
         let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
         let rubric = parentClass!.rubrics[indexOfRubric]
