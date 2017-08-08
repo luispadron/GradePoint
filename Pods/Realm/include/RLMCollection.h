@@ -18,7 +18,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RLMThreadSafeReference.h"
+#import <Realm/RLMThreadSafeReference.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -140,17 +140,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return    An `RLMResults` sorted by the specified key path.
  */
 - (RLMResults *)sortedResultsUsingKeyPath:(NSString *)keyPath ascending:(BOOL)ascending;
-
-/**
- Returns a sorted `RLMResults` from the collection.
-
- @param property    The property name to sort by.
- @param ascending   The direction to sort in.
-
- @return    An `RLMResults` sorted by the specified property.
- */
-- (RLMResults *)sortedResultsUsingProperty:(NSString *)property ascending:(BOOL)ascending
-    __deprecated_msg("Use `-sortedResultsUsingKeyPath:ascending:`");
 
 /**
  Returns a sorted `RLMResults` from the collection.
@@ -313,7 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
  `sortedResultsUsingDescriptors:`. It is similar to `NSSortDescriptor`, but supports
  only the subset of functionality which can be efficiently run by Realm's query
  engine.
- 
+
  `RLMSortDescriptor` instances are immutable.
  */
 @interface RLMSortDescriptor : NSObject
@@ -341,19 +330,6 @@ NS_ASSUME_NONNULL_BEGIN
  Returns a copy of the receiver with the sort direction reversed.
  */
 - (instancetype)reversedSortDescriptor;
-
-#pragma mark - Deprecated
-
-/**
- The name of the property which the sort descriptor orders results by.
- */
-@property (nonatomic, readonly) NSString *property __deprecated_msg("Use `-keyPath`");
-
-/**
- Returns a new sort descriptor for the given property name and sort direction.
- */
-+ (instancetype)sortDescriptorWithProperty:(NSString *)propertyName ascending:(BOOL)ascending
-    __deprecated_msg("Use `+sortDescriptorWithKeyPath:ascending:`");
 
 @end
 
@@ -388,11 +364,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  The indices in the new version of the collection which were modified.
- 
+
  For `RLMResults`, this means that one or more of the properties of the object at
  that index were modified (or an object linked to by that object was
  modified).
- 
+
  For `RLMArray`, the array itself being modified to contain a
  different object at that index will also be reported as a modification.
  */

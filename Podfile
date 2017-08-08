@@ -4,10 +4,10 @@ inhibit_all_warnings!
 
 def all_pods
   pod 'Realm',      :git => 'https://github.com/realm/realm-cocoa.git', 
-                    :branch => 'master', 
+                    :tag => 'v3.0.0-beta.2', 
                     :submodules => true
   pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', 
-                    :branch => 'master', 
+                    :tag => 'v3.0.0-beta.2', 
                     :submodules => true
   pod 'UICircularProgressRing'
   pod 'UIEmptyState'

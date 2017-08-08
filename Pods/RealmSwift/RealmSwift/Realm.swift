@@ -322,7 +322,9 @@ public final class Realm {
      If the object is being updated, all properties defined in its schema will be set by copying
      from `value` using key-value coding. If the `value` argument does not respond to `value(forKey:)`
      for a given property name (or getter name, if defined), that value will remain untouched.
-     Nullable properties on the object can be set to nil by using `NSNull` as the updated value.
+     Nullable properties on the object can be set to nil by using `NSNull` as the updated value,
+     or (if you are passing in an instance of an `Object` subclass) setting the corresponding
+     property on `value` to nil.
 
      If the `value` argument is an array, all properties must be present, valid and in the same
      order as the properties defined in the model.
@@ -672,7 +674,7 @@ public final class Realm {
 // MARK: Equatable
 
 extension Realm: Equatable {
-    /// Returns whether two `Realm` isntances are equal.
+    /// Returns whether two `Realm` instances are equal.
     public static func == (lhs: Realm, rhs: Realm) -> Bool {
         return lhs.rlmRealm == rhs.rlmRealm
     }
@@ -709,21 +711,3 @@ extension Realm {
 
 /// The type of a block to run for notification purposes when the data in a Realm is modified.
 public typealias NotificationBlock = (_ notification: Realm.Notification, _ realm: Realm) -> Void
-
-
-// MARK: Unavailable
-
-extension Realm {
-
-    @available(*, unavailable, renamed: "isInWriteTransaction")
-    public var inWriteTransaction: Bool { fatalError() }
-
-    @available(*, unavailable, renamed: "object(ofType:forPrimaryKey:)")
-    public func objectForPrimaryKey<T: Object>(_ type: T.Type, key: AnyObject) -> T? { fatalError() }
-
-    @available(*, unavailable, renamed: "dynamicObject(ofType:forPrimaryKey:)")
-    public func dynamicObjectForPrimaryKey(_ className: String, key: AnyObject) -> DynamicObject? { fatalError() }
-
-    @available(*, unavailable, renamed: "writeCopy(toFile:encryptionKey:)")
-    public func writeCopyToURL(_ fileURL: NSURL, encryptionKey: Data? = nil) throws { fatalError() }
-}

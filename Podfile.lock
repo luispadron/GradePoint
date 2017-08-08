@@ -1,47 +1,47 @@
 PODS:
   - LPSnackbar (1.1.2)
-  - Realm (2.8.3):
-    - Realm/Headers (= 2.8.3)
-  - Realm/Headers (2.8.3)
-  - RealmSwift (2.8.3):
-    - Realm (= 2.8.3)
-  - UICircularProgressRing (1.6.2)
+  - Realm (3.0.0-beta.2):
+    - Realm/Headers (= 3.0.0-beta.2)
+  - Realm/Headers (3.0.0-beta.2)
+  - RealmSwift (3.0.0-beta.2):
+    - Realm (= 3.0.0-beta.2)
+  - UICircularProgressRing (1.7.0)
   - UIEmptyState (1.0.2)
 
 DEPENDENCIES:
   - LPSnackbar
-  - Realm (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
-  - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, branch `master`)
+  - Realm (from `https://github.com/realm/realm-cocoa.git`, tag `v3.0.0-beta.2`)
+  - RealmSwift (from `https://github.com/realm/realm-cocoa.git`, tag `v3.0.0-beta.2`)
   - UICircularProgressRing
   - UIEmptyState
 
 EXTERNAL SOURCES:
   Realm:
-    :branch: master
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
+    :tag: v3.0.0-beta.2
   RealmSwift:
-    :branch: master
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
+    :tag: v3.0.0-beta.2
 
 CHECKOUT OPTIONS:
   Realm:
-    :commit: 9fe17040e96d3d8acf9e19ad90967303c9c0e663
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
+    :tag: v3.0.0-beta.2
   RealmSwift:
-    :commit: 9fe17040e96d3d8acf9e19ad90967303c9c0e663
     :git: https://github.com/realm/realm-cocoa.git
     :submodules: true
+    :tag: v3.0.0-beta.2
 
 SPEC CHECKSUMS:
   LPSnackbar: 67db43a51fa744f5d6978c249a39e3a5e71a3de6
-  Realm: 3601ef091c8c499a31101d8563b991e75546cdce
-  RealmSwift: 8bba39ad585bfee78123d8e3536496698274d549
-  UICircularProgressRing: f25e366e0624d87973192b67e572c0712acbae85
+  Realm: 30b822aa4231b9743d13638b2875862f3abb00b9
+  RealmSwift: a7d3161b48ca86c46d23143ef6919f9d1c874eb7
+  UICircularProgressRing: 35c3d291b679161ea27fb6216fee58c40a4bb597
   UIEmptyState: 7c8b72447f170b0472418dc3506691675c4e0fd1
 
-PODFILE CHECKSUM: c30b30aab1b1a5b79f9bbdd817a1e0141075cea9
+PODFILE CHECKSUM: 72dec42808805415b1a685557c811c95d9e21b9b
 
-COCOAPODS: 1.3.0.beta.2
+COCOAPODS: 1.3.1

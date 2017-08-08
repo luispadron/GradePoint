@@ -89,13 +89,16 @@ import UIKit
     // MARK: Value Properties
     
     /**
-     The value property for the progress ring. ex: (23)/100
+     The value property for the progress ring.
      
      ## Important ##
      Default = 0
+
+     Must be a non-negative value. If this value falls below `minValue` it will be
+     clamped and set equal to `minValue`.
      
      This cannot be used to get the value while the ring is animating, to get 
-     current value while animating use `currentValue`
+     current value while animating use `currentValue`.
      
      The current value of the progress ring after animating, use setProgress(value:) 
      to alter the value with the option to animate and have a completion handler.
@@ -105,6 +108,11 @@ import UIKit
      */
     @IBInspectable open var value: CGFloat = 0 {
         didSet {
+            if value < minValue {
+                print("Warning in: UICircularProgressRingView.value: Line #\(#line)")
+                print("Attempted to set a value less than minValue, value has been set to minValue.\n")
+                self.value = self.minValue
+            }
             self.ringLayer.value = self.value
         }
     }
@@ -129,21 +137,47 @@ import UIKit
             }
         }
     }
+
+    /**
+     The minimum value for the progress ring. ex: (0) -> 100.
+
+     ## Important ##
+     Default = 100
+
+     Must be a non-negative value, the absolute value is taken when setting this property.
+
+     The `value` of the progress ring must NOT fall below `minValue` if it does the `value` property is clamped
+     and will be set equal to `value`, you will receive a warning message in the console.
+
+     Making this value greater than
+
+     ## Author
+     Luis Padron
+     */
+    @IBInspectable open var minValue: CGFloat = 0.0 {
+        didSet {
+            self.ringLayer.minValue = abs(self.minValue)
+        }
+    }
     
     /**
-     The max value for the progress ring. ex: 23/(100)
-     Used to calculate amount of progress depending on self.value and self.maxValue
+     The maximum value for the progress ring. ex: 0 -> (100)
      
      ## Important ##
      Default = 100
+
+     Must be a non-negative value, the absolute value is taken when setting this property.
+
+     Unlike the `minValue` member `value` can extend beyond `maxValue`. What happens in this case
+     is the inner ring will do an extra loop through the outer ring, this is not noticible however.
      
      
      ## Author
      Luis Padron
      */
-    @IBInspectable open var maxValue: CGFloat = 100 {
+    @IBInspectable open var maxValue: CGFloat = 100.0 {
         didSet {
-            self.ringLayer.maxValue = self.maxValue
+            self.ringLayer.maxValue = abs(self.maxValue)
         }
     }
     
@@ -716,6 +750,7 @@ import UIKit
         
         self.ringLayer.value = value
         self.ringLayer.maxValue = maxValue
+        self.ringLayer.minValue = minValue
         
         self.ringLayer.ringStyle = ringStyle
         self.ringLayer.patternForDashes = patternForDashes
@@ -742,9 +777,7 @@ import UIKit
         self.ringLayer.font = font
         self.ringLayer.showFloatingPoint = showFloatingPoint
         self.ringLayer.decimalPlaces = decimalPlaces
-        
-        // Sets background color to clear, this fixes a bug when placing view in
-        // tableview cells
+
         self.backgroundColor = UIColor.clear
         self.ringLayer.backgroundColor = UIColor.clear.cgColor
     }
@@ -799,8 +832,8 @@ import UIKit
             self.delegate?.finishedUpdatingProgress(forRing: self)
             completion?()
         }
+
         self.value = value
-        self.ringLayer.value = value
         CATransaction.commit()
     }
 }

@@ -507,6 +507,10 @@ NS_REFINED_FOR_SWIFT;
  As with `addObject:`, the object cannot already be managed by a different
  Realm. Use `-[RLMObject createOrUpdateInRealm:withValue:]` to copy values to
  a different Realm.
+ 
+ If there is a property or KVC value on `object` whose value is nil, and it corresponds
+ to a nullable property on an existing object being updated, that nullable property will
+ be set to nil.
 
  @warning This method may only be called during a write transaction.
 
@@ -585,21 +589,6 @@ typedef void (^RLMMigrationBlock)(RLMMigration *migration, uint64_t oldSchemaVer
  */
 + (uint64_t)schemaVersionAtURL:(NSURL *)fileURL encryptionKey:(nullable NSData *)key error:(NSError **)error
 NS_REFINED_FOR_SWIFT;
-
-/**
- Performs the given Realm configuration's migration block on a Realm at the given path.
-
- This method is called automatically when opening a Realm for the first time and does
- not need to be called explicitly. You can choose to call this method to control
- exactly when and how migrations are performed.
-
- @param configuration The Realm configuration used to open and migrate the Realm.
- @return              The error that occurred while applying the migration, if any.
-
- @see                 RLMMigration
- */
-+ (nullable NSError *)migrateRealm:(RLMRealmConfiguration *)configuration
-__deprecated_msg("Use `performMigrationForConfiguration:error:`") NS_REFINED_FOR_SWIFT;
 
 /**
  Performs the given Realm configuration's migration block on a Realm at the given path.

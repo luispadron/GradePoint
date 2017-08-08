@@ -20,9 +20,12 @@
 #ifndef REALM_SYNC_SERVER_CONFIGURATION_HPP
 #define REALM_SYNC_SERVER_CONFIGURATION_HPP
 
+#include <vector>
+
 // Realm headers
 #include <realm/util/logger.hpp>
 #include <realm/util/optional.hpp>
+#include <realm/sync/server.hpp>
 
 namespace realm {
 namespace config {
@@ -46,6 +49,14 @@ struct Configuration {
     std::string dashboard_stats_endpoint = "localhost:28125";
     uint_fast64_t drop_period_s = 60;
     uint_fast64_t idle_timeout_s = 1800;
+    realm::sync::Server::Config::OperatingMode operating_mode =
+       realm::sync::Server::Config::OperatingMode::MasterWithNoSlave;
+    std::string master_address;
+    std::string master_port;
+    bool master_slave_ssl;
+    bool master_verify_ssl_certificate;
+    util::Optional<std::string> master_ssl_trust_certificate_path;
+    std::string master_slave_shared_secret;
 };
 
 void show_help(const std::string& program_name);
@@ -62,7 +73,13 @@ namespace sync {
 /// be executed prior to instantiating the \c Server object.
 ///
 /// Note: This function also handles migration of server-side Realm files from
-/// the legacy format (see _impl::ensure_legacy_migration_0()).
+/// the legacy format (see _impl::ensure_legacy_migration_1()).
+///
+/// The type of migration performed by this function is nonatomic, and it
+/// therefore requires that no other thread or process has any of the servers
+/// Realm files open concurrently. The application is advised to make sure that
+/// all agents (including the sync server), that might open server-side Realm
+/// files are not started until after this function has completed sucessfully.
 void prepare_server_directory(const config::Configuration&, util::Logger&);
 
 } // namespace sync

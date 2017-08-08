@@ -103,10 +103,14 @@ namespace sync {
 //     connection detection by both the client and the server.
 //
 //  18 Enhanced the session_ident to accept values of size up to at least 63 bits.
+//
+//  19 New instruction log format with stable object IDs and arrays of
+//     primitives (Generalized LinkList* commands to Container* commands)
+//     Message format is identical to version 18.
 
 constexpr int get_current_protocol_version() noexcept
 {
-    return 18;
+    return 19;
 }
 
 /// \brief Protocol errors discovered by the server, and reported to the client
@@ -278,7 +282,6 @@ public:
         size_t header_size = 0;
         std::string message_type;
         in >> message_type;
-        logger.debug("message_type = %1", message_type);
 
         if (message_type == "download") {
             session_ident_type session_ident;

@@ -27,7 +27,7 @@ import Realm
 
  Property instances map to columns in the core database.
  */
-public final class Property: CustomStringConvertible {
+public struct Property: CustomStringConvertible {
 
     // MARK: Properties
 
@@ -66,14 +66,4 @@ extension Property: Equatable {
     public static func == (lhs: Property, rhs: Property) -> Bool {
         return lhs.rlmProperty.isEqual(to: rhs.rlmProperty)
     }
-}
-
-// MARK: Unavailable
-
-extension Property {
-    @available(*, unavailable, renamed: "isIndexed")
-    public var indexed: Bool { fatalError() }
-
-    @available(*, unavailable, renamed: "isOptional")
-    public var optional: Bool { fatalError() }
 }

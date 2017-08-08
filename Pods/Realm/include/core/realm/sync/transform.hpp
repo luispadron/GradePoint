@@ -30,6 +30,8 @@
 namespace realm {
 namespace sync {
 
+struct Changeset;
+
 /// Represents an entry in the history of changes in a sync-enabled Realm
 /// file. Server and client use different history formats, but this class is
 /// used both on the server and the client side. Each history entry corresponds
@@ -210,7 +212,7 @@ public:
         /// the server is never the originator of changes, this changeset must
         /// in turn have been produced on the server by integration of a
         /// changeset uploaded by some other client.
-        version_type remote_version;
+        version_type remote_version = 0;
 
         /// The last local version that has been integrated into
         /// `remote_version`.
@@ -223,28 +225,28 @@ public:
         /// On the server, this is the last server version integrated into the
         /// client version `remote_version`. On a client, it is the last client
         /// version integrated into the server version `remote_version`.
-        version_type last_integrated_local_version;
+        version_type last_integrated_local_version = 0;
 
         /// The changeset itself.
         BinaryData data;
 
         /// Same meaning as `HistoryEntry::origin_timestamp`.
-        timestamp_type origin_timestamp;
+        timestamp_type origin_timestamp = 0;
 
         /// Same meaning as `HistoryEntry::origin_client_file_ident`.
-        file_ident_type origin_client_file_ident;
-
+        file_ident_type origin_client_file_ident = 0;
+        RemoteChangeset() {}
         RemoteChangeset(version_type rv, version_type lv, BinaryData d, timestamp_type ot,
                         file_ident_type fi);
     };
 
-    /// Produce an operationally transformed version of the specified changeset,
-    /// which is assumed to be of remote origin, and received from remote peer
+    /// Produce an operationally transformed version of the specified changesets,
+    /// which are assumed to be of remote origin, and received from remote peer
     /// P. Note that P is not necessarily the peer from which the changes
     /// originated.
     ///
     /// Operational transformation is carried out between the specified
-    /// changeset and all causally unrelated changesets in the local history. A
+    /// changesets and all causally unrelated changesets in the local history. A
     /// changeset in the local history is causally unrelated if, and only if it
     /// occurs after the local changeset that produced
     /// `remote_changeset.last_integrated_local_version` and is not a produced
@@ -272,15 +274,15 @@ public:
     /// version.
     ///
     /// \return The size of the transformed version of the specified
-    /// changeset. Upon return, the changeset itself is stored in the specified
-    /// output buffer.
+    /// changesets. Upon return, the transformed changesets are concatenated
+    /// and placed in \a output_buffer.
     ///
     /// \throw TransformError Thrown if operational transformation fails due to
     /// a problem with the specified changeset.
-    virtual size_t transform_remote_changeset(TransformHistory&,
-                                              version_type current_local_version,
-                                              RemoteChangeset changeset,
-                                              util::Buffer<char>& output_buffer) = 0;
+    virtual void transform_remote_changesets(TransformHistory&,
+                                             version_type current_local_version,
+                                             Changeset* changesets,
+                                             size_t num_changesets) = 0;
 
     virtual ~Transformer() noexcept {}
 };
@@ -290,6 +292,8 @@ public:
 /// identifier. This must be zero on the server-side, and only on the
 /// server-side.
 std::unique_ptr<Transformer> make_transformer(Transformer::file_ident_type local_client_file_ident);
+
+void parse_remote_changeset(const Transformer::RemoteChangeset&, Changeset&);
 
 
 

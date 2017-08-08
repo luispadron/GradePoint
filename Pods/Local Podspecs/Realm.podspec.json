@@ -1,12 +1,12 @@
 {
   "name": "Realm",
-  "version": "2.8.3",
+  "version": "3.0.0-beta.2",
   "summary": "Realm is a modern data framework & database for iOS, macOS, tvOS & watchOS.",
   "description": "The Realm Mobile Database, for Objective-C. (If you want to use Realm from Swift, see the “RealmSwift” pod.)\n\nThe Realm Mobile Database is a fast, easy-to-use replacement for Core Data & SQLite. Use it with the Realm Mobile Platform for realtime, automatic data sync. Works on iOS, macOS, tvOS & watchOS. Learn more and get help at https://realm.io.",
   "homepage": "https://realm.io",
   "source": {
     "git": "https://github.com/realm/realm-cocoa.git",
-    "tag": "v2.8.3",
+    "tag": "v3.0.0-beta.2",
     "submodules": true
   },
   "authors": {
@@ -18,13 +18,13 @@
   ],
   "requires_arc": true,
   "social_media_url": "https://twitter.com/realm",
-  "documentation_url": "https://realm.io/docs/objc/2.8.3",
+  "documentation_url": "https://realm.io/docs/objc/3.0.0-beta.2",
   "license": {
     "type": "Apache 2.0",
     "file": "LICENSE"
   },
   "module_map": "Realm/Realm.modulemap",
-  "compiler_flags": "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"2.8.3\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC",
+  "compiler_flags": "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.0.0-beta.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC",
   "prepare_command": "sh build.sh cocoapods-setup",
   "source_files": [
     "Realm/*.{m,mm}",
