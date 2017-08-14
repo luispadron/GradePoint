@@ -438,18 +438,14 @@ class ClassesTableViewController: UITableViewController {
     }
 }
 
+// MARK: Searchbar delegate
+
 extension ClassesTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard searchText != "" else {
-            self.searchController.isActive = false
-            self.tableView.reloadData()
-            self.reloadEmptyState()
-            return
-        }
-        
         // Update classes array to filter for name
         self.filterClasses(for: searchText)
         self.tableView.reloadData()
+        self.reloadEmptyState()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -641,7 +637,7 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
     }
 }
 
-/// MARK: Notification methods
+// MARK: Notification methods
 
 extension ClassesTableViewController {
     /// Called whenever semesters are updated inside the `SemesterConfigurationViewController`
