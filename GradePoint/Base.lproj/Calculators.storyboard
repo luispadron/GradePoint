@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,16 +22,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ifu-go-ptv">
-                                <rect key="frame" x="10" y="30" width="748" height="984"/>
+                                <rect key="frame" x="10" y="30" width="748" height="935"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yqb-F4-gRO" userLabel="GPA Calculator">
-                                        <rect key="frame" x="0.0" y="0.0" width="748" height="487"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="748" height="462.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-fU-Gb7">
-                                                <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oiz-U7-WT4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -52,10 +51,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-pV-zwe">
-                                                <rect key="frame" x="8" y="32" width="732" height="455"/>
+                                                <rect key="frame" x="8" y="34.5" width="732" height="428"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last calculated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkd-ku-Nlu">
-                                                        <rect key="frame" x="8" y="425.5" width="716" height="21.5"/>
+                                                        <rect key="frame" x="8" y="398.5" width="716" height="21.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -64,7 +63,7 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                        <rect key="frame" x="158" y="0.0" width="417.5" height="417.5"/>
+                                                        <rect key="frame" x="171.5" y="0.0" width="390.5" height="390.5"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="a3o-M4-3X8" secondAttribute="height" multiplier="1:1" id="8qj-gu-oAY"/>
@@ -130,13 +129,13 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K1-Xa-FLr" userLabel="Exam Calculator">
-                                        <rect key="frame" x="0.0" y="497" width="748" height="487"/>
+                                        <rect key="frame" x="0.0" y="472.5" width="748" height="462.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYq-8U-9Az">
-                                                <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Predicition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7e-UB-rtB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="748" height="26.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -156,7 +155,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Vnl-FE-RYJ">
-                                                <rect key="frame" x="20" y="215.5" width="708" height="57.5"/>
+                                                <rect key="frame" x="20" y="202.5" width="708" height="57.5"/>
                                                 <string key="text">Determine the score, on an exam, needed to 
 maintain or achieve a desired grade.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -249,7 +248,7 @@ maintain or achieve a desired grade.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Prediction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gz-Cf-Af0">
-                                                <rect key="frame" x="279.5" y="0.0" width="148" height="25"/>
+                                                <rect key="frame" x="277.5" y="0.0" width="151.5" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -258,7 +257,7 @@ maintain or achieve a desired grade.</string>
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Awq-hy-vTX">
-                                                <rect key="frame" x="651" y="0.0" width="87" height="25"/>
+                                                <rect key="frame" x="649" y="0.0" width="89" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <state key="normal" title="Calculate">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -286,7 +285,7 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="72" width="768" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Grade" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXX-o8-k8M">
-                                        <rect key="frame" x="8" y="8" width="123.5" height="54"/>
+                                        <rect key="frame" x="8" y="8" width="127" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -295,7 +294,7 @@ maintain or achieve a desired grade.</string>
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XLn-3x-gf4" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                        <rect key="frame" x="151.5" y="8" width="608.5" height="54"/>
+                                        <rect key="frame" x="155" y="8" width="605" height="54"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="textFieldEditingChanged:" destination="hNm-xK-bvc" eventType="editingChanged" id="ccP-8h-fV7"/>
@@ -321,7 +320,7 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="144" width="768" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desired Grade" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xen-5Q-ufB">
-                                        <rect key="frame" x="8" y="8" width="124.5" height="54"/>
+                                        <rect key="frame" x="8" y="8" width="128.5" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -330,7 +329,7 @@ maintain or achieve a desired grade.</string>
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgx-9C-guj" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                        <rect key="frame" x="152.5" y="8" width="607.5" height="54"/>
+                                        <rect key="frame" x="156.5" y="8" width="603.5" height="54"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="textFieldEditingChanged:" destination="hNm-xK-bvc" eventType="editingChanged" id="lHI-5m-9qh"/>
@@ -356,7 +355,7 @@ maintain or achieve a desired grade.</string>
                                 <rect key="frame" x="0.0" y="216" width="768" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Worth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bzi-iz-V3p">
-                                        <rect key="frame" x="8" y="8" width="105.5" height="54"/>
+                                        <rect key="frame" x="8" y="8" width="108.5" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -365,7 +364,7 @@ maintain or achieve a desired grade.</string>
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lDg-Hb-xSo" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                        <rect key="frame" x="138.5" y="8" width="621.5" height="54"/>
+                                        <rect key="frame" x="141.5" y="8" width="618.5" height="54"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="textFieldEditingChanged:" destination="hNm-xK-bvc" eventType="editingChanged" id="uw5-HV-GhM"/>
@@ -527,7 +526,7 @@ maintain or achieve a desired grade.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GPA Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kq3-JF-roX">
-                                                <rect key="frame" x="284.5" y="0.0" width="138.5" height="25"/>
+                                                <rect key="frame" x="282.5" y="0.0" width="141" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -536,7 +535,7 @@ maintain or achieve a desired grade.</string>
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmc-s9-kTp">
-                                                <rect key="frame" x="651" y="0.0" width="87" height="25"/>
+                                                <rect key="frame" x="649" y="0.0" width="89" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <state key="normal" title="Calculate">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -566,8 +565,8 @@ maintain or achieve a desired grade.</string>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-Ph-hGp">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                                         <subviews>
-                                            <segmentedControl hidden="YES" verifyAmbiguity="off" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
-                                                <rect key="frame" x="0.0" y="-70" width="768" height="36"/>
+                                            <segmentedControl hidden="YES" verifyAmbiguity="off" opaque="NO" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RHy-mn-cDc"/>
                                                 </constraints>
@@ -635,23 +634,22 @@ maintain or achieve a desired grade.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hfk-HI-zuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="f8K-5m-bBM" userLabel="Empty View">
-                    <rect key="frame" x="0.0" y="0.0" width="551" height="311"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1022" height="702"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fNt-gg-MEz">
-                            <rect key="frame" x="8" y="8" width="535" height="295"/>
+                            <rect key="frame" x="346.5" y="315" width="329.5" height="72"/>
                             <string key="text">No classes avaliable to calculate GPA.
 
 Add some classes or assignments!</string>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwn-OI-RgK">
-                            <rect key="frame" x="217.5" y="216" width="116" height="40"/>
+                            <rect key="frame" x="453" y="417" width="116" height="45"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="DZY-sJ-H76"/>
-                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="220" id="Py3-Nu-SWf"/>
+                                <constraint firstAttribute="height" constant="45" id="b7I-La-QNE"/>
                             </constraints>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <color key="tintColor" red="0.75321447850000001" green="0.65167993310000005" blue="0.8314163685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -665,12 +663,10 @@ Add some classes or assignments!</string>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="cwn-OI-RgK" firstAttribute="centerX" secondItem="f8K-5m-bBM" secondAttribute="centerX" id="1Aj-ui-Lyv"/>
-                        <constraint firstAttribute="bottom" secondItem="cwn-OI-RgK" secondAttribute="bottom" constant="55" id="3VX-X9-EuD"/>
-                        <constraint firstItem="fNt-gg-MEz" firstAttribute="top" secondItem="f8K-5m-bBM" secondAttribute="top" constant="8" id="Feg-RW-SBN"/>
-                        <constraint firstItem="fNt-gg-MEz" firstAttribute="leading" secondItem="f8K-5m-bBM" secondAttribute="leading" constant="8" id="QUK-zY-oNZ"/>
-                        <constraint firstAttribute="bottom" secondItem="fNt-gg-MEz" secondAttribute="bottom" constant="8" id="YDT-Vu-lh6"/>
-                        <constraint firstAttribute="trailing" secondItem="fNt-gg-MEz" secondAttribute="trailing" constant="8" id="cRg-hr-53e"/>
+                        <constraint firstItem="cwn-OI-RgK" firstAttribute="top" secondItem="fNt-gg-MEz" secondAttribute="bottom" constant="30" id="X1h-FW-rh2"/>
+                        <constraint firstItem="fNt-gg-MEz" firstAttribute="centerX" secondItem="f8K-5m-bBM" secondAttribute="centerX" id="ebP-gz-Bae"/>
+                        <constraint firstItem="cwn-OI-RgK" firstAttribute="centerX" secondItem="f8K-5m-bBM" secondAttribute="centerX" id="lDa-pP-2g1"/>
+                        <constraint firstItem="fNt-gg-MEz" firstAttribute="centerY" secondItem="f8K-5m-bBM" secondAttribute="centerY" id="waZ-mL-JUS"/>
                     </constraints>
                 </view>
                 <view verifyAmbiguity="off" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eH-Ha-sGS" userLabel="GPA Progress Ring View">
