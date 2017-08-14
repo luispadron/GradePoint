@@ -138,6 +138,8 @@ class AddEditClassViewController: UIViewController {
         (self.headerView2.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
         self.nameField.superview?.backgroundColor = UIColor.lightBackground
         self.nameField.textColor = UIColor.mainTextColor()
+        self.classTypeView.backgroundColor = UIColor.lightBackground
+        self.classTypeLabel.textColor = UIColor.mainTextColor()
         self.creditHourSlider.superview?.backgroundColor = UIColor.lightBackground
         self.semesterLabel.superview?.backgroundColor = UIColor.lightBackground
         self.semesterLabel.textColor = UIColor.mainTextColor()
