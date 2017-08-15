@@ -528,8 +528,8 @@ extension ClassesTableViewController: Segueable {
 extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
     
     // Empty State Data Source
-    
-    func shouldShowEmptyStateView(for tableView: UITableView) -> Bool {
+
+    func emptyStateViewShouldShow(for tableView: UITableView) -> Bool {
         // If not items then empty, show empty state
         return DatabaseManager.shared.realm.objects(Class.self).count == 0
     }

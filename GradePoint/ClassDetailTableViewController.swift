@@ -294,7 +294,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
     // DataSource
 
-    func shouldShowEmptyStateView(forTableView tableView: UITableView) -> Bool {
+    func emptyStateViewShouldShow(for tableView: UITableView) -> Bool {
         return assignments.isTrueEmpty
     }
 
