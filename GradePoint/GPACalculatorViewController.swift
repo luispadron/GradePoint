@@ -49,6 +49,7 @@ class GPACalculatorViewController: UIViewController {
         (headerView.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
         progressRingView.fontColor = UIColor.mainTextColor()
         (emptyView.subviews.first as? UILabel)?.textColor = UIColor.mainTextColor()
+        weightSwitcher.tintColor = UIColor.pastelPurple
 
         calculateButton.setTitleColor(UIColor.white, for: .normal)
         calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
@@ -142,15 +143,20 @@ class GPACalculatorViewController: UIViewController {
             // Animate the addition
             progressRingView.superview!.alpha = 0.0
             
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.4, animations: {
                 self.progressRingView.superview!.alpha = 1.0
+            }, completion: { _ in
                 // If the student is Highschool then show the type switcher
                 if studentType == .highSchool {
-                    self.weightSwitcher.isHidden = false
-                    self.weightSwitcher.alpha = 1.0
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.weightSwitcher.isHidden = false
+                        self.weightSwitcher.alpha = 1.0
+                    }, completion: { _ in
+                        self.calculateGPA()
+                    })
+                } else {
+                    self.calculateGPA()
                 }
-            }, completion: { _ in
-                self.calculateGPA()
             })
         } else {
             // just calculate the GPA
