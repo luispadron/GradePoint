@@ -63,9 +63,9 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         let url: URL
 
         if emptyLabel.isHidden {
-            url = URL(string: "gradePoint://com.luispadron.gradepoint.open")!
+            url = openUrl
         } else {
-            url = URL(string: "gradePoint://com.luispadron.gradepoint.addClass")!
+            url = emptyWidgetActionUrl
         }
 
         self.extensionContext?.open(url, completionHandler: nil)

@@ -36,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// The last time the app was active
     var lastTimeActive: Date?
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // DEBUG setup
@@ -96,10 +95,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// Handles opening app via custom URL. Used with the Today extension of GradePoint.
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let addUrl = URL(string: "gradePoint://com.luispadron.gradepoint.addClass")
-        let openUrl = URL(string: "gradePoint://com.luispadron.gradepoint.open")
+        // If for some reason the user hasn't been onboarded then don't open the app yet
+        if !UserDefaults.standard.bool(forKey: userDefaultOnboardingComplete) {
+            return false
+        }
 
-        if url == addUrl {
+        if url == emptyWidgetActionUrl {
             let count = DatabaseManager.shared.realm.objects(Class.self).count
 
             guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
@@ -128,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        return addUrl == url || openUrl == url
+        return url == emptyWidgetActionUrl || url == openUrl
     }
 
     /// Handles opening app via 3D touch quick action

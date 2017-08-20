@@ -21,6 +21,10 @@ let userDefaultTheme = "com.luispadron.GradePoint.theme"
 let semestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
 let themeUpdatedNotification = Notification.Name("com.luispadron.GradePoint.themeUpdated")
 
+// Custom URL's
+let openUrl = URL(string: "gradePoint://com.luispadron.gradepoint.open")!
+let emptyWidgetActionUrl = URL(string: "gradePoint://com.luispadron.gradepoint.emptyWidgetAction")!
+
 // Misc.
 let contactEmail = "heyluispadron@gmail.com"
 let groupId = "group.com.luispadron.GradePoint"
