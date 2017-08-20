@@ -41,6 +41,9 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         classRing.decimalPlaces = 1
         classRing.ringStyle = .ontop
         classRing.fontColor = UIColor.black.withAlphaComponent(0.6)
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        view.addGestureRecognizer(tap)
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
@@ -51,6 +54,21 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
 
     func widgetMarginInsets(forProposedMarginInsets defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
         return .zero
+    }
+
+    // MARK: Actions
+
+    /// Either open the app or open the AddEditClassViewController if view is empty
+    @objc private func viewTapped() {
+        let url: URL
+
+        if emptyLabel.isHidden {
+            url = URL(string: "gradePoint://com.luispadron.gradepoint.open")!
+        } else {
+            url = URL(string: "gradePoint://com.luispadron.gradepoint.addClass")!
+        }
+
+        self.extensionContext?.open(url, completionHandler: nil)
     }
 
     // MARK: Helpers

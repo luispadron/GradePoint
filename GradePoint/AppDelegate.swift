@@ -93,6 +93,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Update last active time
         lastTimeActive = Date()
     }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let addUrl = URL(string: "gradePoint://com.luispadron.gradepoint.addClass")
+        let openUrl = URL(string: "gradePoint://com.luispadron.gradepoint.open")
+
+        if url == addUrl {
+            guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
+                let classesVC = splitNav.childViewControllers.first as? ClassesTableViewController else
+            {
+                print("WARNING: Tried to find ClassesTableViewController but was not able.")
+                return false
+            }
+
+            // Perform the add edit class segue
+            classesVC.performSegue(withIdentifier: .addEditClass, sender: classesVC.navigationItem.rightBarButtonItem)
+        }
+
+        return addUrl == url || openUrl == url
+    }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem,
                      completionHandler: @escaping (Bool) -> Void)
