@@ -96,7 +96,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         }
 
         if showsGPA {
-            guard let recent = realm.objects(GPACalculation.self).first else {
+            guard let recent = realm.objects(GPACalculation.self).sorted(byKeyPath: "date", ascending: false).first else {
                 print("Unable to get most recent GPA calculation.")
                 return
             }
@@ -106,10 +106,12 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
             gpaRing.setProgress(value: CGFloat(recent.calculatedGpa), animationDuration: 1.0)
         }
 
-        if #available(iOS 10.0, *) {
-            // Something else here
-        } else {
-            // Change colors
+        guard #available(iOS 10.0, *) else {
+            // Change colors for iOS 9.0 notification center
+            gpaRing.fontColor = UIColor.white.withAlphaComponent(0.7)
+            classRing.fontColor = UIColor.white.withAlphaComponent(0.7)
+            emptyLabel.textColor = UIColor.white.withAlphaComponent(0.7)
+            return
         }
     }
 }
