@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3EC80F71D0AD3DF6687E371B /* Pods_GradePointUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D15D4107F5ED0EFC08723D8 /* Pods_GradePointUITests.framework */; };
+		44F1718A060F1A2F7F461575 /* Pods_GradePointWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E837F94B1EBBB466B9E708DB /* Pods_GradePointWidget.framework */; };
 		64F5DADFD4B44476D4D51789 /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C236FAAEA4D22C609741D20 /* Pods_GradePoint.framework */; };
 		7BC9C80920B03AB515DCBC08 /* Pods_GradePointTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99983B9B82900BCB860B651E /* Pods_GradePointTests.framework */; };
 		A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */; };
@@ -80,7 +81,7 @@
 		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */; };
 		A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */; };
 		A0E4A6701F4A09E00094BC4F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */; };
-		A0E4A6731F4A09E00094BC4F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E4A6721F4A09E00094BC4F /* TodayViewController.swift */; };
+		A0E4A6731F4A09E00094BC4F /* WidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */; };
 		A0E4A6761F4A09E00094BC4F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */; };
 		A0E4A67A1F4A09E00094BC4F /* GradePointWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */; };
@@ -134,8 +135,10 @@
 
 /* Begin PBXFileReference section */
 		0C236FAAEA4D22C609741D20 /* Pods_GradePoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		400C1315EBBE338740D55D3C /* Pods-GradePointWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		5600DF819EDE72227DB1B2BC /* Pods-GradePointTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D4B98A445AC0A30C31B13AF /* Pods-GradePointUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointUITests/Pods-GradePointUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		698A29795A968E71097C495B /* Pods-GradePointWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.release.xcconfig"; sourceTree = "<group>"; };
 		7250A953F7314C7248D5B677 /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
 		76EB71CC43DA8CB59E7D7569 /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
 		842A5E83DBC33946B0AA5BF0 /* Pods-GradePoint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.debug.xcconfig"; sourceTree = "<group>"; };
@@ -220,7 +223,7 @@
 		A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewDelegate.swift; sourceTree = "<group>"; };
 		A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GradePointWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		A0E4A6721F4A09E00094BC4F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewController.swift; sourceTree = "<group>"; };
 		A0E4A6751F4A09E00094BC4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		A0E4A6771F4A09E00094BC4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISemesterPickerView.swift; sourceTree = "<group>"; };
@@ -232,6 +235,7 @@
 		A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailTableViewController.swift; sourceTree = "<group>"; };
 		A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousClassDetailViewController.swift; sourceTree = "<group>"; };
 		A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard3ViewController.swift; sourceTree = "<group>"; };
+		E837F94B1EBBB466B9E708DB /* Pods_GradePointWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePointWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0E4A6701F4A09E00094BC4F /* NotificationCenter.framework in Frameworks */,
+				44F1718A060F1A2F7F461575 /* Pods_GradePointWidget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +282,7 @@
 				99983B9B82900BCB860B651E /* Pods_GradePointTests.framework */,
 				9D15D4107F5ED0EFC08723D8 /* Pods_GradePointUITests.framework */,
 				A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */,
+				E837F94B1EBBB466B9E708DB /* Pods_GradePointWidget.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -521,7 +527,7 @@
 		A0E4A6711F4A09E00094BC4F /* GradePointWidget */ = {
 			isa = PBXGroup;
 			children = (
-				A0E4A6721F4A09E00094BC4F /* TodayViewController.swift */,
+				A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */,
 				A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */,
 				A0E4A6771F4A09E00094BC4F /* Info.plist */,
 			);
@@ -563,6 +569,8 @@
 				7250A953F7314C7248D5B677 /* Pods-GradePointTests.release.xcconfig */,
 				5D4B98A445AC0A30C31B13AF /* Pods-GradePointUITests.debug.xcconfig */,
 				8DCA989E291E6B9C5E7E89E5 /* Pods-GradePointUITests.release.xcconfig */,
+				400C1315EBBE338740D55D3C /* Pods-GradePointWidget.debug.xcconfig */,
+				698A29795A968E71097C495B /* Pods-GradePointWidget.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -638,9 +646,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0E4A67D1F4A09E00094BC4F /* Build configuration list for PBXNativeTarget "GradePointWidget" */;
 			buildPhases = (
+				ACFC16B30ABDAFB3322878DA /* [CP] Check Pods Manifest.lock */,
 				A0E4A66A1F4A09E00094BC4F /* Sources */,
 				A0E4A66B1F4A09E00094BC4F /* Frameworks */,
 				A0E4A66C1F4A09E00094BC4F /* Resources */,
+				830368A63B88CC29D85F78B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -807,6 +817,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointUITests/Pods-GradePointUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		830368A63B88CC29D85F78B9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8E330D2EE96C3D46BF213B0D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -849,6 +874,24 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-GradePoint-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACFC16B30ABDAFB3322878DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GradePointWidget-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1024,7 +1067,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0E4A6731F4A09E00094BC4F /* TodayViewController.swift in Sources */,
+				A0E4A6731F4A09E00094BC4F /* WidgetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,6 +1350,7 @@
 		};
 		A0E4A67B1F4A09E00094BC4F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 400C1315EBBE338740D55D3C /* Pods-GradePointWidget.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1314,7 +1358,7 @@
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GradePointWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint.GradePointWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1326,6 +1370,7 @@
 		};
 		A0E4A67C1F4A09E00094BC4F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 698A29795A968E71097C495B /* Pods-GradePointWidget.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1333,7 +1378,7 @@
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GradePointWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint.GradePointWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -21,6 +21,11 @@ target 'GradePointUITests' do
   all_pods
 end
 
+target 'GradePointWidget' do
+  pod 'UICircularProgressRing'
+  pod 'RealmSwift'
+end
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     
