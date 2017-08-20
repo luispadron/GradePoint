@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !hasOnboarded { self.presentOnboarding() }
         
         // Perform any required migrations
-        DatabaseManager.performMigrations() {
+        DatabaseManager.setupRealm() {
             // App has launched and migrations finished, increase sessions
             self.incrementSessions()
         }
@@ -216,7 +216,7 @@ extension AppDelegate {
         for arg in args {
             switch arg {
             case "ClearState":
-                DatabaseManager.performMigrations(completion: {
+                DatabaseManager.setupRealm(completion: {
                     // Remove all objects from Realm and user defaults
                     DatabaseManager.shared.write {
                         DatabaseManager.shared.realm.deleteAll()

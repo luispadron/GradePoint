@@ -12,11 +12,17 @@ import RealmSwift
 final class DatabaseManager {
     
     public static let shared: DatabaseManager = DatabaseManager()
+
+    public static let fileName: String = "gradepoint-db.realm"
+
     
     // MARK: Realm Methods/Helpers
     
     /// The Realm instance to be used throughout the application
     public lazy var realm: Realm = {
+        let directory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.luispadron.GradePoint")!
+        let rlmPath: URL = URL(string: directory.path.appending("gradepoint-db.realm"))!
+
         return try! Realm()
     }()
 
@@ -88,31 +94,24 @@ final class DatabaseManager {
             realm.create(type, value: value, update: update)
         }
     }
-    
-    // MARK: Migration
-    
+
     /// The current schema version of the Realm file, this is not the version of the actual Realm file on the device
     /// but instead what the version should be, this version number should be changed whenever the schema is updated.
     // And any migration code should be added in `performMigration`
     public static var currentSchemaVersion: UInt64 = 1
-    
-    /// Performs migration and updates any old schemas to `currentSchemaVersion`
-    public static func performMigrations(completion: (() -> Void)? = nil) {
-        let config = Realm.Configuration(
-            schemaVersion: currentSchemaVersion,
-            migrationBlock: { migration, oldVersion in
-                if oldVersion < 1 {
-                    // Add new isFavorite property
-                    migration.enumerateObjects(ofType: Class.className()) { _, newObj in
-                        newObj!["isFavorite"] = false
-                    }
-                    // Rename rubric property of Assignmet class
-                    migration.renameProperty(onType: Assignment.className(), from: "associatedRubric", to: "rubric")
-                }
-            }
-        )
-        // Set config
+
+    // MARK: Realm Setup
+
+    public static func setupRealm(completion: (() -> Void)) {
+        let directory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)!
+        let path: URL = URL(string: directory.path.appending(fileName))!
+        let config = Realm.Configuration(fileURL: path,
+                                         schemaVersion: currentSchemaVersion,
+                                         migrationBlock: performMigration)
+
+        // Update default config
         Realm.Configuration.defaultConfiguration = config
+
         // Try to open realm again
         do {
             let _ = try Realm()
@@ -120,8 +119,22 @@ final class DatabaseManager {
         } catch {
             fatalError("Error opening Realm after migration: \(error)")
         }
-        
+
         // Call completion
-        completion?()
+        completion()
     }
+    
+    // MARK: Migration
+
+    private static func performMigration(migration: Migration, version: UInt64) {
+        if version < 1 {
+            // Add new isFavorite property
+            migration.enumerateObjects(ofType: Class.className()) { _, newObj in
+                newObj!["isFavorite"] = false
+            }
+            // Rename rubric property of Assignmet class
+            migration.renameProperty(onType: Assignment.className(), from: "associatedRubric", to: "rubric")
+        }
+    }
+
 }

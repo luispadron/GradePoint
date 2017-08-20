@@ -23,3 +23,4 @@ let themeUpdatedNotification = Notification.Name("com.luispadron.GradePoint.them
 
 // Misc.
 let contactEmail = "heyluispadron@gmail.com"
+let groupId = "group.com.luispadron.GradePoint"
