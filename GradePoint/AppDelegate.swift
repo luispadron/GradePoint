@@ -94,11 +94,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         lastTimeActive = Date()
     }
 
+    /// Handles opening app via custom URL. Used with the Today extension of GradePoint.
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let addUrl = URL(string: "gradePoint://com.luispadron.gradepoint.addClass")
         let openUrl = URL(string: "gradePoint://com.luispadron.gradepoint.open")
 
         if url == addUrl {
+            let count = DatabaseManager.shared.realm.objects(Class.self).count
+
             guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
                 let classesVC = splitNav.childViewControllers.first as? ClassesTableViewController else
             {
@@ -106,13 +109,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return false
             }
 
-            // Perform the add edit class segue
-            classesVC.performSegue(withIdentifier: .addEditClass, sender: classesVC.navigationItem.rightBarButtonItem)
+            if count == 0 {
+                // Perform the add edit class segue
+                classesVC.performSegue(withIdentifier: .addEditClass, sender: classesVC.navigationItem.rightBarButtonItem)
+            } else {
+                // Take user to gpa calculator view
+                guard let tabBar = window?.rootViewController as? UITabBarController,
+                    tabBar.childViewControllers.count > 1,
+                    let calcsVC = tabBar.childViewControllers[1] as? CalculatorsViewController else
+                {
+                    print("WARNING: Tried to find ClassesTableViewController but was not able.")
+                    return false
+                }
+
+                // Perform segue and show gpa calculator
+                tabBar.selectedIndex = 1
+                calcsVC.performSegue(withIdentifier: "presentGPACalculator", sender: nil)
+            }
         }
 
         return addUrl == url || openUrl == url
     }
-    
+
+    /// Handles opening app via 3D touch quick action
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem,
                      completionHandler: @escaping (Bool) -> Void)
     {
