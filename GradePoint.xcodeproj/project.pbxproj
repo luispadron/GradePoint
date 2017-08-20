@@ -79,6 +79,10 @@
 		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
 		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */; };
 		A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */; };
+		A0E4A6701F4A09E00094BC4F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */; };
+		A0E4A6731F4A09E00094BC4F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E4A6721F4A09E00094BC4F /* TodayViewController.swift */; };
+		A0E4A6761F4A09E00094BC4F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */; };
+		A0E4A67A1F4A09E00094BC4F /* GradePointWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */; };
 		A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
@@ -105,7 +109,28 @@
 			remoteGlobalIDString = A007050A1DAF0E9B00AD740A;
 			remoteInfo = GradePoint;
 		};
+		A0E4A6781F4A09E00094BC4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00705031DAF0E9B00AD740A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0E4A66D1F4A09E00094BC4F;
+			remoteInfo = GradePointWidget;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A0E4A67E1F4A09E00094BC4F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A0E4A67A1F4A09E00094BC4F /* GradePointWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0C236FAAEA4D22C609741D20 /* Pods_GradePoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +218,11 @@
 		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
 		A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFloatingPromptTextField.swift; sourceTree = "<group>"; };
 		A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewDelegate.swift; sourceTree = "<group>"; };
+		A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GradePointWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		A0E4A6721F4A09E00094BC4F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		A0E4A6751F4A09E00094BC4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		A0E4A6771F4A09E00094BC4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISemesterPickerView.swift; sourceTree = "<group>"; };
 		A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewState.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
@@ -229,6 +259,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0E4A66B1F4A09E00094BC4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0E4A6701F4A09E00094BC4F /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -238,6 +276,7 @@
 				0C236FAAEA4D22C609741D20 /* Pods_GradePoint.framework */,
 				99983B9B82900BCB860B651E /* Pods_GradePointTests.framework */,
 				9D15D4107F5ED0EFC08723D8 /* Pods_GradePointUITests.framework */,
+				A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -248,6 +287,7 @@
 				A007050D1DAF0E9B00AD740A /* GradePoint */,
 				A00705241DAF0E9B00AD740A /* GradePointTests */,
 				A007052F1DAF0E9B00AD740A /* GradePointUITests */,
+				A0E4A6711F4A09E00094BC4F /* GradePointWidget */,
 				A007050C1DAF0E9B00AD740A /* Products */,
 				C3B49D48B4AB3B6AB5C7EEF1 /* Pods */,
 				6A96FD7C66A3F4FCE8EED023 /* Frameworks */,
@@ -260,6 +300,7 @@
 				A007050B1DAF0E9B00AD740A /* GradePoint.app */,
 				A00705211DAF0E9B00AD740A /* GradePointTests.xctest */,
 				A007052C1DAF0E9B00AD740A /* GradePointUITests.xctest */,
+				A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -477,6 +518,16 @@
 			name = "Custom Controls";
 			sourceTree = "<group>";
 		};
+		A0E4A6711F4A09E00094BC4F /* GradePointWidget */ = {
+			isa = PBXGroup;
+			children = (
+				A0E4A6721F4A09E00094BC4F /* TodayViewController.swift */,
+				A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */,
+				A0E4A6771F4A09E00094BC4F /* Info.plist */,
+			);
+			path = GradePointWidget;
+			sourceTree = "<group>";
+		};
 		A0E705AD1DBBDE40008E04EC /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,10 +580,12 @@
 				A00705091DAF0E9B00AD740A /* Resources */,
 				59D48C9921F1DB9F47EAC314 /* [CP] Embed Pods Frameworks */,
 				A30DB2B9D92A2DB45B05DDBF /* [CP] Copy Pods Resources */,
+				A0E4A67E1F4A09E00094BC4F /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A0E4A6791F4A09E00094BC4F /* PBXTargetDependency */,
 			);
 			name = GradePoint;
 			productName = GradePoint;
@@ -581,13 +634,30 @@
 			productReference = A007052C1DAF0E9B00AD740A /* GradePointUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		A0E4A66D1F4A09E00094BC4F /* GradePointWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0E4A67D1F4A09E00094BC4F /* Build configuration list for PBXNativeTarget "GradePointWidget" */;
+			buildPhases = (
+				A0E4A66A1F4A09E00094BC4F /* Sources */,
+				A0E4A66B1F4A09E00094BC4F /* Frameworks */,
+				A0E4A66C1F4A09E00094BC4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GradePointWidget;
+			productName = GradePointWidget;
+			productReference = A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		A00705031DAF0E9B00AD740A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Luis Padron";
 				TargetAttributes = {
@@ -611,6 +681,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = A007050A1DAF0E9B00AD740A;
 					};
+					A0E4A66D1F4A09E00094BC4F = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = YGJQDEP824;
+					};
 				};
 			};
 			buildConfigurationList = A00705061DAF0E9B00AD740A /* Build configuration list for PBXProject "GradePoint" */;
@@ -629,6 +703,7 @@
 				A007050A1DAF0E9B00AD740A /* GradePoint */,
 				A00705201DAF0E9B00AD740A /* GradePointTests */,
 				A007052B1DAF0E9B00AD740A /* GradePointUITests */,
+				A0E4A66D1F4A09E00094BC4F /* GradePointWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -659,6 +734,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0E4A66C1F4A09E00094BC4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0E4A6761F4A09E00094BC4F /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +1020,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0E4A66A1F4A09E00094BC4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0E4A6731F4A09E00094BC4F /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -949,6 +1040,11 @@
 			isa = PBXTargetDependency;
 			target = A007050A1DAF0E9B00AD740A /* GradePoint */;
 			targetProxy = A007052D1DAF0E9B00AD740A /* PBXContainerItemProxy */;
+		};
+		A0E4A6791F4A09E00094BC4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0E4A66D1F4A09E00094BC4F /* GradePointWidget */;
+			targetProxy = A0E4A6781F4A09E00094BC4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -983,6 +1079,14 @@
 				A07B968E1EBBCC3500382E45 /* Base */,
 			);
 			name = Onboarding.storyboard;
+			sourceTree = "<group>";
+		};
+		A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0E4A6751F4A09E00094BC4F /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1103,7 +1207,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 842A5E83DBC33946B0AA5BF0 /* Pods-GradePoint.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				INFOPLIST_FILE = GradePoint/Info.plist;
@@ -1120,7 +1224,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 76EB71CC43DA8CB59E7D7569 /* Pods-GradePoint.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				INFOPLIST_FILE = GradePoint/Info.plist;
@@ -1201,6 +1305,44 @@
 			};
 			name = Release;
 		};
+		A0E4A67B1F4A09E00094BC4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = YGJQDEP824;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GradePointWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint.GradePointWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A0E4A67C1F4A09E00094BC4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = YGJQDEP824;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GradePointWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint.GradePointWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1236,6 +1378,15 @@
 			buildConfigurations = (
 				A007053C1DAF0E9B00AD740A /* Debug */,
 				A007053D1DAF0E9B00AD740A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0E4A67D1F4A09E00094BC4F /* Build configuration list for PBXNativeTarget "GradePointWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0E4A67B1F4A09E00094BC4F /* Debug */,
+				A0E4A67C1F4A09E00094BC4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
