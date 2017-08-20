@@ -12,25 +12,20 @@ import UICircularProgressRing
 import RealmSwift
 
 class WidgetViewController: UIViewController, NCWidgetProviding {
-        
+
+    @IBOutlet weak var gpaRing: UICircularProgressRingView!
+    @IBOutlet weak var classRing: UICircularProgressRingView!
+    @IBOutlet weak var emptyLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view from its nib.
-        self.preferredContentSize = CGSize(width: 320, height: 120)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupUI()
+        preferredContentSize = CGSize(width: 320, height: 120)
+        updateUI()
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
+        updateUI()
         completionHandler(NCUpdateResult.newData)
     }
 
@@ -40,7 +35,16 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
 
     // MARK: Helpers
 
-    private func setupUI() {
+    private func updateUI() {
+        // Figure out views to show
+        let realm = DatabaseManager.shared.realm
+        let showsGPA = realm.objects(GPACalculation.self).count > 0
+        let showsClass = realm.objects(Assignment.self).count > 0
+
+        gpaRing.superview?.isHidden = !showsGPA
+        classRing.superview?.isHidden = !showsClass
+        emptyLabel.isHidden = showsClass || showsGPA
+
         if #available(iOS 10.0, *) {
             // Something else here
         } else {
