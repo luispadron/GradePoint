@@ -13,6 +13,7 @@ import RealmSwift
 
 class WidgetViewController: UIViewController, NCWidgetProviding {
 
+    @IBOutlet weak var ringContainerView: UIStackView!
     @IBOutlet weak var gpaRing: UICircularProgressRingView!
     @IBOutlet weak var classRing: UICircularProgressRingView!
     @IBOutlet weak var emptyLabel: UILabel!
@@ -31,6 +32,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         gpaRing.valueIndicator = ""
         gpaRing.showFloatingPoint = true
         gpaRing.decimalPlaces = 2
+        gpaRing.fontColor = UIColor.black.withAlphaComponent(0.6)
 
         classRing.innerCapStyle = .round
         classRing.outerRingColor = UIColor.white.withAlphaComponent(0.7)
@@ -38,6 +40,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         classRing.showFloatingPoint = true
         classRing.decimalPlaces = 1
         classRing.ringStyle = .ontop
+        classRing.fontColor = UIColor.black.withAlphaComponent(0.6)
     }
 
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
@@ -61,6 +64,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         gpaRing.superview?.isHidden = !showsGPA
         classRing.superview?.isHidden = !showsClass
         emptyLabel.isHidden = showsClass || showsGPA
+        ringContainerView.isHidden = !showsClass && !showsGPA
 
         if showsClass {
             guard let assignment = realm.objects(Assignment.self).sorted(byKeyPath: "date", ascending: false).first,

@@ -18,25 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wpa-Vs-Bih">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing to show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-aC-IOa">
+                                <rect key="frame" x="89" y="48" width="142" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wpa-Vs-Bih">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing to show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbr-aC-IOa">
-                                        <rect key="frame" x="0.0" y="48" width="320" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fR-e4-zPT" userLabel="GPA Ring">
-                                        <rect key="frame" x="-17.5" y="0.0" width="120" height="120"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fR-e4-zPT" userLabel="GPA Ring">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
                                         <subviews>
-                                            <label verifyAmbiguity="off" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Recent GPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlQ-Km-D2T">
-                                                <rect key="frame" x="4" y="4" width="112" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent GPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlQ-Km-D2T">
+                                                <rect key="frame" x="4" y="4" width="152" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgl-jO-qOQ" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                <rect key="frame" x="17.5" y="33" width="85" height="85"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgl-jO-qOQ" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                                <rect key="frame" x="37.5" y="33" width="85" height="85"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="85" id="AEc-sp-6MN"/>
@@ -53,7 +53,7 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                        <real key="value" value="0.0"/>
+                                                        <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
                                                         <real key="value" value="4"/>
@@ -69,23 +69,23 @@
                                             <constraint firstItem="wlQ-Km-D2T" firstAttribute="top" secondItem="7fR-e4-zPT" secondAttribute="top" constant="4" id="6KW-jc-RD2"/>
                                             <constraint firstAttribute="trailing" secondItem="wlQ-Km-D2T" secondAttribute="trailing" constant="4" id="DYt-IM-Zrf"/>
                                             <constraint firstAttribute="bottom" secondItem="lgl-jO-qOQ" secondAttribute="bottom" constant="2" id="IJr-5S-4zo"/>
-                                            <constraint firstAttribute="width" constant="120" id="M5o-rd-gLM"/>
+                                            <constraint firstAttribute="width" constant="160" id="M5o-rd-gLM"/>
                                             <constraint firstItem="lgl-jO-qOQ" firstAttribute="centerX" secondItem="7fR-e4-zPT" secondAttribute="centerX" id="gPb-y0-935"/>
                                             <constraint firstItem="wlQ-Km-D2T" firstAttribute="leading" secondItem="7fR-e4-zPT" secondAttribute="leading" constant="4" id="jDR-VT-gqx"/>
                                             <constraint firstAttribute="height" constant="120" id="psM-3E-EmZ"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AUk-by-m5O" userLabel="Class Ring">
-                                        <rect key="frame" x="-4" y="0.0" width="120" height="120"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AUk-by-m5O" userLabel="Class Ring">
+                                        <rect key="frame" x="160" y="0.0" width="160" height="120"/>
                                         <subviews>
-                                            <label verifyAmbiguity="off" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Recent Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4E-uP-295">
-                                                <rect key="frame" x="4" y="4" width="112" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4E-uP-295">
+                                                <rect key="frame" x="4" y="4" width="152" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CWC-a6-Hf5" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
-                                                <rect key="frame" x="17.5" y="33" width="85" height="85"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWC-a6-Hf5" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                                <rect key="frame" x="37.5" y="33" width="85" height="85"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="85" id="dTl-Kn-opC"/>
@@ -102,7 +102,7 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                        <real key="value" value="0.0"/>
+                                                        <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
                                                         <real key="value" value="-90"/>
@@ -116,7 +116,7 @@
                                             <constraint firstAttribute="height" constant="120" id="823-Iu-Oh3"/>
                                             <constraint firstAttribute="bottom" secondItem="CWC-a6-Hf5" secondAttribute="bottom" constant="2" id="8Iw-WD-hVE"/>
                                             <constraint firstItem="CWC-a6-Hf5" firstAttribute="centerX" secondItem="AUk-by-m5O" secondAttribute="centerX" id="G0r-OY-Ar0"/>
-                                            <constraint firstAttribute="width" constant="120" id="ULa-WI-11w"/>
+                                            <constraint firstAttribute="width" constant="160" id="ULa-WI-11w"/>
                                             <constraint firstItem="B4E-uP-295" firstAttribute="top" secondItem="AUk-by-m5O" secondAttribute="top" constant="4" id="ZQB-7S-RJs"/>
                                             <constraint firstAttribute="trailing" secondItem="B4E-uP-295" secondAttribute="trailing" constant="4" id="xmR-Zs-xKl"/>
                                         </constraints>
@@ -125,10 +125,12 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="VKg-7G-85m"/>
-                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" id="h6z-Nm-gaN"/>
-                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="lPo-Xi-OgM"/>
-                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="qaZ-V5-yd7"/>
+                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="Hgj-GW-ved"/>
+                            <constraint firstItem="Mbr-aC-IOa" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="QPa-wW-KZC"/>
+                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="Zjt-ar-Dx5"/>
+                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="aXz-CY-BxV"/>
+                            <constraint firstItem="Wpa-Vs-Bih" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" id="fuI-RP-ONV"/>
+                            <constraint firstItem="Mbr-aC-IOa" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="pnk-3c-eht"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
@@ -139,6 +141,7 @@
                         <outlet property="classRing" destination="CWC-a6-Hf5" id="TPF-zM-fHm"/>
                         <outlet property="emptyLabel" destination="Mbr-aC-IOa" id="AyY-uF-uOT"/>
                         <outlet property="gpaRing" destination="lgl-jO-qOQ" id="AOl-Yd-0WP"/>
+                        <outlet property="ringContainerView" destination="Wpa-Vs-Bih" id="hQn-9U-way"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
