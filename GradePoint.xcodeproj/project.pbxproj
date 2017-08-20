@@ -213,6 +213,7 @@
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
 		A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradePoint.entitlements; sourceTree = "<group>"; };
+		A0983E201F4A3287002D393E /* GradePointWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradePointWidget.entitlements; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
 		A09CEC6C1DF669FC00280F93 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		A0A0A4C71E3713190055B0D4 /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
@@ -545,6 +546,7 @@
 		A0E4A6711F4A09E00094BC4F /* GradePointWidget */ = {
 			isa = PBXGroup;
 			children = (
+				A0983E201F4A3287002D393E /* GradePointWidget.entitlements */,
 				A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */,
 				A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */,
 				A0E4A6771F4A09E00094BC4F /* Info.plist */,
@@ -717,6 +719,11 @@
 					A0E4A66D1F4A09E00094BC4F = {
 						CreatedOnToolsVersion = 9.0;
 						DevelopmentTeam = YGJQDEP824;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1396,6 +1403,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GradePointWidget/GradePointWidget.entitlements;
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GradePointWidget/Info.plist;
@@ -1416,6 +1424,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GradePointWidget/GradePointWidget.entitlements;
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GradePointWidget/Info.plist;

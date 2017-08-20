@@ -15,13 +15,15 @@ final class DatabaseManager {
 
     public static let fileName: String = "gradepoint-db.realm"
 
-    
+    private static var hasSetup: Bool = false
+
     // MARK: Realm Methods/Helpers
     
     /// The Realm instance to be used throughout the application
     public lazy var realm: Realm = {
-        let directory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.luispadron.GradePoint")!
-        let rlmPath: URL = URL(string: directory.path.appending("gradepoint-db.realm"))!
+        guard DatabaseManager.hasSetup else {
+            fatalError("Realm has not been setup before accessing realm.\nMake sure to call DatabaseManager.setupRealm.")
+        }
 
         return try! Realm()
     }()
@@ -102,7 +104,7 @@ final class DatabaseManager {
 
     // MARK: Realm Setup
 
-    public static func setupRealm(completion: (() -> Void)) {
+    public static func setupRealm(completion: (() -> Void)? = nil) {
         // First move the Realm file if needed, this is done on application versions < 2.0
         moveRealmIfNeeded()
 
@@ -123,8 +125,10 @@ final class DatabaseManager {
             fatalError("Error opening Realm after migration: \(error)")
         }
 
+        hasSetup = true
+
         // Call completion
-        completion()
+        completion?()
     }
     
     // MARK: Migration

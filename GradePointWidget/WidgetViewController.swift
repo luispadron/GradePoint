@@ -20,6 +20,9 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         preferredContentSize = CGSize(width: 320, height: 120)
+        // Setup realm
+        DatabaseManager.setupRealm()
+        // Update UI
         updateUI()
     }
 
