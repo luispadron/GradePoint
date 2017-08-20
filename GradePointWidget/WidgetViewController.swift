@@ -63,14 +63,14 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         emptyLabel.isHidden = showsClass || showsGPA
 
         if showsClass {
-            guard let recent = realm.objects(Assignment.self).sorted(byKeyPath: "date", ascending: false).first?.parentClass,
-                let classObj = recent.first else {
+            guard let assignment = realm.objects(Assignment.self).sorted(byKeyPath: "date", ascending: false).first,
+                let recentClass = assignment.parentClass.first else {
                     print("Unable to get most recent class object.")
                     return
             }
 
-            classRing.innerRingColor = classObj.color
-            classRing.setProgress(value: CGFloat(classObj.grade!.score), animationDuration: 1.0)
+            classRing.innerRingColor = recentClass.color
+            classRing.setProgress(value: CGFloat(recentClass.grade!.score), animationDuration: 1.0)
         }
 
         if showsGPA {
