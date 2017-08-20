@@ -17,6 +17,8 @@ class Assignment: Object {
     @objc dynamic var date = Date()
     @objc dynamic var score: Double = 0.0
     @objc dynamic var rubric: Rubric?
+
+    let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
     // MARK: - Initializers
     
