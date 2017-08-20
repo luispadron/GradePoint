@@ -103,8 +103,11 @@ final class DatabaseManager {
     // MARK: Realm Setup
 
     public static func setupRealm(completion: (() -> Void)) {
+        // First move the Realm file if needed, this is done on application versions < 2.0
+        moveRealmIfNeeded()
+
         let directory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)!
-        let path: URL = URL(string: directory.path.appending(fileName))!
+        let path: URL = directory.appendingPathComponent(fileName, isDirectory: true)
         let config = Realm.Configuration(fileURL: path,
                                          schemaVersion: currentSchemaVersion,
                                          migrationBlock: performMigration)
@@ -126,6 +129,28 @@ final class DatabaseManager {
     
     // MARK: Migration
 
+    /// Moves the Realm file to the new location, only required on application versions < 2.0
+    private static func moveRealmIfNeeded() {
+        let fm = FileManager.default
+        guard let origPath = Realm.Configuration.defaultConfiguration.fileURL else {
+            print("Unable to get original path...")
+            return
+        }
+
+        // Create new realm path
+        let groupPath = fm.containerURL(forSecurityApplicationGroupIdentifier: groupId)!
+        let newPath = groupPath.appendingPathComponent(fileName, isDirectory: true)
+
+        if (fm.fileExists(atPath: origPath.path) && !fm.fileExists(atPath: newPath.path)) {
+            do {
+                try fm.moveItem(atPath: origPath.path, toPath: newPath.path)
+            } catch {
+                print("Error moving Realm file: \(error)")
+            }
+        }
+    }
+
+    /// Peforms any required Realm migrations
     private static func performMigration(migration: Migration, version: UInt64) {
         if version < 1 {
             // Add new isFavorite property
