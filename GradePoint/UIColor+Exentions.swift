@@ -37,7 +37,7 @@ extension UIColor {
     static let favorite = UIColor(red: 0.808, green: 0.227, blue: 0.376, alpha: 1.00) /* ce3a60 */
     static let goldenYellow = UIColor(red: 0.965, green: 0.918, blue: 0.549, alpha: 1.00) /*f9d423*/
 
-    static let pastelPurple = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00) /* #a593e0 */
+    static let pastelPurple = UIColor(red: 0.678, green: 0.533, blue: 0.882, alpha: 1.00) /* #AD88E1 */
 
     // MARK: Computed Colors
 
