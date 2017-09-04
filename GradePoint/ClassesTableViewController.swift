@@ -537,10 +537,12 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateTitle: NSAttributedString {
         let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(),
                                                    .font: UIFont.systemFont(ofSize: 20)]
-        return NSAttributedString(string: "No Classes Added", attributes: attrs)
+        return NSAttributedString(string: "No classes added", attributes: attrs)
     }
     
     var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
+
+    var emptyStateImageSize: CGSize? { return CGSize(width: 120, height: 122) }
     
     var emptyStateButtonTitle: NSAttributedString? {
         let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.highlight,
