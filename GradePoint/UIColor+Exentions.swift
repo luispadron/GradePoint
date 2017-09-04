@@ -26,7 +26,7 @@ extension UIColor {
 
     static let blueGray = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
     static let midGray = UIColor(red: 0.345, green: 0.349, blue: 0.408, alpha: 1.00) // #585968
-    static let blueWood = UIColor(red: 0.333, green: 0.365, blue: 0.552, alpha: 1.00) /* #363a60 */
+    static let blueWood = UIColor(red: 0.357, green: 0.525, blue: 0.898, alpha: 1.00) /* #5B86E5 */
     static let ocean = UIColor(red: 0.66, green: 0.87, blue: 0.98, alpha: 1.0) /* A9DEF9 */
 
     static let whiteText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // #fafafa
