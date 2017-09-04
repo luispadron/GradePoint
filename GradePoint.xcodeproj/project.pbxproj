@@ -309,9 +309,9 @@
 			isa = PBXGroup;
 			children = (
 				A007050D1DAF0E9B00AD740A /* GradePoint */,
+				A0E4A6711F4A09E00094BC4F /* GradePointWidget */,
 				A00705241DAF0E9B00AD740A /* GradePointTests */,
 				A007052F1DAF0E9B00AD740A /* GradePointUITests */,
-				A0E4A6711F4A09E00094BC4F /* GradePointWidget */,
 				A007050C1DAF0E9B00AD740A /* Products */,
 				C3B49D48B4AB3B6AB5C7EEF1 /* Pods */,
 				6A96FD7C66A3F4FCE8EED023 /* Frameworks */,

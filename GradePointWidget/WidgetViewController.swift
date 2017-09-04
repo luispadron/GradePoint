@@ -15,6 +15,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
 
     @IBOutlet weak var ringContainerView: UIStackView!
     @IBOutlet weak var gpaRing: UICircularProgressRingView!
+    @IBOutlet weak var classNameLabel: UILabel!
     @IBOutlet weak var classRing: UICircularProgressRingView!
     @IBOutlet weak var emptyLabel: UILabel!
 
@@ -91,6 +92,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
                     return
             }
 
+            classNameLabel.text = recentClass.name
             classRing.innerRingColor = recentClass.color
             classRing.setProgress(value: CGFloat(recentClass.grade!.score), animationDuration: 1.0)
         }
