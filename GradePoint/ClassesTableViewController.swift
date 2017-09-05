@@ -309,7 +309,7 @@ class ClassesTableViewController: UITableViewController {
             case .update(let results, let deletions, let insertions, let modifications):
                 tableView.beginUpdates()
                 tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .automatic)
+                tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .left)
                 tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
                 // If this section had no cells previously, reload the section as well
                 if results.count - insertions.count == 0 {
