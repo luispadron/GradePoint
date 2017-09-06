@@ -68,11 +68,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // TODO: Remove this code whenever old user base is migrated to version 2.0
             // Code in here due to the new re-ordering of default terms and there locations in version 2.0.
             if terms.count == 4 && terms[0] == "Spring" && terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter" {
-                defaults.set(["Fall", "Summer", "Spring", "Winter"], forKey: userDefaultTerms)
+                defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
             }
         } else {
             // Save a default string array of terms
-            defaults.set(["Fall", "Summer", "Spring", "Winter"], forKey: userDefaultTerms)
+            defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
         }
         
         if !hasOnboarded { self.presentOnboarding() }
