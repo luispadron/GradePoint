@@ -201,10 +201,7 @@ class AddEditClassViewController: UIViewController {
             self.prepareView(for: viewState, with: previousClass, isEditing: true)
         } else {
             // Set a default semester
-            let semester = Semester(term: self.semesterPickerView.selectedSemester,
-                                    year: self.semesterPickerView.selectedYear)
-            self.semesterLabel.text = "\(semester.term) \(semester.year)"
-            self.semester = semester
+            selectCorrectSemester()
             // Set a default grade
             let scale = self.realm.objects(GPAScale.self).first!
             let defaultGrade = scale.gpaRubrics[0].gradeLetter
@@ -661,7 +658,67 @@ class AddEditClassViewController: UIViewController {
             break
         }
     }
-    
+
+    /// Sets the semester picker view to the specified term index but the current year
+    private func setSemesterPickerViewTerm(index: Int) {
+        self.semesterPickerView.semesterPicker.selectRow(index, inComponent: 0, animated: false)
+        self.semesterPickerView.pickerView(self.semesterPickerView.semesterPicker, didSelectRow: index, inComponent: 0)
+        self.semesterPickerView.semesterPicker.selectRow(1, inComponent: 1, animated: false)
+        self.semesterPickerView.pickerView(self.semesterPickerView.semesterPicker, didSelectRow: 1, inComponent: 1)
+
+
+        let semester = Semester(term: self.semesterPickerView.selectedSemester,
+                                year: self.semesterPickerView.selectedYear)
+        self.semesterLabel.text = "\(semester.term) \(semester.year)"
+        self.semester = semester
+    }
+
+    /// Selects a semester that makes sense to the current date
+    private func selectCorrectSemester() {
+        guard let terms = UserDefaults.standard.stringArray(forKey: userDefaultTerms) else { return }
+
+        // If adding a new class figure select a semester that makes sense to the current date
+        if classObj == nil {
+            let month = Calendar.current.component(.month, from: Date())
+            switch month {
+            case 12: fallthrough
+            case 1: fallthrough
+            case 2:
+                // Select Winter
+                if let i = terms.index(of: "Winter") {
+                    setSemesterPickerViewTerm(index: i)
+                }
+                break
+            case 3: fallthrough
+            case 4: fallthrough
+            case 5:
+                // Select spring
+                if let i = terms.index(of: "Spring") {
+                    setSemesterPickerViewTerm(index: i)
+                }
+                break
+            case 6: fallthrough
+            case 7: fallthrough
+            case 8:
+                // Select summer
+                if let i = terms.index(of: "Summer") {
+                    setSemesterPickerViewTerm(index: i)
+                }
+                break
+            case 9: fallthrough
+            case 10: fallthrough
+            case 11:
+                // Select fall
+                if let i = terms.index(of: "Fall") {
+                    setSemesterPickerViewTerm(index: i)
+                }
+                break
+            default:
+                return
+            }
+        }
+    }
+
     /// Updates the class type picker for the appropriate class
     func updateClassTypePicker(for classObj: Class) {
         let row = classObj.classType.rawValue - 1
