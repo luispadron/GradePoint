@@ -38,17 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var lastTimeActive: Date?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // DEBUG setup
-        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
-            print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
-            // Catches all exceptions and prints
-            NSSetUncaughtExceptionHandler { (exception) in
-                print(exception)
-            }
-
-            // For UITesting, handle any launch options
-            prepareForUITesting()
-        }
 
         let defaults = UserDefaults.standard
 
@@ -82,7 +71,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // App has launched and migrations finished, increase sessions
             self.incrementSessions()
         }
-        
+
+        // DEBUG setup
+        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
+            print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+            // Catches all exceptions and prints
+            NSSetUncaughtExceptionHandler { (exception) in
+                print(exception)
+            }
+
+            // For UITesting, handle any launch options
+            prepareForUITesting()
+        }
+
         return true
     }
     
