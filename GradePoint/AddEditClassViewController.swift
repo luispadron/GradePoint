@@ -17,8 +17,11 @@ enum ViewState {
 class AddEditClassViewController: UIViewController {
 
     // MARK: Properties
-    
+
+    weak var delegate: AddEditClassDelegate? = nil
+
     let realm = DatabaseManager.shared.realm
+
     var classObj: Class?
     lazy var colorForView: UIColor = {
         if let obj = self.classObj { return obj.color }
@@ -544,7 +547,12 @@ class AddEditClassViewController: UIViewController {
     /// Saves the edits the user made to the object
     func saveChangesTo(inProgressClass classObj: Class) {
         // Lets save the changes made to the Class object, again can force unwrap since already checked for values
-        
+
+        // Call delegate if needed
+        if classObj.semester! != self.semester {
+            self.delegate?.classObjectSemesterWillbeUpdated(classObj, from: classObj.semester!, to: self.semester)
+        }
+
         // Write name and semester changes to realm
         DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
@@ -587,6 +595,11 @@ class AddEditClassViewController: UIViewController {
     }
     
     func saveChangesTo(previousClass classObj: Class) {
+        // Call delegate if needed
+        if classObj.semester! != self.semester {
+            self.delegate?.classObjectSemesterWillbeUpdated(classObj, from: classObj.semester!, to: self.semester)
+        }
+
         DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType

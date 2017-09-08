@@ -25,6 +25,11 @@ class Semester: Object {
     }
     
     // MARK: - Overrides
+
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let sem = object as? Semester else { return false }
+        return sem.term == self.term && sem.year == self.year
+    }
     
     override class func primaryKey() -> String? {
         return "id"

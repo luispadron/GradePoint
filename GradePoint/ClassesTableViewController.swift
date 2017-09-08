@@ -44,6 +44,9 @@ class ClassesTableViewController: UITableViewController {
     private var isSearchActive: Bool {
         return searchController.isActive && searchController.searchBar.text != ""
     }
+
+    private var fromIndexPath: IndexPath? = nil
+    private var toIndexPath: IndexPath? = nil
     
     // MARK: View Handeling
     
@@ -308,13 +311,22 @@ class ClassesTableViewController: UITableViewController {
                 
             case .update(let results, let deletions, let insertions, let modifications):
                 tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .left)
-                tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
+
+                if let old = self?.fromIndexPath, let new = self?.toIndexPath  {
+                    tableView.moveRow(at: old, to: new)
+                    self?.fromIndexPath = nil
+                    self?.toIndexPath = nil
+                } else {
+                    tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
+                    tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .left)
+                    tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
+                }
+
                 // If this section had no cells previously, reload the section as well
                 if results.count - insertions.count == 0 {
                     tableView.reloadSections(IndexSet(integer: section), with: .automatic)
                 }
+                
                 tableView.endUpdates()
                 self?.reloadEmptyState()
                 
@@ -494,7 +506,9 @@ extension ClassesTableViewController: Segueable {
             
         case .addEditClass:
             guard let controller = segue.destination as? AddEditClassViewController else { return }
-            
+
+            controller.delegate = self
+
             // If editing then set the appropriate obj into the view controller, when user clicks edit
             // the sender provided will be an index path, using this we can get the object at that path
             if let path = sender as? IndexPath {
@@ -521,6 +535,18 @@ extension ClassesTableViewController: Segueable {
         searchController.isActive = false
         tableView.reloadData()
     }
+}
+
+// MARK: AddEditClassDelegation
+
+extension ClassesTableViewController: AddEditClassDelegate {
+    func classObjectSemesterWillbeUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
+        let fromSection = self.semesters.index(of: sem1)! + 1
+        let toSection = self.semesters.index(of: sem2)! + 1
+        fromIndexPath = IndexPath(row: self.classes[fromSection].index(of: classObj)!, section: fromSection)
+        toIndexPath = IndexPath(row: self.classes[toSection].count, section: toSection)
+    }
+
 }
 
 // MARK: UIEmptyState Data Source & Delegate

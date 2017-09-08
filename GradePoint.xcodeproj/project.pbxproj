@@ -51,6 +51,7 @@
 		A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */; };
 		A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */; };
 		A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96901EBBCC6500382E45 /* Settings.storyboard */; };
+		A08109761F631F7D0048F6DA /* AddEditClassDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08109751F631F7D0048F6DA /* AddEditClassDelegate.swift */; };
 		A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084437F1E55808F00C32F52 /* UICalculateViewController.swift */; };
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
@@ -208,6 +209,7 @@
 		A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClassDetail.storyboard; sourceTree = "<group>"; };
 		A07B968E1EBBCC3500382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Onboarding.storyboard; sourceTree = "<group>"; };
 		A07B96901EBBCC6500382E45 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		A08109751F631F7D0048F6DA /* AddEditClassDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditClassDelegate.swift; sourceTree = "<group>"; };
 		A084437F1E55808F00C32F52 /* UICalculateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateViewController.swift; sourceTree = "<group>"; };
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 				A0082BC01E3ED27300C91B3F /* Segueable.swift */,
 				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
 				A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */,
+				A08109751F631F7D0048F6DA /* AddEditClassDelegate.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -1058,6 +1061,7 @@
 				A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */,
 				A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */,
 				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,
+				A08109761F631F7D0048F6DA /* AddEditClassDelegate.swift in Sources */,
 				A0CE8B471DAF19EF007968EE /* UIColor+Exentions.swift in Sources */,
 				A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */,
 				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
