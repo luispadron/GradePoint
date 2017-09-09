@@ -12,6 +12,9 @@ import RealmSwift
 class AddEditAssignmentTableViewController: UITableViewController {
 
     // MARK: - Properties
+
+    /// Delegate which will be notified of realm changes
+    weak var delegate: AddEditAssignmentDelegate? = nil
     
     /// Realm database object
     let realm = DatabaseManager.shared.realm
@@ -280,7 +283,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
         let score = Double(scoreText) ?? 0.0
         let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
         let rubric = parentClass!.rubrics[indexOfRubric]
-        
+        let oldRubric = assignmentForEdit?.rubric?.copy() as! Rubric
+
         // Write change to realm
         DatabaseManager.shared.write {
             assignmentForEdit?.name = name
@@ -289,7 +293,14 @@ class AddEditAssignmentTableViewController: UITableViewController {
             assignmentForEdit?.rubric = rubric
         }
         
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            // Call deleggate if needed
+            if oldRubric != rubric {
+                self.delegate?.assignmentRubricWasUpdated(self.assignmentForEdit!, from: oldRubric, to: rubric)
+            }
+
+            self.delegate?.assignmentWasUpdated(self.assignmentForEdit!)
+        }
     }
     
     /// Creates and saves a new assignment in Realm and dismisses view
@@ -311,7 +322,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
             parentClass.assignments.append(newAssignment)
         }
 
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            // Call delegate
+            self.delegate?.assignmentWasCreated(newAssignment)
+        }
     }
     
     @objc func datePickerChange(sender: UIDatePicker) {

@@ -12,6 +12,8 @@ import UIEmptyState
 import LPSnackbar
 
 class ClassesTableViewController: UITableViewController, RealmTableView {
+    
+    // Conformance to RealmTableView
     typealias RealmObject = Class
     var realmData: [[Class]] {
         get { return self.classes }

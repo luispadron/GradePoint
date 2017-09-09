@@ -12,7 +12,14 @@ import UIEmptyState
 import UICircularProgressRing
 import LPSnackbar
 
-class ClassDetailTableViewController: UITableViewController {
+class ClassDetailTableViewController: UITableViewController, RealmTableView {
+
+    // Conformance to RealmTableView protocol
+    typealias RealmObject = Assignment
+    var realmData: [[Assignment]] {
+        get { return assignments }
+        set { assignments = newValue }
+    }
 
     // MARK: Subviews
 
@@ -26,13 +33,6 @@ class ClassDetailTableViewController: UITableViewController {
         didSet {
             assignments.removeAll()
             loadAssignments()
-            // Remove any active notifications
-            notificationTokens.forEach { $0.stop() }
-            notificationTokens.removeAll()
-            // Register notifications now that assignments are set
-            for (i, results) in assignments.enumerated() {
-                registerNotifications(for: results, in: i)
-            }
             // Update the UI
             updateUI()
         }
@@ -46,10 +46,7 @@ class ClassDetailTableViewController: UITableViewController {
     }
 
     /// The assignments from Realm, grouped by their Rubric
-    private var assignments: [Results<Assignment>] = [Results<Assignment>]()
-
-    /// All the currently active notification tokens
-    private var notificationTokens: [NotificationToken] = [NotificationToken]()
+    private var assignments: [[Assignment]] = []
 
     // MARK: View Handleing Methods
 
@@ -188,38 +185,38 @@ class ClassDetailTableViewController: UITableViewController {
         guard let classObj = _classObj else { return }
         classObj.rubrics.forEach {
             let grouped = classObj.assignments.filter("rubric = %@", $0).sorted(byKeyPath: "date", ascending: true)
-            assignments.append(grouped)
+            assignments.append(Array(grouped))
         }
     }
 
-    /// Registers all Realm notifications for the `assigments`
-    private func registerNotifications(for results: Results<Assignment>, in section: Int) {
-        let notification = results.addNotificationBlock { [weak self] (changes) in
-            guard let tableView = self?.tableView else { return }
-
-            // Upate table view for any changes
-            switch changes {
-            case .initial: tableView.reloadData()
-
-            case .update(let results, let deletions, let insertions, let modifications):
-                tableView.beginUpdates()
-                tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
-                tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .automatic)
-                tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
-                // If this section had no cells previously, reload the section as well
-                if results.count - insertions.count == 0 {
-                    tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-                }
-                tableView.endUpdates()
-                self?.updateProgressRing()
-                self?.reloadEmptyState()
-
-            case .error(let error): fatalError("Error in Realm notification changes.\n\(error)")
-            }
-        }
-
-        notificationTokens.append(notification)
-    }
+//    /// Registers all Realm notifications for the `assigments`
+//    private func registerNotifications(for results: Results<Assignment>, in section: Int) {
+//        let notification = results.addNotificationBlock { [weak self] (changes) in
+//            guard let tableView = self?.tableView else { return }
+//
+//            // Upate table view for any changes
+//            switch changes {
+//            case .initial: tableView.reloadData()
+//
+//            case .update(let results, let deletions, let insertions, let modifications):
+//                tableView.beginUpdates()
+//                tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
+//                tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .automatic)
+//                tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
+//                // If this section had no cells previously, reload the section as well
+//                if results.count - insertions.count == 0 {
+//                    tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+//                }
+//                tableView.endUpdates()
+//                self?.updateProgressRing()
+//                self?.reloadEmptyState()
+//
+//            case .error(let error): fatalError("Error in Realm notification changes.\n\(error)")
+//            }
+//        }
+//
+//        notificationTokens.append(notification)
+//    }
 
     /// Returns an Assignment at the specified index path
     private func assignment(at path: IndexPath) -> Assignment {
@@ -281,11 +278,46 @@ class ClassDetailTableViewController: UITableViewController {
     }
 
     deinit {
-        // Stop all notifications
-        notificationTokens.forEach { $0.stop() }
         // Remove references
         classObj = nil
         assignments.removeAll()
+    }
+}
+
+// MARK: AddEditAssignment Delegation
+
+extension ClassDetailTableViewController: AddEditAssignmentDelegate {
+    // For some reason index(of:) in collection isn't working correctly so manual loop is required
+    // TODO: Remove this code when Swift is fixed??
+    private func indexOf(rubric: Rubric) -> Int? {
+        guard let rubrics = _classObj?.rubrics else { return nil }
+
+        for (i, r) in rubrics.enumerated() {
+            if r == rubric { return i }
+        }
+
+        return nil
+    }
+
+    func assignmentWasCreated(_ assignment: Assignment) {
+        guard let classObj = _classObj else { return }
+
+        self.addCellWithObject(assignment, section: classObj.rubrics.index(of: assignment.rubric!)!)
+    }
+
+    func assignmentRubricWasUpdated(_ assignment: Assignment, from rubric1: Rubric, to rubric2: Rubric) {
+        let fromSection = indexOf(rubric: rubric1)!
+        let toSection = indexOf(rubric: rubric2)!
+
+        self.moveCellWithObject(assignment,
+                                from: IndexPath(row: assignments[fromSection].index(of: assignment)!, section: fromSection),
+                                to: IndexPath(row: assignments[toSection].count, section: toSection))
+    }
+
+    func assignmentWasUpdated(_ assignment: Assignment) {
+        self.reloadCellWithObject(assignment, section: indexOf(rubric: assignment.rubric!)!)
+
+        self.updateProgressRing()
     }
 }
 
@@ -379,6 +411,8 @@ extension ClassDetailTableViewController: Segueable {
         } else {
             nav.preferredContentSize = CGSize(width: screenSize.width * 0.65, height: screenSize.height * 0.85)
         }
+
+        vc.delegate = self
 
         switch segueIdentifier(forSegue: segue) {
         case .addAssignment:

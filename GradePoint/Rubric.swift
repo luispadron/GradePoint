@@ -32,10 +32,12 @@ class Rubric: Object {
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let rubric = object as? Rubric else { return false }
-        return rubric == self
+        return rubric.name == self.name && rubric.weight == self.weight
     }
-    
-    static func ==(lhs: Rubric, rhs: Rubric) -> Bool {
-        return (lhs.id == rhs.id) && (lhs.name == rhs.name) && (lhs.weight == rhs.weight)
+
+    override func copy() -> Any {
+        let r = Rubric(name: self.name, weight: self.weight)
+        r.id = self.id
+        return r
     }
 }

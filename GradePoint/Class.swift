@@ -61,11 +61,11 @@ class Class: Object {
     /// SIDE EFFECT: -> Updates the Grade for the sent in class object
     public static func calculateScore(in classObj: Class) -> CGFloat {
         let rubrics = classObj.rubrics
-        var assignments = [Results<Assignment>]()
+        var assignments: [[Assignment]] = []
         // Group the assignments by their rubrics
         rubrics.forEach {
             let grouped = classObj.assignments.filter("rubric = %@", $0)
-            assignments.append(grouped)
+            assignments.append(Array(grouped))
         }
         
         let score = Class.calculateScore(for: assignments, in: classObj)
@@ -75,7 +75,7 @@ class Class: Object {
     
     /// Helper method to reduce code use between the two public static methods
     /// SIDE EFFECT: -> Updates the Grade for the sent in class object
-    public static func calculateScore(for groupedAssignments: [Results<Assignment>], in classObj: Class) -> CGFloat {
+    public static func calculateScore(for groupedAssignments: [[Assignment]], in classObj: Class) -> CGFloat {
         guard !groupedAssignments.isTrueEmpty else { return 0.0 }
         
         var weights = 0.0
