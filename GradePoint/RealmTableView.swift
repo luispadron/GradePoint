@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import LPSnackbar
 
 protocol RealmTableView: class {
     associatedtype RealmObject: Equatable
@@ -16,7 +17,7 @@ protocol RealmTableView: class {
 
     func addObject(_ object: RealmObject, section: Int)
 
-    func deleteObject(_ object: RealmObject, section: Int)
+    func deleteObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?)
 
     func moveObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath)
 
@@ -34,8 +35,35 @@ extension RealmTableView where Self: UITableViewController {
         tableView.endUpdates()
     }
 
-    func deleteObject(_ object: RealmObject, section: Int) {
-        
+    func deleteObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
+        let row = realmData[section].index(of: object)!
+        tableView.beginUpdates()
+        realmData[section].remove(at: row)
+        tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .left)
+        if realmData[section].count == 0 {
+            tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        }
+        tableView.endUpdates()
+
+        guard allowsUndo else { return }
+
+        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 4.0)
+        snack.viewToDisplayIn = navigationController?.view
+        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
+
+        snack.show() { undone in
+            if undone {
+                self.tableView.beginUpdates()
+                self.realmData[section].append(object)
+                self.tableView.insertRows(at: [IndexPath(row: self.realmData[section].count - 1, section: section)], with: .automatic)
+                if self.realmData[section].count - 1  == 0  {
+                    self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                }
+                self.tableView.endUpdates()
+            }
+
+            completion?(undone, object)
+        }
     }
 
     func moveObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath) {

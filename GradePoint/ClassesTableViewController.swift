@@ -314,26 +314,11 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     private func filterClasses(for searchText: String) {
         filteredClasses = DatabaseManager.shared.realm.objects(Class.self).filter("name CONTAINS[cd] %@", searchText)
     }
-    
-    /// Handles deleting a cell and class object from the table view
+
+
     private func handleDelete(at path: IndexPath) {
         let classToDel = classObj(at: path)
-        // Create a copy in case the user undoes the deletion
-        let copy = classToDel.copy() as! Class
-        
-        // Set the associated rubric for the assignment to the exact same rubric in the rubrics array
-        for assignment in copy.assignments {
-            var sameRubric: Rubric?
-            for rubric in copy.rubrics {
-                if rubric == assignment.rubric {
-                    sameRubric = rubric
-                    break
-                }
-            }
-            
-            assignment.rubric = sameRubric
-        }
-    
+
         // Figure out whether we need to update the state of the detail controller or not
         // ONLY done when view controllers are in split view mode
         // If yes then remove the detail controllers classObj, which will cause the view to configure and show correct message
@@ -350,32 +335,57 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
             prevDetailController?.toggleViewVisibility(to: false)
         }
-        
-        // Set is favorites to false, this way it will get removed from the favorites section as well
+
+        // If class is a favorite
+        if path.section == 0 {
+            var regSection: Int = 0
+            for (i, arr) in classes.enumerated() { if arr.index(of: classToDel) != nil && i != 0 { regSection = i; break } }
+
+            // Delete object in favorites section
+            self.deleteObject(classToDel, section: path.section, allowsUndo: false, completion: nil)
+            // Delete object in normal section
+            self.deleteObject(classToDel, section: regSection, allowsUndo: true, completion: { [weak self] (undone, obj) in
+                self?.reloadEmptyState()
+                guard !undone else { return }
+                self?.deleteClass(obj)
+            })
+        } else if classToDel.isFavorite {
+            // Delete object in normal section
+            self.deleteObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
+                self?.reloadEmptyState()
+                guard !undone else { return }
+                self?.deleteClass(classObj)
+            }
+            // Delete object in favorites section
+            self.deleteObject(classToDel, section: 0, allowsUndo: false, completion: nil)
+        } else {
+            // Delete object in normal section
+            self.deleteObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
+                self?.reloadEmptyState()
+                guard !undone else { return }
+                self?.deleteClass(classObj)
+            }
+        }
+
+        // Unfavorite the class if deleted
         DatabaseManager.shared.write {
             classToDel.isFavorite = false
         }
 
-        // Delete from Realm
-        deleteClass(classToDel)
-    
-        reloadEmptyState()
-        
-        // Present snack bar to allow undo
-        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
-        snack.viewToDisplayIn = navigationController?.view
-        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
-        
-        snack.show() { [weak self] undone in
-            guard undone else { return }
-            DatabaseManager.shared.addObject(copy)
-            self?.reloadEmptyState()
-        }
+        self.reloadEmptyState()
     }
-    
+
     /// Called whenever a class is favorited. Will update the class in realm and add the appropriate cells to the table view
     private func didFavoriteClass(at path: IndexPath) {
         let classObj = self.classObj(at: path)
+
+        if classObj.isFavorite {
+            // Unfavorite
+            self.deleteObject(classObj, section: 0, allowsUndo: false, completion: nil)
+        } else {
+            self.addObject(classObj, section: 0)
+        }
+
         DatabaseManager.shared.write {
             classObj.isFavorite = !classObj.isFavorite
         }
@@ -506,7 +516,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
 
     func emptyStateViewShouldShow(for tableView: UITableView) -> Bool {
         // If not items then empty, show empty state
-        return DatabaseManager.shared.realm.objects(Class.self).count == 0
+        return classes.isTrueEmpty
     }
     
     var emptyStateTitle: NSAttributedString {

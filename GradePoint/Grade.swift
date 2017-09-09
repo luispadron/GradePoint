@@ -91,13 +91,5 @@ class Grade: Object {
             }
         }
     }
-    
-    override func copy() -> Any {
-        let copy = Grade()
-        copy.id = id
-        copy.gradeLetter = gradeLetter
-        copy.score = score
-        return copy
-    }
 }
 

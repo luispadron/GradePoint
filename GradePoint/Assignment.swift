@@ -37,10 +37,4 @@ class Assignment: Object {
     override class func primaryKey() -> String? {
         return "id"
     }
-    
-    override func copy() -> Any {
-        let copy = Assignment(name: name, date: date, score: score, associatedRubric: rubric!.copy() as! Rubric)
-        copy.id = id
-        return copy
-    }
 }
