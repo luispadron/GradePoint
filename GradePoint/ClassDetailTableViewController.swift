@@ -239,6 +239,7 @@ class ClassDetailTableViewController: UITableViewController {
             navigationItem.leftBarButtonItem?.isEnabled = false
             navigationItem.rightBarButtonItem?.isEnabled = false
             tableView.reloadData()
+            self.reloadEmptyState()
         }
     }
 

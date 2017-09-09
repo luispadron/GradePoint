@@ -21,11 +21,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     // MARK: Properties
 
     /// The semesters, which are the sections for the tableview
-    private var semesters: [Semester] {
-        get {
-            return generateSemesters()
-        }
-    }
+    private var semesters: [Semester] = []
     
     /// All the classes saved in Realm, grouped by their semesters
     private var classes: [[Class]] = []
@@ -87,6 +83,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         tableView.estimatedSectionFooterHeight = 0
         
         // Get all classes on load
+        semesters = generateSemesters()
         loadClasses()
         
         // Listen to semester update notifications
@@ -631,8 +628,11 @@ extension ClassesTableViewController {
     @objc private func semestersDidUpdate(notification: Notification) {
         // Remove all classes and load them again with new semesters
         classes.removeAll()
+        semesters.removeAll()
+        semesters = generateSemesters()
         loadClasses()
-        reloadEmptyState()
+        self.tableView.reloadData()
+        self.reloadEmptyState()
     }
 
     /// Called whenever the them is updated
