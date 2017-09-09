@@ -189,35 +189,6 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         }
     }
 
-//    /// Registers all Realm notifications for the `assigments`
-//    private func registerNotifications(for results: Results<Assignment>, in section: Int) {
-//        let notification = results.addNotificationBlock { [weak self] (changes) in
-//            guard let tableView = self?.tableView else { return }
-//
-//            // Upate table view for any changes
-//            switch changes {
-//            case .initial: tableView.reloadData()
-//
-//            case .update(let results, let deletions, let insertions, let modifications):
-//                tableView.beginUpdates()
-//                tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
-//                tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .automatic)
-//                tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
-//                // If this section had no cells previously, reload the section as well
-//                if results.count - insertions.count == 0 {
-//                    tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-//                }
-//                tableView.endUpdates()
-//                self?.updateProgressRing()
-//                self?.reloadEmptyState()
-//
-//            case .error(let error): fatalError("Error in Realm notification changes.\n\(error)")
-//            }
-//        }
-//
-//        notificationTokens.append(notification)
-//    }
-
     /// Returns an Assignment at the specified index path
     private func assignment(at path: IndexPath) -> Assignment {
         return assignments[path.section][path.row]
@@ -248,33 +219,32 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         }
     }
 
+    // For some reason index(of:) in collection when rubric is copied isn't working correctly so manual loop is required
+    // TODO: Remove this code when Swift is fixed??
+    private func indexOf(rubric: Rubric) -> Int? {
+        guard let rubrics = _classObj?.rubrics else { return nil }
+
+        for (i, r) in rubrics.enumerated() {
+            if r == rubric { return i }
+        }
+
+        return nil
+    }
+
     /// Handles deleting an Assignment at the specified IndexPath
     private func handleDelete(at path: IndexPath) {
-        guard let classObj = _classObj else { return }
-        let assignment = self.assignment(at: path)
-        let rubric = assignment.rubric
-        // Keep copy in case user undoes deletion
-        let copy = assignment.copy() as! Assignment
-        // Set rubric to same reference after copying assignment
-        copy.rubric = rubric
-
-        // Remove from Realm
-        DatabaseManager.shared.deleteObjects([assignment])
-
-        // Present snack to allow user to undo deletion
-        let snack = LPSnackbar(title: "Assignment deleted.", buttonTitle: "UNDO", displayDuration: 3.0)
-        snack.viewToDisplayIn = navigationController?.view
-        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
-
-        snack.show() { undone in
-            guard undone else { return }
-            // Re-add assignment into Realm
-            DatabaseManager.shared.addObject(copy)
-            // Re-associate the assignment to the class
-            DatabaseManager.shared.write {
-                classObj.assignments.append(copy)
+        let assign = assignment(at: path)
+        self.deleteCellWithObject(assign, section: indexOf(rubric: assign.rubric!)!, allowsUndo: true) { (undone, assignment) in
+            if !undone {
+                DatabaseManager.shared.deleteObjects([assignment])
             }
+
+            self.updateProgressRing()
+            self.reloadEmptyState()
         }
+
+        self.updateProgressRing()
+        self.reloadEmptyState()
     }
 
     deinit {
@@ -287,18 +257,6 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 // MARK: AddEditAssignment Delegation
 
 extension ClassDetailTableViewController: AddEditAssignmentDelegate {
-    // For some reason index(of:) in collection isn't working correctly so manual loop is required
-    // TODO: Remove this code when Swift is fixed??
-    private func indexOf(rubric: Rubric) -> Int? {
-        guard let rubrics = _classObj?.rubrics else { return nil }
-
-        for (i, r) in rubrics.enumerated() {
-            if r == rubric { return i }
-        }
-
-        return nil
-    }
-
     func assignmentWasCreated(_ assignment: Assignment) {
         guard let classObj = _classObj else { return }
 

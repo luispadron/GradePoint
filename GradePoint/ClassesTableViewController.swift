@@ -495,6 +495,20 @@ extension ClassesTableViewController: AddEditClassDelegate {
     func classWasUpdated(_ classObj: Class) {
         let section = semesters.index(of: classObj.semester!)! + 1
         self.reloadCellWithObject(classObj, section: section)
+
+        // Update detail controller if in Split view/iPad
+        // Also update the detail controller if in split view
+        guard let navController = self.splitViewController?.viewControllers.last as? UINavigationController else { return }
+        if let detailController = navController.childViewControllers.first as? ClassDetailTableViewController,
+            detailController.classObj == classObj {
+            // Re-set the object which causes UI to update
+            detailController.classObj = classObj
+        } else if let detailControl = navController.childViewControllers.first as? PreviousClassDetailViewController {
+            detailControl.className = classObj.name
+            detailControl.gradeString = classObj.grade?.gradeLetter
+            detailControl.setupUI()
+        }
+
     }
 
     func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {

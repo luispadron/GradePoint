@@ -38,6 +38,36 @@ class PreviousClassDetailViewController: UIViewController {
 
         toggleViewVisibility(to: true)
 
+        setupUI()
+
+        updateUI(with: UIDevice.current.orientation, size: self.view.frame.size)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // Hide all the views
+        toggleViewVisibility(to: false)
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        // Set full circle for radius
+        gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
+        // Set font size for grade label
+        gradeLabel.font = UIFont.systemFont(ofSize: CGFloat(Int(gradeHolderView.frame.width / 2.5)))
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        updateUI(with: UIDevice.current.orientation, size: size)
+    }
+
+    // MARK: Helpers
+
+    /// Sets up the UI with the correct text for labels/colors
+    public func setupUI() {
         // UI setup
         view.backgroundColor = UIColor.background
 
@@ -62,7 +92,7 @@ class PreviousClassDetailViewController: UIViewController {
 
         topLabel.textColor = UIColor.mainTextColor()
         bottomLabel.textColor = UIColor.mainTextColor()
-        
+
         if let classColor = self.classColor {
             gradeHolderView.backgroundColor = classColor
             button.layer.backgroundColor = classColor.cgColor
@@ -77,34 +107,7 @@ class PreviousClassDetailViewController: UIViewController {
             button.setTitleColor(.white, for: .normal)
             button.setTitleColor(.lightGray, for: .selected)
         }
-        
-        updateUI(with: UIDevice.current.orientation, size: self.view.frame.size)
     }
-
-
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // Hide all the views
-        toggleViewVisibility(to: false)
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        // Set full circle for radius
-        gradeHolderView.layer.cornerRadius = gradeHolderView.frame.height / 2
-        // Set font size for grade label
-        gradeLabel.font = UIFont.systemFont(ofSize: CGFloat(Int(gradeHolderView.frame.width / 2.5)))
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        updateUI(with: UIDevice.current.orientation, size: size)
-    }
-    
-    // MARK: Helpers
     
     /// Manages constraints and views depending on orientation and view size
     private func updateUI(with orientation: UIDeviceOrientation, size: CGSize) {
