@@ -11,13 +11,15 @@ import RealmSwift
 import UIEmptyState
 import LPSnackbar
 
-class ClassesTableViewController: UITableViewController {
+class ClassesTableViewController: UITableViewController, RealmTableView {
+    typealias RealmObject = Class
+    var realmData: [[Class]] {
+        get { return self.classes }
+        set { classes = newValue }
+    }
     
     // MARK: Properties
-    
-    /// Any Realm notification tokens that are active
-    private var notificationTokens: [NotificationToken] = [NotificationToken]()
-    
+
     /// The semesters, which are the sections for the tableview
     private var semesters: [Semester] {
         get {
@@ -26,7 +28,7 @@ class ClassesTableViewController: UITableViewController {
     }
     
     /// All the classes saved in Realm, grouped by their semesters
-    private var classes: [Results<Class>] = [Results<Class>]()
+    private var classes: [[Class]] = []
     
     /// Classes filtered by search text from the `searchController`
     private var filteredClasses: Results<Class>?
@@ -86,11 +88,6 @@ class ClassesTableViewController: UITableViewController {
         
         // Get all classes on load
         loadClasses()
-        
-        // Add notifications for Class object changes
-        for (i, objs) in classes.enumerated() {
-            registerNotifications(for: objs, in: i)
-        }
         
         // Listen to semester update notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
@@ -288,70 +285,14 @@ class ClassesTableViewController: UITableViewController {
         let realm = DatabaseManager.shared.realm
         let all = realm.objects(Class.self)
         // First append results of classes being favorited in row 0 of the 2D array
-        self.classes.append(all.filter("isFavorite == %@", true))
+        self.classes.append(Array(all.filter("isFavorite == %@", true)))
         // The rest of the arrays inside the `classes` array will be grouped by their semester
         semesters.forEach {
             let classes = all.filter("semester.term == %@ AND semester.year == %@", $0.term, $0.year)
-            self.classes.append(classes)
+            self.classes.append(Array(classes))
         }
     }
-    
-    /// Creates realm notifications for each array of classes in the `classes` array
-    private func registerNotifications(for results: Results<Class>, in section: Int) {
-        let notification = results.addNotificationBlock { [weak self] (changes) in
-            guard let tableView = self?.tableView else { return }
-            guard !(self?.isSearchActive ?? false) else {
-                tableView.reloadData()
-                return
-            }
-            
-            switch changes {
-                
-            case .initial: tableView.reloadData()
-                
-            case .update(let results, let deletions, let insertions, let modifications):
-                tableView.beginUpdates()
 
-                if let old = self?.fromIndexPath, let new = self?.toIndexPath  {
-                    tableView.moveRow(at: old, to: new)
-                    self?.fromIndexPath = nil
-                    self?.toIndexPath = nil
-                } else {
-                    tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: section) }, with: .automatic)
-                    tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: section)}, with: .left)
-                    tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: section) }, with: .automatic)
-                }
-
-                // If this section had no cells previously, reload the section as well
-                if results.count - insertions.count == 0 {
-                    tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-                }
-                
-                tableView.endUpdates()
-                self?.reloadEmptyState()
-                
-                // Also update the detail controller if in split view
-                guard let navController = (self?.splitViewController?.viewControllers.last as? UINavigationController),
-                    let detailController = navController.childViewControllers.first as? ClassDetailTableViewController
-                    else { break }
-                
-                for index in modifications {
-                    let classObj = results[index]
-                    if detailController.classObj == classObj {
-                        DispatchQueue.main.async {
-                            detailController.classObj = classObj
-                        }
-                    }
-                }
-                
-            case .error(let error): fatalError("Error in Realm notification change.\n \(error)")
-                
-            }
-        }
-        
-        notificationTokens.append(notification)
-    }
-    
     /// Returns a class object at a specified index path
     private func classObj(at path: IndexPath) -> Class {
         if isSearchActive {
@@ -443,9 +384,6 @@ class ClassesTableViewController: UITableViewController {
     // MARK: Deinit
 
     deinit {
-        notificationTokens.forEach {
-            $0.stop()
-        }
         NotificationCenter.default.removeObserver(self)
     }
 }
@@ -540,13 +478,24 @@ extension ClassesTableViewController: Segueable {
 // MARK: AddEditClassDelegation
 
 extension ClassesTableViewController: AddEditClassDelegate {
-    func classObjectSemesterWillbeUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
-        let fromSection = self.semesters.index(of: sem1)! + 1
-        let toSection = self.semesters.index(of: sem2)! + 1
-        fromIndexPath = IndexPath(row: self.classes[fromSection].index(of: classObj)!, section: fromSection)
-        toIndexPath = IndexPath(row: self.classes[toSection].count, section: toSection)
+
+    func classWasCreated(_ classObj: Class) {
+        self.addObject(classObj, section: self.semesters.index(of: classObj.semester!)! + 1)
     }
 
+    func classWasUpdated(_ classObj: Class) {
+        let section = semesters.index(of: classObj.semester!)! + 1
+        self.reloadObject(classObj, section: section)
+    }
+
+    func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
+        let fromSection = semesters.index(of: sem1)! + 1
+        let toSection = semesters.index(of: sem2)! + 1
+        let oldPath = IndexPath(row: classes[fromSection].index(of: classObj)!, section: fromSection)
+        let newPath = IndexPath(row: classes[toSection].count, section: toSection)
+
+        self.moveObject(classObj, from: oldPath, to: newPath)
+    }
 }
 
 // MARK: UIEmptyState Data Source & Delegate
@@ -673,17 +622,6 @@ extension ClassesTableViewController {
         // Remove all classes and load them again with new semesters
         classes.removeAll()
         loadClasses()
-        // Stop & remove all notification tokens
-        for (index, token) in notificationTokens.enumerated().reversed() {
-            token.stop()
-            notificationTokens.remove(at: index)
-        }
-
-        // Add notifications for Class object changes
-        for (i, objs) in classes.enumerated() {
-            registerNotifications(for: objs, in: i)
-        }
-
         reloadEmptyState()
     }
 

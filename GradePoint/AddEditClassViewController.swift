@@ -527,7 +527,10 @@ class AddEditClassViewController: UIViewController {
         DatabaseManager.shared.addObject(newClass)        
         
         // Dismiss controller
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            // Call delegate
+            self.delegate?.classWasCreated(newClass)
+        }
     }
     
     func saveNewPreviousClass() {
@@ -540,18 +543,18 @@ class AddEditClassViewController: UIViewController {
         // Write the new class to realm
         DatabaseManager.shared.addObject(newClass)
         
-        // Dismisses
-        self.dismiss(animated: true)
+        // Dismiss controller
+        self.dismiss(animated: true) {
+            // Call delegate
+            self.delegate?.classWasCreated(newClass)
+        }
     }
     
     /// Saves the edits the user made to the object
     func saveChangesTo(inProgressClass classObj: Class) {
         // Lets save the changes made to the Class object, again can force unwrap since already checked for values
 
-        // Call delegate if needed
-        if classObj.semester! != self.semester {
-            self.delegate?.classObjectSemesterWillbeUpdated(classObj, from: classObj.semester!, to: self.semester)
-        }
+        let oldSemester = classObj.semester!.copy() as! Semester
 
         // Write name and semester changes to realm
         DatabaseManager.shared.write {
@@ -589,16 +592,21 @@ class AddEditClassViewController: UIViewController {
                 classObj.rubrics.append(newRubric)
             }
         }
-        
+
         // Dismiss controller
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            // Call move delegate if needed
+            if oldSemester != classObj.semester {
+                self.delegate?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
+            }
+            // Call delegate
+            self.delegate?.classWasUpdated(classObj)
+        }
     }
     
     func saveChangesTo(previousClass classObj: Class) {
-        // Call delegate if needed
-        if classObj.semester! != self.semester {
-            self.delegate?.classObjectSemesterWillbeUpdated(classObj, from: classObj.semester!, to: self.semester)
-        }
+
+        let oldSemester = classObj.semester!.copy() as! Semester
 
         DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
@@ -610,7 +618,14 @@ class AddEditClassViewController: UIViewController {
         }
         
         // Dismiss controller
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            // Call move delegate if needed
+            if oldSemester != classObj.semester {
+                self.delegate?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
+            }
+            // Call delegate
+            self.delegate?.classWasUpdated(classObj)
+        }
     }
     
     /// Deletes all rubrics inside of the rubricsToDelete array
