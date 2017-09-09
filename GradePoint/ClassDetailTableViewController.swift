@@ -261,6 +261,9 @@ extension ClassDetailTableViewController: AddEditAssignmentDelegate {
         guard let classObj = _classObj else { return }
 
         self.addCellWithObject(assignment, section: classObj.rubrics.index(of: assignment.rubric!)!)
+
+        self.reloadEmptyState()
+        self.updateProgressRing()
     }
 
     func assignmentRubricWasUpdated(_ assignment: Assignment, from rubric1: Rubric, to rubric2: Rubric) {
