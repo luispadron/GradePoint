@@ -339,25 +339,25 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             for (i, arr) in classes.enumerated() { if arr.index(of: classToDel) != nil && i != 0 { regSection = i; break } }
 
             // Delete object in favorites section
-            self.deleteObject(classToDel, section: path.section, allowsUndo: false, completion: nil)
+            self.deleteCellWithObject(classToDel, section: path.section, allowsUndo: false, completion: nil)
             // Delete object in normal section
-            self.deleteObject(classToDel, section: regSection, allowsUndo: true, completion: { [weak self] (undone, obj) in
+            self.deleteCellWithObject(classToDel, section: regSection, allowsUndo: true, completion: { [weak self] (undone, obj) in
                 self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(obj)
             })
         } else if classToDel.isFavorite {
             // Delete object in normal section
-            self.deleteObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
+            self.deleteCellWithObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
                 self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(classObj)
             }
             // Delete object in favorites section
-            self.deleteObject(classToDel, section: 0, allowsUndo: false, completion: nil)
+            self.deleteCellWithObject(classToDel, section: 0, allowsUndo: false, completion: nil)
         } else {
             // Delete object in normal section
-            self.deleteObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
+            self.deleteCellWithObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
                 self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(classObj)
@@ -378,9 +378,9 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
 
         if classObj.isFavorite {
             // Unfavorite
-            self.deleteObject(classObj, section: 0, allowsUndo: false, completion: nil)
+            self.deleteCellWithObject(classObj, section: 0, allowsUndo: false, completion: nil)
         } else {
-            self.addObject(classObj, section: 0)
+            self.addCellWithObject(classObj, section: 0)
         }
 
         DatabaseManager.shared.write {
@@ -487,12 +487,12 @@ extension ClassesTableViewController: Segueable {
 extension ClassesTableViewController: AddEditClassDelegate {
 
     func classWasCreated(_ classObj: Class) {
-        self.addObject(classObj, section: self.semesters.index(of: classObj.semester!)! + 1)
+        self.addCellWithObject(classObj, section: self.semesters.index(of: classObj.semester!)! + 1)
     }
 
     func classWasUpdated(_ classObj: Class) {
         let section = semesters.index(of: classObj.semester!)! + 1
-        self.reloadObject(classObj, section: section)
+        self.reloadCellWithObject(classObj, section: section)
     }
 
     func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
@@ -501,7 +501,7 @@ extension ClassesTableViewController: AddEditClassDelegate {
         let oldPath = IndexPath(row: classes[fromSection].index(of: classObj)!, section: fromSection)
         let newPath = IndexPath(row: classes[toSection].count, section: toSection)
 
-        self.moveObject(classObj, from: oldPath, to: newPath)
+        self.moveCellWithObject(classObj, from: oldPath, to: newPath)
     }
 }
 

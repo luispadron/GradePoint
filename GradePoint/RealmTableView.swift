@@ -15,17 +15,17 @@ protocol RealmTableView: class {
 
     var realmData: [[RealmObject]] { get set }
 
-    func addObject(_ object: RealmObject, section: Int)
+    func addCellWithObject(_ object: RealmObject, section: Int)
 
-    func deleteObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?)
+    func deleteCellWithObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?)
 
-    func moveObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath)
+    func moveCellWithObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath)
 
-    func reloadObject(_ object: RealmObject, section: Int)
+    func reloadCellWithObject(_ object: RealmObject, section: Int)
 }
 
 extension RealmTableView where Self: UITableViewController {
-    func addObject(_ object: RealmObject, section: Int) {
+    func addCellWithObject(_ object: RealmObject, section: Int) {
         tableView.beginUpdates()
         realmData[section].append(object)
         tableView.insertRows(at: [IndexPath(row: realmData[section].count - 1, section: section)], with: .automatic)
@@ -35,7 +35,7 @@ extension RealmTableView where Self: UITableViewController {
         tableView.endUpdates()
     }
 
-    func deleteObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
+    func deleteCellWithObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
         let row = realmData[section].index(of: object)!
         tableView.beginUpdates()
         realmData[section].remove(at: row)
@@ -66,7 +66,7 @@ extension RealmTableView where Self: UITableViewController {
         }
     }
 
-    func moveObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath) {
+    func moveCellWithObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath) {
         tableView.beginUpdates()
         realmData[old.section].remove(at: old.row)
         realmData[new.section].append(object)
@@ -81,7 +81,7 @@ extension RealmTableView where Self: UITableViewController {
         tableView.endUpdates()
     }
 
-    func reloadObject(_ object: RealmObject, section: Int) {
+    func reloadCellWithObject(_ object: RealmObject, section: Int) {
         let row = realmData[section].index(of: object)!
         tableView.beginUpdates()
         tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .automatic)
