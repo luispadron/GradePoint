@@ -258,10 +258,14 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
 extension ClassDetailTableViewController: AddEditAssignmentDelegate {
     func assignmentWasCreated(_ assignment: Assignment) {
-        guard let classObj = _classObj else { return }
 
-        self.addCellWithObject(assignment, section: classObj.rubrics.index(of: assignment.rubric!)!)
-
+        self.tableView.beginUpdates()
+        let section = indexOf(rubric: assignment.rubric!)!
+        assignments[section].append(assignment)
+        assignments[section] = assignments[section].sorted { $0.date < $1.date }
+        let row = assignments[section].index(of: assignment)!
+        self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
+        self.tableView.endUpdates()
         self.reloadEmptyState()
         self.updateProgressRing()
     }
