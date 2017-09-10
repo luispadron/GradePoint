@@ -157,22 +157,34 @@ class PreviousClassDetailViewController: UIViewController {
                 self.gradeHolderBottomCons.constant = 15
                 self.buttonBottomCons.constant = 8
             }
-        } else if isIpad && isLandscape || isIpad {
+        } else if isIpad && isLandscape {
             DispatchQueue.main.async {
+                self.bgViewTopCons.constant = 80
+                self.bgViewBottomCons.constant = 80
+
                 if height < 800 {
                     self.topLabel.isHidden = true
                     self.bottomLabel.isHidden = true
                 } else {
-                    self.gradeHolderBottomCons.constant = 25
-                    self.bottomLabel.isHidden = true
+                    self.gradeHolderBottomCons.constant = 40
+                    self.bottomLabel.isHidden = false
                 }
             }
         } else if isIpad && isPortrait {
-            // Undo changes made in landscape
             DispatchQueue.main.async {
-                self.topLabel.isHidden = false
-                self.bottomLabel.isHidden = false
-                self.gradeHolderBottomCons.constant = 60
+                if height < 1200 {
+                    self.bgViewTopCons.constant = 200
+                    self.bgViewBottomCons.constant = 200
+                    self.gradeHolderBottomCons.constant = 40
+                    self.bottomLabel.isHidden = true
+                    self.topLabel.isHidden = false
+                } else {
+                    self.bgViewTopCons.constant = 240
+                    self.bgViewBottomCons.constant = 240
+                    self.gradeHolderBottomCons.constant = 60
+                    self.bottomLabel.isHidden = false
+                    self.topLabel.isHidden = false
+                }
             }
         }
     }
