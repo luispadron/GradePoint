@@ -16,6 +16,8 @@ let userDefaultStudentType = "com.luispadron.GradePoint.studentType"
 let userDefaultGradingType = "com.luispadron.GradePoint.gradingType"
 let userDefaultTerms = "com.luispadron.GradePoint.terms"
 let userDefaultTheme = "com.luispadron.GradePoint.theme"
+let userDefaultLastDateAsked = "com.luispadron.GradePoint.lastDateAsked"
+let userDefaultHasAskedRating = "com.luispadron.GradePoint.hasAskedRating"
 
 // Notifications
 let semestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")

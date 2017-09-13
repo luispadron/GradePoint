@@ -30,7 +30,9 @@ class RatingManager {
             
             if shouldPresent {
                 // Present rating dialog
-                SKStoreReviewController.requestReview()
+                DispatchQueue.main.async {
+                    SKStoreReviewController.requestReview()
+                }
             }
             
             return shouldPresent
@@ -39,15 +41,33 @@ class RatingManager {
         }
     }
     
+    private static func dateDifference(start date1: Date, end date2: Date) -> Int {
+        let calendar = Calendar.current
+        guard let start = calendar.ordinality(of: .day, in: .era, for: date1) else { return 0 }
+        guard let end = calendar.ordinality(of: .day, in: .era, for: date2) else { return 0 }
+        
+        return end - start
+    }
+    
     /// Whether the rating dialog should be presented to the user or not
     private static func shouldPresentRating() -> Bool {
+        let lastDayAsked = UserDefaults.standard.object(forKey: userDefaultLastDateAsked) as? Date
+        let hasAsked = UserDefaults.standard.bool(forKey: userDefaultHasAskedRating)
         // If user has info sessions, and classes/assignments/gpa calculation then we can present
         // the rating dialog
         let realm = DatabaseManager.shared.realm
         let classCount = realm.objects(Class.self).count
         let assignmentCount = realm.objects(Assignment.self).count
         let gpaCalcCount = realm.objects(GPACalculation.self).count
-        return AppDelegate.appInfo.sessions >= 5 && ((classCount >= 2 && assignmentCount >= 5) || gpaCalcCount >= 5)
+        let canAsk = AppDelegate.appInfo.sessions >= 5 && ((classCount >= 2 && assignmentCount >= 5) || gpaCalcCount >= 5)
+        
+        if (!hasAsked || abs(dateDifference(start: lastDayAsked ?? Date(), end: Date())) > 60) && canAsk {
+            UserDefaults.standard.set(Date(), forKey: userDefaultLastDateAsked)
+            UserDefaults.standard.set(true, forKey: userDefaultHasAskedRating)
+            return true
+        }
+        
+        return false
     }
     
     
