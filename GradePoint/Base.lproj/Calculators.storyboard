@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -230,10 +230,10 @@ maintain or achieve a desired grade.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2Q-xG-TLK" userLabel="NavBar">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="70"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="75"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="N1j-Pq-PGm">
-                                        <rect key="frame" x="15" y="23" width="738" height="25"/>
+                                        <rect key="frame" x="15" y="40" width="738" height="25"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-Di-dkF">
                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -276,14 +276,14 @@ maintain or achieve a desired grade.</string>
                                 <color key="backgroundColor" red="0.38823529411764707" green="0.58039215686274503" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="N1j-Pq-PGm" firstAttribute="centerX" secondItem="K2Q-xG-TLK" secondAttribute="centerX" id="91D-f7-7K1"/>
-                                    <constraint firstAttribute="height" constant="70" id="AD7-Zy-2SZ"/>
-                                    <constraint firstItem="N1j-Pq-PGm" firstAttribute="centerY" secondItem="K2Q-xG-TLK" secondAttribute="centerY" id="BqG-jY-F46"/>
+                                    <constraint firstAttribute="height" constant="75" id="AD7-Zy-2SZ"/>
                                     <constraint firstItem="N1j-Pq-PGm" firstAttribute="leading" secondItem="K2Q-xG-TLK" secondAttribute="leading" constant="15" id="fPO-pO-ZFH"/>
+                                    <constraint firstAttribute="bottom" secondItem="N1j-Pq-PGm" secondAttribute="bottom" constant="10" id="ifL-LO-NJu"/>
                                     <constraint firstAttribute="trailing" secondItem="N1j-Pq-PGm" secondAttribute="trailing" constant="15" id="vPG-3h-BI0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qk-bx-Wfl" userLabel="Current Grade Field">
-                                <rect key="frame" x="0.0" y="72" width="768" height="70"/>
+                                <rect key="frame" x="0.0" y="77" width="768" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Grade" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXX-o8-k8M">
                                         <rect key="frame" x="8" y="8" width="123.5" height="54"/>
@@ -318,7 +318,7 @@ maintain or achieve a desired grade.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdp-m3-Ok6" userLabel="Desired Grade Field">
-                                <rect key="frame" x="0.0" y="144" width="768" height="70"/>
+                                <rect key="frame" x="0.0" y="149" width="768" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desired Grade" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xen-5Q-ufB">
                                         <rect key="frame" x="8" y="8" width="124.5" height="54"/>
@@ -353,7 +353,7 @@ maintain or achieve a desired grade.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYa-z4-oH2" userLabel="Exam Worth Field">
-                                <rect key="frame" x="0.0" y="216" width="768" height="70"/>
+                                <rect key="frame" x="0.0" y="221" width="768" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam Worth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bzi-iz-V3p">
                                         <rect key="frame" x="8" y="8" width="105.5" height="54"/>
@@ -388,7 +388,7 @@ maintain or achieve a desired grade.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2k-K0-Igu">
-                                <rect key="frame" x="0.0" y="326" width="768" height="690"/>
+                                <rect key="frame" x="0.0" y="331" width="768" height="685"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to get" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2oU-qv-vdn">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="26.5"/>
@@ -509,10 +509,10 @@ maintain or achieve a desired grade.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QmB-qs-q0L" userLabel="NavBar">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="70"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="75"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="OZI-Vd-7Ym">
-                                        <rect key="frame" x="15" y="23" width="738" height="25"/>
+                                        <rect key="frame" x="15" y="40" width="738" height="25"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2p-SS-J8l">
                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -553,21 +553,21 @@ maintain or achieve a desired grade.</string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.6479269862" green="0.57001531120000004" blue="0.87848258020000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="1lR-dz-aP7"/>
+                                    <constraint firstAttribute="bottom" secondItem="OZI-Vd-7Ym" secondAttribute="bottom" constant="10" id="0sk-Ch-oqc"/>
+                                    <constraint firstAttribute="height" constant="75" id="1lR-dz-aP7"/>
                                     <constraint firstAttribute="trailing" secondItem="OZI-Vd-7Ym" secondAttribute="trailing" constant="15" id="6xR-eZ-Mfq"/>
                                     <constraint firstItem="OZI-Vd-7Ym" firstAttribute="leading" secondItem="QmB-qs-q0L" secondAttribute="leading" constant="15" id="Ia6-vI-kaQ"/>
                                     <constraint firstItem="OZI-Vd-7Ym" firstAttribute="centerX" secondItem="QmB-qs-q0L" secondAttribute="centerX" id="Mbh-4r-czH"/>
-                                    <constraint firstItem="OZI-Vd-7Ym" firstAttribute="centerY" secondItem="QmB-qs-q0L" secondAttribute="centerY" id="UO2-PZ-O9u"/>
                                 </constraints>
                             </view>
                             <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSA-Ck-DB3">
-                                <rect key="frame" x="0.0" y="70" width="768" height="954"/>
+                                <rect key="frame" x="0.0" y="75" width="768" height="949"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="QU2-Ph-hGp">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                                         <subviews>
                                             <segmentedControl hidden="YES" verifyAmbiguity="off" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
-                                                <rect key="frame" x="0.0" y="-70" width="768" height="36"/>
+                                                <rect key="frame" x="0.0" y="-75" width="768" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RHy-mn-cDc"/>
                                                 </constraints>

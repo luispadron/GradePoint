@@ -119,8 +119,8 @@ class PreviousClassDetailViewController: UIViewController {
         guard !(UIDevice.current.orientation == .unknown) else {
             // Fall back and use the least amount of space
             DispatchQueue.main.async {
-                self.bgViewTopCons.constant = 15
-                self.bgViewBottomCons.constant = 15
+                self.bgViewTopCons.constant = 30
+                self.bgViewBottomCons.constant = 30
                 self.gradeHolderTopCons.constant = 15
                 self.gradeHolderBottomCons.constant = 15
                 self.buttonBottomCons.constant = 8

@@ -98,16 +98,11 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        reloadEmptyState()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
+        self.clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
+        self.reloadEmptyState()
     }
     
     // MARK: Table View Methods
@@ -490,6 +485,7 @@ extension ClassesTableViewController: AddEditClassDelegate {
 
     func classWasCreated(_ classObj: Class) {
         self.addCellWithObject(classObj, section: self.semesters.index(of: classObj.semester!)! + 1)
+        self.reloadEmptyState()
     }
 
     func classWasUpdated(_ classObj: Class) {
@@ -508,7 +504,8 @@ extension ClassesTableViewController: AddEditClassDelegate {
             detailControl.gradeString = classObj.grade?.gradeLetter
             detailControl.setupUI()
         }
-
+        
+        self.reloadEmptyState()
     }
 
     func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
@@ -518,6 +515,7 @@ extension ClassesTableViewController: AddEditClassDelegate {
         let newPath = IndexPath(row: classes[toSection].count, section: toSection)
 
         self.moveCellWithObject(classObj, from: oldPath, to: newPath)
+        self.reloadEmptyState()
     }
 }
 

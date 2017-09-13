@@ -34,6 +34,7 @@ class AddEditClassViewController: UIViewController {
     
     // Nav bar
     @IBOutlet weak var navigationView: UIView!
+    @IBOutlet weak var navigationViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var navigationTitle: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
@@ -246,10 +247,15 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+
+    }
     
     // MARK: UI Update Methods
     
-    func prepareView(for state: ViewState, with classObj: Class?, isEditing: Bool) {
+    private func prepareView(for state: ViewState, with classObj: Class?, isEditing: Bool) {
         if isEditing {
             // Remove the switcher
             self.typeSwitcher.superview?.removeFromSuperview()

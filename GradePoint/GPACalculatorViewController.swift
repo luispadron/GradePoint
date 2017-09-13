@@ -39,10 +39,9 @@ class GPACalculatorViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIApplication.shared.statusBarStyle = .lightContent
         // UI Setup
         view.backgroundColor = UIColor.background
         headerView.backgroundColor = UIColor.tableViewHeader
@@ -92,8 +91,12 @@ class GPACalculatorViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         NotificationCenter.default.removeObserver(self)
+        // Revert status bar
+        switch UIColor.theme {
+        case .dark: UIApplication.shared.statusBarStyle = .lightContent
+        case .light: UIApplication.shared.statusBarStyle = .default
+        }
     }
     
     // MARK: Actions
