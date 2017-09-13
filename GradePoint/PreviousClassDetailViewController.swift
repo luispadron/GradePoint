@@ -17,8 +17,6 @@ class PreviousClassDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var gradeHolderView: UIView!
     @IBOutlet weak var gradeLabel: UILabel!
-    @IBOutlet weak var topLabel: UILabel!
-    @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     
     public var className: String? = nil
@@ -60,8 +58,7 @@ class PreviousClassDetailViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        updateUI(with: UIDevice.current.orientation, size: size)
+        self.updateUI(with: UIDevice.current.orientation, size: size)
     }
 
     // MARK: Helpers
@@ -89,10 +86,7 @@ class PreviousClassDetailViewController: UIViewController {
         titleLabel.textColor = UIColor.mainTextColor()
 
         gradeLabel.text = gradeString
-
-        topLabel.textColor = UIColor.mainTextColor()
-        bottomLabel.textColor = UIColor.mainTextColor()
-
+        
         if let classColor = self.classColor {
             gradeHolderView.backgroundColor = classColor
             button.layer.backgroundColor = classColor.cgColor
@@ -111,88 +105,103 @@ class PreviousClassDetailViewController: UIViewController {
     
     /// Manages constraints and views depending on orientation and view size
     private func updateUI(with orientation: UIDeviceOrientation, size: CGSize) {
-        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-        let isPortrait = orientation == .portrait || orientation == .portraitUpsideDown
-        let isLandscape = orientation == .landscapeLeft || orientation == .landscapeRight
-        let height = size.height
-
-        guard !(UIDevice.current.orientation == .unknown) else {
-            // Fall back and use the least amount of space
-            DispatchQueue.main.async {
-                self.bgViewTopCons.constant = 30
-                self.bgViewBottomCons.constant = 30
-                self.gradeHolderTopCons.constant = 15
-                self.gradeHolderBottomCons.constant = 15
-                self.buttonBottomCons.constant = 8
-                self.topLabel.isHidden = true
-                self.bottomLabel.isHidden = true
-            }
-            return
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            updateUIForIpad(size: size)
+        } else {
+            updateUIForIphone(size: size)
         }
-        
-        // If height is less than 700 (i.e, iPhone 6) and in portrait, remove the second label, and adjust constraints
-        if  height < 700 && height > 600 && isPortrait {
-            DispatchQueue.main.async {
-                self.bgViewTopCons.constant = 70
-                self.bgViewBottomCons.constant = 70
-                self.gradeHolderTopCons.constant = 20
-                self.gradeHolderBottomCons.constant = 20
-                self.buttonBottomCons.constant = 12
-                self.bottomLabel.isHidden = true
-            }
-        } else if height < 600 && isPortrait { // For screens smaller than iPhone 6, remove label, and adjust constraints
-            DispatchQueue.main.async {
-                self.bgViewTopCons.constant = 40
-                self.bgViewBottomCons.constant = 40
-                self.gradeHolderTopCons.constant = 10
-                self.gradeHolderBottomCons.constant = 10
-                self.buttonBottomCons.constant = 10
-                self.bottomLabel.isHidden = true
-            }
-        } else if height < 600 && isLandscape {
+    }
+    
+    private func updateUIForIphone(size: CGSize) {
+        switch UIDevice.current.orientation {
+        case .landscapeLeft: fallthrough
+        case .landscapeRight:
             DispatchQueue.main.async {
                 self.bgViewTopCons.constant = 15
                 self.bgViewBottomCons.constant = 15
-                self.gradeHolderTopCons.constant = 15
-                self.gradeHolderBottomCons.constant = 15
-                self.buttonBottomCons.constant = 8
-            }
-        } else if isIpad && isLandscape {
-            DispatchQueue.main.async {
-                self.bgViewTopCons.constant = 80
-                self.bgViewBottomCons.constant = 80
-
-                if height < 800 {
-                    self.topLabel.isHidden = true
-                    self.bottomLabel.isHidden = true
+                if size.width < 500 {
+                    self.bgViewLeadingCons.constant = 70
+                    self.bgViewTrailingCons.constant = 70
                 } else {
-                    self.gradeHolderBottomCons.constant = 40
-                    self.bottomLabel.isHidden = false
+                    self.bgViewLeadingCons.constant = 140
+                    self.bgViewTrailingCons.constant = 140
                 }
             }
-        } else if isIpad && isPortrait {
+            break
+            
+        case .portraitUpsideDown: fallthrough
+        case .portrait:
             DispatchQueue.main.async {
-                if height < 1200 {
-                    self.bgViewTopCons.constant = 200
-                    self.bgViewBottomCons.constant = 200
-                    self.gradeHolderBottomCons.constant = 40
-                    self.bottomLabel.isHidden = true
-                    self.topLabel.isHidden = false
+                self.bgViewLeadingCons.constant = 15
+                self.bgViewTrailingCons.constant = 15
+                if size.height < 600 {
+                    self.bgViewTopCons.constant = 50
+                    self.bgViewBottomCons.constant = 50
                 } else {
-                    self.bgViewTopCons.constant = 240
-                    self.bgViewBottomCons.constant = 240
-                    self.gradeHolderBottomCons.constant = 60
-                    self.bottomLabel.isHidden = false
-                    self.topLabel.isHidden = false
+                    self.bgViewTopCons.constant = 90
+                    self.bgViewBottomCons.constant = 90
                 }
             }
+            break
+            
+        default:
+            // If cant determine orientation for some reason fall back
+            print("\(#file) \(#line) WARNING: Unable to determine orientation for device.")
+            DispatchQueue.main.async {
+                self.bgViewLeadingCons.constant = 15
+                self.bgViewTrailingCons.constant = 15
+                self.bgViewTopCons.constant = 50
+                self.bgViewBottomCons.constant = 50
+            }
+            break
+        }
+    }
+    
+    private func updateUIForIpad(size: CGSize) {
+        DispatchQueue.main.async {
+            self.titleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+            self.button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+            self.gradeLabel.font = UIFont.systemFont(ofSize: 100)
+        }
+        
+        switch UIDevice.current.orientation {
+        case .landscapeLeft: fallthrough
+        case .landscapeRight:
+            DispatchQueue.main.async {
+                self.bgViewTopCons.constant = 40
+                self.bgViewBottomCons.constant = 40
+                self.bgViewLeadingCons.constant = 80
+                self.bgViewTrailingCons.constant = 80
+            }
+            break
+            
+        case .portraitUpsideDown: fallthrough
+        case .portrait:
+            DispatchQueue.main.async {
+                self.bgViewLeadingCons.constant = 25
+                self.bgViewTrailingCons.constant = 25
+                self.bgViewTopCons.constant = 160
+                self.bgViewBottomCons.constant = 160
+            }
+            break
+            
+        default:
+            // If cant determine orientation for some reason fall back
+            print("\(#file) \(#line) WARNING: Unable to determine orientation for device.")
+            DispatchQueue.main.async {
+                self.bgViewLeadingCons.constant = 15
+                self.bgViewTrailingCons.constant = 15
+                self.bgViewTopCons.constant = 50
+                self.bgViewBottomCons.constant = 50
+            }
+            break
         }
     }
     
     /// Hides all the views, this will be done if a class is deleted, and the application is in split screen mode
     public func toggleViewVisibility(to visible: Bool) {
 
-        self.title = visible ? className : nil
+        self.title = visible ? "Previous Class" : nil
         
         bgView.isHidden = !visible
         titleLabel.isHidden = !visible
@@ -225,8 +234,6 @@ class PreviousClassDetailViewController: UIViewController {
     @IBOutlet weak var bgViewBottomCons: NSLayoutConstraint!
     @IBOutlet weak var bgViewLeadingCons: NSLayoutConstraint!
     @IBOutlet weak var bgViewTrailingCons: NSLayoutConstraint!
-    @IBOutlet weak var gradeHolderTopCons: NSLayoutConstraint!
-    @IBOutlet weak var gradeHolderBottomCons: NSLayoutConstraint!
-    @IBOutlet var bottomLabelConstraints: [NSLayoutConstraint]!
+    @IBOutlet weak var titleLabelTopCons: NSLayoutConstraint!
     @IBOutlet weak var buttonBottomCons: NSLayoutConstraint!
 }
