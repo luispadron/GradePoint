@@ -178,7 +178,8 @@ class GPACalculatorViewController: UIViewController {
         var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
-        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
+        let ringSize = stackView.arrangedSubviews.contains(progressRingView.superview!) ? progressRingView.superview!.frame.height : 0
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height + ringSize, right: 0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
