@@ -14,6 +14,7 @@ protocol RealmTableView: class {
     associatedtype RealmObject: Equatable
 
     var realmData: [[RealmObject]] { get set }
+    var deletionQueue: [RealmObject] { get set }
 
     func addCellWithObject(_ object: RealmObject, section: Int)
 
@@ -22,9 +23,12 @@ protocol RealmTableView: class {
     func moveCellWithObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath)
 
     func reloadCellWithObject(_ object: RealmObject, section: Int)
+    
+    func dequeAndDeleteObjects()
 }
 
 extension RealmTableView where Self: UITableViewController {
+
     func addCellWithObject(_ object: RealmObject, section: Int) {
         tableView.beginUpdates()
         realmData[section].append(object)
@@ -36,6 +40,8 @@ extension RealmTableView where Self: UITableViewController {
     }
 
     func deleteCellWithObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
+        deletionQueue.append(object)
+        
         let row = realmData[section].index(of: object)!
         tableView.beginUpdates()
         realmData[section].remove(at: row)
@@ -52,6 +58,8 @@ extension RealmTableView where Self: UITableViewController {
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
 
         snack.show() { undone in
+            guard let deleteIndex = self.deletionQueue.index(of: object) else { return }
+            
             if undone {
                 self.tableView.beginUpdates()
                 self.realmData[section].append(object)
@@ -61,7 +69,8 @@ extension RealmTableView where Self: UITableViewController {
                 }
                 self.tableView.endUpdates()
             }
-
+            
+            self.deletionQueue.remove(at: deleteIndex)
             completion?(undone, object)
         }
     }
@@ -88,3 +97,4 @@ extension RealmTableView where Self: UITableViewController {
         tableView.endUpdates()
     }
 }
+

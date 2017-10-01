@@ -12,12 +12,18 @@ import UIEmptyState
 import LPSnackbar
 
 class ClassesTableViewController: UITableViewController, RealmTableView {
-    
+
     // Conformance to RealmTableView
     typealias RealmObject = Class
     var realmData: [[Class]] {
-        get { return self.classes }
+        get { return classes }
         set { classes = newValue }
+    }
+    
+    private var classesToDelete: [Class] = [Class]()
+    var deletionQueue: [Class] {
+        get { return classesToDelete }
+        set { classesToDelete = newValue }
     }
     
     // MARK: Properties
@@ -103,6 +109,11 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         
         self.clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
         self.reloadEmptyState()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dequeAndDeleteObjects()
     }
     
     // MARK: Table View Methods
@@ -385,6 +396,13 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         }
     }
 
+    func dequeAndDeleteObjects() {
+        for classObj in classesToDelete {
+            deleteClass(classObj)
+        }
+        classesToDelete = []
+    }
+    
     // MARK: Deinit
 
     deinit {

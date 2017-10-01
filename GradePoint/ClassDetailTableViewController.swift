@@ -20,6 +20,11 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         get { return assignments }
         set { assignments = newValue }
     }
+    private var assignmentsToDelete = [Assignment]()
+    var deletionQueue: [Assignment] {
+        get { return assignmentsToDelete }
+        set { assignmentsToDelete = newValue }
+    }
 
     // MARK: Subviews
 
@@ -104,6 +109,11 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         super.viewDidAppear(animated)
 
         updateProgressRing()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.dequeAndDeleteObjects()
     }
 
     override func viewWillLayoutSubviews() {
@@ -246,7 +256,12 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.updateProgressRing()
         self.reloadEmptyState()
     }
-
+    
+    func dequeAndDeleteObjects() {
+        DatabaseManager.shared.deleteObjects(assignmentsToDelete)
+        assignmentsToDelete = []
+    }
+    
     deinit {
         // Remove references
         classObj = nil
