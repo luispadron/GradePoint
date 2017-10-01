@@ -264,6 +264,7 @@
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="PvY-qq-dCJ">
                                         <variation key="heightClass=compact-widthClass=compact" constant="60"/>
@@ -273,6 +274,9 @@
                                     <constraint firstAttribute="trailing" secondItem="OKL-ri-BEn" secondAttribute="trailing" constant="15" id="mVz-4J-FKq"/>
                                     <constraint firstItem="OKL-ri-BEn" firstAttribute="centerX" secondItem="5w9-fD-BWU" secondAttribute="centerX" id="oGU-Zo-SxA"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="MV6-r5-1E8" appends="YES" id="MNy-5p-59g"/>
+                                </connections>
                             </view>
                             <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faa-9i-Psk">
                                 <rect key="frame" x="0.0" y="75" width="375" height="703"/>
@@ -587,6 +591,11 @@
                 <tapGestureRecognizer id="0U3-vF-PUo">
                     <connections>
                         <action selector="onClassTypeTap:" destination="quP-G3-hBI" id="K5E-xk-qNK"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="MV6-r5-1E8">
+                    <connections>
+                        <action selector="onNavbarTouched:" destination="quP-G3-hBI" id="KkY-cL-hk0"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

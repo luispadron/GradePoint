@@ -19,16 +19,19 @@ class AddEditClassViewController: UIViewController {
     // MARK: Properties
 
     weak var delegate: AddEditClassDelegate? = nil
-
-    let realm = DatabaseManager.shared.realm
-
+    
+    private let realm = DatabaseManager.shared.realm
+    
     var classObj: Class?
-    lazy var colorForView: UIColor = {
+    
+    private lazy var colorForView: UIColor = {
         if let obj = self.classObj { return obj.color }
         else { return UIColor.randomPastel }
     }()
     
-    let heightForRubricView: CGFloat = 70.0
+    private let heightForRubricView: CGFloat = 70.0
+    
+    private var colorTimer: Timer? = nil
     
     ///// VIEWS
     
@@ -38,13 +41,14 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var navigationTitle: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
+    
     // View content
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var headerView1: UIView!
     @IBOutlet weak var headerView2: UIView!
-    // Controls
     
+    // Controls
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var typeSwitcher: UISegmentedControl!
     @IBOutlet weak var nameField: UISafeTextField!
@@ -151,14 +155,7 @@ class AddEditClassViewController: UIViewController {
         self.gradeLabel.textColor = UIColor.mainTextColor()
         labels.forEach { $0.textColor = UIColor.secondaryTextColor() }
 
-        // Navigation view random color setup
-        self.navigationView.backgroundColor = colorForView
-        let visibleColor = colorForView.visibleTextColor(lightColor: .whiteText, darkColor: .darkText)
-        self.cancelButton.tintColor = visibleColor
-        self.saveButton.setTitleColor(visibleColor, for: .normal)
-        let visibleDisabledColor = colorForView.visibleTextColor(lightColor: UIColor.frenchGray, darkColor: UIColor.gray)
-        self.saveButton.setTitleColor(visibleDisabledColor, for: .disabled)
-        self.navigationTitle.textColor = visibleColor
+        updateNavBarForColorChange()
         
         // Customization for the fields
         let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
@@ -214,17 +211,15 @@ class AddEditClassViewController: UIViewController {
             self.prepareView(for: self.viewState, with: nil, isEditing: false)
         }
         
-        // Notify of nav bar color changes
-        self.setNeedsStatusBarAppearanceUpdate()
+        // Set up timer for color change
+        colorTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self,
+                                          selector: #selector(self.timerDidFinish(timer:)),
+                                          userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Set status bar color
-        let color = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
-        UIApplication.shared.statusBarStyle = color
-        self.setNeedsStatusBarAppearanceUpdate()
-        
+        updateNavBarForColorChange()
         updateSaveButton()
     }
     
@@ -245,12 +240,12 @@ class AddEditClassViewController: UIViewController {
         case .dark: UIApplication.shared.statusBarStyle = .lightContent
         case .light: UIApplication.shared.statusBarStyle = .default
         }
+        // Invalidate color timer
+        colorTimer?.invalidate()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        get { return .none }
     }
     
     // MARK: UI Update Methods
@@ -315,6 +310,12 @@ class AddEditClassViewController: UIViewController {
         }) { (finished) in
             if finished { self.dismiss(animated: true, completion: nil) }
         }
+    }
+    
+    @IBAction func onNavbarTouched(_ sender: UITapGestureRecognizer) {
+        // Change the navbar color
+        colorForView = UIColor.randomPastel
+        updateNavBarForColorChange()
     }
     
     @IBAction func onViewSwitchTapped(_ sender: UISegmentedControl) {
@@ -427,6 +428,13 @@ class AddEditClassViewController: UIViewController {
     @objc func keyboardWillHide(notification: Notification) {
         self.scrollView.contentInset = .zero
         self.scrollView.scrollIndicatorInsets = .zero
+    }
+    
+    @objc func timerDidFinish(timer: Timer) {
+        DispatchQueue.main.async {
+            self.colorForView = UIColor.randomPastel
+            self.updateNavBarForColorChange()
+        }
     }
     
     // MARK: Save Methods
@@ -562,13 +570,14 @@ class AddEditClassViewController: UIViewController {
 
         let oldSemester = classObj.semester!.copy() as! Semester
 
-        // Write name and semester changes to realm
+        // Write changes to realm
         DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
             classObj.creditHours = Int(creditHourSlider.value)
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
+            classObj.colorData = self.colorForView.toData()
         }
         
         // Delete any rubrics
@@ -621,6 +630,7 @@ class AddEditClassViewController: UIViewController {
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
             classObj.grade?.gradeLetter = self.gradeLabel.text!
+            classObj.colorData = self.colorForView.toData()
         }
         
         // Dismiss controller
@@ -654,6 +664,22 @@ class AddEditClassViewController: UIViewController {
     }
     
     // MARK: Helper Methods
+    
+    private func updateNavBarForColorChange() {
+        // Navigation view random color setup
+        UIView.animate(withDuration: 0.15) {
+            self.navigationView.backgroundColor = self.colorForView
+            let visibleColor = self.colorForView.visibleTextColor(lightColor: .whiteText, darkColor: .darkText)
+            self.cancelButton.tintColor = visibleColor
+            self.saveButton.setTitleColor(visibleColor, for: .normal)
+            let visibleDisabledColor = self.colorForView.visibleTextColor(lightColor: UIColor.frenchGray, darkColor: UIColor.gray)
+            self.saveButton.setTitleColor(visibleDisabledColor, for: .disabled)
+            self.navigationTitle.textColor = visibleColor
+            let statusColor = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
+            UIApplication.shared.statusBarStyle = statusColor
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
     
     /// Adds a new rubric view to the stack view, returns the view which was added
     @discardableResult func appendRubricView() -> UIRubricView {
@@ -908,6 +934,8 @@ class AddEditClassViewController: UIViewController {
         if #available(iOS 10.0, *) {
             feedbackGenerator = nil
         }
+        // Remove timer
+        colorTimer?.invalidate()
     }
 }
 
