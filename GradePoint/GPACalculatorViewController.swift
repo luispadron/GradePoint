@@ -175,7 +175,7 @@ class GPACalculatorViewController: UIViewController {
     /// Called whenever keyboard is shown, adjusts scroll view
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
-        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
         let ringSize = stackView.arrangedSubviews.contains(progressRingView.superview!) ? progressRingView.superview!.frame.height : 0
