@@ -13,17 +13,16 @@ import UICircularProgressRing
 import LPSnackbar
 
 class ClassDetailTableViewController: UITableViewController, RealmTableView {
-
     // Conformance to RealmTableView protocol
     typealias RealmObject = Assignment
     var realmData: [[Assignment]] {
         get { return assignments }
         set { assignments = newValue }
     }
-    private var assignmentsToDelete = [Assignment]()
-    var deletionQueue: [Assignment] {
-        get { return assignmentsToDelete }
-        set { assignmentsToDelete = newValue }
+    private var assignmentDeletionQueue = [Assignment: LPSnackbar]()
+    var deletionQueue: [Assignment: LPSnackbar] {
+        get { return assignmentDeletionQueue }
+        set { assignmentDeletionQueue = newValue }
     }
 
     // MARK: Subviews
@@ -99,7 +98,6 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         updateUI()
         reloadEmptyState()
     }
@@ -107,7 +105,6 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         updateProgressRing()
     }
     
@@ -257,9 +254,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.reloadEmptyState()
     }
     
-    func dequeAndDeleteObjects() {
-        DatabaseManager.shared.deleteObjects(assignmentsToDelete)
-        assignmentsToDelete = []
+    // Conformance to RealmTableView
+    func deleteObject(_ object: Assignment) {
+        DatabaseManager.shared.deleteObjects([object])
     }
     
     deinit {

@@ -12,7 +12,6 @@ import UIEmptyState
 import LPSnackbar
 
 class ClassesTableViewController: UITableViewController, RealmTableView {
-
     // Conformance to RealmTableView
     typealias RealmObject = Class
     var realmData: [[Class]] {
@@ -20,10 +19,10 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         set { classes = newValue }
     }
     
-    private var classesToDelete: [Class] = [Class]()
-    var deletionQueue: [Class] {
-        get { return classesToDelete }
-        set { classesToDelete = newValue }
+    private var classDeletionQueue: [Class: LPSnackbar] = [:]
+    var deletionQueue: [Class: LPSnackbar] {
+        get { return classDeletionQueue }
+        set { classDeletionQueue = newValue }
     }
     
     // MARK: Properties
@@ -395,12 +394,10 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             classObj.isFavorite = !classObj.isFavorite
         }
     }
-
-    func dequeAndDeleteObjects() {
-        for classObj in classesToDelete {
-            deleteClass(classObj)
-        }
-        classesToDelete = []
+    
+    /// Conformace for RealmTableView
+    func deleteObject(_ object: Class) {
+        deleteClass(object)
     }
     
     // MARK: Deinit

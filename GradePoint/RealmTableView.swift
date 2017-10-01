@@ -11,10 +11,10 @@ import RealmSwift
 import LPSnackbar
 
 protocol RealmTableView: class {
-    associatedtype RealmObject: Equatable
+    associatedtype RealmObject: Hashable
 
     var realmData: [[RealmObject]] { get set }
-    var deletionQueue: [RealmObject] { get set }
+    var deletionQueue: [RealmObject : LPSnackbar] { get set }
 
     func addCellWithObject(_ object: RealmObject, section: Int)
 
@@ -25,6 +25,8 @@ protocol RealmTableView: class {
     func reloadCellWithObject(_ object: RealmObject, section: Int)
     
     func dequeAndDeleteObjects()
+    
+    func deleteObject(_ object: RealmObject)
 }
 
 extension RealmTableView where Self: UITableViewController {
@@ -40,8 +42,6 @@ extension RealmTableView where Self: UITableViewController {
     }
 
     func deleteCellWithObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
-        deletionQueue.append(object)
-        
         let row = realmData[section].index(of: object)!
         tableView.beginUpdates()
         realmData[section].remove(at: row)
@@ -58,7 +58,7 @@ extension RealmTableView where Self: UITableViewController {
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
 
         snack.show() { undone in
-            guard let deleteIndex = self.deletionQueue.index(of: object) else { return }
+            guard self.deletionQueue[object] != nil else { return }
             
             if undone {
                 self.tableView.beginUpdates()
@@ -70,9 +70,11 @@ extension RealmTableView where Self: UITableViewController {
                 self.tableView.endUpdates()
             }
             
-            self.deletionQueue.remove(at: deleteIndex)
+            self.deletionQueue[object] = nil
             completion?(undone, object)
         }
+        
+        deletionQueue[object] = snack
     }
 
     func moveCellWithObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath) {
@@ -95,6 +97,14 @@ extension RealmTableView where Self: UITableViewController {
         tableView.beginUpdates()
         tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .automatic)
         tableView.endUpdates()
+    }
+    
+    func dequeAndDeleteObjects() {
+        for dictVal in deletionQueue {
+            deleteObject(dictVal.key)
+            dictVal.value.dismiss(animated: false, completeWithAction: false)
+        }
+        deletionQueue = [:]
     }
 }
 
