@@ -209,12 +209,11 @@ class AddEditClassViewController: UIViewController {
             self.gradeLabel.text = defaultGrade
             // Prepare for add state
             self.prepareView(for: self.viewState, with: nil, isEditing: false)
+            // Set a timer for the color
+            colorTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self,
+                                              selector: #selector(self.timerDidFinish(timer:)),
+                                              userInfo: nil, repeats: true)
         }
-        
-        // Set up timer for color change
-        colorTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self,
-                                          selector: #selector(self.timerDidFinish(timer:)),
-                                          userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
