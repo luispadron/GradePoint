@@ -71,6 +71,8 @@ class CustomRubricSettingTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.view.backgroundColor = UIColor.background
     }
 
     // MARK: - TableView Methods

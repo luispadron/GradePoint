@@ -74,6 +74,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.view.backgroundColor = UIColor.background
     }
     
     override func viewDidAppear(_ animated: Bool) {

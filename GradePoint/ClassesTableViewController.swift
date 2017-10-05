@@ -103,6 +103,12 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.view.backgroundColor = UIColor.background
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
