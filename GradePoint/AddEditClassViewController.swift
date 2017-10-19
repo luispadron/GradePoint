@@ -533,7 +533,7 @@ class AddEditClassViewController: UIViewController {
         let credits = Int(creditHourSlider.value)
         // Create the new class
         let newClass = Class(name: self.nameField.safeText, classType: self.classType,
-                             creditHours: credits, semester: semester, rubrics: List<Rubric>(rubrics))
+                             creditHours: credits, semester: semester, rubrics: rubrics)
         newClass.colorData = colorForView.toData()
         
         // Add to realm

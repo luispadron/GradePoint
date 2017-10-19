@@ -27,13 +27,13 @@ class Class: Object {
     // MARK: - Initializers
     
     /// Used to create an in-progress class
-    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester, rubrics:  List<Rubric>) {
+    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester, rubrics:  [Rubric]) {
         self.init()
         self.name = name
         self.classType = classType
         self.creditHours = creditHours
         self.semester = semester
-        self.rubrics = rubrics
+        self.rubrics.append(objectsIn: rubrics)
         self.colorData = UIColor.randomPastel.toData()
         self.grade = Grade(score: 0.0)
     }

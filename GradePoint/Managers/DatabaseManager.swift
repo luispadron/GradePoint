@@ -47,7 +47,7 @@ final class DatabaseManager {
     }
     
     /// Deletes sent in objects from Realm List if possible
-    public func deleteObjects<T>(_ objects: List<T>) {
+    public func deleteObjects<T: Object>(_ objects: List<T>) {
         guard !objects.isInvalidated else {
             print("ERROR: Canno't delete objects from Realm, they have been invalidated.")
             return
@@ -61,7 +61,7 @@ final class DatabaseManager {
     }
     
     /// Deletes sent in objects from Realm Results if possible
-    public func deleteObjects<T>(_ objects: Results<T>) {
+    public func deleteObjects<T: Object>(_ objects: Results<T>) {
         guard !objects.isInvalidated else {
             print("ERROR: Canno't delete objects from Realm, they have been invalidated.")
             return

@@ -1,10 +1,10 @@
 PODS:
   - LPSnackbar (1.1.2)
-  - Realm (2.10.2):
-    - Realm/Headers (= 2.10.2)
-  - Realm/Headers (2.10.2)
-  - RealmSwift (2.10.2):
-    - Realm (= 2.10.2)
+  - Realm (3.0.0):
+    - Realm/Headers (= 3.0.0)
+  - Realm/Headers (3.0.0)
+  - RealmSwift (3.0.0):
+    - Realm (= 3.0.0)
   - UICircularProgressRing (1.7.4)
   - UIEmptyState (2.0.1)
 
@@ -16,8 +16,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   LPSnackbar: 67db43a51fa744f5d6978c249a39e3a5e71a3de6
-  Realm: 0ef72b837fb67e9f4b098bac771ddd72c7fdbb69
-  RealmSwift: 07a9ae0505091eda6b2ee7c190c3786d6e90a7b0
+  Realm: dec0de73be8c57506e39db72694d513c189493b3
+  RealmSwift: 44a7090b16d1b22a406c6bf129bdd602db1bbecc
   UICircularProgressRing: 5aca63423d913dc967661370e94e2af0770dd9cd
   UIEmptyState: c81a01c7db028bfe2baa770a5930203d38afc802
 
