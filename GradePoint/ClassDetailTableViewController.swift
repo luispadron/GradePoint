@@ -157,7 +157,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath) as! AssignmentTableViewCell
 
         cell.nameLabel.text = assignment.name
-        cell.scoreLabel.text = "Score: \(assignment.score)"
+        cell.scoreLabel.text = "Score: \(assignment.score)%"
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
