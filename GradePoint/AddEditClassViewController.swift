@@ -311,7 +311,9 @@ class AddEditClassViewController: UIViewController {
         }
     }
     
-    @IBAction func onNavbarTouched(_ sender: UITapGestureRecognizer) {
+    @IBAction func onNavbarTouched(_ gesture: UITapGestureRecognizer) {
+        // Don't change color if near the exit button on top left
+        guard gesture.location(in: self.view).x > 80 else { return }
         // Change the navbar color
         colorForView = UIColor.randomPastel
         updateNavBarForColorChange()
