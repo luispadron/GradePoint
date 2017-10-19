@@ -18,7 +18,9 @@ protocol RealmTableView: class {
 
     func addCellWithObject(_ object: RealmObject, section: Int)
 
-    func deleteCellWithObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?)
+    func deleteCellWithObject(_ object: RealmObject, section: Int,
+                              snackTitle: String, buttonTitle: String,
+                              allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) 
 
     func moveCellWithObject(_ object: RealmObject, from old: IndexPath, to new: IndexPath)
 
@@ -41,7 +43,9 @@ extension RealmTableView where Self: UITableViewController {
         tableView.endUpdates()
     }
 
-    func deleteCellWithObject(_ object: RealmObject, section: Int, allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
+    func deleteCellWithObject(_ object: RealmObject, section: Int,
+                              snackTitle: String, buttonTitle: String,
+                              allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
         let row = realmData[section].index(of: object)!
         tableView.beginUpdates()
         realmData[section].remove(at: row)
@@ -53,7 +57,7 @@ extension RealmTableView where Self: UITableViewController {
 
         guard allowsUndo else { return }
 
-        let snack = LPSnackbar(title: "Class deleted.", buttonTitle: "UNDO", displayDuration: 4.0)
+        let snack = LPSnackbar(title: snackTitle, buttonTitle: buttonTitle, displayDuration: 4.0)
         snack.viewToDisplayIn = navigationController?.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
 

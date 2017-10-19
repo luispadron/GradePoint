@@ -352,25 +352,35 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             for (i, arr) in classes.enumerated() { if arr.index(of: classToDel) != nil && i != 0 { regSection = i; break } }
 
             // Delete object in favorites section
-            self.deleteCellWithObject(classToDel, section: path.section, allowsUndo: false, completion: nil)
+            self.deleteCellWithObject(classToDel, section: path.section,
+                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      allowsUndo: false, completion: nil)
             // Delete object in normal section
-            self.deleteCellWithObject(classToDel, section: regSection, allowsUndo: true, completion: { [weak self] (undone, obj) in
+            self.deleteCellWithObject(classToDel, section: regSection,
+                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      allowsUndo: true, completion: { [weak self] (undone, obj) in
                 self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(obj)
             })
         } else if classToDel.isFavorite {
             // Delete object in normal section
-            self.deleteCellWithObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
+            self.deleteCellWithObject(classToDel, section: path.section,
+                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      allowsUndo: true) { [weak self] undone, classObj in
                 self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(classObj)
             }
             // Delete object in favorites section
-            self.deleteCellWithObject(classToDel, section: 0, allowsUndo: false, completion: nil)
+            self.deleteCellWithObject(classToDel, section: 0,
+                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      allowsUndo: false, completion: nil)
         } else {
             // Delete object in normal section
-            self.deleteCellWithObject(classToDel, section: path.section, allowsUndo: true) { [weak self] undone, classObj in
+            self.deleteCellWithObject(classToDel, section: path.section,
+                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      allowsUndo: true) { [weak self] undone, classObj in
                 self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(classObj)
@@ -391,7 +401,9 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
 
         if classObj.isFavorite {
             // Unfavorite
-            self.deleteCellWithObject(classObj, section: 0, allowsUndo: false, completion: nil)
+            self.deleteCellWithObject(classObj, section: 0,
+                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      allowsUndo: false, completion: nil)
         } else {
             self.addCellWithObject(classObj, section: 0)
         }
