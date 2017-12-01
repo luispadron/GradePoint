@@ -2,7 +2,6 @@ platform :ios, '9.0'
 use_frameworks!
 
 def all_pods
-  pod 'RealmSwift'
   pod 'UICircularProgressRing'
   pod 'UIEmptyState'
   pod 'LPSnackbar'
@@ -22,7 +21,6 @@ end
 
 target 'GradePointWidget' do
   pod 'UICircularProgressRing'
-  pod 'RealmSwift'
 end
 
 post_install do |installer|

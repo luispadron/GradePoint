@@ -6,7 +6,9 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
+
 /**
  Model used to store information about how many times user has been asked to rate the app.
  Will only ever exist one of these per application, per device.

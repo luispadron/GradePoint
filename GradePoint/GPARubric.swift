@@ -6,6 +6,7 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
 
 /// The GPA Rubric class, has grade letter and grade points property

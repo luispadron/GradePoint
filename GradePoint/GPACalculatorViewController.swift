@@ -6,6 +6,7 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import UICircularProgressRing
 import RealmSwift
@@ -227,7 +228,8 @@ class GPACalculatorViewController: UIViewController {
                 let associatedClass = classes[index]
                 let creditHours = associatedClass.creditHours
                 // The grade letter is grabbed from the view instead of the class since this can be changed
-                let gradePoint = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }.first!.gradePoints
+                let filteredRubrics = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }
+                let gradePoint = filteredRubrics.first!.gradePoints
                 // If calculation is weighted, then add up any additional points
                 if isWeighted && studentType == .highSchool {
                     // Make sure to take into account credits, since weighted

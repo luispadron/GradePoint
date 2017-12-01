@@ -6,6 +6,7 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
 
 class Rubric: Object {
