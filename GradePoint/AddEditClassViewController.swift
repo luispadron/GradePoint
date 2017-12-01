@@ -18,7 +18,7 @@ class AddEditClassViewController: UIViewController {
 
     // MARK: Properties
 
-    weak var delegate: AddEditClassDelegate? = nil
+    weak var delegate: ClassChangesListener? = nil
     
     private let realm = DatabaseManager.shared.realm
     

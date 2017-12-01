@@ -14,7 +14,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     // MARK: - Properties
 
     /// Delegate which will be notified of realm changes
-    weak var delegate: AddEditAssignmentDelegate? = nil
+    weak var delegate: AssignmentChangesListener? = nil
     
     /// Realm database object
     let realm = DatabaseManager.shared.realm

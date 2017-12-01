@@ -273,7 +273,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
 // MARK: AddEditAssignment Delegation
 
-extension ClassDetailTableViewController: AddEditAssignmentDelegate {
+extension ClassDetailTableViewController: AssignmentChangesListener {
     func assignmentWasCreated(_ assignment: Assignment) {
         self.tableView.beginUpdates()
         let section = indexOf(rubric: assignment.rubric!)!

@@ -514,7 +514,7 @@ extension ClassesTableViewController: Segueable {
 
 // MARK: AddEditClassDelegation
 
-extension ClassesTableViewController: AddEditClassDelegate {
+extension ClassesTableViewController: ClassChangesListener {
 
     func classWasCreated(_ classObj: Class) {
         self.addCellWithObject(classObj, section: self.semesters.index(of: classObj.semester!)! + 1)
