@@ -3,8 +3,6 @@ use_frameworks!
 
 def all_pods
   pod 'UICircularProgressRing'
-  pod 'UIEmptyState'
-  pod 'LPSnackbar'
 end
 
 target 'GradePoint' do

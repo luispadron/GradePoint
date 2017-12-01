@@ -244,7 +244,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     private func handleDelete(at path: IndexPath) {
         let assign = assignment(at: path)
         self.deleteCellWithObject(assign, section: indexOf(rubric: assign.rubric!)!,
-                                  snackTitle: "Assignment deleted.", buttonTitle: "UNDO",
+                                  snackTitle: "Assignment deleted", buttonTitle: "UNDO",
                                   allowsUndo: true)
         { (undone, assignment) in
             if !undone {

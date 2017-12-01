@@ -353,11 +353,11 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
 
             // Delete object in favorites section
             self.deleteCellWithObject(classToDel, section: path.section,
-                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: false, completion: nil)
             // Delete object in normal section
             self.deleteCellWithObject(classToDel, section: regSection,
-                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: true, completion: { [weak self] (undone, obj) in
                 self?.reloadEmptyState()
                 guard !undone else { return }
@@ -366,7 +366,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         } else if classToDel.isFavorite {
             // Delete object in normal section
             self.deleteCellWithObject(classToDel, section: path.section,
-                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: true) { [weak self] undone, classObj in
                 self?.reloadEmptyState()
                 guard !undone else { return }
@@ -374,12 +374,12 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             }
             // Delete object in favorites section
             self.deleteCellWithObject(classToDel, section: 0,
-                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: false, completion: nil)
         } else {
             // Delete object in normal section
             self.deleteCellWithObject(classToDel, section: path.section,
-                                      snackTitle: "Class deleted.", buttonTitle: "UNDO",
+                                      snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: true) { [weak self] undone, classObj in
                 self?.reloadEmptyState()
                 guard !undone else { return }

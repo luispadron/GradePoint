@@ -21,3 +21,6 @@ xcuserdata/
 
 # Don't keep pods folder in source control
 Pods/
+
+# Carthage
+Carthage/

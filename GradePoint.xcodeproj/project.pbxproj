@@ -10,6 +10,7 @@
 		11FE5C507A183921901CBF3F /* Pods_GradePointTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB13DB1CDA69916A09A83E9 /* Pods_GradePointTests.framework */; };
 		4F2CC5307E03FAC95B75C166 /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBD92349E091BEACA45C133 /* Pods_GradePoint.framework */; };
 		72DC7D95915AE62A2F366940 /* Pods_GradePointUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27992FE956952C25F213D31 /* Pods_GradePointUITests.framework */; };
+		A00288C41FD11A590076097C /* UIEmptyState.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00288C31FD11A590076097C /* UIEmptyState.framework */; };
 		A004225A1FD10AB4000016BA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422561FD10A96000016BA /* Realm.framework */; };
 		A004225B1FD10AB4000016BA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422571FD10A96000016BA /* RealmSwift.framework */; };
 		A00422661FD10F07000016BA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422561FD10A96000016BA /* Realm.framework */; };
@@ -34,6 +35,7 @@
 		A021E8BD1E7A20F40014818F /* CGFloat+ToRads.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */; };
 		A024E92A1EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */; };
 		A027533D1F043B240021CDFF /* RatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A027533C1F043B240021CDFF /* RatingManager.swift */; };
+		A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */; };
 		A048D7811F64499100DA7113 /* AddEditAssignmentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A048D7801F64499100DA7113 /* AddEditAssignmentDelegate.swift */; };
 		A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */; };
 		A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */; };
@@ -174,6 +176,7 @@
 		4EB13DB1CDA69916A09A83E9 /* Pods_GradePointTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePointTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		555E2910EC5F1E493E9CB636 /* Pods-GradePointWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		98AD3A6A93A00988EAF2C808 /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
+		A00288C31FD11A590076097C /* UIEmptyState.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIEmptyState.framework; path = Carthage/Build/iOS/UIEmptyState.framework; sourceTree = "<group>"; };
 		A00422561FD10A96000016BA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		A00422571FD10A96000016BA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardPageViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +205,7 @@
 		A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+ToRads.swift"; sourceTree = "<group>"; };
 		A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterConfigurationTableViewController.swift; sourceTree = "<group>"; };
 		A027533C1F043B240021CDFF /* RatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingManager.swift; sourceTree = "<group>"; };
+		A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LPSnackbar.framework; path = Carthage/Build/iOS/LPSnackbar.framework; sourceTree = "<group>"; };
 		A048D7801F64499100DA7113 /* AddEditAssignmentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentDelegate.swift; sourceTree = "<group>"; };
 		A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDatePickerTableViewCell.swift; sourceTree = "<group>"; };
@@ -284,7 +288,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F2CC5307E03FAC95B75C166 /* Pods_GradePoint.framework in Frameworks */,
+				A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */,
 				A00422661FD10F07000016BA /* Realm.framework in Frameworks */,
+				A00288C41FD11A590076097C /* UIEmptyState.framework in Frameworks */,
 				A00422671FD10F07000016BA /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +343,8 @@
 		6A96FD7C66A3F4FCE8EED023 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A00288C31FD11A590076097C /* UIEmptyState.framework */,
+				A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */,
 				A00422561FD10A96000016BA /* Realm.framework */,
 				A00422571FD10A96000016BA /* RealmSwift.framework */,
 				A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */,
@@ -843,15 +851,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GradePointUITests/Pods-GradePointUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
-				"${BUILT_PRODUCTS_DIR}/UIEmptyState/UIEmptyState.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIEmptyState.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -865,15 +869,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
-				"${BUILT_PRODUCTS_DIR}/UIEmptyState/UIEmptyState.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIEmptyState.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -974,15 +974,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
-				"${BUILT_PRODUCTS_DIR}/UIEmptyState/UIEmptyState.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIEmptyState.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -997,6 +993,8 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/LPSnackbar.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/UIEmptyState.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
