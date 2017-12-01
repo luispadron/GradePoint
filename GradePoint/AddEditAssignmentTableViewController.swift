@@ -262,7 +262,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         
-        guard let _ = nameField?.text, let text = scoreField?.safeText, text.characters.count > 0,
+        guard let _ = nameField?.text, let text = scoreField?.safeText, text.count > 0,
             let _ = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? BasicInfoRubricPickerTableViewCell)?.rubricPicker else {
                 self.presentErrorAlert(title: "Error Saving", message: "Unable to save this assignment, due to an unknown error.")
                 return
@@ -277,7 +277,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         // Can force unwrap here since we checked in the guard of onSave(_:)
         let name = nameField!.text!
         var scoreText = scoreField!.safeText
-        if scoreText.characters.last == "." {
+        if scoreText.last == "." {
             let last = scoreText.index(scoreText.endIndex, offsetBy: -1)
             scoreText.remove(at: last)
         }
@@ -309,7 +309,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         // Can force unwrap because checked inside of onSave(_:)
         let name = nameField!.text!
         var scoreText = scoreField!.safeText
-        if scoreText.characters.last == "." {
+        if scoreText.last == "." {
             let last = scoreText.index(scoreText.endIndex, offsetBy: -1)
             scoreText.remove(at: last)
         }
@@ -441,8 +441,8 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
             return
         }
         
-        let nameValid = (nameF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
-        let scoreValid = (scoreF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.characters.count ?? 0 > 0
+        let nameValid = (nameF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.count ?? 0 > 0
+        let scoreValid = (scoreF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.count ?? 0 > 0
         
         saveButton.isEnabled = scoreValid && nameValid
     }

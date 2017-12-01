@@ -183,7 +183,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         // Once scale is overwritten, if user went from plus scale to non plus, we need to change all the class grades
         // that have A+, B+, etc to their normal counter parts i.e A, B.
         for classObj in DatabaseManager.shared.realm.objects(Class.self) {
-            if let grade = classObj.grade?.gradeLetter, grade.characters.count > 1 {
+            if let grade = classObj.grade?.gradeLetter, grade.count > 1 {
                 let stripped = grade.dropLast()
                 DatabaseManager.shared.write {
                     classObj.grade?.gradeLetter = String(stripped)

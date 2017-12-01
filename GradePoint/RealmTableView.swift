@@ -57,11 +57,11 @@ extension RealmTableView where Self: UITableViewController {
 
         guard allowsUndo else { return }
 
-        let snack = LPSnackbar(title: snackTitle, buttonTitle: buttonTitle, displayDuration: 4.0)
+        let snack = LPSnackbar(title: snackTitle, buttonTitle: buttonTitle)
         snack.viewToDisplayIn = navigationController?.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
 
-        snack.show() { undone in
+        snack.show(displayDuration: 4.0) { undone in
             guard self.deletionQueue[object] != nil else { return }
             
             if undone {

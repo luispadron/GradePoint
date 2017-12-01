@@ -155,7 +155,7 @@ open class UISafeTextField: UITextField {
         
         // Not in range, and has - in textfield, this would mean that configuration allowed for signed nubmers but didnt set correct range
         // I.e a range of 0...3
-        if !inRange && !currentText.isEmpty && currentText.characters[currentText.startIndex] == "-" && currentText.characters.count == 1 {
+        if !inRange && !currentText.isEmpty && currentText[currentText.startIndex] == "-" && currentText.count == 1 {
             self.text = nil // Removes that - and returns nil
             return false
         }
@@ -217,7 +217,7 @@ open class UISafeTextField: UITextField {
         
         let currentText = self.text ?? ""
         // Check to see if in range
-        let inRange = (currentText + string).characters.count <= configuration.maxCharacters
+        let inRange = (currentText + string).count <= configuration.maxCharacters
         
         return inRange
     }
