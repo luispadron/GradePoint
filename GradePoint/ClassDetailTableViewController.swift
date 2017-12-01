@@ -401,7 +401,7 @@ extension ClassDetailTableViewController: Segueable {
             nav.preferredContentSize = CGSize(width: screenSize.width * 0.65, height: screenSize.height * 0.85)
         }
 
-        vc.delegate = self
+        vc.listener = self
 
         switch segueIdentifier(forSegue: segue) {
         case .addAssignment:

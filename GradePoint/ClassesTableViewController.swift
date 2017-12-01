@@ -482,7 +482,7 @@ extension ClassesTableViewController: Segueable {
         case .addEditClass:
             guard let controller = segue.destination as? AddEditClassViewController else { return }
 
-            controller.delegate = self
+            controller.listener = self
 
             // If editing then set the appropriate obj into the view controller, when user clicks edit
             // the sender provided will be an index path, using this we can get the object at that path

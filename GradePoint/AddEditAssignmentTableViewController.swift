@@ -14,7 +14,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     // MARK: - Properties
 
     /// Delegate which will be notified of realm changes
-    weak var delegate: AssignmentChangesListener? = nil
+    weak var listener: AssignmentChangesListener? = nil
     
     /// Realm database object
     let realm = DatabaseManager.shared.realm
@@ -297,10 +297,10 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.dismiss(animated: true) {
             // Call deleggate if needed
             if oldRubric != rubric {
-                self.delegate?.assignmentRubricWasUpdated(self.assignmentForEdit!, from: oldRubric, to: rubric)
+                self.listener?.assignmentRubricWasUpdated(self.assignmentForEdit!, from: oldRubric, to: rubric)
             }
 
-            self.delegate?.assignmentWasUpdated(self.assignmentForEdit!)
+            self.listener?.assignmentWasUpdated(self.assignmentForEdit!)
         }
     }
     
@@ -324,8 +324,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
         }
 
         self.dismiss(animated: true) {
-            // Call delegate
-            self.delegate?.assignmentWasCreated(newAssignment)
+            // Call listener
+            self.listener?.assignmentWasCreated(newAssignment)
         }
     }
     

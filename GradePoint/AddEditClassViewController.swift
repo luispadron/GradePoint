@@ -18,7 +18,7 @@ class AddEditClassViewController: UIViewController {
 
     // MARK: Properties
 
-    weak var delegate: ClassChangesListener? = nil
+    weak var listener: ClassChangesListener? = nil
     
     private let realm = DatabaseManager.shared.realm
     
@@ -180,7 +180,7 @@ class AddEditClassViewController: UIViewController {
         self.creditHourSlider.value = studentType == StudentType.college ? 3.0: 1.0
         self.creditHoursLabel.text = "\(defaultCredits)"
         
-        // Set the delegate for the pickers
+        // Set the listener for the pickers
         self.classTypePickerView.delegate = self
         self.classTypePickerView.dataSource = self
         self.semesterPickerView.delegate = self
@@ -543,8 +543,8 @@ class AddEditClassViewController: UIViewController {
         
         // Dismiss controller
         self.dismiss(animated: true) {
-            // Call delegate
-            self.delegate?.classWasCreated(newClass)
+            // Call listener
+            self.listener?.classWasCreated(newClass)
         }
     }
     
@@ -560,8 +560,8 @@ class AddEditClassViewController: UIViewController {
         
         // Dismiss controller
         self.dismiss(animated: true) {
-            // Call delegate
-            self.delegate?.classWasCreated(newClass)
+            // Call listener
+            self.listener?.classWasCreated(newClass)
         }
     }
     
@@ -611,12 +611,12 @@ class AddEditClassViewController: UIViewController {
 
         // Dismiss controller
         self.dismiss(animated: true) {
-            // Call move delegate if needed
+            // Call move listener if needed
             if oldSemester != classObj.semester {
-                self.delegate?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
+                self.listener?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
             }
-            // Call delegate
-            self.delegate?.classWasUpdated(classObj)
+            // Call listener
+            self.listener?.classWasUpdated(classObj)
         }
     }
     
@@ -636,12 +636,12 @@ class AddEditClassViewController: UIViewController {
         
         // Dismiss controller
         self.dismiss(animated: true) {
-            // Call move delegate if needed
+            // Call move listener if needed
             if oldSemester != classObj.semester {
-                self.delegate?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
+                self.listener?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
             }
-            // Call delegate
-            self.delegate?.classWasUpdated(classObj)
+            // Call listener
+            self.listener?.classWasUpdated(classObj)
         }
     }
     
@@ -1019,7 +1019,7 @@ extension AddEditClassViewController: UIRubricViewDelegate {
         updateSaveButton()
     }
 
-    /// Notifies delegate that the plus button was touched
+    /// Notifies listener that the plus button was touched
     internal func plusButtonTouched(_ view: UIRubricView, withState state: UIRubricViewState?) {
         guard let `state` = state else { return }
     
