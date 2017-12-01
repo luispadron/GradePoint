@@ -56,6 +56,15 @@ class Class: Object {
     }
     
     // MARK: - Helper Methods
+    
+    /// Returns the relative score for a certain rubric
+    /// Returns nil, if no assignments available for the sent in rubric.
+    public func relativeScore(for rubric: Rubric) -> Double? {
+        let assignments = self.assignments.filter { $0.rubric == rubric }
+        if assignments.count == 0 { return nil }
+        let totalScore = assignments.reduce(0) { $0 + $1.score }
+        return totalScore / Double(assignments.count)
+    }
 
     /// Calculates the score if only have a class object
     /// SIDE EFFECT: -> Updates the Grade for the sent in class object

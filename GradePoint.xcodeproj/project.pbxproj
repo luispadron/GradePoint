@@ -11,6 +11,7 @@
 		4F2CC5307E03FAC95B75C166 /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBD92349E091BEACA45C133 /* Pods_GradePoint.framework */; };
 		72DC7D95915AE62A2F366940 /* Pods_GradePointUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27992FE956952C25F213D31 /* Pods_GradePointUITests.framework */; };
 		A00288C41FD11A590076097C /* UIEmptyState.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00288C31FD11A590076097C /* UIEmptyState.framework */; };
+		A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00288C51FD11E190076097C /* ClassCellHeaderView.swift */; };
 		A004225A1FD10AB4000016BA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422561FD10A96000016BA /* Realm.framework */; };
 		A004225B1FD10AB4000016BA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422571FD10A96000016BA /* RealmSwift.framework */; };
 		A00422661FD10F07000016BA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422561FD10A96000016BA /* Realm.framework */; };
@@ -177,6 +178,7 @@
 		555E2910EC5F1E493E9CB636 /* Pods-GradePointWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		98AD3A6A93A00988EAF2C808 /* Pods-GradePointTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests.release.xcconfig"; sourceTree = "<group>"; };
 		A00288C31FD11A590076097C /* UIEmptyState.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIEmptyState.framework; path = Carthage/Build/iOS/UIEmptyState.framework; sourceTree = "<group>"; };
+		A00288C51FD11E190076097C /* ClassCellHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCellHeaderView.swift; sourceTree = "<group>"; };
 		A00422561FD10A96000016BA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		A00422571FD10A96000016BA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardPageViewController.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */,
 				A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */,
 				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
+				A00288C51FD11E190076097C /* ClassCellHeaderView.swift */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -1081,6 +1084,7 @@
 				A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */,
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */,
+				A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */,
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A027533D1F043B240021CDFF /* RatingManager.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,

@@ -136,20 +136,16 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return assignments[section].count > 0 ? 44 : 0
     }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return _classObj?.rubrics[section].name ?? nil
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let rubric = _classObj?.rubrics[section] else { return nil }
+        let view = ClassCellHeaderView()
+        view.setLabels(title: rubric.name, score: _classObj?.relativeScore(for: rubric))
+        return view
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
-    }
-
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.tintColor = UIColor.tableViewHeader
-        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.tableViewHeaderText
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -243,14 +239,18 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     /// Handles deleting an Assignment at the specified IndexPath
     private func handleDelete(at path: IndexPath) {
         let assign = assignment(at: path)
-        self.deleteCellWithObject(assign, section: indexOf(rubric: assign.rubric!)!,
-                                  snackTitle: "Assignment deleted", buttonTitle: "UNDO",
+        let section = indexOf(rubric: assign.rubric!)!
+        self.deleteCellWithObject(assign, section: section,
+                                  snackTitle: "Assignment deleted.", buttonTitle: "UNDO",
                                   allowsUndo: true)
         { (undone, assignment) in
             if !undone {
                 DatabaseManager.shared.deleteObjects([assignment])
+                // Reload section to update relative score label, etc.
+                self.tableView.beginUpdates()
+                self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+                self.tableView.endUpdates()
             }
-
             self.updateProgressRing()
             self.reloadEmptyState()
         }
@@ -281,9 +281,7 @@ extension ClassDetailTableViewController: AddEditAssignmentDelegate {
         assignments[section] = assignments[section].sorted { $0.date < $1.date }
         let row = assignments[section].index(of: assignment)!
         self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
-        if assignments[section].count == 1 {
-            tableView.reloadSections(IndexSet(integer: section), with: .automatic)
-        }
+        self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
         self.tableView.endUpdates()
         self.reloadEmptyState()
         self.updateProgressRing()
@@ -296,11 +294,18 @@ extension ClassDetailTableViewController: AddEditAssignmentDelegate {
         self.moveCellWithObject(assignment,
                                 from: IndexPath(row: assignments[fromSection].index(of: assignment)!, section: fromSection),
                                 to: IndexPath(row: assignments[toSection].count, section: toSection))
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(IndexSet(integer: fromSection), with: .automatic)
+        self.tableView.reloadSections(IndexSet(integer: toSection), with: .automatic)
+        self.tableView.endUpdates()
     }
 
     func assignmentWasUpdated(_ assignment: Assignment) {
-        self.reloadCellWithObject(assignment, section: indexOf(rubric: assignment.rubric!)!)
-
+        let section = indexOf(rubric: assignment.rubric!)!
+        self.reloadCellWithObject(assignment, section: section)
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        self.tableView.endUpdates()
         self.updateProgressRing()
     }
 }
