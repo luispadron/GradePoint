@@ -467,6 +467,7 @@ extension ClassesTableViewController: Segueable {
             controller.classObj = classItem
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.classListener = self
             
         case .showPreviousDetail:
             guard let indexPath = sender as? IndexPath else { return }

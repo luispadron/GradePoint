@@ -51,6 +51,10 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
     /// The assignments from Realm, grouped by their Rubric
     private var assignments: [[Assignment]] = []
+    
+    /// The class listener responsible for listening to any updates that modifies the class object
+    /// that this controller relies on. For example, will call modify when a new assignment is added to the class.
+    public weak var classListener: ClassChangesListener? = nil
 
     // MARK: View Handleing Methods
 
@@ -250,6 +254,10 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
                 self.tableView.beginUpdates()
                 self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
                 self.tableView.endUpdates()
+                // Notify listener that underlying class has been modified
+                if let modifiedClass = self._classObj {
+                    self.classListener?.classWasUpdated(modifiedClass)
+                }
             }
             self.updateProgressRing()
             self.reloadEmptyState()
@@ -285,6 +293,11 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         self.tableView.endUpdates()
         self.reloadEmptyState()
         self.updateProgressRing()
+        
+        // Notify listener that underlying class has been modified
+        if let modifiedClass = _classObj {
+            self.classListener?.classWasUpdated(modifiedClass)
+        }
     }
 
     func assignmentRubricWasUpdated(_ assignment: Assignment, from rubric1: Rubric, to rubric2: Rubric) {
@@ -307,6 +320,10 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
         self.tableView.endUpdates()
         self.updateProgressRing()
+        // Notify listener that underlying class has been modified
+        if let modifiedClass = _classObj {
+            self.classListener?.classWasUpdated(modifiedClass)
+        }
     }
 }
 
