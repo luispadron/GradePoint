@@ -737,46 +737,19 @@ class AddEditClassViewController: UIViewController {
     /// Selects a semester that makes sense to the current date
     private func selectCorrectSemester() {
         guard let terms = UserDefaults.standard.stringArray(forKey: userDefaultTerms) else { return }
-
-        // If adding a new class figure select a semester that makes sense to the current date
-        if classObj == nil {
-            let month = Calendar.current.component(.month, from: Date())
-            switch month {
-            case 12: fallthrough
-            case 1: fallthrough
-            case 2:
-                // Select Winter
-                if let i = terms.index(of: "Winter") {
-                    setSemesterPickerViewTerm(index: i)
-                }
-                break
-            case 3: fallthrough
-            case 4: fallthrough
-            case 5:
-                // Select spring
-                if let i = terms.index(of: "Spring") {
-                    setSemesterPickerViewTerm(index: i)
-                }
-                break
-            case 6: fallthrough
-            case 7: fallthrough
-            case 8:
-                // Select summer
-                if let i = terms.index(of: "Summer") {
-                    setSemesterPickerViewTerm(index: i)
-                }
-                break
-            case 9: fallthrough
-            case 10: fallthrough
-            case 11:
-                // Select fall
-                if let i = terms.index(of: "Fall") {
-                    setSemesterPickerViewTerm(index: i)
-                }
-                break
-            default:
-                return
-            }
+        guard classObj == nil else { return }
+        
+        let month = Calendar.current.component(.month, from: Date())
+        if month == 12 || month == 1 || month == 2, let i = terms.index(of: "Winter") {
+            setSemesterPickerViewTerm(index: i)
+        } else if month == 3 || month == 4 || month == 5, let i = terms.index(of: "Spring") {
+            setSemesterPickerViewTerm(index: i)
+        } else if month == 6 || month == 7 || month == 8, let i = terms.index(of: "Summer") {
+            setSemesterPickerViewTerm(index: i)
+        } else if month == 9 || month == 10 || month == 11, let i = terms.index(of: "Fall") {
+            setSemesterPickerViewTerm(index: i)
+        } else {
+            setSemesterPickerViewTerm(index: 0)
         }
     }
 
