@@ -275,8 +275,9 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if let t = UserDefaults.standard.stringArray(forKey: userDefaultTerms) {
             terms = t
         } else {
-            print("WARNING: Something went wrong when loading semesters from UserDefaults, loading default set instead.")
+            print("WARNING: Something went wrong when loading semesters from UserDefaults, loading/setting default terms instead.")
             terms = ["Spring", "Summer", "Fall", "Winter"]
+            UserDefaults.standard.set(terms, forKey: userDefaultTerms)
         }
         
         let years = UISemesterPickerView.createArrayOfYears()
