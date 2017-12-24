@@ -142,7 +142,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
                 return
             }
             
-            points.append(Double(field.safeText)!.roundedUpTo(2))
+            points.append(Double(field.safeText)!)
         }
         
         // Warn the user that this cant be undone
