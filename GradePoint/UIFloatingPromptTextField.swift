@@ -28,7 +28,8 @@ open class UIFloatingPromptTextField: UISafeTextField {
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        self.initialize()
     }
     
     private func initialize() {
@@ -52,11 +53,8 @@ open class UIFloatingPromptTextField: UISafeTextField {
     }
     
     @objc public func editingChanged() {
+        _titleVisible = self.hasText
         updateTitleLabel(animated: true)
-    }
-    
-    private func updateControl(animated: Bool = false) {
-        updateTitleLabel(animated: animated)
     }
     
     private func updateTitleLabel(animated:Bool = false) {
@@ -76,7 +74,7 @@ open class UIFloatingPromptTextField: UISafeTextField {
     }
     
     public func isTitleVisible() -> Bool {
-        return self.hasText || _titleVisible
+        return _titleVisible
     }
     
     private func updateTitleVisibility(animated:Bool = false, completion: (()->())? = nil) {

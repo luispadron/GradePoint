@@ -282,7 +282,7 @@
                                 <rect key="frame" x="0.0" y="75" width="375" height="703"/>
                                 <subviews>
                                     <stackView verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="vdY-dK-mYM">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="396"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4D-M2-qW9" userLabel="Type Switcher">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -328,42 +328,32 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWj-ja-CWk" userLabel="Name Field">
-                                                <rect key="frame" x="0.0" y="102" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="102" width="375" height="75"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn2-bl-OaP">
-                                                        <rect key="frame" x="20" y="8" width="45" height="44"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Etm-4N-cqR" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                                        <rect key="frame" x="132" y="8" width="235" height="44"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S24-f0-Y7V" customClass="UIFloatingPromptTextField" customModule="GradePoint" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="8" width="347" height="59"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.29019607843137252" green="0.29411764705882354" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="leading" secondItem="Yn2-bl-OaP" secondAttribute="trailing" constant="67" id="KfB-Yr-zFJ"/>
-                                                    <constraint firstAttribute="height" constant="60" id="PiJ-Yq-cjD"/>
-                                                    <constraint firstItem="Etm-4N-cqR" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="bRt-rp-TPX"/>
-                                                    <constraint firstItem="Yn2-bl-OaP" firstAttribute="leading" secondItem="CWj-ja-CWk" secondAttribute="leading" constant="20" id="iZb-Sl-vD2"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Yn2-bl-OaP" secondAttribute="bottom" constant="8" id="nG8-rq-EQc"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Etm-4N-cqR" secondAttribute="bottom" constant="8" id="oui-zt-nYS"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Etm-4N-cqR" secondAttribute="trailing" constant="8" id="sCu-kS-LOs"/>
-                                                    <constraint firstItem="Yn2-bl-OaP" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="yWB-Kp-K4j"/>
+                                                    <constraint firstAttribute="trailing" secondItem="S24-f0-Y7V" secondAttribute="trailing" constant="8" id="8aV-cf-OLR"/>
+                                                    <constraint firstItem="S24-f0-Y7V" firstAttribute="top" secondItem="CWj-ja-CWk" secondAttribute="top" constant="8" id="9cq-Cu-pYH"/>
+                                                    <constraint firstAttribute="bottom" secondItem="S24-f0-Y7V" secondAttribute="bottom" constant="8" id="LKM-3Z-NIX"/>
+                                                    <constraint firstAttribute="height" constant="75" id="PiJ-Yq-cjD"/>
+                                                    <constraint firstItem="S24-f0-Y7V" firstAttribute="leading" secondItem="CWj-ja-CWk" secondAttribute="leading" constant="20" id="ebV-yy-CZQ"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ras-O3-QCQ" userLabel="Class Type Field">
-                                                <rect key="frame" x="0.0" y="163" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="178" width="375" height="75"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaC-ML-MjP">
-                                                        <rect key="frame" x="20" y="8" width="83.666666666666671" height="44"/>
+                                                        <rect key="frame" x="20" y="8" width="83.666666666666671" height="59"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="College" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRq-qq-drJ">
-                                                        <rect key="frame" x="142.66666666666666" y="8" width="58" height="44"/>
+                                                        <rect key="frame" x="142.66666666666666" y="8" width="58" height="59"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -376,7 +366,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="VaC-ML-MjP" secondAttribute="bottom" constant="8" id="FF1-90-wT1"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QRq-qq-drJ" secondAttribute="trailing" constant="20" symbolic="YES" id="MAX-do-F2e"/>
                                                     <constraint firstItem="QRq-qq-drJ" firstAttribute="top" secondItem="ras-O3-QCQ" secondAttribute="top" constant="8" id="S95-Gk-lks"/>
-                                                    <constraint firstAttribute="height" constant="60" id="ZWr-tA-Ssw"/>
+                                                    <constraint firstAttribute="height" constant="75" id="ZWr-tA-Ssw"/>
                                                     <constraint firstItem="VaC-ML-MjP" firstAttribute="top" secondItem="ras-O3-QCQ" secondAttribute="top" constant="8" id="qO9-pS-BuH"/>
                                                     <constraint firstAttribute="bottom" secondItem="QRq-qq-drJ" secondAttribute="bottom" constant="8" id="qvj-NX-bi8"/>
                                                     <constraint firstItem="VaC-ML-MjP" firstAttribute="leading" secondItem="ras-O3-QCQ" secondAttribute="leading" constant="20" id="zJO-Gh-7CQ"/>
@@ -386,49 +376,39 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TX2-IU-NZy" userLabel="Class Type Picker View" customClass="UIPickerView">
-                                                <rect key="frame" x="0.0" y="223.66666666666669" width="375" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="253.66666666666669" width="375" height="0.0"/>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="79P-5U-Bgj"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGI-uk-XaS" userLabel="Credit Hour Field">
-                                                <rect key="frame" x="0.0" y="224" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="254" width="375" height="75"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27w-vS-bez" userLabel="Credit Hours">
-                                                        <rect key="frame" x="20" y="8" width="97" height="44"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                        <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yGo-CH-6Co" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
-                                                        <rect key="frame" x="160" y="8" width="207" height="44"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DT7-5X-QYW" customClass="UIFloatingPromptTextField" customModule="GradePoint" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="8" width="347" height="59"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstItem="yGo-CH-6Co" firstAttribute="leading" secondItem="27w-vS-bez" secondAttribute="trailing" constant="43" id="0EW-1d-RgD"/>
-                                                    <constraint firstAttribute="height" constant="60" id="O2i-ZY-cSQ"/>
-                                                    <constraint firstAttribute="bottom" secondItem="27w-vS-bez" secondAttribute="bottom" constant="8" id="Si8-G9-s0Q"/>
-                                                    <constraint firstAttribute="trailing" secondItem="yGo-CH-6Co" secondAttribute="trailing" constant="8" id="Ux9-dZ-aHF"/>
-                                                    <constraint firstItem="27w-vS-bez" firstAttribute="leading" secondItem="sGI-uk-XaS" secondAttribute="leading" constant="20" id="VgP-kI-gUS"/>
-                                                    <constraint firstAttribute="bottom" secondItem="yGo-CH-6Co" secondAttribute="bottom" constant="8" id="X8M-1l-h9n"/>
-                                                    <constraint firstItem="27w-vS-bez" firstAttribute="top" secondItem="sGI-uk-XaS" secondAttribute="top" constant="8" id="la9-54-rb5"/>
-                                                    <constraint firstItem="yGo-CH-6Co" firstAttribute="top" secondItem="sGI-uk-XaS" secondAttribute="top" constant="8" id="wHH-EB-4Y1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DT7-5X-QYW" secondAttribute="trailing" constant="8" id="4ik-BZ-EwL"/>
+                                                    <constraint firstItem="DT7-5X-QYW" firstAttribute="top" secondItem="sGI-uk-XaS" secondAttribute="top" constant="8" id="8Jt-rQ-QoS"/>
+                                                    <constraint firstAttribute="bottom" secondItem="DT7-5X-QYW" secondAttribute="bottom" constant="8" id="HJn-8z-qsR"/>
+                                                    <constraint firstAttribute="height" constant="75" id="O2i-ZY-cSQ"/>
+                                                    <constraint firstItem="DT7-5X-QYW" firstAttribute="leading" secondItem="sGI-uk-XaS" secondAttribute="leading" constant="20" id="Xsv-cR-zwd"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-K4-8dK" userLabel="Semester Field">
-                                                <rect key="frame" x="0.0" y="285" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="330" width="375" height="75"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semester" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ooq-5e-OoZ">
-                                                        <rect key="frame" x="20" y="8" width="73" height="44"/>
+                                                        <rect key="frame" x="20" y="8" width="73" height="59"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spring 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwy-1j-1fm">
-                                                        <rect key="frame" x="132" y="8" width="91.333333333333314" height="44"/>
+                                                        <rect key="frame" x="132" y="8" width="91.333333333333314" height="59"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -439,7 +419,7 @@
                                                 <constraints>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="49y-Mu-nlY"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Kwy-1j-1fm" secondAttribute="trailing" constant="20" symbolic="YES" id="4vN-0a-u5k"/>
-                                                    <constraint firstAttribute="height" constant="60" id="8hV-Pl-iXD"/>
+                                                    <constraint firstAttribute="height" constant="75" id="8hV-Pl-iXD"/>
                                                     <constraint firstAttribute="bottom" secondItem="Kwy-1j-1fm" secondAttribute="bottom" constant="8" id="Ra4-dk-C0V"/>
                                                     <constraint firstItem="Kwy-1j-1fm" firstAttribute="leading" secondItem="Ooq-5e-OoZ" secondAttribute="trailing" constant="39" id="UCm-lC-8FW"/>
                                                     <constraint firstItem="Ooq-5e-OoZ" firstAttribute="top" secondItem="3OD-K4-8dK" secondAttribute="top" constant="8" id="d4m-Qf-seR"/>
@@ -451,14 +431,14 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fj-pb-dLM" customClass="UISemesterPickerView" customModule="GradePoint" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="345.66666666666669" width="375" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="405.66666666666669" width="375" height="0.0"/>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="zjo-Hq-6E3"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" verifyAmbiguity="off" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
-                                                <rect key="frame" x="0.0" y="345.66666666666669" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="405.66666666666669" width="375" height="60"/>
                                                 <subviews>
                                                     <label verifyAmbiguity="off" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Grade Earned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oub-lJ-dYZ">
                                                         <rect key="frame" x="19.999999999999993" y="8" width="105.33333333333331" height="44"/>
@@ -490,14 +470,14 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFZ-5A-KW7" userLabel="Grade Picker View" customClass="UIPickerView">
-                                                <rect key="frame" x="0.0" y="345.66666666666669" width="375" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="405.66666666666669" width="375" height="0.0"/>
                                                 <color key="backgroundColor" red="0.2901960784" green="0.29411764709999999" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="3er-hr-LnH"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-th-0OK" userLabel="Header View 2">
-                                                <rect key="frame" x="0.0" y="346" width="375" height="50"/>
+                                                <rect key="frame" x="0.0" y="406" width="375" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class Rubric" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-LP-ed3">
                                                         <rect key="frame" x="20" y="8" width="347" height="34"/>
@@ -543,18 +523,18 @@
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="l0h-Og-cBT" id="1xf-aT-QTq"/>
+                        <outlet property="classNameField" destination="S24-f0-Y7V" id="bjD-Yi-7fL"/>
                         <outlet property="classTypeLabel" destination="QRq-qq-drJ" id="Xgv-mU-Sup"/>
                         <outlet property="classTypePickerView" destination="TX2-IU-NZy" id="dOT-0j-aAk"/>
                         <outlet property="classTypePickerViewConstraint" destination="79P-5U-Bgj" id="hzZ-49-DYL"/>
                         <outlet property="classTypeView" destination="ras-O3-QCQ" id="gnd-Wt-Qfl"/>
-                        <outlet property="creditHoursField" destination="yGo-CH-6Co" id="mkl-Vc-jHj"/>
+                        <outlet property="creditHoursField" destination="DT7-5X-QYW" id="APC-Uz-kaU"/>
                         <outlet property="gradeFieldContainerView" destination="ucc-Km-1Rd" id="s7n-Xw-Cg0"/>
                         <outlet property="gradeLabel" destination="k54-nl-9CU" id="JFP-UA-Bqu"/>
                         <outlet property="gradePickerView" destination="AFZ-5A-KW7" id="MsQ-vn-23f"/>
                         <outlet property="gradePickerViewConstraint" destination="3er-hr-LnH" id="jAt-l2-L1m"/>
                         <outlet property="headerView1" destination="AX7-Lh-nnI" id="Tzp-5R-LcU"/>
                         <outlet property="headerView2" destination="9HN-th-0OK" id="Fao-H9-muK"/>
-                        <outlet property="nameField" destination="Etm-4N-cqR" id="mwH-Gf-wZA"/>
                         <outlet property="navigationTitle" destination="HyS-QN-zvc" id="9m0-0D-ERZ"/>
                         <outlet property="navigationView" destination="5w9-fD-BWU" id="UhV-Oj-pOh"/>
                         <outlet property="navigationViewHeightConstraint" destination="PvY-qq-dCJ" id="cqj-FM-2J2"/>
@@ -566,9 +546,7 @@
                         <outlet property="semesterPickerView" destination="0Fj-pb-dLM" id="R2t-R5-ONk"/>
                         <outlet property="stackView" destination="vdY-dK-mYM" id="Mp2-Fa-QzQ"/>
                         <outlet property="typeSwitcher" destination="zt0-wK-84s" id="1yD-hO-deF"/>
-                        <outletCollection property="labels" destination="Yn2-bl-OaP" collectionClass="NSMutableArray" id="45T-gM-chv"/>
                         <outletCollection property="labels" destination="VaC-ML-MjP" collectionClass="NSMutableArray" id="Pkg-ep-zEX"/>
-                        <outletCollection property="labels" destination="27w-vS-bez" collectionClass="NSMutableArray" id="Qfe-4Y-RCi"/>
                         <outletCollection property="labels" destination="Ooq-5e-OoZ" collectionClass="NSMutableArray" id="MkE-0G-2Cg"/>
                         <outletCollection property="labels" destination="Oub-lJ-dYZ" collectionClass="NSMutableArray" id="R0t-vV-s7g"/>
                     </connections>

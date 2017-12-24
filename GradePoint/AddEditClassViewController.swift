@@ -51,13 +51,13 @@ class AddEditClassViewController: UIViewController {
     // Controls
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var typeSwitcher: UISegmentedControl!
-    @IBOutlet weak var nameField: UISafeTextField!
+    @IBOutlet weak var classNameField: UIFloatingPromptTextField!
     @IBOutlet weak var classTypeView: UIView!
     @IBOutlet weak var classTypeLabel: UILabel!
     @IBOutlet weak var classTypePickerView: UIPickerView!
     @IBOutlet weak var classTypePickerViewConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var creditHoursField: UISafeTextField!
+    @IBOutlet weak var creditHoursField: UIFloatingPromptTextField!
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
@@ -135,12 +135,14 @@ class AddEditClassViewController: UIViewController {
         (self.headerView1.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
         self.headerView2.backgroundColor = UIColor.tableViewHeader
         (self.headerView2.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
-        self.nameField.superview?.backgroundColor = UIColor.lightBackground
-        self.nameField.textColor = UIColor.mainTextColor()
+        self.classNameField.superview?.backgroundColor = UIColor.lightBackground
+        self.classNameField.textColor = UIColor.mainTextColor()
+        self.classNameField.titleTextColor = UIColor.highlight
         self.classTypeView.backgroundColor = UIColor.lightBackground
         self.classTypeLabel.textColor = UIColor.mainTextColor()
         self.creditHoursField.superview?.backgroundColor = UIColor.lightBackground
         self.creditHoursField.textColor = UIColor.mainTextColor()
+        self.creditHoursField.titleTextColor = UIColor.highlight
         self.semesterLabel.superview?.backgroundColor = UIColor.lightBackground
         self.semesterLabel.textColor = UIColor.mainTextColor()
         self.gradeLabel.superview?.backgroundColor = UIColor.lightBackground
@@ -152,15 +154,20 @@ class AddEditClassViewController: UIViewController {
         // Customization for the fields
         let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
-        self.nameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
-        self.nameField.delegate = self
-        self.nameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
-        self.nameField.autocapitalizationType = .words
-        self.nameField.returnKeyType = .done
+        self.classNameField.titleText = "Class Name"
+        self.classNameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
+        self.classNameField.delegate = self
+        self.classNameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
+        self.classNameField.autocapitalizationType = .words
+        self.classNameField.returnKeyType = .done
         
+        self.creditHoursField.titleText = "Credit Hours"
         self.creditHoursField.delegate = self
+        self.creditHoursField.attributedPlaceholder = NSAttributedString(string: "Credit Hours", attributes: attrsForPrompt)
         self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.0...100.0)
         self.creditHoursField.fieldType = .number
+        self.creditHoursField.returnKeyType = .done
+        self.creditHoursField.keyboardType = .numbersAndPunctuation
         
         // Get student type from user defaults
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
@@ -217,6 +224,16 @@ class AddEditClassViewController: UIViewController {
         updateSaveButton()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if classObj != nil {
+            // Toggle name field title, since editing name
+            self.classNameField.setTitleVisible(titleVisible: true, animated: true, animationCompletion: nil)
+        }
+        // Always show credit hours title
+        self.creditHoursField.setTitleVisible(titleVisible: true, animated: true, animationCompletion: nil)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
@@ -244,7 +261,7 @@ class AddEditClassViewController: UIViewController {
         // Update fields with edited classes attributes
         if let cls = classObj {
             self.navigationTitle.text = "Edit \(cls.name)"
-            self.nameField.text = cls.name
+            self.classNameField.text = cls.name
             self.classTypeLabel.text = cls.classType.name()
             updateClassTypePicker(for: cls)
             self.creditHoursField.text = "\(cls.creditHours)"
@@ -508,7 +525,7 @@ class AddEditClassViewController: UIViewController {
         
         let credits = Double(creditHoursField.safeText)!
         // Create the new class
-        let newClass = Class(name: self.nameField.safeText, classType: self.classType,
+        let newClass = Class(name: self.classNameField.safeText, classType: self.classType,
                              creditHours: credits, semester: semester, rubrics: rubrics)
         newClass.colorData = colorForView.toData()
         
@@ -525,7 +542,7 @@ class AddEditClassViewController: UIViewController {
     func saveNewPreviousClass() {
         let semester = Semester(term: self.semester.term, year: self.semester.year)
         let credits = Double(creditHoursField.safeText)!
-        let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
+        let newClass = Class(name: self.classNameField.safeText, classType: self.classType, creditHours: credits,
                              semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
         newClass.colorData = colorForView.toData()
         
@@ -547,7 +564,7 @@ class AddEditClassViewController: UIViewController {
 
         // Write changes to realm
         DatabaseManager.shared.write {
-            classObj.name = self.nameField.safeText
+            classObj.name = self.classNameField.safeText
             classObj.classType = self.classType
             classObj.creditHours = Double(creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
@@ -599,7 +616,7 @@ class AddEditClassViewController: UIViewController {
         let oldSemester = classObj.semester!.copy() as! Semester
 
         DatabaseManager.shared.write {
-            classObj.name = self.nameField.safeText
+            classObj.name = self.classNameField.safeText
             classObj.classType = self.classType
             classObj.creditHours = Double(creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
@@ -677,7 +694,7 @@ class AddEditClassViewController: UIViewController {
     
     @objc func updateSaveButton() {
         // Checks to see whether should enable save button
-        let nameValid = self.nameField.safeText.isValid()
+        let nameValid = self.classNameField.safeText.isValid()
     
         // Different case for selected states
         switch self.viewState {
@@ -802,7 +819,7 @@ class AddEditClassViewController: UIViewController {
         // If were about to show the picker view then scroll to it, IF its not going to be visible
         let scrollFrame = CGRect(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y,
                                  width: scrollView.frame.width, height: scrollView.frame.height)
-        if wasHidden && (!scrollFrame.intersects(pickerView.frame) || nameField.isFirstResponder) {
+        if wasHidden && (!scrollFrame.intersects(pickerView.frame) || classNameField.isFirstResponder) {
             let toScroll = self.scrollView.bounds.origin.y + 120.0
             self.scrollView.setContentOffset(CGPoint(x: 0, y: toScroll), animated: true)
         }
@@ -896,7 +913,7 @@ extension AddEditClassViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === nameField {
+        if textField === self.classNameField || textField == self.creditHoursField {
             textField.resignFirstResponder()
         }
         
