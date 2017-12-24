@@ -166,8 +166,8 @@ final class DatabaseManager {
         }
         // Convert credit hours from integer to double
         if version < 2 {
-            migration.enumerateObjects(ofType: Class.className(), {_, newObj  in
-                newObj!["creditHours"] = Double(newObj!["creditHours"] as! Int)
+            migration.enumerateObjects(ofType: Class.className(), {oldObj, newObj  in
+                newObj!["creditHours"] = Double(oldObj!["creditHours"] as! Int)
             })
         }
     }
