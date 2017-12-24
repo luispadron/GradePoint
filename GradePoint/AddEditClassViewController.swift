@@ -155,6 +155,8 @@ class AddEditClassViewController: UIViewController {
         let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.classNameField.titleText = "Class Name"
+        self.classNameField.titleTextSpacing = 8.0
+        self.classNameField.titleLabel.font = UIFont.systemFont(ofSize: 13)
         self.classNameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
         self.classNameField.delegate = self
         self.classNameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
@@ -162,6 +164,8 @@ class AddEditClassViewController: UIViewController {
         self.classNameField.returnKeyType = .done
         
         self.creditHoursField.titleText = "Credit Hours"
+        self.creditHoursField.titleTextSpacing = 8.0
+        self.creditHoursField.titleLabel.font = UIFont.systemFont(ofSize: 13)
         self.creditHoursField.delegate = self
         self.creditHoursField.attributedPlaceholder = NSAttributedString(string: "Credit Hours", attributes: attrsForPrompt)
         self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.0...100.0)

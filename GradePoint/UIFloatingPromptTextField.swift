@@ -113,8 +113,7 @@ open class UIFloatingPromptTextField: UISafeTextField {
     }
     
     public func titleLabelRectForBounds(bounds:CGRect, editing:Bool) -> CGRect {
-        var yForTitle = textHeight - titleHeight - titleTextSpacing
-        if yForTitle < 0 { yForTitle = 0 }
+        let yForTitle = textHeight - titleHeight - titleTextSpacing
         return CGRect(x: 0, y: yForTitle, width: bounds.width, height: titleHeight)
     }
     
