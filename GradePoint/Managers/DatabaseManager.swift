@@ -101,7 +101,7 @@ final class DatabaseManager {
     /// The current schema version of the Realm file, this is not the version of the actual Realm file on the device
     /// but instead what the version should be, this version number should be changed whenever the schema is updated.
     // And any migration code should be added in `performMigration`
-    public static var currentSchemaVersion: UInt64 = 1
+    public static var currentSchemaVersion: UInt64 = 2
 
     // MARK: Realm Setup
 
@@ -157,13 +157,18 @@ final class DatabaseManager {
 
     /// Peforms any required Realm migrations
     private static func performMigration(migration: Migration, version: UInt64) {
+        // Add new isFavorite property, rename rubric property of Assignment class
         if version < 1 {
-            // Add new isFavorite property
             migration.enumerateObjects(ofType: Class.className()) { _, newObj in
                 newObj!["isFavorite"] = false
             }
-            // Rename rubric property of Assignmet class
             migration.renameProperty(onType: Assignment.className(), from: "associatedRubric", to: "rubric")
+        }
+        // Convert credit hours from integer to double
+        if version < 2 {
+            migration.enumerateObjects(ofType: Class.className(), {_, newObj  in
+                newObj!["creditHours"] = Double(newObj!["creditHours"] as! Int)
+            })
         }
     }
 

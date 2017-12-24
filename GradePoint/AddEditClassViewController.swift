@@ -56,7 +56,8 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var classTypeLabel: UILabel!
     @IBOutlet weak var classTypePickerView: UIPickerView!
     @IBOutlet weak var classTypePickerViewConstraint: NSLayoutConstraint!
-    @IBOutlet weak var creditHourSlider: UISlider!
+    
+    @IBOutlet weak var creditHoursField: UISafeTextField!
     @IBOutlet weak var semesterLabel: UILabel!
     @IBOutlet weak var semesterPickerView: UISemesterPickerView!
     @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
@@ -65,15 +66,6 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var gradePickerView: UIPickerView!
     @IBOutlet weak var gradePickerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var rubricHeaderView: UIView!
-    /// The label inside the image view of the creditHoursSlider, used to update the value
-    private lazy var creditHoursLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.backgroundColor = .clear
-        label.textAlignment = .center
-        label.textColor = UIColor.highlight.darker(by: 30)
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        return label
-    }()
     
     /// Properties to handle the save button
     var canSave = false { didSet { saveButton.isEnabled = canSave } }
@@ -119,7 +111,6 @@ class AddEditClassViewController: UIViewController {
     /// update the `creditHoursLabel`
     private var previousSliderValue: Int?
     
-    
     // MARK: Overrides
     
     override func viewDidLoad() {
@@ -148,7 +139,8 @@ class AddEditClassViewController: UIViewController {
         self.nameField.textColor = UIColor.mainTextColor()
         self.classTypeView.backgroundColor = UIColor.lightBackground
         self.classTypeLabel.textColor = UIColor.mainTextColor()
-        self.creditHourSlider.superview?.backgroundColor = UIColor.lightBackground
+        self.creditHoursField.superview?.backgroundColor = UIColor.lightBackground
+        self.creditHoursField.textColor = UIColor.mainTextColor()
         self.semesterLabel.superview?.backgroundColor = UIColor.lightBackground
         self.semesterLabel.textColor = UIColor.mainTextColor()
         self.gradeLabel.superview?.backgroundColor = UIColor.lightBackground
@@ -166,6 +158,10 @@ class AddEditClassViewController: UIViewController {
         self.nameField.autocapitalizationType = .words
         self.nameField.returnKeyType = .done
         
+        self.creditHoursField.delegate = self
+        self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.0...100.0)
+        self.creditHoursField.fieldType = .number
+        
         // Get student type from user defaults
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
         
@@ -176,9 +172,8 @@ class AddEditClassViewController: UIViewController {
         self.classTypeView.isHidden = studentType == StudentType.college ? true : false
         
         // Set default values for slider and label
-        let defaultCredits = studentType == StudentType.college ? "3" : "1"
-        self.creditHourSlider.value = studentType == StudentType.college ? 3.0: 1.0
-        self.creditHoursLabel.text = "\(defaultCredits)"
+        let defaultCredits = studentType == StudentType.college ? "3.0" : "1.0"
+        self.creditHoursField.text = defaultCredits
         
         // Set the listener for the pickers
         self.classTypePickerView.delegate = self
@@ -222,16 +217,6 @@ class AddEditClassViewController: UIViewController {
         updateSaveButton()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Add a label to the thumb of the UISlider (creditHourSlider)
-        if let thumbView = creditHourSlider.subviews.last as? UIImageView {
-            thumbView.addSubview(self.creditHoursLabel)
-            self.creditHoursLabel.frame = thumbView.bounds
-        }
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
@@ -262,10 +247,8 @@ class AddEditClassViewController: UIViewController {
             self.nameField.text = cls.name
             self.classTypeLabel.text = cls.classType.name()
             updateClassTypePicker(for: cls)
-            self.creditHoursLabel.text = "\(cls.creditHours)"
-            self.creditHourSlider.value = Float(cls.creditHours)
+            self.creditHoursField.text = "\(cls.creditHours)"
             updateSemesterPicker(for: cls)
-            
         }
         
         // Hide and show specific views
@@ -391,21 +374,7 @@ class AddEditClassViewController: UIViewController {
             feedbackGenerator?.prepare()
         }
     }
-    
-    @IBAction func creditHourSliderChanged(_ sender: UISlider) {
-        let current = Int(sender.value)
-        guard previousSliderValue != current else {
-            return
-        }
-        // Create some haptic feedback if available
-        if #available(iOS 10.0, *) {
-            feedbackGenerator?.impactOccurred()
-        }
-        // Update credits label
-        self.creditHoursLabel.text = "\(current)"
-        previousSliderValue = current
-    }
-    
+
     @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
         toggleVisibilty(for: self.semesterPickerView)
     }
@@ -455,6 +424,11 @@ class AddEditClassViewController: UIViewController {
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
+        // Credit hours must be greater than 0
+        if let creditHours = Double(self.creditHoursField.safeText), creditHours <= 0 {
+            presentErrorAlert(title: "Unable to save", message: "Credit hours must be greater than zero.")
+            return false
+        }
         
         // If adding a previous class, this checking of rubrics can be skipped
         guard self.viewState == .inProgress else { return true }
@@ -532,7 +506,7 @@ class AddEditClassViewController: UIViewController {
         // Create the semester
         let semester = Semester(term: self.semester.term, year: self.semester.year)
         
-        let credits = Int(creditHourSlider.value)
+        let credits = Double(creditHoursField.safeText)!
         // Create the new class
         let newClass = Class(name: self.nameField.safeText, classType: self.classType,
                              creditHours: credits, semester: semester, rubrics: rubrics)
@@ -550,7 +524,7 @@ class AddEditClassViewController: UIViewController {
     
     func saveNewPreviousClass() {
         let semester = Semester(term: self.semester.term, year: self.semester.year)
-        let credits = Int(creditHourSlider.value)
+        let credits = Double(creditHoursField.safeText)!
         let newClass = Class(name: self.nameField.safeText, classType: self.classType, creditHours: credits,
                              semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
         newClass.colorData = colorForView.toData()
@@ -575,7 +549,7 @@ class AddEditClassViewController: UIViewController {
         DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
-            classObj.creditHours = Int(creditHourSlider.value)
+            classObj.creditHours = Double(creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
             classObj.colorData = self.colorForView.toData()
@@ -627,7 +601,7 @@ class AddEditClassViewController: UIViewController {
         DatabaseManager.shared.write {
             classObj.name = self.nameField.safeText
             classObj.classType = self.classType
-            classObj.creditHours = Int(creditHourSlider.value)
+            classObj.creditHours = Double(creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
             classObj.grade?.gradeLetter = self.gradeLabel.text!

@@ -219,7 +219,7 @@ class GPACalculatorViewController: UIViewController {
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))!
         let classes = realm.objects(Class.self)
         var totalPoints: Double = 0.0
-        var totalCreditHours: Int = 0
+        var totalCreditHours: Double = 0.0
 
         /// Calculation of gpa closure block
         let calculate: (Bool) -> Double = { isWeighted in

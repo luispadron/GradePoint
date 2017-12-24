@@ -16,7 +16,7 @@ class Class: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var name = ""
     @objc dynamic var classType: ClassType = .college
-    @objc dynamic var creditHours = 3
+    @objc dynamic var creditHours: Double = 3.0
     @objc dynamic var semester: Semester?
     @objc dynamic var grade: Grade?
     @objc dynamic var isFavorite: Bool = false
@@ -27,7 +27,7 @@ class Class: Object {
     // MARK: - Initializers
     
     /// Used to create an in-progress class
-    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester, rubrics:  [Rubric]) {
+    convenience init(name: String, classType: ClassType, creditHours: Double, semester: Semester, rubrics:  [Rubric]) {
         self.init()
         self.name = name
         self.classType = classType
@@ -39,7 +39,7 @@ class Class: Object {
     }
     
     /// Used to create a previous class
-    convenience init(name: String, classType: ClassType, creditHours: Int, semester: Semester,  grade: Grade) {
+    convenience init(name: String, classType: ClassType, creditHours: Double, semester: Semester,  grade: Grade) {
         self.init()
         self.name = name
         self.classType = classType
