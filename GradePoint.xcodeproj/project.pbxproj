@@ -40,7 +40,6 @@
 		A048D7811F64499100DA7113 /* AssignmentChangesListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */; };
 		A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */; };
 		A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */; };
-		A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */; };
 		A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0565AA91EF080F3005C23C0 /* QuickActionId.swift */; };
 		A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */; };
 		A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */; };
@@ -112,7 +111,6 @@
 		A0E4A6731F4A09E00094BC4F /* WidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */; };
 		A0E4A6761F4A09E00094BC4F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */; };
 		A0E4A67A1F4A09E00094BC4F /* GradePointWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */; };
 		A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
 		A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */; };
@@ -214,7 +212,6 @@
 		A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentChangesListener.swift; sourceTree = "<group>"; };
 		A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A04CC5871E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicInfoDatePickerTableViewCell.swift; sourceTree = "<group>"; };
-		A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterPickerDelegate.swift; sourceTree = "<group>"; };
 		A0565AA91EF080F3005C23C0 /* QuickActionId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionId.swift; sourceTree = "<group>"; };
 		A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplicationShortcutItem+QuickActionID.swift"; sourceTree = "<group>"; };
 		A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
@@ -274,7 +271,6 @@
 		A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewController.swift; sourceTree = "<group>"; };
 		A0E4A6751F4A09E00094BC4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		A0E4A6771F4A09E00094BC4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISemesterPickerView.swift; sourceTree = "<group>"; };
 		A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewState.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
 		A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard4ViewController.swift; sourceTree = "<group>"; };
@@ -462,7 +458,6 @@
 			children = (
 				A0082BC01E3ED27300C91B3F /* Segueable.swift */,
 				A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */,
-				A04D19951DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift */,
 				A08109751F631F7D0048F6DA /* ClassChangesListener.swift */,
 				A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */,
 				A067BBCD1F6363250083E896 /* RealmTableView.swift */,
@@ -600,7 +595,6 @@
 				A084437E1E55805E00C32F52 /* UICalculateView */,
 				A0DE9E311DB833E800C56226 /* UIRubricView.swift */,
 				A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */,
-				A0E705AB1DBBDE31008E04EC /* UISemesterPickerView.swift */,
 				A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */,
 				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
 				A00288C51FD11E190076097C /* ClassCellHeaderView.swift */,
@@ -1090,7 +1084,6 @@
 				A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */,
 				A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */,
 				A078D23E1FF1C51C004197DF /* UIPickerFieldDelegate.swift in Sources */,
-				A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */,
 				A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */,
 				A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */,
 				A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */,
@@ -1102,7 +1095,6 @@
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
 				A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */,
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
-				A04D19961DBAFD8400FDA9A7 /* SemesterPickerDelegate.swift in Sources */,
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */,

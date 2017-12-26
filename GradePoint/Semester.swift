@@ -45,4 +45,25 @@ class Semester: Object {
         copy.id = id
         return copy
     }
+    
+    // MARK: Helpers
+    
+    public static var possibleTerms: [String] {
+        return UserDefaults.standard.stringArray(forKey: userDefaultTerms) ?? []
+    }
+    
+    public static var possibleYears: [Int] {
+        var years = [Int]()
+        let date = Date()
+        let calendar = NSCalendar.current
+        let currentYear = calendar.component(.year, from: date)
+        
+        // For the current year, go one ahead and 10 behind.
+        for i in 0...10 {
+            years.append(currentYear - i)
+        }
+        // Finally one ahead
+        years.insert(currentYear + 1, at: 0)
+        return years
+    }
 }

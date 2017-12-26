@@ -11,9 +11,12 @@ import UIKit
 class UIPickerField: UIFloatingPromptTextField {
     
     // MARK: Properties
+    
     public weak var pickerDelegate: UIPickerFieldDelegate?
     
     public weak var pickerDataSource: UIPickerFieldDataSource?
+    
+    public var handlesSettingTextManually: Bool = false
     
     // MARK: Initializers
     
@@ -77,7 +80,8 @@ class UIPickerField: UIFloatingPromptTextField {
 
 extension UIPickerField: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.text = self.pickerDataSource?.titleForRow(row, in: component, for: self)
+        if !self.handlesSettingTextManually { self.text = self.pickerDataSource?.titleForRow(row, in: component, for: self) ?? "" }
+        self.pickerDelegate?.didSelectPickerRow(row, in: component, for: self)
     }
 }
 

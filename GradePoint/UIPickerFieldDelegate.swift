@@ -6,6 +6,8 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
-protocol UIPickerFieldDelegate: class {    
+protocol UIPickerFieldDelegate: class {
     func doneButtonTouched(for field: UIPickerField)
+    
+    func didSelectPickerRow(_ row: Int, in component: Int, for field: UIPickerField)
 }

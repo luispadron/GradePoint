@@ -49,22 +49,20 @@ class AddEditClassViewController: UIViewController {
     @IBOutlet weak var headerView2: UIView!
     
     // Controls
-    @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var typeSwitcher: UISegmentedControl!
+    
     @IBOutlet weak var classNameField: UIFloatingPromptTextField!
+    
     @IBOutlet weak var classTypeView: UIView!
-    @IBOutlet weak var classTypeLabel: UILabel!
-    @IBOutlet weak var classTypePickerView: UIPickerView!
-    @IBOutlet weak var classTypePickerViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var classTypeField: UIPickerField!
     
     @IBOutlet weak var creditHoursField: UIFloatingPromptTextField!
-    @IBOutlet weak var semesterLabel: UILabel!
-    @IBOutlet weak var semesterPickerView: UISemesterPickerView!
-    @IBOutlet weak var semesterPickerConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var semesterField: UIPickerField!
+    
     @IBOutlet weak var gradeFieldContainerView: UIView!
-    @IBOutlet weak var gradeLabel: UILabel!
-    @IBOutlet weak var gradePickerView: UIPickerView!
-    @IBOutlet weak var gradePickerViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gradeField: UIPickerField!
+    
     @IBOutlet weak var rubricHeaderView: UIView!
     
     /// Properties to handle the save button
@@ -74,12 +72,10 @@ class AddEditClassViewController: UIViewController {
     
     /// An array which will hold all the rubric views which have been created
     var rubricViews: [UIRubricView] {
-        get {
-            let views = self.stackView.arrangedSubviews
-            var result = [UIRubricView]()
-            for view in views { if let v = view as? UIRubricView { result.append(v) } }
-            return result
-        }
+        let views = self.stackView.arrangedSubviews
+        var result = [UIRubricView]()
+        for view in views { if let v = view as? UIRubricView { result.append(v) } }
+        return result
     }
     /// Dict which holds any rubric views and that rubrics PK, which were intially added to the view due to editing a class
     var editingRubrics = [String: UIRubricView]()
@@ -92,24 +88,11 @@ class AddEditClassViewController: UIViewController {
     /// The class type, grabbed from the Picker
     var classType: ClassType!
     
-    /// The semester, grabbed from the UISemesterPickerView
+    /// The semester, grabbed from the semesterField
     var semester: Semester!
     
     /// The current state the view is in, this doesn't change when editing a Class
     var viewState: ViewState = .inProgress
-    
-    /// Haptic feedback generator, used with the UISlider `creditHourSlider`
-    /// Since only in iOS 10.0 +, we need to work around this issue by creating this AnyObject, then converting if possible
-    private var _feedbackGenerator: AnyObject?
-    @available(iOS 10.0, *)
-    var feedbackGenerator: UIImpactFeedbackGenerator? {
-        get { return _feedbackGenerator as? UIImpactFeedbackGenerator }
-        set { _feedbackGenerator = newValue }
-    }
-    
-    /// The previous sliders value, used to determine when haptic feedback should be presented as well as if needed to
-    /// update the `creditHoursLabel`
-    private var previousSliderValue: Int?
     
     // MARK: Overrides
     
@@ -139,15 +122,14 @@ class AddEditClassViewController: UIViewController {
         self.classNameField.textColor = UIColor.mainTextColor()
         self.classNameField.titleTextColor = UIColor.highlight
         self.classTypeView.backgroundColor = UIColor.lightBackground
-        self.classTypeLabel.textColor = UIColor.mainTextColor()
+        self.classTypeField.textColor = UIColor.mainTextColor()
         self.creditHoursField.superview?.backgroundColor = UIColor.lightBackground
         self.creditHoursField.textColor = UIColor.mainTextColor()
         self.creditHoursField.titleTextColor = UIColor.highlight
-        self.semesterLabel.superview?.backgroundColor = UIColor.lightBackground
-        self.semesterLabel.textColor = UIColor.mainTextColor()
-        self.gradeLabel.superview?.backgroundColor = UIColor.lightBackground
-        self.gradeLabel.textColor = UIColor.mainTextColor()
-        labels.forEach { $0.textColor = UIColor.secondaryTextColor() }
+        self.semesterField.superview?.backgroundColor = UIColor.lightBackground
+        self.semesterField.textColor = UIColor.mainTextColor()
+        self.gradeField.superview?.backgroundColor = UIColor.lightBackground
+        self.gradeField.textColor = UIColor.mainTextColor()
 
         updateNavBarForColorChange()
         
@@ -173,12 +155,32 @@ class AddEditClassViewController: UIViewController {
         self.creditHoursField.returnKeyType = .done
         self.creditHoursField.keyboardType = .numbersAndPunctuation
         
+        self.classTypeField.titleText = "Class type"
+        self.classTypeField.titleTextSpacing = 8.0
+        self.classTypeField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.classTypeField.toolbar.barTintColor = .highlight
+        self.classTypeField.toolbar.tintColor = .white
+        self.classTypeField.toolbarLabel.text = "Select a class type"
+        
+        self.semesterField.titleText = "Semester"
+        self.semesterField.titleTextSpacing = 8.0
+        self.semesterField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.semesterField.toolbar.barTintColor = .highlight
+        self.semesterField.toolbar.tintColor = .white
+        self.semesterField.toolbarLabel.text = "Select a semester"
+        self.semesterField.handlesSettingTextManually = true
+        self.semesterField.delegate = self
+        
+        self.gradeField.titleText = "Grade"
+        self.gradeField.titleTextSpacing = 8.0
+        self.gradeField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.gradeField.toolbar.barTintColor = .highlight
+        self.gradeField.toolbar.tintColor = .white
+        self.gradeField.toolbarLabel.text = "Select a grade"
+        
         // Get student type from user defaults
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
         
-        // Set default class type
-        self.classType = studentType == StudentType.college ? .college : .regular
-        self.classTypeLabel.text = studentType == StudentType.college ? nil : "Regular"
         // Hide the class type view if student is a college student
         self.classTypeView.isHidden = studentType == StudentType.college ? true : false
         
@@ -186,12 +188,13 @@ class AddEditClassViewController: UIViewController {
         let defaultCredits = studentType == StudentType.college ? "3.0" : "1.0"
         self.creditHoursField.text = defaultCredits
         
-        // Set the listener for the pickers
-        self.classTypePickerView.delegate = self
-        self.classTypePickerView.dataSource = self
-        self.semesterPickerView.delegate = self
-        self.gradePickerView.delegate = self
-        self.gradePickerView.dataSource = self
+        // Set delegate and datsource for the picker fields
+        self.classTypeField.pickerDelegate = self
+        self.classTypeField.pickerDataSource = self
+        self.semesterField.pickerDelegate = self
+        self.semesterField.pickerDataSource = self
+        self.gradeField.pickerDelegate = self
+        self.gradeField.pickerDataSource = self
         
         // Disable save
         self.saveButton.isEnabled = false
@@ -207,12 +210,15 @@ class AddEditClassViewController: UIViewController {
             self.viewState = .previous
             self.prepareView(for: viewState, with: previousClass, isEditing: true)
         } else {
+            // Set default class type
+            self.classType = studentType == StudentType.college ? .college : .regular
+            self.classTypeField.text = studentType == StudentType.college ? nil : "Regular"
             // Set a default semester
-            selectCorrectSemester()
+            setDefaultSemester()
             // Set a default grade
             let scale = self.realm.objects(GPAScale.self).first!
             let defaultGrade = scale.gpaRubrics[0].gradeLetter
-            self.gradeLabel.text = defaultGrade
+            self.gradeField.text = defaultGrade
             // Prepare for add state
             self.prepareView(for: self.viewState, with: nil, isEditing: false)
             // Set a timer for the color
@@ -224,18 +230,9 @@ class AddEditClassViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateNavBarForColorChange()
-        updateSaveButton()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if classObj != nil {
-            // Toggle name field title, since editing name
-            self.classNameField.setTitleVisible(titleVisible: true, animated: true, animationCompletion: nil)
-        }
-        // Always show credit hours title
-        self.creditHoursField.setTitleVisible(titleVisible: true, animated: true, animationCompletion: nil)
+        self.updateNavBarForColorChange()
+        self.updateSaveButton()
+        self.toggleFieldTitles()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -246,7 +243,7 @@ class AddEditClassViewController: UIViewController {
         case .light: UIApplication.shared.statusBarStyle = .default
         }
         // Invalidate color timer
-        colorTimer?.invalidate()
+        self.colorTimer?.invalidate()
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
@@ -266,10 +263,11 @@ class AddEditClassViewController: UIViewController {
         if let cls = classObj {
             self.navigationTitle.text = "Edit \(cls.name)"
             self.classNameField.text = cls.name
-            self.classTypeLabel.text = cls.classType.name()
-            updateClassTypePicker(for: cls)
+            self.classType = cls.classType
+            self.classTypeField.text = cls.classType.name()
+            self.updateClassTypeField(for: cls)
             self.creditHoursField.text = "\(cls.creditHours)"
-            updateSemesterPicker(for: cls)
+            self.updateSemesterField(for: cls)
         }
         
         // Hide and show specific views
@@ -287,17 +285,15 @@ class AddEditClassViewController: UIViewController {
         case .previous:
             // Update fields specific to previous class if available
             if let cls = classObj {
-                self.gradeLabel.text = cls.grade?.gradeLetter
-                updateGradePicker(for: cls)
+                self.gradeField.text = cls.grade?.gradeLetter
+                updateGradeField(for: cls)
             }
             
             // Hide the rubric views, show the grade field
             self.gradeFieldContainerView.isHidden = false
-            self.gradeLabel.isHidden = false
-            self.gradePickerView.isHidden = false
+            self.gradeField.isHidden = false
             self.gradeFieldContainerView.alpha = 1.0
-            self.gradeLabel.alpha = 1.0
-            self.gradePickerView.alpha = 1.0
+            self.gradeField.alpha = 1.0
             // Remove rubric header view
             self.rubricHeaderView.removeFromSuperview()
         }
@@ -341,7 +337,6 @@ class AddEditClassViewController: UIViewController {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
                     self.gradeFieldContainerView.alpha = 0.0
-                    self.gradePickerView.alpha = 0.0
                 })
                 
                 UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: { 
@@ -351,14 +346,12 @@ class AddEditClassViewController: UIViewController {
                 
             }, completion: { _ in
                 self.gradeFieldContainerView.isHidden = true
-                self.gradePickerView.isHidden = true
                 self.updateSaveButton()
             })
         // Hide any rubric views, and show the grade selection view
         case .previous:
             // Initial set up
             self.gradeFieldContainerView.isHidden = false
-            self.gradePickerView.isHidden = false
             UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeCubic, animations: {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
@@ -368,7 +361,6 @@ class AddEditClassViewController: UIViewController {
                 
                 UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
                     self.gradeFieldContainerView.alpha = 1.0
-                    self.gradePickerView.alpha = 1.0
                 })
                 
             }, completion: { _ in
@@ -378,30 +370,6 @@ class AddEditClassViewController: UIViewController {
             })
         }
 
-    }
-    
-    @IBAction func onClassTypeTap(_ sender: UITapGestureRecognizer) {
-        toggleVisibilty(for: self.classTypePickerView)
-    }
-    
-
-    @IBAction func creditHourSliderDidBegin(_ sender: UISlider) {
-        guard #available(iOS 10.0, *) else { return }
-        // Prepare the generator
-        if let generator = feedbackGenerator {
-            generator.prepare()
-        } else {
-            feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-            feedbackGenerator?.prepare()
-        }
-    }
-
-    @IBAction func onSemesterTap(_ sender: UITapGestureRecognizer) {
-        toggleVisibilty(for: self.semesterPickerView)
-    }
-    
-    @IBAction func onGradeFieldTap(_ sender: UITapGestureRecognizer) {
-        toggleVisibilty(for: self.gradePickerView)
     }
 
     /// Called whenever keyboard is shown, adjusts scroll view
@@ -547,7 +515,7 @@ class AddEditClassViewController: UIViewController {
         let semester = Semester(term: self.semester.term, year: self.semester.year)
         let credits = Double(creditHoursField.safeText)!
         let newClass = Class(name: self.classNameField.safeText, classType: self.classType, creditHours: credits,
-                             semester: semester, grade: Grade(gradeLetter: self.gradeLabel.text!))
+                             semester: semester, grade: Grade(gradeLetter: self.gradeField.safeText))
         newClass.colorData = colorForView.toData()
         
         // Write the new class to realm
@@ -625,7 +593,7 @@ class AddEditClassViewController: UIViewController {
             classObj.creditHours = Double(creditHoursField.safeText)!
             classObj.semester?.term = self.semester.term
             classObj.semester?.year = self.semester.year
-            classObj.grade?.gradeLetter = self.gradeLabel.text!
+            classObj.grade?.gradeLetter = self.gradeField.safeText
             classObj.colorData = self.colorForView.toData()
         }
         
@@ -660,6 +628,20 @@ class AddEditClassViewController: UIViewController {
     }
     
     // MARK: Helper Methods
+    
+    /// Toggles and shows field titles when appropriate
+    private func toggleFieldTitles() {
+        if self.classObj != nil {
+            // Toggle name field since editing class
+            self.classNameField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        }
+        
+        // Toggle all titles for fields if they have a default
+        self.creditHoursField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        self.semesterField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        self.gradeField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        self.classTypeField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+    }
     
     private func updateNavBarForColorChange() {
         // Navigation view random color setup
@@ -715,76 +697,42 @@ class AddEditClassViewController: UIViewController {
         }
     }
 
-    /// Sets the semester picker view to the specified term index but the current year
-    private func setSemesterPickerViewTerm(index: Int) {
-        self.semesterPickerView.semesterPicker.selectRow(index, inComponent: 0, animated: false)
-        self.semesterPickerView.pickerView(self.semesterPickerView.semesterPicker, didSelectRow: index, inComponent: 0)
-        self.semesterPickerView.semesterPicker.selectRow(1, inComponent: 1, animated: false)
-        self.semesterPickerView.pickerView(self.semesterPickerView.semesterPicker, didSelectRow: 1, inComponent: 1)
-
-
-        let semester = Semester(term: self.semesterPickerView.selectedSemester,
-                                year: self.semesterPickerView.selectedYear)
-        self.semesterLabel.text = "\(semester.term) \(semester.year)"
-        self.semester = semester
-    }
-
     /// Selects a semester that makes sense to the current date
-    private func selectCorrectSemester() {
+    private func setDefaultSemester() {
         guard let terms = UserDefaults.standard.stringArray(forKey: userDefaultTerms) else { return }
         guard classObj == nil else { return }
         
         let month = Calendar.current.component(.month, from: Date())
-        if month == 12 || month == 1 || month == 2, let i = terms.index(of: "Winter") {
-            setSemesterPickerViewTerm(index: i)
-        } else if month == 3 || month == 4 || month == 5, let i = terms.index(of: "Spring") {
-            setSemesterPickerViewTerm(index: i)
-        } else if month == 6 || month == 7 || month == 8, let i = terms.index(of: "Summer") {
-            setSemesterPickerViewTerm(index: i)
-        } else if month == 9 || month == 10 || month == 11, let i = terms.index(of: "Fall") {
-            setSemesterPickerViewTerm(index: i)
+        if month == 12 || month == 1 || month == 2 && terms.index(of: "Winter") != nil {
+            self.semester = Semester(term: "Winter", year: Semester.possibleYears[1])
+        } else if month == 3 || month == 4 || month == 5 && terms.index(of: "Spring") != nil {
+            self.semester = Semester(term: "Spring", year: Semester.possibleYears[1])
+        } else if month == 6 || month == 7 || month == 8 && terms.index(of: "Summer") != nil {
+            self.semester = Semester(term: "Summer", year: Semester.possibleYears[1])
+        } else if month == 9 || month == 10 || month == 11 && terms.index(of: "Fall") != nil {
+            self.semester = Semester(term: "Fall", year: Semester.possibleYears[1])
         } else {
-            setSemesterPickerViewTerm(index: 0)
+            self.semester = Semester(term: terms.first!, year: Semester.possibleYears[1])
         }
+        
+        self.semesterField.text = "\(self.semester.term) \(self.semester.year)"
     }
 
-    /// Updates the class type picker for the appropriate class
-    func updateClassTypePicker(for classObj: Class) {
-        let row = classObj.classType.rawValue - 1
-        self.classTypePickerView.selectRow(row, inComponent: 0, animated: false)
-        self.pickerView(self.classTypePickerView, didSelectRow: row, inComponent: 0)
+    /// Updates the class type field for the appropriate class
+    func updateClassTypeField(for classObj: Class) {
+        self.classTypeField.text = self.classObj?.classType.name()
     }
     
     /// Updates the semester picker with values of the class that is passed in
-    func updateSemesterPicker(for classObj: Class) {
-        
-        // Set the semester picker to correct values
-        let picker = self.semesterPickerView.semesterPicker!
-        let iTerm = self.semesterPickerView.terms.index(of: classObj.semester!.term)!
-        let iYear = self.semesterPickerView.years.index(of: classObj.semester!.year)!
-        
-        picker.selectRow(iTerm, inComponent: 0, animated: false)
-        self.semesterPickerView.pickerView(picker, didSelectRow: iTerm, inComponent: 0)
-        picker.selectRow(iYear, inComponent: 1, animated: false)
-        self.semesterPickerView.pickerView(picker, didSelectRow: iYear, inComponent: 1)
-        
+    func updateSemesterField(for classObj: Class) {
         self.semester = classObj.semester!
+        self.semesterField.text = "\(self.semester.term) \(self.semester.year)"
     }
     
     /// Updates the grade picker for a previous class that is being edited
-    func updateGradePicker(for classObj: Class) {
-        var row: Int!
+    func updateGradeField(for classObj: Class) {
         let letter = classObj.grade!.gradeLetter
-        // If the user hasnt changed their grade letter config, this will work
-        if let r = self.gradeLetters.index(of: letter) {
-            row = r
-        } else { // User has gone from A+ scale to non A+ scale, thus cannot be found, strip any of the - and + from the letter grade.
-            let strippedLetter = letter.replacingOccurrences(of: "+", with: "").replacingOccurrences(of: "-", with: "")
-            row = self.gradeLetters.index(of: strippedLetter)
-        }
-        
-        self.gradePickerView.selectRow(row, inComponent: 0, animated: false)
-        self.pickerView(self.gradePickerView, didSelectRow: row, inComponent: 0)
+        self.gradeField.text = letter
     }
     
     /// Updates all rubric views and sets the fields to the editing class' attributes
@@ -799,48 +747,6 @@ class AddEditClassViewController: UIViewController {
      
         // Append a new rubric view to the end
         appendRubricView()
-    }
-    
-    /// Shows or hides a pickerview
-    private func toggleVisibilty(for pickerView: UIView) {
-        
-        var constraint: NSLayoutConstraint?
-        var label: UILabel?
-        
-        if pickerView === classTypePickerView {
-            label = self.classTypeLabel
-            constraint = self.classTypePickerViewConstraint
-        } else if pickerView === gradePickerView {
-            label = self.gradeLabel
-            constraint = self.gradePickerViewConstraint
-        } else {
-            label = self.semesterLabel
-            constraint = self.semesterPickerConstraint
-        }
-        
-        let wasHidden = pickerView.isHidden
-        
-        // If were about to show the picker view then scroll to it, IF its not going to be visible
-        let scrollFrame = CGRect(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y,
-                                 width: scrollView.frame.width, height: scrollView.frame.height)
-        if wasHidden && (!scrollFrame.intersects(pickerView.frame) || classNameField.isFirstResponder) {
-            let toScroll = self.scrollView.bounds.origin.y + 120.0
-            self.scrollView.setContentOffset(CGPoint(x: 0, y: toScroll), animated: true)
-        }
-        
-        // Prepare for animations
-        
-        pickerView.isHidden = false
-        let toAlpha: CGFloat = wasHidden ? 1.0 : 0.0
-        let toHeight: CGFloat = wasHidden ? 120.0 : 0.0
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            pickerView.alpha = toAlpha
-            constraint?.constant = toHeight
-            label?.textColor = wasHidden ? UIColor.highlight : UIColor.mainTextColor()
-        }, completion: { _ in
-            pickerView.isHidden = !wasHidden
-        })
     }
     
     /// Presents an alert when provided the specified alertType
@@ -898,11 +804,6 @@ class AddEditClassViewController: UIViewController {
     deinit {
         // Remove any notifications
         NotificationCenter.default.removeObserver(self)
-
-        // Deinit the feedback generator
-        if #available(iOS 10.0, *) {
-            feedbackGenerator = nil
-        }
         // Remove timer
         colorTimer?.invalidate()
     }
@@ -925,58 +826,78 @@ extension AddEditClassViewController: UITextFieldDelegate {
         return false
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField === self.semesterField {
+            let termRow = Semester.possibleTerms.index(of: self.semester.term)!
+            let yearRow = Semester.possibleYears.index(of: self.semester.year)!
+            self.semesterField.pickerView.selectRow(termRow, inComponent: 0, animated: false)
+            self.semesterField.pickerDelegate?.didSelectPickerRow(termRow, in: 0, for: self.semesterField)
+            self.semesterField.pickerView.selectRow(yearRow, inComponent: 1, animated: false)
+            self.semesterField.pickerDelegate?.didSelectPickerRow(yearRow, in: 1, for: self.semesterField)
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
         updateSaveButton()
     }
 }
 
-// MAKR: Class Type & Grade Picker Delegation/DataSource
-extension AddEditClassViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    var classTypes: [String] {
-        get {
-            return ["Regular", "Honors", "AP", "IB", "College"]
-        }
-    }
-    
-    var gradeLetters: [String] {
-        get {
-            let scale = self.realm.objects(GPAScale.self)[0]
-            return scale.gpaRubrics.map { $0.gradeLetter }
-        }
+// MARK: UIPickerField delegation & data source
+
+extension AddEditClassViewController: UIPickerFieldDelegate, UIPickerFieldDataSource {
+    /// The data for the class type picker
+    private var classTypes: [String] {
+        return ["Regular", "Honors", "AP", "IB", "College"]
     }
 
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+    /// The data for the grade picker
+    private var gradeLetters: [String] {
+        let scale = self.realm.objects(GPAScale.self)[0]
+        return scale.gpaRubrics.map { $0.gradeLetter }
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerView === self.classTypePickerView ? classTypes.count : gradeLetters.count
+    func numberOfComponents(in field: UIPickerField) -> Int {
+        if field === self.semesterField { return 2 }
+        else { return 1 }
     }
     
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let title = pickerView === self.classTypePickerView ? classTypes[row] : gradeLetters[row]
-        return NSAttributedString(string: title, attributes: [.foregroundColor: UIColor.mainTextColor()])
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // Update the label and the class type
-        if pickerView === self.classTypePickerView {
-            self.classTypeLabel.text = classTypes[row]
-            self.classType = ClassType(rawValue: row + 1)
+    func numberOfRows(in compononent: Int, for field: UIPickerField) -> Int {
+        if field === self.semesterField {
+            return compononent == 0 ? Semester.possibleTerms.count : Semester.possibleYears.count
+        } else if field === self.classTypeField {
+            return classTypes.count
         } else {
-            self.gradeLabel.text = gradeLetters[row]
+            return gradeLetters.count
         }
     }
-}
-
-// MARK: Semester Picker Delegation
-extension AddEditClassViewController: SemesterPickerDelegate {
-    /// Notifies delegate that a row was selected
-    internal func pickerRowSelected(term: String, year: Int) {
-        self.semesterLabel.text = "\(term) \(year)"
-        self.semester = Semester(term: term, year: year)
+    
+    func titleForRow(_ row: Int, in component: Int, for field: UIPickerField) -> String? {
+        if field === self.semesterField {
+            return component == 0 ? Semester.possibleTerms[row] : String(Semester.possibleYears[row])
+        } else if field === self.classTypeField {
+            return classTypes[row]
+        } else {
+            return gradeLetters[row]
+        }
+    }
+    
+    func didSelectPickerRow(_ row: Int, in component: Int, for field: UIPickerField) {
+        // Set class type
+        self.classType = ClassType(rawValue: row + 1)
+        // If the picker field whcih was selected is the semester field, we need to do custom text setting
+        guard field === semesterField else { return }
+        if component == 0 {
+            self.semesterField.text = self.semesterField.text?.replacingOccurrences(of: self.semester.term, with: Semester.possibleTerms[row])
+            self.semester = Semester(term: Semester.possibleTerms[row], year: self.semester.year)
+        } else {
+            self.semesterField.text = self.semesterField.text?.replacingOccurrences(of: String(self.semester.year), with: String(Semester.possibleYears[row]))
+            self.semester = Semester(term: self.semester.term, year: Semester.possibleYears[row])
+        }
+    }
+    
+    func doneButtonTouched(for field: UIPickerField) {
+        field.resignFirstResponder()
     }
 }
 

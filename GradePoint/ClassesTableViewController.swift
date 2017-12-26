@@ -280,7 +280,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             UserDefaults.standard.set(terms, forKey: userDefaultTerms)
         }
         
-        let years = UISemesterPickerView.createArrayOfYears()
+        let years = Semester.possibleYears
         var results = [Semester]()
         
         for year in years {

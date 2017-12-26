@@ -130,6 +130,8 @@ extension UIGPAView: UIPickerFieldDelegate, UIPickerFieldDataSource {
         return grades[row]
     }
     
+    func didSelectPickerRow(_ row: Int, in component: Int, for field: UIPickerField) { }
+    
     func doneButtonTouched(for field: UIPickerField) {
         self.gradeField.resignFirstResponder()
     }
