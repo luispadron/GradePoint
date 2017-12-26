@@ -15,16 +15,6 @@ class UIGPAView: UIView {
     
     var font: UIFont = UIFont.systemFont(ofSize: 18)
     
-    
-    // MARK: Actions
-    
-    @objc private func tappedOnDoneGradeFieldButton(sender: UIBarButtonItem) {
-        // End editing
-        self.gradeField.resignFirstResponder()
-    }
-    
-    // MARK: Overrides
-    
     // MARK: Initializers/Overrides
     
     override init(frame: CGRect) {
@@ -79,9 +69,8 @@ class UIGPAView: UIView {
     }()
     
     /// The grade field which displays the grade letter of the class
-    lazy var gradeField: UIFloatingPromptTextField = {
-        let field = UIFloatingPromptTextField(frame: .zero, fieldType: .text,
-                                              configuration: TextConfiguration(maxCharacters: 2))
+    lazy var gradeField: UIPickerField = {
+        let field = UIPickerField(frame: .zero, fieldType: .text, configuration: TextConfiguration(maxCharacters: 2))
         field.placeholder = "Grade"
         field.titleText = "Grade"
         field.titleTextColor = .pastelPurple
@@ -92,25 +81,11 @@ class UIGPAView: UIView {
                                                          attributes: [.foregroundColor: UIColor.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
-        // Add the picker view as an input view
-        field.inputView = self.gradesPickerView
-        // Add toolbar to field
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 40))
-        toolBar.layer.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height-20.0)
-        toolBar.tintColor = .white
-        toolBar.barTintColor = .pastelPurple
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.tappedOnDoneGradeFieldButton(sender:)))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.size.width / 3, height: self.frame.size.height))
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.backgroundColor = .clear
-        label.textColor = .white
-        label.textAlignment = .center
-        label.text = "Select a grade"
-        let textBtn = UIBarButtonItem(customView: label)
-        toolBar.setItems([flexSpace, textBtn, flexSpace, doneButton], animated: false)
-        field.inputAccessoryView = toolBar
-        label.adjustsFontSizeToFitWidth = true
+        field.pickerDelegate = self
+        field.pickerDataSource = self
+        field.toolbar.barTintColor = .pastelPurple
+        field.toolbar.tintColor = .white
+        field.toolbarLabel.text = "Select a grade"
         
         return field
     }()
@@ -131,41 +106,31 @@ class UIGPAView: UIView {
         
         return field
     }()
-    
-    /// The picker view which acts as an input view for the GradeField
-    lazy var gradesPickerView: UIPickerView = {
-        let picker = UIPickerView()
-        picker.delegate = self
-        return picker
-    }()
-    
 }
 
-// MARK: Pickerview Delegation
+// MARK: PickerField Delegation
 
-extension UIGPAView: UIPickerViewDelegate, UIPickerViewDataSource {
+extension UIGPAView: UIPickerFieldDelegate, UIPickerFieldDataSource {
+    
     // The grades which can be picked from the picker
     var grades: [String] {
-        get {
-            let scale = DatabaseManager.shared.realm.objects(GPAScale.self)[0]
-            return scale.gpaRubrics.map { $0.gradeLetter }
-        }
+        let scale = DatabaseManager.shared.realm.objects(GPAScale.self)[0]
+        return scale.gpaRubrics.map { $0.gradeLetter }
     }
     
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in field: UIPickerField) -> Int {
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func numberOfRows(in compononent: Int, for field: UIPickerField) -> Int {
         return grades.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func titleForRow(_ row: Int, in component: Int, for field: UIPickerField) -> String? {
         return grades[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.gradeField.text = grades[row]
+    func doneButtonTouched(for field: UIPickerField) {
+        self.gradeField.resignFirstResponder()
     }
 }

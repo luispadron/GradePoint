@@ -54,6 +54,9 @@
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
 		A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */; };
 		A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A61E3078C100CE4F43 /* StringExtensions.swift */; };
+		A078D23C1FF1C0B1004197DF /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A078D23B1FF1C0B1004197DF /* UIPickerField.swift */; };
+		A078D23E1FF1C51C004197DF /* UIPickerFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A078D23D1FF1C51C004197DF /* UIPickerFieldDelegate.swift */; };
+		A078D2421FF1C6E0004197DF /* UIPickerFieldDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A078D2411FF1C6E0004197DF /* UIPickerFieldDataSource.swift */; };
 		A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59761E86EDB5007EEE1E /* GPACalculation.swift */; };
 		A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96881EBBCBDF00382E45 /* Calculators.storyboard */; };
 		A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */; };
@@ -226,6 +229,9 @@
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
 		A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Resize.swift"; sourceTree = "<group>"; };
 		A076F5A61E3078C100CE4F43 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		A078D23B1FF1C0B1004197DF /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
+		A078D23D1FF1C51C004197DF /* UIPickerFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerFieldDelegate.swift; sourceTree = "<group>"; };
+		A078D2411FF1C6E0004197DF /* UIPickerFieldDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerFieldDataSource.swift; sourceTree = "<group>"; };
 		A07B59761E86EDB5007EEE1E /* GPACalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculation.swift; sourceTree = "<group>"; };
 		A07B96891EBBCBDF00382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Calculators.storyboard; sourceTree = "<group>"; };
 		A07B968B1EBBCC0E00382E45 /* ClassDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClassDetail.storyboard; sourceTree = "<group>"; };
@@ -460,6 +466,8 @@
 				A08109751F631F7D0048F6DA /* ClassChangesListener.swift */,
 				A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */,
 				A067BBCD1F6363250083E896 /* RealmTableView.swift */,
+				A078D23D1FF1C51C004197DF /* UIPickerFieldDelegate.swift */,
+				A078D2411FF1C6E0004197DF /* UIPickerFieldDataSource.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -596,6 +604,7 @@
 				A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */,
 				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
 				A00288C51FD11E190076097C /* ClassCellHeaderView.swift */,
+				A078D23B1FF1C0B1004197DF /* UIPickerField.swift */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -1058,6 +1067,7 @@
 				A01599111E2AC47E003B63F2 /* TextInputTableViewCell.swift in Sources */,
 				A0FA1A8F1F1D536000F5FF6E /* ClassDetailTableViewController.swift in Sources */,
 				A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */,
+				A078D2421FF1C6E0004197DF /* UIPickerFieldDataSource.swift in Sources */,
 				A019325C1EB128EB000E18A3 /* ClassType.swift in Sources */,
 				A019325E1EB12917000E18A3 /* Grade.swift in Sources */,
 				A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */,
@@ -1067,6 +1077,7 @@
 				A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */,
 				A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */,
 				A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */,
+				A078D23C1FF1C0B1004197DF /* UIPickerField.swift in Sources */,
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
 				A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
@@ -1078,6 +1089,7 @@
 				A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */,
 				A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */,
 				A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */,
+				A078D23E1FF1C51C004197DF /* UIPickerFieldDelegate.swift in Sources */,
 				A0E705AC1DBBDE31008E04EC /* UISemesterPickerView.swift in Sources */,
 				A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */,
 				A04CC5881E11C8FA007F09D7 /* BasicInfoDatePickerTableViewCell.swift in Sources */,
