@@ -25,39 +25,21 @@ class AddEditAssignmentTableViewController: UITableViewController {
     /// The parent class which owns this Assignment, passed in via segue inside of ClassDetailTableViewController
     var parentClass: Class!
     
-    /// The static cells, resused in cellForRow
-    var nameCell: UITableViewCell?
-    var dateLabelCell: UITableViewCell?
-    var dateCell: UITableViewCell?
-    var rubricLabelCell: UITableViewCell?
-    var rubricCell: UITableViewCell?
-    var scoreCell: UITableViewCell?
-    
-    /// The date label, which displays the value picked from the date picker
-    var dateLabel: UILabel!
-
-    /// The rubric label, which displays the value picked from the rubric picker
-    var rubricLabel: UILabel!
-
-    /// Boolean for determining whether datePicker is visible or not
-    var datePickerIsVisible = false
-
-    /// Boolean for determining whether rubricPicker is visible or not
-    var rubricPickerIsVisible = false
-
-    /// The name field textfield
-    var nameField: UITextField?
-
-    /// The score field textfield
-    var scoreField: UISafeTextField?
+    /// The static cell content
+    @IBOutlet weak var nameField: UIFloatingPromptTextField!
+    @IBOutlet weak var datePickerField: UIPickerField!
+    @IBOutlet weak var rubricPickerField: UIPickerField!
+    @IBOutlet weak var scoreField: UIFloatingPromptTextField!
 
     /// The selected date from the date picker
     var selectedDate: Date = Date()
+    
+    /// The rubric selected from the rubric picker
+    var selectedRubric: Rubric! = nil
 
     /// Assignment which will be edited if editing
     var assignmentForEdit: Assignment?
 
-    
     // MARK: - Overrides
     
     override func viewDidLoad() {
@@ -65,24 +47,102 @@ class AddEditAssignmentTableViewController: UITableViewController {
         
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-
-        saveButton.isEnabled = assignmentForEdit != nil ? true : false
-        // If editing, set the title
-        if let assignment = assignmentForEdit { self.title = "Edit \(assignment.name)" }
+        
+        // Field setup
+        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
+                                                            .font: UIFont.preferredFont(forTextStyle: .body)]
+        self.nameField.titleText = "Assignment Name"
+        self.nameField.titleTextSpacing = 8.0
+        self.nameField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.nameField.attributedPlaceholder = NSAttributedString(string: "Assignment Name", attributes: attrsForPrompt)
+        self.nameField.delegate = self
+        self.nameField.autocapitalizationType = .words
+        self.nameField.returnKeyType = .done
+        self.nameField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
+        
+        // Custom date picker for `datePickerField`
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(self.datePickerChange(sender:)), for: .valueChanged)
+        self.datePickerField.inputView = datePicker
+        self.datePickerField.titleText = "Date"
+        self.datePickerField.titleTextSpacing = 8.0
+        self.datePickerField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.datePickerField.toolbar.barTintColor = .highlight
+        self.datePickerField.toolbar.tintColor = .white
+        self.datePickerField.toolbarLabel.text = "Select a date"
+        
+        // Set up for rubric field
+        self.rubricPickerField.titleText = "Rubric"
+        self.rubricPickerField.titleTextSpacing = 8.0
+        self.rubricPickerField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.rubricPickerField.toolbar.barTintColor = .highlight
+        self.rubricPickerField.toolbar.tintColor = .white
+        self.rubricPickerField.toolbarLabel.text = "Select a rubric"
+        
+        // Set up for score field
+        self.scoreField.titleText = "Score"
+        self.scoreField.titleTextSpacing = 8.0
+        self.scoreField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.scoreField.attributedPlaceholder = NSAttributedString(string: "Score", attributes: attrsForPrompt)
+        self.scoreField.delegate = self
+        self.scoreField.keyboardType = .decimalPad
+        self.scoreField.fieldType = .percent
+        self.scoreField.configuration = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
+        self.scoreField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
+        // Add input accessory view to score field
+        let inputFieldToolbar = UIToolbar()
+        inputFieldToolbar.barStyle = .default
+        inputFieldToolbar.items = [
+            UIBarButtonItem(title: "Calculate", style: .done, target: self, action: #selector(self.assignmentNeedsCalculate)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accesoryKeyboardDone))
+        ]
+        inputFieldToolbar.sizeToFit()
+        inputFieldToolbar.barTintColor = UIColor.lightBackground
+        inputFieldToolbar.isTranslucent = false
+        self.scoreField.inputAccessoryView = inputFieldToolbar
+        
+        // Set picker field delegates/datasources
+        self.datePickerField.pickerDelegate = self
+        self.datePickerField.pickerDataSource = self
+        self.rubricPickerField.pickerDelegate = self
+        self.rubricPickerField.pickerDataSource = self
+        
+        // If editing, set default text for fields to stored values, otherwise use generic defaults
+        if let assignment = assignmentForEdit {
+            self.saveButton.isEnabled = true
+            self.title = "Edit \(assignment.name)"
+            self.nameField.text = assignment.name
+            self.selectedRubric = assignment.rubric
+            self.rubricPickerField.text = self.selectedRubric.name
+            self.selectedDate = assignment.date
+            self.datePickerField.text = formatDate(self.selectedDate)
+            self.scoreField.text = "\(assignment.score)%"
+        } else {
+            self.saveButton.isEnabled = false
+            self.selectedRubric = self.parentClass.rubrics.first
+            self.rubricPickerField.text = self.selectedRubric.name
+            self.selectedDate = Date()
+            self.datePickerField.text = formatDate(self.selectedDate)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // UI Customization
         self.tableView.separatorColor = UIColor.tableViewSeperator
         self.view.backgroundColor = UIColor.background
+        
+        // Always toggle rubric and date picker fields title
+        self.rubricPickerField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        self.datePickerField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        // If editing assignment, then we can go ahead and show titles for name and score fields, since they will have values
+        if assignmentForEdit != nil {
+            self.nameField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+            self.scoreField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
+        }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // If editing, select the correct date and rubric
-        if let assignment = assignmentForEdit { updatePickers(for: assignment) }
-    }
-    
 
     // MARK: - Table view
 
@@ -93,7 +153,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 5
+            return 3
         case 1:
             return 1
         default:
@@ -105,17 +165,6 @@ class AddEditAssignmentTableViewController: UITableViewController {
         return 44
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Basic Information"
-        case 1:
-            return "Assignment Score"
-        default:
-            return nil
-        }
-    }
-
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.tintColor = UIColor.tableViewHeader
@@ -124,133 +173,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 2:
-                return datePickerIsVisible ? 120 : 0
-            case 4:
-                return rubricPickerIsVisible ? 120 : 0
-            default:
-                return 60
-            }
-        }
-        
-        return 60
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0:
-                if let cachedCell = self.nameCell { return cachedCell }
-                let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.inputLabel.text = "Name"
-                cell.selectionStyle = .none
-                cell.promptText = "Assignment Name"
-                cell.inputField.delegate = self
-                cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
-                if let assignment = assignmentForEdit { cell.inputField.text = assignment.name }
-                self.nameField = cell.inputField
-                self.nameCell = cell
-                return cell
-            case 1:
-                if let cachedCell = self.dateLabelCell { return cachedCell }
-                let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.leftLabel.text = "Date"
-                // Init the right label 'date label', set text to todays date
-                let formatter = DateFormatter()
-                formatter.dateStyle = .long
-                formatter.timeStyle = .none
-                if let assignment = assignmentForEdit { cell.rightLabel.text = formatter.string(from: assignment.date) }
-                else { cell.rightLabel.text = formatter.string(from: Date()) }
-                self.dateLabel = cell.rightLabel
-                cell.selectionStyle = .none
-                self.dateLabelCell = cell
-                return cell
-            case 2:
-                if let cachedCell = self.dateCell { return cachedCell }
-                let cell = BasicInfoDatePickerTableViewCell(style: .default, reuseIdentifier: nil)
-                // Add action from date picker
-                cell.datePicker.addTarget(self, action: #selector(self.datePickerChange), for: .valueChanged)
-                cell.selectionStyle = .none
-                self.dateCell = cell
-                return cell
-            case 3:
-                if let cachedCell = self.rubricLabelCell { return cachedCell }
-                let cell = GenericLabelTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.leftLabel.text = "Rubric"
-                if let assignment = assignmentForEdit { cell.rightLabel.text = assignment.rubric!.name }
-                else { cell.rightLabel.text = self.parentClass.rubrics[0].name }
-                self.rubricLabel = cell.rightLabel
-                cell.selectionStyle = .none
-                self.rubricLabelCell = cell
-                return cell
-            case 4:
-                if let cachedCell = self.rubricCell { return cachedCell }
-                let cell = BasicInfoRubricPickerTableViewCell(style: .default, reuseIdentifier: nil)
-                cell.rubricPicker.delegate = self
-                cell.rubricPicker.dataSource = self
-                cell.selectionStyle = .none
-                self.rubricCell = cell
-                return cell
-            default:
-                break
-            }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                if let cachedCell = self.scoreCell { return cachedCell }
-                let cell = TextInputTableViewCell(style: .default, reuseIdentifier: nil)
-                let config = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
-                let textField = UISafeTextField(frame: .zero, fieldType: .percent, configuration: config)
-                cell.inputField = textField
-                // Add input accessory view to keyboard
-                let inputFieldToolbar = UIToolbar()
-                inputFieldToolbar.barStyle = .default
-                inputFieldToolbar.items = [
-                    UIBarButtonItem(title: "Calculate", style: .done, target: self, action: #selector(self.assignmentNeedsCalculate)),
-                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-                    UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accesoryKeyboardDone))
-                ]
-                inputFieldToolbar.sizeToFit()
-                inputFieldToolbar.barTintColor = UIColor.lightBackground
-                inputFieldToolbar.isTranslucent = false
-                cell.inputField.inputAccessoryView = inputFieldToolbar
-                cell.inputLabel.text = "Score"
-                cell.promptText = "Assignment Score"
-                cell.selectionStyle = .none
-                cell.inputField.delegate = self
-                cell.inputField.addTarget(self, action: #selector(self.textFieldChanged), for: .editingChanged)
-                if let assignment = assignmentForEdit { cell.inputField.text = "\(assignment.score.roundedUpTo(2))%" }
-                self.scoreField = cell.inputField as? UISafeTextField
-                self.scoreCell = cell
-                return cell
-            default:
-                break
-            }
-        }
-        
-        return UITableViewCell()
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 1: // Date section selected, show or hide datePicker accordingly
-            togglePicker()
-        case 3:
-            togglePicker()
-        default:
-            return
-        }
-    }
-    
-    // MARK: - ScrollView Methods
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Resign name field on scroll
-        let nameField = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextInputTableViewCell)?.inputField
-        nameField?.resignFirstResponder()
+        return 70
     }
 
     // MARK: - Actions
@@ -262,10 +185,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         
-        guard let _ = nameField?.text, let text = scoreField?.safeText, text.count > 0,
-            let _ = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? BasicInfoRubricPickerTableViewCell)?.rubricPicker else {
-                self.presentErrorAlert(title: "Error Saving", message: "Unable to save this assignment, due to an unknown error.")
-                return
+        guard nameField.text != nil, scoreField.text != nil else {
+            self.presentErrorAlert(title: "Error Saving", message: "Unable to save this assignment, due to an unknown error.")
+            return
         }
         
         if let _ = assignmentForEdit { saveChanges() }
@@ -282,22 +204,20 @@ class AddEditAssignmentTableViewController: UITableViewController {
             scoreText.remove(at: last)
         }
         let score = Double(scoreText) ?? 0.0
-        let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
-        let rubric = parentClass!.rubrics[indexOfRubric]
         let oldRubric = assignmentForEdit?.rubric?.copy() as! Rubric
 
         // Write change to realm
         DatabaseManager.shared.write {
             assignmentForEdit?.name = name
             assignmentForEdit?.score = score
-            assignmentForEdit?.date = selectedDate
-            assignmentForEdit?.rubric = rubric
+            assignmentForEdit?.date = self.selectedDate
+            assignmentForEdit?.rubric = self.selectedRubric
         }
         
         self.dismiss(animated: true) {
             // Call deleggate if needed
-            if oldRubric != rubric {
-                self.listener?.assignmentRubricWasUpdated(self.assignmentForEdit!, from: oldRubric, to: rubric)
+            if oldRubric != self.selectedRubric {
+                self.listener?.assignmentRubricWasUpdated(self.assignmentForEdit!, from: oldRubric, to: self.selectedRubric)
             }
 
             self.listener?.assignmentWasUpdated(self.assignmentForEdit!)
@@ -314,10 +234,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
             scoreText.remove(at: last)
         }
         let score = Double(scoreText) ?? 0.0
-        let indexOfRubric = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell).rubricPicker.selectedRow(inComponent: 0)
-        let rubric = parentClass!.rubrics[indexOfRubric]
-        
-        let newAssignment = Assignment(name: name, date: selectedDate, score: score, associatedRubric: rubric)
+    
+        let newAssignment = Assignment(name: name, date: selectedDate, score: score, associatedRubric: self.selectedRubric)
 
         DatabaseManager.shared.write {
             parentClass.assignments.append(newAssignment)
@@ -330,11 +248,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
     }
     
     @objc func datePickerChange(sender: UIDatePicker) {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
         self.selectedDate = sender.date
-        self.dateLabel.text = formatter.string(from: sender.date)
+        self.datePickerField.text = formatDate(sender.date)
     }
     
     @objc func assignmentNeedsCalculate(sender: UIBarButtonItem) {
@@ -345,70 +260,17 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    // MARK: Helper Methods
-    
-    @objc func accesoryKeyboardDone() {
-        guard let textField = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? TextInputTableViewCell)?.inputField else {
-            print("Couldn't get keyboard to when user clicked on done, method: accesoryKeyboardDone")
-            return
-        }
-        
-        textField.resignFirstResponder()
+    @objc func accesoryKeyboardDone(sender: UIBarButtonItem) {
+        self.scoreField.resignFirstResponder()
     }
     
-    /// Updates the pickers to the appropriate values for the assignment being edited
-    func updatePickers(for assignment: Assignment) {
-        guard let datePicker = (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? BasicInfoDatePickerTableViewCell)?.datePicker,
-            let rubricPicker = (tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? BasicInfoRubricPickerTableViewCell)?.rubricPicker else {
-                print("WARNING: Unable to get pickers for update")
-                return
-        }
-        
-        // Update date picker
-        datePicker.setDate(assignment.date, animated: false)
-        // Update rubric picker
-        if let indexOfRubric = parentClass.rubrics.index(of: assignment.rubric!) {
-            rubricPicker.selectRow(indexOfRubric, inComponent: 0, animated: false)
-            self.pickerView(rubricPicker, didSelectRow: indexOfRubric, inComponent: 0)
-        }
-    }
+    // MARK: Helpers
     
-    func togglePicker() {
-        guard let selectedPath = tableView.indexPathForSelectedRow else {
-            print("No row selected?")
-            return
-        }
-
-        switch selectedPath.row {
-        case 1:
-            let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! BasicInfoDatePickerTableViewCell
-            // Show the date picker
-            tableView.beginUpdates()
-            datePickerIsVisible = !datePickerIsVisible
-            tableView.endUpdates()
-            cell.datePicker.isHidden = !datePickerIsVisible
-            cell.datePicker.alpha = datePickerIsVisible ? 0.0 : 1.0
-            // Animate the show
-            UIView.animate(withDuration: 0.3) {
-                self.dateLabel.textColor = self.datePickerIsVisible ? UIColor.highlight : UIColor.mainTextColor()
-                cell.datePicker.alpha = self.datePickerIsVisible ? 1.0 : 0.0
-            }
-        case 3:
-            let cell = tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as! BasicInfoRubricPickerTableViewCell
-            // Show the rubric picker
-            tableView.beginUpdates()
-            rubricPickerIsVisible = !rubricPickerIsVisible
-            tableView.endUpdates()
-            cell.rubricPicker.isHidden = !rubricPickerIsVisible
-            cell.rubricPicker.alpha = rubricPickerIsVisible ? 0.0 : 1.0
-            // Animate the show
-            UIView.animate(withDuration: 0.3) {
-                self.rubricLabel.textColor = self.rubricPickerIsVisible ? UIColor.highlight : UIColor.mainTextColor()
-                cell.rubricPicker.alpha = self.rubricPickerIsVisible ? 1.0 : 0.0
-            }
-        default:
-            return
-        }
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
     }
 }
 
@@ -426,8 +288,7 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if let field = textField as? UISafeTextField, field === scoreField {
+        if let field = textField as? UIFloatingPromptTextField, field === scoreField {
             return field.shouldChangeTextAfterCheck(text: string)
         }
         
@@ -448,42 +309,69 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - UIPickerView Delegate & UIPickerView Data Source
+// MARK: - UIPickerField Delegate & DataSource
 
-extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension AddEditAssignmentTableViewController: UIPickerFieldDataSource, UIPickerFieldDelegate {
+    // NOTE: Since only using an actual rubric view for `rubricPickerField`, and not `datePickerField`, these
+    // methods will only be used for the `rubricPickerField`
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in field: UIPickerField) -> Int {
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return parentClass.rubrics.count
+    func numberOfRows(in compononent: Int, for field: UIPickerField) -> Int {
+        return self.parentClass.rubrics.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 25
+    func titleForRow(_ row: Int, in component: Int, for field: UIPickerField) -> String? {
+        return self.parentClass.rubrics[row].name
     }
     
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return pickerView.frame.width
+    func doneButtonTouched(for field: UIPickerField) {
+        field.resignFirstResponder()
     }
     
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let name = parentClass.rubrics[row].name
-        let title = NSMutableAttributedString(string: name)
-        title.addAttributes([.foregroundColor: UIColor.mainTextColor(),
-                             .font: UIFont.preferredFont(forTextStyle: .body)],
-                            range: (name as NSString).range(of: name))
-        return title
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return parentClass.rubrics[row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.rubricLabel.text = parentClass.rubrics[row].name
+    func didSelectPickerRow(_ row: Int, in component: Int, for field: UIPickerField) {
+        // Set selected rubric to correct one
+        self.selectedRubric = self.parentClass.rubrics[row]
     }
 }
+
+
+//extension AddEditAssignmentTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return parentClass.rubrics.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+//        return 25
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+//        return pickerView.frame.width
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+//        let name = parentClass.rubrics[row].name
+//        let title = NSMutableAttributedString(string: name)
+//        title.addAttributes([.foregroundColor: UIColor.mainTextColor(),
+//                             .font: UIFont.preferredFont(forTextStyle: .body)],
+//                            range: (name as NSString).range(of: name))
+//        return title
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return parentClass.rubrics[row].name
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        self.rubricPickerField.text = parentClass.rubrics[row].name
+//    }
+//}
 
 
