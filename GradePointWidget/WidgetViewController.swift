@@ -80,10 +80,13 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         let showsGPA = realm.objects(GPACalculation.self).count > 0
         let showsClass = realm.objects(Assignment.self).count > 0
 
-        gpaRing.superview?.isHidden = !showsGPA
-        classRing.superview?.isHidden = !showsClass
-        emptyLabel.isHidden = showsClass || showsGPA
-        ringContainerView.isHidden = !showsClass && !showsGPA
+        self.gpaRing.superview?.isHidden = !showsGPA
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        self.gpaRing.decimalPlaces = roundingAmount
+        
+        self.classRing.superview?.isHidden = !showsClass
+        self.emptyLabel.isHidden = showsClass || showsGPA
+        self.ringContainerView.isHidden = !showsClass && !showsGPA
 
         if showsClass {
             guard let assignment = realm.objects(Assignment.self).sorted(byKeyPath: "date", ascending: false).first,

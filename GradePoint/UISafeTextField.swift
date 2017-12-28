@@ -16,7 +16,11 @@ open class UISafeTextField: UITextField {
     }
     
     /// The type of the textfield
-    open var fieldType: FieldType = .text
+    open var fieldType: FieldType = .text {
+        didSet {
+            if self.fieldType == .number { self.keyboardType = .decimalPad }
+        }
+    }
     /// The configuration for the text field
     open var configuration: FieldConfiguration = TextConfiguration(maxCharacters: Int.max)
     /// Boolean for determining if the user clicked backspace

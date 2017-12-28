@@ -15,7 +15,8 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var studentTypeSwitcher: UISegmentedControl!
     @IBOutlet weak var themeSwitcher: UISegmentedControl!
-
+    @IBOutlet weak var roundingField: UISafeTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +43,29 @@ class SettingsTableViewController: UITableViewController {
         // Set initial theme for theme switcher
         let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: userDefaultTheme))
         themeSwitcher.selectedSegmentIndex = (theme?.rawValue ?? 1) - 1
+        
+        // Rounding field setup
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        self.roundingField.text = String(roundingAmount)
+        self.roundingField.fieldType = .number
+        var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...3)
+        config.allowsFloating = false
+        self.roundingField.configuration = config
+        self.roundingField.delegate = self
+        self.roundingField.textAlignment = .right
+        self.roundingField.returnKeyType = .done
+        // Add toolbar to rounding field
+        let fieldToolbar = UIToolbar()
+        fieldToolbar.barStyle = .default
+        fieldToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
+        ]
+        fieldToolbar.sizeToFit()
+        fieldToolbar.barTintColor = UIColor.lightBackground
+        fieldToolbar.isTranslucent = false
+        self.roundingField.inputAccessoryView = fieldToolbar
 
         // Setup tableview estimates
         self.tableView.estimatedRowHeight = 44
@@ -55,8 +79,11 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.separatorColor = UIColor.tableViewSeperator
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Save any changes done to rounding amount to user defaults
+        guard let amount = Int(self.roundingField.safeText) else { return }
+        UserDefaults.standard.set(amount, forKey: userDefaultRoundingAmount)
     }
 
     // MARK: - Table view methods
@@ -70,7 +97,7 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 4
+            return 5
         case 2:
             return 3
         case 3:
@@ -273,6 +300,24 @@ class SettingsTableViewController: UITableViewController {
         // Post notification to allow any other view controllers that need to update their UI
         NotificationCenter.default.post(name: themeUpdatedNotification, object: nil)
     }
+    
+    @objc private func accessoryKeyboardDone() {
+        self.roundingField.resignFirstResponder()
+        // Save to defaults
+        guard let amount = Int(self.roundingField.safeText) else { return }
+        UserDefaults.standard.set(amount, forKey: userDefaultRoundingAmount)
+    }
+}
 
+// MARK: Delegation for `roundingField`
 
+extension SettingsTableViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return self.roundingField.shouldChangeTextAfterCheck(text: string)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

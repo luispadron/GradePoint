@@ -44,16 +44,18 @@ class GPACalculatorViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
         // UI Setup
-        view.backgroundColor = UIColor.background
-        headerView.backgroundColor = UIColor.tableViewHeader
-        (headerView.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
-        progressRingView.fontColor = UIColor.mainTextColor()
-        (emptyView.subviews.first as? UILabel)?.textColor = UIColor.mainTextColor()
-        weightSwitcher.tintColor = UIColor.pastelPurple
+        self.view.backgroundColor = UIColor.background
+        self.headerView.backgroundColor = UIColor.tableViewHeader
+        (self.headerView.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
+        self.progressRingView.fontColor = UIColor.mainTextColor()
+        (self.emptyView.subviews.first as? UILabel)?.textColor = UIColor.mainTextColor()
+        self.weightSwitcher.tintColor = UIColor.pastelPurple
 
-        calculateButton.setTitleColor(UIColor.white, for: .normal)
-        calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
-        progressRingView.font = UIFont.systemFont(ofSize: 30)
+        self.calculateButton.setTitleColor(UIColor.white, for: .normal)
+        self.calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
+        self.progressRingView.font = UIFont.systemFont(ofSize: 30)
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        self.progressRingView.decimalPlaces = roundingAmount
         
         // Check to see if there any classes for which a calculation can be made
         let classes = DatabaseManager.shared.realm.objects(Class.self).filter { !$0.isInProgress || $0.assignments.count > 0 }
@@ -246,7 +248,8 @@ class GPACalculatorViewController: UIViewController {
                 }
             }
             
-            return Double(totalPoints / Double(totalCreditHours)).roundedUpTo(2)
+            let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+            return Double(totalPoints / Double(totalCreditHours)).roundedUpTo(roundingAmount)
         }
         
         switch studentType {

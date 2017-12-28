@@ -148,7 +148,8 @@ extension UICalculateViewController: UICalculateViewDelegate {
     func calculateWasTapped(for: UICalculateView, score: String, total: String) {
         let totalD = Double(total) ?? 1.0
         let totalSafe = totalD > 0.0 ? totalD : 1.0
-        let percent = (((Double(score) ?? 0.0) / totalSafe) * 100.0).roundedUpTo(2)
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let percent = (((Double(score) ?? 0.0) / totalSafe) * 100.0).roundedUpTo(roundingAmount)
         
         
         self.animateOut { [weak self] _ in

@@ -64,6 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
         }
         
+        // Set default rounding amount
+        if defaults.integer(forKey: userDefaultRoundingAmount) == 0 {
+            defaults.set(2, forKey: userDefaultRoundingAmount)
+        }
+        
         if !hasOnboarded { self.presentOnboarding() }
         
         // Perform any required migrations

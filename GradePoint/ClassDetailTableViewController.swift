@@ -205,6 +205,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     private func updateUI() {
         self.view.backgroundColor = UIColor.background
         self.tableView.separatorColor = UIColor.tableViewSeperator
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        self.progressRing.decimalPlaces = roundingAmount
+        
         if let classObj = _classObj {
             title = classObj.name
             navigationItem.leftBarButtonItem?.isEnabled = true

@@ -101,7 +101,8 @@ class Class: Object {
             totalScore += assignments[0].rubric!.weight * sumTotal
         }
 
-        let score = Double(totalScore / weights).roundedUpTo(2)
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let score = Double(totalScore / weights).roundedUpTo(roundingAmount)
 
         // Also update the models Grade.score property in the DB, if its different
         if classObj.grade!.score != score {

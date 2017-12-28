@@ -32,6 +32,9 @@ class ClassPeekViewController: UIViewController {
                                                 color,
                                                 color.darker(by: 30) ?? color]
         }
+        
+        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        self.progressRing.decimalPlaces = roundingAmount
         self.progressRing.font = UIFont.systemFont(ofSize: 45)
         self.progressRing.setProgress(value: progress, animationDuration: 1.5)
     }

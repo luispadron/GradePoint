@@ -43,7 +43,9 @@ class ClassCellHeaderView: UIView {
     public func setLabels(title: String, score: Double?) {
         self.titleLabel.text = title
         if let s = score {
-            self.scoreLabel.text = "\(s.roundedUpTo(1))%"
+            let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+            self.scoreLabel.text = String(format: "%.\(roundingAmount)f", s.roundedUpTo(roundingAmount))
+        
         } else {
             self.scoreLabel.text = nil
         }

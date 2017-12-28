@@ -91,17 +91,17 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.scoreField.configuration = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
         self.scoreField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
         // Add input accessory view to score field
-        let inputFieldToolbar = UIToolbar()
-        inputFieldToolbar.barStyle = .default
-        inputFieldToolbar.items = [
+        let fieldToolbar = UIToolbar()
+        fieldToolbar.barStyle = .default
+        fieldToolbar.items = [
             UIBarButtonItem(title: "Calculate", style: .done, target: self, action: #selector(self.assignmentNeedsCalculate)),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accesoryKeyboardDone))
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
         ]
-        inputFieldToolbar.sizeToFit()
-        inputFieldToolbar.barTintColor = UIColor.lightBackground
-        inputFieldToolbar.isTranslucent = false
-        self.scoreField.inputAccessoryView = inputFieldToolbar
+        fieldToolbar.sizeToFit()
+        fieldToolbar.barTintColor = UIColor.lightBackground
+        fieldToolbar.isTranslucent = false
+        self.scoreField.inputAccessoryView = fieldToolbar
         
         // Set picker field delegates/datasources
         self.datePickerField.pickerDelegate = self
@@ -260,7 +260,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    @objc func accesoryKeyboardDone(sender: UIBarButtonItem) {
+    @objc func accessoryKeyboardDone(sender: UIBarButtonItem) {
         self.scoreField.resignFirstResponder()
     }
     
