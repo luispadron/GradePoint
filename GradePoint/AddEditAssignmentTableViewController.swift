@@ -99,8 +99,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
         ]
         fieldToolbar.sizeToFit()
-        fieldToolbar.barTintColor = UIColor.lightBackground
+        fieldToolbar.barTintColor = UIColor.highlight
         fieldToolbar.isTranslucent = false
+        fieldToolbar.tintColor = .white
         self.scoreField.inputAccessoryView = fieldToolbar
         
         // Set picker field delegates/datasources

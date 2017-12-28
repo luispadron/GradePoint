@@ -63,7 +63,8 @@ class SettingsTableViewController: UITableViewController {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
         ]
         fieldToolbar.sizeToFit()
-        fieldToolbar.barTintColor = UIColor.lightBackground
+        fieldToolbar.barTintColor = UIColor.highlight
+        fieldToolbar.tintColor = .white
         fieldToolbar.isTranslucent = false
         self.roundingField.inputAccessoryView = fieldToolbar
 
