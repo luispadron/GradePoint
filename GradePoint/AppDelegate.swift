@@ -40,16 +40,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         let defaults = UserDefaults.standard
+        
+        // Load default preferences into user defaults, in case these preference keys have not been set by user yet
+        let prefsFile = Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!
+        let prefsDict = NSDictionary(contentsOf: prefsFile)!
+        defaults.register(defaults: prefsDict as! [String: Any])
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) {
             setUITheme(for: theme)
-        } else {
-            // Set default theme to dark
-            defaults.set(UITheme.dark.rawValue, forKey: userDefaultTheme)
-            setUITheme(for: .dark)
         }
-
+        
         // Figure out whether we have onboarded the user or not
         let hasOnboarded = defaults.bool(forKey: userDefaultOnboardingComplete)
 
@@ -59,14 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if terms.count == 4 && terms[0] == "Spring" && terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter" {
                 defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
             }
-        } else {
-            // Save a default string array of terms
-            defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
-        }
-        
-        // Set default rounding amount
-        if defaults.integer(forKey: userDefaultRoundingAmount) == 0 {
-            defaults.set(2, forKey: userDefaultRoundingAmount)
         }
         
         if !hasOnboarded { self.presentOnboarding() }

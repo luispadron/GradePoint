@@ -47,6 +47,7 @@
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */; };
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
+		A07521811FF4A3D2005BBFF8 /* DefaultPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */; };
 		A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */; };
 		A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A076F5A61E3078C100CE4F43 /* StringExtensions.swift */; };
 		A078D23C1FF1C0B1004197DF /* UIPickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A078D23B1FF1C0B1004197DF /* UIPickerField.swift */; };
@@ -216,6 +217,7 @@
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewController.swift; sourceTree = "<group>"; };
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
+		A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DefaultPreferences.plist; sourceTree = "<group>"; };
 		A076F5A41E30735D00CE4F43 /* UILabel+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Resize.swift"; sourceTree = "<group>"; };
 		A076F5A61E3078C100CE4F43 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		A078D23B1FF1C0B1004197DF /* UIPickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerField.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				A0CE8B441DAF178F007968EE /* Storyboards */,
 				A00705171DAF0E9B00AD740A /* Assets.xcassets */,
 				A007051C1DAF0E9B00AD740A /* Info.plist */,
+				A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */,
 			);
 			path = GradePoint;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */,
+				A07521811FF4A3D2005BBFF8 /* DefaultPreferences.plist in Resources */,
 				A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */,
 				A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */,
 				A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */,
