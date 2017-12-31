@@ -13,23 +13,22 @@ import RealmSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    /// The main window of the application
     var window: UIWindow?
     
     /// Returns the only AppInfo object stored in realm, if never created before, creates one and returns it
     public static var appInfo: AppInfo {
-        get {
-            let realm = DatabaseManager.shared.realm
-            guard let info = realm.objects(AppInfo.self).first else {
-                // Create an object, return it
-                let newInfo = AppInfo()
-                DatabaseManager.shared.createObject(AppInfo.self, value: newInfo, update: false)
-                return newInfo
-            }
-            return info
+        let realm = DatabaseManager.shared.realm
+        guard let info = realm.objects(AppInfo.self).first else {
+            // Create an object, return it
+            let newInfo = AppInfo()
+            DatabaseManager.shared.createObject(AppInfo.self, value: newInfo, update: false)
+            return newInfo
         }
+        return info
     }
     
-    /// The initial root controler, before adding the onboarding controller as the root
+    /// The initial root controler, before adding the onboarding controller as the root.
     /// This is used when onboarding must be presented, because after onboarding is presented 
     /// we must fix the root view controllers to their orignal positions
     var initialRootController: UIViewController?
@@ -39,12 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        // Create user defaults and load correct default preferences
         let defaults = UserDefaults.standard
         
         // Load default preferences into user defaults, in case these preference keys have not been set by user yet
         let prefsFile = Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!
-        let prefsDict = NSDictionary(contentsOf: prefsFile)!
-        defaults.register(defaults: prefsDict as! [String: Any])
+        let prefsDict = NSDictionary(contentsOf: prefsFile) as! [String: Any]
+        defaults.register(defaults: prefsDict)
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) {
@@ -54,17 +54,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Figure out whether we have onboarded the user or not
         let hasOnboarded = defaults.bool(forKey: userDefaultOnboardingComplete)
 
-        if let terms = defaults.stringArray(forKey: userDefaultTerms) {
-            // TODO: Remove this code whenever old user base is migrated to version 2.0
-            // Code in here due to the new re-ordering of default terms and there locations in version 2.0.
-            if terms.count == 4 && terms[0] == "Spring" && terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter" {
-                defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
-            }
+        // TODO: Remove this code whenever old user base is migrated to version 2.0
+        // Code in here due to the new re-ordering of default terms and there locations in version 2.0.
+        if let terms = defaults.stringArray(forKey: userDefaultTerms), terms.count == 4 && terms[0] == "Spring" &&
+            terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter"
+        {
+            defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
         }
         
+        // Present onboarding if neccessary
         if !hasOnboarded { self.presentOnboarding() }
         
-        // Perform any required migrations
+        // Perform any required database migrations
         DatabaseManager.setupRealm() {
             // App has launched and migrations finished, increase sessions
             self.incrementSessions()
@@ -74,14 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
             print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
             // Catches all exceptions and prints
-            NSSetUncaughtExceptionHandler { (exception) in
-                print(exception)
-            }
-
+            NSSetUncaughtExceptionHandler { print($0) }
             // For UITesting, handle any launch options
-            prepareForUITesting()
+            self.prepareForUITesting()
         }
-
         return true
     }
     
@@ -138,9 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     /// Handles opening app via 3D touch quick action
-    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem,
-                     completionHandler: @escaping (Bool) -> Void)
-    {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         switch shortcutItem.quickActionId {
         case .addNewClass:
             guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
