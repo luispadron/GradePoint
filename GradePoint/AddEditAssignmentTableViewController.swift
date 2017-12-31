@@ -57,7 +57,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.nameField.attributedPlaceholder = NSAttributedString(string: "Assignment Name", attributes: attrsForPrompt)
         self.nameField.delegate = self
         self.nameField.autocapitalizationType = .words
-        self.nameField.returnKeyType = .done
+        self.nameField.returnKeyType = .next
         self.nameField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
         
         // Custom date picker for `datePickerField`
@@ -280,8 +280,11 @@ class AddEditAssignmentTableViewController: UITableViewController {
 extension AddEditAssignmentTableViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        if textField == self.nameField {
+            self.nameField.resignFirstResponder()
+            self.datePickerField.becomeFirstResponder()
+        }
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

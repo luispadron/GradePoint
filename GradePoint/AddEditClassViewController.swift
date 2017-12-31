@@ -143,7 +143,14 @@ class AddEditClassViewController: UIViewController {
         self.classNameField.delegate = self
         self.classNameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         self.classNameField.autocapitalizationType = .words
-        self.classNameField.returnKeyType = .done
+        self.classNameField.returnKeyType = .next
+        
+        self.classTypeField.titleText = "Class type"
+        self.classTypeField.titleTextSpacing = 8.0
+        self.classTypeField.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        self.classTypeField.toolbar.barTintColor = .highlight
+        self.classTypeField.toolbar.tintColor = .white
+        self.classTypeField.toolbarLabel.text = "Select a class type"
         
         self.creditHoursField.titleText = "Credit Hours"
         self.creditHoursField.titleTextSpacing = 8.0
@@ -152,15 +159,8 @@ class AddEditClassViewController: UIViewController {
         self.creditHoursField.attributedPlaceholder = NSAttributedString(string: "Credit Hours", attributes: attrsForPrompt)
         self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.0...100.0)
         self.creditHoursField.fieldType = .number
-        self.creditHoursField.returnKeyType = .done
+        self.creditHoursField.returnKeyType = .next
         self.creditHoursField.keyboardType = .numbersAndPunctuation
-        
-        self.classTypeField.titleText = "Class type"
-        self.classTypeField.titleTextSpacing = 8.0
-        self.classTypeField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.classTypeField.toolbar.barTintColor = .highlight
-        self.classTypeField.toolbar.tintColor = .white
-        self.classTypeField.toolbarLabel.text = "Select a class type"
         
         self.semesterField.titleText = "Semester"
         self.semesterField.titleTextSpacing = 8.0
@@ -818,11 +818,15 @@ extension AddEditClassViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === self.classNameField || textField == self.creditHoursField {
-            textField.resignFirstResponder()
+        if textField === self.classNameField {
+            self.classNameField.resignFirstResponder()
+            self.classTypeField.becomeFirstResponder()
+        } else if textField === self.creditHoursField {
+            self.creditHoursField.resignFirstResponder()
+            self.semesterField.becomeFirstResponder()
         }
         
-        updateSaveButton()
+        self.updateSaveButton()
         return false
     }
     
