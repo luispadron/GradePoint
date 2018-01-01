@@ -81,8 +81,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         let showsClass = realm.objects(Assignment.self).count > 0
 
         self.gpaRing.superview?.isHidden = !showsGPA
-        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
-        self.gpaRing.decimalPlaces = roundingAmount
+        self.gpaRing.decimalPlaces = 2
         
         self.classRing.superview?.isHidden = !showsClass
         self.emptyLabel.isHidden = showsClass || showsGPA
