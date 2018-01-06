@@ -140,10 +140,10 @@ class AddEditClassViewController: UIViewController {
         self.classNameField.titleTextSpacing = 8.0
         self.classNameField.titleLabel.font = UIFont.systemFont(ofSize: 13)
         self.classNameField.attributedPlaceholder = NSAttributedString(string: "Class Name", attributes: attrsForPrompt)
-        self.classNameField.delegate = self
         self.classNameField.addTarget(self, action: #selector(updateSaveButton), for: .editingChanged)
         self.classNameField.autocapitalizationType = .words
         self.classNameField.returnKeyType = .next
+        self.classNameField.delegate = self
         
         self.classTypeField.titleText = "Class type"
         self.classTypeField.titleTextSpacing = 8.0
@@ -151,16 +151,17 @@ class AddEditClassViewController: UIViewController {
         self.classTypeField.toolbar.barTintColor = .highlight
         self.classTypeField.toolbar.tintColor = .white
         self.classTypeField.toolbarLabel.text = "Select a class type"
+        self.classTypeField.delegate = self
         
         self.creditHoursField.titleText = "Credit Hours"
         self.creditHoursField.titleTextSpacing = 8.0
         self.creditHoursField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.creditHoursField.delegate = self
         self.creditHoursField.attributedPlaceholder = NSAttributedString(string: "Credit Hours", attributes: attrsForPrompt)
         self.creditHoursField.configuration = NumberConfiguration(allowsSignedNumbers: false, range: 0.0...100.0)
         self.creditHoursField.fieldType = .number
         self.creditHoursField.returnKeyType = .next
         self.creditHoursField.keyboardType = .numbersAndPunctuation
+        self.creditHoursField.delegate = self
         
         self.semesterField.titleText = "Semester"
         self.semesterField.titleTextSpacing = 8.0
@@ -177,6 +178,7 @@ class AddEditClassViewController: UIViewController {
         self.gradeField.toolbar.barTintColor = .highlight
         self.gradeField.toolbar.tintColor = .white
         self.gradeField.toolbarLabel.text = "Select a grade"
+        self.gradeField.delegate = self
         
         // Get student type from user defaults
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
@@ -265,9 +267,9 @@ class AddEditClassViewController: UIViewController {
             self.classNameField.text = cls.name
             self.classType = cls.classType
             self.classTypeField.text = cls.classType.name()
-            self.updateClassTypeField(for: cls)
             self.creditHoursField.text = "\(cls.creditHours)"
-            self.updateSemesterField(for: cls)
+            self.semester = cls.semester
+            self.semesterField.text = "\(self.semester.term) \(self.semester.year)"
         }
         
         // Hide and show specific views
@@ -286,7 +288,6 @@ class AddEditClassViewController: UIViewController {
             // Update fields specific to previous class if available
             if let cls = classObj {
                 self.gradeField.text = cls.grade?.gradeLetter
-                updateGradeField(for: cls)
             }
             
             // Hide the rubric views, show the grade field
@@ -717,26 +718,9 @@ class AddEditClassViewController: UIViewController {
         
         self.semesterField.text = "\(self.semester.term) \(self.semester.year)"
     }
-
-    /// Updates the class type field for the appropriate class
-    func updateClassTypeField(for classObj: Class) {
-        self.classTypeField.text = self.classObj?.classType.name()
-    }
-    
-    /// Updates the semester picker with values of the class that is passed in
-    func updateSemesterField(for classObj: Class) {
-        self.semester = classObj.semester!
-        self.semesterField.text = "\(self.semester.term) \(self.semester.year)"
-    }
-    
-    /// Updates the grade picker for a previous class that is being edited
-    func updateGradeField(for classObj: Class) {
-        let letter = classObj.grade!.gradeLetter
-        self.gradeField.text = letter
-    }
     
     /// Updates all rubric views and sets the fields to the editing class' attributes
-    func updateRubricViews(for classObj: Class) {
+    private func updateRubricViews(for classObj: Class) {
         for rubric in classObj.rubrics {
             let view = appendRubricView()
             view.nameField.text = rubric.name
@@ -750,7 +734,7 @@ class AddEditClassViewController: UIViewController {
     }
     
     /// Presents an alert when provided the specified alertType
-    func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
+    private func present(alert type: AlertType, withTitle title: NSAttributedString, andMessage message: NSAttributedString, options: [Any]? = nil) {
         // The alert controller
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: message)
         
@@ -831,13 +815,21 @@ extension AddEditClassViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField === self.semesterField {
+        if textField === self.classTypeField {
+            let selectedRow = self.classTypes.index(of: self.classType.name())!
+            self.classTypeField.pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
+            self.classTypeField.pickerDelegate?.didSelectPickerRow(selectedRow, in: 0, for: self.classTypeField)
+        } else if textField === self.semesterField {
             let termRow = Semester.possibleTerms.index(of: self.semester.term)!
             let yearRow = Semester.possibleYears.index(of: self.semester.year)!
             self.semesterField.pickerView.selectRow(termRow, inComponent: 0, animated: false)
             self.semesterField.pickerDelegate?.didSelectPickerRow(termRow, in: 0, for: self.semesterField)
             self.semesterField.pickerView.selectRow(yearRow, inComponent: 1, animated: false)
             self.semesterField.pickerDelegate?.didSelectPickerRow(yearRow, in: 1, for: self.semesterField)
+        } else if textField === self.gradeField {
+            let selectedRow = self.gradeLetters.index(of: self.gradeField.safeText)!
+            self.gradeField.pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
+            self.gradeField.pickerDelegate?.didSelectPickerRow(selectedRow, in: 0, for: self.gradeField)
         }
     }
     
@@ -888,15 +880,17 @@ extension AddEditClassViewController: UIPickerFieldDelegate, UIPickerFieldDataSo
     
     func didSelectPickerRow(_ row: Int, in component: Int, for field: UIPickerField) {
         // Set class type
-        self.classType = ClassType(rawValue: row + 1)
-        // If the picker field whcih was selected is the semester field, we need to do custom text setting
-        guard field === semesterField else { return }
-        if component == 0 {
-            self.semesterField.text = self.semesterField.text?.replacingOccurrences(of: self.semester.term, with: Semester.possibleTerms[row])
-            self.semester = Semester(term: Semester.possibleTerms[row], year: self.semester.year)
-        } else {
-            self.semesterField.text = self.semesterField.text?.replacingOccurrences(of: String(self.semester.year), with: String(Semester.possibleYears[row]))
-            self.semester = Semester(term: self.semester.term, year: Semester.possibleYears[row])
+        if field === self.classTypeField {
+            self.classType = ClassType(rawValue: row + 1)
+        } else if field == self.semesterField {
+            // If the picker field which was selected is the semester field, we need to do custom text setting
+            if component == 0 {
+                self.semesterField.text = self.semesterField.text?.replacingOccurrences(of: self.semester.term, with: Semester.possibleTerms[row])
+                self.semester = Semester(term: Semester.possibleTerms[row], year: self.semester.year)
+            } else {
+                self.semesterField.text = self.semesterField.text?.replacingOccurrences(of: String(self.semester.year), with: String(Semester.possibleYears[row]))
+                self.semester = Semester(term: self.semester.term, year: Semester.possibleYears[row])
+            }
         }
     }
     
