@@ -60,6 +60,7 @@ extension RealmTableView where Self: UITableViewController {
         let snack = LPSnackbar(title: snackTitle, buttonTitle: buttonTitle)
         snack.viewToDisplayIn = navigationController?.view
         snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
+        snack.adjustsPositionForSafeArea = false
 
         snack.show(displayDuration: 4.0) { undone in
             guard self.deletionQueue[object] != nil else { return }
