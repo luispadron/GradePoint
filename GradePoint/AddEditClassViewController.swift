@@ -704,13 +704,13 @@ class AddEditClassViewController: UIViewController {
         guard classObj == nil else { return }
         
         let month = Calendar.current.component(.month, from: Date())
-        if month == 12 || month == 1 || month == 2 && terms.index(of: "Winter") != nil {
+        if (month == 12 || month == 1 || month == 2) && terms.index(of: "Winter") != nil {
             self.semester = Semester(term: "Winter", year: Semester.possibleYears[1])
-        } else if month == 3 || month == 4 || month == 5 && terms.index(of: "Spring") != nil {
+        } else if (month == 3 || month == 4 || month == 5) && terms.index(of: "Spring") != nil {
             self.semester = Semester(term: "Spring", year: Semester.possibleYears[1])
-        } else if month == 6 || month == 7 || month == 8 && terms.index(of: "Summer") != nil {
+        } else if (month == 6 || month == 7 || month == 8) && terms.index(of: "Summer") != nil {
             self.semester = Semester(term: "Summer", year: Semester.possibleYears[1])
-        } else if month == 9 || month == 10 || month == 11 && terms.index(of: "Fall") != nil {
+        } else if (month == 9 || month == 10 || month == 11) && terms.index(of: "Fall") != nil {
             self.semester = Semester(term: "Fall", year: Semester.possibleYears[1])
         } else {
             self.semester = Semester(term: terms.first!, year: Semester.possibleYears[1])
