@@ -172,9 +172,27 @@ class AddEditAssignmentTableViewController: UITableViewController {
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = UIColor.tableViewHeaderText
     }
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Don't show any selection/color changes
+        cell.selectionStyle = .none
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0: self.nameField.becomeFirstResponder()
+            case 1: self.datePickerField.becomeFirstResponder()
+            case 2: self.rubricPickerField.becomeFirstResponder()
+            default: return
+            }
+        } else {
+            self.scoreField.becomeFirstResponder()
+        }
     }
 
     // MARK: - Actions
