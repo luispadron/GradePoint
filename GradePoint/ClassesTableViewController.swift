@@ -147,7 +147,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
             adRequest.testDevices = [kGADSimulatorID]
         }
-        self.bannerAdView.load(GADRequest())
+        self.bannerAdView.load(adRequest)
     }
     
     override func viewWillAppear(_ animated: Bool) {

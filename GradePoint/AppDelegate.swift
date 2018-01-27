@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
             let appId = adMobDict["AdMobAppId"] {
             GADMobileAds.configure(withApplicationID: appId)
-            
         }
 
         // Set the UI Theme for the saved theme key
