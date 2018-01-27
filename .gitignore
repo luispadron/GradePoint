@@ -24,3 +24,6 @@ Pods/
 
 # Carthage
 Carthage/
+
+# Keep ADMob info secure
+AdMob.plist

@@ -19,10 +19,15 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         get { return assignments }
         set { assignments = newValue }
     }
+
     private var assignmentDeletionQueue = [Assignment: LPSnackbar]()
     var deletionQueue: [Assignment: LPSnackbar] {
         get { return assignmentDeletionQueue }
         set { assignmentDeletionQueue = newValue }
+    }
+
+    var preferedSnackbarBottomSpacing: CGFloat {
+        return self.tabBarController!.tabBar.frame.height + 12
     }
 
     // MARK: Subviews

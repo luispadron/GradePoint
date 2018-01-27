@@ -1,12 +1,15 @@
 PODS:
+  - Google-Mobile-Ads-SDK (7.27.0)
   - UICircularProgressRing (1.7.5)
 
 DEPENDENCIES:
+  - Google-Mobile-Ads-SDK
   - UICircularProgressRing
 
 SPEC CHECKSUMS:
+  Google-Mobile-Ads-SDK: 83f7f890e638ce8f1debd440ea363338c9f6be3b
   UICircularProgressRing: b35e45dc82aac8009d038ef4d2e19718675df2bd
 
-PODFILE CHECKSUM: 9a1cde1516aa05ca09625a514272d7e785c2083c
+PODFILE CHECKSUM: bf5cc75adbe4a19f555ee6254d13b0eacb538e9d
 
-COCOAPODS: 1.4.0.beta.2
+COCOAPODS: 1.4.0

@@ -14,7 +14,10 @@ protocol RealmTableView: class {
     associatedtype RealmObject: Hashable
 
     var realmData: [[RealmObject]] { get set }
+
     var deletionQueue: [RealmObject : LPSnackbar] { get set }
+
+    var preferedSnackbarBottomSpacing: CGFloat { get }
 
     func addCellWithObject(_ object: RealmObject, section: Int)
 
@@ -59,7 +62,7 @@ extension RealmTableView where Self: UITableViewController {
 
         let snack = LPSnackbar(title: snackTitle, buttonTitle: buttonTitle)
         snack.viewToDisplayIn = navigationController?.view
-        snack.bottomSpacing = (tabBarController?.tabBar.frame.height ?? 0) + 12
+        snack.bottomSpacing = self.preferedSnackbarBottomSpacing
         snack.adjustsPositionForSafeArea = false
 
         snack.show(displayDuration: 4.0) { undone in

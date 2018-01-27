@@ -9,6 +9,7 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,9 +43,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = UserDefaults.standard
         
         // Load default preferences into user defaults, in case these preference keys have not been set by user yet
-        let prefsFile = Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist")!
-        let prefsDict = NSDictionary(contentsOf: prefsFile) as! [String: Any]
-        defaults.register(defaults: prefsDict)
+        if let prefsFile = Bundle.main.url(forResource: "DefaultPreferences", withExtension: "plist"),
+            let prefsDict = NSDictionary(contentsOf: prefsFile) as? [String: Any] {
+            defaults.register(defaults: prefsDict)
+        }
+
+        // Load AdMob configuration
+        if let adMobFile = Bundle.main.url(forResource: "AdMob", withExtension: "plist"),
+            let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
+            let appId = adMobDict["AdMobAppId"] {
+            GADMobileAds.configure(withApplicationID: appId)
+            
+        }
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) {

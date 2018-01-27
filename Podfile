@@ -3,17 +3,18 @@ use_frameworks!
 
 def all_pods
   pod 'UICircularProgressRing'
+  pod 'Google-Mobile-Ads-SDK'
 end
 
 target 'GradePoint' do
   all_pods
 end
 
-target 'GradePointTests' do 
+target 'GradePointTests' do
   all_pods
 end
 
-target 'GradePointUITests' do 
+target 'GradePointUITests' do
   all_pods
 end
 
@@ -23,7 +24,7 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    
+
     puts target.name
 
     target.build_configurations.each do |config|

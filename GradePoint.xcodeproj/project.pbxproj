@@ -59,6 +59,7 @@
 		A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */; };
 		A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96901EBBCC6500382E45 /* Settings.storyboard */; };
 		A08109761F631F7D0048F6DA /* ClassChangesListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08109751F631F7D0048F6DA /* ClassChangesListener.swift */; };
+		A0836B1A201CF97600288C43 /* AdMob.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0836B19201CF97600288C43 /* AdMob.plist */; };
 		A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084437F1E55808F00C32F52 /* UICalculateViewController.swift */; };
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
@@ -229,6 +230,7 @@
 		A07B968E1EBBCC3500382E45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Onboarding.storyboard; sourceTree = "<group>"; };
 		A07B96901EBBCC6500382E45 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		A08109751F631F7D0048F6DA /* ClassChangesListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassChangesListener.swift; sourceTree = "<group>"; };
+		A0836B19201CF97600288C43 /* AdMob.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AdMob.plist; sourceTree = "<group>"; };
 		A084437F1E55808F00C32F52 /* UICalculateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateViewController.swift; sourceTree = "<group>"; };
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
@@ -384,6 +386,9 @@
 				A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */,
 				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
 				A0BF3B291F243782001CCE52 /* Constants.swift */,
+				A0836B19201CF97600288C43 /* AdMob.plist */,
+				A007051C1DAF0E9B00AD740A /* Info.plist */,
+				A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */,
 				A027533E1F043B2A0021CDFF /* Managers */,
 				A01B87801DBD272600A85E2D /* Data Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
@@ -393,8 +398,6 @@
 				A0CE8B481DAF26E3007968EE /* Custom Controls */,
 				A0CE8B441DAF178F007968EE /* Storyboards */,
 				A00705171DAF0E9B00AD740A /* Assets.xcassets */,
-				A007051C1DAF0E9B00AD740A /* Info.plist */,
-				A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */,
 			);
 			path = GradePoint;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 			files = (
 				A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */,
 				A07521811FF4A3D2005BBFF8 /* DefaultPreferences.plist in Resources */,
+				A0836B1A201CF97600288C43 /* AdMob.plist in Resources */,
 				A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */,
 				A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */,
 				A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */,

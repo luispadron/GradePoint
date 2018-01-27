@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import UIEmptyState
 import LPSnackbar
+import GoogleMobileAds
 
 class ClassesTableViewController: UITableViewController, RealmTableView {
     // Conformance to RealmTableView
@@ -24,8 +25,28 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         get { return classDeletionQueue }
         set { classDeletionQueue = newValue }
     }
+
+    var preferedSnackbarBottomSpacing: CGFloat {
+        return self.tabBarController!.tabBar.frame.height + self.bannerAdView.frame.height + 12
+    }
     
     // MARK: Properties
+
+    /// The Google AdMob view
+    private lazy var bannerAdView: GADBannerView = {
+        let view = GADBannerView()
+        view.adSize = kGADAdSizeSmartBannerPortrait
+        view.rootViewController = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        view.alpha = 0.0
+        if let adMobFile = Bundle.main.url(forResource: "AdMob", withExtension: "plist"),
+            let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
+            let unitId = adMobDict["AdMobUnitId"] {
+            view.adUnitID = unitId
+        }
+        return view
+    }()
 
     /// The semesters, which are the sections for the tableview
     private var semesters: [Semester] = []
@@ -59,39 +80,39 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         super.viewDidLoad()
 
         switch UIColor.theme {
-        case .dark: navigationController?.navigationBar.barStyle = .black
-        case .light: navigationController?.navigationBar.barStyle = .default
+        case .dark: self.navigationController?.navigationBar.barStyle = .black
+        case .light: self.navigationController?.navigationBar.barStyle = .default
         }
 
         // Setup search bar and titles
         if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationItem.searchController = searchController
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationItem.searchController = searchController
         } else {
-            searchController.searchBar.barTintColor = UIColor.background
-            tableView.contentOffset = CGPoint(x: 0, y: tableView.contentOffset.y + searchController.searchBar.frame.height)
-            tableView.tableHeaderView = searchController.searchBar
+            self.searchController.searchBar.barTintColor = UIColor.background
+            self.tableView.contentOffset = CGPoint(x: 0, y: tableView.contentOffset.y + searchController.searchBar.frame.height)
+            self.tableView.tableHeaderView = searchController.searchBar
         }
         
-        splitViewController?.delegate = self
-        splitViewController?.preferredDisplayMode = .allVisible
-        tableView.scrollsToTop = true
-        emptyStateDelegate = self
-        emptyStateDataSource = self
+        self.splitViewController?.delegate = self
+        self.splitViewController?.preferredDisplayMode = .allVisible
+        self.tableView.scrollsToTop = true
+        self.emptyStateDelegate = self
+        self.emptyStateDataSource = self
         
         // Remove seperator lines from empty cells, and remove white background around navbars
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-        tableView.separatorColor = UIColor.tableViewSeperator
-        tableView.backgroundView = UIView()
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.tableView.backgroundView = UIView()
         
         // Setup tableview estimates
-        tableView.estimatedRowHeight = 60
-        tableView.estimatedSectionHeaderHeight = 44
-        tableView.estimatedSectionFooterHeight = 0
+        self.tableView.estimatedRowHeight = 60
+        self.tableView.estimatedSectionHeaderHeight = 44
+        self.tableView.estimatedSectionFooterHeight = 0
         
         // Get all classes on load
-        semesters = generateSemesters()
-        loadClasses()
+        self.semesters = generateSemesters()
+        self.loadClasses()
         
         // Listen to semester update notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
@@ -100,18 +121,44 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges),
                                                name: themeUpdatedNotification, object: nil)
         // Add 3D touch support to this view
-        if traitCollection.forceTouchCapability == .available { registerForPreviewing(with: self, sourceView: self.view) }
+        if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
+
+        // Add banner ad view
+        self.tableView.tableFooterView = self.bannerAdView
+        // Banner view constraints
+        if #available(iOS 11.0, *) {
+            let guide = self.view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                guide.leftAnchor.constraint(equalTo: self.bannerAdView.leftAnchor),
+                guide.rightAnchor.constraint(equalTo: self.bannerAdView.rightAnchor),
+                guide.bottomAnchor.constraint(equalTo: self.bannerAdView.bottomAnchor)
+                ])
+        } else {
+            self.view.addConstraints(
+                [NSLayoutConstraint(item: self.bannerAdView, attribute: .bottom, relatedBy: .equal,
+                                    toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0),
+                 NSLayoutConstraint(item: self.bannerAdView, attribute: .centerX, relatedBy: .equal,
+                                    toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
+                ])
+        }
+
+        let adRequest: GADRequest = GADRequest()
+        // Add test ads on simulator
+        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
+            adRequest.testDevices = [kGADSimulatorID]
+        }
+        self.bannerAdView.load(GADRequest())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.separatorColor = UIColor.tableViewSeperator
         self.view.backgroundColor = UIColor.background
+        self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         self.clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
         self.reloadEmptyState()
     }
@@ -119,6 +166,14 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dequeAndDeleteObjects()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        // Get correct layout for AD
+        let orientation = UIDevice.current.orientation
+
+        self.updateAdSize(withOrientation: orientation, size: size)
     }
     
     // MARK: Table View Methods
@@ -162,6 +217,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         header.tintColor = UIColor.tableViewHeader
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = UIColor.tableViewHeaderText
+        // TODO: Figure out real fix for this? Not sure why the banner view is being displayed behind header view
+        self.view.bringSubview(toFront: self.bannerAdView)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -266,6 +323,29 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     }
     
     // MARK: Helper Methods
+
+    /// Updates the size for the Ad
+    private func updateAdSize(withOrientation orientation: UIDeviceOrientation, size: CGSize) {
+        let adSize: GADAdSize
+
+        switch orientation {
+        case .landscapeLeft: fallthrough
+        case .landscapeRight:
+            // Hide banner in landscape when empty view is shown
+            if self.emptyStateViewShouldShow(for: self.tableView) {
+                adSize = kGADAdSizeInvalid
+                self.bannerAdView.isHidden = true
+            } else {
+                self.bannerAdView.isHidden = false
+                adSize = kGADAdSizeSmartBannerLandscape
+            }
+        default:
+            self.bannerAdView.isHidden = false
+            adSize = kGADAdSizeSmartBannerPortrait
+        }
+
+        self.bannerAdView.adSize = adSize
+    }
     
     /// This generates all of the possible Semester combinations, this array will be the sections for the table view
     private func generateSemesters() -> [Semester] {
@@ -514,6 +594,17 @@ extension ClassesTableViewController: Segueable {
     }
 }
 
+// MARK: Google Ad View delegate
+
+extension ClassesTableViewController: GADBannerViewDelegate {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        self.bannerAdView.alpha = 0.0
+        UIView.animate(withDuration: 0.6) {
+            self.bannerAdView.alpha = 1.0
+        }
+    }
+}
+
 // MARK: AddEditClassDelegation
 
 extension ClassesTableViewController: ClassChangesListener {
@@ -606,6 +697,9 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
             // Remove from table view header
             tableView.tableHeaderView = nil
         }
+
+        // Update ad size
+        self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
     }
     
     func emptyStateViewWillHide(view: UIView) {
