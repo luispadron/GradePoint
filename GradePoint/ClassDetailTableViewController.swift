@@ -200,7 +200,8 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
             switch ApplicationTheme.shared.theme {
             case .dark: self.progressRing.outerRingColor = ApplicationTheme.shared.backgroundColor.lighter(by: 20) ?? ApplicationTheme.shared.backgroundColor
             case .light: fallthrough
-            case .eco: self.progressRing.outerRingColor = ApplicationTheme.shared.lightBackgroundColor.darker(by: 25) ?? ApplicationTheme.shared.lightBackgroundColor
+            case .eco: fallthrough
+            case .purple: self.progressRing.outerRingColor = ApplicationTheme.shared.lightBackgroundColor.darker(by: 25) ?? ApplicationTheme.shared.lightBackgroundColor
             }
             self.progressRing.gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
         }

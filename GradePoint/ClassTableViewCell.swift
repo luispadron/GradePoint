@@ -54,11 +54,13 @@ class ClassTableViewCell: UITableViewCell {
         self.classRibbon.backgroundColor = ribbonColor
 
         switch ApplicationTheme.shared.theme {
-        case .dark: break
         case .light: fallthrough
         case .eco:
             classTitleLabel.textColor = selected ? ApplicationTheme.shared.mainTextColor(in: .dark) :
                                                     ApplicationTheme.shared.mainTextColor(in: .light)
+        case .purple:
+            classTitleLabel.textColor = selected ? .white : ApplicationTheme.shared.mainTextColor()
+        default: return
         }
     }
 }

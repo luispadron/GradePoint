@@ -22,7 +22,7 @@ extension UIColor {
     static let blueGray = UIColor(red: 0.365, green: 0.369, blue: 0.435, alpha: 1.00) // #5d5e6f
     static let midGray = UIColor(red: 0.345, green: 0.349, blue: 0.408, alpha: 1.00) // #585968
     static let blueWood = UIColor(red: 0.357, green: 0.525, blue: 0.898, alpha: 1.00) /* #5B86E5 */
-    static let ocean = UIColor(red: 0.66, green: 0.87, blue: 0.98, alpha: 1.0) /* A9DEF9 */
+    static let oceanBlue = UIColor(red: 0.66, green: 0.87, blue: 0.98, alpha: 1.0) /* A9DEF9 */
 
     static let whiteText = UIColor(red: 0.980, green: 0.980, blue: 0.980, alpha: 1.00) // #fafafa
     static let frenchGray = UIColor(red: 0.780, green: 0.780, blue: 0.804, alpha: 1.00) // #c7c7cd/
@@ -36,6 +36,8 @@ extension UIColor {
 
     static let ecoGreen = UIColor(red: 0.220, green: 0.569, blue: 0.412, alpha: 1.00) /* #389169 */
     static let ecoGreenHeader = UIColor(red: 0.614, green: 0.783, blue: 0.698, alpha: 1.00)
+
+    static let funPurple = UIColor(red: 0.384, green: 0.341, blue: 0.710, alpha: 1.00) // #6257b5
 }
 
 /// Random color generation extension

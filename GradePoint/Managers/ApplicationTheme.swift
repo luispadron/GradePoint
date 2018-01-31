@@ -15,6 +15,7 @@ enum UITheme: Int {
     case dark = 1
     case light = 2
     case eco = 3
+    case purple = 4
 }
 
 /**
@@ -35,16 +36,14 @@ class ApplicationTheme {
     var navigationBarStyle: UIBarStyle {
         switch self.theme {
         case .dark: return .black
-        case .light: fallthrough
-        case .eco: return .default
+        default: return .default
         }
     }
 
     var statusBarStyle: UIStatusBarStyle {
         switch self.theme {
         case .dark: return .lightContent
-        case .light: fallthrough
-        case .eco: return .default
+        default: return .default
         }
     }
 
@@ -58,8 +57,7 @@ class ApplicationTheme {
             cellBgView.backgroundColor = self.highlightColor.darker(by: 25)
             UITableViewCell.appearance().selectedBackgroundView = cellBgView
             UITextField.appearance().keyboardAppearance = .dark
-        case .eco: fallthrough
-        case .light:
+        default:
             // Custom view for table view cell
             cellBgView.backgroundColor = self.highlightColor
             UITableViewCell.appearance().selectedBackgroundView = cellBgView
@@ -102,8 +100,9 @@ class ApplicationTheme {
         let forContent = content != nil ? content! : self.theme
         switch forContent {
         case .dark: return .whiteText
-        case .eco: fallthrough
         case .light: return .darkText
+        case .eco: return .darkText
+        case .purple: return .darkText
         }
     }
 
@@ -111,8 +110,9 @@ class ApplicationTheme {
         let forContent = content != nil ? content! : self.theme
         switch forContent {
         case .dark: return .frenchGray
-        case .eco: fallthrough
         case .light: return .darkSilver
+        case .eco: return .darkSilver
+        case .purple: return .darkSilver
         }
     }
 
@@ -120,25 +120,28 @@ class ApplicationTheme {
 
     var highlightColor: UIColor {
         switch self.theme {
-        case .dark: return .ocean
+        case .dark: return .oceanBlue
         case .light: return .blueWood
         case .eco: return .ecoGreen
+        case .purple: return .funPurple
         }
     }
 
     var backgroundColor: UIColor {
         switch self.theme {
         case .dark: return .tuna
-        case .eco: fallthrough
         case .light: return .athensGray
+        case .eco: return .athensGray
+        case .purple: return .athensGray
         }
     }
 
     var lightBackgroundColor: UIColor {
         switch self.theme {
         case .dark: return .trout
-        case .eco: fallthrough
         case .light: return .white
+        case .eco: return .white
+        case .purple: return .white
         }
     }
 
@@ -147,6 +150,7 @@ class ApplicationTheme {
         case .dark: return .blueGray
         case .light: return .silverSand
         case .eco: return .ecoGreenHeader
+        case .purple: return .silverSand
         }
     }
 
@@ -155,14 +159,16 @@ class ApplicationTheme {
         case .dark: return .frenchGray
         case .light: return .darkSilver
         case .eco: return .white
+        case .purple: return .darkSilver
         }
     }
 
     var tableViewSeperatorColor: UIColor {
         switch self.theme {
         case .dark: return .midGray
-        case .eco: fallthrough
         case .light: return .lightGray
+        case .eco: return .lightGray
+        case .purple: return .lightGray
         }
     }
 }

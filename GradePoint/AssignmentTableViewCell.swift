@@ -30,11 +30,13 @@ class AssignmentTableViewCell: UITableViewCell {
     func updateForSelection(_ selected: Bool) {
 
         switch ApplicationTheme.shared.theme {
-        case .dark: break
         case .light: fallthrough
         case .eco:
             nameLabel.textColor = selected ? ApplicationTheme.shared.mainTextColor(in: .dark) :
                                                 ApplicationTheme.shared.mainTextColor(in: .light)
+        case .purple:
+            nameLabel.textColor = selected ? .white : ApplicationTheme.shared.mainTextColor()
+        default: return
         }
     }
 }

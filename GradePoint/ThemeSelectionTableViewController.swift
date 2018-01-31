@@ -104,6 +104,7 @@ class ThemeSelectionTableViewController: UITableViewController {
         let bgColor: UIColor
         switch ApplicationTheme.shared.theme {
         case .eco: bgColor = UIColor.ecoGreen
+        case .purple: bgColor = UIColor.funPurple
         default: bgColor = ApplicationTheme.shared.backgroundColor
         }
         animationLayer.backgroundColor = bgColor.cgColor
