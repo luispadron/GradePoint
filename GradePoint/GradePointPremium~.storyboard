@@ -103,7 +103,7 @@
                                             <constraint firstItem="QOi-mZ-vah" firstAttribute="leading" secondItem="cW8-g0-XtS" secondAttribute="leading" constant="20" id="clE-t2-kx4"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="WZ6-Zl-dfW" kind="presentation" id="c0X-gt-FED"/>
+                                            <segue destination="Uqp-vJ-QHz" kind="presentation" id="c0X-gt-FED"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1409,11 +1409,11 @@
             </objects>
             <point key="canvasLocation" x="-68" y="-522"/>
         </scene>
-        <!--GradePointPremium-->
-        <scene sceneID="CkF-RF-UaM">
+        <!--Page View Controller-->
+        <scene sceneID="6gg-4Y-Jhd">
             <objects>
-                <viewControllerPlaceholder storyboardName="GradePointPremium" id="WZ6-Zl-dfW" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IPA-da-H5e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Uqp-vJ-QHz" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iuj-3C-Fum" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="705" y="-522"/>
         </scene>

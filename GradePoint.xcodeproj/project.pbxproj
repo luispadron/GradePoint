@@ -56,6 +56,7 @@
 		A067BBCE1F6363250083E896 /* RealmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067BBCD1F6363250083E896 /* RealmTableView.swift */; };
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
+		A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */; };
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
@@ -239,6 +240,7 @@
 		A067BBCD1F6363250083E896 /* RealmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTableView.swift; sourceTree = "<group>"; };
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
 		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GradePointPremium.storyboard; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewController.swift; sourceTree = "<group>"; };
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 				A07B96881EBBCBDF00382E45 /* Calculators.storyboard */,
 				A07B968D1EBBCC3500382E45 /* Onboarding.storyboard */,
 				A07B96901EBBCC6500382E45 /* Settings.storyboard */,
+				A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */,
 				A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
@@ -876,6 +879,7 @@
 				A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */,
 				A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */,
 				A037C77520215CDB00AE153A /* bird.atlas in Resources */,
+				A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */,
 				A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */,
 				A0263ABE202188C7001940DE /* RewardSound.wav in Resources */,
 				A0331B16201D1839009CF6EC /* AdMob.plist in Resources */,
