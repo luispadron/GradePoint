@@ -801,7 +801,12 @@ extension AddEditClassViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === self.classNameField {
             self.classNameField.resignFirstResponder()
-            self.classTypeField.becomeFirstResponder()
+            if let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType)),
+                studentType == .highSchool {
+                self.classTypeField.becomeFirstResponder()
+            } else {
+                self.creditHoursField.becomeFirstResponder()
+            }
         } else if textField === self.creditHoursField {
             self.creditHoursField.resignFirstResponder()
             self.semesterField.becomeFirstResponder()
