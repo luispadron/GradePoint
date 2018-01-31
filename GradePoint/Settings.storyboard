@@ -103,7 +103,7 @@
                                             <constraint firstItem="QOi-mZ-vah" firstAttribute="leading" secondItem="cW8-g0-XtS" secondAttribute="leading" constant="20" id="clE-t2-kx4"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="WZ6-Zl-dfW" kind="presentation" id="c0X-gt-FED"/>
+                                            <segue destination="WZ6-Zl-dfW" kind="presentation" id="vUL-We-1B8"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

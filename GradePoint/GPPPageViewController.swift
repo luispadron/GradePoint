@@ -39,14 +39,14 @@ class GPPPageViewController: UIPageViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let firstVc = self.onboardControllers.first {
+            self.setViewControllers([firstVc], direction: .forward, animated: true, completion: nil)
+            self.view.backgroundColor = firstVc.view.backgroundColor?.lighter(by: 10)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let firstVc = onboardControllers.first {
-            self.setViewControllers([firstVc], direction: .forward, animated: true, completion: nil)
-            self.view.backgroundColor = firstVc.view.backgroundColor?.lighter(by: 10)
-        }
         self.setNeedsStatusBarAppearanceUpdate()
     }
 
