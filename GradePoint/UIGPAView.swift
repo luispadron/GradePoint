@@ -19,13 +19,13 @@ class UIGPAView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.lightBackground
+        self.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
         self.initialize()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor.lightBackground
+        self.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
         self.initialize()
     }
     
@@ -56,12 +56,12 @@ class UIGPAView: UIView {
         field.placeholder = "Name"
         field.titleText = "Name"
         field.titleTextColor = .pastelPurple
-        field.textColor = UIColor.secondaryTextColor()
+        field.textColor = ApplicationTheme.shared.secondaryTextColor()
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.isUserInteractionEnabled = false
         field.attributedPlaceholder = NSAttributedString(string: "Name",
-                                                         attributes: [.foregroundColor: UIColor.secondaryTextColor()])
+                                                         attributes: [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
         
@@ -74,11 +74,11 @@ class UIGPAView: UIView {
         field.placeholder = "Grade"
         field.titleText = "Grade"
         field.titleTextColor = .pastelPurple
-        field.textColor = UIColor.mainTextColor()
+        field.textColor = ApplicationTheme.shared.mainTextColor()
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.attributedPlaceholder = NSAttributedString(string: "Grade",
-                                                         attributes: [.foregroundColor: UIColor.secondaryTextColor()])
+                                                         attributes: [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
         field.pickerDelegate = self
@@ -95,12 +95,12 @@ class UIGPAView: UIView {
         field.placeholder = "Credits"
         field.titleText = "Credits"
         field.titleTextColor = .pastelPurple
-        field.textColor = UIColor.secondaryTextColor()
+        field.textColor = ApplicationTheme.shared.secondaryTextColor()
         field.borderStyle = .none
         field.tintColor = .pastelPurple
         field.isUserInteractionEnabled = false
         field.attributedPlaceholder = NSAttributedString(string: "Credits",
-                                                         attributes: [.foregroundColor: UIColor.secondaryTextColor()])
+                                                         attributes: [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
         field.returnKeyType = .next
         field.font = self.font
         

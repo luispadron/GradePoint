@@ -10,11 +10,6 @@ import UIKit
 
 /// Colors for the app
 extension UIColor {
-    /// The theme for the application, used to determine which computed color to return
-    class var theme: UITheme {
-        let defaults = UserDefaults.standard
-        return UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) ?? .dark
-    }
 
     // MARK: Static Application Colors
 
@@ -38,64 +33,6 @@ extension UIColor {
     static let goldenYellow = UIColor(red: 0.965, green: 0.918, blue: 0.549, alpha: 1.00) /*f9d423*/
 
     static let pastelPurple = UIColor(red: 0.678, green: 0.533, blue: 0.882, alpha: 1.00) /* #AD88E1 */
-
-    // MARK: Computed Colors
-
-    class var highlight: UIColor {
-        switch theme {
-        case .dark: return ocean
-        case .light: return blueWood
-        }
-    }
-
-    class var background: UIColor {
-        switch theme {
-        case .dark: return tuna
-        case .light: return athensGray
-        }
-    }
-
-    class var lightBackground: UIColor {
-        switch theme {
-        case .dark: return trout
-        case .light: return white
-        }
-    }
-
-    class var tableViewHeader: UIColor {
-        switch theme {
-        case .dark: return blueGray
-        case .light: return silverSand
-        }
-    }
-
-    class var tableViewHeaderText: UIColor {
-        switch theme {
-        case .dark: return frenchGray
-        case .light: return darkSilver
-        }
-    }
-
-    class var tableViewSeperator: UIColor {
-        switch theme {
-        case .dark: return midGray
-        case .light: return lightGray
-        }
-    }
-
-    class func mainTextColor(in content: UITheme = UIColor.theme) -> UIColor {
-        switch content {
-        case .dark: return whiteText
-        case .light: return darkText
-        }
-    }
-
-    class func secondaryTextColor(in content: UITheme = UIColor.theme) -> UIColor {
-        switch content {
-        case .dark: return frenchGray
-        case .light: return darkSilver
-        }
-    }
 }
 
 /// Random color generation extension

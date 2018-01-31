@@ -23,7 +23,7 @@ class ClassCellHeaderView: UIView {
     }
     
     private func initialize() {
-        self.backgroundColor = .tableViewHeader
+        self.backgroundColor = ApplicationTheme.shared.tableViewHeaderColor
         self.addSubview(titleLabel)
         self.addSubview(scoreLabel)
     }
@@ -56,14 +56,14 @@ class ClassCellHeaderView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .tableViewHeaderText
+        label.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
         return label
     }()
     
     private lazy var scoreLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .tableViewHeaderText
+        label.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
         return label
     }()
     

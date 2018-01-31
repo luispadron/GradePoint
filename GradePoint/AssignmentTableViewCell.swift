@@ -29,10 +29,11 @@ class AssignmentTableViewCell: UITableViewCell {
 
     func updateForSelection(_ selected: Bool) {
 
-        switch UIColor.theme {
+        switch ApplicationTheme.shared.theme {
         case .dark: break
         case .light:
-            nameLabel.textColor = selected ? UIColor.mainTextColor(in: .dark) : UIColor.mainTextColor(in: .light)
+            nameLabel.textColor = selected ? ApplicationTheme.shared.mainTextColor(in: .dark) :
+                                                ApplicationTheme.shared.mainTextColor(in: .light)
         }
     }
 }

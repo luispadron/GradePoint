@@ -66,39 +66,20 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emptyStateDelegate = self
-        emptyStateDataSource = self
+        self.emptyStateDelegate = self
+        self.emptyStateDataSource = self
 
         // Set the progressRing as the tableHeaderView, encapsulates the view to stop clipping
         let encapsulationView = UIView() //
         encapsulationView.addSubview(progressRing)
-        tableView.tableHeaderView = encapsulationView
+        self.tableView.tableHeaderView = encapsulationView
 
         // Remove seperator lines from empty cells
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-
-        // Update text color
-        progressRing.fontColor = UIColor.mainTextColor()
-
-        // Set color for progress ring
-        if let color = _classObj?.color {
-            progressRing.innerRingColor = color
-            switch UIColor.theme {
-            case .dark: progressRing.outerRingColor = UIColor.background.lighter(by: 20) ?? UIColor.background
-            case .light: progressRing.outerRingColor = UIColor.lightBackground.darker(by: 25) ?? UIColor.lightBackground
-            }
-            progressRing.gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
-        }
-
-        progressRing.font = UIFont.systemFont(ofSize: 40)
-
-        tableView.scrollsToTop = true
-        tableView.separatorColor = UIColor.tableViewSeperator
-
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         // Setup tableview estimates
-        tableView.estimatedRowHeight = 75
-        tableView.estimatedSectionHeaderHeight = 44
-        tableView.estimatedSectionFooterHeight = 0
+        self.tableView.estimatedRowHeight = 75
+        self.tableView.estimatedSectionHeaderHeight = 44
+        self.tableView.estimatedSectionFooterHeight = 0
 
         // Listen for them changes
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
@@ -107,8 +88,8 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateUI()
-        reloadEmptyState()
+        self.updateUI()
+        self.reloadEmptyState()
     }
 
 
@@ -168,9 +149,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         formatter.timeStyle = .none
         cell.dateLabel.text = "Date: " + formatter.string(from: assignment.date)
 
-        cell.nameLabel.textColor = UIColor.mainTextColor()
-        cell.scoreLabel.textColor = UIColor.secondaryTextColor()
-        cell.dateLabel.textColor = UIColor.secondaryTextColor()
+        cell.nameLabel.textColor = ApplicationTheme.shared.mainTextColor()
+        cell.scoreLabel.textColor = ApplicationTheme.shared.secondaryTextColor()
+        cell.dateLabel.textColor = ApplicationTheme.shared.secondaryTextColor()
 
         return cell
     }
@@ -208,22 +189,40 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
     /// Updates the UI
     private func updateUI() {
-        self.view.backgroundColor = UIColor.background
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+
+        // Update text color
+        self.progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
+
+        // Set color for progress ring
+        if let color = self._classObj?.color {
+            self.progressRing.innerRingColor = color
+            switch ApplicationTheme.shared.theme {
+            case .dark: self.progressRing.outerRingColor = ApplicationTheme.shared.backgroundColor.lighter(by: 20) ?? ApplicationTheme.shared.backgroundColor
+            case .light: self.progressRing.outerRingColor = ApplicationTheme.shared.lightBackgroundColor.darker(by: 25) ?? ApplicationTheme.shared.lightBackgroundColor
+            }
+            self.progressRing.gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
+        }
+
+        self.progressRing.font = UIFont.systemFont(ofSize: 40)
+
+        self.tableView.scrollsToTop = true
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
+
         let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
         self.progressRing.decimalPlaces = roundingAmount
         
         if let classObj = _classObj {
-            title = classObj.name
-            navigationItem.leftBarButtonItem?.isEnabled = true
-            navigationItem.rightBarButtonItem?.isEnabled = true
+            self.title = classObj.name
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
-            title = nil
-            progressRing.isHidden = true
+            self.title = nil
+            self.progressRing.isHidden = true
             self.progressRing.superview?.isHidden = true
-            navigationItem.leftBarButtonItem?.isEnabled = false
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            tableView.reloadData()
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.tableView.reloadData()
             self.reloadEmptyState()
         }
     }
@@ -348,14 +347,14 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
     var emptyStateTitle: NSAttributedString {
         guard _classObj != nil else { return NSAttributedString(string: "") }
         let attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20),
-                                                         .foregroundColor: UIColor.mainTextColor()]
+                                                         .foregroundColor: ApplicationTheme.shared.mainTextColor()]
 
         return NSAttributedString(string: "No assignments added", attributes: attributes)
     }
 
     var emptyStateButtonTitle: NSAttributedString? {
         guard _classObj != nil else { return nil }
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.highlight,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
                                                    .font: UIFont.systemFont(ofSize: 18)]
 
         return NSAttributedString(string: "Add assignment", attributes: attrs)
@@ -385,7 +384,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
         guard let emptyView = view as? UIEmptyStateView else { return }
 
         // Update tint for button
-        emptyView.button.tintColor = .highlight
+        emptyView.button.tintColor = ApplicationTheme.shared.highlightColor
 
         // Hide the progress ring
         self.progressRing.superview?.isHidden = true
@@ -447,7 +446,7 @@ extension ClassDetailTableViewController {
     /// Called whenever the theme is changed, updates any UI that needs to change color, etc.
     @objc func updateUIForThemeChanges(notification: Notification) {
 
-        progressRing.fontColor = UIColor.mainTextColor()
+        progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
         let val = progressRing.value
         progressRing.setProgress(value: 0, animationDuration: 0)
         progressRing.setProgress(value: val, animationDuration: 0)

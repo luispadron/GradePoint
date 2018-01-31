@@ -27,7 +27,7 @@ class ClassPeekViewController: UIViewController {
         if let color = self.color {
             self.progressRing.ringStyle = .gradient
             self.progressRing.innerRingColor = color
-            self.progressRing.outerRingColor = UIColor.background.lighter(by: 20) ?? UIColor.background
+            self.progressRing.outerRingColor = ApplicationTheme.shared.backgroundColor.lighter(by: 20) ?? ApplicationTheme.shared.backgroundColor
             self.progressRing.gradientColors = [color.lighter(by: 40) ?? color,
                                                 color,
                                                 color.darker(by: 30) ?? color]

@@ -24,7 +24,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     var addButtonOffSet: CGFloat = 1
     var addColor: UIColor = UIColor.green
     var deleteColor: UIColor = UIColor.red
-    var plusColor: UIColor = UIColor.highlight
+    var plusColor: UIColor = ApplicationTheme.shared.highlightColor
     
     var nameFieldPrompt: String = "Name"
     var weightFieldPrompt: String = "Weight"
@@ -65,7 +65,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
     }
     
     private func initialize() {
-        backgroundColor = UIColor.lightBackground
+        backgroundColor = ApplicationTheme.shared.lightBackgroundColor
         drawButton()
         drawPromptLabel()
         drawTextFields()
@@ -149,7 +149,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         promptLabel = UILabel(frame: CGRect(x: plusLayer.bounds.maxX + 50, y: bounds.minY, width: width, height: bounds.height))
         promptLabel.text = "Add a grade section"
         promptLabel.font = UIFont.systemFont(ofSize: fontSize)
-        promptLabel.textColor = UIColor.secondaryTextColor()
+        promptLabel.textColor = ApplicationTheme.shared.secondaryTextColor()
         self.addSubview(promptLabel)
     }
     
@@ -158,13 +158,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let nameFieldFrame = CGRect(x: plusLayer.bounds.maxX + 30, y: bounds.minY, width: actualWidth*0.65, height: bounds.height)
         nameField = UIFloatingPromptTextField(frame: nameFieldFrame, fieldType: .text, configuration: TextConfiguration())
         nameField.placeholder = nameFieldPrompt
-        nameField.textColor = UIColor.mainTextColor()
+        nameField.textColor = ApplicationTheme.shared.mainTextColor()
         nameField.borderStyle = .none
         nameField.font = UIFont.systemFont(ofSize: fontSize)
-        nameField.tintColor = UIColor.highlight
+        nameField.tintColor = ApplicationTheme.shared.highlightColor
         nameField.titleText = nameFieldPrompt
         nameField.attributedPlaceholder = NSAttributedString(string: nameFieldPrompt,
-                                                             attributes: [.foregroundColor: UIColor.secondaryTextColor()])
+                                                             attributes: [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
         nameField.returnKeyType = .next
         nameField.isHidden = true
         nameField.delegate = self
@@ -175,13 +175,13 @@ class UIRubricView: UIView, UITextFieldDelegate {
         let config = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
         weightField = UIFloatingPromptTextField(frame: weightFieldFrame, fieldType: .percent, configuration: config)
         weightField.placeholder = weightFieldPrompt
-        weightField.textColor = UIColor.mainTextColor()
+        weightField.textColor = ApplicationTheme.shared.mainTextColor()
         weightField.borderStyle = .none
-        weightField.tintColor = UIColor.highlight
+        weightField.tintColor = ApplicationTheme.shared.highlightColor
         weightField.font = UIFont.systemFont(ofSize: fontSize)
         weightField.titleText = weightFieldPrompt
         weightField.attributedPlaceholder = NSAttributedString(string: weightFieldPrompt,
-                                                               attributes: [.foregroundColor: UIColor.secondaryTextColor()])
+                                                               attributes: [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
         weightField.returnKeyType = .done
         weightField.isHidden = true
         weightField.delegate = self
@@ -198,7 +198,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonTap))
         ]
         inputFieldToolbar.sizeToFit()
-        inputFieldToolbar.barTintColor = UIColor.highlight
+        inputFieldToolbar.barTintColor = ApplicationTheme.shared.highlightColor
         inputFieldToolbar.tintColor = .white
         inputFieldToolbar.isTranslucent = false
         weightField.inputAccessoryView = inputFieldToolbar

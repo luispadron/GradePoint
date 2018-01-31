@@ -20,10 +20,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        switch UIColor.theme {
-        case .dark: navigationController?.navigationBar.barStyle = .black
-        case .light: navigationController?.navigationBar.barStyle = .default
-        }
+        self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
 
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -34,7 +31,7 @@ class SettingsTableViewController: UITableViewController {
         // TableView customization
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
         
         // Set inital student type switcher to whatever value we have in the stored preferences
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
@@ -63,7 +60,7 @@ class SettingsTableViewController: UITableViewController {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
         ]
         fieldToolbar.sizeToFit()
-        fieldToolbar.barTintColor = UIColor.highlight
+        fieldToolbar.barTintColor = ApplicationTheme.shared.highlightColor
         fieldToolbar.tintColor = .white
         fieldToolbar.isTranslucent = false
         self.roundingField.inputAccessoryView = fieldToolbar
@@ -76,8 +73,8 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = UIColor.background
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,7 +110,7 @@ class SettingsTableViewController: UITableViewController {
         // Set text color for label and highlight color if view has a segemented control
         for view in cell.contentView.subviews {
             if let label = view as? UILabel {
-                label.textColor = UIColor.mainTextColor()
+                label.textColor = ApplicationTheme.shared.mainTextColor()
             } 
         }
     }
@@ -135,9 +132,9 @@ class SettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.tintColor = UIColor.tableViewHeader
+        header.tintColor = ApplicationTheme.shared.tableViewHeaderColor
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.tableViewHeaderText
+        header.textLabel?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -261,7 +258,7 @@ class SettingsTableViewController: UITableViewController {
         animationLayer.position = self.view.center
         animationLayer.cornerRadius = radius/2
         animationLayer.opacity = 0.98
-        animationLayer.backgroundColor = UIColor.background.cgColor
+        animationLayer.backgroundColor = ApplicationTheme.shared.backgroundColor.cgColor
 
         // Set completion
         CATransaction.begin()
@@ -281,20 +278,14 @@ class SettingsTableViewController: UITableViewController {
 
     @objc private func updateUIForThemeChanges() {
         // Since this view wont update until shown again, update nav and tab bar and cells right now
-        switch UIColor.theme {
-        case .dark:
-            navigationController?.navigationBar.barStyle = .black
-        case .light:
-            navigationController?.navigationBar.barStyle = .default
-        }
-
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.mainTextColor()]
-        navigationController?.navigationBar.tintColor = UIColor.highlight
-        navigationController?.navigationBar.barTintColor = UIColor.lightBackground
-        tabBarController?.tabBar.tintColor = UIColor.highlight
-        tabBarController?.tabBar.barTintColor = UIColor.lightBackground
-        self.view.backgroundColor = UIColor.background
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: ApplicationTheme.shared.mainTextColor()]
+        self.navigationController?.navigationBar.tintColor = ApplicationTheme.shared.highlightColor
+        self.navigationController?.navigationBar.barTintColor = ApplicationTheme.shared.lightBackgroundColor
+        self.tabBarController?.tabBar.tintColor = ApplicationTheme.shared.highlightColor
+        self.tabBarController?.tabBar.barTintColor = ApplicationTheme.shared.lightBackgroundColor
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
 
         self.tableView.reloadData()
 

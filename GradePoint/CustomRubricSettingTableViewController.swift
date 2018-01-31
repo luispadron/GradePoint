@@ -29,7 +29,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         // TableView customization
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                                  target: self,
                                                                  action: #selector(self.onSaveTapped))
@@ -50,19 +50,19 @@ class CustomRubricSettingTableViewController: UITableViewController {
             field.delegate = self
             field.returnKeyType = .done
             field.font = UIFont.systemFont(ofSize: 18)
-            field.tintColor = UIColor.highlight
-            field.textColor = UIColor.highlight
+            field.tintColor = ApplicationTheme.shared.highlightColor
+            field.textColor = ApplicationTheme.shared.highlightColor
             // Load the stored values as the text and place holders
             if !self.fieldToggle.isOn && plusRows.contains(index) {
                 field.attributedPlaceholder = NSAttributedString(string: "Points",
                                                             attributes: [.font: UIFont.systemFont(ofSize: 18),
-                                                                         .foregroundColor: UIColor.secondaryTextColor()])
+                                                                         .foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
                 relatedIndex -= 1
             } else {
                 field.text = "\(scale.gpaRubrics[relatedIndex].gradePoints)"
                 field.attributedPlaceholder = NSAttributedString(string: "\(scale.gpaRubrics[relatedIndex].gradePoints)",
                                                             attributes: [.font: UIFont.systemFont(ofSize: 18),
-                                                                         .foregroundColor: UIColor.secondaryTextColor()])
+                                                                         .foregroundColor: ApplicationTheme.shared.secondaryTextColor()])
             }
             relatedIndex += 1
         }
@@ -71,8 +71,8 @@ class CustomRubricSettingTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
-        self.view.backgroundColor = UIColor.background
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
     }
 
     // MARK: - TableView Methods
@@ -102,10 +102,10 @@ class CustomRubricSettingTableViewController: UITableViewController {
         cell.selectionStyle = .none
         for view in cell.contentView.subviews {
             if let label = view as? UILabel {
-                label.textColor = UIColor.mainTextColor()
+                label.textColor = ApplicationTheme.shared.mainTextColor()
             } else {
                 if let label = view.subviews.first as? UILabel {
-                    label.textColor = UIColor.secondaryTextColor()
+                    label.textColor = ApplicationTheme.shared.secondaryTextColor()
                 }
             }
         }
@@ -118,9 +118,9 @@ class CustomRubricSettingTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.tintColor = UIColor.tableViewHeader
+        header.tintColor = ApplicationTheme.shared.tableViewHeaderColor
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.tableViewHeaderText
+        header.textLabel?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
     }
 
     // MARK: Actions

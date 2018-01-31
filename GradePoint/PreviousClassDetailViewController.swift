@@ -66,9 +66,9 @@ class PreviousClassDetailViewController: UIViewController {
     /// Sets up the UI with the correct text for labels/colors
     public func setupUI() {
         // UI setup
-        view.backgroundColor = UIColor.background
+        view.backgroundColor = ApplicationTheme.shared.backgroundColor
 
-        bgView.backgroundColor = UIColor.lightBackground
+        bgView.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
         bgView.layer.cornerRadius = 10
         bgView.layer.shadowColor = UIColor.black.cgColor
         bgView.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -83,7 +83,7 @@ class PreviousClassDetailViewController: UIViewController {
         button.layer.cornerRadius = 10
 
         titleLabel.text = className
-        titleLabel.textColor = UIColor.mainTextColor()
+        titleLabel.textColor = ApplicationTheme.shared.mainTextColor()
 
         gradeLabel.text = gradeString
         

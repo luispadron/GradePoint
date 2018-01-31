@@ -112,29 +112,29 @@ class AddEditClassViewController: UIViewController {
         //////// UI Setup //////
 
         // Theme setup
-        self.view.backgroundColor = UIColor.background
-        self.typeSwitcher.superview?.backgroundColor = UIColor.background
-        self.headerView1.backgroundColor = UIColor.tableViewHeader
-        (self.headerView1.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
-        self.headerView2.backgroundColor = UIColor.tableViewHeader
-        (self.headerView2.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
-        self.classNameField.superview?.backgroundColor = UIColor.lightBackground
-        self.classNameField.textColor = UIColor.mainTextColor()
-        self.classNameField.titleTextColor = UIColor.highlight
-        self.classTypeView.backgroundColor = UIColor.lightBackground
-        self.classTypeField.textColor = UIColor.mainTextColor()
-        self.creditHoursField.superview?.backgroundColor = UIColor.lightBackground
-        self.creditHoursField.textColor = UIColor.mainTextColor()
-        self.creditHoursField.titleTextColor = UIColor.highlight
-        self.semesterField.superview?.backgroundColor = UIColor.lightBackground
-        self.semesterField.textColor = UIColor.mainTextColor()
-        self.gradeField.superview?.backgroundColor = UIColor.lightBackground
-        self.gradeField.textColor = UIColor.mainTextColor()
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.typeSwitcher.superview?.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.headerView1.backgroundColor = ApplicationTheme.shared.tableViewHeaderColor
+        (self.headerView1.subviews.first as? UILabel)?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
+        self.headerView2.backgroundColor = ApplicationTheme.shared.tableViewHeaderColor
+        (self.headerView2.subviews.first as? UILabel)?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
+        self.classNameField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.classNameField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.classNameField.titleTextColor = ApplicationTheme.shared.highlightColor
+        self.classTypeView.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.classTypeField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.creditHoursField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.creditHoursField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.creditHoursField.titleTextColor = ApplicationTheme.shared.highlightColor
+        self.semesterField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.semesterField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.gradeField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.gradeField.textColor = ApplicationTheme.shared.mainTextColor()
 
         updateNavBarForColorChange()
         
         // Customization for the fields
-        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
+        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.classNameField.titleText = "Class Name"
         self.classNameField.titleTextSpacing = 8.0
@@ -148,7 +148,7 @@ class AddEditClassViewController: UIViewController {
         self.classTypeField.titleText = "Class type"
         self.classTypeField.titleTextSpacing = 8.0
         self.classTypeField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.classTypeField.toolbar.barTintColor = .highlight
+        self.classTypeField.toolbar.barTintColor = ApplicationTheme.shared.highlightColor
         self.classTypeField.toolbar.tintColor = .white
         self.classTypeField.toolbarLabel.text = "Select a class type"
         self.classTypeField.delegate = self
@@ -166,7 +166,7 @@ class AddEditClassViewController: UIViewController {
         self.semesterField.titleText = "Semester"
         self.semesterField.titleTextSpacing = 8.0
         self.semesterField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.semesterField.toolbar.barTintColor = .highlight
+        self.semesterField.toolbar.barTintColor = ApplicationTheme.shared.highlightColor
         self.semesterField.toolbar.tintColor = .white
         self.semesterField.toolbarLabel.text = "Select a semester"
         self.semesterField.handlesSettingTextManually = true
@@ -175,7 +175,7 @@ class AddEditClassViewController: UIViewController {
         self.gradeField.titleText = "Grade"
         self.gradeField.titleTextSpacing = 8.0
         self.gradeField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.gradeField.toolbar.barTintColor = .highlight
+        self.gradeField.toolbar.barTintColor = ApplicationTheme.shared.highlightColor
         self.gradeField.toolbar.tintColor = .white
         self.gradeField.toolbarLabel.text = "Select a grade"
         self.gradeField.delegate = self
@@ -240,7 +240,7 @@ class AddEditClassViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
-        switch UIColor.theme {
+        switch ApplicationTheme.shared.theme {
         case .dark: UIApplication.shared.statusBarStyle = .lightContent
         case .light: UIApplication.shared.statusBarStyle = .default
         }
@@ -445,7 +445,7 @@ class AddEditClassViewController: UIViewController {
                 let invalidRowSubmessage = "row \(index + 1)"
                 let attrsForSub: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.warning,
                                                                  .font: UIFont.preferredFont(forTextStyle: .body)]
-                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(in: .light),
+                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(in: .light),
                                                                      .font: UIFont.preferredFont(forTextStyle: .body)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
@@ -466,7 +466,7 @@ class AddEditClassViewController: UIViewController {
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
             let message = "Weights must add up to 100%." + percentSubMessage
-            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : UIColor.mainTextColor(in: .light),
+            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : ApplicationTheme.shared.mainTextColor(in: .light),
                                                                  .font : UIFont.preferredFont(forTextStyle: .body)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             
@@ -920,7 +920,7 @@ extension AddEditClassViewController: UIRubricViewDelegate {
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
                 
                 let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .body),
-                                                                  .foregroundColor : UIColor.mainTextColor(in: .light)]
+                                                                  .foregroundColor : ApplicationTheme.shared.mainTextColor(in: .light)]
                 
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"
                 let messageAttributed = NSAttributedString(string: message, attributes: messageAttrs)

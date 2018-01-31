@@ -44,11 +44,11 @@ class GPACalculatorViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
         // UI Setup
-        self.view.backgroundColor = UIColor.background
-        self.headerView.backgroundColor = UIColor.tableViewHeader
-        (self.headerView.subviews.first as? UILabel)?.textColor = UIColor.tableViewHeaderText
-        self.progressRingView.fontColor = UIColor.mainTextColor()
-        (self.emptyView.subviews.first as? UILabel)?.textColor = UIColor.mainTextColor()
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.headerView.backgroundColor = ApplicationTheme.shared.tableViewHeaderColor
+        (self.headerView.subviews.first as? UILabel)?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
+        self.progressRingView.fontColor = ApplicationTheme.shared.mainTextColor()
+        (self.emptyView.subviews.first as? UILabel)?.textColor = ApplicationTheme.shared.mainTextColor()
         self.weightSwitcher.tintColor = UIColor.pastelPurple
 
         self.calculateButton.setTitleColor(UIColor.white, for: .normal)
@@ -96,7 +96,7 @@ class GPACalculatorViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         // Revert status bar
-        switch UIColor.theme {
+        switch ApplicationTheme.shared.theme {
         case .dark: UIApplication.shared.statusBarStyle = .lightContent
         case .light: UIApplication.shared.statusBarStyle = .default
         }

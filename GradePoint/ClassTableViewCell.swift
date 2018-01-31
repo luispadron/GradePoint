@@ -53,10 +53,11 @@ class ClassTableViewCell: UITableViewCell {
         // reset the background color to the appropriate color
         self.classRibbon.backgroundColor = ribbonColor
 
-        switch UIColor.theme {
+        switch ApplicationTheme.shared.theme {
         case .dark: break
         case .light:
-            classTitleLabel.textColor = selected ? UIColor.mainTextColor(in: .dark) : UIColor.mainTextColor(in: .light)
+            classTitleLabel.textColor = selected ? ApplicationTheme.shared.mainTextColor(in: .dark) :
+                                                    ApplicationTheme.shared.mainTextColor(in: .light)
         }
     }
 }

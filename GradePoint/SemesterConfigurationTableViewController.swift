@@ -22,7 +22,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         
         // Footer customization & seperator colors
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
     
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.title = "Semesters"
@@ -36,7 +36,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         let label = UILabel()
         label.attributedText = NSAttributedString(string: text,
                                                   attributes: [.font: UIFont.preferredFont(forTextStyle: .body),
-                                                                .foregroundColor: UIColor.mainTextColor()])
+                                                                .foregroundColor: ApplicationTheme.shared.mainTextColor()])
         label.textAlignment = .center
         label.resizeToFitText()
         self.tableView.tableHeaderView = label
@@ -44,8 +44,8 @@ class SemesterConfigurationTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = UIColor.background
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -73,8 +73,8 @@ class SemesterConfigurationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "semesterCell", for: indexPath)
-        cell.backgroundColor = UIColor.lightBackground
-        cell.textLabel?.textColor = UIColor.mainTextColor()
+        cell.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        cell.textLabel?.textColor = ApplicationTheme.shared.mainTextColor()
         cell.textLabel?.text = semesters[indexPath.row]
         cell.selectedBackgroundView = UIView()
         return cell

@@ -33,20 +33,20 @@ class ExamGradePredictionViewController: UIViewController {
 
         // UI Setup for theme
         UIApplication.shared.statusBarStyle = .lightContent
-        self.view.backgroundColor = UIColor.background
-        self.currentGradeField.superview?.backgroundColor = UIColor.lightBackground
-        self.currentGradeField.textColor = UIColor.mainTextColor()
-        self.desiredGradeField.superview?.backgroundColor = UIColor.lightBackground
-        self.desiredGradeField.textColor = UIColor.mainTextColor()
-        self.examWorthField.superview?.backgroundColor = UIColor.lightBackground
-        self.examWorthField.textColor = UIColor.mainTextColor()
-        self.needGetLabel.textColor = UIColor.mainTextColor()
-        self.progressRing.fontColor = UIColor.mainTextColor()
-        self.messageLabel.textColor = UIColor.mainTextColor()
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+        self.currentGradeField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.currentGradeField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.desiredGradeField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.desiredGradeField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.examWorthField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
+        self.examWorthField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.needGetLabel.textColor = ApplicationTheme.shared.mainTextColor()
+        self.progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
+        self.messageLabel.textColor = ApplicationTheme.shared.mainTextColor()
 
 
         let percentConfig = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
-        let placeHolderAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor()]
+        let placeHolderAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()]
         self.currentGradeField.configuration = percentConfig
         self.currentGradeField.fieldType = .percent
         self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 89%", attributes: placeHolderAttrs)
@@ -76,7 +76,8 @@ class ExamGradePredictionViewController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        switch UIColor.theme {
+        // Reset status bar to default
+        switch ApplicationTheme.shared.theme {
         case .dark: UIApplication.shared.statusBarStyle = .lightContent
         case .light: UIApplication.shared.statusBarStyle = .default
         }

@@ -49,7 +49,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         // Field setup
-        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.secondaryTextColor(),
+        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.nameField.titleText = "Assignment Name"
         self.nameField.titleTextSpacing = 8.0
@@ -68,7 +68,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.datePickerField.titleText = "Date"
         self.datePickerField.titleTextSpacing = 8.0
         self.datePickerField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.datePickerField.toolbar.barTintColor = .highlight
+        self.datePickerField.toolbar.barTintColor = ApplicationTheme.shared.highlightColor
         self.datePickerField.toolbar.tintColor = .white
         self.datePickerField.toolbarLabel.text = "Select a date"
         
@@ -76,7 +76,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.rubricPickerField.titleText = "Rubric"
         self.rubricPickerField.titleTextSpacing = 8.0
         self.rubricPickerField.titleLabel.font = UIFont.systemFont(ofSize: 13)
-        self.rubricPickerField.toolbar.barTintColor = .highlight
+        self.rubricPickerField.toolbar.barTintColor = ApplicationTheme.shared.highlightColor
         self.rubricPickerField.toolbar.tintColor = .white
         self.rubricPickerField.toolbarLabel.text = "Select a rubric"
         
@@ -99,7 +99,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
         ]
         fieldToolbar.sizeToFit()
-        fieldToolbar.barTintColor = UIColor.highlight
+        fieldToolbar.barTintColor = ApplicationTheme.shared.highlightColor
         fieldToolbar.isTranslucent = false
         fieldToolbar.tintColor = .white
         self.scoreField.inputAccessoryView = fieldToolbar
@@ -132,8 +132,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // UI Customization
-        self.tableView.separatorColor = UIColor.tableViewSeperator
-        self.view.backgroundColor = UIColor.background
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         
         // Always toggle rubric and date picker fields title
         self.rubricPickerField.setTitleVisible(titleVisible: true, animated: false, animationCompletion: nil)
@@ -168,9 +168,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.tintColor = UIColor.tableViewHeader
+        header.tintColor = ApplicationTheme.shared.tableViewHeaderColor
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.tableViewHeaderText
+        header.textLabel?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

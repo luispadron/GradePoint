@@ -79,17 +79,14 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        switch UIColor.theme {
-        case .dark: self.navigationController?.navigationBar.barStyle = .black
-        case .light: self.navigationController?.navigationBar.barStyle = .default
-        }
+        self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
 
         // Setup search bar and titles
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
             self.navigationItem.searchController = searchController
         } else {
-            self.searchController.searchBar.barTintColor = UIColor.background
+            self.searchController.searchBar.barTintColor = ApplicationTheme.shared.backgroundColor
             self.tableView.contentOffset = CGPoint(x: 0, y: tableView.contentOffset.y + searchController.searchBar.frame.height)
             self.tableView.tableHeaderView = searchController.searchBar
         }
@@ -102,7 +99,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         
         // Remove seperator lines from empty cells, and remove white background around navbars
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
         self.tableView.backgroundView = UIView()
         
         // Setup tableview estimates
@@ -152,8 +149,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.separatorColor = UIColor.tableViewSeperator
-        self.view.backgroundColor = UIColor.background
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
+        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
     }
     
@@ -214,9 +211,9 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.tintColor = UIColor.tableViewHeader
+        header.tintColor = ApplicationTheme.shared.tableViewHeaderColor
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        header.textLabel?.textColor = UIColor.tableViewHeaderText
+        header.textLabel?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
         // TODO: Figure out real fix for this? Not sure why the banner view is being displayed behind header view
         self.view.bringSubview(toFront: self.bannerAdView)
     }
@@ -227,8 +224,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         cell.classTitleLabel.text = classObj.name
         cell.ribbonColor = classObj.color
         // Set the label text colors
-        cell.classTitleLabel.textColor = UIColor.mainTextColor()
-        cell.classDetailLabel.textColor = UIColor.secondaryTextColor()
+        cell.classTitleLabel.textColor = ApplicationTheme.shared.mainTextColor()
+        cell.classDetailLabel.textColor = ApplicationTheme.shared.secondaryTextColor()
 
         if classObj.isInProgress && classObj.assignments.count  == 0 {
             // Since no assignments, new class, just say A
@@ -657,7 +654,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.mainTextColor(),
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(),
                                                    .font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No classes added", attributes: attrs)
     }
@@ -667,7 +664,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateImageSize: CGSize? { return CGSize(width: 120, height: 122) }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.highlight,
+        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
                                                    .font: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add a class", attributes: attrs)
     }
@@ -686,7 +683,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
         guard let emptyView = view as? UIEmptyStateView else { return }
 
         // Update tint for button
-        emptyView.button.tintColor = .highlight
+        emptyView.button.tintColor = ApplicationTheme.shared.highlightColor
 
         // Hide the search controller
         if #available(iOS 11.0, *) {
@@ -780,17 +777,12 @@ extension ClassesTableViewController {
 
     /// Called whenever the them is updated
     @objc private func updateUIForThemeChanges(notification: Notification) {
-        switch UIColor.theme {
-        case .dark:
-            navigationController?.navigationBar.barStyle = .black
-        case .light:
-            navigationController?.navigationBar.barStyle = .default
-        }
+        self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
 
-        searchController.searchBar.barTintColor = UIColor.background
-        tableView.separatorColor = UIColor.tableViewSeperator
+        self.searchController.searchBar.barTintColor = ApplicationTheme.shared.backgroundColor
+        self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
 
-        tableView.reloadData()
-        reloadEmptyState()
+        self.tableView.reloadData()
+        self.reloadEmptyState()
     }
 }

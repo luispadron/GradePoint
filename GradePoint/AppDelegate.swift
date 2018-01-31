@@ -179,55 +179,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Helper Methods
 
     public func setUITheme(for theme: UITheme) {
-        // TODO: Actually implement
-
-        let cellBgView = UIView()
-
-        switch theme {
-        case .dark:
-            UIApplication.shared.statusBarStyle = .lightContent
-            cellBgView.backgroundColor = UIColor.highlight.darker(by: 25)
-            UITableViewCell.appearance().selectedBackgroundView = cellBgView
-            UITextField.appearance().keyboardAppearance = .dark
-        case .light:
-            UIApplication.shared.statusBarStyle = .default
-            // Custom view for table view cell
-            cellBgView.backgroundColor = UIColor.highlight
-            UITableViewCell.appearance().selectedBackgroundView = cellBgView
-            UITextField.appearance().keyboardAppearance = .default
-        }
-
-        // Customize main view appearances, more fine grained customizations is done at appropriate times throughout the code
-
-        UINavigationBar.appearance().tintColor = UIColor.highlight
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.mainTextColor(in: theme)]
-
-        UINavigationBar.appearance().barTintColor = UIColor.lightBackground
-
-        UITabBar.appearance().tintColor = UIColor.highlight
-        UITabBar.appearance().barTintColor = UIColor.lightBackground
-
-        UITableView.appearance().backgroundColor = UIColor.background
-        UITableViewCell.appearance().backgroundColor = UIColor.lightBackground
-
-        UITextField.appearance().tintColor = UIColor.highlight
-        UITextField.appearance(whenContainedInInstancesOf: [UITableViewCell.self]).textColor = UIColor.mainTextColor(in: theme)
-
-        UIPickerView.appearance().backgroundColor = UIColor.background
-
-        UISegmentedControl.appearance().tintColor = UIColor.highlight
-
-        UISlider.appearance().tintColor = UIColor.highlight
-
-        UISwitch.appearance().tintColor = UIColor.highlight
-        UISwitch.appearance().onTintColor = UIColor.highlight
-
-        UISearchBar.appearance().tintColor = UIColor.highlight
-        if #available(iOS 11.0, *) {
-            let attrs = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.mainTextColor(in: theme)]
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = attrs
-        }
-
+        UIApplication.shared.statusBarStyle = theme == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
+        ApplicationTheme.shared.theme = theme
+        ApplicationTheme.shared.applyTheme()
     }
     
     /// Increments the appSessions count in the app info by 1
