@@ -10,14 +10,23 @@ import UIKit
 
 class GPPOnboarding1ViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // Get price dynamically
+        GradePointPremium.store.requestProducts { (success, products) in
+            if let product = products?.first, success {
+                let price = product.price.floatValue
+                DispatchQueue.main.async {
+                    self.titleLabel.text = "GradePoint Premium\n$\(price)"
+                }
+            }
+        }
         self.setNeedsStatusBarAppearanceUpdate()
     }
 

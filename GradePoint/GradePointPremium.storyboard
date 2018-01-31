@@ -85,6 +85,9 @@ $1.99</string>
                             <constraint firstItem="hqb-ID-OoE" firstAttribute="centerX" secondItem="umr-MD-Kjt" secondAttribute="centerX" id="xYo-zJ-wL0"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="gaC-Si-nmW" id="pDe-27-Cvb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yPc-eg-yg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
