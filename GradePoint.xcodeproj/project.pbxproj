@@ -34,12 +34,18 @@
 		A024E92A1EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */; };
 		A027533D1F043B240021CDFF /* RatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A027533C1F043B240021CDFF /* RatingManager.swift */; };
 		A0331B16201D1839009CF6EC /* AdMob.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0331B15201D1839009CF6EC /* AdMob.plist */; };
+		A037C76F20215A8700AE153A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037C76E20215A8700AE153A /* GameViewController.swift */; };
+		A037C77120215C1C00AE153A /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037C77020215C1C00AE153A /* GameElements.swift */; };
+		A037C77420215CDB00AE153A /* CoinSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A037C77220215CDB00AE153A /* CoinSound.mp3 */; };
+		A037C77520215CDB00AE153A /* bird.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A037C77320215CDB00AE153A /* bird.atlas */; };
 		A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */; };
 		A048D7811F64499100DA7113 /* AssignmentChangesListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */; };
 		A04BDE411E8CA39C007B21B7 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */; };
 		A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0565AA91EF080F3005C23C0 /* QuickActionId.swift */; };
 		A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */; };
 		A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */; };
+		A05AB7D1202159E100BDDDBF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05AB7D0202159E100BDDDBF /* GameScene.swift */; };
+		A05AB7D320215A1E00BDDDBF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A05AB7D220215A1E00BDDDBF /* SpriteKit.framework */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A05F79061F1AB7B700C3637F /* ClassesTableViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */; };
 		A061AACA2021402200D4D65D /* ThemeSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */; };
@@ -205,12 +211,18 @@
 		A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterConfigurationTableViewController.swift; sourceTree = "<group>"; };
 		A027533C1F043B240021CDFF /* RatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingManager.swift; sourceTree = "<group>"; };
 		A0331B15201D1839009CF6EC /* AdMob.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AdMob.plist; sourceTree = "<group>"; };
+		A037C76E20215A8700AE153A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		A037C77020215C1C00AE153A /* GameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
+		A037C77220215CDB00AE153A /* CoinSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CoinSound.mp3; sourceTree = "<group>"; };
+		A037C77320215CDB00AE153A /* bird.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bird.atlas; sourceTree = "<group>"; };
 		A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LPSnackbar.framework; path = Carthage/Build/iOS/LPSnackbar.framework; sourceTree = "<group>"; };
 		A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentChangesListener.swift; sourceTree = "<group>"; };
 		A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A0565AA91EF080F3005C23C0 /* QuickActionId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionId.swift; sourceTree = "<group>"; };
 		A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplicationShortcutItem+QuickActionID.swift"; sourceTree = "<group>"; };
 		A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		A05AB7D0202159E100BDDDBF /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		A05AB7D220215A1E00BDDDBF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A05F79041F1AB7B700C3637F /* GradePointUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GradePointUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesTableViewUITests.swift; sourceTree = "<group>"; };
@@ -289,6 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05AB7D320215A1E00BDDDBF /* SpriteKit.framework in Frameworks */,
 				4F2CC5307E03FAC95B75C166 /* Pods_GradePoint.framework in Frameworks */,
 				A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */,
 				A00422661FD10F07000016BA /* Realm.framework in Frameworks */,
@@ -345,6 +358,7 @@
 		6A96FD7C66A3F4FCE8EED023 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A05AB7D220215A1E00BDDDBF /* SpriteKit.framework */,
 				A00288C31FD11A590076097C /* UIEmptyState.framework */,
 				A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */,
 				A00422561FD10A96000016BA /* Realm.framework */,
@@ -488,6 +502,18 @@
 			name = Assignment;
 			sourceTree = "<group>";
 		};
+		A05AB7CF202159B000BDDDBF /* GradeBird */ = {
+			isa = PBXGroup;
+			children = (
+				A037C77220215CDB00AE153A /* CoinSound.mp3 */,
+				A037C77320215CDB00AE153A /* bird.atlas */,
+				A037C76E20215A8700AE153A /* GameViewController.swift */,
+				A05AB7D0202159E100BDDDBF /* GameScene.swift */,
+				A037C77020215C1C00AE153A /* GameElements.swift */,
+			);
+			name = GradeBird;
+			sourceTree = "<group>";
+		};
 		A0727DC41E65481C00885B35 /* Calculators */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +555,7 @@
 				A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */,
 				A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */,
 				A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */,
+				A05AB7CF202159B000BDDDBF /* GradeBird */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -816,9 +843,11 @@
 				A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */,
 				A07521811FF4A3D2005BBFF8 /* DefaultPreferences.plist in Resources */,
 				A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */,
+				A037C77420215CDB00AE153A /* CoinSound.mp3 in Resources */,
 				A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */,
 				A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */,
 				A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */,
+				A037C77520215CDB00AE153A /* bird.atlas in Resources */,
 				A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */,
 				A0331B16201D1839009CF6EC /* AdMob.plist in Resources */,
 				A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */,
@@ -1087,6 +1116,7 @@
 				A078D23C1FF1C0B1004197DF /* UIPickerField.swift in Sources */,
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
 				A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */,
+				A037C77120215C1C00AE153A /* GameElements.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
 				A0BF3B2A1F243782001CCE52 /* Constants.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
@@ -1108,6 +1138,7 @@
 				A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */,
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
+				A037C76F20215A8700AE153A /* GameViewController.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */,
 				A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */,
@@ -1127,6 +1158,7 @@
 				A018BD061F16E73C0094AC45 /* Array+Extensions.swift in Sources */,
 				A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
+				A05AB7D1202159E100BDDDBF /* GameScene.swift in Sources */,
 				A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
 				A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */,

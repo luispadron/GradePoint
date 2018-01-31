@@ -94,10 +94,12 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 5
+            return 1
         case 2:
-            return 3
+            return 5
         case 3:
+            return 3
+        case 4:
             return 2
         default:
             return 0
@@ -121,9 +123,10 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Info"
-        case 1: return "Configuration"
-        case 2: return "Contact"
-        case 3: return "Legal"
+        case 1: return "Game"
+        case 2: return "Configuration"
+        case 3: return "Contact"
+        case 4: return "Legal"
         default:
             return nil
         }
@@ -137,7 +140,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        if indexPath.section == 3 {
             switch indexPath.row {
             case 0:
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
