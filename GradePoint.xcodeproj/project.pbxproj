@@ -468,6 +468,26 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		A05AB7CD2021598200BDDDBF /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */,
+				A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */,
+				A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */,
+				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
+			);
+			name = Class;
+			sourceTree = "<group>";
+		};
+		A05AB7CE2021598A00BDDDBF /* Assignment */ = {
+			isa = PBXGroup;
+			children = (
+				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
+				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
+			);
+			name = Assignment;
+			sourceTree = "<group>";
+		};
 		A0727DC41E65481C00885B35 /* Calculators */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,12 +564,8 @@
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */,
-				A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */,
-				A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */,
-				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
-				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
-				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
+				A05AB7CD2021598200BDDDBF /* Class */,
+				A05AB7CE2021598A00BDDDBF /* Assignment */,
 				A086C9F71E8CB8D1007819FD /* Settings */,
 				A017D1CD1E5A75A0004FBDA9 /* Onboarding */,
 				A0727DC41E65481C00885B35 /* Calculators */,
