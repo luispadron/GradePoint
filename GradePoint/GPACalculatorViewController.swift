@@ -95,12 +95,8 @@ class GPACalculatorViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-        // Revert status bar
-        switch ApplicationTheme.shared.theme {
-        case .dark: UIApplication.shared.statusBarStyle = .lightContent
-        case .light: fallthrough
-        case .eco: UIApplication.shared.statusBarStyle = .default
-        }
+        // Revert status bar changes
+        UIApplication.shared.statusBarStyle = ApplicationTheme.shared.statusBarStyle
     }
     
     // MARK: Actions

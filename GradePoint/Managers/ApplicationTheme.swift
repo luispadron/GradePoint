@@ -35,8 +35,16 @@ class ApplicationTheme {
     var navigationBarStyle: UIBarStyle {
         switch self.theme {
         case .dark: return .black
-        case .eco: fallthrough
-        case .light: return .default
+        case .light: fallthrough
+        case .eco: return .default
+        }
+    }
+
+    var statusBarStyle: UIStatusBarStyle {
+        switch self.theme {
+        case .dark: return .lightContent
+        case .light: fallthrough
+        case .eco: return .default
         }
     }
 

@@ -240,11 +240,7 @@ class AddEditClassViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Revert status bar changes
-        switch ApplicationTheme.shared.theme {
-        case .dark: UIApplication.shared.statusBarStyle = .lightContent
-        case .light: fallthrough
-        case .eco: UIApplication.shared.statusBarStyle = .default
-        }
+        UIApplication.shared.statusBarStyle = ApplicationTheme.shared.statusBarStyle
         // Invalidate color timer
         self.colorTimer?.invalidate()
     }

@@ -76,12 +76,8 @@ class ExamGradePredictionViewController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        // Reset status bar to default
-        switch ApplicationTheme.shared.theme {
-        case .dark: UIApplication.shared.statusBarStyle = .lightContent
-        case .light: fallthrough
-        case .eco: UIApplication.shared.statusBarStyle = .default
-        }
+        // Revert status bar changes
+        UIApplication.shared.statusBarStyle = ApplicationTheme.shared.statusBarStyle
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
