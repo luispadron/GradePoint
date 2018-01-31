@@ -31,7 +31,8 @@ class AssignmentTableViewCell: UITableViewCell {
 
         switch ApplicationTheme.shared.theme {
         case .dark: break
-        case .light:
+        case .light: fallthrough
+        case .eco:
             nameLabel.textColor = selected ? ApplicationTheme.shared.mainTextColor(in: .dark) :
                                                 ApplicationTheme.shared.mainTextColor(in: .light)
         }

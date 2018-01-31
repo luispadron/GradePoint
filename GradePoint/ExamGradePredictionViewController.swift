@@ -79,7 +79,8 @@ class ExamGradePredictionViewController: UIViewController {
         // Reset status bar to default
         switch ApplicationTheme.shared.theme {
         case .dark: UIApplication.shared.statusBarStyle = .lightContent
-        case .light: UIApplication.shared.statusBarStyle = .default
+        case .light: fallthrough
+        case .eco: UIApplication.shared.statusBarStyle = .default
         }
     }
     

@@ -33,6 +33,9 @@ extension UIColor {
     static let goldenYellow = UIColor(red: 0.965, green: 0.918, blue: 0.549, alpha: 1.00) /*f9d423*/
 
     static let pastelPurple = UIColor(red: 0.678, green: 0.533, blue: 0.882, alpha: 1.00) /* #AD88E1 */
+
+    static let ecoGreen = UIColor(red: 0.220, green: 0.569, blue: 0.412, alpha: 1.00) /* #389169 */
+    static let ecoGreenHeader = UIColor(red: 0.614, green: 0.783, blue: 0.698, alpha: 1.00)
 }
 
 /// Random color generation extension

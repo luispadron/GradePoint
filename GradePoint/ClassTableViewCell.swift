@@ -55,7 +55,8 @@ class ClassTableViewCell: UITableViewCell {
 
         switch ApplicationTheme.shared.theme {
         case .dark: break
-        case .light:
+        case .light: fallthrough
+        case .eco:
             classTitleLabel.textColor = selected ? ApplicationTheme.shared.mainTextColor(in: .dark) :
                                                     ApplicationTheme.shared.mainTextColor(in: .light)
         }

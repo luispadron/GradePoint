@@ -242,7 +242,8 @@ class AddEditClassViewController: UIViewController {
         // Revert status bar changes
         switch ApplicationTheme.shared.theme {
         case .dark: UIApplication.shared.statusBarStyle = .lightContent
-        case .light: UIApplication.shared.statusBarStyle = .default
+        case .light: fallthrough
+        case .eco: UIApplication.shared.statusBarStyle = .default
         }
         // Invalidate color timer
         self.colorTimer?.invalidate()

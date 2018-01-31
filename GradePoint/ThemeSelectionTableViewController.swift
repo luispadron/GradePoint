@@ -100,7 +100,13 @@ class ThemeSelectionTableViewController: UITableViewController {
         animationLayer.position = self.view.center
         animationLayer.cornerRadius = radius/2
         animationLayer.opacity = 0.98
-        animationLayer.backgroundColor = ApplicationTheme.shared.backgroundColor.cgColor
+
+        let bgColor: UIColor
+        switch ApplicationTheme.shared.theme {
+        case .eco: bgColor = UIColor.ecoGreen
+        default: bgColor = ApplicationTheme.shared.backgroundColor
+        }
+        animationLayer.backgroundColor = bgColor.cgColor
 
         // Set completion
         CATransaction.begin()
