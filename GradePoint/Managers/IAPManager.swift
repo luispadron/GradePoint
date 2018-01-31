@@ -10,6 +10,8 @@ import StoreKit
 
 public typealias ProductIdentifier = String
 public typealias ProductRequestCompletionHandler = (_ success: Bool, _ products: [SKProduct]?) -> Void
+public typealias ProductPurchaseCompletionHandler = (_ success: Bool) -> Void
+public typealias ProductRestoreCompletionHandler = (_ success: Bool) -> Void
 
 /**
  A manager which handles in app purchases in GradePoint.
@@ -21,6 +23,8 @@ public class IAPManager: NSObject {
     private var purchasedProductIdentifiers = Set<ProductIdentifier>()
     private var productsRequest: SKProductsRequest?
     private var productsRequestCompletionHandler: ProductRequestCompletionHandler?
+    private var productPurchaseCompletionHandler: ProductPurchaseCompletionHandler?
+    private var productRestoreCompletionHandler: ProductRestoreCompletionHandler?
 
     public init(productIds: Set<ProductIdentifier>) {
         self.productIdentifiers = productIds
@@ -51,9 +55,10 @@ extension IAPManager {
         self.productsRequest?.start()
     }
 
-    public func buyProduct(_ product: SKProduct) {
+    public func buyProduct(_ product: SKProduct, completion: @escaping ProductPurchaseCompletionHandler) {
         let payment = SKPayment(product: product)
         SKPaymentQueue.default().add(payment)
+        self.productPurchaseCompletionHandler = completion
     }
 
     public func isProductPurchased(_ productIdentifier: ProductIdentifier) -> Bool {
@@ -64,8 +69,9 @@ extension IAPManager {
         return SKPaymentQueue.canMakePayments()
     }
 
-    public func restorePurchases() {
+    public func restorePurchases(completion: @escaping ProductRestoreCompletionHandler) {
         SKPaymentQueue.default().restoreCompletedTransactions()
+        self.productRestoreCompletionHandler = completion
     }
 }
 
@@ -112,6 +118,7 @@ extension IAPManager: SKPaymentTransactionObserver {
         print("Transaction complete: \(String(describing: transaction.transactionIdentifier))")
         self.deliverPurchaseNotification(forIdentifier: transaction.payment.productIdentifier)
         SKPaymentQueue.default().finishTransaction(transaction)
+        self.productPurchaseCompletionHandler?(true)
     }
 
     private func failTransaction(_ transaction: SKPaymentTransaction) {
@@ -121,8 +128,8 @@ extension IAPManager: SKPaymentTransactionObserver {
                 print("Transaction error: \(String(describing: transaction.error?.localizedDescription))")
             }
         }
-
         SKPaymentQueue.default().finishTransaction(transaction)
+        self.productPurchaseCompletionHandler?(false)
     }
 
     private func restoreTransaction(_ transaction: SKPaymentTransaction) {
@@ -130,6 +137,7 @@ extension IAPManager: SKPaymentTransactionObserver {
         print("Transaction restored: \(String(describing: transaction.transactionIdentifier))")
         self.deliverPurchaseNotification(forIdentifier: productId)
         SKPaymentQueue.default().finishTransaction(transaction)
+        self.productRestoreCompletionHandler?(true)
     }
 
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -143,6 +151,13 @@ extension IAPManager: SKPaymentTransactionObserver {
                 self.restoreTransaction(transaction)
             default: return
             }
+        }
+    }
+
+    public func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        if let error = error as? SKError {
+            print("Unable to resotre rpoduct, error: \(error.localizedDescription)")
+            self.productRestoreCompletionHandler?(false)
         }
     }
 }

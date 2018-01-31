@@ -16,7 +16,9 @@ public struct GradePointPremium {
     public static func purchase(completion: @escaping PurchaseCompletionHandler) {
         store.requestProducts { success, products in
             if let product = products?.first, success {
-                store.buyProduct(product)
+                store.buyProduct(product) { success in
+                    completion(success)
+                }
             } else {
                 completion(false)
             }
