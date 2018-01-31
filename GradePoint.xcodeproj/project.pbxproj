@@ -32,11 +32,13 @@
 		A01B87861DBD276000A85E2D /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87851DBD276000A85E2D /* Class.swift */; };
 		A021E8BD1E7A20F40014818F /* CGFloat+ToRads.swift in Sources */ = {isa = PBXBuildFile; fileRef = A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */; };
 		A024E92A1EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */; };
+		A0263ABA202185CC001940DE /* BirdFlap.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0263AB9202185CC001940DE /* BirdFlap.wav */; };
+		A0263ABE202188C7001940DE /* RewardSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0263ABD202188C7001940DE /* RewardSound.wav */; };
+		A0263AC2202189AB001940DE /* ThudSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0263AC1202189AB001940DE /* ThudSound.wav */; };
 		A027533D1F043B240021CDFF /* RatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A027533C1F043B240021CDFF /* RatingManager.swift */; };
 		A0331B16201D1839009CF6EC /* AdMob.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0331B15201D1839009CF6EC /* AdMob.plist */; };
 		A037C76F20215A8700AE153A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037C76E20215A8700AE153A /* GameViewController.swift */; };
 		A037C77120215C1C00AE153A /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037C77020215C1C00AE153A /* GameElements.swift */; };
-		A037C77420215CDB00AE153A /* CoinSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A037C77220215CDB00AE153A /* CoinSound.mp3 */; };
 		A037C77520215CDB00AE153A /* bird.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A037C77320215CDB00AE153A /* bird.atlas */; };
 		A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */; };
 		A048D7811F64499100DA7113 /* AssignmentChangesListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */; };
@@ -209,11 +211,13 @@
 		A01B87851DBD276000A85E2D /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+ToRads.swift"; sourceTree = "<group>"; };
 		A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemesterConfigurationTableViewController.swift; sourceTree = "<group>"; };
+		A0263AB9202185CC001940DE /* BirdFlap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BirdFlap.wav; sourceTree = "<group>"; };
+		A0263ABD202188C7001940DE /* RewardSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RewardSound.wav; sourceTree = "<group>"; };
+		A0263AC1202189AB001940DE /* ThudSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ThudSound.wav; sourceTree = "<group>"; };
 		A027533C1F043B240021CDFF /* RatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingManager.swift; sourceTree = "<group>"; };
 		A0331B15201D1839009CF6EC /* AdMob.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AdMob.plist; sourceTree = "<group>"; };
 		A037C76E20215A8700AE153A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		A037C77020215C1C00AE153A /* GameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
-		A037C77220215CDB00AE153A /* CoinSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CoinSound.mp3; sourceTree = "<group>"; };
 		A037C77320215CDB00AE153A /* bird.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bird.atlas; sourceTree = "<group>"; };
 		A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LPSnackbar.framework; path = Carthage/Build/iOS/LPSnackbar.framework; sourceTree = "<group>"; };
 		A048D7801F64499100DA7113 /* AssignmentChangesListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentChangesListener.swift; sourceTree = "<group>"; };
@@ -458,6 +462,17 @@
 			name = "Data Models";
 			sourceTree = "<group>";
 		};
+		A0263AC3202189B7001940DE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A0263AC1202189AB001940DE /* ThudSound.wav */,
+				A0263AB9202185CC001940DE /* BirdFlap.wav */,
+				A0263ABD202188C7001940DE /* RewardSound.wav */,
+				A037C77320215CDB00AE153A /* bird.atlas */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		A027533E1F043B2A0021CDFF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,8 +520,7 @@
 		A05AB7CF202159B000BDDDBF /* GradeBird */ = {
 			isa = PBXGroup;
 			children = (
-				A037C77220215CDB00AE153A /* CoinSound.mp3 */,
-				A037C77320215CDB00AE153A /* bird.atlas */,
+				A0263AC3202189B7001940DE /* Assets */,
 				A037C76E20215A8700AE153A /* GameViewController.swift */,
 				A05AB7D0202159E100BDDDBF /* GameScene.swift */,
 				A037C77020215C1C00AE153A /* GameElements.swift */,
@@ -841,14 +855,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */,
+				A0263ABA202185CC001940DE /* BirdFlap.wav in Resources */,
+				A0263AC2202189AB001940DE /* ThudSound.wav in Resources */,
 				A07521811FF4A3D2005BBFF8 /* DefaultPreferences.plist in Resources */,
 				A00705181DAF0E9B00AD740A /* Assets.xcassets in Resources */,
-				A037C77420215CDB00AE153A /* CoinSound.mp3 in Resources */,
 				A07B968C1EBBCC0E00382E45 /* ClassDetail.storyboard in Resources */,
 				A07B968F1EBBCC3500382E45 /* Onboarding.storyboard in Resources */,
 				A07B968A1EBBCBDF00382E45 /* Calculators.storyboard in Resources */,
 				A037C77520215CDB00AE153A /* bird.atlas in Resources */,
 				A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */,
+				A0263ABE202188C7001940DE /* RewardSound.wav in Resources */,
 				A0331B16201D1839009CF6EC /* AdMob.plist in Resources */,
 				A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */,
 			);

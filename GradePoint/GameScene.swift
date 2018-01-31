@@ -13,7 +13,13 @@ class GameScence: SKScene {
 
     private var hasGameStarted = false
     private var isDead = false
-//    private let coinSound = SKAction.playSoundFileNamed("CoinSound.mp3", waitForCompletion: false)
+
+    private let flapSound = SKAction.playSoundFileNamed("BirdFlap.wav", waitForCompletion: false)
+    private let rewardSound = SKAction.playSoundFileNamed("RewardSound.wav", waitForCompletion: false)
+    private let thudSound = SKAction.playSoundFileNamed("ThudSound.wav", waitForCompletion: true)
+
+    /// The controller which controlls this scene
+    public weak var gameController: UIViewController? = nil
 
     private var score: Int = 0 {
         didSet {
@@ -40,10 +46,10 @@ class GameScence: SKScene {
 
     /// The textures for the bird sprite
     private lazy var birdSprites: [SKTexture] = {
-        return [birdAtlas.textureNamed("bird1"),
-                birdAtlas.textureNamed("bird2"),
-                birdAtlas.textureNamed("bird3"),
-                birdAtlas.textureNamed("bird4")]
+        return [birdAtlas.textureNamed("bookBird1"),
+                birdAtlas.textureNamed("bookBird2"),
+                birdAtlas.textureNamed("bookBird3"),
+                birdAtlas.textureNamed("bookBird4")]
     }()
 
     private var repeatBirdAnimationAction: SKAction?
@@ -76,8 +82,10 @@ class GameScence: SKScene {
 
             self.bird.physicsBody?.velocity = .zero
             self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
+            self.run(self.flapSound)
         } else {
             if !isDead {
+                self.run(self.flapSound)
                 self.bird.physicsBody?.velocity = .zero
                 self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
             }
@@ -90,7 +98,11 @@ class GameScence: SKScene {
                 self.restartScene()
             } else if self.pauseButton.contains(touch.location(in: self)) {
                 self.isPaused = !self.isPaused
-                self.pauseButton.texture = self.isPaused ? SKTexture(imageNamed: "pause") : SKTexture(imageNamed: "play")
+                self.pauseButton.texture = self.isPaused ? SKTexture(imageNamed: "PauseButtonIcon") :
+                                                        SKTexture(imageNamed: "PlayButtonIcon")
+            } else if self.exitButton.contains(touch.location(in: self)) {
+                self.saveHighScore()
+                self.gameController?.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -133,6 +145,7 @@ class GameScence: SKScene {
         self.addChild(self.highScoreLabel)
         self.addChild(self.playLabel)
         self.addChild(self.logo)
+        self.addChild(self.exitButton)
     }
 
     /// Restarts the scence
@@ -157,7 +170,7 @@ class GameScence: SKScene {
     /// Creates the background sprites
     private func createBackground() {
         for i in 0..<2 {
-            let background = SKSpriteNode(imageNamed: "GradeBirdBg")
+            let background = SKSpriteNode(imageNamed: "GradeBirdBackground")
             background.anchorPoint = CGPoint(x: 0, y: 0)
             background.position = CGPoint(x: CGFloat(i) * self.frame.width, y: 0)
             background.name = "background"
@@ -177,7 +190,7 @@ class GameScence: SKScene {
     /// The score label which displays current score
     private lazy var scoreLabel: SKLabelNode = {
         let label = SKLabelNode()
-        label.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2 + self.frame.height / 2.6)
+        label.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2 + self.frame.height / 2.8)
         label.text = "\(score)"
         label.zPosition = 5
         label.fontSize = 50
@@ -200,7 +213,7 @@ class GameScence: SKScene {
     /// The label which displays the users high score
     private lazy var highScoreLabel: SKLabelNode = {
         let label = SKLabelNode()
-        label.position = CGPoint(x: self.frame.width - 80, y: self.frame.height - 22)
+        label.position = CGPoint(x: self.frame.width - 80, y: self.frame.height - 50)
         let highestScore = UserDefaults.standard.integer(forKey: userDefaultGradeBirdHighScore)
         label.text = "Highest Score: \(highestScore)"
         label.zPosition = 5
@@ -221,9 +234,20 @@ class GameScence: SKScene {
         return label
     }()
 
+    /// The exit button which exits the game
+    private lazy var exitButton: SKSpriteNode = {
+        let button = SKSpriteNode(imageNamed: "ExitButtonIcon")
+        button.size = CGSize(width: 40, height: 40)
+        button.position = CGPoint(x: 40, y: self.frame.height - 50)
+        button.zPosition = 6
+        button.setScale(0)
+        button.run(SKAction.scale(to: 1.0, duration: 0.3))
+        return button
+    }()
+
     /// The restart button which restarts the game
     private lazy var restartButton: SKSpriteNode = {
-        let button = SKSpriteNode(imageNamed: "restart")
+        let button = SKSpriteNode(imageNamed: "RestartButtonIcon")
         button.size = CGSize(width: 100, height: 100)
         button.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
         button.zPosition = 6
@@ -234,9 +258,9 @@ class GameScence: SKScene {
 
     /// The button which pauses the game
     private lazy var pauseButton: SKSpriteNode = {
-        let button = SKSpriteNode(imageNamed: "pause")
+        let button = SKSpriteNode(imageNamed: "PauseButtonIcon")
         button.size = CGSize(width: 40, height: 40)
-        button.position = CGPoint(x: self.frame.width - 30, y: 30)
+        button.position = CGPoint(x: self.frame.width - 40, y: 50)
         button.zPosition = 6
         return button
     }()
@@ -263,7 +287,7 @@ class GameScence: SKScene {
         bird.physicsBody?.categoryBitMask = CollisionBitMask.birdCategory
         bird.physicsBody?.collisionBitMask = CollisionBitMask.pillarCategory | CollisionBitMask.groundCategory
         bird.physicsBody?.contactTestBitMask = CollisionBitMask.pillarCategory | CollisionBitMask.groundCategory |
-            CollisionBitMask.flowerCategory
+            CollisionBitMask.aPlusCategory
         bird.physicsBody?.affectedByGravity = false
         bird.physicsBody?.isDynamic = true
         return bird
@@ -287,20 +311,20 @@ class GameScence: SKScene {
     }
 
     private func createWallPair() {
-        let flowerNode = SKSpriteNode(imageNamed: "Flower")
-        flowerNode.size = CGSize(width: 40, height: 40)
-        flowerNode.position = CGPoint(x: self.frame.width + 25, y: self.frame.height / 2)
-        flowerNode.physicsBody = SKPhysicsBody(rectangleOf: flowerNode.size)
-        flowerNode.physicsBody?.affectedByGravity = false
-        flowerNode.physicsBody?.isDynamic = false
-        flowerNode.physicsBody?.categoryBitMask = CollisionBitMask.flowerCategory
-        flowerNode.physicsBody?.collisionBitMask = 0
-        flowerNode.physicsBody?.contactTestBitMask = CollisionBitMask.birdCategory
+        let aPlusNode = SKSpriteNode(imageNamed: "APlusImage")
+        aPlusNode.size = CGSize(width: 40, height: 40)
+        aPlusNode.position = CGPoint(x: self.frame.width + 25, y: self.frame.height / 2)
+        aPlusNode.physicsBody = SKPhysicsBody(rectangleOf: aPlusNode.size)
+        aPlusNode.physicsBody?.affectedByGravity = false
+        aPlusNode.physicsBody?.isDynamic = false
+        aPlusNode.physicsBody?.categoryBitMask = CollisionBitMask.aPlusCategory
+        aPlusNode.physicsBody?.collisionBitMask = 0
+        aPlusNode.physicsBody?.contactTestBitMask = CollisionBitMask.birdCategory
 
-        let topWall = createWall(imageName: "pillar", topWall: true)
+        let topWall = createWall(imageName: "PillarSprite", topWall: true)
         topWall.zRotation = CGFloat.pi
 
-        let bottomWall = createWall(imageName: "pillar", topWall: false)
+        let bottomWall = createWall(imageName: "PillarSprite", topWall: false)
 
         self.wallPair = SKNode()
         self.wallPair.name = "wallPair"
@@ -312,7 +336,7 @@ class GameScence: SKScene {
         let randomPosition = randomNumber(min: -200, max: 200)
         self.wallPair.position.y = self.wallPair.position.y + randomPosition
 
-        self.wallPair.addChild(flowerNode)
+        self.wallPair.addChild(aPlusNode)
 
         self.wallPair.run(moveAndRemove)
     }
@@ -326,7 +350,7 @@ extension GameScence: SKPhysicsContactDelegate {
         let bcat = CollisionBitMask.birdCategory
         let pcat = CollisionBitMask.pillarCategory
         let gcat = CollisionBitMask.groundCategory
-        let fcat = CollisionBitMask.flowerCategory
+        let acat = CollisionBitMask.aPlusCategory
 
         if (firstBody.categoryBitMask == bcat || secondBody.categoryBitMask == bcat) &&
             (firstBody.categoryBitMask == pcat || secondBody.categoryBitMask == pcat) ||
@@ -336,6 +360,7 @@ extension GameScence: SKPhysicsContactDelegate {
                 node.speed = 0
                 self.removeAllActions()
             })
+            
             // Prepare scene for death
             if !self.isDead {
                 self.isDead = true
@@ -343,13 +368,15 @@ extension GameScence: SKPhysicsContactDelegate {
                 self.pauseButton.removeFromParent()
                 self.bird.removeAllActions()
                 self.saveHighScore()
+                self.run(self.thudSound)
             }
         } else if (firstBody.categoryBitMask == bcat || secondBody.categoryBitMask == bcat) &&
-                    (firstBody.categoryBitMask == fcat || secondBody.categoryBitMask == fcat){
-            // Bird collided with flower, add score
+                    (firstBody.categoryBitMask == acat || secondBody.categoryBitMask == acat){
+            // Bird collided with treat, add score
             self.score += 1
-            let flowerNode = firstBody.categoryBitMask == fcat ? firstBody.node : secondBody.node
-            flowerNode?.removeFromParent()
+            self.run(self.rewardSound)
+            let aPlusNode = firstBody.categoryBitMask == acat ? firstBody.node : secondBody.node
+            aPlusNode?.removeFromParent()
         }
     }
 }
