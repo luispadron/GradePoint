@@ -21,9 +21,8 @@ class GPPOnboarding1ViewController: UIViewController {
         // Get price dynamically
         GradePointPremium.store.requestProducts { (success, products) in
             if let product = products?.first, success {
-                let price = product.price.floatValue
                 DispatchQueue.main.async {
-                    self.titleLabel.text = "GradePoint Premium\n$\(price)"
+                    self.titleLabel.text = "GradePoint Premium\n\(product.localizedPrice ?? "$1.99")"
                 }
             }
         }

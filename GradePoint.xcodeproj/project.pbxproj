@@ -63,6 +63,7 @@
 		A06E179720223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179620223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift */; };
 		A06E179920223C0700D5ACC0 /* GPPOnboarding4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179820223C0700D5ACC0 /* GPPOnboarding4ViewController.swift */; };
 		A06E179B20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179A20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift */; };
+		A06E179D2022634E00D5ACC0 /* SKProduct+Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179C2022634E00D5ACC0 /* SKProduct+Price.swift */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */; };
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
@@ -253,6 +254,7 @@
 		A06E179620223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding3ViewController.swift; sourceTree = "<group>"; };
 		A06E179820223C0700D5ACC0 /* GPPOnboarding4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding4ViewController.swift; sourceTree = "<group>"; };
 		A06E179A20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding5ViewController.swift; sourceTree = "<group>"; };
+		A06E179C2022634E00D5ACC0 /* SKProduct+Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+Price.swift"; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewController.swift; sourceTree = "<group>"; };
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 				A021E8BC1E7A20F40014818F /* CGFloat+ToRads.swift */,
 				A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */,
 				A018BD051F16E73C0094AC45 /* Array+Extensions.swift */,
+				A06E179C2022634E00D5ACC0 /* SKProduct+Price.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1185,6 +1188,7 @@
 				A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */,
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,
 				A0FE32B51F145BFB00F264EC /* PreviousClassDetailViewController.swift in Sources */,
+				A06E179D2022634E00D5ACC0 /* SKProduct+Price.swift in Sources */,
 				A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */,
 				A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */,
 				A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */,

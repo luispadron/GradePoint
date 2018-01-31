@@ -45,11 +45,22 @@ class ThemeSelectionTableViewController: UITableViewController {
         cell.accessoryType = indexPath.row == self.selectedThemeIndex ? .checkmark : .none
         cell.tintColor = ApplicationTheme.shared.highlightColor
         guard let label = cell.contentView.subviews.first as? UILabel else { return }
-        label.textColor = ApplicationTheme.shared.mainTextColor()
+        if !GradePointPremium.isPurchased && indexPath.row > 1 {
+            label.textColor = ApplicationTheme.shared.mainTextColor().withAlphaComponent(0.5)
+        } else {
+            label.textColor = ApplicationTheme.shared.mainTextColor()
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if selectedThemeIndex == indexPath.row { return } // Do nothing
+
+        // Make sure premium is purchased for premium themes
+        if !GradePointPremium.isPurchased && indexPath.row > 1 {
+            GradePointPremium.displayPremiumOnboarding(in: self)
+            return
+        }
+
         self.selectedThemeIndex = indexPath.row
         // Update theme defaults
         guard let theme = UITheme(rawValue: self.selectedThemeIndex + 1) else { return }

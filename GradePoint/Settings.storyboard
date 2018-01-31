@@ -102,9 +102,6 @@
                                         <constraints>
                                             <constraint firstItem="QOi-mZ-vah" firstAttribute="leading" secondItem="cW8-g0-XtS" secondAttribute="leading" constant="20" id="clE-t2-kx4"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="WZ6-Zl-dfW" kind="presentation" id="vUL-We-1B8"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -134,9 +131,6 @@
                                         <constraints>
                                             <constraint firstItem="Y6r-GW-FfW" firstAttribute="leading" secondItem="aaE-GO-LsN" secondAttribute="leading" constant="20" id="3ub-7I-Fgx"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="fRT-uJ-oCL" kind="presentation" modalPresentationStyle="fullScreen" id="lBR-IX-ZTl"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -439,6 +433,7 @@
                         <outlet property="roundingField" destination="ABV-FZ-DCb" id="QcK-AY-sU5"/>
                         <outlet property="studentTypeSwitcher" destination="b2C-GZ-Q0V" id="NBb-BG-NHu"/>
                         <outlet property="versionLabel" destination="lo4-Mx-ibC" id="c8o-f6-fwf"/>
+                        <segue destination="fRT-uJ-oCL" kind="presentation" identifier="presentGameBird" id="y8k-jh-fkm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zdt-6M-yDX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1408,14 +1403,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAa-yP-zDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-68" y="-522"/>
-        </scene>
-        <!--GradePointPremium-->
-        <scene sceneID="CkF-RF-UaM">
-            <objects>
-                <viewControllerPlaceholder storyboardName="GradePointPremium" id="WZ6-Zl-dfW" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IPA-da-H5e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="594" y="-831"/>
         </scene>
     </scenes>
     <resources>

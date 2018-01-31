@@ -6,6 +6,8 @@
 //  Copyright © 2018 Luis Padron. All rights reserved.
 //
 
+import UIKit
+
 public struct GradePointPremium {
     public static let productIds: Set<ProductIdentifier> = [gradePointPremiumProductId]
 
@@ -23,5 +25,15 @@ public struct GradePointPremium {
                 completion(false)
             }
         }
+    }
+
+    public static var isPurchased: Bool {
+        return UserDefaults.standard.bool(forKey: gradePointPremiumProductId)
+    }
+
+    public static func displayPremiumOnboarding(in controller: UIViewController) {
+        let storyboard = UIStoryboard(name: "GradePointPremium", bundle: nil)
+        let onboardingController = storyboard.instantiateViewController(withIdentifier: "GPPPageViewController")
+        controller.present(onboardingController, animated: true, completion: nil)
     }
 }

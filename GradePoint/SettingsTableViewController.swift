@@ -75,6 +75,11 @@ class SettingsTableViewController: UITableViewController {
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -116,6 +121,12 @@ class SettingsTableViewController: UITableViewController {
                 label.textColor = ApplicationTheme.shared.mainTextColor()
             } 
         }
+
+        if indexPath.section == 1 && indexPath.row == 0 && GradePointPremium.isPurchased {
+            let label = cell.contentView.subviews.first as? UILabel
+            label?.text = "Purchased ❤️"
+            cell.accessoryType = .none
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -143,7 +154,16 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 4 {
+        if indexPath.section == 1 && indexPath.row == 0 && !GradePointPremium.isPurchased {
+            GradePointPremium.displayPremiumOnboarding(in: self)
+        }
+        else if indexPath.section == 2 && indexPath.row == 0 {
+            if !GradePointPremium.isPurchased {
+                GradePointPremium.displayPremiumOnboarding(in: self)
+            } else {
+                self.performSegue(withIdentifier: "presentGameBird", sender: nil)
+            }
+        } else if indexPath.section == 4 {
             switch indexPath.row {
             case 0:
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
