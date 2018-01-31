@@ -57,6 +57,12 @@
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
 		A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */; };
+		A06E179120223ADF00D5ACC0 /* GPPPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */; };
+		A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */; };
+		A06E179520223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179420223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift */; };
+		A06E179720223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179620223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift */; };
+		A06E179920223C0700D5ACC0 /* GPPOnboarding4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179820223C0700D5ACC0 /* GPPOnboarding4ViewController.swift */; };
+		A06E179B20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179A20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift */; };
 		A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */; };
 		A07099511E5E8CFE00B65756 /* AddEditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */; };
 		A0727DC61E65484500885B35 /* ExamGradePredictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */; };
@@ -241,6 +247,12 @@
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
 		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GradePointPremium.storyboard; sourceTree = "<group>"; };
+		A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPPageViewController.swift; sourceTree = "<group>"; };
+		A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding1ViewController.swift; sourceTree = "<group>"; };
+		A06E179420223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding2ViewController.swift; sourceTree = "<group>"; };
+		A06E179620223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding3ViewController.swift; sourceTree = "<group>"; };
+		A06E179820223C0700D5ACC0 /* GPPOnboarding4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding4ViewController.swift; sourceTree = "<group>"; };
+		A06E179A20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding5ViewController.swift; sourceTree = "<group>"; };
 		A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditAssignmentTableViewController.swift; sourceTree = "<group>"; };
 		A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditClassViewController.swift; sourceTree = "<group>"; };
 		A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExamGradePredictionViewController.swift; sourceTree = "<group>"; };
@@ -540,6 +552,19 @@
 			name = GradeBird;
 			sourceTree = "<group>";
 		};
+		A06E178D20223A9C00D5ACC0 /* GradePointPremium */ = {
+			isa = PBXGroup;
+			children = (
+				A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */,
+				A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */,
+				A06E179420223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift */,
+				A06E179620223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift */,
+				A06E179820223C0700D5ACC0 /* GPPOnboarding4ViewController.swift */,
+				A06E179A20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift */,
+			);
+			name = GradePointPremium;
+			sourceTree = "<group>";
+		};
 		A0727DC41E65481C00885B35 /* Calculators */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +606,7 @@
 				A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */,
 				A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */,
 				A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */,
+				A06E178D20223A9C00D5ACC0 /* GradePointPremium */,
 				A05AB7CF202159B000BDDDBF /* GradeBird */,
 			);
 			name = Settings;
@@ -1152,6 +1178,7 @@
 				A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */,
 				A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */,
 				A037C77120215C1C00AE153A /* GameElements.swift in Sources */,
+				A06E179120223ADF00D5ACC0 /* GPPPageViewController.swift in Sources */,
 				A01B87841DBD275300A85E2D /* Semester.swift in Sources */,
 				A0BF3B2A1F243782001CCE52 /* Constants.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
@@ -1167,7 +1194,9 @@
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */,
 				A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */,
+				A06E179720223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift in Sources */,
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
+				A06E179520223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift in Sources */,
 				A027533D1F043B240021CDFF /* RatingManager.swift in Sources */,
 				A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */,
 				A076F5A71E3078C100CE4F43 /* StringExtensions.swift in Sources */,
@@ -1175,12 +1204,15 @@
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A037C76F20215A8700AE153A /* GameViewController.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
+				A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */,
 				A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */,
 				A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */,
+				A06E179920223C0700D5ACC0 /* GPPOnboarding4ViewController.swift in Sources */,
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
 				A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */,
 				A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */,
 				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,
+				A06E179B20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift in Sources */,
 				A08109761F631F7D0048F6DA /* ClassChangesListener.swift in Sources */,
 				A0CE8B471DAF19EF007968EE /* UIColor+Exentions.swift in Sources */,
 				A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */,

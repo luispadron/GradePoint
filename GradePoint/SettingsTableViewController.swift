@@ -86,7 +86,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -96,10 +96,12 @@ class SettingsTableViewController: UITableViewController {
         case 1:
             return 1
         case 2:
-            return 5
+            return 1
         case 3:
-            return 3
+            return 5
         case 4:
+            return 3
+        case 5:
             return 2
         default:
             return 0
@@ -123,10 +125,11 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Info"
-        case 1: return "Game"
-        case 2: return "Configuration"
-        case 3: return "Contact"
-        case 4: return "Legal"
+        case 1: return "Premium"
+        case 2: return "Game"
+        case 3: return "Configuration"
+        case 4: return "Contact"
+        case 5: return "Legal"
         default:
             return nil
         }
@@ -140,7 +143,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == 4 {
             switch indexPath.row {
             case 0:
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),

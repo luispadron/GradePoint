@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -83,7 +84,7 @@ keep track of your grades</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to begin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQY-4H-pV6">
-                                <rect key="frame" x="40" y="706" width="334" height="22"/>
+                                <rect key="frame" x="148" y="706" width="118" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -94,11 +95,11 @@ keep track of your grades</string>
                         </subviews>
                         <color key="backgroundColor" red="0.64792698621749878" green="0.5700153112411499" blue="0.87848258018493652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="IQY-4H-pV6" secondAttribute="trailing" constant="20" id="36N-ff-Fef"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="IQY-4H-pV6" secondAttribute="trailing" id="36N-ff-Fef"/>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="Azh-XV-xly"/>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="leading" secondItem="qv0-rO-Z9V" secondAttribute="leading" constant="20" id="DcC-kf-44T"/>
                             <constraint firstItem="IQY-4H-pV6" firstAttribute="centerX" secondItem="qv0-rO-Z9V" secondAttribute="centerX" id="QgI-MA-2y0"/>
-                            <constraint firstItem="IQY-4H-pV6" firstAttribute="leading" secondItem="qv0-rO-Z9V" secondAttribute="leadingMargin" constant="20" id="TcL-6q-OEE"/>
+                            <constraint firstItem="IQY-4H-pV6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qv0-rO-Z9V" secondAttribute="leadingMargin" id="TcL-6q-OEE"/>
                             <constraint firstItem="nJv-DB-hZO" firstAttribute="centerY" secondItem="qv0-rO-Z9V" secondAttribute="centerY" id="bYR-4H-zJr"/>
                             <constraint firstItem="bYO-Nv-k4j" firstAttribute="top" secondItem="IQY-4H-pV6" secondAttribute="bottom" constant="8" id="hJt-a6-ts0">
                                 <variation key="heightClass=regular-widthClass=regular" constant="35"/>
@@ -157,7 +158,7 @@ simply add your classes</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out your information" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
-                                        <rect key="frame" x="55.333333333333343" y="316" width="248.66666666666666" height="24"/>
+                                        <rect key="frame" x="59.333333333333329" y="316" width="240.66666666666669" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -245,7 +246,7 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUF-LX-xP6">
-                                <rect key="frame" x="28" y="706.33333333333348" width="358" height="21.666666666666629"/>
+                                <rect key="frame" x="28" y="706.33333333333337" width="358" height="21.666666666666629"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -550,11 +551,11 @@ simply add your classes</string>
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UITabBarController-0zQ-jM-5Ze" id="J2t-Xk-b1O" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsc-MN-32Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2244" y="128"/>
+            <point key="canvasLocation" x="4261" y="-143"/>
         </scene>
     </scenes>
     <resources>
-        <image name="CircularAppIcon" width="195" height="195"/>
+        <image name="CircularAppIcon" width="320" height="320"/>
         <image name="ClassExample" width="285" height="81"/>
         <image name="RubricView1" width="289" height="59"/>
         <image name="RubricView2" width="289" height="59"/>

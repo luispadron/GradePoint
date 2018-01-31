@@ -1,16 +1,394 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Uqp-vJ-QHz">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
         <scene sceneID="6gg-4Y-Jhd">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Uqp-vJ-QHz" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Uqp-vJ-QHz" customClass="GPPPageViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iuj-3C-Fum" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="705" y="-522"/>
         </scene>
+        <!--Onboarding1 View Controller-->
+        <scene sceneID="Qwf-4z-d3F">
+            <objects>
+                <viewController storyboardIdentifier="GPPOnboarding1" id="zgP-xX-bbI" customClass="GPPOnboarding1ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FZg-RA-ZLC"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Qx-NP-cLi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="umr-MD-Kjt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUA-3y-YwT">
+                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="zgP-xX-bbI" eventType="touchUpInside" id="VEz-fY-vU3"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GradePointPremiumIcon" translatesAutoresizingMaskIntoConstraints="NO" id="txb-7H-cQ7">
+                                <rect key="frame" x="72.5" y="212.5" width="229" height="242"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-Si-nmW">
+                                <rect key="frame" x="29" y="90" width="317" height="86"/>
+                                <string key="text">GradePoint Premium
+$1.99</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RkF-AN-lEM">
+                                <rect key="frame" x="95" y="466.5" width="184" height="96"/>
+                                <string key="text">• No Ads
+• New themes
+• GradeBird game
+• Free updates for life</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqb-ID-OoE">
+                                <rect key="frame" x="111" y="630" width="153" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.63282370567321777" green="0.84037864208221436" blue="0.99218231439590454" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="txb-7H-cQ7" firstAttribute="centerY" secondItem="umr-MD-Kjt" secondAttribute="centerY" id="2cG-eb-3P0"/>
+                            <constraint firstItem="gaC-Si-nmW" firstAttribute="centerX" secondItem="umr-MD-Kjt" secondAttribute="centerX" id="6yJ-Fj-uPe"/>
+                            <constraint firstItem="8Qx-NP-cLi" firstAttribute="top" secondItem="hqb-ID-OoE" secondAttribute="bottom" constant="16" id="7og-XL-Ruv"/>
+                            <constraint firstItem="nUA-3y-YwT" firstAttribute="leading" secondItem="umr-MD-Kjt" secondAttribute="leadingMargin" id="Bot-Ur-Hss"/>
+                            <constraint firstItem="RkF-AN-lEM" firstAttribute="top" secondItem="txb-7H-cQ7" secondAttribute="bottom" constant="12" id="VW5-YM-O8S"/>
+                            <constraint firstItem="gaC-Si-nmW" firstAttribute="top" secondItem="FZg-RA-ZLC" secondAttribute="bottom" constant="70" id="bPj-xt-ezw"/>
+                            <constraint firstItem="nUA-3y-YwT" firstAttribute="top" secondItem="FZg-RA-ZLC" secondAttribute="bottom" id="dhy-Oy-maw"/>
+                            <constraint firstItem="RkF-AN-lEM" firstAttribute="centerX" secondItem="umr-MD-Kjt" secondAttribute="centerX" id="fU2-ET-z7H"/>
+                            <constraint firstItem="txb-7H-cQ7" firstAttribute="centerX" secondItem="umr-MD-Kjt" secondAttribute="centerX" id="xLc-hX-37c"/>
+                            <constraint firstItem="hqb-ID-OoE" firstAttribute="centerX" secondItem="umr-MD-Kjt" secondAttribute="centerX" id="xYo-zJ-wL0"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yPc-eg-yg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1580" y="-524.8875562218891"/>
+        </scene>
+        <!--Onboarding4 View Controller-->
+        <scene sceneID="dJf-nM-Dbd">
+            <objects>
+                <viewController storyboardIdentifier="GPPOnboarding4" id="dpf-xT-gKb" customClass="GPPOnboarding4ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lub-PT-EBm"/>
+                        <viewControllerLayoutGuide type="bottom" id="fh0-0I-1yk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8zR-Rj-kjY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qms-yc-OA2">
+                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="dpf-xT-gKb" eventType="touchUpInside" id="0Th-YE-8YV"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-E5-0zq">
+                                <rect key="frame" x="111" y="634" width="153" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GradeBird" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQk-FZ-C5M">
+                                <rect key="frame" x="110" y="90" width="156" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GradeBirdSampleImg" translatesAutoresizingMaskIntoConstraints="NO" id="v1u-1a-qUF">
+                                <rect key="frame" x="77" y="141.5" width="220" height="384"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="SLD-uH-q47"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get the new hit classic!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-zd-1nT">
+                                <rect key="frame" x="103" y="534" width="168.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95613187551498413" green="0.63949394226074219" blue="0.6352803111076355" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="v1u-1a-qUF" firstAttribute="centerX" secondItem="8zR-Rj-kjY" secondAttribute="centerX" id="11Y-ps-pPm"/>
+                            <constraint firstItem="Xsd-E5-0zq" firstAttribute="centerX" secondItem="8zR-Rj-kjY" secondAttribute="centerX" id="GKT-Pj-zSz"/>
+                            <constraint firstItem="Qms-yc-OA2" firstAttribute="leading" secondItem="8zR-Rj-kjY" secondAttribute="leadingMargin" id="TNi-cW-3AK"/>
+                            <constraint firstItem="v1u-1a-qUF" firstAttribute="centerY" secondItem="8zR-Rj-kjY" secondAttribute="centerY" id="Vi3-hR-XJp"/>
+                            <constraint firstItem="BQk-FZ-C5M" firstAttribute="top" secondItem="lub-PT-EBm" secondAttribute="bottom" constant="70" id="d0n-b9-o4p"/>
+                            <constraint firstItem="Qms-yc-OA2" firstAttribute="top" secondItem="lub-PT-EBm" secondAttribute="bottom" id="g3O-4D-ckA"/>
+                            <constraint firstItem="fh0-0I-1yk" firstAttribute="top" secondItem="Xsd-E5-0zq" secondAttribute="bottom" constant="12" id="hXH-Lf-ngO"/>
+                            <constraint firstItem="Jhf-zd-1nT" firstAttribute="firstBaseline" secondItem="v1u-1a-qUF" secondAttribute="baseline" constant="23.5" symbolType="layoutAnchor" id="jQw-YR-kOG"/>
+                            <constraint firstItem="BQk-FZ-C5M" firstAttribute="centerX" secondItem="8zR-Rj-kjY" secondAttribute="centerX" id="tC9-l0-bCF"/>
+                            <constraint firstItem="Jhf-zd-1nT" firstAttribute="centerX" secondItem="8zR-Rj-kjY" secondAttribute="centerX" id="zXq-6y-YSh"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Gw-iW-vTB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1581.5999999999999" y="161.46926536731635"/>
+        </scene>
+        <!--Onboarding5 View Controller-->
+        <scene sceneID="hXs-Fs-iZh">
+            <objects>
+                <viewController storyboardIdentifier="GPPOnboarding5" id="twP-gj-Mef" customClass="GPPOnboarding5ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qq0-GU-x5P"/>
+                        <viewControllerLayoutGuide type="bottom" id="e3d-5d-1Zg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dI1-os-WfC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tV-Xa-iGu">
+                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="twP-gj-Mef" eventType="touchUpInside" id="8hK-yz-EN4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="And much more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zcd-Na-Az5">
+                                <rect key="frame" x="66" y="90" width="243.5" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmv-lv-t3P">
+                                <rect key="frame" x="58" y="213" width="258.5" height="143.5"/>
+                                <string key="text">• Updates for life
+
+• Support the continued
+developement of GradePoint
+
+• Any future premium features</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyq-k0-6SG">
+                                <rect key="frame" x="62" y="512" width="250" height="75"/>
+                                <color key="backgroundColor" red="0.63278323411941528" green="0.83653479814529419" blue="0.98433870077133179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="RXu-GP-fl9"/>
+                                    <constraint firstAttribute="width" constant="250" id="iCm-8Y-TvM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Purchase">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="purchasedButtonTapped:" destination="twP-gj-Mef" eventType="touchUpInside" id="d4c-tT-0UL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="paH-LN-UQK">
+                                <rect key="frame" x="116" y="599" width="142" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Restore purchase">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="restorePurchasedButtonTapped:" destination="twP-gj-Mef" eventType="touchUpInside" id="HWe-3r-ucP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.6553528904914856" green="0.65240436792373657" blue="0.7921757698059082" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="paH-LN-UQK" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="PCi-RC-iF8"/>
+                            <constraint firstItem="2tV-Xa-iGu" firstAttribute="top" secondItem="qq0-GU-x5P" secondAttribute="bottom" id="RF4-M5-xQY"/>
+                            <constraint firstItem="qyq-k0-6SG" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="Sn9-W6-28z"/>
+                            <constraint firstItem="2tV-Xa-iGu" firstAttribute="leading" secondItem="dI1-os-WfC" secondAttribute="leadingMargin" id="T0B-rU-1gE"/>
+                            <constraint firstItem="Zcd-Na-Az5" firstAttribute="top" secondItem="qq0-GU-x5P" secondAttribute="bottom" constant="70" id="Vnt-0A-a4T"/>
+                            <constraint firstItem="e3d-5d-1Zg" firstAttribute="top" secondItem="qyq-k0-6SG" secondAttribute="bottom" constant="80" id="Xyl-Qe-Nec"/>
+                            <constraint firstItem="paH-LN-UQK" firstAttribute="top" secondItem="qyq-k0-6SG" secondAttribute="bottom" constant="12" id="eRZ-JT-XaZ"/>
+                            <constraint firstItem="Rmv-lv-t3P" firstAttribute="top" secondItem="Zcd-Na-Az5" secondAttribute="bottom" constant="80" id="nPP-96-qhT"/>
+                            <constraint firstItem="Zcd-Na-Az5" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="o0W-XA-Yey"/>
+                            <constraint firstItem="Rmv-lv-t3P" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="sbU-FK-5gX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="purchaseButton" destination="qyq-k0-6SG" id="DXd-3L-VVt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6K7-aq-62D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2525.5999999999999" y="144.3778110944528"/>
+        </scene>
+        <!--Onboarding2 View Controller-->
+        <scene sceneID="5pR-GU-gyc">
+            <objects>
+                <viewController storyboardIdentifier="GPPOnboarding2" id="DVJ-Tp-6I5" customClass="GPPOnboarding2ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ywt-zp-gjb"/>
+                        <viewControllerLayoutGuide type="bottom" id="ctU-fU-Tth"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gwC-ou-ho7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOE-j0-gpK">
+                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="DVJ-Tp-6I5" eventType="touchUpInside" id="uDQ-5G-Jg6"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Fi-82-A2B">
+                                <rect key="frame" x="111" y="630" width="153" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more Ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3N-nC-aYD">
+                                <rect key="frame" x="88" y="90" width="199.5" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AdExampleImg" translatesAutoresizingMaskIntoConstraints="NO" id="L6j-DP-6GG">
+                                <rect key="frame" x="16" y="209" width="175" height="249"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoAdExampleImg" translatesAutoresizingMaskIntoConstraints="NO" id="Gxd-VY-N9i">
+                                <rect key="frame" x="184" y="209" width="175" height="249"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enjoy an ad free experience" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNg-yb-V7R">
+                                <rect key="frame" x="76" y="474" width="223" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59646517038345337" green="0.84889179468154907" blue="0.70978933572769165" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="L6j-DP-6GG" firstAttribute="centerY" secondItem="gwC-ou-ho7" secondAttribute="centerY" id="31m-cE-kbU"/>
+                            <constraint firstItem="JOE-j0-gpK" firstAttribute="leading" secondItem="gwC-ou-ho7" secondAttribute="leadingMargin" id="DxZ-nd-gmg"/>
+                            <constraint firstItem="Gxd-VY-N9i" firstAttribute="trailing" secondItem="gwC-ou-ho7" secondAttribute="trailingMargin" id="GyY-fl-tAq"/>
+                            <constraint firstItem="Gxd-VY-N9i" firstAttribute="centerY" secondItem="gwC-ou-ho7" secondAttribute="centerY" id="Sq5-0Y-d2O"/>
+                            <constraint firstItem="m3N-nC-aYD" firstAttribute="top" secondItem="Ywt-zp-gjb" secondAttribute="bottom" constant="70" id="We8-C2-6np"/>
+                            <constraint firstItem="nNg-yb-V7R" firstAttribute="centerX" secondItem="gwC-ou-ho7" secondAttribute="centerX" id="YyT-et-LUA"/>
+                            <constraint firstItem="L6j-DP-6GG" firstAttribute="leading" secondItem="gwC-ou-ho7" secondAttribute="leadingMargin" id="drG-Hf-5BS"/>
+                            <constraint firstItem="2Fi-82-A2B" firstAttribute="centerX" secondItem="gwC-ou-ho7" secondAttribute="centerX" id="f4L-xS-sqZ"/>
+                            <constraint firstItem="m3N-nC-aYD" firstAttribute="centerX" secondItem="gwC-ou-ho7" secondAttribute="centerX" id="k1P-Pl-rQa"/>
+                            <constraint firstItem="ctU-fU-Tth" firstAttribute="top" secondItem="2Fi-82-A2B" secondAttribute="bottom" constant="16" id="lHr-iL-Fik"/>
+                            <constraint firstItem="JOE-j0-gpK" firstAttribute="top" secondItem="Ywt-zp-gjb" secondAttribute="bottom" id="sAK-dx-tvU"/>
+                            <constraint firstItem="nNg-yb-V7R" firstAttribute="top" secondItem="L6j-DP-6GG" secondAttribute="bottom" constant="16" id="uxR-SG-Szt"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cts-3K-7tP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2525.5999999999999" y="-533.88305847076469"/>
+        </scene>
+        <!--Onboarding3 View Controller-->
+        <scene sceneID="cPw-G9-ewv">
+            <objects>
+                <viewController storyboardIdentifier="GPPOnboarding3" id="xrq-RE-5qp" customClass="GPPOnboarding3ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XQA-30-7q3"/>
+                        <viewControllerLayoutGuide type="bottom" id="d8f-dp-j0Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fFg-Z2-tAb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZO-Yr-shr">
+                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="xrq-RE-5qp" eventType="touchUpInside" id="tYt-jC-Cxl"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More themes!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaZ-lu-1uq">
+                                <rect key="frame" x="81" y="90" width="213" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EcoThemeSample" translatesAutoresizingMaskIntoConstraints="NO" id="esB-wU-5NN">
+                                <rect key="frame" x="16" y="141" width="170" height="337"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="lsh-fX-hps"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PurpleThemeSample" translatesAutoresizingMaskIntoConstraints="NO" id="073-vG-oSh">
+                                <rect key="frame" x="189" y="233" width="170" height="337"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="qvo-rn-Q6V"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uB9-B8-qUy">
+                                <rect key="frame" x="111" y="634" width="153" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.84339779615402222" green="0.65340709686279297" blue="0.92944115400314331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="esB-wU-5NN" firstAttribute="leading" secondItem="fFg-Z2-tAb" secondAttribute="leadingMargin" id="6aL-67-8uP"/>
+                            <constraint firstItem="CaZ-lu-1uq" firstAttribute="centerX" secondItem="fFg-Z2-tAb" secondAttribute="centerX" id="C7l-vf-fol"/>
+                            <constraint firstItem="CZO-Yr-shr" firstAttribute="leading" secondItem="fFg-Z2-tAb" secondAttribute="leadingMargin" id="F5C-xI-Quu"/>
+                            <constraint firstItem="073-vG-oSh" firstAttribute="trailing" secondItem="fFg-Z2-tAb" secondAttribute="trailingMargin" id="eVs-w9-fBO"/>
+                            <constraint firstItem="esB-wU-5NN" firstAttribute="top" secondItem="CaZ-lu-1uq" secondAttribute="bottom" constant="8" id="ew7-oj-Rug"/>
+                            <constraint firstItem="d8f-dp-j0Z" firstAttribute="top" secondItem="uB9-B8-qUy" secondAttribute="bottom" constant="12" id="hy9-XT-aGz"/>
+                            <constraint firstItem="CZO-Yr-shr" firstAttribute="top" secondItem="XQA-30-7q3" secondAttribute="bottom" id="kbC-Iq-yhv"/>
+                            <constraint firstItem="CaZ-lu-1uq" firstAttribute="top" secondItem="XQA-30-7q3" secondAttribute="bottom" constant="70" id="r6B-nI-nqO"/>
+                            <constraint firstItem="uB9-B8-qUy" firstAttribute="centerX" secondItem="fFg-Z2-tAb" secondAttribute="centerX" id="yGp-w5-6MQ"/>
+                            <constraint firstItem="073-vG-oSh" firstAttribute="top" secondItem="CaZ-lu-1uq" secondAttribute="bottom" constant="100" id="zhI-5k-nN0"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qt5-VV-2JM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3477.5999999999999" y="-537.48125937031489"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="AdExampleImg" width="175" height="249"/>
+        <image name="EcoThemeSample" width="179" height="337"/>
+        <image name="GradeBirdSampleImg" width="239" height="384"/>
+        <image name="GradePointPremiumIcon" width="229" height="242"/>
+        <image name="NoAdExampleImg" width="175" height="249"/>
+        <image name="PurpleThemeSample" width="178" height="337"/>
+    </resources>
 </document>

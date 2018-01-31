@@ -1415,7 +1415,7 @@
                 <viewControllerPlaceholder storyboardName="GradePointPremium" id="WZ6-Zl-dfW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPA-da-H5e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="705" y="-522"/>
+            <point key="canvasLocation" x="594" y="-831"/>
         </scene>
     </scenes>
     <resources>
