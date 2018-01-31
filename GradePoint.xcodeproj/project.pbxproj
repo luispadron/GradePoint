@@ -35,6 +35,8 @@
 		A0263ABA202185CC001940DE /* BirdFlap.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0263AB9202185CC001940DE /* BirdFlap.wav */; };
 		A0263ABE202188C7001940DE /* RewardSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0263ABD202188C7001940DE /* RewardSound.wav */; };
 		A0263AC2202189AB001940DE /* ThudSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = A0263AC1202189AB001940DE /* ThudSound.wav */; };
+		A0263AC52021954A001940DE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0263AC42021954A001940DE /* StoreKit.framework */; };
+		A0263AC720219685001940DE /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0263AC620219685001940DE /* IAPManager.swift */; };
 		A027533D1F043B240021CDFF /* RatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A027533C1F043B240021CDFF /* RatingManager.swift */; };
 		A0331B16201D1839009CF6EC /* AdMob.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0331B15201D1839009CF6EC /* AdMob.plist */; };
 		A037C76F20215A8700AE153A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A037C76E20215A8700AE153A /* GameViewController.swift */; };
@@ -96,6 +98,7 @@
 		A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */; };
 		A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CFD1E557A3E00054935 /* UICalculateView.swift */; };
 		A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */; };
+		A0B10BA320219FA2008A83AE /* GradePointPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B10BA220219FA2008A83AE /* GradePointPremium.swift */; };
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0BA9D011F22D865003CC441 /* ApplicationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BA9D001F22D865003CC441 /* ApplicationTheme.swift */; };
@@ -214,6 +217,8 @@
 		A0263AB9202185CC001940DE /* BirdFlap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BirdFlap.wav; sourceTree = "<group>"; };
 		A0263ABD202188C7001940DE /* RewardSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = RewardSound.wav; sourceTree = "<group>"; };
 		A0263AC1202189AB001940DE /* ThudSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ThudSound.wav; sourceTree = "<group>"; };
+		A0263AC42021954A001940DE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A0263AC620219685001940DE /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		A027533C1F043B240021CDFF /* RatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingManager.swift; sourceTree = "<group>"; };
 		A0331B15201D1839009CF6EC /* AdMob.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AdMob.plist; sourceTree = "<group>"; };
 		A037C76E20215A8700AE153A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +267,7 @@
 		A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextFieldConfigurations.swift; sourceTree = "<group>"; };
 		A0A27CFD1E557A3E00054935 /* UICalculateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateView.swift; sourceTree = "<group>"; };
 		A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurViewController.swift; sourceTree = "<group>"; };
+		A0B10BA220219FA2008A83AE /* GradePointPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointPremium.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0BA9D001F22D865003CC441 /* ApplicationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTheme.swift; sourceTree = "<group>"; };
@@ -306,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A05AB7D320215A1E00BDDDBF /* SpriteKit.framework in Frameworks */,
+				A0263AC52021954A001940DE /* StoreKit.framework in Frameworks */,
 				4F2CC5307E03FAC95B75C166 /* Pods_GradePoint.framework in Frameworks */,
 				A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */,
 				A00422661FD10F07000016BA /* Realm.framework in Frameworks */,
@@ -362,6 +369,7 @@
 		6A96FD7C66A3F4FCE8EED023 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0263AC42021954A001940DE /* StoreKit.framework */,
 				A05AB7D220215A1E00BDDDBF /* SpriteKit.framework */,
 				A00288C31FD11A590076097C /* UIEmptyState.framework */,
 				A03DA6731FD1197300A7D8F5 /* LPSnackbar.framework */,
@@ -479,6 +487,8 @@
 				A067F1401F0041EA00EE23CE /* DatabaseManager.swift */,
 				A027533C1F043B240021CDFF /* RatingManager.swift */,
 				A0BA9D001F22D865003CC441 /* ApplicationTheme.swift */,
+				A0263AC620219685001940DE /* IAPManager.swift */,
+				A0B10BA220219FA2008A83AE /* GradePointPremium.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -801,6 +811,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 						};
 					};
 					A00705201DAF0E9B00AD740A = {
@@ -1112,9 +1125,11 @@
 				A0BA9D011F22D865003CC441 /* ApplicationTheme.swift in Sources */,
 				A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */,
 				A048D7811F64499100DA7113 /* AssignmentChangesListener.swift in Sources */,
+				A0B10BA320219FA2008A83AE /* GradePointPremium.swift in Sources */,
 				A067BBCE1F6363250083E896 /* RealmTableView.swift in Sources */,
 				A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */,
 				A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */,
+				A0263AC720219685001940DE /* IAPManager.swift in Sources */,
 				A021E8BD1E7A20F40014818F /* CGFloat+ToRads.swift in Sources */,
 				A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */,
 				A0FA1A8F1F1D536000F5FF6E /* ClassDetailTableViewController.swift in Sources */,

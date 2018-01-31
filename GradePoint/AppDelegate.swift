@@ -88,6 +88,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // For UITesting, handle any launch options
             self.prepareForUITesting()
         }
+
+        GradePointPremium.store.requestProducts { (able, products) in
+            if able {
+                print(products)
+            }
+        }
+
         return true
     }
     

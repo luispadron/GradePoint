@@ -32,3 +32,4 @@ let emptyWidgetActionUrl = URL(string: "gradePoint://com.luispadron.gradepoint.e
 // Misc.
 let contactEmail = "heyluispadron@gmail.com"
 let groupId = "group.com.luispadron.GradePoint"
+let gradePointPremiumProductId = "com.luispadron.GradePoint.GradePointPremium"
