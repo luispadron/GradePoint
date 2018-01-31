@@ -178,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Helper Methods
 
-    public func setUITheme(for theme: UITheme) {
+    private func setUITheme(for theme: UITheme) {
         UIApplication.shared.statusBarStyle = theme == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
         ApplicationTheme.shared.theme = theme
         ApplicationTheme.shared.applyTheme()

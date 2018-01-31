@@ -14,7 +14,6 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var studentTypeSwitcher: UISegmentedControl!
-    @IBOutlet weak var themeSwitcher: UISegmentedControl!
     @IBOutlet weak var roundingField: UISafeTextField!
     
     override func viewDidLoad() {
@@ -27,7 +26,7 @@ class SettingsTableViewController: UITableViewController {
         }
         
         // Set version number
-        versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        self.versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         // TableView customization
         // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -35,11 +34,7 @@ class SettingsTableViewController: UITableViewController {
         
         // Set inital student type switcher to whatever value we have in the stored preferences
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
-        studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
-
-        // Set initial theme for theme switcher
-        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: userDefaultTheme))
-        themeSwitcher.selectedSegmentIndex = (theme?.rawValue ?? 1) - 1
+        self.studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
         
         // Rounding field setup
         let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
@@ -69,6 +64,10 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 44
         self.tableView.estimatedSectionHeaderHeight = 30
         self.tableView.estimatedSectionFooterHeight = 0
+
+        // Listen to theme changes notificaitons
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges),
+                                               name: themeUpdatedNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -231,66 +230,11 @@ class SettingsTableViewController: UITableViewController {
         alert.presentAlert(presentingViewController: self)
     }
 
-    @IBAction func themeSegmentChanged(_ sender: UISegmentedControl) {
-        let index = sender.selectedSegmentIndex + 1
-        guard let theme = UITheme(rawValue: index) else { return }
-        // Update theme
-        UserDefaults.standard.set(index, forKey: userDefaultTheme)
-        (UIApplication.shared.delegate as? AppDelegate)?.setUITheme(for: theme)
-        // Animate
-        animateThemeChange()
-    }
-
-    private func animateThemeChange(duration: TimeInterval = 0.35) {
-        // Create the scale animation
-
-        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale.xy")
-        scaleAnimation.duration = duration
-        scaleAnimation.fromValue = 0.0
-        scaleAnimation.toValue = 1.0
-        scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
-        // The animation layer which will be added ontop of the buttons current layer
-        let animationLayer = CALayer()
-        var radius = max(self.view.frame.width, self.view.frame.height)
-        radius += radius * 0.40
-        animationLayer.frame = CGRect(x: 0, y: 0, width: radius, height: radius)
-        animationLayer.position = self.view.center
-        animationLayer.cornerRadius = radius/2
-        animationLayer.opacity = 0.98
-        animationLayer.backgroundColor = ApplicationTheme.shared.backgroundColor.cgColor
-
-        // Set completion
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {
-            // Remove layer
-            animationLayer.removeFromSuperlayer()
-        }
-
-        animationLayer.add(scaleAnimation, forKey: "pulse")
-        // Finally add the layer to the top most view, this way it covers everything
-        self.tabBarController?.view.layer.addSublayer(animationLayer)
-        // Set timer to update UI
-        Timer.scheduledTimer(timeInterval: duration * 0.80, target: self, selector: #selector(self.updateUIForThemeChanges),
-                             userInfo: nil, repeats: false)
-        CATransaction.commit()
-    }
-
     @objc private func updateUIForThemeChanges() {
-        // Since this view wont update until shown again, update nav and tab bar and cells right now
+        // If theme changes are heard, will update UI
         self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: ApplicationTheme.shared.mainTextColor()]
-        self.navigationController?.navigationBar.tintColor = ApplicationTheme.shared.highlightColor
-        self.navigationController?.navigationBar.barTintColor = ApplicationTheme.shared.lightBackgroundColor
-        self.tabBarController?.tabBar.tintColor = ApplicationTheme.shared.highlightColor
-        self.tabBarController?.tabBar.barTintColor = ApplicationTheme.shared.lightBackgroundColor
-        self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
-
         self.tableView.reloadData()
-
-        // Post notification to allow any other view controllers that need to update their UI
-        NotificationCenter.default.post(name: themeUpdatedNotification, object: nil)
     }
     
     @objc private func accessoryKeyboardDone() {
@@ -298,6 +242,10 @@ class SettingsTableViewController: UITableViewController {
         // Save to defaults
         guard let amount = Int(self.roundingField.safeText) else { return }
         UserDefaults.standard.set(amount, forKey: userDefaultRoundingAmount)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

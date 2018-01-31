@@ -42,6 +42,7 @@
 		A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */; };
 		A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */; };
 		A05F79061F1AB7B700C3637F /* ClassesTableViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */; };
+		A061AACA2021402200D4D65D /* ThemeSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */; };
 		A067BBCE1F6363250083E896 /* RealmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067BBCD1F6363250083E896 /* RealmTableView.swift */; };
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
@@ -213,6 +214,7 @@
 		A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RubricTableViewCell.swift; sourceTree = "<group>"; };
 		A05F79041F1AB7B700C3637F /* GradePointUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GradePointUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A05F79051F1AB7B700C3637F /* ClassesTableViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesTableViewUITests.swift; sourceTree = "<group>"; };
+		A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectionTableViewController.swift; sourceTree = "<group>"; };
 		A067BBCD1F6363250083E896 /* RealmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTableView.swift; sourceTree = "<group>"; };
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
 		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */,
 				A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */,
 				A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */,
+				A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1101,6 +1104,7 @@
 				A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */,
 				A05B1E2F1DB2B84A00A43BE3 /* RubricTableViewCell.swift in Sources */,
 				A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */,
+				A061AACA2021402200D4D65D /* ThemeSelectionTableViewController.swift in Sources */,
 				A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */,
 				A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */,
 				A07082131DFF829D00941627 /* AddEditAssignmentTableViewController.swift in Sources */,
