@@ -98,7 +98,7 @@ class GPACalculatorViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ApplicationTheme.shared.statusBarStyle
+        return .lightContent
     }
 
     // MARK: Actions

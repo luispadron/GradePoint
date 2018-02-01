@@ -11,6 +11,7 @@ import RealmSwift
 import UIEmptyState
 import UICircularProgressRing
 import LPSnackbar
+import GoogleMobileAds
 
 class ClassDetailTableViewController: UITableViewController, RealmTableView {
     // Conformance to RealmTableView protocol
@@ -27,7 +28,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     }
 
     var preferedSnackbarBottomSpacing: CGFloat {
-        return self.tabBarController!.tabBar.frame.height + 12
+        return self.tabBarController!.tabBar.frame.height + self.bannerAdView.frame.height + 12
     }
 
     // MARK: Subviews
@@ -61,6 +62,22 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     /// that this controller relies on. For example, will call modify when a new assignment is added to the class.
     public weak var classListener: ClassChangesListener? = nil
 
+    /// The Google AdMob view
+    private lazy var bannerAdView: GADBannerView = {
+        let view = GADBannerView()
+        view.adSize = kGADAdSizeSmartBannerPortrait
+        view.rootViewController = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        view.alpha = 0.0
+        if let adMobFile = Bundle.main.url(forResource: "AdMob", withExtension: "plist"),
+            let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
+            let unitId = adMobDict["AdMobUnitId"] {
+            view.adUnitID = unitId
+        }
+        return view
+    }()
+
     // MARK: View Handleing Methods
 
     override func viewDidLoad() {
@@ -84,6 +101,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         // Listen for them changes
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
                                                name: themeUpdatedNotification, object: nil)
+
+        // Add ad banner
+        self.addBannerView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -232,6 +252,35 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
             self.tableView.reloadData()
             self.reloadEmptyState()
         }
+    }
+
+    /// Adds a google ad mob banner view
+    private func addBannerView() {
+        // Add banner ad view
+        self.tableView.tableFooterView = self.bannerAdView
+        // Banner view constraints
+        if #available(iOS 11.0, *) {
+            let guide = self.view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                guide.leftAnchor.constraint(equalTo: self.bannerAdView.leftAnchor),
+                guide.rightAnchor.constraint(equalTo: self.bannerAdView.rightAnchor),
+                guide.bottomAnchor.constraint(equalTo: self.bannerAdView.bottomAnchor)
+                ])
+        } else {
+            self.view.addConstraints(
+                [NSLayoutConstraint(item: self.bannerAdView, attribute: .bottom, relatedBy: .equal,
+                                    toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0),
+                 NSLayoutConstraint(item: self.bannerAdView, attribute: .centerX, relatedBy: .equal,
+                                    toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
+                ])
+        }
+
+        let adRequest: GADRequest = GADRequest()
+        // Add test ads on simulator
+        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
+            adRequest.testDevices = [kGADSimulatorID]
+        }
+        self.bannerAdView.load(adRequest)
     }
 
     /// Updates the progress on the progress ring
@@ -444,6 +493,17 @@ extension ClassDetailTableViewController: Segueable {
             vc.assignmentForEdit = assignment(at: indexPath)
         }
 
+    }
+}
+
+// MARK: Google Ad View delegate
+
+extension ClassDetailTableViewController: GADBannerViewDelegate {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        self.bannerAdView.alpha = 0.0
+        UIView.animate(withDuration: 0.6) {
+            self.bannerAdView.alpha = 1.0
+        }
     }
 }
 

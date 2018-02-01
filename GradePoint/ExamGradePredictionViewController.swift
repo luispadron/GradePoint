@@ -85,7 +85,7 @@ class ExamGradePredictionViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return ApplicationTheme.shared.statusBarStyle
+        return .lightContent
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

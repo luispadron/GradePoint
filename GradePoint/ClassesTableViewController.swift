@@ -75,7 +75,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     private var toIndexPath: IndexPath? = nil
     
     // MARK: View life cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -120,31 +120,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         // Add 3D touch support to this view
         if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
 
-        // Add banner ad view
-        self.tableView.tableFooterView = self.bannerAdView
-        // Banner view constraints
-        if #available(iOS 11.0, *) {
-            let guide = self.view.safeAreaLayoutGuide
-            NSLayoutConstraint.activate([
-                guide.leftAnchor.constraint(equalTo: self.bannerAdView.leftAnchor),
-                guide.rightAnchor.constraint(equalTo: self.bannerAdView.rightAnchor),
-                guide.bottomAnchor.constraint(equalTo: self.bannerAdView.bottomAnchor)
-                ])
-        } else {
-            self.view.addConstraints(
-                [NSLayoutConstraint(item: self.bannerAdView, attribute: .bottom, relatedBy: .equal,
-                                    toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0),
-                 NSLayoutConstraint(item: self.bannerAdView, attribute: .centerX, relatedBy: .equal,
-                                    toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
-                ])
-        }
-
-        let adRequest: GADRequest = GADRequest()
-        // Add test ads on simulator
-        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
-            adRequest.testDevices = [kGADSimulatorID]
-        }
-        self.bannerAdView.load(adRequest)
+        self.addBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -393,6 +369,35 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         } else {
             return classes[path.section][path.row]
         }
+    }
+
+    /// Adds a google ad mob banner view to the tableview
+    private func addBannerView() {
+        // Add banner ad view
+        self.tableView.tableFooterView = self.bannerAdView
+        // Banner view constraints
+        if #available(iOS 11.0, *) {
+            let guide = self.view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                guide.leftAnchor.constraint(equalTo: self.bannerAdView.leftAnchor),
+                guide.rightAnchor.constraint(equalTo: self.bannerAdView.rightAnchor),
+                guide.bottomAnchor.constraint(equalTo: self.bannerAdView.bottomAnchor)
+                ])
+        } else {
+            self.view.addConstraints(
+                [NSLayoutConstraint(item: self.bannerAdView, attribute: .bottom, relatedBy: .equal,
+                                    toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0),
+                 NSLayoutConstraint(item: self.bannerAdView, attribute: .centerX, relatedBy: .equal,
+                                    toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
+                ])
+        }
+
+        let adRequest: GADRequest = GADRequest()
+        // Add test ads on simulator
+        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
+            adRequest.testDevices = [kGADSimulatorID]
+        }
+        self.bannerAdView.load(adRequest)
     }
     
     /// Deletes a class from Realm
