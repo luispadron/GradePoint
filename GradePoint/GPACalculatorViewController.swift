@@ -75,6 +75,11 @@ class GPACalculatorViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -92,13 +97,10 @@ class GPACalculatorViewController: UIViewController {
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-        // Revert status bar changes
-        UIApplication.shared.statusBarStyle = ApplicationTheme.shared.statusBarStyle
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
     }
-    
+
     // MARK: Actions
     
     @IBAction func onWeightSwitcherValueChanged(_ sender: UISegmentedControl) {
@@ -296,5 +298,9 @@ class GPACalculatorViewController: UIViewController {
         
         // Since the user has finished calculating GPA and they feel good, lets ask them to rate the app now
         RatingManager.presentRating()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

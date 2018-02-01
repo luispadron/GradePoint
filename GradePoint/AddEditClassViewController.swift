@@ -236,17 +236,25 @@ class AddEditClassViewController: UIViewController {
         self.updateSaveButton()
         self.toggleFieldTitles()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // Revert status bar changes
-        UIApplication.shared.statusBarStyle = ApplicationTheme.shared.statusBarStyle
         // Invalidate color timer
         self.colorTimer?.invalidate()
     }
-    
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        let statusColor = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
+        return statusColor
+    }
+
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        get { return .none }
+        return .fade
     }
     
     // MARK: UI Update Methods
@@ -651,8 +659,6 @@ class AddEditClassViewController: UIViewController {
             let visibleDisabledColor = self.colorForView.visibleTextColor(lightColor: UIColor.frenchGray, darkColor: UIColor.gray)
             self.saveButton.setTitleColor(visibleDisabledColor, for: .disabled)
             self.navigationTitle.textColor = visibleColor
-            let statusColor = self.colorForView.isLight() ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
-            UIApplication.shared.statusBarStyle = statusColor
             self.setNeedsStatusBarAppearanceUpdate()
         }
     }

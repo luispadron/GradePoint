@@ -33,12 +33,14 @@ class PreviousClassDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.toggleViewVisibility(to: true)
+        self.setupUI()
+        self.updateUI(with: UIDevice.current.orientation, size: self.view.frame.size)
+    }
 
-        toggleViewVisibility(to: true)
-
-        setupUI()
-
-        updateUI(with: UIDevice.current.orientation, size: self.view.frame.size)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -59,6 +61,10 @@ class PreviousClassDetailViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.updateUI(with: UIDevice.current.orientation, size: size)
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
     }
 
     // MARK: Helpers

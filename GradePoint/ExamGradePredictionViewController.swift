@@ -75,15 +75,17 @@ class ExamGradePredictionViewController: UIViewController {
         self.progressRing.decimalPlaces = roundingAmount
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        // Revert status bar changes
-        UIApplication.shared.statusBarStyle = ApplicationTheme.shared.statusBarStyle
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        get {
-            return .portrait
-        }
+        return .portrait
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

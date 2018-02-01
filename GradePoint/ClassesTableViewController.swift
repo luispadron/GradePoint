@@ -74,7 +74,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     private var fromIndexPath: IndexPath? = nil
     private var toIndexPath: IndexPath? = nil
     
-    // MARK: View Handeling
+    // MARK: View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,6 +158,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         super.viewDidAppear(animated)
         self.clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
         self.reloadEmptyState()
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -171,6 +172,10 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         let orientation = UIDevice.current.orientation
 
         self.updateAdSize(withOrientation: orientation, size: size)
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
     }
     
     // MARK: Table View Methods

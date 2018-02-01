@@ -56,6 +56,7 @@
 		A067BBCE1F6363250083E896 /* RealmTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067BBCD1F6363250083E896 /* RealmTableView.swift */; };
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
+		A069241E2022C76E004A2B06 /* UIViewController+StatusBarFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */; };
 		A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */; };
 		A06E179120223ADF00D5ACC0 /* GPPPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */; };
 		A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */; };
@@ -247,6 +248,7 @@
 		A067BBCD1F6363250083E896 /* RealmTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTableView.swift; sourceTree = "<group>"; };
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
 		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBarFix.swift"; sourceTree = "<group>"; };
 		A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GradePointPremium.storyboard; sourceTree = "<group>"; };
 		A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPPageViewController.swift; sourceTree = "<group>"; };
 		A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding1ViewController.swift; sourceTree = "<group>"; };
@@ -527,7 +529,6 @@
 			isa = PBXGroup;
 			children = (
 				A0C15CFE1F1C01550013F68F /* ClassesTableViewController.swift */,
-				A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */,
 				A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */,
 				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
 			);
@@ -537,6 +538,7 @@
 		A05AB7CE2021598A00BDDDBF /* Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */,
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
 				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
 			);
@@ -683,6 +685,7 @@
 				A0565AAB1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift */,
 				A018BD051F16E73C0094AC45 /* Array+Extensions.swift */,
 				A06E179C2022634E00D5ACC0 /* SKProduct+Price.swift */,
+				A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 				A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */,
 				A0FA1A8F1F1D536000F5FF6E /* ClassDetailTableViewController.swift in Sources */,
 				A0F89EF21E5900E20062F9F2 /* Double+Round.swift in Sources */,
+				A069241E2022C76E004A2B06 /* UIViewController+StatusBarFix.swift in Sources */,
 				A078D2421FF1C6E0004197DF /* UIPickerFieldDataSource.swift in Sources */,
 				A019325C1EB128EB000E18A3 /* ClassType.swift in Sources */,
 				A019325E1EB12917000E18A3 /* Grade.swift in Sources */,

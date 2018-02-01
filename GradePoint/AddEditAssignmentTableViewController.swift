@@ -145,6 +145,15 @@ class AddEditAssignmentTableViewController: UITableViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
+    }
+
     // MARK: - Table view
 
     override func numberOfSections(in tableView: UITableView) -> Int {

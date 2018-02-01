@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) {
-            setUITheme(for: theme)
+            self.setUITheme(for: theme)
         }
         
         // Figure out whether we have onboarded the user or not
@@ -179,7 +179,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Helper Methods
 
     private func setUITheme(for theme: UITheme) {
-        UIApplication.shared.statusBarStyle = theme == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
         ApplicationTheme.shared.theme = theme
         ApplicationTheme.shared.applyTheme()
     }
@@ -201,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// Reset the root view controller to what it was initially
     func finishedPresentingOnboarding() {
-        self.window?.rootViewController = initialRootController
+        self.window?.rootViewController = self.initialRootController
     }
 }
 

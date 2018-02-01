@@ -36,6 +36,11 @@ class GameViewController: UIViewController {
         self.skView.presentScene(scene)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+
 
     override var shouldAutorotate: Bool {
         return false

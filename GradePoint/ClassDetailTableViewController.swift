@@ -95,7 +95,8 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateProgressRing()
+        self.updateProgressRing()
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -111,6 +112,10 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
             headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 240)
             progressRing.center = headerView.center
         }
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
     }
 
     // MARK: Table View Methods

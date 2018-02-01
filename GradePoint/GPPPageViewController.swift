@@ -51,7 +51,7 @@ class GPPPageViewController: UIPageViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return ApplicationTheme.shared.statusBarStyle
     }
 
     // MARK: Helpers
