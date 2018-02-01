@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Load AdMob configuration
         GADMobileAds.configure(withApplicationID: kAdMobAppId)
+        InterstitialAdController.shared.prepare()
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: kUserDefaultTheme)) {

@@ -25,8 +25,6 @@ class GPACalculatorViewController: UIViewController {
     @IBOutlet weak var weightSwitcher: UISegmentedControl!
     @IBOutlet var emptyView: UIView!
 
-    private var interstitialAd: GADInterstitial?
-
     // MARK: Properties
     
     /// The height for each GPA view
@@ -76,11 +74,6 @@ class GPACalculatorViewController: UIViewController {
         // Setup keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-
-        // Prepare ad
-        if !GradePointPremium.isPurchased {
-            self.interstitialAd = GADInterstitial.create(delegate: self)
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -231,8 +224,11 @@ class GPACalculatorViewController: UIViewController {
 
         // Completion block for when progress ring is done animation
         let completion: UICircularProgressRingView.ProgressCompletion = { [weak self] in
-            guard let ad = self?.interstitialAd, let strongSelf = self else { return }
-            GADInterstitial.showIfCan(ad, in: strongSelf, after: 1.0)
+            guard let strongSelf = self else { return }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                InterstitialAdController.shared.showAdIfCan(in: strongSelf)
+            }
         }
 
         /// Calculation of gpa closure block
@@ -315,15 +311,5 @@ class GPACalculatorViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-}
-
-// MARK: Google AdMob delegate
-
-extension GPACalculatorViewController: GADInterstitialDelegate {
-
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        // Reload the ad for next time
-        self.interstitialAd = GADInterstitial.reload(ad)
     }
 }

@@ -26,8 +26,6 @@ class ExamGradePredictionViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     
     private var isInitialCalculation = true
-
-    var interstitialAd: GADInterstitial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,10 +74,6 @@ class ExamGradePredictionViewController: UIViewController {
         self.progressRing.font = UIFont.systemFont(ofSize: 50)
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.progressRing.decimalPlaces = roundingAmount
-
-        if !GradePointPremium.isPurchased {
-            self.interstitialAd = GADInterstitial.create(delegate: self)
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -177,8 +171,10 @@ class ExamGradePredictionViewController: UIViewController {
             self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [weak self] in
                 self?.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
                 // Show ad if it can
-                guard let ad = self?.interstitialAd, let strongSelf = self else { return }
-                GADInterstitial.showIfCan(ad, in: strongSelf, after: 1.0)
+                guard let strongSelf = self else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    InterstitialAdController.shared.showAdIfCan(in: strongSelf)
+                }
             }
         }
     }
@@ -244,13 +240,5 @@ struct ScoreMessage {
             let index: Int = .random(withLowerBound: 0, andUpperBound: ScoreMessage.extremelyHardMessage.count)
             return ScoreMessage.extremelyHardMessage[index]
         }
-    }
-}
-
-// MARK: Google AdMob delegate
-
-extension ExamGradePredictionViewController: GADInterstitialDelegate {
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        self.interstitialAd = GADInterstitial.reload(ad)
     }
 }

@@ -58,7 +58,6 @@
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
 		A069241E2022C76E004A2B06 /* UIViewController+StatusBarFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */; };
 		A06C258A202384BA007C4EE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BF3B291F243782001CCE52 /* Constants.swift */; };
-		A06C259020238C41007C4EE0 /* GADInterstitial+Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06C258F20238C41007C4EE0 /* GADInterstitial+Reload.swift */; };
 		A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */; };
 		A06E179120223ADF00D5ACC0 /* GPPPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */; };
 		A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */; };
@@ -86,6 +85,7 @@
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
+		A08A777F2023D5AA00709F12 /* InterstitialAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */; };
 		A0983E0F1F4A19C1002D393E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
 		A0983E101F4A1A43002D393E /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87851DBD276000A85E2D /* Class.swift */; };
 		A0983E111F4A1A47002D393E /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6C1DF669FC00280F93 /* Assignment.swift */; };
@@ -250,7 +250,6 @@
 		A067DBA11EA5BB3700F09EA9 /* StudentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentType.swift; sourceTree = "<group>"; };
 		A067F1401F0041EA00EE23CE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBarFix.swift"; sourceTree = "<group>"; };
-		A06C258F20238C41007C4EE0 /* GADInterstitial+Reload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GADInterstitial+Reload.swift"; sourceTree = "<group>"; };
 		A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GradePointPremium.storyboard; sourceTree = "<group>"; };
 		A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPPageViewController.swift; sourceTree = "<group>"; };
 		A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPOnboarding1ViewController.swift; sourceTree = "<group>"; };
@@ -278,6 +277,7 @@
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
+		A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdController.swift; sourceTree = "<group>"; };
 		A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradePoint.entitlements; sourceTree = "<group>"; };
 		A0983E201F4A3287002D393E /* GradePointWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradePointWidget.entitlements; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
@@ -688,7 +688,6 @@
 				A018BD051F16E73C0094AC45 /* Array+Extensions.swift */,
 				A06E179C2022634E00D5ACC0 /* SKProduct+Price.swift */,
 				A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */,
-				A06C258F20238C41007C4EE0 /* GADInterstitial+Reload.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -706,6 +705,7 @@
 				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
 				A00288C51FD11E190076097C /* ClassCellHeaderView.swift */,
 				A078D23B1FF1C0B1004197DF /* UIPickerField.swift */,
+				A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -1236,7 +1236,7 @@
 				A018BD061F16E73C0094AC45 /* Array+Extensions.swift in Sources */,
 				A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
-				A06C259020238C41007C4EE0 /* GADInterstitial+Reload.swift in Sources */,
+				A08A777F2023D5AA00709F12 /* InterstitialAdController.swift in Sources */,
 				A05AB7D1202159E100BDDDBF /* GameScene.swift in Sources */,
 				A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
