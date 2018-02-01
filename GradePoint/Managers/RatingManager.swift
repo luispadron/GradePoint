@@ -51,8 +51,8 @@ class RatingManager {
     
     /// Whether the rating dialog should be presented to the user or not
     private static func shouldPresentRating() -> Bool {
-        let lastDayAsked = UserDefaults.standard.object(forKey: userDefaultLastDateAsked) as? Date
-        let hasAsked = UserDefaults.standard.bool(forKey: userDefaultHasAskedRating)
+        let lastDayAsked = UserDefaults.standard.object(forKey: kUserDefaultLastDateAskedRating) as? Date
+        let hasAsked = UserDefaults.standard.bool(forKey: kUserDefaultHasAskedRating)
         // If user has info sessions, and classes/assignments/gpa calculation then we can present
         // the rating dialog
         let realm = DatabaseManager.shared.realm
@@ -62,8 +62,8 @@ class RatingManager {
         let canAsk = AppDelegate.appInfo.sessions >= 5 && ((classCount >= 2 && assignmentCount >= 5) || gpaCalcCount >= 5)
         
         if (!hasAsked || abs(dateDifference(start: lastDayAsked ?? Date(), end: Date())) > 60) && canAsk {
-            UserDefaults.standard.set(Date(), forKey: userDefaultLastDateAsked)
-            UserDefaults.standard.set(true, forKey: userDefaultHasAskedRating)
+            UserDefaults.standard.set(Date(), forKey: kUserDefaultLastDateAskedRating)
+            UserDefaults.standard.set(true, forKey: kUserDefaultHasAskedRating)
             return true
         }
         

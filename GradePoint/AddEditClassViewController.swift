@@ -181,7 +181,7 @@ class AddEditClassViewController: UIViewController {
         self.gradeField.delegate = self
         
         // Get student type from user defaults
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType))
         
         // Hide the class type view if student is a college student
         self.classTypeView.isHidden = studentType == StudentType.college ? true : false
@@ -703,7 +703,7 @@ class AddEditClassViewController: UIViewController {
 
     /// Selects a semester that makes sense to the current date
     private func setDefaultSemester() {
-        guard let terms = UserDefaults.standard.stringArray(forKey: userDefaultTerms) else { return }
+        guard let terms = UserDefaults.standard.stringArray(forKey: kUserDefaultTerms) else { return }
         guard classObj == nil else { return }
         
         let month = Calendar.current.component(.month, from: Date())
@@ -807,7 +807,7 @@ extension AddEditClassViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === self.classNameField {
             self.classNameField.resignFirstResponder()
-            if let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType)),
+            if let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType)),
                 studentType == .highSchool {
                 self.classTypeField.becomeFirstResponder()
             } else {

@@ -71,7 +71,7 @@ class ExamGradePredictionViewController: UIViewController {
         self.calculateButton.isEnabled = false
         
         self.progressRing.font = UIFont.systemFont(ofSize: 50)
-        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.progressRing.decimalPlaces = roundingAmount
     }
 

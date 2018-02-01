@@ -54,7 +54,7 @@ class GPACalculatorViewController: UIViewController {
         self.calculateButton.setTitleColor(UIColor.white, for: .normal)
         self.calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
         self.progressRingView.font = UIFont.systemFont(ofSize: 30)
-        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.progressRingView.decimalPlaces = roundingAmount
         
         // Check to see if there any classes for which a calculation can be made
@@ -142,7 +142,7 @@ class GPACalculatorViewController: UIViewController {
             // End all editing
             self.view.endEditing(true)
             // Get the student type
-            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
+            let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType))
             // Add the progress ring to the stack view
             self.stackView.insertArrangedSubview(progressRingView.superview!, at: 0)
             // Animate the addition
@@ -217,7 +217,7 @@ class GPACalculatorViewController: UIViewController {
     private func calculateGPA() {
         let realm = DatabaseManager.shared.realm
         let scale = realm.objects(GPAScale.self).first!
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))!
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType))!
         let classes = realm.objects(Class.self)
         var totalPoints: Double = 0.0
         var totalCreditHours: Double = 0.0
@@ -247,7 +247,7 @@ class GPACalculatorViewController: UIViewController {
                 }
             }
             
-            let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+            let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
             return Double(totalPoints / Double(totalCreditHours)).roundedUpTo(roundingAmount)
         }
         

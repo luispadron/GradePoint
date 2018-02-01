@@ -27,7 +27,7 @@ class CalculatorsViewController: UIViewController {
         // Set up the UI
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         self.gpaRing.font = UIFont.systemFont(ofSize: self.gpaRing.frame.width/7.0)
-        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.gpaRing.decimalPlaces = roundingAmount
         
         // Add drop shadow to calculator views

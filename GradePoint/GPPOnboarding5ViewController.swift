@@ -86,7 +86,7 @@ class GPPOnboarding5ViewController: UIViewController {
         self.indicator.stopAnimating()
         self.bgView?.isHidden = true
         guard let productId = notification.object as? String else { return }
-        guard productId == gradePointPremiumProductId else {
+        guard productId == kGradePointPremiumProductId else {
             self.presentErrorAlert(title: "Purchase error", message: "Something went wrong when purchasing, please try again later.")
             self.indicator.stopAnimating()
             self.bgView?.isHidden = true

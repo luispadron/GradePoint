@@ -9,7 +9,7 @@
 import UIKit
 
 public struct GradePointPremium {
-    public static let productIds: Set<ProductIdentifier> = [gradePointPremiumProductId]
+    public static let productIds: Set<ProductIdentifier> = [kGradePointPremiumProductId]
 
     public static let store: IAPManager = IAPManager(productIds: productIds)
 
@@ -28,7 +28,7 @@ public struct GradePointPremium {
     }
 
     public static var isPurchased: Bool {
-        return UserDefaults.standard.bool(forKey: gradePointPremiumProductId)
+        return UserDefaults.standard.bool(forKey: kGradePointPremiumProductId)
     }
 
     public static func displayPremiumOnboarding(in controller: UIViewController) {

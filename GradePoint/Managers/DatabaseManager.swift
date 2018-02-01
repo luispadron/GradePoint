@@ -109,7 +109,7 @@ final class DatabaseManager {
         // First move the Realm file if needed, this is done on application versions < 2.0
         moveRealmIfNeeded()
 
-        let directory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)!
+        let directory: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: kGradePointGroupId)!
         let path: URL = directory.appendingPathComponent(fileName, isDirectory: true)
         let config = Realm.Configuration(fileURL: path,
                                          schemaVersion: currentSchemaVersion,
@@ -143,7 +143,7 @@ final class DatabaseManager {
         }
 
         // Create new realm path
-        let groupPath = fm.containerURL(forSecurityApplicationGroupIdentifier: groupId)!
+        let groupPath = fm.containerURL(forSecurityApplicationGroupIdentifier: kGradePointGroupId)!
         let newPath = groupPath.appendingPathComponent(fileName, isDirectory: true)
 
         if (fm.fileExists(atPath: origPath.path) && !fm.fileExists(atPath: newPath.path)) {

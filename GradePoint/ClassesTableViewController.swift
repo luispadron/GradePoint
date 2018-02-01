@@ -113,10 +113,10 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         
         // Listen to semester update notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
-                                               name: semestersUpdatedNotification, object: nil)
+                                               name: kSemestersUpdatedNotification, object: nil)
         // Listen to theme changes notificaitons
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges),
-                                               name: themeUpdatedNotification, object: nil)
+                                               name: kThemeUpdatedNotification, object: nil)
         // Add 3D touch support to this view
         if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
 
@@ -330,12 +330,12 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         let terms: [String]
         
         /// Load semesters from user defaults, if for some reason this isnt saved, fall back to default semesters
-        if let t = UserDefaults.standard.stringArray(forKey: userDefaultTerms) {
+        if let t = UserDefaults.standard.stringArray(forKey: kUserDefaultTerms) {
             terms = t
         } else {
             print("WARNING: Something went wrong when loading semesters from UserDefaults, loading/setting default terms instead.")
             terms = ["Spring", "Summer", "Fall", "Winter"]
-            UserDefaults.standard.set(terms, forKey: userDefaultTerms)
+            UserDefaults.standard.set(terms, forKey: kUserDefaultTerms)
         }
         
         let years = Semester.possibleYears

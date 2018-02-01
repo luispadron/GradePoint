@@ -11,25 +11,24 @@ import UIKit
 /// Any constants, usually strings for keys/notifications used throughout the app
 
 // User default keys
-let userDefaultOnboardingComplete = "com.luispadron.GradePoint.onboardingComplete"
-let userDefaultStudentType = "com.luispadron.GradePoint.studentType"
-let userDefaultGradingType = "com.luispadron.GradePoint.gradingType"
-let userDefaultTerms = "com.luispadron.GradePoint.terms"
-let userDefaultTheme = "com.luispadron.GradePoint.theme"
-let userDefaultLastDateAsked = "com.luispadron.GradePoint.lastDateAsked"
-let userDefaultHasAskedRating = "com.luispadron.GradePoint.hasAskedRating"
-let userDefaultRoundingAmount = "com.luispadron.GradePoint.roundingAmount"
-let userDefaultGradeBirdHighScore = "com.luispadron.GradePoint.gameBirdHighScore"
+let kUserDefaultOnboardingComplete = "com.luispadron.GradePoint.onboardingComplete"
+let kUserDefaultStudentType = "com.luispadron.GradePoint.studentType"
+let kUserDefaultTerms = "com.luispadron.GradePoint.terms"
+let kUserDefaultTheme = "com.luispadron.GradePoint.theme"
+let kUserDefaultLastDateAskedRating = "com.luispadron.GradePoint.lastDateAsked"
+let kUserDefaultHasAskedRating = "com.luispadron.GradePoint.hasAskedRating"
+let kUserDefaultRoundingAmount = "com.luispadron.GradePoint.roundingAmount"
+let kUserDefaultGradeBirdHighScore = "com.luispadron.GradePoint.gradeBirdHighScore"
 
 // Notifications
-let semestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
-let themeUpdatedNotification = Notification.Name("com.luispadron.GradePoint.themeUpdated")
+let kSemestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
+let kThemeUpdatedNotification = Notification.Name("com.luispadron.GradePoint.themeUpdated")
 
 // Custom URL's
-let openUrl = URL(string: "gradePoint://com.luispadron.gradepoint.open")!
-let emptyWidgetActionUrl = URL(string: "gradePoint://com.luispadron.gradepoint.emptyWidgetAction")!
+let kGradePointOpenURL = URL(string: "gradePoint://com.luispadron.gradepoint.open")!
+let kEmptyWidgetActionURL = URL(string: "gradePoint://com.luispadron.gradepoint.emptyWidgetAction")!
 
 // Misc.
-let contactEmail = "heyluispadron@gmail.com"
-let groupId = "group.com.luispadron.GradePoint"
-let gradePointPremiumProductId = "com.luispadron.GradePoint.GradePointPremium"
+let kContactEmail = "heyluispadron@gmail.com"
+let kGradePointGroupId = "group.com.luispadron.GradePoint"
+let kGradePointPremiumProductId = "com.luispadron.GradePoint.GradePointPremium"

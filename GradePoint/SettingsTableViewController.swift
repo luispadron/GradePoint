@@ -33,11 +33,11 @@ class SettingsTableViewController: UITableViewController {
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
         
         // Set inital student type switcher to whatever value we have in the stored preferences
-        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: userDefaultStudentType))
+        let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType))
         self.studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
         
         // Rounding field setup
-        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.roundingField.text = String(roundingAmount)
         self.roundingField.fieldType = .number
         var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...3)
@@ -67,7 +67,7 @@ class SettingsTableViewController: UITableViewController {
 
         // Listen to theme changes notificaitons
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges),
-                                               name: themeUpdatedNotification, object: nil)
+                                               name: kThemeUpdatedNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +85,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         // Save any changes done to rounding amount to user defaults
         guard let amount = Int(self.roundingField.safeText) else { return }
-        UserDefaults.standard.set(amount, forKey: userDefaultRoundingAmount)
+        UserDefaults.standard.set(amount, forKey: kUserDefaultRoundingAmount)
     }
 
     // MARK: - Table view methods
@@ -167,13 +167,13 @@ class SettingsTableViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
-                    let url = URL(string: "mailto:\(contactEmail)?subject=\(subject)")
+                    let url = URL(string: "mailto:\(kContactEmail)?subject=\(subject)")
                 {
                     if !UIApplication.shared.openURL(url) {
-                        LPSnackbar.showSnack(title: "Email me @ \(contactEmail)")
+                        LPSnackbar.showSnack(title: "Email me @ \(kContactEmail)")
                     }
                 } else {
-                    LPSnackbar.showSnack(title: "Email me @ \(contactEmail)")
+                    LPSnackbar.showSnack(title: "Email me @ \(kContactEmail)")
                 }
             case 1:
                 UIApplication.shared.openURL(URL(string: "http://gradepoint.luispadron.com")!)
@@ -225,7 +225,7 @@ class SettingsTableViewController: UITableViewController {
             // Update the user defaults key
             let defaults = UserDefaults.standard
             let type  = sender.selectedSegmentIndex == 0 ? StudentType.college : StudentType.highSchool
-            defaults.set(type.rawValue, forKey: userDefaultStudentType)
+            defaults.set(type.rawValue, forKey: kUserDefaultStudentType)
             
             // Update all the classes depending on type switched to
             let realm = DatabaseManager.shared.realm
@@ -267,7 +267,7 @@ class SettingsTableViewController: UITableViewController {
         self.roundingField.resignFirstResponder()
         // Save to defaults
         guard let amount = Int(self.roundingField.safeText) else { return }
-        UserDefaults.standard.set(amount, forKey: userDefaultRoundingAmount)
+        UserDefaults.standard.set(amount, forKey: kUserDefaultRoundingAmount)
     }
 
     deinit {

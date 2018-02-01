@@ -56,19 +56,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Set the UI Theme for the saved theme key
-        if let theme = UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) {
+        if let theme = UITheme(rawValue: defaults.integer(forKey: kUserDefaultTheme)) {
             self.setUITheme(for: theme)
         }
         
         // Figure out whether we have onboarded the user or not
-        let hasOnboarded = defaults.bool(forKey: userDefaultOnboardingComplete)
+        let hasOnboarded = defaults.bool(forKey: kUserDefaultOnboardingComplete)
 
         // TODO: Remove this code whenever old user base is migrated to version 2.0
         // Code in here due to the new re-ordering of default terms and there locations in version 2.0.
-        if let terms = defaults.stringArray(forKey: userDefaultTerms), terms.count == 4 && terms[0] == "Spring" &&
+        if let terms = defaults.stringArray(forKey: kUserDefaultTerms), terms.count == 4 && terms[0] == "Spring" &&
             terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter"
         {
-            defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: userDefaultTerms)
+            defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: kUserDefaultTerms)
         }
         
         // Present onboarding if neccessary
@@ -107,11 +107,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Handles opening app via custom URL. Used with the Today extension of GradePoint.
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         // If for some reason the user hasn't been onboarded then don't open the app yet
-        if !UserDefaults.standard.bool(forKey: userDefaultOnboardingComplete) {
+        if !UserDefaults.standard.bool(forKey: kUserDefaultOnboardingComplete) {
             return false
         }
 
-        if url == emptyWidgetActionUrl {
+        if url == kEmptyWidgetActionURL {
             let count = DatabaseManager.shared.realm.objects(Class.self).count
 
             guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        return url == emptyWidgetActionUrl || url == openUrl
+        return url == kEmptyWidgetActionURL || url == kGradePointOpenURL
     }
 
     /// Handles opening app via 3D touch quick action

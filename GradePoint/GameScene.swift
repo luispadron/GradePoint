@@ -27,7 +27,7 @@ class GameScence: SKScene {
             self.scoreLabel.text = "\(self.score)"
             // Update highscore
             self.saveHighScore()
-            let hscore = UserDefaults.standard.integer(forKey: userDefaultGradeBirdHighScore)
+            let hscore = UserDefaults.standard.integer(forKey: kUserDefaultGradeBirdHighScore)
             self.highScoreLabel.text = "High Score: \(hscore)"
         }
     }
@@ -163,8 +163,8 @@ class GameScence: SKScene {
 
     /// Saves the current score if higher than highscore
     private func saveHighScore() {
-        let hscore = UserDefaults.standard.integer(forKey: userDefaultGradeBirdHighScore)
-        UserDefaults.standard.set(hscore > self.score ? hscore : self.score, forKey: userDefaultGradeBirdHighScore)
+        let hscore = UserDefaults.standard.integer(forKey: kUserDefaultGradeBirdHighScore)
+        UserDefaults.standard.set(hscore > self.score ? hscore : self.score, forKey: kUserDefaultGradeBirdHighScore)
     }
 
     /// Creates the background sprites
@@ -214,7 +214,7 @@ class GameScence: SKScene {
     private lazy var highScoreLabel: SKLabelNode = {
         let label = SKLabelNode()
         label.position = CGPoint(x: self.frame.width - 80, y: self.frame.height - 50)
-        let highestScore = UserDefaults.standard.integer(forKey: userDefaultGradeBirdHighScore)
+        let highestScore = UserDefaults.standard.integer(forKey: kUserDefaultGradeBirdHighScore)
         label.text = "Highest Score: \(highestScore)"
         label.zPosition = 5
         label.fontSize = 15

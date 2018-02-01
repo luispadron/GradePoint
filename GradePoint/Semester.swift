@@ -49,7 +49,7 @@ class Semester: Object {
     // MARK: Helpers
     
     public static var possibleTerms: [String] {
-        return UserDefaults.standard.stringArray(forKey: userDefaultTerms) ?? []
+        return UserDefaults.standard.stringArray(forKey: kUserDefaultTerms) ?? []
     }
     
     public static var possibleYears: [Int] {

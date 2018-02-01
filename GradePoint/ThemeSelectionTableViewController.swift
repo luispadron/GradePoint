@@ -13,7 +13,7 @@ class ThemeSelectionTableViewController: UITableViewController {
     private lazy var selectedThemeIndex: Int = {
         // Set default selected theme index, to current theme
         // Set initial theme for theme switcher
-        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: userDefaultTheme))
+        let theme = UITheme(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultTheme))
         return (theme?.rawValue ?? 1) - 1
     }()
 
@@ -65,7 +65,7 @@ class ThemeSelectionTableViewController: UITableViewController {
         // Update theme defaults
         guard let theme = UITheme(rawValue: self.selectedThemeIndex + 1) else { return }
         // Update theme
-        UserDefaults.standard.set(self.selectedThemeIndex + 1, forKey: userDefaultTheme)
+        UserDefaults.standard.set(self.selectedThemeIndex + 1, forKey: kUserDefaultTheme)
         ApplicationTheme.shared.theme = theme
         ApplicationTheme.shared.applyTheme()
         // Animate
@@ -91,7 +91,7 @@ class ThemeSelectionTableViewController: UITableViewController {
         self.tableView.reloadData()
 
         // Post notification to allow any other view controllers that need to update their UI
-        NotificationCenter.default.post(name: themeUpdatedNotification, object: nil)
+        NotificationCenter.default.post(name: kThemeUpdatedNotification, object: nil)
     }
 
     private func animateThemeChange(duration: TimeInterval = 0.35) {

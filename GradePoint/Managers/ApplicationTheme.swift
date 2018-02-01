@@ -25,7 +25,7 @@ class ApplicationTheme {
     /// The theme for the application, used to determine which computed color to return
     lazy var theme: UITheme = {
         let defaults = UserDefaults.standard
-        return UITheme(rawValue: defaults.integer(forKey: userDefaultTheme)) ?? .dark
+        return UITheme(rawValue: defaults.integer(forKey: kUserDefaultTheme)) ?? .dark
     }()
 
     /// Singleton for the application

@@ -89,7 +89,7 @@ class Onboard4ViewController: UIViewController {
     @IBAction func onButtonTap(_ sender: UIButton) {
         // Set the has onboarded user to true
         let defaults = UserDefaults.standard
-        defaults.set(true, forKey: userDefaultOnboardingComplete)
+        defaults.set(true, forKey: kUserDefaultOnboardingComplete)
         // Notify delegate were done onboarding
         let delegate = UIApplication.shared.delegate as! AppDelegate
         delegate.finishedPresentingOnboarding()

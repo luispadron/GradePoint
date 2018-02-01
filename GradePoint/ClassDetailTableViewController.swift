@@ -100,7 +100,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
         // Listen for them changes
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
-                                               name: themeUpdatedNotification, object: nil)
+                                               name: kThemeUpdatedNotification, object: nil)
 
         // Add ad banner
         self.addBannerView()
@@ -236,7 +236,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.tableView.scrollsToTop = true
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
 
-        let roundingAmount = UserDefaults.standard.integer(forKey: userDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.progressRing.decimalPlaces = roundingAmount
         
         if let classObj = _classObj {

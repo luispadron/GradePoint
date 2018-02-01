@@ -28,7 +28,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         self.title = "Semesters"
     
         // Load the semesters from user defaults
-        if let terms = UserDefaults.standard.stringArray(forKey: userDefaultTerms) {
+        if let terms = UserDefaults.standard.stringArray(forKey: kUserDefaultTerms) {
             semesters = terms
         }
         
@@ -51,9 +51,9 @@ class SemesterConfigurationTableViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Save any ordering
-        UserDefaults.standard.set(semesters, forKey: userDefaultTerms)
+        UserDefaults.standard.set(semesters, forKey: kUserDefaultTerms)
         // Notify that semesters have been updated
-        NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
+        NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
     }
     
     // MARK: - Table view data source
@@ -135,7 +135,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
                 self?.semesters[path.row] = text
                 self?.tableView.reloadData()
                 // Notify that semesters have been updated
-                NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
+                NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
             }
         }
         
@@ -201,7 +201,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
             self?.tableView.endUpdates()
             
             // Notify that semesters have been updated
-            NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
+            NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
         })
         
         alert.presentAlert(presentingViewController: self)
@@ -251,10 +251,10 @@ class SemesterConfigurationTableViewController: UITableViewController {
         }
         
         // Save any ordering
-        UserDefaults.standard.set(semesters, forKey: userDefaultTerms)
+        UserDefaults.standard.set(semesters, forKey: kUserDefaultTerms)
         
         // Notify that semesters have been updated
-        NotificationCenter.default.post(Notification(name: semestersUpdatedNotification))
+        NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
     }
 
 
