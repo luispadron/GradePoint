@@ -19,7 +19,7 @@ target 'GradePointUITests' do
 end
 
 target 'GradePointWidget' do
-  pod 'UICircularProgressRing'
+ all_pods
 end
 
 post_install do |installer|

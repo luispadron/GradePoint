@@ -49,11 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Load AdMob configuration
-        if let adMobFile = Bundle.main.url(forResource: "AdMob", withExtension: "plist"),
-            let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
-            let appId = adMobDict["AdMobAppId"] {
-            GADMobileAds.configure(withApplicationID: appId)
-        }
+        GADMobileAds.configure(withApplicationID: kAdMobAppId)
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: kUserDefaultTheme)) {

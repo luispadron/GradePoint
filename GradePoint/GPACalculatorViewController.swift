@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import UICircularProgressRing
 import RealmSwift
+import GoogleMobileAds
 
 class GPACalculatorViewController: UIViewController {
 
@@ -23,8 +24,9 @@ class GPACalculatorViewController: UIViewController {
     @IBOutlet weak var progressRingView: UICircularProgressRingView!
     @IBOutlet weak var weightSwitcher: UISegmentedControl!
     @IBOutlet var emptyView: UIView!
-    
-    
+
+    private var interstitialAd: GADInterstitial?
+
     // MARK: Properties
     
     /// The height for each GPA view
@@ -74,6 +76,11 @@ class GPACalculatorViewController: UIViewController {
         // Setup keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+
+        // Prepare ad
+        if !GradePointPremium.isPurchased {
+            self.interstitialAd = GADInterstitial.create(delegate: self)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -138,15 +145,15 @@ class GPACalculatorViewController: UIViewController {
     
     @IBAction func onCalculateButtonPressed(_ sender: UIButton) {
         // Add the views if not already added
-        if !stackView.arrangedSubviews.contains(progressRingView.superview!) {
+        if !self.stackView.arrangedSubviews.contains(self.progressRingView.superview!) {
             // End all editing
             self.view.endEditing(true)
             // Get the student type
             let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType))
             // Add the progress ring to the stack view
-            self.stackView.insertArrangedSubview(progressRingView.superview!, at: 0)
+            self.stackView.insertArrangedSubview(self.progressRingView.superview!, at: 0)
             // Animate the addition
-            progressRingView.superview!.alpha = 0.0
+            self.progressRingView.superview!.alpha = 0.0
             
             UIView.animate(withDuration: 0.4, animations: {
                 self.progressRingView.superview!.alpha = 1.0
@@ -165,12 +172,12 @@ class GPACalculatorViewController: UIViewController {
             })
         } else {
             // just calculate the GPA
-            calculateGPA()
+            self.calculateGPA()
         }
         
         // Scroll up
         self.view.endEditing(true)
-        scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
+        self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
     }
     
     
@@ -222,6 +229,12 @@ class GPACalculatorViewController: UIViewController {
         var totalPoints: Double = 0.0
         var totalCreditHours: Double = 0.0
 
+        // Completion block for when progress ring is done animation
+        let completion: UICircularProgressRingView.ProgressCompletion = { [weak self] in
+            guard let ad = self?.interstitialAd, let strongSelf = self else { return }
+            GADInterstitial.showIfCan(ad, in: strongSelf, after: 1.0)
+        }
+
         /// Calculation of gpa closure block
         let calculate: (Bool) -> Double = { isWeighted in
             for (index, gpaView) in self.gpaViews.enumerated() {
@@ -256,37 +269,37 @@ class GPACalculatorViewController: UIViewController {
             // Get GPA
             let gpa = calculate(false)
             // Update progress ring
-            progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
+            self.progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
             // Set max value of ring to 4, since unweighted
-            progressRingView.maxValue = 4.0
+            self.progressRingView.maxValue = 4.0
             // Set value to gpa
-            progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+            self.progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5, completion: completion)
             // Save the calculated GPA
-            saveCalculation(withGpa: gpa, weighted: false)
+            self.saveCalculation(withGpa: gpa, weighted: false)
         case .highSchool:
             // Determine if we want weighted or unweighted
             if weightSwitcher.selectedSegmentIndex == 0 {
                 // Get GPA
                 let gpa = calculate(true)
                 // Update progress ring
-                progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
+                self.progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
                 // Set max value of ring to 5, since weighted
-                progressRingView.maxValue = 5.0
+                self.progressRingView.maxValue = 5.0
                 // Set value to gpa
-                progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+                self.progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5, completion: completion)
                 // Save the calculated GPA
-                saveCalculation(withGpa: gpa, weighted: true)
+                self.saveCalculation(withGpa: gpa, weighted: true)
             } else {
                 // Get GPA
                 let gpa = calculate(false)
                 // Update progress ring
-                progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
+                self.progressRingView.setProgress(value: 0, animationDuration: 0) // Reset first
                 // Set max value of ring to 4, since unweighted
-                progressRingView.maxValue = 4.0
+                self.progressRingView.maxValue = 4.0
                 // Set value to gpa
-                progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5)
+                self.progressRingView.setProgress(value: CGFloat(gpa), animationDuration: 1.5, completion: completion)
                 //Save the calculated GPA
-                saveCalculation(withGpa: gpa, weighted: false)
+                self.saveCalculation(withGpa: gpa, weighted: false)
             }
         }
     }
@@ -302,5 +315,17 @@ class GPACalculatorViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension GPACalculatorViewController: GADInterstitialDelegate {
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+
+    }
+
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        // Reload the ad for next time
+        guard let interstitial = self.interstitialAd else { return }
+        self.interstitialAd = GADInterstitial.reload(interstitial)
     }
 }

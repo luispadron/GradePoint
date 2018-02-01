@@ -65,16 +65,12 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     /// The Google AdMob view
     private lazy var bannerAdView: GADBannerView = {
         let view = GADBannerView()
+        view.adUnitID = kAdMobBannerId
         view.adSize = kGADAdSizeSmartBannerPortrait
         view.rootViewController = self
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
         view.alpha = 0.0
-        if let adMobFile = Bundle.main.url(forResource: "AdMob", withExtension: "plist"),
-            let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
-            let unitId = adMobDict["AdMobUnitId"] {
-            view.adUnitID = unitId
-        }
         return view
     }()
 
@@ -103,7 +99,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
                                                name: kThemeUpdatedNotification, object: nil)
 
         // Add ad banner
-        self.addBannerView()
+        if !GradePointPremium.isPurchased {
+            self.addBannerView()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -275,12 +273,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
                 ])
         }
 
-        let adRequest: GADRequest = GADRequest()
-        // Add test ads on simulator
-        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
-            adRequest.testDevices = [kGADSimulatorID]
-        }
-        self.bannerAdView.load(adRequest)
+        self.bannerAdView.load(kAdMobAdRequest)
     }
 
     /// Updates the progress on the progress ring

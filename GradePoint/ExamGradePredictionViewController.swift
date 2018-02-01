@@ -8,6 +8,7 @@
 
 import UIKit
 import UICircularProgressRing
+import GoogleMobileAds
 
 class ExamGradePredictionViewController: UIViewController {
 
@@ -25,6 +26,8 @@ class ExamGradePredictionViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     
     private var isInitialCalculation = true
+
+    var interstitialAd: GADInterstitial?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +76,10 @@ class ExamGradePredictionViewController: UIViewController {
         self.progressRing.font = UIFont.systemFont(ofSize: 50)
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
         self.progressRing.decimalPlaces = roundingAmount
+
+        if !GradePointPremium.isPurchased {
+            self.interstitialAd = GADInterstitial.create(delegate: self)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -167,8 +174,11 @@ class ExamGradePredictionViewController: UIViewController {
             self.progressRing.setProgress(value: 0, animationDuration: 0)
             self.messageLabel.text = "Score needed less than zero, try again"
         } else {
-            self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [unowned self] in
-                self.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
+            self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [weak self] in
+                self?.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
+                // Show ad if it can
+                guard let ad = self?.interstitialAd, let strongSelf = self else { return }
+                GADInterstitial.showIfCan(ad, in: strongSelf, after: 1.0)
             }
         }
     }
@@ -234,5 +244,12 @@ struct ScoreMessage {
             let index: Int = .random(withLowerBound: 0, andUpperBound: ScoreMessage.extremelyHardMessage.count)
             return ScoreMessage.extremelyHardMessage[index]
         }
+    }
+}
+
+extension ExamGradePredictionViewController: GADInterstitialDelegate {
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        guard let ad = self.interstitialAd else { return }
+        self.interstitialAd = GADInterstitial.reload(ad)
     }
 }

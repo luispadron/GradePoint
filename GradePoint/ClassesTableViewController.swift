@@ -40,11 +40,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
         view.alpha = 0.0
-        if let adMobFile = Bundle.main.url(forResource: "AdMob", withExtension: "plist"),
-            let adMobDict = NSDictionary(contentsOf: adMobFile) as? [String: String],
-            let unitId = adMobDict["AdMobUnitId"] {
-            view.adUnitID = unitId
-        }
+        view.adUnitID = kAdMobBannerId
         return view
     }()
 
@@ -120,14 +116,18 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         // Add 3D touch support to this view
         if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
 
-        self.addBannerView()
+        if !GradePointPremium.isPurchased {
+            self.addBannerView()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
-        self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
+        if !GradePointPremium.isPurchased {
+            self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -392,12 +392,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
                 ])
         }
 
-        let adRequest: GADRequest = GADRequest()
-        // Add test ads on simulator
-        if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
-            adRequest.testDevices = [kGADSimulatorID]
-        }
-        self.bannerAdView.load(adRequest)
+        self.bannerAdView.load(kAdMobAdRequest)
     }
     
     /// Deletes a class from Realm
