@@ -318,14 +318,12 @@ class GPACalculatorViewController: UIViewController {
     }
 }
 
-extension GPACalculatorViewController: GADInterstitialDelegate {
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+// MARK: Google AdMob delegate
 
-    }
+extension GPACalculatorViewController: GADInterstitialDelegate {
 
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         // Reload the ad for next time
-        guard let interstitial = self.interstitialAd else { return }
-        self.interstitialAd = GADInterstitial.reload(interstitial)
+        self.interstitialAd = GADInterstitial.reload(ad)
     }
 }

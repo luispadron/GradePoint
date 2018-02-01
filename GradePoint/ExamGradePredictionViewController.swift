@@ -247,9 +247,10 @@ struct ScoreMessage {
     }
 }
 
+// MARK: Google AdMob delegate
+
 extension ExamGradePredictionViewController: GADInterstitialDelegate {
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        guard let ad = self.interstitialAd else { return }
         self.interstitialAd = GADInterstitial.reload(ad)
     }
 }

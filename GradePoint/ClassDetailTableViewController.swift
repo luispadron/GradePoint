@@ -74,6 +74,8 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         return view
     }()
 
+    private var interstitialAd: GADInterstitial?
+
     // MARK: View Handleing Methods
 
     override func viewDidLoad() {
@@ -98,9 +100,10 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
                                                name: kThemeUpdatedNotification, object: nil)
 
-        // Add ad banner
+        // Enable ads
         if !GradePointPremium.isPurchased {
             self.addBannerView()
+            self.interstitialAd = GADInterstitial.create(delegate: self)
         }
     }
 
@@ -354,6 +357,10 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         if let modifiedClass = _classObj {
             self.classListener?.classWasUpdated(modifiedClass)
         }
+
+        // Show ads after creating assignment if possible
+        guard let ad = self.interstitialAd else { return }
+        GADInterstitial.showIfCan(ad, in: self, after: 2.0)
     }
 
     func assignmentRubricWasUpdated(_ assignment: Assignment, from rubric1: Rubric, to rubric2: Rubric) {
@@ -497,6 +504,12 @@ extension ClassDetailTableViewController: GADBannerViewDelegate {
         UIView.animate(withDuration: 0.6) {
             self.bannerAdView.alpha = 1.0
         }
+    }
+}
+
+extension ClassDetailTableViewController: GADInterstitialDelegate {
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        self.interstitialAd = GADInterstitial.reload(ad)
     }
 }
 
