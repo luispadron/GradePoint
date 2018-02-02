@@ -31,9 +31,16 @@ public struct GradePointPremium {
         return UserDefaults.standard.bool(forKey: kGradePointPremiumProductId)
     }
 
-    public static func displayPremiumOnboarding(in controller: UIViewController) {
+    public static func displayPremiumOnboarding(in controller: UIViewController? = nil) {
         let storyboard = UIStoryboard(name: "GradePointPremium", bundle: nil)
         let onboardingController = storyboard.instantiateViewController(withIdentifier: "GPPPageViewController")
-        controller.present(onboardingController, animated: true, completion: nil)
+
+        if let controller = controller {
+            controller.present(onboardingController, animated: true, completion: nil)
+        } else {
+            let appDelegate = UIApplication.shared as? AppDelegate
+            onboardingController.modalPresentationStyle = .overCurrentContext
+            appDelegate?.window?.rootViewController?.present(onboardingController, animated: true, completion: nil)
+        }
     }
 }

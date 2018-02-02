@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import Foundation
 import GoogleMobileAds
+import LPSnackbar
 
 /**
  This class is meant to control a GADInterstitial,
  it will determine whether or not to present the ad and when to present it.
  */
 class InterstitialAdController: NSObject {
+    /// The date since we last told the user to purchase premimum
+    private static let userDefaultsKey: String = "com.luispadron.GradePoint.dateSinceLastPromotedPremium"
+
     /// The unit id for the ad view
     public static let adUnitId: String = kAdMobInterstitialId
 
@@ -29,6 +34,10 @@ class InterstitialAdController: NSObject {
     /// Time since last ad was displayed
     private var timeSinceLastAd: Date?
 
+    /// The saved view controller, saved when `showAdIfCan` is called. This controller reference is used to
+    /// present premium promotions if possible.
+    private weak var viewController: UIViewController?
+
     override init() {
         self.adView = GADInterstitial(adUnitID: InterstitialAdController.adUnitId)
         super.init()
@@ -42,6 +51,32 @@ class InterstitialAdController: NSObject {
         self.adView.load(InterstitialAdController.adRequest)
     }
 
+    /// Promote GradePoint premium
+    private func promotePremium() {
+        if let lastDate = UserDefaults.standard.value(forKey: InterstitialAdController.userDefaultsKey) as? Date {
+            let prev = Calendar.current.startOfDay(for: lastDate)
+            let now = Calendar.current.startOfDay(for: Date())
+            guard let days = Calendar.current.dateComponents([.day], from: prev, to: now).day, days > 5 else { return }
+            self.presentPromotion()
+        } else {
+            UserDefaults.standard.set(Date(), forKey: InterstitialAdController.userDefaultsKey)
+            self.presentPromotion()
+        }
+    }
+
+    /// Presents GradePoint premium promotion
+    private func presentPromotion() {
+        let snack = LPSnackbar(title: "Remove Ads and more with premium", buttonTitle: "Buy")
+        snack.bottomSpacing = 30
+        snack.show(displayDuration: 5.0, animated: true) { [weak self] (actioned) in
+            if actioned {
+                guard let controller = self?.viewController else { return }
+                GradePointPremium.displayPremiumOnboarding(in: controller)
+            }
+        }
+        UserDefaults.standard.set(Date(), forKey: InterstitialAdController.userDefaultsKey)
+    }
+
     /// Prepares ad controller to display ads, should be called before presenting an ad
     public func prepare() {
         self.adView.load(InterstitialAdController.adRequest)
@@ -52,6 +87,8 @@ class InterstitialAdController: NSObject {
         guard !GradePointPremium.isPurchased else { return }
         if self.adView.hasBeenUsed { self.reloadAdView() }
         guard self.adView.isReady else { return }
+
+        self.viewController = controller
 
         // Only show ads every 5 minutes
         if let lastTime = self.timeSinceLastAd {
@@ -72,5 +109,6 @@ extension InterstitialAdController: GADInterstitialDelegate {
 
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         self.reloadAdView()
+        self.promotePremium()
     }
 }
