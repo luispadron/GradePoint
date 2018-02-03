@@ -1,5 +1,7 @@
 ## Grade Point
 
+<img src="https://raw.githubusercontent.com/luispadron/GradePoint/master/Github%20Assets/demo-1.png" width="280"><img src="https://raw.githubusercontent.com/luispadron/GradePoint/master/Github%20Assets/demo-2.png" width="280"><img src="https://raw.githubusercontent.com/luispadron/GradePoint/master/Github%20Assets/demo-3.png" width="280">
+
 #### A simple application to help students keep track of their grades.
 
 Written in Swift for iOS devices. GradePoint is a school tracking and calculations app.
