@@ -128,6 +128,12 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if !GradePointPremium.isPurchased {
             self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
         }
+
+        // Remove Ads if gradepoint premium was just purchased
+        if GradePointPremium.isPurchased && self.tableView.tableFooterView === self.bannerAdView {
+            self.bannerAdView.removeFromSuperview()
+            self.tableView.tableFooterView = UIView(frame: .zero)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

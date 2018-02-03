@@ -94,13 +94,22 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.tableView.estimatedSectionHeaderHeight = 44
         self.tableView.estimatedSectionFooterHeight = 0
 
-        // Listen for them changes
+        // Listen for theme changes
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
                                                name: kThemeUpdatedNotification, object: nil)
+
+        if !GradePointPremium.isPurchased {
+            self.addBannerView()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // Remove Ads if gradepoint premium was just purchased
+        if GradePointPremium.isPurchased && self.tableView.tableFooterView === self.bannerAdView {
+            self.bannerAdView.removeFromSuperview()
+            self.tableView.tableFooterView = UIView(frame: .zero)
+        }
         self.updateUI()
         self.reloadEmptyState()
     }
