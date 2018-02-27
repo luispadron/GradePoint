@@ -32,9 +32,19 @@ class GameScence: SKScene {
         }
     }
 
+    // The distance multiplier, which dictates how fast the world moves
+    private var distanceMultiplier: CGFloat {
+        switch self.score {
+        case 0...15: return 0.008
+        case 16...50: return 0.006
+        case 50...100: return 0.005
+        default: return 0.004
+        }
+    }
+
     private lazy var moveAndRemove: SKAction = {
         let distance = self.frame.width + self.wallPair.frame.width
-        return SKAction.sequence([SKAction.moveBy(x: -distance, y: 0, duration: TimeInterval(0.008 * distance)),
+        return SKAction.sequence([SKAction.moveBy(x: -distance, y: 0, duration: TimeInterval(self.distanceMultiplier * distance)),
                                   SKAction.removeFromParent()])
     }()
 
@@ -81,13 +91,13 @@ class GameScence: SKScene {
             self.run(spawnDelayForever)
 
             self.bird.physicsBody?.velocity = .zero
-            self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
+            self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 45))
             self.run(self.flapSound)
         } else {
             if !isDead {
                 self.run(self.flapSound)
                 self.bird.physicsBody?.velocity = .zero
-                self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
+                self.bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 45))
             }
         }
 
@@ -108,7 +118,7 @@ class GameScence: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        if !hasGameStarted && !isDead {
+        if !self.hasGameStarted && !self.isDead {
             // Keep background scrolling
             self.enumerateChildNodes(withName: "background", using: { node, error in
                 guard let bg = node as? SKSpriteNode else { return }
@@ -296,7 +306,8 @@ class GameScence: SKScene {
     /// Creates a wall with given image name
     private func createWall(imageName: String, topWall: Bool) -> SKSpriteNode {
         let wall = SKSpriteNode(imageNamed: imageName)
-        let yForWall = topWall ? self.frame.height / 2 + 420 : self.frame.height / 2 - 420
+        let randSpacing = randomNumber(min: 370, max: 460)
+        let yForWall = topWall ? self.frame.height / 2 + randSpacing : self.frame.height / 2 - randSpacing
         wall.position = CGPoint(x: self.frame.width + 25, y: yForWall)
         wall.setScale(0.5)
 
