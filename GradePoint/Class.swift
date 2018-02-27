@@ -64,10 +64,20 @@ class Class: Object {
     /// Returns the relative score for a certain rubric
     /// Returns nil, if no assignments available for the sent in rubric.
     public func relativeScore(for rubric: Rubric) -> Double? {
-        let assignments = self.assignments.filter { $0.rubric == rubric }
-        if assignments.count == 0 { return nil }
-        let totalScore = assignments.reduce(0) { $0 + $1.score }
-        return totalScore / Double(assignments.count)
+        if self.classGradeType == .weighted {
+            let assignments = self.assignments.filter { $0.rubric == rubric }
+            if assignments.count == 0 { return nil }
+            let totalScore = assignments.reduce(0) { $0 + $1.score }
+            return totalScore / Double(assignments.count)
+        } else {
+            var score = 0.0
+            var total = 0.0
+            self.assignments.forEach {
+                score += $0.pointsScore
+                total += $0.totalPointsScore
+            }
+            return total == 0 ? 0 : (score / total) * 100
+        }
     }
 
     /// Calculates the score if only have a class object
@@ -89,24 +99,12 @@ class Class: Object {
     /// Helper method to reduce code use between the two public static methods
     /// SIDE EFFECT: -> Updates the Grade for the sent in class object
     public static func calculateScore(for groupedAssignments: [[Assignment]], in classObj: Class) -> CGFloat {
-        guard !groupedAssignments.isTrueEmpty else { return 0.0 }
-        
-        var weights = 0.0
-        var totalScore = 0.0
-        
-        for assignments in groupedAssignments {
-            if assignments.count == 0 { continue }
-            weights += assignments[0].rubric!.weight
-            
-            var sumTotal = 0.0
-            for assignment in assignments { sumTotal += assignment.score }
-            
-            sumTotal /= Double(assignments.count)
-            totalScore += assignments[0].rubric!.weight * sumTotal
+        let score: Double
+        switch classObj.classGradeType {
+        case .weighted: score = Class.weightedPercentage(for: groupedAssignments)
+        case .points: score = Class.pointPercentage(for: Array(groupedAssignments.joined()))
+        default: return CGFloat.infinity // invalid
         }
-
-        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
-        let score = Double(totalScore / weights).roundedUpTo(roundingAmount)
 
         // Also update the models Grade.score property in the DB, if its different
         if classObj.grade!.score != score {
@@ -117,6 +115,41 @@ class Class: Object {
         }
 
         return CGFloat(score)
+    }
+
+    /// Returns the percentage score after calcuating the WEIGHTED score of a collection of assignments
+    public static func weightedPercentage(for groupedAssignments: [[Assignment]]) -> Double {
+        guard !groupedAssignments.isTrueEmpty else { return 0.0 }
+
+        var weights = 0.0
+        var totalScore = 0.0
+
+        for assignments in groupedAssignments {
+            if assignments.count == 0 { continue }
+            weights += assignments[0].rubric!.weight
+
+            var sumTotal = 0.0
+            for assignment in assignments { sumTotal += assignment.score }
+
+            sumTotal /= Double(assignments.count)
+            totalScore += assignments[0].rubric!.weight * sumTotal
+        }
+
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
+        return Double(totalScore / weights).roundedUpTo(roundingAmount)
+    }
+
+
+    /// Returns the percentage score after calcuating the POINT score of a collection of assignments
+    public static func pointPercentage(for assignments: [Assignment]) -> Double {
+        var score = 0.0
+        var totalScore = 0.0
+        assignments.forEach {
+            score += $0.pointsScore
+            totalScore += $0.totalPointsScore
+        }
+
+        return totalScore == 0 ? 0 : (score / totalScore) * 100
     }
     
     

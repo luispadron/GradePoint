@@ -18,6 +18,9 @@ class Assignment: Object {
     @objc dynamic var date = Date()
     @objc dynamic var score: Double = 0.0
     @objc dynamic var rubric: Rubric?
+    // Score of points when using point based class system
+    @objc dynamic var pointsScore: Double = 0.0
+    @objc dynamic var totalPointsScore: Double = 0.0
 
     let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
@@ -36,5 +39,14 @@ class Assignment: Object {
     
     override class func primaryKey() -> String? {
         return "id"
+    }
+
+    /// Returns the percentage of the assignment, takes into account the type of assignment (weighted/point)
+    public var percentage: Double {
+        if totalPointsScore == 0 {
+            return score
+        } else {
+            return (pointsScore / totalPointsScore) * 100
+        }
     }
 }

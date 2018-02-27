@@ -30,6 +30,12 @@ class AddEditAssignmentTableViewController: UITableViewController {
     @IBOutlet weak var datePickerField: UIPickerField!
     @IBOutlet weak var rubricPickerField: UIPickerField!
     @IBOutlet weak var scoreField: UIFloatingPromptTextField!
+    @IBOutlet weak var pointsInputView: UIView!
+    @IBOutlet weak var pointsScoreLabel: UILabel!
+    @IBOutlet weak var pointsScoreField: UISafeTextField!
+    @IBOutlet weak var pointsDelimiterLabel: UILabel!
+    @IBOutlet weak var pointsTotalField: UISafeTextField!
+
 
     /// The selected date from the date picker
     var selectedDate: Date = Date()
@@ -103,6 +109,42 @@ class AddEditAssignmentTableViewController: UITableViewController {
         fieldToolbar.isTranslucent = false
         fieldToolbar.tintColor = .white
         self.scoreField.inputAccessoryView = self.parentClass.classGradeType == .weighted ? fieldToolbar : nil
+
+        self.pointsScoreLabel.textColor = ApplicationTheme.shared.mainTextColor()
+
+        // A toolbar which adds a done button to the point score field and point total field
+        let doneToolbar = UIToolbar()
+        doneToolbar.barStyle = .default
+        doneToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.accessoryKeyboardDone))
+        ]
+        doneToolbar.sizeToFit()
+        doneToolbar.barTintColor = ApplicationTheme.shared.highlightColor
+        doneToolbar.isTranslucent = false
+        doneToolbar.tintColor = .white
+
+        self.pointsScoreField.textAlignment = .right
+        self.pointsScoreField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.pointsScoreField.attributedPlaceholder = NSAttributedString(string: "Points", attributes: attrsForPrompt)
+        self.pointsScoreField.delegate = self
+        self.pointsScoreField.keyboardType = .decimalPad
+        self.pointsScoreField.fieldType = .number
+        self.pointsScoreField.configuration = NumberConfiguration(allowsSignedNumbers: false)
+        self.pointsScoreField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
+        self.pointsScoreField.inputAccessoryView = doneToolbar
+
+        self.pointsDelimiterLabel.textColor = ApplicationTheme.shared.mainTextColor()
+
+        self.pointsTotalField.textColor = ApplicationTheme.shared.mainTextColor()
+        self.pointsTotalField.attributedPlaceholder = NSAttributedString(string: "Total", attributes: attrsForPrompt)
+        self.pointsTotalField.delegate = self
+        self.pointsTotalField.keyboardType = .decimalPad
+        self.pointsTotalField.fieldType = .number
+        self.pointsTotalField.configuration = NumberConfiguration(allowsSignedNumbers: false)
+        self.pointsTotalField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
+        self.pointsTotalField.inputAccessoryView = doneToolbar
         
         // Set picker field delegates/datasources
         self.datePickerField.pickerDelegate = self
@@ -120,14 +162,22 @@ class AddEditAssignmentTableViewController: UITableViewController {
             self.selectedDate = assignment.date
             self.datePickerField.text = formatDate(self.selectedDate)
             self.scoreField.text = "\(assignment.score)%"
+            self.pointsScoreField.text = "\(assignment.pointsScore)"
+            self.pointsTotalField.text = "\(assignment.totalPointsScore)"
         } else {
             self.saveButton.isEnabled = false
             self.selectedRubric = self.parentClass.rubrics.first
-            if self.parentClass.classGradeType == .weighted {
-                self.rubricPickerField.text = self.selectedRubric.name
-            }
+            self.rubricPickerField.text = self.selectedRubric.name
             self.selectedDate = Date()
             self.datePickerField.text = formatDate(self.selectedDate)
+        }
+
+        // Hide default score field show points input view
+        if self.parentClass.classGradeType == .points {
+            self.scoreField.isHidden = true
+            self.pointsInputView.isHidden = false
+        } else {
+            self.pointsInputView.isHidden = true
         }
     }
 
@@ -226,15 +276,21 @@ class AddEditAssignmentTableViewController: UITableViewController {
             let last = scoreText.index(scoreText.endIndex, offsetBy: -1)
             scoreText.remove(at: last)
         }
+
         let score = Double(scoreText) ?? 0.0
-        let oldRubric = assignmentForEdit?.rubric?.copy() as! Rubric
+        let pointScore = Double(self.pointsScoreField.safeText) ?? 0
+        let totalScore = Double(self.pointsTotalField.safeText) ?? 0
+
+        let oldRubric = self.assignmentForEdit?.rubric?.copy() as! Rubric
 
         // Write change to realm
         DatabaseManager.shared.write {
-            assignmentForEdit?.name = name
-            assignmentForEdit?.score = score
-            assignmentForEdit?.date = self.selectedDate
-            assignmentForEdit?.rubric = self.selectedRubric
+            self.assignmentForEdit?.name = name
+            self.assignmentForEdit?.pointsScore = pointScore
+            self.assignmentForEdit?.totalPointsScore = totalScore
+            self.assignmentForEdit?.score = score
+            self.assignmentForEdit?.date = self.selectedDate
+            self.assignmentForEdit?.rubric = self.selectedRubric
         }
         
         self.dismiss(animated: true) {
@@ -264,6 +320,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
             newAssignment = Assignment(name: name, date: self.selectedDate, score: score, associatedRubric: self.selectedRubric)
         } else {
             newAssignment = Assignment(name: name, date: self.selectedDate, score: score, associatedRubric: self.parentClass.rubrics.first!)
+            newAssignment.pointsScore = Double(self.pointsScoreField.safeText)!
+            newAssignment.totalPointsScore = Double(self.pointsTotalField.safeText)!
         }
 
         DatabaseManager.shared.write {
@@ -291,6 +349,8 @@ class AddEditAssignmentTableViewController: UITableViewController {
     
     @objc func accessoryKeyboardDone(sender: UIBarButtonItem) {
         self.scoreField.resignFirstResponder()
+        self.pointsScoreField.resignFirstResponder()
+        self.pointsTotalField.resignFirstResponder()
     }
     
     // MARK: Helpers
@@ -320,7 +380,7 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let field = textField as? UIFloatingPromptTextField, field === scoreField {
+        if let field = textField as? UISafeTextField {
             return field.shouldChangeTextAfterCheck(text: string)
         }
         
@@ -328,16 +388,20 @@ extension AddEditAssignmentTableViewController: UITextFieldDelegate {
     }
     
     @objc func textFieldChanged(_ textField: UITextField) {
-        guard let nameF = nameField, let scoreF = scoreField else {
-            print("Error couldn't get instances of textfields")
-            saveButton.isEnabled = false
-            return
+        let nameValid = self.nameField.safeText.trimmingCharacters(in: .whitespaces).count > 0
+        let scoreValid: Bool
+
+        switch self.parentClass.classGradeType {
+        case .weighted:
+            scoreValid = self.scoreField.safeText.trimmingCharacters(in: .whitespaces).count > 0
+        case .points:
+            scoreValid = self.pointsScoreField.safeText.trimmingCharacters(in: .whitespaces).count > 0 &&
+                            self.pointsTotalField.safeText.trimmingCharacters(in: .whitespaces).count > 0
+        default:
+            scoreValid = false
         }
         
-        let nameValid = (nameF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.count ?? 0 > 0
-        let scoreValid = (scoreF.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.count ?? 0 > 0
-        
-        saveButton.isEnabled = scoreValid && nameValid
+        self.saveButton.isEnabled = scoreValid && nameValid
     }
 }
 

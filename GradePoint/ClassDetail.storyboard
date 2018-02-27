@@ -369,14 +369,62 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="69.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6N4-9N-IRY" userLabel="Points Input View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="69.666666666666671"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8F-C2-we7">
+                                                            <rect key="frame" x="19.999999999999996" y="24" width="44.666666666666657" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-89-rDY" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
+                                                            <rect key="frame" x="159" y="12.333333333333336" width="100" height="45"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="ddM-cR-9GQ"/>
+                                                                <constraint firstAttribute="height" constant="45" id="zl0-Rm-Ju5"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csb-z6-EoU">
+                                                            <rect key="frame" x="271" y="16.000000000000004" width="11" height="38.333333333333343"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-fI-QD9" customClass="UISafeTextField" customModule="GradePoint" customModuleProvider="target">
+                                                            <rect key="frame" x="294" y="11.666666666666664" width="100" height="45"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="45" id="YUJ-MC-dZR"/>
+                                                                <constraint firstAttribute="width" constant="100" id="uOY-VF-Kmt"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="2wp-89-rDY" firstAttribute="centerY" secondItem="6N4-9N-IRY" secondAttribute="centerY" id="DZl-WP-7NS"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XFg-fI-QD9" secondAttribute="trailing" constant="20" id="Mmn-dX-Bca"/>
+                                                        <constraint firstItem="i8F-C2-we7" firstAttribute="centerY" secondItem="6N4-9N-IRY" secondAttribute="centerY" id="N0T-7f-u3y"/>
+                                                        <constraint firstItem="csb-z6-EoU" firstAttribute="centerY" secondItem="6N4-9N-IRY" secondAttribute="centerY" id="du5-dd-aQz"/>
+                                                        <constraint firstItem="XFg-fI-QD9" firstAttribute="centerY" secondItem="6N4-9N-IRY" secondAttribute="centerY" id="dum-ul-dfZ"/>
+                                                        <constraint firstItem="i8F-C2-we7" firstAttribute="leading" secondItem="6N4-9N-IRY" secondAttribute="leading" constant="20" id="kb8-JC-X9C"/>
+                                                        <constraint firstItem="XFg-fI-QD9" firstAttribute="leading" secondItem="csb-z6-EoU" secondAttribute="trailing" constant="12" id="oey-hS-XoW"/>
+                                                        <constraint firstItem="csb-z6-EoU" firstAttribute="leading" secondItem="2wp-89-rDY" secondAttribute="trailing" constant="12" id="zUb-Tr-kM8"/>
+                                                    </constraints>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UeE-bn-IvF" customClass="UIFloatingPromptTextField" customModule="GradePoint" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="7.9999999999999964" width="386" height="53.666666666666657"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="6N4-9N-IRY" secondAttribute="trailing" id="2tc-h3-2Qo"/>
+                                                <constraint firstItem="6N4-9N-IRY" firstAttribute="leading" secondItem="EwR-DU-daU" secondAttribute="leading" id="81V-xr-YCV"/>
+                                                <constraint firstItem="6N4-9N-IRY" firstAttribute="top" secondItem="EwR-DU-daU" secondAttribute="top" id="LZH-Ey-6ez"/>
                                                 <constraint firstItem="UeE-bn-IvF" firstAttribute="leading" secondItem="EwR-DU-daU" secondAttribute="leading" constant="20" id="eeG-fg-72z"/>
                                                 <constraint firstAttribute="bottom" secondItem="UeE-bn-IvF" secondAttribute="bottom" constant="8" id="j86-PE-26D"/>
                                                 <constraint firstAttribute="trailing" secondItem="UeE-bn-IvF" secondAttribute="trailing" constant="8" id="mfE-xN-Ocx"/>
+                                                <constraint firstAttribute="bottom" secondItem="6N4-9N-IRY" secondAttribute="bottom" id="o6V-Vz-etP"/>
                                                 <constraint firstItem="UeE-bn-IvF" firstAttribute="top" secondItem="EwR-DU-daU" secondAttribute="top" constant="8" id="sf7-M9-g1F"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -404,6 +452,11 @@
                     <connections>
                         <outlet property="datePickerField" destination="F2S-S8-DHg" id="vOb-kp-LRW"/>
                         <outlet property="nameField" destination="dZK-zy-BUA" id="l69-Sh-giW"/>
+                        <outlet property="pointsDelimiterLabel" destination="csb-z6-EoU" id="tIQ-jn-1dO"/>
+                        <outlet property="pointsInputView" destination="6N4-9N-IRY" id="MOx-8q-8pL"/>
+                        <outlet property="pointsScoreField" destination="2wp-89-rDY" id="ceY-lv-bOb"/>
+                        <outlet property="pointsScoreLabel" destination="i8F-C2-we7" id="kj8-mi-fm5"/>
+                        <outlet property="pointsTotalField" destination="XFg-fI-QD9" id="GnC-kb-hl1"/>
                         <outlet property="rubricPickerField" destination="uYf-7T-Um4" id="Ow2-Gk-Dq8"/>
                         <outlet property="saveButton" destination="xgK-7j-B7A" id="kFS-bR-qyH"/>
                         <outlet property="scoreField" destination="UeE-bn-IvF" id="mPD-c8-QZj"/>
