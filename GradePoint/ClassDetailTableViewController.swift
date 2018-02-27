@@ -170,7 +170,8 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath) as! AssignmentTableViewCell
 
         cell.nameLabel.text = assignment.name
-        cell.scoreLabel.text = "Score: \(assignment.percentage)%"
+        let decimalPlaces = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
+        cell.scoreLabel.text = String(format: "Score: %.\(decimalPlaces)f", assignment.percentage.roundedUpTo(decimalPlaces)) + "%"
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
