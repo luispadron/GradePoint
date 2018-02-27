@@ -22,11 +22,10 @@ class Assignment: Object {
     let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
     // MARK: - Initializers
-    
+
+    /// Creates a new Assignment for a weighted class
     convenience init(name: String, date: Date, score: Double, associatedRubric: Rubric) {
         self.init()
-        
-        // Assign values
         self.name = name
         self.date = date
         self.score = score

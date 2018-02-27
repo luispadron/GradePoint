@@ -102,7 +102,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         fieldToolbar.barTintColor = ApplicationTheme.shared.highlightColor
         fieldToolbar.isTranslucent = false
         fieldToolbar.tintColor = .white
-        self.scoreField.inputAccessoryView = fieldToolbar
+        self.scoreField.inputAccessoryView = self.parentClass.classGradeType == .weighted ? fieldToolbar : nil
         
         // Set picker field delegates/datasources
         self.datePickerField.pickerDelegate = self
@@ -123,7 +123,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
         } else {
             self.saveButton.isEnabled = false
             self.selectedRubric = self.parentClass.rubrics.first
-            self.rubricPickerField.text = self.selectedRubric.name
+            if self.parentClass.classGradeType == .weighted {
+                self.rubricPickerField.text = self.selectedRubric.name
+            }
             self.selectedDate = Date()
             self.datePickerField.text = formatDate(self.selectedDate)
         }
@@ -162,12 +164,9 @@ class AddEditAssignmentTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 3
-        case 1:
-            return 1
-        default:
-            return 0
+        case 0: return self.parentClass.classGradeType == .weighted ? 3 : 2
+        case 1: return 1
+        default: return 0
         }
     }
     
@@ -192,15 +191,12 @@ class AddEditAssignmentTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0: self.nameField.becomeFirstResponder()
-            case 1: self.datePickerField.becomeFirstResponder()
-            case 2: self.rubricPickerField.becomeFirstResponder()
-            default: return
-            }
-        } else {
-            self.scoreField.becomeFirstResponder()
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0): self.nameField.becomeFirstResponder()
+        case (0, 1): self.datePickerField.becomeFirstResponder()
+        case (0, 2): self.rubricPickerField.becomeFirstResponder()
+        case (1, 0): self.scoreField.becomeFirstResponder()
+        default: return
         }
     }
 
@@ -209,8 +205,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
     @IBAction func onCancel(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         
         guard nameField.text != nil, scoreField.text != nil else {
@@ -262,8 +257,14 @@ class AddEditAssignmentTableViewController: UITableViewController {
             scoreText.remove(at: last)
         }
         let score = Double(scoreText) ?? 0.0
-    
-        let newAssignment = Assignment(name: name, date: selectedDate, score: score, associatedRubric: self.selectedRubric)
+
+        let newAssignment: Assignment
+
+        if self.parentClass.classGradeType == .weighted {
+            newAssignment = Assignment(name: name, date: self.selectedDate, score: score, associatedRubric: self.selectedRubric)
+        } else {
+            newAssignment = Assignment(name: name, date: self.selectedDate, score: score, associatedRubric: self.parentClass.rubrics.first!)
+        }
 
         DatabaseManager.shared.write {
             parentClass.assignments.append(newAssignment)

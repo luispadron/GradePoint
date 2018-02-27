@@ -16,7 +16,12 @@ class Rubric: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var name = ""
     @objc dynamic var weight: Double = 0.0
-    
+
+    class var pointsRubric: Rubric {
+        let rubric = Rubric(name: "Assignments", weight: 100)
+        return rubric
+    }
+
     // MARK: - Initializers
     
     convenience init(name: String, weight: Double) {

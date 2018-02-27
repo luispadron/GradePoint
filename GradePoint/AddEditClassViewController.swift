@@ -539,8 +539,15 @@ class AddEditClassViewController: UIViewController {
         
         let credits = Double(creditHoursField.safeText)!
         // Create the new class
-        let newClass = Class(name: self.classNameField.safeText, gradeType: self.classGradeType, classType: self.classType,
+        let newClass: Class
+        if self.classGradeType == .weighted {
+            newClass = Class(name: self.classNameField.safeText, gradeType: self.classGradeType, classType: self.classType,
                              creditHours: credits, semester: semester, rubrics: rubrics)
+        } else {
+            newClass = Class(name: self.classNameField.safeText, gradeType: self.classGradeType, classType: self.classType,
+                             creditHours: credits, semester: semester, rubrics: [.pointsRubric])
+        }
+
         newClass.colorData = colorForView.toData()
         
         // Add to realm
