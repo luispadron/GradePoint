@@ -15,6 +15,7 @@ class Class: Object {
     
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var name = ""
+    @objc dynamic var classGradeType: ClassGradeType = .weighted
     @objc dynamic var classType: ClassType = .college
     @objc dynamic var creditHours: Double = 3.0
     @objc dynamic var semester: Semester?
@@ -27,9 +28,11 @@ class Class: Object {
     // MARK: - Initializers
     
     /// Used to create an in-progress class
-    convenience init(name: String, classType: ClassType, creditHours: Double, semester: Semester, rubrics:  [Rubric]) {
+    convenience init(name: String, gradeType: ClassGradeType, classType: ClassType,
+                     creditHours: Double, semester: Semester, rubrics:  [Rubric]) {
         self.init()
         self.name = name
+        self.classGradeType = gradeType
         self.classType = classType
         self.creditHours = creditHours
         self.semester = semester
@@ -42,6 +45,7 @@ class Class: Object {
     convenience init(name: String, classType: ClassType, creditHours: Double, semester: Semester,  grade: Grade) {
         self.init()
         self.name = name
+        self.classGradeType = .previous
         self.classType = classType
         self.creditHours = creditHours
         self.semester = semester
@@ -119,10 +123,8 @@ class Class: Object {
     // MARK: - Computed Properties
     
     /// Returns the color after getting it from the color data
-    var color: UIColor { get { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor } }
-    
-    /// Returns whether or not the class is inprogress or not
-    /// Does so by checking whether or not at least 1 rubric has been added, if this is false then
-    /// it must be a Previous Class due to the fact previous classes cannot have rubrics
-    var isInProgress: Bool { get { return self.rubrics.count > 0 } }
+    var color: UIColor { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor }
+
+    /// Returns whether or not a class is in progress
+    var isInProgress: Bool { return self.classGradeType != .previous }
 }

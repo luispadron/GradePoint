@@ -10,7 +10,8 @@ import UIKit
 import RealmSwift
 
 enum ViewState {
-    case inProgress
+    case inProgressWeighted
+    case inProgressPoints
     case previous
 }
 
@@ -84,7 +85,10 @@ class AddEditClassViewController: UIViewController {
     var rubricsToDelete = [String]()
     
     ///// Variables
-    
+
+    /// The class grade type, grabbed from the selection, tied to the view state
+    var classGradeType: ClassGradeType = .weighted
+
     /// The class type, grabbed from the Picker
     var classType: ClassType!
     
@@ -92,7 +96,7 @@ class AddEditClassViewController: UIViewController {
     var semester: Semester!
     
     /// The current state the view is in, this doesn't change when editing a Class
-    var viewState: ViewState = .inProgress
+    var viewState: ViewState = .inProgressWeighted
     
     // MARK: Overrides
     
@@ -203,16 +207,25 @@ class AddEditClassViewController: UIViewController {
         
         // If were editing a class then update the UI
         // Handle case of editing an in progress class
-        if let inProgressClass = self.classObj, inProgressClass.isInProgress {
-            // Set view state to in progress
-            self.viewState = .inProgress
-            self.prepareView(for: viewState, with: inProgressClass, isEditing: true)
-        } else if let previousClass = self.classObj, !previousClass.isInProgress {
-            // Set view state to previous
-            self.viewState = .previous
-            self.prepareView(for: viewState, with: previousClass, isEditing: true)
+        if let editingClass = self.classObj {
+            switch editingClass.classGradeType {
+            case .weighted:
+                // Set view state to in progress
+                self.viewState = .inProgressWeighted
+                self.prepareView(for: viewState, with: editingClass, isEditing: true)
+
+            case .points:
+                // Set view state to in progress
+                self.viewState = .inProgressPoints
+                self.prepareView(for: viewState, with: editingClass, isEditing: true)
+
+            case .previous:
+                // Set view state to previous
+                self.viewState = .previous
+                self.prepareView(for: viewState, with: editingClass, isEditing: true)
+            }
         } else {
-            // Set default class type
+            // Not editing, set default class type
             self.classType = studentType == StudentType.college ? .college : .regular
             self.classTypeField.text = studentType == StudentType.college ? nil : "Regular"
             // Set a default semester
@@ -279,7 +292,7 @@ class AddEditClassViewController: UIViewController {
         
         // Hide and show specific views
         switch state {
-        case .inProgress:
+        case .inProgressWeighted:
             // Update fields specific to in progress class if available
             if let cls = classObj {
                 updateRubricViews(for: cls)
@@ -289,6 +302,11 @@ class AddEditClassViewController: UIViewController {
             if rubricViews.isEmpty && self.classObj == nil { appendRubricView() }
             // The other views are hidden by default
             break
+
+        case .inProgressPoints:
+            // Remove rubric header view
+            self.rubricHeaderView.removeFromSuperview()
+
         case .previous:
             // Update fields specific to previous class if available
             if let cls = classObj {
@@ -329,13 +347,15 @@ class AddEditClassViewController: UIViewController {
         // End any editing
         self.view.endEditing(true)
         
-        self.viewState = sender.selectedSegmentIndex == 0 ? .inProgress : .previous
+        self.viewState = sender.selectedSegmentIndex == 0 ? .inProgressWeighted :
+                        sender.selectedSegmentIndex == 1 ? .inProgressPoints : .previous
         
         // Update the view
         switch self.viewState {
-        // Show all the views EXCEPT the grade selection view
-        case .inProgress:
-            // Initial set up
+
+        case .inProgressWeighted:
+            self.classGradeType = .weighted
+            // Show all the views EXCEPT the grade selection view
             self.rubricHeaderView.isHidden = false
             for v in self.rubricViews { v.isHidden = false }
             
@@ -347,22 +367,38 @@ class AddEditClassViewController: UIViewController {
                 
                 UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: { 
                     self.rubricHeaderView.alpha = 1.0
-                    for v in self.rubricViews { v.alpha = 1.0 }
+                    self.rubricViews.forEach {  $0.alpha = 1.0 }
                 })
                 
             }, completion: { _ in
                 self.gradeFieldContainerView.isHidden = true
                 self.updateSaveButton()
             })
-        // Hide any rubric views, and show the grade selection view
+
+        case .inProgressPoints:
+            self.classGradeType = .points
+            // Hide rubric views and grade selection view
+            UIView.animate(withDuration: 0.4, animations: {
+                self.rubricHeaderView.alpha = 0.0
+                self.rubricViews.forEach {  $0.alpha = 0.0 }
+                self.gradeFieldContainerView.alpha = 0.0
+            }, completion: { _ in
+                self.rubricHeaderView.isHidden = true
+                self.gradeFieldContainerView.isHidden = true
+                self.rubricViews.forEach { $0.isHidden = true }
+                self.updateSaveButton()
+            })
+
+
         case .previous:
-            // Initial set up
+            self.classGradeType = .previous
+            // Hide any rubric views, and show the grade selection view
             self.gradeFieldContainerView.isHidden = false
             UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeCubic, animations: {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/2, animations: {
                     self.rubricHeaderView.alpha = 0.0
-                    for v in self.rubricViews { v.alpha = 0.0 }
+                    self.rubricViews.forEach {  $0.alpha = 0.0 }
                 })
                 
                 UIView.addKeyframe(withRelativeStartTime: 1/2, relativeDuration: 1/2, animations: {
@@ -371,7 +407,7 @@ class AddEditClassViewController: UIViewController {
                 
             }, completion: { _ in
                 self.rubricHeaderView.isHidden = true
-                for v in self.rubricViews { v.isHidden = true }
+                self.rubricViews.forEach { $0.isHidden = true }
                 self.updateSaveButton()
             })
         }
@@ -408,7 +444,7 @@ class AddEditClassViewController: UIViewController {
         guard isSaveReady() else { return }
         // Switch on state, save the correct type of class
         switch self.viewState {
-        case .inProgress:
+        case .inProgressWeighted, .inProgressPoints:
             guard let classObj = self.classObj else { saveNewInProgressClass(); return }
             saveChangesTo(inProgressClass: classObj)
         case .previous:
@@ -426,7 +462,7 @@ class AddEditClassViewController: UIViewController {
         }
         
         // If adding a previous class, this checking of rubrics can be skipped
-        guard self.viewState == .inProgress else { return true }
+        guard self.classGradeType == .weighted else { return true }
         
         // Want all rubric cells except the last one, since its always empty
         var views = rubricViews
@@ -503,7 +539,7 @@ class AddEditClassViewController: UIViewController {
         
         let credits = Double(creditHoursField.safeText)!
         // Create the new class
-        let newClass = Class(name: self.classNameField.safeText, classType: self.classType,
+        let newClass = Class(name: self.classNameField.safeText, gradeType: self.classGradeType, classType: self.classType,
                              creditHours: credits, semester: semester, rubrics: rubrics)
         newClass.colorData = colorForView.toData()
         
@@ -688,14 +724,14 @@ class AddEditClassViewController: UIViewController {
     
         // Different case for selected states
         switch self.viewState {
-        case .inProgress:
+        case .inProgressWeighted:
             var rubricsAreValid = false
             var validCount = 0
             for view in rubricViews { if view.isRubricValid { validCount += 1 } }
             rubricsAreValid = validCount != 1 && (validCount == rubricViews.count)
             
             self.saveButton.isEnabled = nameValid && rubricsAreValid
-        case .previous:
+        case .inProgressPoints, .previous:
             self.saveButton.isEnabled = nameValid
             break
         }
