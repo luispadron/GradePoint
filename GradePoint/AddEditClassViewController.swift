@@ -212,16 +212,19 @@ class AddEditClassViewController: UIViewController {
             case .weighted:
                 // Set view state to in progress
                 self.viewState = .inProgressWeighted
+                self.classGradeType = .weighted
                 self.prepareView(for: viewState, with: editingClass, isEditing: true)
 
             case .points:
                 // Set view state to in progress
                 self.viewState = .inProgressPoints
+                self.classGradeType = .points
                 self.prepareView(for: viewState, with: editingClass, isEditing: true)
 
             case .previous:
                 // Set view state to previous
                 self.viewState = .previous
+                self.classGradeType = .previous
                 self.prepareView(for: viewState, with: editingClass, isEditing: true)
             }
         } else {
@@ -592,6 +595,24 @@ class AddEditClassViewController: UIViewController {
             classObj.semester?.year = self.semester.year
             classObj.colorData = self.colorForView.toData()
         }
+
+        let dissmissAndNotify = {
+            // Dismiss controller
+            self.dismiss(animated: true) {
+                // Call move listener if needed
+                if oldSemester != classObj.semester {
+                    self.listener?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
+                }
+                // Call listener
+                self.listener?.classWasUpdated(classObj)
+            }
+        }
+
+        // Skip this if not a weighted class
+        if self.classGradeType != .weighted {
+            dissmissAndNotify()
+            return
+        }
         
         // Delete any rubrics
         self.deleteRubrics()
@@ -621,15 +642,7 @@ class AddEditClassViewController: UIViewController {
             }
         }
 
-        // Dismiss controller
-        self.dismiss(animated: true) {
-            // Call move listener if needed
-            if oldSemester != classObj.semester {
-                self.listener?.classSemesterWasUpdated(classObj, from: oldSemester, to: classObj.semester!)
-            }
-            // Call listener
-            self.listener?.classWasUpdated(classObj)
-        }
+        dissmissAndNotify()
     }
     
     func saveChangesTo(previousClass classObj: Class) {
