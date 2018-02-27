@@ -38,7 +38,7 @@ public struct GradePointPremium {
         if let controller = controller {
             controller.present(onboardingController, animated: true, completion: nil)
         } else {
-            let appDelegate = UIApplication.shared as? AppDelegate
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
             onboardingController.modalPresentationStyle = .overCurrentContext
             appDelegate?.window?.rootViewController?.present(onboardingController, animated: true, completion: nil)
         }
