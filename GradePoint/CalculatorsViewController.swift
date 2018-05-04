@@ -53,13 +53,13 @@ class CalculatorsViewController: UIViewController {
             // Set max value of progress ring depending on weighted or not
             let max: CGFloat = lastCalculation.isWeighted ? 5.0 : 4.0
             gpaRing.maxValue = max
-            gpaRing.setProgress(value: 0, animationDuration: 0)
-            gpaRing.setProgress(value: CGFloat(lastCalculation.calculatedGpa), animationDuration: 0)
+            gpaRing.setProgress(to: 0, duration: 0)
+            gpaRing.setProgress(to: CGFloat(lastCalculation.calculatedGpa), duration: 0)
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             lastCalculationLabel.attributedText = NSAttributedString(string: "Last calculated on: \(formatter.string(from: lastCalculation.date))", attributes: attrs)
         } else {
-            gpaRing.setProgress(value: 0.0, animationDuration: 0)
+            gpaRing.setProgress(to: 0.0, duration: 0)
             lastCalculationLabel.attributedText = NSAttributedString(string: "Never calculated, calculate now", attributes: attrs)
         }
     }

@@ -284,8 +284,8 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     /// Updates the progress on the progress ring
     private func updateProgressRing() {
         guard let classObj = _classObj else { return }
-        if !progressRing.isAnimating {
-            progressRing.setProgress(value: Class.calculateScore(for: assignments, in: classObj), animationDuration: 1.3)
+        if !self.progressRing.isAnimating {
+            self.progressRing.setProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3)
         }
     }
 
@@ -519,8 +519,8 @@ extension ClassDetailTableViewController {
 
         progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
         let val = progressRing.value
-        progressRing.setProgress(value: 0, animationDuration: 0)
-        progressRing.setProgress(value: val, animationDuration: 0)
+        progressRing.setProgress(to: 0, duration: 0)
+        progressRing.setProgress(to: val, duration: 0)
 
         self.tableView.reloadData()
         self.reloadEmptyState()

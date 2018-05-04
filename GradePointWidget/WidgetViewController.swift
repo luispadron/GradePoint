@@ -96,7 +96,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
 
             classNameLabel.text = recentClass.name
             classRing.innerRingColor = recentClass.color
-            classRing.setProgress(value: CGFloat(recentClass.grade!.score), animationDuration: 1.0)
+            classRing.setProgress(to: CGFloat(recentClass.grade!.score), duration: 1.0)
         }
 
         if showsGPA {
@@ -106,8 +106,8 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
             }
 
             gpaRing.maxValue = recent.isWeighted ? 5.0 : 4.0
-            gpaRing.setProgress(value: 0, animationDuration: 0)
-            gpaRing.setProgress(value: CGFloat(recent.calculatedGpa), animationDuration: 1.0)
+            gpaRing.setProgress(to: 0, duration: 0)
+            gpaRing.setProgress(to: CGFloat(recent.calculatedGpa), duration: 1.0)
         }
 
         guard #available(iOS 10.0, *) else {

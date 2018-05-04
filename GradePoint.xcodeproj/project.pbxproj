@@ -759,7 +759,6 @@
 				A00705091DAF0E9B00AD740A /* Resources */,
 				A0E4A67E1F4A09E00094BC4F /* Embed App Extensions */,
 				9CFB3E464990059C07D56586 /* [CP] Embed Pods Frameworks */,
-				BD66F08A6BD5EA5531CFC6B6 /* [CP] Copy Pods Resources */,
 				A00422621FD10CE7000016BA /* Embed Frameworks */,
 				A00422651FD10D49000016BA /* Run Script */,
 			);
@@ -782,7 +781,6 @@
 				A007051E1DAF0E9B00AD740A /* Frameworks */,
 				A007051F1DAF0E9B00AD740A /* Resources */,
 				11CC2589D7EA654D06EC8330 /* [CP] Embed Pods Frameworks */,
-				95D5BF823943C1A09AFF578B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -803,7 +801,6 @@
 				A00705291DAF0E9B00AD740A /* Frameworks */,
 				A007052A1DAF0E9B00AD740A /* Resources */,
 				0FFE396868AF9091E28CC4CF /* [CP] Embed Pods Frameworks */,
-				0E9DE7F9A56DAE7715996544 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -823,7 +820,6 @@
 				A0E4A66A1F4A09E00094BC4F /* Sources */,
 				A0E4A66B1F4A09E00094BC4F /* Frameworks */,
 				A0E4A66C1F4A09E00094BC4F /* Resources */,
-				B14108CB1D6D991E7D5167E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -841,7 +837,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Luis Padron";
 				TargetAttributes = {
 					A007050A1DAF0E9B00AD740A = {
@@ -951,21 +947,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E9DE7F9A56DAE7715996544 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointUITests/Pods-GradePointUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0FFE396868AF9091E28CC4CF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1074,21 +1055,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		95D5BF823943C1A09AFF578B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointTests/Pods-GradePointTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9CFB3E464990059C07D56586 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1124,36 +1090,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		B14108CB1D6D991E7D5167E4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BD66F08A6BD5EA5531CFC6B6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1370,6 +1306,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1377,6 +1314,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1429,6 +1367,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1436,6 +1375,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

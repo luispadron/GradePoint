@@ -154,7 +154,7 @@ class ExamGradePredictionViewController: UIViewController {
         if self.isInitialCalculation { self.isInitialCalculation = false }
         guard let currentGrade = Double(currentGradeField.safeText), let desiredGrade = Double(desiredGradeField.safeText),
         let examWorth = Double(examWorthField.safeText) else {
-            self.progressRing.setProgress(value: 0.0, animationDuration: 0)
+            self.progressRing.setProgress(to: 0.0, duration: 0)
             return
         }
         
@@ -162,13 +162,13 @@ class ExamGradePredictionViewController: UIViewController {
         
         // Number too big and will look weird in UI, also very unrealistic, notify the user
         if gradeNeeded > 999 {
-            self.progressRing.setProgress(value: 0, animationDuration: 0)
+            self.progressRing.setProgress(to: 0, duration: 0)
             self.messageLabel.text = "Score needed too high, try again."
         } else if gradeNeeded < 0 {
-            self.progressRing.setProgress(value: 0, animationDuration: 0)
+            self.progressRing.setProgress(to: 0, duration: 0)
             self.messageLabel.text = "Score needed less than zero, try again"
         } else {
-            self.progressRing.setProgress(value: gradeNeeded, animationDuration: 1.5) { [weak self] in
+            self.progressRing.setProgress(to: gradeNeeded, duration: 1.5) { [weak self] in
                 self?.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
                 // Show ad if it can
                 guard let strongSelf = self else { return }
