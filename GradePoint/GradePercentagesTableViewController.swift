@@ -10,6 +10,9 @@ import UIKit
 
 class GradePercentagesTableViewController: UITableViewController {
 
+    /// The rows which will contain any + or - fields
+    let plusRows = [0, 2, 3, 5, 6,  8, 9, 11]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,30 +22,25 @@ class GradePercentagesTableViewController: UITableViewController {
         }
 
         // TableView customization
-        // Remove seperator lines from empty cells
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
+        self.tableView.estimatedRowHeight = 60
+
+        // Add save button
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                                  target: self,
                                                                  action: #selector(self.onSaveTapped))
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
+    // MARK: - Table view methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 13
     }
 
     // MARK: - Actions

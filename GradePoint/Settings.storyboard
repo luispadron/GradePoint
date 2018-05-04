@@ -1443,28 +1443,287 @@
                         <sections>
                             <tableViewSection id="Un8-tv-tXb">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="sTO-jz-8yG">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="sTO-jz-8yG" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sTO-jz-8yG" id="7fQ-vw-kee">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rf7-dz-fhO" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rf7-dz-fhO" firstAttribute="leading" secondItem="7fQ-vw-kee" secondAttribute="leading" id="6SS-iA-opC"/>
+                                                <constraint firstItem="Rf7-dz-fhO" firstAttribute="top" secondItem="7fQ-vw-kee" secondAttribute="top" id="Ie7-hx-Rmn"/>
+                                                <constraint firstAttribute="trailing" secondItem="Rf7-dz-fhO" secondAttribute="trailing" id="Rwk-xJ-7jQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rf7-dz-fhO" secondAttribute="bottom" id="zAe-VR-696"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mvz-qU-sdL">
-                                        <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="mzV-PA-ilI" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="60" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mvz-qU-sdL" id="9DQ-Z2-rQ4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mzV-PA-ilI" id="lMB-j7-P5D">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMP-mg-ONt" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="A"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CMP-mg-ONt" firstAttribute="top" secondItem="lMB-j7-P5D" secondAttribute="top" id="9S4-Af-oGg"/>
+                                                <constraint firstAttribute="bottom" secondItem="CMP-mg-ONt" secondAttribute="bottom" id="AgX-Sc-yTq"/>
+                                                <constraint firstItem="CMP-mg-ONt" firstAttribute="leading" secondItem="lMB-j7-P5D" secondAttribute="leading" id="Z6G-Lu-ouf"/>
+                                                <constraint firstAttribute="trailing" secondItem="CMP-mg-ONt" secondAttribute="trailing" id="lfz-7e-PQO"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rNH-1Q-S7b">
-                                        <rect key="frame" x="0.0" y="88" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="4px-rZ-2cD" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rNH-1Q-S7b" id="tWV-en-Ca9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4px-rZ-2cD" id="JnH-YX-OK2">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imf-SN-y3d" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="A-"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="imf-SN-y3d" firstAttribute="top" secondItem="JnH-YX-OK2" secondAttribute="top" id="3J6-b1-szT"/>
+                                                <constraint firstAttribute="bottom" secondItem="imf-SN-y3d" secondAttribute="bottom" id="7vw-h0-zQQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="imf-SN-y3d" secondAttribute="trailing" id="hnM-lL-UsG"/>
+                                                <constraint firstItem="imf-SN-y3d" firstAttribute="leading" secondItem="JnH-YX-OK2" secondAttribute="leading" id="oyc-CH-1Sv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="bG0-rb-eHi" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="180" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bG0-rb-eHi" id="4O2-Qk-HzV">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkZ-mi-u11" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="B+"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="gkZ-mi-u11" secondAttribute="trailing" id="2Me-BZ-NAh"/>
+                                                <constraint firstItem="gkZ-mi-u11" firstAttribute="leading" secondItem="4O2-Qk-HzV" secondAttribute="leading" id="D0H-gk-AQZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="gkZ-mi-u11" secondAttribute="bottom" id="lYq-vO-0oM"/>
+                                                <constraint firstItem="gkZ-mi-u11" firstAttribute="top" secondItem="4O2-Qk-HzV" secondAttribute="top" id="tXf-cu-09h"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="eKJ-jb-V3X" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="240" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eKJ-jb-V3X" id="m0U-1Z-Wlg">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBH-bz-4hl" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="B"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eBH-bz-4hl" firstAttribute="top" secondItem="m0U-1Z-Wlg" secondAttribute="top" id="3CK-VW-aq5"/>
+                                                <constraint firstAttribute="bottom" secondItem="eBH-bz-4hl" secondAttribute="bottom" id="4vg-PP-zgR"/>
+                                                <constraint firstAttribute="trailing" secondItem="eBH-bz-4hl" secondAttribute="trailing" id="AzC-ex-347"/>
+                                                <constraint firstItem="eBH-bz-4hl" firstAttribute="leading" secondItem="m0U-1Z-Wlg" secondAttribute="leading" id="uip-H3-HV1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="TU0-65-a6d" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="300" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TU0-65-a6d" id="NfA-6B-ggB">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgw-Pg-8Lo" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="B-"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Lgw-Pg-8Lo" firstAttribute="top" secondItem="NfA-6B-ggB" secondAttribute="top" id="33B-kR-rQi"/>
+                                                <constraint firstAttribute="bottom" secondItem="Lgw-Pg-8Lo" secondAttribute="bottom" id="HJ2-Tm-0eh"/>
+                                                <constraint firstItem="Lgw-Pg-8Lo" firstAttribute="leading" secondItem="NfA-6B-ggB" secondAttribute="leading" id="TR6-qX-zQF"/>
+                                                <constraint firstAttribute="trailing" secondItem="Lgw-Pg-8Lo" secondAttribute="trailing" id="vnx-Ca-rkC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="fx0-Mm-kkl" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="360" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fx0-Mm-kkl" id="xB5-Qg-L8Z">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8r9-6c-gb5" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="C+"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8r9-6c-gb5" firstAttribute="top" secondItem="xB5-Qg-L8Z" secondAttribute="top" id="2eU-Sj-Efa"/>
+                                                <constraint firstItem="8r9-6c-gb5" firstAttribute="leading" secondItem="xB5-Qg-L8Z" secondAttribute="leading" id="AAa-sE-x2R"/>
+                                                <constraint firstAttribute="trailing" secondItem="8r9-6c-gb5" secondAttribute="trailing" id="bTw-9t-lmq"/>
+                                                <constraint firstAttribute="bottom" secondItem="8r9-6c-gb5" secondAttribute="bottom" id="oEl-vW-suG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="870-4H-0rg" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="420" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="870-4H-0rg" id="vG0-RP-Ns0">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g3t-OB-y6a" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="C"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="g3t-OB-y6a" firstAttribute="top" secondItem="vG0-RP-Ns0" secondAttribute="top" id="2Nw-Lb-G0Q"/>
+                                                <constraint firstAttribute="bottom" secondItem="g3t-OB-y6a" secondAttribute="bottom" id="L0k-WI-Z1w"/>
+                                                <constraint firstAttribute="trailing" secondItem="g3t-OB-y6a" secondAttribute="trailing" id="S7e-P7-cVU"/>
+                                                <constraint firstItem="g3t-OB-y6a" firstAttribute="leading" secondItem="vG0-RP-Ns0" secondAttribute="leading" id="yuT-bY-QP6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="oLf-EI-3u7" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="480" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oLf-EI-3u7" id="Uub-dR-O3R">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1a-Qf-CFs" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="C-"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="n1a-Qf-CFs" firstAttribute="leading" secondItem="Uub-dR-O3R" secondAttribute="leading" id="LeM-Wp-xFO"/>
+                                                <constraint firstAttribute="bottom" secondItem="n1a-Qf-CFs" secondAttribute="bottom" id="Mb6-nL-4Rt"/>
+                                                <constraint firstItem="n1a-Qf-CFs" firstAttribute="top" secondItem="Uub-dR-O3R" secondAttribute="top" id="jsM-OH-DaH"/>
+                                                <constraint firstAttribute="trailing" secondItem="n1a-Qf-CFs" secondAttribute="trailing" id="v6S-mk-DsE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="GYh-fz-mEg" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="540" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GYh-fz-mEg" id="3XB-zi-HdP">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hla-ay-txD" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="D+"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Hla-ay-txD" firstAttribute="leading" secondItem="3XB-zi-HdP" secondAttribute="leading" id="BrY-ye-Evu"/>
+                                                <constraint firstItem="Hla-ay-txD" firstAttribute="top" secondItem="3XB-zi-HdP" secondAttribute="top" id="HGf-Ja-oEE"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hla-ay-txD" secondAttribute="bottom" id="Ld7-MP-rxN"/>
+                                                <constraint firstAttribute="trailing" secondItem="Hla-ay-txD" secondAttribute="trailing" id="UqQ-yC-ieQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="1AW-xb-nQm" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="600" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1AW-xb-nQm" id="8qi-KA-Ooa">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jbl-aV-lut" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="D"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="jbl-aV-lut" secondAttribute="bottom" id="8Ac-31-ra0"/>
+                                                <constraint firstAttribute="trailing" secondItem="jbl-aV-lut" secondAttribute="trailing" id="lbk-ng-hDA"/>
+                                                <constraint firstItem="jbl-aV-lut" firstAttribute="leading" secondItem="8qi-KA-Ooa" secondAttribute="leading" id="pPE-nM-ajg"/>
+                                                <constraint firstItem="jbl-aV-lut" firstAttribute="top" secondItem="8qi-KA-Ooa" secondAttribute="top" id="saE-Oj-hYw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="b5K-wP-tSu" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="660" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b5K-wP-tSu" id="f8k-s3-JK0">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DY8-Lj-dlT" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="D-"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DY8-Lj-dlT" firstAttribute="top" secondItem="f8k-s3-JK0" secondAttribute="top" id="6Ax-HJ-pAV"/>
+                                                <constraint firstAttribute="trailing" secondItem="DY8-Lj-dlT" secondAttribute="trailing" id="WJs-kL-Pw8"/>
+                                                <constraint firstItem="DY8-Lj-dlT" firstAttribute="leading" secondItem="f8k-s3-JK0" secondAttribute="leading" id="XJe-9e-u3D"/>
+                                                <constraint firstAttribute="bottom" secondItem="DY8-Lj-dlT" secondAttribute="bottom" id="hpJ-Sz-mDd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="Zwz-7Z-PNp" customClass="GradePercentageTableViewCell" customModule="GradePoint" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="720" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zwz-7Z-PNp" id="Xxu-jC-eFc">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNC-iB-fEM" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="gradeLetter" value="F"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="YNC-iB-fEM" secondAttribute="trailing" id="K6u-Mo-uxc"/>
+                                                <constraint firstItem="YNC-iB-fEM" firstAttribute="leading" secondItem="Xxu-jC-eFc" secondAttribute="leading" id="VIz-Wa-AFc"/>
+                                                <constraint firstItem="YNC-iB-fEM" firstAttribute="top" secondItem="Xxu-jC-eFc" secondAttribute="top" id="aZz-GR-lgK"/>
+                                                <constraint firstAttribute="bottom" secondItem="YNC-iB-fEM" secondAttribute="bottom" id="hAx-JH-fDF"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
