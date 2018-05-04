@@ -125,6 +125,7 @@
 		A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */; };
 		A0CE8B471DAF19EF007968EE /* UIColor+Exentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColor+Exentions.swift */; };
 		A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */; };
+		A0D80C0A209CDB92004BCB95 /* GradePercentagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D80C09209CDB92004BCB95 /* GradePercentagesTableViewController.swift */; };
 		A0DA2FAB1E39C3120038556B /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */; };
 		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
 		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */; };
@@ -305,6 +306,7 @@
 		A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPACalculatorViewController.swift; sourceTree = "<group>"; };
 		A0CE8B461DAF19EF007968EE /* UIColor+Exentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Exentions.swift"; sourceTree = "<group>"; };
 		A0CE8B491DAF2709007968EE /* ClassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
+		A0D80C09209CDB92004BCB95 /* GradePercentagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePercentagesTableViewController.swift; sourceTree = "<group>"; };
 		A0DA2FAA1E39C3120038556B /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
 		A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFloatingPromptTextField.swift; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 			children = (
 				A04BDE401E8CA39C007B21B7 /* SettingsTableViewController.swift */,
 				A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */,
+				A0D80C09209CDB92004BCB95 /* GradePercentagesTableViewController.swift */,
 				A024E9291EF05B6A00510F74 /* SemesterConfigurationTableViewController.swift */,
 				A057F4151EFDA0B1009A3F73 /* LicenseViewController.swift */,
 				A061AAC92021402200D4D65D /* ThemeSelectionTableViewController.swift */,
@@ -1133,6 +1136,7 @@
 				A0BF3B2A1F243782001CCE52 /* Constants.swift in Sources */,
 				A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */,
 				A076F5A51E30735D00CE4F43 /* UILabel+Resize.swift in Sources */,
+				A0D80C0A209CDB92004BCB95 /* GradePercentagesTableViewController.swift in Sources */,
 				A01B87861DBD276000A85E2D /* Class.swift in Sources */,
 				A0FE32B51F145BFB00F264EC /* PreviousClassDetailViewController.swift in Sources */,
 				A06E179D2022634E00D5ACC0 /* SKProduct+Price.swift in Sources */,

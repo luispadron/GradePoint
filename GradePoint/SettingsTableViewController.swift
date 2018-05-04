@@ -103,7 +103,7 @@ class SettingsTableViewController: UITableViewController {
         case 2:
             return 1
         case 3:
-            return 5
+            return 6
         case 4:
             return 3
         case 5:
