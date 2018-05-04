@@ -34,6 +34,10 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
             self.view.backgroundColor = firstVC.view.backgroundColor?.lighter(by: 20)
         }
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return ApplicationTheme.shared.statusBarStyle
+    }
     
     private var backgroundColor: UIColor? {
         didSet {
