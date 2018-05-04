@@ -50,6 +50,7 @@ class UIGradePercentageView: UIView {
 
     private lazy var label: UILabel = {
         let label = UILabel()
+        label.text = self.gradeLetter
         label.textColor = ApplicationTheme.shared.mainTextColor()
         label.font = UIFont.systemFont(ofSize: 20)
         return label
