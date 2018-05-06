@@ -27,6 +27,7 @@ class UIGradePercentageView: UIView {
         }
     }
 
+
     // MARK: Init
 
     override init(frame: CGRect) {
@@ -66,6 +67,37 @@ class UIGradePercentageView: UIView {
         self.fieldSeperator.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
 
+    // MARK: Helpers
+
+    // A 'Cancel' and 'Done' button toolbar
+    private var fieldToolbar: UIToolbar = {
+        let fieldToolbar = UIToolbar()
+        fieldToolbar.barStyle = .default
+        fieldToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(accessoryKeyboardDone)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(accessoryKeyboardDone))
+        ]
+        fieldToolbar.sizeToFit()
+        fieldToolbar.barTintColor = ApplicationTheme.shared.highlightColor
+        fieldToolbar.isTranslucent = false
+        fieldToolbar.tintColor = .white
+        return fieldToolbar
+    }()
+
+    // The configuration for the fields
+    private var percentConfig: PercentConfiguration = {
+        let config = PercentConfiguration(allowsOver100: true, allowsFloatingPoint: true)
+        return config
+    }()
+
+    // MARK: Actions
+
+    @objc private func accessoryKeyboardDone(button: UIBarButtonItem) {
+        self.lowerBoundField.resignFirstResponder()
+        self.upperBoundField.resignFirstResponder()
+    }
+
     // MARK: Subviews
 
     private lazy var label: UILabel = {
@@ -87,6 +119,16 @@ class UIGradePercentageView: UIView {
         return stackView
     }()
 
+    public lazy var lowerBoundField: UISafeTextField = {
+        let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+        let field = UISafeTextField(frame: frame, fieldType: .percent, configuration: percentConfig)
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.delegate = self
+        field.placeholder = "Lower"
+        field.inputAccessoryView = self.fieldToolbar
+        return field
+    }()
+
     private lazy var fieldSeperator: UIView = {
         let seperator = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 2))
         seperator.translatesAutoresizingMaskIntoConstraints = false
@@ -94,24 +136,13 @@ class UIGradePercentageView: UIView {
         return seperator
     }()
 
-    public lazy var lowerBoundField: UISafeTextField = {
-        let config = NumberConfiguration(allowsSignedNumbers: false, range: 0...100)
-        let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        let field = UISafeTextField(frame: frame, fieldType: .number, configuration: config)
-        field.translatesAutoresizingMaskIntoConstraints = false
-        field.delegate = self
-        field.placeholder = "Lower"
-        return field
-    }()
-
     public lazy var upperBoundField: UISafeTextField = {
-        let config = NumberConfiguration(allowsSignedNumbers: false, range: 0...100)
-        let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        let field = UISafeTextField(frame: frame, fieldType: .number, configuration: config)
+        let field = UISafeTextField(frame: frame, fieldType: .percent, configuration: percentConfig)
         field.translatesAutoresizingMaskIntoConstraints = false
         field.textAlignment = .right
         field.delegate = self
         field.placeholder = "Upper"
+        field.inputAccessoryView = self.fieldToolbar
         return field
     }()
 

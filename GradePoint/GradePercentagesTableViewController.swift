@@ -13,6 +13,9 @@ class GradePercentagesTableViewController: UITableViewController {
     /// The rows which will contain any + or - fields
     let plusRows = [0, 2, 3, 5, 6,  8, 9, 11]
 
+    // The grade percentage views, 1 per cell that the table statically displays
+    @IBOutlet var percentageViews: [UIGradePercentageView]!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +34,25 @@ class GradePercentagesTableViewController: UITableViewController {
                                                                  target: self,
                                                                  action: #selector(self.onSaveTapped))
 
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Initialize all the grade percentage views
+        for (index, view) in percentageViews.enumerated() {
+            view.lowerBoundField.font = UIFont.systemFont(ofSize: 18)
+            view.upperBoundField.font = UIFont.systemFont(ofSize: 18)
+            view.lowerBoundField.tintColor = ApplicationTheme.shared.highlightColor
+            view.upperBoundField.tintColor = ApplicationTheme.shared.highlightColor
+            view.lowerBoundField.textColor = ApplicationTheme.shared.highlightColor
+            view.upperBoundField.textColor = ApplicationTheme.shared.highlightColor
+
+            let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
+                         NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
+            view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].lowerBound)%", attributes: attrs)
+            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].upperBound)%", attributes: attrs)
+        }
     }
 
     // MARK: - Table view methods

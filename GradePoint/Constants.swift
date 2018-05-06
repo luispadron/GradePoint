@@ -10,7 +10,26 @@ import UIKit
 import Foundation
 import GoogleMobileAds
 
-/// Any constants, usually strings for keys/notifications used throughout the app
+/**
+ This file contains any constants, usually strings for keys/notifications used throughout the app
+ */
+
+// The default grading percentages and their ranges, index 0 is A+, index 1 is A, and so on
+let kGradeLetterRanges = [
+    100...Double.infinity,
+    93.00...100,
+    90.00...92.99,
+    87.00...89.99,
+    83.00...86.99,
+    80.00...82.99,
+    77.00...79.99,
+    73.00...76.99,
+    70.00...72.99,
+    67.00...69.99,
+    63.00...66.99,
+    60.00...62.99,
+    0.00...59.99,
+]
 
 // User default keys
 let kUserDefaultOnboardingComplete = "com.luispadron.GradePoint.onboardingComplete"

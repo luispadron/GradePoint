@@ -1436,7 +1436,7 @@
         <scene sceneID="3x5-2m-fgY">
             <objects>
                 <tableViewController title="Percentages" id="KZh-66-Qe2" customClass="GradePercentagesTableViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qin-B5-pCY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qin-B5-pCY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1737,6 +1737,21 @@
                             <outlet property="delegate" destination="KZh-66-Qe2" id="h8U-Ld-Myu"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outletCollection property="percentageViews" destination="Rf7-dz-fhO" collectionClass="NSMutableArray" id="VuV-hG-Z91"/>
+                        <outletCollection property="percentageViews" destination="CMP-mg-ONt" collectionClass="NSMutableArray" id="vUW-dD-Gv9"/>
+                        <outletCollection property="percentageViews" destination="imf-SN-y3d" collectionClass="NSMutableArray" id="tuB-Zp-o3S"/>
+                        <outletCollection property="percentageViews" destination="gkZ-mi-u11" collectionClass="NSMutableArray" id="kf3-wb-nFz"/>
+                        <outletCollection property="percentageViews" destination="eBH-bz-4hl" collectionClass="NSMutableArray" id="tjn-LL-ct4"/>
+                        <outletCollection property="percentageViews" destination="Lgw-Pg-8Lo" collectionClass="NSMutableArray" id="jAd-jx-Hpb"/>
+                        <outletCollection property="percentageViews" destination="8r9-6c-gb5" collectionClass="NSMutableArray" id="wwE-ff-sfb"/>
+                        <outletCollection property="percentageViews" destination="g3t-OB-y6a" collectionClass="NSMutableArray" id="pOH-sq-k8s"/>
+                        <outletCollection property="percentageViews" destination="n1a-Qf-CFs" collectionClass="NSMutableArray" id="QJL-1V-ZlU"/>
+                        <outletCollection property="percentageViews" destination="Hla-ay-txD" collectionClass="NSMutableArray" id="ZkS-y2-FYm"/>
+                        <outletCollection property="percentageViews" destination="jbl-aV-lut" collectionClass="NSMutableArray" id="Cjz-b8-ZFM"/>
+                        <outletCollection property="percentageViews" destination="DY8-Lj-dlT" collectionClass="NSMutableArray" id="5tR-wR-3Bj"/>
+                        <outletCollection property="percentageViews" destination="YNC-iB-fEM" collectionClass="NSMutableArray" id="QFH-eq-Ddy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvX-AG-MqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
