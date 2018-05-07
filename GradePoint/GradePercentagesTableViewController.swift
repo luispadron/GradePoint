@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GradePercentagesTableViewController: UITableViewController {
 
     /// The rows which will contain any + or - fields
-    let plusRows = [0, 2, 3, 5, 6,  8, 9, 11]
+    private let plusRows = [0, 2, 3, 5, 6,  8, 9, 11]
 
-    // The grade percentage views, 1 per cell that the table statically displays
+    /// The GPA scale type, which tells the controller how many of the cells to display (plus or no plus rows)
+    private lazy var scaleType: GPAScaleType = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
+
+    /// The realm notifcation token for listening to changes on the GPAScale
+    private var notifToken: NotificationToken?
+
+    /// The grade percentage views, 1 per cell that the table statically displays
     @IBOutlet var percentageViews: [UIGradePercentageView]!
 
     override func viewDidLoad() {
@@ -33,6 +40,7 @@ class GradePercentagesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                                  target: self,
                                                                  action: #selector(self.onSaveTapped))
+        self.addScaleChangeListener()
 
     }
 
@@ -40,25 +48,18 @@ class GradePercentagesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         // Initialize all the grade percentage views
-        for (index, view) in percentageViews.enumerated() {
-            view.lowerBoundField.font = UIFont.systemFont(ofSize: 18)
-            view.upperBoundField.font = UIFont.systemFont(ofSize: 18)
-            view.lowerBoundField.tintColor = ApplicationTheme.shared.highlightColor
-            view.upperBoundField.tintColor = ApplicationTheme.shared.highlightColor
-            view.lowerBoundField.textColor = ApplicationTheme.shared.highlightColor
-            view.upperBoundField.textColor = ApplicationTheme.shared.highlightColor
-
-            let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
-                         NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
-            view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].lowerBound)%", attributes: attrs)
-            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].upperBound)%", attributes: attrs)
-        }
+        self.updateFields()
     }
 
     // MARK: - Table view methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if scaleType == .nonPlusScale && plusRows.contains(indexPath.row) { return 0 }
+        else { return 60 }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,5 +70,51 @@ class GradePercentagesTableViewController: UITableViewController {
 
     @objc private func onSaveTapped(button: UIBarButtonItem) {
         
+    }
+
+    // MARK: - Heleprs
+
+    private func updateFields() {
+        // Disable the upperbound field of the A+ or A since the upperbound is anything greater than lowerbound
+        switch scaleType {
+        case .plusScale:
+            percentageViews.first?.upperLowerMode = false
+        case .nonPlusScale:
+            percentageViews[1].upperLowerMode = false
+        }
+
+        for (index, view) in percentageViews.enumerated() {
+            view.lowerBoundField.font = UIFont.systemFont(ofSize: 18)
+            view.upperBoundField.font = UIFont.systemFont(ofSize: 18)
+            view.lowerBoundField.tintColor = ApplicationTheme.shared.highlightColor
+            view.upperBoundField.tintColor = ApplicationTheme.shared.highlightColor
+            view.lowerBoundField.textColor = ApplicationTheme.shared.highlightColor
+            view.upperBoundField.textColor = ApplicationTheme.shared.highlightColor
+
+            // TODO: Load grade letter ranges from DB
+            let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
+                         NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
+            if (index == 0 && scaleType == .plusScale) || (index == 1 && scaleType == .nonPlusScale) {
+                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].lowerBound)% +",
+                    attributes: attrs)
+            } else {
+                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].lowerBound)%",
+                    attributes: attrs)
+            }
+            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].upperBound)%",
+                attributes: attrs)
+        }
+    }
+
+    private func addScaleChangeListener() {
+        let realm = try! Realm()
+        self.notifToken = realm.objects(GPAScale.self).observe({ _ in
+            // TODO: Add logic for default scale with plus and non-plus
+            self.tableView.reloadData()
+        })
+    }
+
+    deinit {
+        self.notifToken?.invalidate()
     }
 }

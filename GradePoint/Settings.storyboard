@@ -1452,9 +1452,6 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rf7-dz-fhO" customClass="UIGradePercentageView" customModule="GradePoint" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="upperLowerMode" value="NO"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
                                             <constraints>
