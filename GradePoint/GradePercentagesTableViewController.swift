@@ -105,6 +105,7 @@ class GradePercentagesTableViewController: UITableViewController {
             percentageViews[1].upperLowerMode = false
         }
 
+        var rangeIndex = 0
         for (index, view) in percentageViews.enumerated() {
             view.lowerBoundField.font = UIFont.systemFont(ofSize: 18)
             view.upperBoundField.font = UIFont.systemFont(ofSize: 18)
@@ -116,15 +117,31 @@ class GradePercentagesTableViewController: UITableViewController {
             // TODO: Load grade letter ranges from DB
             let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                          NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
-            if (index == 0 && scaleType == .plusScale) || (index == 1 && scaleType == .nonPlusScale) {
-                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].lowerBound)% +",
-                    attributes: attrs)
-            } else {
-                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].lowerBound)%",
-                    attributes: attrs)
+
+            switch scaleType {
+            case .plusScale:
+                if rangeIndex == 0 {
+                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kPlusScaleGradeLetterRanges[rangeIndex].lowerBound)% +", attributes: attrs)
+                } else {
+                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kPlusScaleGradeLetterRanges[rangeIndex].lowerBound)%", attributes: attrs)
+                }
+
+                view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kPlusScaleGradeLetterRanges[rangeIndex].upperBound)%", attributes: attrs)
+                rangeIndex += 1
+
+            case .nonPlusScale:
+                if plusRows.contains(index) { continue }
+
+                if rangeIndex == 0 {
+                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[rangeIndex].lowerBound)% +",
+                        attributes: attrs)
+                } else {
+                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[rangeIndex].lowerBound)%", attributes: attrs)
+                }
+
+                view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[rangeIndex].upperBound)%", attributes: attrs)
+                rangeIndex += 1
             }
-            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[index].upperBound)%",
-                attributes: attrs)
         }
     }
 

@@ -1,6 +1,6 @@
 PODS:
   - Google-Mobile-Ads-SDK (7.30.0)
-  - UICircularProgressRing (2.0.0)
+  - UICircularProgressRing (2.1.0)
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
@@ -13,7 +13,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 7404f68120ae8682afeb5af001fbf4aad731c78e
-  UICircularProgressRing: f41663e98c0f40b4794461a4209a67569ea2cc28
+  UICircularProgressRing: 01b8f67bbaca7e3a83ccfa67630fe059a51211d1
 
 PODFILE CHECKSUM: 448ff946d280b536b0bc7f2d207eb96b179ada66
 

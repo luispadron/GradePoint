@@ -23,6 +23,11 @@ class UIGradePercentageView: UIView {
         didSet {
             self.fieldSeperator.isHidden = !self.upperLowerMode
             self.upperBoundField.isHidden = !self.upperLowerMode
+
+            if !self.upperLowerMode {
+                self.lowerBoundField.removeConstraints(self.lowerBoundField.constraints)
+            }
+
             self.layoutIfNeeded()
         }
     }
