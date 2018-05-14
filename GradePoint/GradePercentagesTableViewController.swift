@@ -23,6 +23,9 @@ class GradePercentagesTableViewController: UITableViewController {
     /// The grade percentage views, 1 per cell that the table statically displays
     @IBOutlet var percentageViews: [UIGradePercentageView]!
 
+    // The header view for the table, displays an info message to the user with a reset button in the middle
+    @IBOutlet var headerView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,8 +43,12 @@ class GradePercentagesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                                  target: self,
                                                                  action: #selector(self.onSaveTapped))
-        self.addScaleChangeListener()
 
+        // Update headerview style
+        (self.headerView.subviews[0] as! UILabel).textColor = ApplicationTheme.shared.mainTextColor()
+        (self.headerView.subviews[1] as! UIButton).setTitleColor(ApplicationTheme.shared.highlightColor, for: .normal)
+
+        self.addScaleChangeListener()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +56,17 @@ class GradePercentagesTableViewController: UITableViewController {
 
         // Initialize all the grade percentage views
         self.updateFields()
+
+        // Add header view
+        self.tableView.tableHeaderView = self.headerView
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+
+    override var shouldAutorotate: Bool {
+        return false
     }
 
     // MARK: - Table view methods
@@ -69,6 +87,10 @@ class GradePercentagesTableViewController: UITableViewController {
     // MARK: - Actions
 
     @objc private func onSaveTapped(button: UIBarButtonItem) {
+
+    }
+
+    @IBAction func resetButtonTapped(_ sender: UIButton) {
         
     }
 

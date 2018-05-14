@@ -1735,6 +1735,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="headerView" destination="khs-sB-T4e" id="urN-UM-Tw6"/>
                         <outletCollection property="percentageViews" destination="Rf7-dz-fhO" collectionClass="NSMutableArray" id="VuV-hG-Z91"/>
                         <outletCollection property="percentageViews" destination="CMP-mg-ONt" collectionClass="NSMutableArray" id="vUW-dD-Gv9"/>
                         <outletCollection property="percentageViews" destination="imf-SN-y3d" collectionClass="NSMutableArray" id="tuB-Zp-o3S"/>
@@ -1751,6 +1752,41 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvX-AG-MqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="khs-sB-T4e">
+                    <rect key="frame" x="0.0" y="0.0" width="372" height="201"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rsw-fx-yPO">
+                            <rect key="frame" x="8" y="8" width="356" height="125.5"/>
+                            <string key="text">Here you can modify the percentage requirements for grades.
+Only advanced users should use this, you must make sure all percentages are met and that there are no overlaps.
+A mistake in percentage setting will result in undefined behavior throughout the application.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dFY-AE-9Kf">
+                            <rect key="frame" x="0.0" y="153.5" width="372" height="39.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="Reset">
+                                <color key="titleColor" red="0.3411764706" green="0.74117647060000003" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="resetButtonTapped:" destination="KZh-66-Qe2" eventType="touchUpInside" id="P7F-sa-gI1"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="dFY-AE-9Kf" firstAttribute="leading" secondItem="khs-sB-T4e" secondAttribute="leading" id="6nh-zv-RCa"/>
+                        <constraint firstItem="dFY-AE-9Kf" firstAttribute="top" secondItem="Rsw-fx-yPO" secondAttribute="bottom" constant="20" id="8lD-LQ-Nc7"/>
+                        <constraint firstAttribute="trailing" secondItem="dFY-AE-9Kf" secondAttribute="trailing" id="ML5-T4-QDP"/>
+                        <constraint firstItem="Rsw-fx-yPO" firstAttribute="leading" secondItem="khs-sB-T4e" secondAttribute="leading" constant="8" id="NUY-ZS-ifx"/>
+                        <constraint firstAttribute="bottom" secondItem="dFY-AE-9Kf" secondAttribute="bottom" constant="8" id="Xuo-gZ-kTE"/>
+                        <constraint firstItem="Rsw-fx-yPO" firstAttribute="top" secondItem="khs-sB-T4e" secondAttribute="top" constant="8" id="f0u-Up-LP2"/>
+                        <constraint firstAttribute="trailing" secondItem="Rsw-fx-yPO" secondAttribute="trailing" constant="8" id="wRy-aa-57i"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="681" y="-518"/>
         </scene>
