@@ -27,7 +27,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     }
 
     var preferedSnackbarBottomSpacing: CGFloat {
-        return self.tabBarController!.tabBar.frame.height + self.bannerAdView.frame.height + 12
+        let bannerHeight = self.bannerAdView.isHidden ? 0 : self.bannerAdView.frame.height
+        return self.tabBarController!.tabBar.frame.height + bannerHeight + 12
     }
     
     // MARK: Properties
@@ -71,6 +72,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     private var toIndexPath: IndexPath? = nil
 
     private var gradeRubricNotifToken: NotificationToken?
+
+    private var hasPresentedGradeLetterSnack: Bool = false
     
     // MARK: View life cycle
 
@@ -213,7 +216,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         // TODO: Figure out real fix for this? Not sure why the banner view is being displayed behind header view
         self.view.bringSubview(toFront: self.bannerAdView)
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ClassTableViewCell
         let classObj = self.classObj(at: indexPath)
@@ -228,6 +231,10 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             cell.classDetailLabel.text = "Grade: A"
         } else if let grade = classObj.grade {
             cell.classDetailLabel.text = "Grade: " + grade.gradeLetter
+            // Present a warning to user that their percentage configuration is invalid since we have an invalid letter grade
+            if grade.gradeLetter == "?" {
+                self.presentGradeLetterSnack()
+            }
         }
         return cell
     }
@@ -510,6 +517,34 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     /// Conformace for RealmTableView
     func deleteObject(_ object: Class) {
         deleteClass(object)
+    }
+
+    /// Presents a warning message to the user about an invalid grade letter
+    private func presentGradeLetterSnack() {
+        guard !self.hasPresentedGradeLetterSnack else { return }
+
+        let snack = LPSnackbar(title: "Warning: Grade percentage\nconfiguration is invalid", buttonTitle: "FIX")
+        snack.view.titleLabel.numberOfLines = 0
+        snack.view.titleLabel.sizeToFit()
+        snack.height = snack.view.titleLabel.frame.height + 10
+        snack.bottomSpacing = self.preferedSnackbarBottomSpacing
+        snack.show(displayDuration: 5, animated: true) { fixTapped in
+            if fixTapped {
+                let window = (UIApplication.shared.delegate as! AppDelegate).window
+                guard let tabBar = window?.rootViewController as? UITabBarController,
+                    tabBar.childViewControllers.count > 2,
+                    let settingsVc = tabBar.childViewControllers[2].childViewControllers.first as? SettingsTableViewController else {
+                        print("WARNING: Tried to find SettingsTableViewController but was not able.")
+                        return
+                }
+
+                // Perform segue and show percentage configuration controller
+                tabBar.selectedIndex = 2
+                settingsVc.performSegue(withIdentifier: "showPercentageConfigurationController", sender: nil)
+            }
+        }
+
+        self.hasPresentedGradeLetterSnack = true
     }
     
     // MARK: Deinit

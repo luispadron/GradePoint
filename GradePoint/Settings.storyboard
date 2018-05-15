@@ -189,7 +189,7 @@
                                             <constraint firstItem="8qH-zv-78n" firstAttribute="leading" secondItem="rT3-u4-Yp4" secondAttribute="leading" constant="20" id="e03-zf-NKy"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="KZh-66-Qe2" kind="show" id="fll-bc-vS6"/>
+                                            <segue destination="KZh-66-Qe2" kind="show" identifier="showPercentageConfigurationController" id="fll-bc-vS6"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XO8-4O-UTY">
