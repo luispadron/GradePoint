@@ -50,8 +50,6 @@ class GradePercentagesTableViewController: UITableViewController {
         // Update headerview style
         (self.headerView.subviews[0] as! UILabel).textColor = ApplicationTheme.shared.mainTextColor()
         (self.headerView.subviews[1] as! UIButton).setTitleColor(ApplicationTheme.shared.highlightColor, for: .normal)
-
-        self.addScaleChangeListener()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -152,14 +150,6 @@ class GradePercentagesTableViewController: UITableViewController {
         }
     }
 
-    private func addScaleChangeListener() {
-        let realm = try! Realm()
-        self.notifToken = realm.objects(GPAScale.self).observe({ _ in
-            // TODO: Add logic for default scale with plus and non-plus
-            self.tableView.reloadData()
-        })
-    }
-
     private func resetPercentages() {
         let type = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
         GradeRubric.createRubric(ofType: type)
@@ -170,9 +160,5 @@ class GradePercentagesTableViewController: UITableViewController {
                 view.upperBoundField.text = nil
             }
         }
-    }
-
-    deinit {
-        self.notifToken?.invalidate()
     }
 }
