@@ -172,8 +172,22 @@ class GradePercentagesTableViewController: UITableViewController {
         }
     }
 
+    /// Recalculates all grades associated with all class objects in Realm
+    /// Called after reset/save
+    private func recalculateGradesForClasses() {
+        let classes = DatabaseManager.shared.realm.objects(Class.self)
+        DatabaseManager.shared.write {
+            for classObj in classes {
+                classObj.grade?.gradeLetter = Grade.gradeLetter(for: classObj.grade!.score)
+            }
+        }
+    }
+
     private func resetPercentages() {
         GradeRubric.createRubric(ofType: GPAScale.shared.scaleType)
+
+        self.recalculateGradesForClasses()
+
         self.resetFields()
         self.updateFields()
     }
@@ -221,13 +235,7 @@ class GradePercentagesTableViewController: UITableViewController {
             }
         }
 
-        // Re-calculate grades
-        let classes = DatabaseManager.shared.realm.objects(Class.self)
-        DatabaseManager.shared.write {
-            for classObj in classes {
-                classObj.grade?.gradeLetter = Grade.gradeLetter(for: classObj.grade!.score)
-            }
-        }
+        self.recalculateGradesForClasses()
 
         self.resetFields()
         self.updateFields()
