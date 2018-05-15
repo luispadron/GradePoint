@@ -226,11 +226,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if classObj.isInProgress && classObj.assignments.count  == 0 {
             // Since no assignments, new class, just say A
             cell.classDetailLabel.text = "Grade: A"
-        } else {
-            guard let grade = classObj.grade else {
-                cell.classDetailLabel.text = nil
-                return cell
-            }
+        } else if let grade = classObj.grade {
             cell.classDetailLabel.text = "Grade: " + grade.gradeLetter
         }
         return cell
