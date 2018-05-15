@@ -21,7 +21,9 @@ class GradePercentagesTableViewController: UITableViewController {
     private var notifToken: NotificationToken?
 
     /// The GradeRubric object which this table manages
-    private let rubric: GradeRubric = DatabaseManager.shared.realm.objects(GradeRubric.self).first!
+    private var rubric: GradeRubric {
+        return DatabaseManager.shared.realm.objects(GradeRubric.self).first!
+    }
 
     /// The grade percentage views, 1 per cell that the table statically displays
     @IBOutlet var percentageViews: [UIGradePercentageView]!
@@ -181,10 +183,8 @@ class GradePercentagesTableViewController: UITableViewController {
     private func resetPercentages() {
         let type = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
         GradeRubric.createRubric(ofType: type)
-        DispatchQueue.main.async {
-            self.resetFields()
-            self.updateFields()
-        }
+        self.resetFields()
+        self.updateFields()
     }
 
     private func verifyPercentages() -> [ClosedRange<Double>]? {
@@ -234,9 +234,7 @@ class GradePercentagesTableViewController: UITableViewController {
             }
         }
 
-        DispatchQueue.main.async {
-            self.resetFields()
-            self.updateFields()
-        }
+        self.resetFields()
+        self.updateFields()
     }
 }
