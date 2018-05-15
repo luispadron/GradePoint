@@ -94,7 +94,25 @@ class GradePercentagesTableViewController: UITableViewController {
     }
 
     @IBAction func resetButtonTapped(_ sender: UIButton) {
-        
+        let title = NSAttributedString(string: "Reset To Default")
+        let msg = NSAttributedString(string: "Are you sure you want to reset to default? This cant be undone")
+        let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: msg)
+
+        let cancelButton = UIButton(type: .custom)
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
+        cancelButton.backgroundColor = .info
+
+        alert.addButton(button: cancelButton, handler: nil)
+
+        let resetButton = UIButton(type: .custom)
+        resetButton.setTitle("Reset", for: .normal)
+        resetButton.setTitleColor(.white, for: .normal)
+        resetButton.backgroundColor = .warning
+
+        alert.addButton(button: resetButton, handler: self.resetPercentages)
+
+        alert.presentAlert(presentingViewController: self)
     }
 
     // MARK: - Heleprs
@@ -140,6 +158,18 @@ class GradePercentagesTableViewController: UITableViewController {
             // TODO: Add logic for default scale with plus and non-plus
             self.tableView.reloadData()
         })
+    }
+
+    private func resetPercentages() {
+        let type = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
+        GradeRubric.createRubric(ofType: type)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            for view in self.percentageViews {
+                view.lowerBoundField.text = nil
+                view.upperBoundField.text = nil
+            }
+        }
     }
 
     deinit {
