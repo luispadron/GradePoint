@@ -69,6 +69,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
 
     private var fromIndexPath: IndexPath? = nil
     private var toIndexPath: IndexPath? = nil
+
+    private var gradeRubricNotifToken: NotificationToken?
     
     // MARK: View life cycle
 
@@ -119,6 +121,13 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if !GradePointPremium.isPurchased {
             self.addBannerView()
         }
+
+        // Listen to changes to grade rubric
+        self.gradeRubricNotifToken = DatabaseManager.shared.realm.objects(GradeRubric.self).observe({ _ in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -511,6 +520,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        self.gradeRubricNotifToken?.invalidate()
     }
 }
 

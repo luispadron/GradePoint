@@ -88,7 +88,29 @@ class GradePercentagesTableViewController: UITableViewController {
     // MARK: - Actions
 
     @objc private func onSaveTapped(button: UIBarButtonItem) {
+        guard let newPercentages = self.verifyPercentages() else { return }
 
+        let title = NSAttributedString(string: "Save Percentages")
+        let msg = NSAttributedString(string: "Are you sure you want to save percentages? If done incorrectly this can lead to undefined behavior")
+        let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200), title: title, message: msg)
+
+        let cancelButton = UIButton(type: .custom)
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
+        cancelButton.backgroundColor = .info
+
+        alert.addButton(button: cancelButton, handler: nil)
+
+        let resetButton = UIButton(type: .custom)
+        resetButton.setTitle("Save", for: .normal)
+        resetButton.setTitleColor(.white, for: .normal)
+        resetButton.backgroundColor = .warning
+
+        alert.addButton(button: resetButton, handler: { [weak self] in
+            self?.savePercentages(newPercentages)
+        })
+
+        alert.presentAlert(presentingViewController: self)
     }
 
     @IBAction func resetButtonTapped(_ sender: UIButton) {
@@ -133,7 +155,6 @@ class GradePercentagesTableViewController: UITableViewController {
             view.lowerBoundField.textColor = ApplicationTheme.shared.highlightColor
             view.upperBoundField.textColor = ApplicationTheme.shared.highlightColor
 
-            // TODO: Load grade letter ranges from DB
             let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                          NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
 
@@ -150,15 +171,72 @@ class GradePercentagesTableViewController: UITableViewController {
         }
     }
 
+    private func resetFields() {
+        for view in self.percentageViews {
+            view.lowerBoundField.text = nil
+            view.upperBoundField.text = nil
+        }
+    }
+
     private func resetPercentages() {
         let type = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
         GradeRubric.createRubric(ofType: type)
         DispatchQueue.main.async {
-            self.tableView.reloadData()
-            for view in self.percentageViews {
-                view.lowerBoundField.text = nil
-                view.upperBoundField.text = nil
+            self.resetFields()
+            self.updateFields()
+        }
+    }
+
+    private func verifyPercentages() -> [ClosedRange<Double>]? {
+        let percentages = DatabaseManager.shared.realm.objects(GradePercentage.self)
+        var newPercentages = [ClosedRange<Double>]()
+
+        // Verify that all ranges are valid
+        for (index, view) in self.percentageViews.enumerated() {
+            var newLowerBound: Double = percentages[index].lowerBound
+            var newUpperBound: Double = percentages[index].upperBound
+
+            if view.lowerBoundField.safeText.isValid() {
+                newLowerBound = Double(view.lowerBoundField.safeText)!
             }
+
+            if view.upperBoundField.safeText.isValid() {
+                newUpperBound = Double(view.upperBoundField.safeText)!
+            }
+
+            if newLowerBound >= newUpperBound {
+                self.presentErrorAlert(title: "Error Saving 💔", message: "Lower bound for grade #\(index + 1) must be less than upper bound")
+                return nil
+            }
+
+            newPercentages.append(newLowerBound...newUpperBound)
+        }
+
+        return newPercentages
+    }
+
+    private func savePercentages(_ newPercentages: [ClosedRange<Double>]) {
+        let percentages = DatabaseManager.shared.realm.objects(GradePercentage.self)
+
+        // Save results of percentage changes
+        DatabaseManager.shared.write {
+            for (index, newPercentage) in newPercentages.enumerated() {
+                percentages[index].lowerBound = newPercentage.lowerBound
+                percentages[index].upperBound = newPercentage.upperBound
+            }
+        }
+
+        // Re-calculate grades
+        let classes = DatabaseManager.shared.realm.objects(Class.self)
+        DatabaseManager.shared.write {
+            for classObj in classes {
+                classObj.grade?.gradeLetter = Grade.gradeLetter(for: classObj.grade!.score)
+            }
+        }
+
+        DispatchQueue.main.async {
+            self.resetFields()
+            self.updateFields()
         }
     }
 }
