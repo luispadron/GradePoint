@@ -14,7 +14,17 @@ import GoogleMobileAds
  This file contains any constants, usually strings for keys/notifications used throughout the app
  */
 
-// The default grading percentages and their ranges for non-plus scale, index 0 is A, index 1 is B, and so on
+/// The default letter grades in order of the ranges below for non-plus scale
+/// The default letter grades in order of the ranges below for plus scale
+let kLetterGrades = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "F"
+]
+
+/// The default grading percentages and their ranges for non-plus scale, index 0 is A, index 1 is B, and so on
 let kGradeLetterRanges = [
     90.00...Double.infinity,
     80.00...89.99,
@@ -23,7 +33,24 @@ let kGradeLetterRanges = [
     0.00...59.99
 ]
 
-// The default grading percentages and their ranges for plus scale, index 0 is A+, index 1 is A, and so on
+/// The default letter grades in order of the ranges below for plus scale
+let kPlusScaleLetterGrades = [
+    "A+",
+    "A",
+    "A-",
+    "B+",
+    "B",
+    "B-",
+    "C+",
+    "C",
+    "C-",
+    "D+",
+    "D",
+    "D-",
+    "F"
+]
+
+/// The default grading percentages and their ranges for plus scale, index 0 is A+, index 1 is A, and so on
 let kPlusScaleGradeLetterRanges = [
     100...Double.infinity,
     93.00...100,

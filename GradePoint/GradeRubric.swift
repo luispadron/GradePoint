@@ -40,12 +40,24 @@ class GradeRubric: Object {
 
         switch type {
         case .plusScale:
-            rubric.percentages = List(kPlusScaleGradeLetterRanges.map { GradePercentage(lower: $0.lowerBound, upper: $0.upperBound) })
+            rubric.percentages = List(kPlusScaleGradeLetterRanges.enumerated().map {
+                return GradePercentage(lower: $1.lowerBound, upper: $1.upperBound, grade: kPlusScaleLetterGrades[$0])
+            })
         case .nonPlusScale:
-            rubric.percentages = List(kGradeLetterRanges.map { GradePercentage(lower: $0.lowerBound, upper: $0.upperBound) })
+            rubric.percentages = List(kGradeLetterRanges.enumerated().map {
+                return GradePercentage(lower: $1.lowerBound, upper: $1.upperBound, grade: kLetterGrades[$0])
+            })
         }
 
         DatabaseManager.shared.createObject(GradeRubric.self, value: rubric, update: true)
+    }
+
+    /// Returns the letter grade for the given percentage score, if possible, other wise returns `nil`
+    public func letterGrade(for score: Double) -> String? {
+        for percent in self.percentages {
+            if percent.isInRange(score) { return percent.letterGrade }
+        }
+        return nil
     }
 
     /// Returns the percentage of for the requested GradePercentage, either lower/upper bound

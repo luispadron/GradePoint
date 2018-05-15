@@ -20,13 +20,15 @@ class GradePercentage: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var lowerBound: Double = 0.0
     @objc dynamic var upperBound: Double = Double.infinity
+    @objc dynamic var letterGrade: String = "?"
 
     // MARK: Realm
 
-    convenience init(lower: Double, upper: Double) {
+    convenience init(lower: Double, upper: Double, grade: String) {
         self.init()
         self.lowerBound = lower
         self.upperBound = upper
+        self.letterGrade = grade
     }
 
     override class func primaryKey() -> String? {

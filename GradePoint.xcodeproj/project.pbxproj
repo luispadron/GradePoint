@@ -122,6 +122,8 @@
 		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
 		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
 		A0C6642B1F05C6B400583C99 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6642A1F05C6B400583C99 /* AppInfo.swift */; };
+		A0C96A5920AA89B1003030C0 /* GradeRubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086060F20AA49F800DD30AF /* GradeRubric.swift */; };
+		A0C96A5A20AA89B4003030C0 /* GradePercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086060D20AA483100DD30AF /* GradePercentage.swift */; };
 		A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */; };
 		A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */; };
 		A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */; };
@@ -1232,6 +1234,8 @@
 				A0983E1C1F4A1AFD002D393E /* ApplicationTheme.swift in Sources */,
 				A0983E1B1F4A1AF1002D393E /* GPARubric.swift in Sources */,
 				A0983E1A1F4A1AEB002D393E /* Int+Random.swift in Sources */,
+				A0C96A5A20AA89B4003030C0 /* GradePercentage.swift in Sources */,
+				A0C96A5920AA89B1003030C0 /* GradeRubric.swift in Sources */,
 				A0983E191F4A1ADD002D393E /* GPAScale.swift in Sources */,
 				A0983E181F4A1AD8002D393E /* Double+Round.swift in Sources */,
 				A0983E171F4A1AD0002D393E /* UIColor+Exentions.swift in Sources */,

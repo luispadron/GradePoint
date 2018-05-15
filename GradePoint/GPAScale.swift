@@ -84,87 +84,35 @@ class GPAScale: Object {
     }
     
     /// Overwrites the scale in Realm with the new gradePoints and type provided, returns whether succesfully wrote or not
-    static func overwriteScale(type: GPAScaleType, gradePoints: [Double]) -> Bool {
+    static func overwriteScale(type: GPAScaleType, gradePoints: [Double]) {
         let realm = DatabaseManager.shared.realm
         let scale = realm.objects(GPAScale.self)[0]
-        var didWrite = true
         
         DatabaseManager.shared.write {
             // Delete any old rubrics
             DatabaseManager.shared.deleteObjects(scale.gpaRubrics)
             // Write new grade rubrics, this may fail if for some reason we cant find a grade letter, thus it will break and return false
             for (index, point) in gradePoints.enumerated() {
-                if let gradeLetter = gradeLetter(for: index, withScaleType: type) {
-                    scale.gpaRubrics.append(GPARubric(gradeLetter: gradeLetter, gradePoints: point))
-                } else {
-                    didWrite = false
-                    break
-                }
+                let letter = GPAScale.gradeLetter(for: index, withScaleType: type)
+                scale.gpaRubrics.append(GPARubric(gradeLetter: letter, gradePoints: point))
             }
         }
         
-        // Finally if we did write the above, change the scale to whatever we updated it to
-        if didWrite {
-            DatabaseManager.shared.write {
-                scale.scaleType = type
-            }
+        DatabaseManager.shared.write {
+            scale.scaleType = type
         }
-        
-        return didWrite
-        
     }
     
     // MARK: Helper Methods
     
     /// Helper method which returns a grade letter given the index and gpa scale type
-    private static func gradeLetter(for index: Int, withScaleType type: GPAScaleType) -> String? {
+    private static func gradeLetter(for index: Int, withScaleType type: GPAScaleType) -> String {
         switch type {
         case .plusScale:
-            switch index {
-            case 0:
-                return "A+"
-            case 1:
-                return "A"
-            case 2:
-                return "A-"
-            case 3:
-                return "B+"
-            case 4:
-                return "B"
-            case 5:
-                return "B-"
-            case 6:
-                return "C+"
-            case 7:
-                return "C"
-            case 8:
-                return "C-"
-            case 9:
-                return "D+"
-            case 10:
-                return "D"
-            case 11:
-                return "D-"
-            case 12:
-                return "F"
-            default:
-                return nil
-            }
+            return kPlusScaleLetterGrades[index]
         case .nonPlusScale:
-            switch index {
-            case 0:
-                return "A"
-            case 1:
-                return "B"
-            case 2:
-                return "C"
-            case 3:
-                return "D"
-            case 4:
-                return "F"
-            default:
-                return nil
-            }
+            return kLetterGrades[index]
+
         }
     }
     

@@ -172,13 +172,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         // Save changes to the GPAScale
         let type = self.fieldToggle.isOn ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
 
-        guard GPAScale.overwriteScale(type: type, gradePoints: points) else {
-            // Present error
-            self.presentErrorAlert(title: "Unable To Save",
-                                   message: "Something went wrong when saving, " +
-                                            "please verify that all information has been entered correctly.")
-            return
-        }
+        GPAScale.overwriteScale(type: type, gradePoints: points)
 
         // Once scale is overwritten, if user went from plus scale to non plus, we need to change all the class grades
         // that have A+, B+, etc to their normal counter parts i.e A, B.
