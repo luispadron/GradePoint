@@ -47,7 +47,7 @@ class Grade: Object {
     /// Returns a string representation of the score object, the grade letter
     /// NOTE: This function will only work properly when called on grade objects that belong to in-progress classes
     static func gradeLetter(for score: Double) -> String {
-        return DatabaseManager.shared.realm.objects(GradeRubric.self).first!.letterGrade(for: score) ?? "?"
+        return GradeRubric.shared.letterGrade(for: score) ?? "?"
     }
 }
 

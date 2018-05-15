@@ -16,6 +16,14 @@ import RealmSwift
 }
 
 class GPAScale: Object {
+    /// The shared GPAScale throughout the application
+    public static var shared: GPAScale {
+        guard let scale = DatabaseManager.shared.realm.object(ofType: GPAScale.self, forPrimaryKey: 1) else {
+            fatalError("Unable to get application GPAScale for primary key 1")
+        }
+        return scale
+    }
+
     /// The primary key for the GPAScale
     @objc dynamic var id: Int = 1
     /// Scale type

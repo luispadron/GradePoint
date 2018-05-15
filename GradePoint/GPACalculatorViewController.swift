@@ -216,7 +216,6 @@ class GPACalculatorViewController: UIViewController {
     /// Calculates the GPA depending on the student type
     private func calculateGPA() {
         let realm = DatabaseManager.shared.realm
-        let scale = realm.objects(GPAScale.self).first!
         let studentType = StudentType(rawValue: UserDefaults.standard.integer(forKey: kUserDefaultStudentType))!
         let classes = realm.objects(Class.self)
         var totalPoints: Double = 0.0
@@ -238,11 +237,9 @@ class GPACalculatorViewController: UIViewController {
                 let associatedClass = classes[index]
                 let creditHours = associatedClass.creditHours
                 // The grade letter is grabbed from the view instead of the class since this can be changed
-                let filteredRubrics = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }
+                let filteredRubrics = GPAScale.shared.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }
 
-                if filteredRubrics.isEmpty {
-                    return nil
-                }
+                if filteredRubrics.isEmpty { return nil }
 
                 let gradePoint = filteredRubrics.first!.gradePoints
                 // If calculation is weighted, then add up any additional points

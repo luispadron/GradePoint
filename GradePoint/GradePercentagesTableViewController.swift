@@ -17,16 +17,6 @@ class GradePercentagesTableViewController: UITableViewController {
     /// The realm notifcation token for listening to changes on the GPAScale
     private var notifToken: NotificationToken?
 
-    /// The GradeRubric object which this table manages
-    private var rubric: GradeRubric {
-        return DatabaseManager.shared.realm.objects(GradeRubric.self).first!
-    }
-
-    /// The scale type of the rubric
-    private var scaleType: GPAScaleType {
-        return DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
-    }
-
     /// The grade percentage views, 1 per cell that the table statically displays
     @IBOutlet var percentageViews: [UIGradePercentageView]!
 
@@ -81,7 +71,7 @@ class GradePercentagesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.scaleType == .nonPlusScale && plusRows.contains(indexPath.row) { return 0 }
+        if GPAScale.shared.scaleType == .nonPlusScale && plusRows.contains(indexPath.row) { return 0 }
         else { return 60 }
     }
 
@@ -143,7 +133,7 @@ class GradePercentagesTableViewController: UITableViewController {
 
     private func updateFields() {
         // Disable the upperbound field of the A+ or A since the upperbound is anything greater than lowerbound
-        switch self.scaleType {
+        switch GPAScale.shared.scaleType {
         case .plusScale:
             percentageViews.first?.upperLowerMode = false
         case .nonPlusScale:
@@ -162,15 +152,15 @@ class GradePercentagesTableViewController: UITableViewController {
             let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                          NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
 
-            if self.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
+            if GPAScale.shared.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
 
             if rangeIndex == 0 {
-                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .lowerBound))% +", attributes: attrs)
+                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(GradeRubric.shared.percentage(for: rangeIndex, type: .lowerBound))% +", attributes: attrs)
             } else {
-                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .lowerBound))%", attributes: attrs)
+                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(GradeRubric.shared.percentage(for: rangeIndex, type: .lowerBound))%", attributes: attrs)
             }
 
-            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .upperBound))%", attributes: attrs)
+            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(GradeRubric.shared.percentage(for: rangeIndex, type: .upperBound))%", attributes: attrs)
             rangeIndex += 1
         }
     }
@@ -183,7 +173,7 @@ class GradePercentagesTableViewController: UITableViewController {
     }
 
     private func resetPercentages() {
-        GradeRubric.createRubric(ofType: self.scaleType)
+        GradeRubric.createRubric(ofType: GPAScale.shared.scaleType)
         self.resetFields()
         self.updateFields()
     }
@@ -195,7 +185,7 @@ class GradePercentagesTableViewController: UITableViewController {
         // Verify that all ranges are valid
         var percentIndex = 0
         for (index, view) in self.percentageViews.enumerated() {
-            if self.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
+            if GPAScale.shared.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
 
             var newLowerBound: Double = percentages[percentIndex].lowerBound
             var newUpperBound: Double = percentages[percentIndex].upperBound

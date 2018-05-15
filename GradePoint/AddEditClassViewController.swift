@@ -234,8 +234,7 @@ class AddEditClassViewController: UIViewController {
             // Set a default semester
             setDefaultSemester()
             // Set a default grade
-            let scale = self.realm.objects(GPAScale.self).first!
-            let defaultGrade = scale.gpaRubrics[0].gradeLetter
+            let defaultGrade =  GPAScale.shared.gpaRubrics[0].gradeLetter
             self.gradeField.text = defaultGrade
             // Prepare for add state
             self.prepareView(for: self.viewState, with: nil, isEditing: false)

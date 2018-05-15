@@ -14,6 +14,14 @@ import RealmSwift
  Only one of these shall exist per application.
  */
 class GradeRubric: Object {
+    /// The shared GradeRubric for the entire application
+    public static var shared: GradeRubric {
+        guard let rubric = DatabaseManager.shared.realm.object(ofType: GradeRubric.self, forPrimaryKey: 1) else {
+            fatalError("Unable to get shared GradeRubric with primary key of 1")
+        }
+        return rubric
+    }
+
     // MARK: Properties
 
     @objc dynamic var id: Int = 1
