@@ -14,15 +14,17 @@ class GradePercentagesTableViewController: UITableViewController {
     /// The rows which will contain any + or - fields
     private let plusRows = [0, 2, 3, 5, 6,  8, 9, 11]
 
-    /// The GPA scale type, which tells the controller how many of the cells to display (plus or no plus rows)
-    private lazy var scaleType: GPAScaleType = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
-
     /// The realm notifcation token for listening to changes on the GPAScale
     private var notifToken: NotificationToken?
 
     /// The GradeRubric object which this table manages
     private var rubric: GradeRubric {
         return DatabaseManager.shared.realm.objects(GradeRubric.self).first!
+    }
+
+    /// The scale type of the rubric
+    private var scaleType: GPAScaleType {
+        return DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
     }
 
     /// The grade percentage views, 1 per cell that the table statically displays
@@ -79,7 +81,7 @@ class GradePercentagesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if scaleType == .nonPlusScale && plusRows.contains(indexPath.row) { return 0 }
+        if self.scaleType == .nonPlusScale && plusRows.contains(indexPath.row) { return 0 }
         else { return 60 }
     }
 
@@ -141,7 +143,7 @@ class GradePercentagesTableViewController: UITableViewController {
 
     private func updateFields() {
         // Disable the upperbound field of the A+ or A since the upperbound is anything greater than lowerbound
-        switch scaleType {
+        switch self.scaleType {
         case .plusScale:
             percentageViews.first?.upperLowerMode = false
         case .nonPlusScale:
@@ -160,7 +162,7 @@ class GradePercentagesTableViewController: UITableViewController {
             let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                          NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
 
-            if scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
+            if self.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
 
             if rangeIndex == 0 {
                 view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .lowerBound))% +", attributes: attrs)
@@ -181,8 +183,7 @@ class GradePercentagesTableViewController: UITableViewController {
     }
 
     private func resetPercentages() {
-        let type = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
-        GradeRubric.createRubric(ofType: type)
+        GradeRubric.createRubric(ofType: self.scaleType)
         self.resetFields()
         self.updateFields()
     }
@@ -192,9 +193,12 @@ class GradePercentagesTableViewController: UITableViewController {
         var newPercentages = [ClosedRange<Double>]()
 
         // Verify that all ranges are valid
+        var percentIndex = 0
         for (index, view) in self.percentageViews.enumerated() {
-            var newLowerBound: Double = percentages[index].lowerBound
-            var newUpperBound: Double = percentages[index].upperBound
+            if self.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
+
+            var newLowerBound: Double = percentages[percentIndex].lowerBound
+            var newUpperBound: Double = percentages[percentIndex].upperBound
 
             if view.lowerBoundField.safeText.isValid() {
                 newLowerBound = Double(view.lowerBoundField.safeText)!
@@ -205,11 +209,12 @@ class GradePercentagesTableViewController: UITableViewController {
             }
 
             if newLowerBound >= newUpperBound {
-                self.presentErrorAlert(title: "Error Saving 💔", message: "Lower bound for grade #\(index + 1) must be less than upper bound")
+                self.presentErrorAlert(title: "Error Saving 💔", message: "Lower bound for grade #\(percentIndex + 1) must be less than upper bound")
                 return nil
             }
 
             newPercentages.append(newLowerBound...newUpperBound)
+            percentIndex += 1
         }
 
         return newPercentages
