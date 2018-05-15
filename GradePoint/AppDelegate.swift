@@ -77,6 +77,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.incrementSessions()
         }
 
+        // Add default grade percentage rubric for older users
+        if hasOnboarded && DatabaseManager.shared.realm.objects(GradeRubric.self).count < 1 {
+            let type = DatabaseManager.shared.realm.objects(GPAScale.self).first!.scaleType
+            GradeRubric.createRubric(ofType: type)
+        }
+
         // DEBUG setup
         if TARGET_OS_SIMULATOR != 0 || TARGET_IPHONE_SIMULATOR != 0 {
             print("Realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")

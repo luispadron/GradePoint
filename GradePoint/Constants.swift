@@ -49,6 +49,7 @@ let kUserDefaultLastDateAskedRating = "com.luispadron.GradePoint.lastDateAsked"
 let kUserDefaultHasAskedRating = "com.luispadron.GradePoint.hasAskedRating"
 let kUserDefaultRoundingAmount = "com.luispadron.GradePoint.roundingAmount"
 let kUserDefaultGradeBirdHighScore = "com.luispadron.GradePoint.gradeBirdHighScore"
+let kUserDefaultHasModifiedGradePercentages = "com.luispadron.GradePoint.hasModifiedGradePercentages"
 
 // Notifications
 let kSemestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")

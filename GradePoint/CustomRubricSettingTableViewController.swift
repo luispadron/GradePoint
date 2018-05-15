@@ -148,7 +148,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         // Warn the user that this cant be undone
         let alert = UIBlurAlertController(size: CGSize(width: 300, height: 200),
                                         title: NSAttributedString(string: "Save Grade Rubric"),
-                                        message: NSAttributedString(string: "Are you sure you want to save?\nThis can't be undone"))
+                                        message: NSAttributedString(string: "Are you sure you want to save?\nThis can't be undone and will overwrite grade percentages to default"))
         let cancel = UIButton()
         cancel.setTitle("Cancel", for: .normal)
         cancel.setTitleColor(.white, for: .normal)
@@ -190,6 +190,9 @@ class CustomRubricSettingTableViewController: UITableViewController {
                 }
             }
         }
+
+        // Just simply delete and recreate the default grade rubric
+        GradeRubric.createRubric(ofType: type)
 
         // Dismiss
         self.navigationController?.popToRootViewController(animated: true)

@@ -101,7 +101,7 @@ final class DatabaseManager {
     /// The current schema version of the Realm file, this is not the version of the actual Realm file on the device
     /// but instead what the version should be, this version number should be changed whenever the schema is updated.
     // And any migration code should be added in `performMigration`
-    public static var currentSchemaVersion: UInt64 = 3
+    public static var currentSchemaVersion: UInt64 = 4
 
     // MARK: Realm Setup
 

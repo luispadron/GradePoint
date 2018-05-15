@@ -20,6 +20,9 @@ class GradePercentagesTableViewController: UITableViewController {
     /// The realm notifcation token for listening to changes on the GPAScale
     private var notifToken: NotificationToken?
 
+    /// The GradeRubric object which this table manages
+    private let rubric: GradeRubric = DatabaseManager.shared.realm.objects(GradeRubric.self).first!
+
     /// The grade percentage views, 1 per cell that the table statically displays
     @IBOutlet var percentageViews: [UIGradePercentageView]!
 
@@ -118,30 +121,16 @@ class GradePercentagesTableViewController: UITableViewController {
             let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                          NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
 
-            switch scaleType {
-            case .plusScale:
-                if rangeIndex == 0 {
-                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kPlusScaleGradeLetterRanges[rangeIndex].lowerBound)% +", attributes: attrs)
-                } else {
-                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kPlusScaleGradeLetterRanges[rangeIndex].lowerBound)%", attributes: attrs)
-                }
+            if scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
 
-                view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kPlusScaleGradeLetterRanges[rangeIndex].upperBound)%", attributes: attrs)
-                rangeIndex += 1
-
-            case .nonPlusScale:
-                if plusRows.contains(index) { continue }
-
-                if rangeIndex == 0 {
-                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[rangeIndex].lowerBound)% +",
-                        attributes: attrs)
-                } else {
-                    view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[rangeIndex].lowerBound)%", attributes: attrs)
-                }
-
-                view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(kGradeLetterRanges[rangeIndex].upperBound)%", attributes: attrs)
-                rangeIndex += 1
+            if rangeIndex == 0 {
+                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .lowerBound))% +", attributes: attrs)
+            } else {
+                view.lowerBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .lowerBound))%", attributes: attrs)
             }
+
+            view.upperBoundField.attributedPlaceholder = NSAttributedString(string: "\(self.rubric.percentage(for: rangeIndex, type: .upperBound))%", attributes: attrs)
+            rangeIndex += 1
         }
     }
 

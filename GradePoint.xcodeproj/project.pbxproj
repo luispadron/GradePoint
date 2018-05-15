@@ -83,6 +83,8 @@
 		A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A07B96901EBBCC6500382E45 /* Settings.storyboard */; };
 		A08109761F631F7D0048F6DA /* ClassChangesListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08109751F631F7D0048F6DA /* ClassChangesListener.swift */; };
 		A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A084437F1E55808F00C32F52 /* UICalculateViewController.swift */; };
+		A086060E20AA483100DD30AF /* GradePercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086060D20AA483100DD30AF /* GradePercentage.swift */; };
+		A086061020AA49F800DD30AF /* GradeRubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086060F20AA49F800DD30AF /* GradeRubric.swift */; };
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
@@ -279,6 +281,8 @@
 		A07B96901EBBCC6500382E45 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		A08109751F631F7D0048F6DA /* ClassChangesListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassChangesListener.swift; sourceTree = "<group>"; };
 		A084437F1E55808F00C32F52 /* UICalculateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateViewController.swift; sourceTree = "<group>"; };
+		A086060D20AA483100DD30AF /* GradePercentage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePercentage.swift; sourceTree = "<group>"; };
+		A086060F20AA49F800DD30AF /* GradeRubric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeRubric.swift; sourceTree = "<group>"; };
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
@@ -601,6 +605,8 @@
 				A09CEC6C1DF669FC00280F93 /* Assignment.swift */,
 				A01B87811DBD273A00A85E2D /* Rubric.swift */,
 				A01B87831DBD275300A85E2D /* Semester.swift */,
+				A086060F20AA49F800DD30AF /* GradeRubric.swift */,
+				A086060D20AA483100DD30AF /* GradePercentage.swift */,
 			);
 			name = "Main Models";
 			sourceTree = "<group>";
@@ -1172,6 +1178,7 @@
 				A0CE8B4A1DAF2709007968EE /* ClassTableViewCell.swift in Sources */,
 				A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */,
 				A057F4161EFDA0B1009A3F73 /* LicenseViewController.swift in Sources */,
+				A086060E20AA483100DD30AF /* GradePercentage.swift in Sources */,
 				A08443801E55808F00C32F52 /* UICalculateViewController.swift in Sources */,
 				A06E179B20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift in Sources */,
 				A08109761F631F7D0048F6DA /* ClassChangesListener.swift in Sources */,
@@ -1186,6 +1193,7 @@
 				A018BD061F16E73C0094AC45 /* Array+Extensions.swift in Sources */,
 				A00849B32044E3AD00F176A3 /* ClassGradeType.swift in Sources */,
 				A0565AAC1EF08204005C23C0 /* UIApplicationShortcutItem+QuickActionID.swift in Sources */,
+				A086061020AA49F800DD30AF /* GradeRubric.swift in Sources */,
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 				A0D80C0C209CDFCC004BCB95 /* UIGradePercentageView.swift in Sources */,
 				A0D80C0E209CE0FD004BCB95 /* GradePercentageTableViewCell.swift in Sources */,
