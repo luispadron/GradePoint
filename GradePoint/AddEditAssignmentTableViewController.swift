@@ -125,13 +125,15 @@ class AddEditAssignmentTableViewController: UITableViewController {
         doneToolbar.isTranslucent = false
         doneToolbar.tintColor = .white
 
+        let scoreFieldConfig = NumberConfiguration(allowsSignedNumbers: false, range: 0...Double.infinity)
+
         self.pointsScoreField.textAlignment = .right
         self.pointsScoreField.textColor = ApplicationTheme.shared.mainTextColor()
         self.pointsScoreField.attributedPlaceholder = NSAttributedString(string: "Points", attributes: attrsForPrompt)
         self.pointsScoreField.delegate = self
         self.pointsScoreField.keyboardType = .decimalPad
         self.pointsScoreField.fieldType = .number
-        self.pointsScoreField.configuration = NumberConfiguration(allowsSignedNumbers: false)
+        self.pointsScoreField.configuration = scoreFieldConfig
         self.pointsScoreField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
         self.pointsScoreField.inputAccessoryView = doneToolbar
 
@@ -142,7 +144,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.pointsTotalField.delegate = self
         self.pointsTotalField.keyboardType = .decimalPad
         self.pointsTotalField.fieldType = .number
-        self.pointsTotalField.configuration = NumberConfiguration(allowsSignedNumbers: false)
+        self.pointsTotalField.configuration = scoreFieldConfig
         self.pointsTotalField.addTarget(self, action: #selector(self.textFieldChanged(_:)), for: .editingChanged)
         self.pointsTotalField.inputAccessoryView = doneToolbar
         

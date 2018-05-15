@@ -151,7 +151,7 @@ open class UISafeTextField: UITextField {
         
         // If doesnt allow signed numbers then check to see if number is signed
         var isValidNumber = true
-        if !configuration.allowsSignedNumbers { isValidNumber = Double(currentText + string)! > 0.0 }
+        if !configuration.allowsSignedNumbers { isValidNumber = Double(currentText + string)! >= 0.0 }
         
         // Make sure number is in range
         var inRange = true
