@@ -91,7 +91,7 @@ class GPAScale: Object {
         DatabaseManager.shared.write {
             // Delete any old rubrics
             DatabaseManager.shared.deleteObjects(scale.gpaRubrics)
-            // Write new grade rubrics, this may fail if for some reason we cant find a grade letter, thus it will break and return false
+            // Write new grade rubrics
             for (index, point) in gradePoints.enumerated() {
                 let letter = GPAScale.gradeLetter(for: index, withScaleType: type)
                 scale.gpaRubrics.append(GPARubric(gradeLetter: letter, gradePoints: point))

@@ -232,13 +232,18 @@ class GPACalculatorViewController: UIViewController {
         }
 
         /// Calculation of gpa closure block
-        let calculate: (Bool) -> Double = { isWeighted in
+        let calculate: (Bool) -> Double? = { isWeighted in
             for (index, gpaView) in self.gpaViews.enumerated() {
                 // The class associated with this view
                 let associatedClass = classes[index]
                 let creditHours = associatedClass.creditHours
                 // The grade letter is grabbed from the view instead of the class since this can be changed
                 let filteredRubrics = scale.gpaRubrics.filter { $0.gradeLetter == gpaView.gradeField.safeText }
+
+                if filteredRubrics.isEmpty {
+                    return nil
+                }
+
                 let gradePoint = filteredRubrics.first!.gradePoints
                 // If calculation is weighted, then add up any additional points
                 if isWeighted && studentType == .highSchool {
@@ -263,7 +268,11 @@ class GPACalculatorViewController: UIViewController {
         switch studentType {
         case .college:
             // Get GPA
-            let gpa = calculate(false)
+            guard let gpa = calculate(true) else {
+                self.presentErrorAlert(title: "Error calculating", message: "Make sure grades are valid and if you modified grade percentages, that they are correct")
+                return
+            }
+
             // Update progress ring
             self.progressRingView.setProgress(to: 0, duration: 0) // Reset first
             // Set max value of ring to 4, since unweighted
@@ -276,7 +285,11 @@ class GPACalculatorViewController: UIViewController {
             // Determine if we want weighted or unweighted
             if weightSwitcher.selectedSegmentIndex == 0 {
                 // Get GPA
-                let gpa = calculate(true)
+                guard let gpa = calculate(true) else {
+                    self.presentErrorAlert(title: "Error calculating", message: "Make sure grades are valid and if you modified grade percentages, that they are correct")
+                    return
+                }
+
                 // Update progress ring
                 self.progressRingView.setProgress(to: 0, duration: 0) // Reset first
                 // Set max value of ring to 5, since weighted
@@ -287,7 +300,11 @@ class GPACalculatorViewController: UIViewController {
                 self.saveCalculation(withGpa: gpa, weighted: true)
             } else {
                 // Get GPA
-                let gpa = calculate(false)
+                guard let gpa = calculate(true) else {
+                    self.presentErrorAlert(title: "Error calculating", message: "Make sure grades are valid and if you modified grade percentages, that they are correct")
+                    return
+                }
+                
                 // Update progress ring
                 self.progressRingView.setProgress(to: 0, duration: 0) // Reset first
                 // Set max value of ring to 4, since unweighted
