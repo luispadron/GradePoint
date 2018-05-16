@@ -457,9 +457,14 @@ class AddEditClassViewController: UIViewController {
     
     // Checks the fields, makes sure percents add up to 100%, etc, if not presents alert
     func isSaveReady() -> Bool {
-        // Credit hours must be greater than 0
-        if let creditHours = Double(self.creditHoursField.safeText), creditHours <= 0 {
-            presentErrorAlert(title: "Unable to save", message: "Credit hours must be greater than zero.")
+        // Credit hours must be filled and be > 0
+        guard let creditHours = Double(self.creditHoursField.safeText) else {
+            self.presentErrorAlert(title: "Can't Save 💔", message: "Credit hours are required")
+            return false
+        }
+
+        if creditHours <= 0 {
+            self.presentErrorAlert(title: "Can't Save 💔", message: "Credit hours must be greater than zero")
             return false
         }
         
@@ -474,8 +479,13 @@ class AddEditClassViewController: UIViewController {
         var totalPercent: Double = 0.0
         
         for (index, view) in views.enumerated() {
+            if !view.nameField.safeText.isValid() {
+                self.presentErrorAlert(title: "Can't Save 💔", message: "Name for class is required")
+                return false
+            }
+
             guard let percent = Double(view.weightField.safeText) else {
-                presentErrorAlert(title: "Unable to save", message: "Some data is incorrect and cannot save, please check values and try again.")
+                self.presentErrorAlert(title: "Can't Save 💔", message: "Some data is incorrect and cannot save, please check values and try again")
                 return false
             }
             
@@ -508,7 +518,7 @@ class AddEditClassViewController: UIViewController {
                                            attributes: [.font : UIFont.preferredFont(forTextStyle: .headline)])
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
-            let message = "Weights must add up to 100%." + percentSubMessage
+            let message = "Weights must add up to 100%" + percentSubMessage
             let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : ApplicationTheme.shared.mainTextColor(in: .light),
                                                                  .font : UIFont.preferredFont(forTextStyle: .body)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
@@ -532,14 +542,14 @@ class AddEditClassViewController: UIViewController {
         for view in views {
             // Get rubric info
             let rubricWeight = Double(view.weightField.safeText)!
-            let rubricName = view.nameField.text!
+            let rubricName = view.nameField.safeText
             rubrics.append(Rubric(name: rubricName, weight: rubricWeight))
         }
         
         // Create the semester
         let semester = Semester(term: self.semester.term, year: self.semester.year)
         
-        let credits = Double(creditHoursField.safeText)!
+        let credits = Double(self.creditHoursField.safeText)!
         // Create the new class
         let newClass: Class
         if self.classGradeType == .weighted {
