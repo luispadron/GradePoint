@@ -28,7 +28,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     }
 
     var preferedSnackbarBottomSpacing: CGFloat {
-        let bannerHeight = self.bannerAdView.isHidden ? 0 : self.bannerAdView.frame.height
+        let bannerHeight = self.bannerAdView.isHidden || GradePointPremium.isPurchased ? 0 : self.bannerAdView.frame.height
         return self.tabBarController!.tabBar.frame.height + bannerHeight + 12
     }
 

@@ -177,7 +177,7 @@ class GradePercentagesTableViewController: UITableViewController {
     private func recalculateGradesForClasses() {
         let classes = DatabaseManager.shared.realm.objects(Class.self)
         DatabaseManager.shared.write {
-            for classObj in classes {
+            for classObj in classes.filter({ $0.isInProgress }) {
                 classObj.grade?.gradeLetter = Grade.gradeLetter(for: classObj.grade!.score)
             }
         }
@@ -224,10 +224,10 @@ class GradePercentagesTableViewController: UITableViewController {
         return newPercentages
     }
 
+    /// Saves the results of percentage changes by updating percentage objects and recalculating grades for classes
     private func savePercentages(_ newPercentages: [ClosedRange<Double>]) {
         let percentages = DatabaseManager.shared.realm.objects(GradePercentage.self)
 
-        // Save results of percentage changes
         DatabaseManager.shared.write {
             for (index, newPercentage) in newPercentages.enumerated() {
                 percentages[index].lowerBound = newPercentage.lowerBound
