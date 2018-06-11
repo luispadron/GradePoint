@@ -171,7 +171,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentCell", for: indexPath) as! AssignmentTableViewCell
 
         cell.nameLabel.text = assignment.name
-        let decimalPlaces = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
+        let decimalPlaces = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
         cell.scoreLabel.text = String(format: "Score: %.\(decimalPlaces)f", assignment.percentage) + "%"
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -240,7 +240,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.tableView.scrollsToTop = true
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
 
-        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
         self.progressRing.decimalPlaces = roundingAmount
         
         if let classObj = _classObj {

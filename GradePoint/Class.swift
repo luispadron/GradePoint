@@ -134,7 +134,7 @@ class Class: Object {
             sumTotal /= Double(assignments.count)
             totalScore += assignments[0].rubric!.weight * sumTotal
         }
-
+        
         return Double(totalScore / weights)
     }
 

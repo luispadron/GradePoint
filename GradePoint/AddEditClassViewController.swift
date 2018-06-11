@@ -1013,7 +1013,7 @@ extension AddEditClassViewController: UIRubricViewDelegate {
     /// Notifies when the weight fields keyboard 'Calculate' button was tapped
     internal func calculateButtonWasTapped(forView view: UIRubricView, textField: UITextField) {
         let calculateAlert = UICalculateViewController(completion: { percent in
-            let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
+            let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
             view.weightField.text = String(format: "%.\(roundingAmount)f", percent)
             view.weightField.editingChanged()
             view.updateIsRubricValid()

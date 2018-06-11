@@ -37,7 +37,7 @@ class SettingsTableViewController: UITableViewController {
         self.studentTypeSwitcher.selectedSegmentIndex = (studentType?.rawValue ?? 1) - 1
         
         // Rounding field setup
-        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
         self.roundingField.text = String(roundingAmount)
         self.roundingField.fieldType = .number
         var config = NumberConfiguration(allowsSignedNumbers: false, range: 1...3)
@@ -85,7 +85,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         // Save any changes done to rounding amount to user defaults
         guard let amount = Int(self.roundingField.safeText) else { return }
-        UserDefaults.standard.set(amount, forKey: kUserDefaultRoundingAmount)
+        UserDefaults.standard.set(amount, forKey: kUserDefaultDecimalPlaces)
     }
 
     // MARK: - Table view methods
@@ -267,7 +267,7 @@ class SettingsTableViewController: UITableViewController {
         self.roundingField.resignFirstResponder()
         // Save to defaults
         guard let amount = Int(self.roundingField.safeText) else { return }
-        UserDefaults.standard.set(amount, forKey: kUserDefaultRoundingAmount)
+        UserDefaults.standard.set(amount, forKey: kUserDefaultDecimalPlaces)
     }
 
     deinit {

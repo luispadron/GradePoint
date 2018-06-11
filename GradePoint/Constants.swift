@@ -74,7 +74,7 @@ let kUserDefaultTerms = "com.luispadron.GradePoint.terms"
 let kUserDefaultTheme = "com.luispadron.GradePoint.theme"
 let kUserDefaultLastDateAskedRating = "com.luispadron.GradePoint.lastDateAsked"
 let kUserDefaultHasAskedRating = "com.luispadron.GradePoint.hasAskedRating"
-let kUserDefaultRoundingAmount = "com.luispadron.GradePoint.roundingAmount"
+let kUserDefaultDecimalPlaces = "com.luispadron.GradePoint.roundingAmount"
 let kUserDefaultGradeBirdHighScore = "com.luispadron.GradePoint.gradeBirdHighScore"
 let kUserDefaultHasModifiedGradePercentages = "com.luispadron.GradePoint.hasModifiedGradePercentages"
 
