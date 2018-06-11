@@ -257,9 +257,8 @@ class GPACalculatorViewController: UIViewController {
                     totalCreditHours += creditHours
                 }
             }
-            
-            let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
-            return Double(totalPoints / Double(totalCreditHours)).roundedUpTo(roundingAmount)
+
+            return Double(totalPoints / Double(totalCreditHours))
         }
         
         switch studentType {

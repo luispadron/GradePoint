@@ -135,8 +135,7 @@ class Class: Object {
             totalScore += assignments[0].rubric!.weight * sumTotal
         }
 
-        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultRoundingAmount)
-        return Double(totalScore / weights).roundedUpTo(roundingAmount)
+        return Double(totalScore / weights)
     }
 
 
