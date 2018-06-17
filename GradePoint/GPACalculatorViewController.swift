@@ -296,7 +296,7 @@ class GPACalculatorViewController: UIViewController {
                 self.saveCalculation(withGpa: gpa, weighted: true)
             } else {
                 // Get GPA
-                guard let gpa = calculate(true) else {
+                guard let gpa = calculate(false) else {
                     self.presentErrorAlert(title: "Error calculating", message: "Make sure grades are valid and if you modified grade percentages, that they are correct")
                     return
                 }
