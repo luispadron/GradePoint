@@ -80,6 +80,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        InterstitialAdController.shared.prepare()
+
         self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
 
         // Setup search bar and titles

@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Load AdMob configuration
         GADMobileAds.configure(withApplicationID: kAdMobAppId)
-        InterstitialAdController.shared.prepare()
 
         // Set the UI Theme for the saved theme key
         if let theme = UITheme(rawValue: defaults.integer(forKey: kUserDefaultTheme)) {
@@ -64,9 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // TODO: Remove this code whenever old user base is migrated to version 2.0
         // Code in here due to the new re-ordering of default terms and there locations in version 2.0.
-        if let terms = defaults.stringArray(forKey: kUserDefaultTerms), terms.count == 4 && terms[0] == "Spring" &&
-            terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter"
-        {
+        if let terms = defaults.stringArray(forKey: kUserDefaultTerms),
+            terms.count == 4 && terms[0] == "Spring" &&
+            terms[1] == "Summer" && terms[2] == "Fall" && terms[3] == "Winter" {
             defaults.set(["Winter", "Fall", "Summer", "Spring"], forKey: kUserDefaultTerms)
         }
         
