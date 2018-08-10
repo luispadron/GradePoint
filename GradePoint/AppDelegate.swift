@@ -200,7 +200,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Present the onboarding to the user
     private func presentOnboarding() {
         let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
-        let onboarding = storyboard.instantiateViewController(withIdentifier: "OnboardPageViewController") as! OnboardPageViewController
+        guard let onboarding = storyboard.instantiateViewController(withIdentifier: "OnboardPageViewController")
+            as? OnboardPageViewController else {
+                return
+        }
+
         self.initialRootController = self.window?.rootViewController
         self.window?.rootViewController = onboarding
     }

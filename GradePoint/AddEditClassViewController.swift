@@ -541,7 +541,12 @@ class AddEditClassViewController: UIViewController {
         // Loop through the rubric cells and append rubrics to the rubrics array, can force unwrap since already checked for values
         for view in views {
             // Get rubric info
-            let rubricWeight = Double(view.weightField.safeText)!
+            guard let rubricWeight = Double(view.weightField.safeText) else {
+                present(alert: .message,
+                        withTitle: NSAttributedString(string: "Error Saving"),
+                        andMessage: NSAttributedString(string: "Please make sure all rubric weights are formatted correctly."))
+                return
+            }
             let rubricName = view.nameField.safeText
             rubrics.append(Rubric(name: rubricName, weight: rubricWeight))
         }
