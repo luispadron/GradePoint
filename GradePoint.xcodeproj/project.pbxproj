@@ -142,6 +142,7 @@
 		A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
 		A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */; };
+		A0EAE707211E4A3200015AC7 /* fabric.apikey in Resources */ = {isa = PBXBuildFile; fileRef = A0EAE706211E4A3200015AC7 /* fabric.apikey */; };
 		A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */; };
 		A0FA1A8F1F1D536000F5FF6E /* ClassDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */; };
 		A0FE32B51F145BFB00F264EC /* PreviousClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */; };
@@ -327,6 +328,8 @@
 		A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewState.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
 		A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard4ViewController.swift; sourceTree = "<group>"; };
+		A0EAE706211E4A3200015AC7 /* fabric.apikey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fabric.apikey; path = Resources/fabric.apikey; sourceTree = SOURCE_ROOT; };
+		A0EAE708211E4A3A00015AC7 /* fabric.buildsecret */ = {isa = PBXFileReference; lastKnownFileType = text; name = fabric.buildsecret; path = Resources/fabric.buildsecret; sourceTree = SOURCE_ROOT; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
 		A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailTableViewController.swift; sourceTree = "<group>"; };
 		A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousClassDetailViewController.swift; sourceTree = "<group>"; };
@@ -443,12 +446,8 @@
 		A007050D1DAF0E9B00AD740A /* GradePoint */ = {
 			isa = PBXGroup;
 			children = (
-				A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */,
 				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
 				A0BF3B291F243782001CCE52 /* Constants.swift */,
-				A007051C1DAF0E9B00AD740A /* Info.plist */,
-				A0B8577F2044D7A600091937 /* AdMob.plist */,
-				A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */,
 				A027533E1F043B2A0021CDFF /* Managers */,
 				A01B87801DBD272600A85E2D /* Data Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
@@ -457,6 +456,12 @@
 				A0CE8B431DAF1780007968EE /* Controllers */,
 				A0CE8B481DAF26E3007968EE /* Custom Controls */,
 				A0CE8B441DAF178F007968EE /* Storyboards */,
+				A007051C1DAF0E9B00AD740A /* Info.plist */,
+				A0B8577F2044D7A600091937 /* AdMob.plist */,
+				A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */,
+				A0EAE706211E4A3200015AC7 /* fabric.apikey */,
+				A0EAE708211E4A3A00015AC7 /* fabric.buildsecret */,
+				A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */,
 				A00705171DAF0E9B00AD740A /* Assets.xcassets */,
 			);
 			path = GradePoint;
@@ -774,6 +779,7 @@
 				9CFB3E464990059C07D56586 /* [CP] Embed Pods Frameworks */,
 				A00422621FD10CE7000016BA /* Embed Frameworks */,
 				A00422651FD10D49000016BA /* Run Script */,
+				A02FF3D5211E435200E9643F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -930,6 +936,7 @@
 				A037C77520215CDB00AE153A /* bird.atlas in Resources */,
 				A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */,
 				A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */,
+				A0EAE707211E4A3200015AC7 /* fabric.apikey in Resources */,
 				A0263ABE202188C7001940DE /* RewardSound.wav in Resources */,
 				A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */,
 			);
@@ -1103,6 +1110,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		A02FF3D5211E435200E9643F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FABRIC_APIKEY_FILE=\"${SRCROOT}/Resources/fabric.apikey\"\nFABRIC_BUILDSECRET_FILE=\"${SRCROOT}/Resources/fabric.buildsecret\"\n\nif test ! -f \"$FABRIC_APIKEY_FILE\" -o ! -f \"$FABRIC_BUILDSECRET_FILE\"; then\necho \"This build wants to upload dSYM files to Crashlytics.\"\necho \"Uploading is possible only if a Fabric API key and a Fabric build secret are\"\necho \"available. This build is failing because at least one of these pieces of\"\necho \"information is missing.\"\necho \"\"\necho \"To fix the problem, create the following files and store the API key and\"\necho \"build secret, respectively, within those files:\"\necho \"\"\necho \"  $FABRIC_APIKEY_FILE\"\necho \"  $FABRIC_BUILDSECRET_FILE\"\necho \"\"\necho \"If you forked the project then you must register with Crashlytics and\"\necho \"get your own API key and build secret.\"\n\n# Let the build fail\nexit 1\nfi\n\nFABRIC_APIKEY=$(cat \"$FABRIC_APIKEY_FILE\")\nif test $? -ne 0; then\necho \"Cannot read $FABRIC_APIKEY_FILE\"\nexit 1\nfi\n\nFABRIC_BUILDSECRET=$(cat \"$FABRIC_BUILDSECRET_FILE\")\nif test $? -ne 0; then\necho \"Cannot read $FABRIC_BUILDSECRET_FILE\"\nexit 1\nfi\n\n\necho \"Uploading dSYM files to Crashlytics\"\n\"${PODS_ROOT}/Fabric/run\" \"$FABRIC_APIKEY\" \"$FABRIC_BUILDSECRET\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1434,6 +1454,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GradePoint/GradePoint.entitlements;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YGJQDEP824;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

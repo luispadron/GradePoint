@@ -1,20 +1,29 @@
 PODS:
+  - Crashlytics (3.10.5):
+    - Fabric (~> 1.7.9)
+  - Fabric (1.7.9)
   - Google-Mobile-Ads-SDK (7.31.0)
   - UICircularProgressRing (2.1.1)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - Google-Mobile-Ads-SDK
   - UICircularProgressRing
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Crashlytics
+    - Fabric
     - Google-Mobile-Ads-SDK
     - UICircularProgressRing
 
 SPEC CHECKSUMS:
+  Crashlytics: 7f2e38d302d9da96475b3d64d86fb29e31a542b7
+  Fabric: a2917d3895e4c1569b9c3170de7320ea1b1e6661
   Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   UICircularProgressRing: 2c6f21e40d976a7f114e4008f1c786a4e1c888aa
 
-PODFILE CHECKSUM: 448ff946d280b536b0bc7f2d207eb96b179ada66
+PODFILE CHECKSUM: 81a3052407b361759c77b61f3b0a597eaed34a0a
 
 COCOAPODS: 1.5.3

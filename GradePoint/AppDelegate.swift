@@ -10,6 +10,8 @@
 import UIKit
 import RealmSwift
 import GoogleMobileAds
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -90,6 +92,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // For UITesting, handle any launch options
             self.prepareForUITesting()
         }
+
+        setupCrashlytics()
+
         return true
     }
     
@@ -203,6 +208,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Reset the root view controller to what it was initially
     func finishedPresentingOnboarding() {
         self.window?.rootViewController = self.initialRootController
+    }
+
+    private func setupCrashlytics() {
+        // Setup fabric/crashlytics
+        do {
+            if let url = Bundle.main.url(forResource: "fabric.apikey", withExtension: nil) {
+                let key = try String(contentsOf: url, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)
+                Crashlytics.start(withAPIKey: key)
+            }
+        } catch {
+            NSLog("Could not retrieve Crashlytics API key.")
+        }
     }
 }
 

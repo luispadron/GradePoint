@@ -4,6 +4,8 @@ use_frameworks!
 def all_pods
   pod 'UICircularProgressRing'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end
 
 target 'GradePoint' do
