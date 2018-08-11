@@ -155,6 +155,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         self.clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
         self.reloadEmptyState()
         self.setNeedsStatusBarAppearanceUpdate()
+
+        GradePointPremium.presentPromotionalAlertIfNeeded(in: self)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
