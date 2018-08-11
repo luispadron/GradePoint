@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,7 +63,7 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         </variation>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
                                                         <rect key="frame" x="169.5" y="0.0" width="393" height="393"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -399,7 +399,7 @@ maintain or achieve a desired grade.</string>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                                         </variation>
                                     </label>
-                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNS-zA-i3e" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNS-zA-i3e" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
                                         <rect key="frame" x="159.5" y="46.5" width="450" height="450"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -673,7 +673,7 @@ Add some classes or assignments!</string>
                 <view verifyAmbiguity="off" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eH-Ha-sGS" userLabel="GPA Progress Ring View">
                     <rect key="frame" x="0.0" y="0.0" width="476" height="340"/>
                     <subviews>
-                        <view verifyAmbiguity="off" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSW-Pn-BaS" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                        <view verifyAmbiguity="off" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSW-Pn-BaS" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
                             <rect key="frame" x="78" y="10" width="320" height="320"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>

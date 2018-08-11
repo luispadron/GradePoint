@@ -14,9 +14,9 @@ import RealmSwift
 class WidgetViewController: UIViewController, NCWidgetProviding {
 
     @IBOutlet weak var ringContainerView: UIStackView!
-    @IBOutlet weak var gpaRing: UICircularProgressRingView!
+    @IBOutlet weak var gpaRing: UICircularProgressRing!
     @IBOutlet weak var classNameLabel: UILabel!
-    @IBOutlet weak var classRing: UICircularProgressRingView!
+    @IBOutlet weak var classRing: UICircularProgressRing!
     @IBOutlet weak var emptyLabel: UILabel!
 
     override func viewDidLoad() {
@@ -96,7 +96,7 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
 
             classNameLabel.text = recentClass.name
             classRing.innerRingColor = recentClass.color
-            classRing.setProgress(to: CGFloat(recentClass.grade!.score), duration: 1.0)
+            classRing.startProgress(to: CGFloat(recentClass.grade!.score), duration: 1.0)
         }
 
         if showsGPA {
@@ -106,8 +106,8 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
             }
 
             gpaRing.maxValue = recent.isWeighted ? 5.0 : 4.0
-            gpaRing.setProgress(to: 0, duration: 0)
-            gpaRing.setProgress(to: CGFloat(recent.calculatedGpa), duration: 1.0)
+            gpaRing.resetProgress()
+            gpaRing.startProgress(to: CGFloat(recent.calculatedGpa), duration: 1.0)
         }
 
         guard #available(iOS 10.0, *) else {

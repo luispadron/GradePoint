@@ -35,7 +35,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     // MARK: Subviews
 
     /// The progress ring view which displays the score for the current class
-    @IBOutlet var progressRing: UICircularProgressRingView!
+    @IBOutlet var progressRing: UICircularProgressRing!
 
     // MARK: Properties
 
@@ -286,7 +286,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     private func updateProgressRing() {
         guard let classObj = _classObj else { return }
         if !self.progressRing.isAnimating {
-            self.progressRing.setProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3)
+            self.progressRing.startProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3)
         }
     }
 
@@ -520,8 +520,8 @@ extension ClassDetailTableViewController {
 
         progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
         let val = progressRing.value
-        progressRing.setProgress(to: 0, duration: 0)
-        progressRing.setProgress(to: val, duration: 0)
+        progressRing.resetProgress()
+        progressRing.startProgress(to: val, duration: 0)
 
         self.tableView.reloadData()
         self.reloadEmptyState()

@@ -12,7 +12,7 @@ import UICircularProgressRing
 class Onboard4ViewController: UIViewController {
 
     @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var progressRing: UICircularProgressRingView!
+    @IBOutlet weak var progressRing: UICircularProgressRing!
     @IBOutlet weak var button: UIButton!
     
     private var hasAnimated = false
@@ -75,7 +75,7 @@ class Onboard4ViewController: UIViewController {
             
         }) { _ in
             // Animate the progress ring
-            self.progressRing.setProgress(to: 100, duration: 2.0, completion: { [weak self] in
+            self.progressRing.startProgress(to: 100, duration: 2.0, completion: { [weak self] in
                 // When done animate the button alpha
                 UIView.animate(withDuration: 0.5, animations: {
                     self?.button.alpha = 1.0

@@ -11,7 +11,7 @@ import UICircularProgressRing
 
 class ClassPeekViewController: UIViewController {
 
-    @IBOutlet weak var progressRing: UICircularProgressRingView!
+    @IBOutlet weak var progressRing: UICircularProgressRing!
     
     var progress: CGFloat = 0.0
     var color: UIColor? = nil
@@ -36,7 +36,7 @@ class ClassPeekViewController: UIViewController {
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
         self.progressRing.decimalPlaces = roundingAmount
         self.progressRing.font = UIFont.systemFont(ofSize: 45)
-        self.progressRing.setProgress(to: self.progress, duration: 1.5)
+        self.progressRing.startProgress(to: self.progress, duration: 1.5)
     }
     
     func setUI(for classObj: Class) {
