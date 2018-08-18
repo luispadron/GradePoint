@@ -110,6 +110,7 @@
 		A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */; };
 		A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CFD1E557A3E00054935 /* UICalculateView.swift */; };
 		A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */; };
+		A0B0A3AC2127A398002A8D15 /* AdMobConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */; };
 		A0B10BA320219FA2008A83AE /* GradePointPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B10BA220219FA2008A83AE /* GradePointPremium.swift */; };
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
 		A0B857802044D7A600091937 /* AdMob.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0B8577F2044D7A600091937 /* AdMob.plist */; };
@@ -297,6 +298,7 @@
 		A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextFieldConfigurations.swift; sourceTree = "<group>"; };
 		A0A27CFD1E557A3E00054935 /* UICalculateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateView.swift; sourceTree = "<group>"; };
 		A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurViewController.swift; sourceTree = "<group>"; };
+		A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobConstants.swift; sourceTree = "<group>"; };
 		A0B10BA220219FA2008A83AE /* GradePointPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointPremium.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		A0B8577F2044D7A600091937 /* AdMob.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AdMob.plist; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 			children = (
 				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
 				A0BF3B291F243782001CCE52 /* Constants.swift */,
+				A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */,
 				A027533E1F043B2A0021CDFF /* Managers */,
 				A01B87801DBD272600A85E2D /* Data Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
@@ -1178,6 +1181,7 @@
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */,
 				A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */,
+				A0B0A3AC2127A398002A8D15 /* AdMobConstants.swift in Sources */,
 				A06E179720223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift in Sources */,
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A06E179520223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift in Sources */,
