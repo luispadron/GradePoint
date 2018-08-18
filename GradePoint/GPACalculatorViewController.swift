@@ -318,8 +318,11 @@ class GPACalculatorViewController: UIViewController {
         let newGPACalc = GPACalculation(calculatedGpa: gpa, date: Date(), weighted: weighted)
         DatabaseManager.shared.addObject(newGPACalc)
         
-        // Since the user has finished calculating GPA and they feel good, lets ask them to rate the app now
-        RatingManager.presentRating()
+
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        if RatingManager.shouldPresentRating(appInfo: delegate.appInfo) {
+            RatingManager.presentRating()
+        }
     }
 
     deinit {

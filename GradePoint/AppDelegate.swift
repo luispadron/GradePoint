@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     /// Returns the only AppInfo object stored in realm, if never created before, creates one and returns it
-    public static var appInfo: AppInfo {
+    lazy var appInfo: AppInfo = {
         let realm = DatabaseManager.shared.realm
         guard let info = realm.objects(AppInfo.self).first else {
             // Create an object, return it
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return newInfo
         }
         return info
-    }
+    }()
     
     /// The initial root controler, before adding the onboarding controller as the root.
     /// This is used when onboarding must be presented, because after onboarding is presented 
@@ -192,7 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// Increments the appSessions count in the app info by 1
     private func incrementSessions() {
         DatabaseManager.shared.write {
-            AppDelegate.appInfo.sessions += 1
+            appInfo.sessions += 1
         }
     }
     

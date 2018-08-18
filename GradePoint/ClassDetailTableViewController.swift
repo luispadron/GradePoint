@@ -286,7 +286,13 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     private func updateProgressRing() {
         guard let classObj = _classObj else { return }
         if !self.progressRing.isAnimating {
-            self.progressRing.startProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3)
+            self.progressRing.startProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3) {
+                // Present rating if possible
+                guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                if RatingManager.shouldPresentRating(appInfo: delegate.appInfo) {
+                    RatingManager.presentRating()
+                }
+            }
         }
     }
 

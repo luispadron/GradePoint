@@ -20,27 +20,6 @@ class RatingManager {
     
     // MARK: Methods
     
-    /// Presents a rating prompt to the user if possible.
-    /// Returns a boolean of whether or not the rating dialog was presented.
-    @discardableResult public static func presentRating() -> Bool {
-        /// Since using built in rating available in 10.3, any iOS below that
-        /// will not be allowed to show dialog.
-        if #available(iOS 10.3, *) {
-            let shouldPresent = RatingManager.shouldPresentRating()
-            
-            if shouldPresent {
-                // Present rating dialog
-                DispatchQueue.main.async {
-                    SKStoreReviewController.requestReview()
-                }
-            }
-            
-            return shouldPresent
-        } else {
-            return false
-        }
-    }
-    
     private static func dateDifference(start date1: Date, end date2: Date) -> Int {
         let calendar = Calendar.current
         guard let start = calendar.ordinality(of: .day, in: .era, for: date1) else { return 0 }
@@ -48,9 +27,19 @@ class RatingManager {
         
         return end - start
     }
+
+    /// Presents a rating prompt to the user if possible.
+    static func presentRating() {
+        if #available(iOS 10.3, *) {
+            // Present rating dialog
+            DispatchQueue.main.async {
+                SKStoreReviewController.requestReview()
+            }
+        }
+    }
     
     /// Whether the rating dialog should be presented to the user or not
-    private static func shouldPresentRating() -> Bool {
+    static func shouldPresentRating(appInfo: AppInfo) -> Bool {
         let lastDayAsked = UserDefaults.standard.object(forKey: kUserDefaultLastDateAskedRating) as? Date
         let hasAsked = UserDefaults.standard.bool(forKey: kUserDefaultHasAskedRating)
         // If user has info sessions, and classes/assignments/gpa calculation then we can present
@@ -59,7 +48,7 @@ class RatingManager {
         let classCount = realm.objects(Class.self).count
         let assignmentCount = realm.objects(Assignment.self).count
         let gpaCalcCount = realm.objects(GPACalculation.self).count
-        let canAsk = AppDelegate.appInfo.sessions >= 5 && ((classCount >= 2 && assignmentCount >= 5) || gpaCalcCount >= 5)
+        let canAsk = appInfo.sessions >= 5 && ((classCount >= 2 && assignmentCount >= 5) || gpaCalcCount >= 5)
         
         if (!hasAsked || abs(dateDifference(start: lastDayAsked ?? Date(), end: Date())) > 60) && canAsk {
             UserDefaults.standard.set(Date(), forKey: kUserDefaultLastDateAskedRating)
