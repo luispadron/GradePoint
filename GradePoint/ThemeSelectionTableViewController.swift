@@ -101,7 +101,7 @@ class ThemeSelectionTableViewController: UITableViewController {
         scaleAnimation.duration = duration
         scaleAnimation.fromValue = 0.0
         scaleAnimation.toValue = 1.0
-        scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        scaleAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
 
         // The animation layer which will be added ontop of this views current layer
         let animationLayer = CALayer()

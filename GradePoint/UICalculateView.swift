@@ -136,7 +136,7 @@ open class UICalculateView: UIView {
     /// The label in between the score and total fields
     open lazy var seperatorLabel: UILabel = {
         let label = UILabel()
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.frenchGray,
+        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.frenchGray,
                                                    .font: UIFont.systemFont(ofSize: 15)]
         label.attributedText = NSAttributedString(string: "OUT OF", attributes: attrs)
         label.textAlignment = .center
@@ -163,7 +163,7 @@ open class UICalculateView: UIView {
     /// The button which the user will click to calculate the percentage
     open lazy var calculateButton: UIButton = {
         let button = UIButton(type: .custom)
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.lightText,
+        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.lightText,
                                                    .font: UIFont.systemFont(ofSize: 18)]
         button.layer.backgroundColor = UIColor(red: 0.647, green: 0.576, blue: 0.878, alpha: 1.00).cgColor
         button.clipsToBounds = true

@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// The last time the app was active
     var lastTimeActive: Date?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         // Create user defaults and load correct default preferences
         let defaults = UserDefaults.standard
@@ -111,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     /// Handles opening app via custom URL. Used with the Today extension of GradePoint.
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // If for some reason the user hasn't been onboarded then don't open the app yet
         if !UserDefaults.standard.bool(forKey: kUserDefaultOnboardingComplete) {
             return false
@@ -120,8 +120,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if url == kEmptyWidgetActionURL {
             let count = DatabaseManager.shared.realm.objects(Class.self).count
 
-            guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
-                let classesVC = splitNav.childViewControllers.first as? ClassesTableViewController else
+            guard let splitNav = window?.rootViewController?.children.first?.children.first,
+                let classesVC = splitNav.children.first as? ClassesTableViewController else
             {
                 print("WARNING: Tried to find ClassesTableViewController but was not able.")
                 return false
@@ -133,8 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 // Take user to gpa calculator view
                 guard let tabBar = window?.rootViewController as? UITabBarController,
-                    tabBar.childViewControllers.count > 1,
-                    let calcsVC = tabBar.childViewControllers[1] as? CalculatorsViewController else
+                    tabBar.children.count > 1,
+                    let calcsVC = tabBar.children[1] as? CalculatorsViewController else
                 {
                     print("WARNING: Tried to find ClassesTableViewController but was not able.")
                     return false
@@ -153,8 +153,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         switch shortcutItem.quickActionId {
         case .addNewClass:
-            guard let splitNav = window?.rootViewController?.childViewControllers.first?.childViewControllers.first,
-                let classesVC = splitNav.childViewControllers.first as? ClassesTableViewController else
+            guard let splitNav = window?.rootViewController?.children.first?.children.first,
+                let classesVC = splitNav.children.first as? ClassesTableViewController else
             {
                 print("WARNING: Tried to find ClassesTableViewController but was not able.")
                 return
@@ -165,8 +165,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         case .calculateGPA:
             guard let tabBar = window?.rootViewController as? UITabBarController,
-                tabBar.childViewControllers.count > 1,
-                let calcsVC = tabBar.childViewControllers[1] as? CalculatorsViewController else
+                tabBar.children.count > 1,
+                let calcsVC = tabBar.children[1] as? CalculatorsViewController else
             {
                 print("WARNING: Tried to find ClassesTableViewController but was not able.")
                 return

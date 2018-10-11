@@ -13,31 +13,31 @@ import UIKit
  */
 
 extension UINavigationController {
-    open override var childViewControllerForStatusBarStyle: UIViewController? {
+    open override var childForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
 
-    open override var childViewControllerForStatusBarHidden: UIViewController? {
+    open override var childForStatusBarHidden: UIViewController? {
         return self.topViewController
     }
 }
 
 extension UITabBarController {
-    open override var childViewControllerForStatusBarStyle: UIViewController? {
-        return self.childViewControllers.first
+    open override var childForStatusBarStyle: UIViewController? {
+        return self.children.first
     }
 
-    open override var childViewControllerForStatusBarHidden: UIViewController? {
-        return self.childViewControllers.first
+    open override var childForStatusBarHidden: UIViewController? {
+        return self.children.first
     }
 }
 
 extension UISplitViewController {
-    open override var childViewControllerForStatusBarStyle: UIViewController? {
-        return self.childViewControllers.first
+    open override var childForStatusBarStyle: UIViewController? {
+        return self.children.first
     }
 
-    open override var childViewControllerForStatusBarHidden: UIViewController? {
-        return self.childViewControllers.first
+    open override var childForStatusBarHidden: UIViewController? {
+        return self.children.first
     }
 }

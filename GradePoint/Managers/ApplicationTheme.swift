@@ -91,8 +91,8 @@ class ApplicationTheme {
 
         UISearchBar.appearance().tintColor = self.highlightColor
         if #available(iOS 11.0, *) {
-            let attrs = [NSAttributedStringKey.foregroundColor.rawValue: self.mainTextColor(in: self.theme)]
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = attrs
+            let attrs = [NSAttributedString.Key.foregroundColor.rawValue: self.mainTextColor(in: self.theme)]
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = convertToNSAttributedStringKeyDictionary(attrs)
         }
     }
 
@@ -173,3 +173,8 @@ class ApplicationTheme {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKeyDictionary(_ input: [String: Any]) -> [NSAttributedString.Key: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}

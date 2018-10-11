@@ -75,7 +75,7 @@ open class UIBlurViewController: UIViewController {
     
     /// Adds a visual effect view over the controller, only if allowed by user settings
     private func addVisualEffectView() {
-        if UIAccessibilityIsReduceTransparencyEnabled() { return }
+        if UIAccessibility.isReduceTransparencyEnabled { return }
         // Create the effect since user allows blur
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = self.view.bounds

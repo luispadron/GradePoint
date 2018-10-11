@@ -13,7 +13,7 @@ class RubricTableViewCell: UITableViewCell {
     // Gets initialized in the cellForRow inside of AddEditClassTableViewController
     var rubricView: UIRubricView!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initCell()
         layoutIfNeeded()

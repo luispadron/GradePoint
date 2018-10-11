@@ -29,7 +29,7 @@ extension UIButton {
         let group = CAAnimationGroup()
         group.duration = duration
         group.repeatCount = 1
-        group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        group.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         group.animations = [scaleAnimation, opacityAnimation]
         // The animation layer which will be added ontop of the buttons current layer
         let animationLayer = CALayer()

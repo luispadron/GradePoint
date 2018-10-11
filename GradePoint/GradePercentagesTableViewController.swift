@@ -149,8 +149,8 @@ class GradePercentagesTableViewController: UITableViewController {
             view.lowerBoundField.textColor = ApplicationTheme.shared.highlightColor
             view.upperBoundField.textColor = ApplicationTheme.shared.highlightColor
 
-            let attrs = [NSAttributedStringKey.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
-                         NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)]
+            let attrs = [NSAttributedString.Key.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]
 
             if GPAScale.shared.scaleType == .nonPlusScale && self.plusRows.contains(index) { continue }
 

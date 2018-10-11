@@ -42,7 +42,6 @@ class GPACalculatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
         // UI Setup
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         self.headerView.backgroundColor = ApplicationTheme.shared.tableViewHeaderColor
@@ -72,8 +71,8 @@ class GPACalculatorViewController: UIViewController {
         }
         
         // Setup keyboard notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: .UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -128,8 +127,8 @@ class GPACalculatorViewController: UIViewController {
             let tabController = delegate.window?.rootViewController as? UITabBarController
             // Select first tab
             tabController?.selectedIndex = 0
-            let splitNav = tabController?.childViewControllers.first?.childViewControllers.first
-            let classesViewController = splitNav?.childViewControllers.first as? ClassesTableViewController
+            let splitNav = tabController?.children.first?.children.first
+            let classesViewController = splitNav?.children.first as? ClassesTableViewController
             // Add edit class segue
             classesViewController?.performSegue(withIdentifier: .addEditClass, sender: nil)
         }
@@ -177,7 +176,7 @@ class GPACalculatorViewController: UIViewController {
     /// Called whenever keyboard is shown, adjusts scroll view
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
-        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
         let ringSize = stackView.arrangedSubviews.contains(progressRingView.superview!) ? progressRingView.superview!.frame.height : 0

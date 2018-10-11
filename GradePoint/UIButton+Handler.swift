@@ -34,7 +34,7 @@ extension UIButton {
     
     
     /// Adds a handler to a button, hanlder must be called with a weak or unowned self as it is escaping
-    public func addHandler(forEvents events: UIControlEvents, handler: @escaping ButtonHandler) {
+    public func addHandler(forEvents events: UIControl.Event, handler: @escaping ButtonHandler) {
         self.handler = HandlerWrapper(handler: handler)
         self.addTarget(self, action: #selector(self.buttonTapped), for: events)
     }

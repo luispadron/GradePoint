@@ -33,7 +33,6 @@ class ExamGradePredictionViewController: UIViewController {
         //////// UI Setup ///////
 
         // UI Setup for theme
-        UIApplication.shared.statusBarStyle = .lightContent
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
         self.currentGradeField.superview?.backgroundColor = ApplicationTheme.shared.lightBackgroundColor
         self.currentGradeField.textColor = ApplicationTheme.shared.mainTextColor()
@@ -47,7 +46,7 @@ class ExamGradePredictionViewController: UIViewController {
 
 
         let percentConfig = PercentConfiguration(allowsOver100: false, allowsFloatingPoint: true)
-        let placeHolderAttrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()]
+        let placeHolderAttrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor()]
         self.currentGradeField.configuration = percentConfig
         self.currentGradeField.fieldType = .percent
         self.currentGradeField.attributedPlaceholder = NSAttributedString(string: "Example: 89%", attributes: placeHolderAttrs)

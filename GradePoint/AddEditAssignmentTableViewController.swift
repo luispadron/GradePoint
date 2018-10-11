@@ -55,7 +55,7 @@ class AddEditAssignmentTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         // Field setup
-        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
+        let attrsForPrompt: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.nameField.titleText = "Assignment Name"
         self.nameField.titleTextSpacing = 8.0

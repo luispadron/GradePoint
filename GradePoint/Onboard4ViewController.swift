@@ -26,12 +26,12 @@ class Onboard4ViewController: UIViewController {
         self.button.alpha = 0.0
         
         // Set the style for the UIButton
-        self.button.contentEdgeInsets = UIEdgeInsetsMake(12, 18, 12, 18)
+        self.button.contentEdgeInsets = UIEdgeInsets.init(top: 12, left: 18, bottom: 12, right: 18)
         self.button.layer.backgroundColor = self.view.backgroundColor?.lighter(by: 20)?.cgColor
         self.button.layer.cornerRadius = 6.0
         
         // Customization for progress ring
-        self.progressRing.animationStyle = kCAMediaTimingFunctionEaseInEaseOut
+        self.progressRing.animationTimingFunction = .easeInEaseOut
     }
     
     override func viewDidAppear(_ animated: Bool) {

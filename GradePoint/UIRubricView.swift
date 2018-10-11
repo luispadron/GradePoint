@@ -129,7 +129,7 @@ class UIRubricView: UIView, UITextFieldDelegate {
         plusLayer.strokeColor = plusColor.cgColor
         plusLayer.fillColor = nil
         plusLayer.lineWidth = plusHeight
-        plusLayer.lineJoin = kCALineCapSquare
+        plusLayer.lineJoin = .bevel
         plusLayer.frame = plusPath.bounds
         plusLayer.bounds = plusPath.bounds
         
@@ -241,8 +241,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
         
         rotateAnimation.duration = animationDuration
         rotateAnimation.isRemovedOnCompletion = false
-        rotateAnimation.fillMode = kCAFillModeForwards
-        rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        rotateAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotateAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         // Create the background color change animation
         let backgroundAnimation = CABasicAnimation(keyPath: "fillColor")
@@ -259,8 +259,8 @@ class UIRubricView: UIView, UITextFieldDelegate {
         
         backgroundAnimation.duration = animationDuration
         backgroundAnimation.isRemovedOnCompletion = false
-        backgroundAnimation.fillMode = kCAFillModeForwards
-        backgroundAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        backgroundAnimation.fillMode = CAMediaTimingFillMode.forwards
+        backgroundAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         plusLayer.add(rotateAnimation, forKey: "transform.rotation")
         circleLayer?.add(backgroundAnimation, forKey: "backgroundAnimation")

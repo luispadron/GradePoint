@@ -166,19 +166,21 @@ class SettingsTableViewController: UITableViewController {
         } else if indexPath.section == 4 {
             switch indexPath.row {
             case 0:
-                if let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
-                    let url = URL(string: "mailto:\(kContactEmail)?subject=\(subject)")
-                {
-                    if !UIApplication.shared.openURL(url) {
+                guard let subject = "Contact From GradePoint".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
+                    let url = URL(string: "mailto:\(kContactEmail)?subject=\(subject)") else {
+                        LPSnackbar.showSnack(title: "Email me @ \(kContactEmail)")
+                        return
+                }
+                
+                UIApplication.shared.open(url, options: [:], completionHandler: { (opened) in
+                    if (!opened) {
                         LPSnackbar.showSnack(title: "Email me @ \(kContactEmail)")
                     }
-                } else {
-                    LPSnackbar.showSnack(title: "Email me @ \(kContactEmail)")
-                }
+                })
             case 1:
-                UIApplication.shared.openURL(URL(string: "http://gradepoint.luispadron.com")!)
+                UIApplication.shared.open(URL(string: "http://gradepoint.luispadron.com")!, options: [:], completionHandler: nil)
             case 2:
-                UIApplication.shared.openURL(URL(string: "https://github.com/luispadron")!)
+                UIApplication.shared.open(URL(string: "https://github.com/luispadron")!, options: [:], completionHandler: nil)
             default:
                 return
             }

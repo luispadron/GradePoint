@@ -86,7 +86,7 @@ open class UIFloatingPromptTextField: UISafeTextField {
         }
         
         if animated {
-            let animationOptions:UIViewAnimationOptions = .curveEaseOut;
+            let animationOptions:UIView.AnimationOptions = .curveEaseOut;
             let duration = animationDuration
             
             UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: { () -> Void in

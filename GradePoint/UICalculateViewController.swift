@@ -67,11 +67,11 @@ open class UICalculateViewController: UIBlurViewController {
             // Setup keyboard notifications
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(keyboardDidShow),
-                                                   name: .UIKeyboardDidShow, object: nil)
+                                                   name: UIResponder.keyboardDidShowNotification, object: nil)
             
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(keyboardWillHide),
-                                                   name: .UIKeyboardWillHide, object: nil)
+                                                   name: UIResponder.keyboardWillHideNotification, object: nil)
         }
     }
     
@@ -97,7 +97,7 @@ open class UICalculateViewController: UIBlurViewController {
     /// Called whenever keyboard is shown, adjusts scroll view
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
-        let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         if (self.calculateView.frame.maxY) >= keyboardFrame.minY {
             // Calculate view is covered adjust height

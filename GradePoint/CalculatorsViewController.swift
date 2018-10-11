@@ -45,7 +45,7 @@ class CalculatorsViewController: UIViewController {
 
         
         // Set the progress ring and label
-        let attrs: [NSAttributedStringKey: Any] = [.font: UIFont.italicSystemFont(ofSize: 12),
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.italicSystemFont(ofSize: 12),
                                                    .foregroundColor: UIColor.white.withAlphaComponent(0.6)]
         let savedCalculations = DatabaseManager.shared.realm.objects(GPACalculation.self).sorted(byKeyPath: "date", ascending: true)
         

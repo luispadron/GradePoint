@@ -35,7 +35,7 @@ open class UIBlurAlertController: UIBlurViewController {
         return view
     }()
     /// The feed back type for this alert, if set will trigger a haptic feedback if on iOS 10 +
-    open var alertFeedbackType: UINotificationFeedbackType?
+    open var alertFeedbackType: UINotificationFeedbackGenerator.FeedbackType?
     
     // MARK: - Initializers
     
@@ -91,7 +91,7 @@ open class UIBlurAlertController: UIBlurViewController {
     
     // MARK: - Button actions
     
-    public func addButton(button: UIButton, forHandlerEvents events: UIControlEvents = [.touchUpInside], handler: (() -> Void)?) {
+    public func addButton(button: UIButton, forHandlerEvents events: UIControl.Event = [.touchUpInside], handler: (() -> Void)?) {
         self.alertView.buttons.append(button)
         // Add the action to the button
         if let h = handler {

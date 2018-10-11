@@ -218,7 +218,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
         // TODO: Figure out real fix for this? Not sure why the banner view is being displayed behind header view
-        self.view.bringSubview(toFront: self.bannerAdView)
+        self.view.bringSubviewToFront(self.bannerAdView)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -440,14 +440,14 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         if classToDel.isInProgress {
             // In progress class
             let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
-            let detailController = navController?.childViewControllers.first as? ClassDetailTableViewController
+            let detailController = navController?.children.first as? ClassDetailTableViewController
             if  detailController?.classObj == classToDel {
                 detailController?.classObj = nil
             }
         } else {
             // Previous class, different process, just hide all the views and move on
             let navController = (self.splitViewController?.viewControllers.last as? UINavigationController)
-            let prevDetailController = navController?.childViewControllers.first as? PreviousClassDetailViewController
+            let prevDetailController = navController?.children.first as? PreviousClassDetailViewController
             prevDetailController?.toggleViewVisibility(to: false)
         }
 
@@ -536,8 +536,8 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             if fixTapped {
                 let window = (UIApplication.shared.delegate as! AppDelegate).window
                 guard let tabBar = window?.rootViewController as? UITabBarController,
-                    tabBar.childViewControllers.count > 2,
-                    let settingsVc = tabBar.childViewControllers[2].childViewControllers.first as? SettingsTableViewController else {
+                    tabBar.children.count > 2,
+                    let settingsVc = tabBar.children[2].children.first as? SettingsTableViewController else {
                         print("WARNING: Tried to find SettingsTableViewController but was not able.")
                         return
                 }
@@ -674,11 +674,11 @@ extension ClassesTableViewController: ClassChangesListener {
         // Update detail controller if in Split view/iPad
         // Also update the detail controller if in split view
         guard let navController = self.splitViewController?.viewControllers.last as? UINavigationController else { return }
-        if let detailController = navController.childViewControllers.first as? ClassDetailTableViewController,
+        if let detailController = navController.children.first as? ClassDetailTableViewController,
             detailController.classObj == classObj {
             // Re-set the object which causes UI to update
             detailController.classObj = classObj
-        } else if let detailControl = navController.childViewControllers.first as? PreviousClassDetailViewController {
+        } else if let detailControl = navController.children.first as? PreviousClassDetailViewController {
             detailControl.className = classObj.name
             detailControl.gradeString = classObj.grade?.gradeLetter
             detailControl.setupUI()
@@ -710,7 +710,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(),
+        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(),
                                                    .font: UIFont.systemFont(ofSize: 20)]
         return NSAttributedString(string: "No classes added", attributes: attrs)
     }
@@ -720,7 +720,7 @@ extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelega
     var emptyStateImageSize: CGSize? { return CGSize(width: 120, height: 122) }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
+        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
                                                    .font: UIFont.systemFont(ofSize: 18)]
         return NSAttributedString(string: "Add a class", attributes: attrs)
     }

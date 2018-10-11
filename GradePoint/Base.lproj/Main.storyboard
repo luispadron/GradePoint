@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -290,7 +289,7 @@
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zt0-wK-84s">
                                                         <rect key="frame" x="20" y="8" width="335" height="35"/>
                                                         <segments>
-                                                            <segment title="Weigthed"/>
+                                                            <segment title="Weighted"/>
                                                             <segment title="Points"/>
                                                             <segment title="Previous"/>
                                                         </segments>
@@ -397,7 +396,7 @@
                                             <view hidden="YES" verifyAmbiguity="off" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucc-Km-1Rd" userLabel="Grade Field">
                                                 <rect key="frame" x="0.0" y="385.66666666666669" width="375" height="70"/>
                                                 <subviews>
-                                                    <view verifyAmbiguity="off" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-R7-aPB" customClass="UIPickerField" customModule="GradePoint" customModuleProvider="target">
+                                                    <view verifyAmbiguity="off" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-R7-aPB" customClass="UIPickerField" customModule="GradePoint" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="8" width="347" height="54"/>
                                                     </view>
                                                 </subviews>
@@ -540,7 +539,7 @@
     </scenes>
     <resources>
         <image name="ClassesTabBarIcon" width="90" height="90"/>
-        <image name="DeleteIcon" width="33" height="33"/>
+        <image name="DeleteIcon" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1XK-ni-xRt"/>

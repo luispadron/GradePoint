@@ -107,10 +107,10 @@ class AddEditClassViewController: UIViewController {
         if !(UIDevice.current.userInterfaceIdiom == .pad) {
             // Setup keyboard notifications
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
-                                                   name: .UIKeyboardDidShow, object: nil)
+                                                   name: UIResponder.keyboardDidShowNotification, object: nil)
             
             NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
-                                                   name: .UIKeyboardWillHide, object: nil)
+                                                   name: UIResponder.keyboardWillHideNotification, object: nil)
         }
         
         //////// UI Setup //////
@@ -138,7 +138,7 @@ class AddEditClassViewController: UIViewController {
         updateNavBarForColorChange()
         
         // Customization for the fields
-        let attrsForPrompt: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
+        let attrsForPrompt: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.secondaryTextColor(),
                                                             .font: UIFont.preferredFont(forTextStyle: .body)]
         self.classNameField.titleText = "Class Name"
         self.classNameField.titleTextSpacing = 8.0
@@ -419,7 +419,7 @@ class AddEditClassViewController: UIViewController {
     /// Called whenever keyboard is shown, adjusts scroll view
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo!
-        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.size.height, right: 0)
@@ -496,9 +496,9 @@ class AddEditClassViewController: UIViewController {
                                                attributes: [.font : UIFont.preferredFont(forTextStyle: .headline)])
                 // Construct attributed message
                 let invalidRowSubmessage = "row \(index + 1)"
-                let attrsForSub: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor.warning,
+                let attrsForSub: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.warning,
                                                                  .font: UIFont.preferredFont(forTextStyle: .body)]
-                let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(in: .light),
+                let attrsForMessage: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(in: .light),
                                                                      .font: UIFont.preferredFont(forTextStyle: .body)]
                 let message = "Zero percentage is invalid in " + invalidRowSubmessage
                 let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
@@ -519,7 +519,7 @@ class AddEditClassViewController: UIViewController {
             // Construct the message
             let percentSubMessage = "\nCurrent total: \(totalPercent)%"
             let message = "Weights must add up to 100%" + percentSubMessage
-            let attrsForMessage: [NSAttributedStringKey: Any] = [.foregroundColor : ApplicationTheme.shared.mainTextColor(in: .light),
+            let attrsForMessage: [NSAttributedString.Key: Any] = [.foregroundColor : ApplicationTheme.shared.mainTextColor(in: .light),
                                                                  .font : UIFont.preferredFont(forTextStyle: .body)]
             let messageAttributed = NSMutableAttributedString(string: message, attributes: attrsForMessage)
             
@@ -992,12 +992,12 @@ extension AddEditClassViewController: UIRubricViewDelegate {
         case .open:
             // User is about to close a rubric which was previously created, warn them what this means
             if let primaryKey = (editingRubrics as NSDictionary).allKeys(for: view).first as? String {
-                let titleAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .headline),
+                let titleAttrs: [NSAttributedString.Key: Any] = [.font : UIFont.preferredFont(forTextStyle: .headline),
                                                                 .foregroundColor : UIColor.warning]
                 
                 let title = NSAttributedString(string: "Remove Associated Assignments", attributes: titleAttrs)
                 
-                let messageAttrs: [NSAttributedStringKey: Any] = [.font : UIFont.preferredFont(forTextStyle: .body),
+                let messageAttrs: [NSAttributedString.Key: Any] = [.font : UIFont.preferredFont(forTextStyle: .body),
                                                                   .foregroundColor : ApplicationTheme.shared.mainTextColor(in: .light)]
                 
                 let message = "Removing this rubric will also delete any assignments that were created under it, are you sure?"

@@ -12,14 +12,6 @@ target 'GradePoint' do
   pod 'Google-Mobile-Ads-SDK'
 end
 
-target 'GradePointTests' do
-  all_pods
-end
-
-target 'GradePointUITests' do
-  all_pods
-end
-
 target 'GradePointWidget' do
  all_pods
 end
@@ -30,7 +22,7 @@ post_install do |installer|
     puts target.name
 
     target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '4.1'
+      config.build_settings['SWIFT_VERSION'] = '4.2'
 
     end
   end

@@ -285,13 +285,11 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     /// Updates the progress on the progress ring
     private func updateProgressRing() {
         guard let classObj = _classObj else { return }
-        if !self.progressRing.isAnimating {
-            self.progressRing.startProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3) {
-                // Present rating if possible
-                guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                if RatingManager.shouldPresentRating(appInfo: delegate.appInfo) {
-                    RatingManager.presentRating()
-                }
+        self.progressRing.startProgress(to: Class.calculateScore(for: assignments, in: classObj), duration: 1.3) {
+            // Present rating if possible
+            guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            if RatingManager.shouldPresentRating(appInfo: delegate.appInfo) {
+                RatingManager.presentRating()
             }
         }
     }
@@ -413,7 +411,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
     var emptyStateTitle: NSAttributedString {
         guard _classObj != nil else { return NSAttributedString(string: "") }
-        let attributes: [NSAttributedStringKey : Any] = [.font: UIFont.systemFont(ofSize: 20),
+        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 20),
                                                          .foregroundColor: ApplicationTheme.shared.mainTextColor()]
 
         return NSAttributedString(string: "No assignments added", attributes: attributes)
@@ -421,7 +419,7 @@ extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDe
 
     var emptyStateButtonTitle: NSAttributedString? {
         guard _classObj != nil else { return nil }
-        let attrs: [NSAttributedStringKey: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
+        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
                                                    .font: UIFont.systemFont(ofSize: 18)]
 
         return NSAttributedString(string: "Add assignment", attributes: attrs)

@@ -222,8 +222,8 @@ class PreviousClassDetailViewController: UIViewController {
         button.animateWithPulse(withDuration: 0.2) {
             let window = (UIApplication.shared.delegate as! AppDelegate).window
             guard let tabBar = window?.rootViewController as? UITabBarController,
-                tabBar.childViewControllers.count > 1,
-                let calcsVC = tabBar.childViewControllers[1] as? CalculatorsViewController else {
+                tabBar.children.count > 1,
+                let calcsVC = tabBar.children[1] as? CalculatorsViewController else {
                     
                     print("WARNING: Tried to find ClassesTableViewController but was not able.")
                     return
