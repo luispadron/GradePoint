@@ -54,7 +54,7 @@ class GPACalculatorViewController: UIViewController {
         self.calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
         self.progressRingView.font = UIFont.systemFont(ofSize: 30)
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRingView.decimalPlaces = roundingAmount
+        self.progressRingView.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
         
         // Check to see if there any classes for which a calculation can be made
         let classes = DatabaseManager.shared.realm.objects(Class.self).filter { !$0.isInProgress || $0.assignments.count > 0 }

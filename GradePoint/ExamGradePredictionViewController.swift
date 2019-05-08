@@ -72,7 +72,7 @@ class ExamGradePredictionViewController: UIViewController {
         
         self.progressRing.font = UIFont.systemFont(ofSize: 50)
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRing.decimalPlaces = roundingAmount
+        self.progressRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
     }
 
     override func viewDidAppear(_ animated: Bool) {

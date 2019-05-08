@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0zQ-jM-5Ze">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -89,10 +89,6 @@
                                         <color key="value" red="0.4578264058" green="0.98399174209999996" blue="0.9921709299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="value">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
@@ -539,7 +535,7 @@
     </scenes>
     <resources>
         <image name="ClassesTabBarIcon" width="90" height="90"/>
-        <image name="DeleteIcon" width="100" height="100"/>
+        <image name="DeleteIcon" width="33.333332061767578" height="33.333332061767578"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1XK-ni-xRt"/>

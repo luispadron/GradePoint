@@ -232,7 +232,12 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
             case .eco: fallthrough
             case .purple: self.progressRing.outerRingColor = ApplicationTheme.shared.lightBackgroundColor.darker(by: 25) ?? ApplicationTheme.shared.lightBackgroundColor
             }
-            self.progressRing.gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
+
+            let gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
+            self.progressRing.gradientOptions = UICircularRingGradientOptions(startPosition: .topRight,
+                                                                              endPosition: .bottomLeft,
+                                                                              colors: gradientColors,
+                                                                              colorLocations: [0, 0.5, 1])
         }
 
         self.progressRing.font = UIFont.systemFont(ofSize: 40)
@@ -241,7 +246,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
 
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRing.decimalPlaces = roundingAmount
+        self.progressRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
         
         if let classObj = _classObj {
             self.title = classObj.name

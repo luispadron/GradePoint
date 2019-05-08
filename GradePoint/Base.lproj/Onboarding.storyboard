@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -158,7 +156,7 @@ simply add your classes</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then fill out your information" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTx-lb-47M">
-                                        <rect key="frame" x="59.333333333333329" y="316" width="240.66666666666669" height="24"/>
+                                        <rect key="frame" x="58.666666666666671" y="316" width="240.66666666666663" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -317,7 +315,7 @@ simply add your classes</string>
                                 <rect key="frame" x="20" y="40" width="374" height="656"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just a few more questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QrY-If-ell">
-                                        <rect key="frame" x="8" y="176" width="358" height="22"/>
+                                        <rect key="frame" x="8" y="175.66666666666666" width="358" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -326,7 +324,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you a college or high school student?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fCS-68-gLt">
-                                        <rect key="frame" x="8" y="218" width="358" height="20.333333333333343"/>
+                                        <rect key="frame" x="8" y="217.66666666666669" width="358" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -335,7 +333,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="TLo-Ok-BH9">
-                                        <rect key="frame" x="62" y="258.33333333333331" width="250" height="41"/>
+                                        <rect key="frame" x="62" y="258" width="250" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="HEQ-qb-veA">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -354,7 +352,7 @@ simply add your classes</string>
                                         </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Does your school use A+ or non-A+ grading?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sxd-UK-B8A">
-                                        <rect key="frame" x="8" y="318.33333333333331" width="358" height="20.333333333333314"/>
+                                        <rect key="frame" x="8" y="318" width="358" height="20.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -363,7 +361,7 @@ simply add your classes</string>
                                         </variation>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="rv3-c6-bhc">
-                                        <rect key="frame" x="62" y="358.66666666666669" width="250" height="41"/>
+                                        <rect key="frame" x="62" y="358.33333333333331" width="250" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="osO-k9-m3I">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -409,7 +407,7 @@ simply add your classes</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1l-7a-6MR">
-                                <rect key="frame" x="136" y="706" width="143" height="22"/>
+                                <rect key="frame" x="135.66666666666666" y="706" width="142.99999999999997" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -499,10 +497,6 @@ simply add your classes</string>
                                         <color key="value" red="0.33256985086825769" green="0.69844939115751592" blue="0.59262468188945339" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>

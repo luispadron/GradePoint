@@ -25,16 +25,18 @@ class ClassPeekViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if let color = self.color {
-            self.progressRing.ringStyle = .gradient
             self.progressRing.innerRingColor = color
             self.progressRing.outerRingColor = ApplicationTheme.shared.backgroundColor.lighter(by: 20) ?? ApplicationTheme.shared.backgroundColor
-            self.progressRing.gradientColors = [color.lighter(by: 40) ?? color,
-                                                color,
-                                                color.darker(by: 30) ?? color]
+
+            let gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
+            self.progressRing.gradientOptions = UICircularRingGradientOptions(startPosition: .topRight,
+                                                                              endPosition: .bottomLeft,
+                                                                              colors: gradientColors,
+                                                                              colorLocations: [0, 0.5, 1])
         }
         
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRing.decimalPlaces = roundingAmount
+        self.progressRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
         self.progressRing.font = UIFont.systemFont(ofSize: 45)
         self.progressRing.startProgress(to: self.progress, duration: 1.5)
     }

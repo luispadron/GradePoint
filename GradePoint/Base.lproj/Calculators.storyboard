@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QYF-7m-Ffp">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ifu-go-ptv">
-                                <rect key="frame" x="10" y="30" width="748" height="935"/>
+                                <rect key="frame" x="10" y="30" width="748" height="934"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yqb-F4-gRO" userLabel="GPA Calculator">
-                                        <rect key="frame" x="0.0" y="0.0" width="748" height="462.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="748" height="462"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-fU-Gb7">
                                                 <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
@@ -52,10 +51,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MN-pV-zwe">
-                                                <rect key="frame" x="8" y="32" width="732" height="430.5"/>
+                                                <rect key="frame" x="8" y="32" width="732" height="430"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last calculated" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkd-ku-Nlu">
-                                                        <rect key="frame" x="8" y="401" width="716" height="21.5"/>
+                                                        <rect key="frame" x="8" y="400.5" width="716" height="21.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -64,7 +63,7 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3o-M4-3X8" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
-                                                        <rect key="frame" x="169.5" y="0.0" width="393" height="393"/>
+                                                        <rect key="frame" x="170" y="0.0" width="392.5" height="392.5"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="a3o-M4-3X8" secondAttribute="height" multiplier="1:1" id="8qj-gu-oAY"/>
@@ -90,10 +89,6 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                                                                <integer key="value" value="2"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" GPA"/>
@@ -130,7 +125,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K1-Xa-FLr" userLabel="Exam Calculator">
-                                        <rect key="frame" x="0.0" y="472.5" width="748" height="462.5"/>
+                                        <rect key="frame" x="0.0" y="472" width="748" height="462"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYq-8U-9Az">
                                                 <rect key="frame" x="0.0" y="0.0" width="748" height="24"/>
@@ -400,7 +395,7 @@ maintain or achieve a desired grade.</string>
                                         </variation>
                                     </label>
                                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNS-zA-i3e" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
-                                        <rect key="frame" x="159.5" y="46.5" width="450" height="450"/>
+                                        <rect key="frame" x="159" y="46.5" width="450" height="450"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="VaR-ml-gdm">
@@ -421,10 +416,6 @@ maintain or achieve a desired grade.</string>
                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
                                                 <real key="value" value="13"/>
                                             </userDefinedRuntimeAttribute>
@@ -567,7 +558,7 @@ maintain or achieve a desired grade.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                                         <subviews>
                                             <segmentedControl hidden="YES" verifyAmbiguity="off" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Hv5-ra-Cg3">
-                                                <rect key="frame" x="0.0" y="-75" width="768" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RHy-mn-cDc"/>
                                                 </constraints>
@@ -639,7 +630,7 @@ maintain or achieve a desired grade.</string>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fNt-gg-MEz">
-                            <rect key="frame" x="351.5" y="315" width="320" height="72"/>
+                            <rect key="frame" x="351" y="315" width="320" height="72"/>
                             <string key="text">No classes avaliable to calculate GPA.
 
 Add some classes or assignments!</string>

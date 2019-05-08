@@ -26,21 +26,21 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         DatabaseManager.setupRealm()
         
         // UI Setup
-        gpaRing.ringStyle = .gradient
-        gpaRing.gradientColors = [UIColor.pastelPurple.lighter(by: 40)!, UIColor.pastelPurple, UIColor.pastelPurple.darker(by: 30)!]
+        gpaRing.gradientOptions = UICircularRingGradientOptions(startPosition: .topRight,
+                                                                endPosition: .bottomLeft,
+                                                                colors: [UIColor.pastelPurple.lighter(by: 40)!, UIColor.pastelPurple, UIColor.pastelPurple.darker(by: 30)!],
+                                                                colorLocations: [0, 0.5, 1])
         gpaRing.innerCapStyle = .round
         gpaRing.outerRingColor = UIColor.white.withAlphaComponent(0.7)
-        gpaRing.valueIndicator = ""
-        gpaRing.showFloatingPoint = true
-        gpaRing.decimalPlaces = 2
+        gpaRing.valueFormatter = UICircularProgressRingFormatter(valueIndicator: "", decimalPlaces: 2)
+
         gpaRing.fontColor = UIColor.black.withAlphaComponent(0.6)
 
         classRing.innerCapStyle = .round
         classRing.outerRingColor = UIColor.white.withAlphaComponent(0.7)
         classRing.innerRingColor = UIColor.clear
-        classRing.showFloatingPoint = true
-        classRing.decimalPlaces = 1
-        classRing.ringStyle = .ontop
+        classRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: 1)
+        classRing.style = .ontop
         classRing.fontColor = UIColor.black.withAlphaComponent(0.6)
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
@@ -81,7 +81,6 @@ class WidgetViewController: UIViewController, NCWidgetProviding {
         let showsClass = realm.objects(Assignment.self).count > 0
 
         self.gpaRing.superview?.isHidden = !showsGPA
-        self.gpaRing.decimalPlaces = 2
         
         self.classRing.superview?.isHidden = !showsClass
         self.emptyLabel.isHidden = showsClass || showsGPA
