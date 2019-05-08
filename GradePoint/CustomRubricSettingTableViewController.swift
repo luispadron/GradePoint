@@ -186,7 +186,7 @@ class CustomRubricSettingTableViewController: UITableViewController {
         }
 
         // Just simply delete and recreate the default grade rubric
-        GradeRubric.createRubric(ofType: type)
+        GradeRubric.createRubric(type: type)
 
         // Dismiss
         self.navigationController?.popToRootViewController(animated: true)

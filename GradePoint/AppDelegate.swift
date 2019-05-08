@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Add default grade percentage rubric for older users
         if hasOnboarded && DatabaseManager.shared.realm.objects(GradeRubric.self).count < 1 {
-            GradeRubric.createRubric(ofType: GPAScale.shared.scaleType)
+            GradeRubric.createRubric(type: GPAScale.shared.scaleType)
         }
 
         // DEBUG setup

@@ -36,7 +36,7 @@ class GradeRubric: Object {
     // MARK: API
 
     /// Creates a default rubric, if one already exists, wipes it and replaces it with this one.
-    public static func createRubric(ofType type: GPAScaleType) {
+    public static func createRubric(type: GPAScaleType) {
         let realm = try! Realm()
 
         if realm.objects(GradeRubric.self).count > 0 {
@@ -45,17 +45,23 @@ class GradeRubric: Object {
         }
 
         let rubric = GradeRubric()
+        let percentages = List<GradePercentage>()
 
         switch type {
         case .plusScale:
-            rubric.percentages = List(kPlusScaleGradeLetterRanges.enumerated().map {
-                return GradePercentage(lower: $1.lowerBound, upper: $1.upperBound, grade: kPlusScaleLetterGrades[$0])
-            })
+            let scale = kPlusScaleGradeLetterRanges
+                .enumerated()
+                .map { GradePercentage(lower: $1.lowerBound, upper: $1.upperBound, grade: kPlusScaleLetterGrades[$0]) }
+            percentages.append(objectsIn: scale)
+
         case .nonPlusScale:
-            rubric.percentages = List(kGradeLetterRanges.enumerated().map {
-                return GradePercentage(lower: $1.lowerBound, upper: $1.upperBound, grade: kLetterGrades[$0])
-            })
+            let scale = kGradeLetterRanges
+                .enumerated()
+                .map { GradePercentage(lower: $1.lowerBound, upper: $1.upperBound, grade: kLetterGrades[$0]) }
+            percentages.append(objectsIn: scale)
         }
+
+        rubric.percentages = percentages
 
         DatabaseManager.shared.createObject(GradeRubric.self, value: rubric, update: true)
     }

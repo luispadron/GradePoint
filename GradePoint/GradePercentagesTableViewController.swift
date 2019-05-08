@@ -184,7 +184,7 @@ class GradePercentagesTableViewController: UITableViewController {
     }
 
     private func resetPercentages() {
-        GradeRubric.createRubric(ofType: GPAScale.shared.scaleType)
+        GradeRubric.createRubric(type: GPAScale.shared.scaleType)
 
         self.recalculateGradesForClasses()
 

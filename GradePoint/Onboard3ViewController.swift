@@ -131,7 +131,7 @@ class Onboard3ViewController: UIViewController {
         let type  = sender.selectedSegmentIndex == 0 ? GPAScaleType.plusScale : GPAScaleType.nonPlusScale
         // Create the grading scale and default grading rubric
         GPAScale.createScale(with: type)
-        GradeRubric.createRubric(ofType: type)
+        GradeRubric.createRubric(type: type)
     }
     
     // MARK: Helpers
