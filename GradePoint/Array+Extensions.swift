@@ -10,7 +10,7 @@ extension Array where Element : Collection, Element.Iterator.Element : Equatable
     /// Returns the indices of an object inside a two dimensional array
     func indices(of x: Element.Iterator.Element) -> (Int, Int)? {
         for (i, array) in self.enumerated() {
-            if let j = array.index(of: x) {
+            if let j = array.firstIndex(of: x) {
                 return (i, j)
             }
         }

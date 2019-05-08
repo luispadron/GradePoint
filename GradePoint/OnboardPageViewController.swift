@@ -51,7 +51,7 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
     // MARK: PageViewController DataSource
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = onboardControllers.index(of: viewController) else { return nil }
+        guard let viewControllerIndex = onboardControllers.firstIndex(of: viewController) else { return nil }
         
         let previousIndex = viewControllerIndex - 1
         
@@ -61,7 +61,7 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = onboardControllers.index(of: viewController) else {
+        guard let viewControllerIndex = onboardControllers.firstIndex(of: viewController) else {
             return nil
         }
         
@@ -80,7 +80,7 @@ class OnboardPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let firstVC = onboardControllers.first, let firstIndex = onboardControllers.index(of: firstVC) else {
+        guard let firstVC = onboardControllers.first, let firstIndex = onboardControllers.firstIndex(of: firstVC) else {
             return 0
         }
         

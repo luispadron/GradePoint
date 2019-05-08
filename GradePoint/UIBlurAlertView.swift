@@ -82,7 +82,7 @@ internal class UIBlurAlertView: UIView {
             let yForButton: CGFloat = self.bounds.maxY - height
             button.frame = CGRect(x: xForButton, y: yForButton, width: width, height: height)
             // If already added, then just continue and dont add the button as a subview again
-            if let _ = self.subviews.index(of: button) { continue }
+            if let _ = self.subviews.firstIndex(of: button) { continue }
             self.addSubview(button)
         }
     }

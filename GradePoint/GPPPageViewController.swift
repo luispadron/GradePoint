@@ -66,7 +66,7 @@ class GPPPageViewController: UIPageViewController {
 extension GPPPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = onboardControllers.index(of: viewController) else { return nil }
+        guard let viewControllerIndex = onboardControllers.firstIndex(of: viewController) else { return nil }
 
         let previousIndex = viewControllerIndex - 1
 
@@ -76,7 +76,7 @@ extension GPPPageViewController: UIPageViewControllerDataSource, UIPageViewContr
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = onboardControllers.index(of: viewController) else {
+        guard let viewControllerIndex = onboardControllers.firstIndex(of: viewController) else {
             return nil
         }
 
@@ -113,7 +113,7 @@ extension GPPPageViewController: UIPageViewControllerDataSource, UIPageViewContr
     }
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let firstVc = self.onboardControllers.first, let firstIndex = self.onboardControllers.index(of: firstVc) else {
+        guard let firstVc = self.onboardControllers.first, let firstIndex = self.onboardControllers.firstIndex(of: firstVc) else {
             return 0
         }
 

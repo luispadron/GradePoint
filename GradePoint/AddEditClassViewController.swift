@@ -643,7 +643,7 @@ class AddEditClassViewController: UIViewController {
                 savedRubric.weight = Double(rubricView.weightField.safeText)!
             }
             // Remove this rubric from the rubricViews array, since was already updated, and should not be created again
-            if let index = rubricViews.index(of: rubricView) { rubricViews.remove(at: index) }
+            if let index = rubricViews.firstIndex(of: rubricView) { rubricViews.remove(at: index) }
         }
         
         // Add any new rubric views
@@ -777,13 +777,13 @@ class AddEditClassViewController: UIViewController {
         guard classObj == nil else { return }
         
         let month = Calendar.current.component(.month, from: Date())
-        if (month == 12 || month == 1 || month == 2) && terms.index(of: "Winter") != nil {
+        if (month == 12 || month == 1 || month == 2) && terms.firstIndex(of: "Winter") != nil {
             self.semester = Semester(term: "Winter", year: Semester.possibleYears[1])
-        } else if (month == 3 || month == 4 || month == 5) && terms.index(of: "Spring") != nil {
+        } else if (month == 3 || month == 4 || month == 5) && terms.firstIndex(of: "Spring") != nil {
             self.semester = Semester(term: "Spring", year: Semester.possibleYears[1])
-        } else if (month == 6 || month == 7 || month == 8) && terms.index(of: "Summer") != nil {
+        } else if (month == 6 || month == 7 || month == 8) && terms.firstIndex(of: "Summer") != nil {
             self.semester = Semester(term: "Summer", year: Semester.possibleYears[1])
-        } else if (month == 9 || month == 10 || month == 11) && terms.index(of: "Fall") != nil {
+        } else if (month == 9 || month == 10 || month == 11) && terms.firstIndex(of: "Fall") != nil {
             self.semester = Semester(term: "Fall", year: Semester.possibleYears[1])
         } else {
             self.semester = Semester(term: terms.first!, year: Semester.possibleYears[1])
@@ -894,18 +894,18 @@ extension AddEditClassViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField === self.classTypeField {
-            let selectedRow = self.classTypes.index(of: self.classType.name())!
+            let selectedRow = self.classTypes.firstIndex(of: self.classType.name())!
             self.classTypeField.pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
             self.classTypeField.pickerDelegate?.didSelectPickerRow(selectedRow, in: 0, for: self.classTypeField)
         } else if textField === self.semesterField {
-            let termRow = Semester.possibleTerms.index(of: self.semester.term)!
-            let yearRow = Semester.possibleYears.index(of: self.semester.year)!
+            let termRow = Semester.possibleTerms.firstIndex(of: self.semester.term)!
+            let yearRow = Semester.possibleYears.firstIndex(of: self.semester.year)!
             self.semesterField.pickerView.selectRow(termRow, inComponent: 0, animated: false)
             self.semesterField.pickerDelegate?.didSelectPickerRow(termRow, in: 0, for: self.semesterField)
             self.semesterField.pickerView.selectRow(yearRow, inComponent: 1, animated: false)
             self.semesterField.pickerDelegate?.didSelectPickerRow(yearRow, in: 1, for: self.semesterField)
         } else if textField === self.gradeField {
-            let selectedRow = self.gradeLetters.index(of: self.gradeField.safeText)!
+            let selectedRow = self.gradeLetters.firstIndex(of: self.gradeField.safeText)!
             self.gradeField.pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
             self.gradeField.pickerDelegate?.didSelectPickerRow(selectedRow, in: 0, for: self.gradeField)
         }

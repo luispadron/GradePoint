@@ -49,7 +49,7 @@ extension RealmTableView where Self: UITableViewController {
     func deleteCellWithObject(_ object: RealmObject, section: Int,
                               snackTitle: String, buttonTitle: String,
                               allowsUndo: Bool, completion: ((Bool, RealmObject) -> Void)?) {
-        let row = realmData[section].index(of: object)!
+        let row = realmData[section].firstIndex(of: object)!
         tableView.beginUpdates()
         realmData[section].remove(at: row)
         tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .left)
@@ -101,7 +101,7 @@ extension RealmTableView where Self: UITableViewController {
     }
 
     func reloadCellWithObject(_ object: RealmObject, section: Int) {
-        let row = realmData[section].index(of: object)!
+        let row = realmData[section].firstIndex(of: object)!
         tableView.beginUpdates()
         tableView.reloadRows(at: [IndexPath(row: row, section: section)], with: .automatic)
         tableView.endUpdates()

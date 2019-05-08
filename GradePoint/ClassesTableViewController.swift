@@ -454,7 +454,7 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         // If class is a favorite
         if path.section == 0 {
             var regSection: Int = 0
-            for (i, arr) in classes.enumerated() { if arr.index(of: classToDel) != nil && i != 0 { regSection = i; break } }
+            for (i, arr) in classes.enumerated() { if arr.firstIndex(of: classToDel) != nil && i != 0 { regSection = i; break } }
 
             // Delete object in favorites section
             self.deleteCellWithObject(classToDel, section: path.section,
@@ -663,12 +663,12 @@ extension ClassesTableViewController: GADBannerViewDelegate {
 extension ClassesTableViewController: ClassChangesListener {
 
     func classWasCreated(_ classObj: Class) {
-        self.addCellWithObject(classObj, section: self.semesters.index(of: classObj.semester!)! + 1)
+        self.addCellWithObject(classObj, section: self.semesters.firstIndex(of: classObj.semester!)! + 1)
         self.reloadEmptyState()
     }
 
     func classWasUpdated(_ classObj: Class) {
-        let section = semesters.index(of: classObj.semester!)! + 1
+        let section = semesters.firstIndex(of: classObj.semester!)! + 1
         self.reloadCellWithObject(classObj, section: section)
 
         // Update detail controller if in Split view/iPad
@@ -688,9 +688,9 @@ extension ClassesTableViewController: ClassChangesListener {
     }
 
     func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
-        let fromSection = semesters.index(of: sem1)! + 1
-        let toSection = semesters.index(of: sem2)! + 1
-        let oldPath = IndexPath(row: classes[fromSection].index(of: classObj)!, section: fromSection)
+        let fromSection = semesters.firstIndex(of: sem1)! + 1
+        let toSection = semesters.firstIndex(of: sem2)! + 1
+        let oldPath = IndexPath(row: classes[fromSection].firstIndex(of: classObj)!, section: fromSection)
         let newPath = IndexPath(row: classes[toSection].count, section: toSection)
 
         self.moveCellWithObject(classObj, from: oldPath, to: newPath)

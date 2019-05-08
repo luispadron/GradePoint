@@ -358,7 +358,7 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         let section = indexOf(rubric: assignment.rubric!)!
         assignments[section].append(assignment)
         assignments[section] = assignments[section].sorted { $0.date < $1.date }
-        let row = assignments[section].index(of: assignment)!
+        let row = assignments[section].firstIndex(of: assignment)!
         self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
         self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
         self.tableView.endUpdates()
@@ -382,7 +382,7 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         let toSection = indexOf(rubric: rubric2)!
 
         self.moveCellWithObject(assignment,
-                                from: IndexPath(row: assignments[fromSection].index(of: assignment)!, section: fromSection),
+                                from: IndexPath(row: assignments[fromSection].firstIndex(of: assignment)!, section: fromSection),
                                 to: IndexPath(row: assignments[toSection].count, section: toSection))
         self.tableView.beginUpdates()
         self.tableView.reloadSections(IndexSet(integer: fromSection), with: .automatic)
