@@ -53,8 +53,7 @@ class Onboard3ViewController: UIViewController {
                                                                 UIFont.systemFont(ofSize: 16)], for: .normal)
                 gradingTypeSegementControl.setTitleTextAttributes([NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue):
                                                                     UIFont.systemFont(ofSize: 16)], for: .normal)
-            case .unspecified: fallthrough
-            case .regular:
+            default:
                 schoolTypeSegmentControl.setTitleTextAttributes([NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue):
                                                                     UIFont.systemFont(ofSize: 25)], for: .normal)
                 gradingTypeSegementControl.setTitleTextAttributes([NSAttributedString.Key(rawValue: NSAttributedString.Key.font.rawValue):

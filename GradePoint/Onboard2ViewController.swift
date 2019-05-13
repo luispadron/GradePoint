@@ -70,9 +70,7 @@ class Onboard2ViewController: UIViewController {
 
         if UIDevice.current.userInterfaceIdiom == .pad && height < 1000 {
             switch orientation {
-                
-            case .portraitUpsideDown: fallthrough
-            case .portrait:
+            case .portrait, .portraitUpsideDown:
                 if !self.rubricStackView.arrangedSubviews.contains(rubricView3) ||
                     !self.rubricStackView.arrangedSubviews.contains(rubricView4) {
                     
@@ -82,14 +80,13 @@ class Onboard2ViewController: UIViewController {
                     rubricStackView.addArrangedSubview(rubricView4)
                     
                 }
-            case .unknown: fallthrough
-            case .landscapeLeft: fallthrough
-            case .landscapeRight:
+
+            case .unknown, .landscapeLeft, .landscapeRight:
                 rubricView3.removeFromSuperview()
                 rubricView4.removeFromSuperview()
-                
-            case .faceUp: break
-            case .faceDown: break
+
+            default:
+                break
             }
         }
     }

@@ -189,12 +189,6 @@ class GameScence: SKScene {
         }
     }
 
-    /// Creates a random number within given range
-    private func randomNumber(min: CGFloat, max: CGFloat) -> CGFloat {
-        let rand = CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-        return rand * (max - min) + min
-    }
-
     // MARK: Sprites
 
     /// The score label which displays current score
@@ -306,7 +300,7 @@ class GameScence: SKScene {
     /// Creates a wall with given image name
     private func createWall(imageName: String, topWall: Bool) -> SKSpriteNode {
         let wall = SKSpriteNode(imageNamed: imageName)
-        let randSpacing = randomNumber(min: 370, max: 460)
+        let randSpacing = CGFloat(Double.random(in: 370...460))
         let yForWall = topWall ? self.frame.height / 2 + randSpacing : self.frame.height / 2 - randSpacing
         wall.position = CGPoint(x: self.frame.width + 25, y: yForWall)
         wall.setScale(0.5)
@@ -344,7 +338,7 @@ class GameScence: SKScene {
         self.wallPair.addChild(topWall)
         self.wallPair.addChild(bottomWall)
 
-        let randomPosition = randomNumber(min: -200, max: 200)
+        let randomPosition = CGFloat(Double.random(in: -200...200))
         self.wallPair.position.y = self.wallPair.position.y + randomPosition
 
         self.wallPair.addChild(aPlusNode)

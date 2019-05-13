@@ -97,8 +97,8 @@ class ExamGradePredictionViewController: UIViewController {
                 self.progressRing.font = UIFont.systemFont(ofSize: 50)
                 self.progressRing.outerRingWidth = 13
                 self.progressRing.innerRingWidth = 11
-            case .unspecified: fallthrough
-            case .regular:
+
+            default:
                 self.progressRing.font = UIFont.systemFont(ofSize: 70)
                 self.progressRing.outerRingWidth = 16
                 self.progressRing.innerRingWidth = 14

@@ -50,8 +50,7 @@ class Onboard4ViewController: UIViewController {
                 progressRing.font = UIFont.systemFont(ofSize: 60)
                 progressRing.outerRingWidth = 14
                 progressRing.innerRingWidth = 10
-            case .unspecified: fallthrough
-            case .regular:
+            default:
                 progressRing.font = UIFont.systemFont(ofSize: 90)
                 progressRing.outerRingWidth = 20
                 progressRing.innerRingWidth = 16
