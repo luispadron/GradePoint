@@ -22,7 +22,7 @@ post_install do |installer|
     puts target.name
 
     target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '4.2'
+      config.build_settings['SWIFT_VERSION'] = '5'
 
     end
   end
