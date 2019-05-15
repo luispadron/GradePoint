@@ -78,7 +78,7 @@ let kUserDefaultGradeBirdHighScore = "com.luispadron.GradePoint.gradeBirdHighSco
 let kUserDefaultHasModifiedGradePercentages = "com.luispadron.GradePoint.hasModifiedGradePercentages"
 
 // Notifications
-let kSemestersUpdatedNotification = Notification.Name("com.luispadron.GradePoint.semestersUpdated")
+let kRemoteClassChangeNotification = Notification.Name("com.luispadron.GradePoint.remoteClassChange")
 let kThemeUpdatedNotification = Notification.Name("com.luispadron.GradePoint.themeUpdated")
 
 // Custom URL's

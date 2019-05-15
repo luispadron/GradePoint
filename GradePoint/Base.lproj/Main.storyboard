@@ -88,12 +88,8 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
                                         <color key="value" red="0.4578264058" green="0.98399174209999996" blue="0.9921709299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="value">
                                         <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
-                                        <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
                                         <real key="value" value="15"/>
@@ -206,7 +202,7 @@
         <!--Add Edit Class View Controller-->
         <scene sceneID="eks-h2-5HZ">
             <objects>
-                <viewController id="quP-G3-hBI" customClass="AddEditClassViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddEditClassViewController" id="quP-G3-hBI" customClass="AddEditClassViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0lj-2W-6nn"/>
                         <viewControllerLayoutGuide type="bottom" id="Esf-sI-6e3"/>

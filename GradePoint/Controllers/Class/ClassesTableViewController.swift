@@ -115,11 +115,12 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         self.loadClasses()
         
         // Listen to semester update notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(self.semestersDidUpdate),
-                                               name: kSemestersUpdatedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForRemoteClassChange),
+                                               name: kRemoteClassChangeNotification, object: nil)
         // Listen to theme changes notificaitons
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges),
                                                name: kThemeUpdatedNotification, object: nil)
+
         // Add 3D touch support to this view
         if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
 
@@ -821,8 +822,8 @@ extension ClassesTableViewController: UISplitViewControllerDelegate {
 
 extension ClassesTableViewController {
     /// Called whenever semesters are updated inside the `SemesterConfigurationViewController`
-    @objc private func semestersDidUpdate(notification: Notification) {
-        // Remove all classes and load them again with new semesters
+    @objc private func updateUIForRemoteClassChange(notification: Notification) {
+        // Remove all classes and load them again
         classes.removeAll()
         semesters.removeAll()
         semesters = generateSemesters()

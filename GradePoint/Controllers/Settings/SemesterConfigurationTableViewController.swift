@@ -53,7 +53,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         // Save any ordering
         UserDefaults.standard.set(semesters, forKey: kUserDefaultTerms)
         // Notify that semesters have been updated
-        NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
+        NotificationCenter.default.post(Notification(name: kRemoteClassChangeNotification))
     }
     
     // MARK: - Table view data source
@@ -135,7 +135,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
                 self?.semesters[path.row] = text
                 self?.tableView.reloadData()
                 // Notify that semesters have been updated
-                NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
+                NotificationCenter.default.post(Notification(name: kRemoteClassChangeNotification))
             }
         }
         
@@ -201,7 +201,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
             self?.tableView.endUpdates()
             
             // Notify that semesters have been updated
-            NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
+            NotificationCenter.default.post(Notification(name: kRemoteClassChangeNotification))
         })
         
         alert.presentAlert(presentingViewController: self)
@@ -254,7 +254,7 @@ class SemesterConfigurationTableViewController: UITableViewController {
         UserDefaults.standard.set(semesters, forKey: kUserDefaultTerms)
         
         // Notify that semesters have been updated
-        NotificationCenter.default.post(Notification(name: kSemestersUpdatedNotification))
+        NotificationCenter.default.post(Notification(name: kRemoteClassChangeNotification))
     }
 
 

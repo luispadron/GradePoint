@@ -72,9 +72,6 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
                                                                 <real key="value" value="4"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
-                                                                <integer key="value" value="2"/>
-                                                            </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
                                                                 <real key="value" value="8"/>
                                                             </userDefinedRuntimeAttribute>
@@ -91,7 +88,6 @@
                                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" GPA"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -415,7 +411,6 @@ maintain or achieve a desired grade.</string>
                                             <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                                 <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value="%"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="outerRingWidth">
                                                 <real key="value" value="13"/>
                                             </userDefinedRuntimeAttribute>
@@ -575,19 +570,32 @@ maintain or achieve a desired grade.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-cw-udx" userLabel="Classes">
-                                                        <rect key="frame" x="8" y="8" width="752" height="34"/>
+                                                        <rect key="frame" x="15" y="8" width="63" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" red="0.78039215689999997" green="0.78039215689999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85Q-mK-3oB">
+                                                        <rect key="frame" x="723" y="8" width="30" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Add"/>
+                                                        <connections>
+                                                            <action selector="didTapAddClass:" destination="XO0-0A-Hk9" eventType="touchUpInside" id="wdV-rF-vdc"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.36470588235294116" green="0.36862745098039218" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="qPa-cw-udx" firstAttribute="top" secondItem="dJD-3p-kJC" secondAttribute="top" constant="8" id="4mr-66-XVN"/>
+                                                    <constraint firstAttribute="bottom" secondItem="85Q-mK-3oB" secondAttribute="bottom" constant="8" id="F4S-g8-JLE"/>
+                                                    <constraint firstItem="85Q-mK-3oB" firstAttribute="centerY" secondItem="dJD-3p-kJC" secondAttribute="centerY" id="cFZ-6f-zqR"/>
+                                                    <constraint firstItem="qPa-cw-udx" firstAttribute="centerY" secondItem="dJD-3p-kJC" secondAttribute="centerY" id="f4J-yY-xFM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="85Q-mK-3oB" secondAttribute="trailing" constant="15" id="j34-Ab-IIl"/>
                                                     <constraint firstAttribute="height" constant="50" id="jZ8-ge-pyo"/>
-                                                    <constraint firstItem="qPa-cw-udx" firstAttribute="leading" secondItem="dJD-3p-kJC" secondAttribute="leading" constant="8" id="mmh-rm-RKI"/>
-                                                    <constraint firstAttribute="trailing" secondItem="qPa-cw-udx" secondAttribute="trailing" constant="8" id="nPj-4p-g9I"/>
+                                                    <constraint firstItem="qPa-cw-udx" firstAttribute="leading" secondItem="dJD-3p-kJC" secondAttribute="leading" constant="15" id="mmh-rm-RKI"/>
                                                     <constraint firstAttribute="bottom" secondItem="qPa-cw-udx" secondAttribute="bottom" constant="8" id="ve3-EC-Bf5"/>
+                                                    <constraint firstItem="85Q-mK-3oB" firstAttribute="top" secondItem="dJD-3p-kJC" secondAttribute="top" constant="8" id="zOA-as-NVC"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -685,13 +693,6 @@ Add some classes or assignments!</string>
                                 <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
                                     <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="YES"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="decimalPlaces">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="ibRingStyle">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
                                     <real key="value" value="4"/>
                                 </userDefinedRuntimeAttribute>
@@ -701,7 +702,6 @@ Add some classes or assignments!</string>
                                 <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
                                     <real key="value" value="15"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="string" keyPath="valueIndicator" value=" GPA"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>

@@ -178,7 +178,21 @@ class GPACalculatorViewController: UIViewController {
         self.view.endEditing(true)
         self.scrollView.setContentOffset(CGPoint(x: 0,y: -self.scrollView.contentInset.top), animated: true)
     }
-    
+
+    @IBAction func didTapAddClass(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controllerId = "AddEditClassViewController"
+        let controller = storyboard.instantiateViewController(withIdentifier: controllerId) as! AddEditClassViewController
+        controller.modalPresentationStyle = .formSheet
+        controller.preferredContentSize = CGSize(width: 300, height: 600)
+        controller.listener = self
+
+        self.present(controller, animated: true) {
+            controller.typeSwitcher.selectedSegmentIndex = 2
+            controller.onViewSwitchTapped(controller.typeSwitcher)
+        }
+    }
+
     
     /// Called whenever keyboard is shown, adjusts scroll view
     @objc func keyboardDidShow(notification: Notification) {
@@ -207,16 +221,7 @@ class GPACalculatorViewController: UIViewController {
         let classes = realm.objects(Class.self).filter { !$0.isInProgress || $0.assignments.count > 0 }
         
         // Update each of the views with their appropriate class object
-        for classObj in classes {
-            // Create a GPA View and add it to the stack view
-            let newView = UIGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGPAViews))
-            newView.nameField.text = classObj.name
-            newView.gradeField.text = classObj.grade!.gradeLetter
-            newView.creditsField.text = "\(classObj.creditHours)"
-            // Create height constraint and add to stackview
-            newView.heightAnchor.constraint(equalToConstant: heightForGPAViews).isActive = true
-            stackView.addArrangedSubview(newView)
-        }
+        classes.forEach { addGpaView(with: $0) }
     }
     
     /// Calculates the GPA depending on the student type
@@ -331,7 +336,42 @@ class GPACalculatorViewController: UIViewController {
         }
     }
 
+    /// adds a gpa view to the stackview
+    @discardableResult
+    private func addGpaView(with classObj: Class) -> UIGPAView {
+        let newView = UIGPAView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: heightForGPAViews))
+        newView.nameField.text = classObj.name
+        newView.gradeField.text = classObj.grade!.gradeLetter
+        newView.creditsField.text = "\(classObj.creditHours)"
+        // Create height constraint and add to stackview
+        newView.heightAnchor.constraint(equalToConstant: heightForGPAViews).isActive = true
+        stackView.addArrangedSubview(newView)
+        return newView
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+
+}
+
+extension GPACalculatorViewController: ClassChangesListener {
+    func classWasCreated(_ classObj: Class) {
+        let newView = self.addGpaView(with: classObj)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            newView.nameField.editingChanged()
+            newView.gradeField.editingChanged()
+            newView.creditsField.editingChanged()
+        }
+
+        self.calculateGPA()
+
+        NotificationCenter.default.post(Notification(name: kRemoteClassChangeNotification))
+    }
+
+    func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) { }
+
+    func classWasUpdated(_ clasObj: Class) { }
+
 }
