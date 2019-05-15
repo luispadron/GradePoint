@@ -384,7 +384,7 @@
 				A0BF3B291F243782001CCE52 /* Constants.swift */,
 				A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */,
 				A027533E1F043B2A0021CDFF /* Managers */,
-				A01B87801DBD272600A85E2D /* Data Models */,
+				A01B87801DBD272600A85E2D /* Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
 				A04D19941DBAFD6A00FDA9A7 /* Protocols */,
 				A0CE8B451DAF19DE007968EE /* Extensions */,
@@ -414,13 +414,14 @@
 			name = Onboarding;
 			sourceTree = "<group>";
 		};
-		A01B87801DBD272600A85E2D /* Data Models */ = {
+		A01B87801DBD272600A85E2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A07B59741E86ED7D007EEE1E /* Main Models */,
+				A07B59741E86ED7D007EEE1E /* Main */,
 				A0C5170E1E78A65E0089527D /* GPA */,
+				A0AEB5B0228B927F00F409BC /* Models+CoudKit */,
 			);
-			name = "Data Models";
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A0263AC3202189B7001940DE /* Assets */ = {
@@ -457,7 +458,7 @@
 				A078D23D1FF1C51C004197DF /* UIPickerFieldDelegate.swift */,
 				A078D2411FF1C6E0004197DF /* UIPickerFieldDataSource.swift */,
 			);
-			name = Protocols;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		A05AB7CD2021598200BDDDBF /* Class */ = {
@@ -514,7 +515,7 @@
 			name = Calculators;
 			sourceTree = "<group>";
 		};
-		A07B59741E86ED7D007EEE1E /* Main Models */ = {
+		A07B59741E86ED7D007EEE1E /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				A0C6642A1F05C6B400583C99 /* AppInfo.swift */,
@@ -528,7 +529,7 @@
 				A086060F20AA49F800DD30AF /* GradeRubric.swift */,
 				A086060D20AA483100DD30AF /* GradePercentage.swift */,
 			);
-			name = "Main Models";
+			path = Main;
 			sourceTree = "<group>";
 		};
 		A084437E1E55805E00C32F52 /* UICalculateView */ = {
@@ -573,6 +574,14 @@
 			name = UIBlurAlert;
 			sourceTree = "<group>";
 		};
+		A0AEB5B0228B927F00F409BC /* Models+CoudKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Models+CoudKit";
+			path = "Models+CloudKit";
+			sourceTree = "<group>";
+		};
 		A0C5170E1E78A65E0089527D /* GPA */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,7 +589,7 @@
 				A0C517131E78AC0B0089527D /* GPARubric.swift */,
 				A07B59761E86EDB5007EEE1E /* GPACalculation.swift */,
 			);
-			name = GPA;
+			path = GPA;
 			sourceTree = "<group>";
 		};
 		A0CE8B431DAF1780007968EE /* Controllers */ = {
@@ -625,7 +634,7 @@
 				A06E179C2022634E00D5ACC0 /* SKProduct+Price.swift */,
 				A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A0CE8B481DAF26E3007968EE /* Custom Controls */ = {
@@ -666,7 +675,7 @@
 				A067DBA11EA5BB3700F09EA9 /* StudentType.swift */,
 				A0565AA91EF080F3005C23C0 /* QuickActionId.swift */,
 			);
-			name = Enums;
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		A0E892E61DB97B4A0034DAB6 /* Cells */ = {
