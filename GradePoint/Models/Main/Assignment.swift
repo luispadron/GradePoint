@@ -22,6 +22,8 @@ class Assignment: Object {
     @objc dynamic var pointsScore: Double = 0.0
     @objc dynamic var totalPointsScore: Double = 0.0
 
+    @objc dynamic var isDeleted: Bool = false
+
     let parentClass = LinkingObjects(fromType: Class.self, property: "assignments")
     
     // MARK: - Initializers

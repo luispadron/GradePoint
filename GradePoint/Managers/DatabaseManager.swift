@@ -101,7 +101,7 @@ final class DatabaseManager {
     /// The current schema version of the Realm file, this is not the version of the actual Realm file on the device
     /// but instead what the version should be, this version number should be changed whenever the schema is updated.
     // And any migration code should be added in `performMigration`
-    public static var currentSchemaVersion: UInt64 = 4
+    public static var currentSchemaVersion: UInt64 = 5
 
     // MARK: Realm Setup
 
@@ -175,6 +175,16 @@ final class DatabaseManager {
             migration.enumerateObjects(ofType: Class.className(), {oldObj, newObj in
                 let type = (oldObj!["rubrics"] as! List<DynamicObject>).count > 0 ? ClassGradeType.weighted : ClassGradeType.previous
                 newObj!["classGradeType"] = type.rawValue
+            })
+        }
+        // Add new isDeleted field
+        if version < 4 {
+            migration.enumerateObjects(ofType: Class.className(), { _, newObj in
+                newObj!["isDeleted"] = false
+            })
+
+            migration.enumerateObjects(ofType: Assignment.className(), { _, newObj in
+                newObj!["isDeleted"] = false
             })
         }
     }

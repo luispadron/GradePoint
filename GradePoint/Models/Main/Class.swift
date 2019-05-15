@@ -21,9 +21,11 @@ class Class: Object {
     @objc dynamic var semester: Semester?
     @objc dynamic var grade: Grade?
     @objc dynamic var isFavorite: Bool = false
+    @objc dynamic var isDeleted: Bool = false
+    @objc dynamic var colorData = Data()
+
     var rubrics = List<Rubric>()
     var assignments = List<Assignment>()
-    @objc dynamic var colorData = Data()
     
     // MARK: - Initializers
     

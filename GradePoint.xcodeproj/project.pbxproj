@@ -106,6 +106,8 @@
 		A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF71E554D5600054935 /* UISafeTextField.swift */; };
 		A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */; };
 		A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CFD1E557A3E00054935 /* UICalculateView.swift */; };
+		A0AEB5B2228B960300F409BC /* Main+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AEB5B1228B960300F409BC /* Main+CloudKit.swift */; };
+		A0AEB5B4228B960B00F409BC /* GPA+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AEB5B3228B960B00F409BC /* GPA+CloudKit.swift */; };
 		A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */; };
 		A0B0A3AC2127A398002A8D15 /* AdMobConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */; };
 		A0B10BA320219FA2008A83AE /* GradePointPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B10BA220219FA2008A83AE /* GradePointPremium.swift */; };
@@ -269,6 +271,8 @@
 		A0A27CF71E554D5600054935 /* UISafeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextField.swift; sourceTree = "<group>"; };
 		A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextFieldConfigurations.swift; sourceTree = "<group>"; };
 		A0A27CFD1E557A3E00054935 /* UICalculateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateView.swift; sourceTree = "<group>"; };
+		A0AEB5B1228B960300F409BC /* Main+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+CloudKit.swift"; sourceTree = "<group>"; };
+		A0AEB5B3228B960B00F409BC /* GPA+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GPA+CloudKit.swift"; sourceTree = "<group>"; };
 		A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurViewController.swift; sourceTree = "<group>"; };
 		A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobConstants.swift; sourceTree = "<group>"; };
 		A0B10BA220219FA2008A83AE /* GradePointPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointPremium.swift; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 		A0AEB5B0228B927F00F409BC /* Models+CoudKit */ = {
 			isa = PBXGroup;
 			children = (
+				A0AEB5B1228B960300F409BC /* Main+CloudKit.swift */,
+				A0AEB5B3228B960B00F409BC /* GPA+CloudKit.swift */,
 			);
 			name = "Models+CoudKit";
 			path = "Models+CloudKit";
@@ -989,6 +995,7 @@
 				A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */,
 				A0B0A3AC2127A398002A8D15 /* AdMobConstants.swift in Sources */,
 				A06E179720223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift in Sources */,
+				A0AEB5B4228B960B00F409BC /* GPA+CloudKit.swift in Sources */,
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A06E179520223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift in Sources */,
 				A027533D1F043B240021CDFF /* RatingManager.swift in Sources */,
@@ -997,6 +1004,7 @@
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A037C76F20215A8700AE153A /* GameViewController.swift in Sources */,
+				A0AEB5B2228B960300F409BC /* Main+CloudKit.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */,
 				A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */,
