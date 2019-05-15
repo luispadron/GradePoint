@@ -393,7 +393,7 @@
 				A04D19941DBAFD6A00FDA9A7 /* Protocols */,
 				A0CE8B451DAF19DE007968EE /* Extensions */,
 				A0CE8B431DAF1780007968EE /* Controllers */,
-				A0CE8B481DAF26E3007968EE /* Custom Controls */,
+				A0CE8B481DAF26E3007968EE /* CustomControls */,
 				A0CE8B441DAF178F007968EE /* Storyboards */,
 				A007051C1DAF0E9B00AD740A /* Info.plist */,
 				A0B8577F2044D7A600091937 /* AdMob.plist */,
@@ -542,7 +542,7 @@
 				A084437F1E55808F00C32F52 /* UICalculateViewController.swift */,
 				A0A27CFD1E557A3E00054935 /* UICalculateView.swift */,
 			);
-			name = UICalculateView;
+			path = UICalculateView;
 			sourceTree = "<group>";
 		};
 		A086C9F71E8CB8D1007819FD /* Settings */ = {
@@ -566,7 +566,7 @@
 				A0A27CF71E554D5600054935 /* UISafeTextField.swift */,
 				A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */,
 			);
-			name = UISafeTextField;
+			path = UISafeTextField;
 			sourceTree = "<group>";
 		};
 		A0A27CFC1E5579DD00054935 /* UIBlurAlert */ = {
@@ -575,7 +575,7 @@
 				A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */,
 				A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */,
 			);
-			name = UIBlurAlert;
+			path = UIBlurAlert;
 			sourceTree = "<group>";
 		};
 		A0AEB5B0228B927F00F409BC /* Models+CoudKit */ = {
@@ -643,7 +643,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		A0CE8B481DAF26E3007968EE /* Custom Controls */ = {
+		A0CE8B481DAF26E3007968EE /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
 				A0E892E61DB97B4A0034DAB6 /* Cells */,
@@ -659,7 +659,7 @@
 				A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */,
 				A0D80C0B209CDFCC004BCB95 /* UIGradePercentageView.swift */,
 			);
-			name = "Custom Controls";
+			path = CustomControls;
 			sourceTree = "<group>";
 		};
 		A0E4A6711F4A09E00094BC4F /* GradePointWidget */ = {
@@ -692,7 +692,7 @@
 				A05B1E2E1DB2B84A00A43BE3 /* RubricTableViewCell.swift */,
 				A0D80C0D209CE0FD004BCB95 /* GradePercentageTableViewCell.swift */,
 			);
-			name = Cells;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		C607A3A6DFAD2481AB36BDBB /* Pods */ = {
