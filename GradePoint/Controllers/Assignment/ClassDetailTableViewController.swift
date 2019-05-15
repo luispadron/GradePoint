@@ -220,17 +220,20 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     private func updateUI() {
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
 
-        // Update text color
-        self.progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
 
-        // Set color for progress ring
+        // custom progress ring styles
+
+        self.progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
+        self.progressRing.font = UIFont.systemFont(ofSize: 40)
+        self.progressRing.style = .ontop
+
         if let color = self._classObj?.color {
             self.progressRing.innerRingColor = color
             switch ApplicationTheme.shared.theme {
             case .dark: self.progressRing.outerRingColor = ApplicationTheme.shared.backgroundColor.lighter(by: 20) ?? ApplicationTheme.shared.backgroundColor
-            case .light: fallthrough
-            case .eco: fallthrough
-            case .purple: self.progressRing.outerRingColor = ApplicationTheme.shared.lightBackgroundColor.darker(by: 25) ?? ApplicationTheme.shared.lightBackgroundColor
+            case .light, .eco, .purple:
+                self.progressRing.outerRingColor = ApplicationTheme.shared.lightBackgroundColor.darker(by: 25) ??
+                    ApplicationTheme.shared.lightBackgroundColor
             }
 
             let gradientColors = [color.lighter(by: 40) ?? color, color, color.darker(by: 30) ?? color]
@@ -239,8 +242,6 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
                                                                               colors: gradientColors,
                                                                               colorLocations: [0, 0.5, 1])
         }
-
-        self.progressRing.font = UIFont.systemFont(ofSize: 40)
 
         self.tableView.scrollsToTop = true
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
