@@ -415,7 +415,7 @@
 				A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */,
 				A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */,
 			);
-			name = Onboarding;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		A01B87801DBD272600A85E2D /* Models */ = {
@@ -436,7 +436,7 @@
 				A0263ABD202188C7001940DE /* RewardSound.wav */,
 				A037C77320215CDB00AE153A /* bird.atlas */,
 			);
-			name = Assets;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		A027533E1F043B2A0021CDFF /* Managers */ = {
@@ -472,7 +472,7 @@
 				A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */,
 				A07099501E5E8CFE00B65756 /* AddEditClassViewController.swift */,
 			);
-			name = Class;
+			path = Class;
 			sourceTree = "<group>";
 		};
 		A05AB7CE2021598A00BDDDBF /* Assignment */ = {
@@ -482,7 +482,7 @@
 				A07082121DFF829D00941627 /* AddEditAssignmentTableViewController.swift */,
 				A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */,
 			);
-			name = Assignment;
+			path = Assignment;
 			sourceTree = "<group>";
 		};
 		A05AB7CF202159B000BDDDBF /* GradeBird */ = {
@@ -493,7 +493,7 @@
 				A05AB7D0202159E100BDDDBF /* GameScene.swift */,
 				A037C77020215C1C00AE153A /* GameElements.swift */,
 			);
-			name = GradeBird;
+			path = GradeBird;
 			sourceTree = "<group>";
 		};
 		A06E178D20223A9C00D5ACC0 /* GradePointPremium */ = {
@@ -506,7 +506,7 @@
 				A06E179820223C0700D5ACC0 /* GPPOnboarding4ViewController.swift */,
 				A06E179A20223C1000D5ACC0 /* GPPOnboarding5ViewController.swift */,
 			);
-			name = GradePointPremium;
+			path = GradePointPremium;
 			sourceTree = "<group>";
 		};
 		A0727DC41E65481C00885B35 /* Calculators */ = {
@@ -516,7 +516,7 @@
 				A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */,
 				A0727DC51E65484500885B35 /* ExamGradePredictionViewController.swift */,
 			);
-			name = Calculators;
+			path = Calculators;
 			sourceTree = "<group>";
 		};
 		A07B59741E86ED7D007EEE1E /* Main */ = {
@@ -557,7 +557,7 @@
 				A06E178D20223A9C00D5ACC0 /* GradePointPremium */,
 				A05AB7CF202159B000BDDDBF /* GradeBird */,
 			);
-			name = Settings;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		A0A27CFB1E55563D00054935 /* UISafeTextField */ = {
@@ -607,7 +607,7 @@
 				A017D1CD1E5A75A0004FBDA9 /* Onboarding */,
 				A0727DC41E65481C00885B35 /* Calculators */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		A0CE8B441DAF178F007968EE /* Storyboards */ = {
