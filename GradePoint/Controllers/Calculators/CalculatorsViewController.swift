@@ -26,9 +26,13 @@ class CalculatorsViewController: UIViewController {
 
         // Set up the UI
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
-        self.gpaRing.font = UIFont.systemFont(ofSize: self.gpaRing.frame.width/7.0)
+        self.gpaRing.font = UIFont.systemFont(ofSize: self.gpaRing.frame.width / 7.0)
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.gpaRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
+        self.gpaRing.style = .ontop
+        self.gpaRing.valueFormatter = UICircularProgressRingFormatter(valueIndicator: "",
+                                                                      showFloatingPoint: true,
+                                                                      decimalPlaces: roundingAmount)
+
         
         // Add drop shadow to calculator views
         gpaCalculatorView.layer.cornerRadius = 10

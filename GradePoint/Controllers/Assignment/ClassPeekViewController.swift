@@ -36,8 +36,9 @@ class ClassPeekViewController: UIViewController {
         }
         
         let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
-        self.progressRing.font = UIFont.systemFont(ofSize: 45)
+        self.progressRing.valueFormatter = UICircularProgressRingFormatter(showFloatingPoint: true,
+                                                                           decimalPlaces: roundingAmount)
+        self.progressRing.font = UIFont.systemFont(ofSize: 32)
         self.progressRing.startProgress(to: self.progress, duration: 1.5)
     }
     

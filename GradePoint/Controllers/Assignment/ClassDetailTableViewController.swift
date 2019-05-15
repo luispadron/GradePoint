@@ -226,6 +226,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         self.progressRing.fontColor = ApplicationTheme.shared.mainTextColor()
         self.progressRing.font = UIFont.systemFont(ofSize: 40)
         self.progressRing.style = .ontop
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
+        self.progressRing.valueFormatter = UICircularProgressRingFormatter(showFloatingPoint: true,
+                                                                           decimalPlaces: roundingAmount)
 
         if let color = self._classObj?.color {
             self.progressRing.innerRingColor = color
@@ -245,9 +248,6 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
 
         self.tableView.scrollsToTop = true
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
-
-        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRing.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
         
         if let classObj = _classObj {
             self.title = classObj.name

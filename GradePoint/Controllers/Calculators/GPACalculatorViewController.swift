@@ -44,17 +44,24 @@ class GPACalculatorViewController: UIViewController {
         super.viewDidLoad()
         // UI Setup
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
+
         self.headerView.backgroundColor = ApplicationTheme.shared.tableViewHeaderColor
         (self.headerView.subviews.first as? UILabel)?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
+
         self.progressRingView.fontColor = ApplicationTheme.shared.mainTextColor()
+        self.progressRingView.font = UIFont.systemFont(ofSize: 30)
+        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
+        self.progressRingView.valueFormatter = UICircularProgressRingFormatter(valueIndicator: "",
+                                                                               showFloatingPoint: true,
+                                                                               decimalPlaces: roundingAmount)
+        self.progressRingView.style = .ontop
+
         (self.emptyView.subviews.first as? UILabel)?.textColor = ApplicationTheme.shared.mainTextColor()
+
         self.weightSwitcher.tintColor = UIColor.pastelPurple
 
         self.calculateButton.setTitleColor(UIColor.white, for: .normal)
         self.calculateButton.setTitleColor(UIColor.lightGray, for: .disabled)
-        self.progressRingView.font = UIFont.systemFont(ofSize: 30)
-        let roundingAmount = UserDefaults.standard.integer(forKey: kUserDefaultDecimalPlaces)
-        self.progressRingView.valueFormatter = UICircularProgressRingFormatter(decimalPlaces: roundingAmount)
         
         // Check to see if there any classes for which a calculation can be made
         let classes = DatabaseManager.shared.realm.objects(Class.self).filter { !$0.isInProgress || $0.assignments.count > 0 }
