@@ -94,7 +94,7 @@ final class DatabaseManager {
     /// Creates a new object into realm
     public func createObject<T: Object>(_ type: T.Type, value: Any, update: Bool) {
         self.write {
-            realm.create(type, value: value, update: update)
+            realm.create(type, value: value, update: .all)
         }
     }
 
