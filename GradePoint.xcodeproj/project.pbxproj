@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		004E2A61AB13973EAE595374 /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7971F9C4F7958B018CA72392 /* Pods_GradePoint.framework */; };
-		96ED3F490307AC4255603F21 /* Pods_GradePointWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D548EEA096F6B694CDE70AF /* Pods_GradePointWidget.framework */; };
-		A00288C41FD11A590076097C /* UIEmptyState.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00288C31FD11A590076097C /* UIEmptyState.framework */; };
+		237EFFBCBADAC434DB17AD1F /* Pods_GradePoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6215066D5A601A2F7C349028 /* Pods_GradePoint.framework */; };
 		A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00288C51FD11E190076097C /* ClassCellHeaderView.swift */; };
-		A004225A1FD10AB4000016BA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422561FD10A96000016BA /* Realm.framework */; };
-		A004225B1FD10AB4000016BA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422571FD10A96000016BA /* RealmSwift.framework */; };
 		A00422661FD10F07000016BA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422561FD10A96000016BA /* Realm.framework */; };
 		A00422671FD10F07000016BA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00422571FD10A96000016BA /* RealmSwift.framework */; };
 		A005BE9A1E5A2461009B1C94 /* OnboardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A005BE991E5A2461009B1C94 /* OnboardPageViewController.swift */; };
@@ -22,7 +18,6 @@
 		A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00705191DAF0E9B00AD740A /* LaunchScreen.storyboard */; };
 		A0082BC11E3ED27300C91B3F /* Segueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0082BC01E3ED27300C91B3F /* Segueable.swift */; };
 		A00849B32044E3AD00F176A3 /* ClassGradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00849B22044E3AD00F176A3 /* ClassGradeType.swift */; };
-		A00849B42044E44C00F176A3 /* ClassGradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00849B22044E3AD00F176A3 /* ClassGradeType.swift */; };
 		A017D1CF1E5A75B7004FBDA9 /* Onboard1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1CE1E5A75B7004FBDA9 /* Onboard1ViewController.swift */; };
 		A017D1D11E5A9A44004FBDA9 /* Onboard2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A017D1D01E5A9A44004FBDA9 /* Onboard2ViewController.swift */; };
 		A018BD061F16E73C0094AC45 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018BD051F16E73C0094AC45 /* Array+Extensions.swift */; };
@@ -56,7 +51,6 @@
 		A067DBA21EA5BB3700F09EA9 /* StudentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067DBA11EA5BB3700F09EA9 /* StudentType.swift */; };
 		A067F1411F0041EA00EE23CE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
 		A069241E2022C76E004A2B06 /* UIViewController+StatusBarFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = A069241D2022C76E004A2B06 /* UIViewController+StatusBarFix.swift */; };
-		A06C258A202384BA007C4EE0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BF3B291F243782001CCE52 /* Constants.swift */; };
 		A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A06E178920223A2600D5ACC0 /* GradePointPremium.storyboard */; };
 		A06E179120223ADF00D5ACC0 /* GPPPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179020223ADF00D5ACC0 /* GPPPageViewController.swift */; };
 		A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06E179220223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift */; };
@@ -86,33 +80,14 @@
 		A086C9F91E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */; };
 		A088BA8D1E2F041E0008F975 /* UIBlurAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */; };
 		A088BA8F1E2F05FD0008F975 /* UIBlurAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */; };
-		A08A777F2023D5AA00709F12 /* InterstitialAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */; };
-		A0983E0F1F4A19C1002D393E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067F1401F0041EA00EE23CE /* DatabaseManager.swift */; };
-		A0983E101F4A1A43002D393E /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87851DBD276000A85E2D /* Class.swift */; };
-		A0983E111F4A1A47002D393E /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6C1DF669FC00280F93 /* Assignment.swift */; };
-		A0983E121F4A1A53002D393E /* GPACalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B59761E86EDB5007EEE1E /* GPACalculation.swift */; };
-		A0983E131F4A1AB6002D393E /* ClassType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A019325B1EB128EB000E18A3 /* ClassType.swift */; };
-		A0983E141F4A1AB6002D393E /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A019325D1EB12917000E18A3 /* Grade.swift */; };
-		A0983E151F4A1AB6002D393E /* Rubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87811DBD273A00A85E2D /* Rubric.swift */; };
-		A0983E161F4A1AB6002D393E /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01B87831DBD275300A85E2D /* Semester.swift */; };
-		A0983E171F4A1AD0002D393E /* UIColor+Exentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CE8B461DAF19EF007968EE /* UIColor+Exentions.swift */; };
-		A0983E191F4A1ADD002D393E /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
-		A0983E1A1F4A1AEB002D393E /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
-		A0983E1B1F4A1AF1002D393E /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
-		A0983E1C1F4A1AFD002D393E /* ApplicationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BA9D001F22D865003CC441 /* ApplicationTheme.swift */; };
-		A0983E1D1F4A1B03002D393E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018BD051F16E73C0094AC45 /* Array+Extensions.swift */; };
 		A09CEC6B1DF669BC00280F93 /* AssignmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */; };
 		A09CEC6D1DF669FC00280F93 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CEC6C1DF669FC00280F93 /* Assignment.swift */; };
 		A0A27CF81E554D5600054935 /* UISafeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF71E554D5600054935 /* UISafeTextField.swift */; };
 		A0A27CFA1E55563700054935 /* UISafeTextFieldConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */; };
 		A0A27CFE1E557A3E00054935 /* UICalculateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A27CFD1E557A3E00054935 /* UICalculateView.swift */; };
-		A0AEB5B2228B960300F409BC /* Main+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AEB5B1228B960300F409BC /* Main+CloudKit.swift */; };
-		A0AEB5B4228B960B00F409BC /* GPA+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AEB5B3228B960B00F409BC /* GPA+CloudKit.swift */; };
 		A0AED4511E568D5300C898E4 /* UIBlurViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */; };
-		A0B0A3AC2127A398002A8D15 /* AdMobConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */; };
 		A0B10BA320219FA2008A83AE /* GradePointPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B10BA220219FA2008A83AE /* GradePointPremium.swift */; };
 		A0B4898C1DCBFF6400631E07 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B4898B1DCBFF6400631E07 /* Int+Random.swift */; };
-		A0B857802044D7A600091937 /* AdMob.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0B8577F2044D7A600091937 /* AdMob.plist */; };
 		A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B94AB41E34747000CF73F2 /* AlertType.swift */; };
 		A0BA9D011F22D865003CC441 /* ApplicationTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BA9D001F22D865003CC441 /* ApplicationTheme.swift */; };
 		A0BCC9941E4ABD4500C48D51 /* UIButton+PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */; };
@@ -121,8 +96,6 @@
 		A0C5170D1E78A64C0089527D /* GPAScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C5170C1E78A64C0089527D /* GPAScale.swift */; };
 		A0C517141E78AC0B0089527D /* GPARubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C517131E78AC0B0089527D /* GPARubric.swift */; };
 		A0C6642B1F05C6B400583C99 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C6642A1F05C6B400583C99 /* AppInfo.swift */; };
-		A0C96A5920AA89B1003030C0 /* GradeRubric.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086060F20AA49F800DD30AF /* GradeRubric.swift */; };
-		A0C96A5A20AA89B4003030C0 /* GradePercentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A086060D20AA483100DD30AF /* GradePercentage.swift */; };
 		A0CC4FBA1E887BD400A2D689 /* CalculatorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CC4FB91E887BD400A2D689 /* CalculatorsViewController.swift */; };
 		A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */; };
 		A0CD83CD1EBBE5330020B8C8 /* GPACalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD83CC1EBBE5330020B8C8 /* GPACalculatorViewController.swift */; };
@@ -135,29 +108,14 @@
 		A0DE9E341DB833E800C56226 /* UIRubricView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E311DB833E800C56226 /* UIRubricView.swift */; };
 		A0DE9E351DB833E800C56226 /* UIFloatingPromptTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */; };
 		A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */; };
-		A0E4A6701F4A09E00094BC4F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */; };
-		A0E4A6731F4A09E00094BC4F /* WidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */; };
-		A0E4A6761F4A09E00094BC4F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */; };
-		A0E4A67A1F4A09E00094BC4F /* GradePointWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */; };
 		A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */; };
 		A0E8CAA51E5BF31E0029565A /* Onboard4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */; };
-		A0EAE707211E4A3200015AC7 /* fabric.apikey in Resources */ = {isa = PBXBuildFile; fileRef = A0EAE706211E4A3200015AC7 /* fabric.apikey */; };
 		A0F89EF41E591DF40062F9F2 /* ClassPeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */; };
 		A0FA1A8F1F1D536000F5FF6E /* ClassDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */; };
 		A0FE32B51F145BFB00F264EC /* PreviousClassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */; };
 		A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		A0E4A6781F4A09E00094BC4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A00705031DAF0E9B00AD740A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A0E4A66D1F4A09E00094BC4F;
-			remoteInfo = GradePointWidget;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A00422621FD10CE7000016BA /* Embed Frameworks */ = {
@@ -176,7 +134,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A0E4A67A1F4A09E00094BC4F /* GradePointWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,10 +141,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5A817A3CD9C702E5F8807842 /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
-		5D548EEA096F6B694CDE70AF /* Pods_GradePointWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePointWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6235F0C4A9C36A5FF5DC84F6 /* Pods-GradePointWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.debug.xcconfig"; sourceTree = "<group>"; };
-		7971F9C4F7958B018CA72392 /* Pods_GradePoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		000C8A15CF8EEE8B49F7846D /* Pods_GradePointWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePointWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		254AB6370680A578AD4ED5EF /* Pods-GradePointWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.debug.xcconfig"; path = "Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		6215066D5A601A2F7C349028 /* Pods_GradePoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GradePoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00288C31FD11A590076097C /* UIEmptyState.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIEmptyState.framework; path = Carthage/Build/iOS/UIEmptyState.framework; sourceTree = "<group>"; };
 		A00288C51FD11E190076097C /* ClassCellHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCellHeaderView.swift; sourceTree = "<group>"; };
 		A00422561FD10A96000016BA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -263,21 +219,15 @@
 		A086C9F81E8CB8E9007819FD /* CustomRubricSettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRubricSettingTableViewController.swift; sourceTree = "<group>"; };
 		A088BA8C1E2F041E0008F975 /* UIBlurAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertController.swift; sourceTree = "<group>"; };
 		A088BA8E1E2F05FD0008F975 /* UIBlurAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurAlertView.swift; sourceTree = "<group>"; };
-		A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdController.swift; sourceTree = "<group>"; };
 		A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradePoint.entitlements; sourceTree = "<group>"; };
-		A0983E201F4A3287002D393E /* GradePointWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GradePointWidget.entitlements; sourceTree = "<group>"; };
 		A09CEC6A1DF669BC00280F93 /* AssignmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewCell.swift; sourceTree = "<group>"; };
 		A09CEC6C1DF669FC00280F93 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		A0A27CF71E554D5600054935 /* UISafeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextField.swift; sourceTree = "<group>"; };
 		A0A27CF91E55563700054935 /* UISafeTextFieldConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISafeTextFieldConfigurations.swift; sourceTree = "<group>"; };
 		A0A27CFD1E557A3E00054935 /* UICalculateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICalculateView.swift; sourceTree = "<group>"; };
-		A0AEB5B1228B960300F409BC /* Main+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main+CloudKit.swift"; sourceTree = "<group>"; };
-		A0AEB5B3228B960B00F409BC /* GPA+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GPA+CloudKit.swift"; sourceTree = "<group>"; };
 		A0AED4501E568D5300C898E4 /* UIBlurViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlurViewController.swift; sourceTree = "<group>"; };
-		A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobConstants.swift; sourceTree = "<group>"; };
 		A0B10BA220219FA2008A83AE /* GradePointPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradePointPremium.swift; sourceTree = "<group>"; };
 		A0B4898B1DCBFF6400631E07 /* Int+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
-		A0B8577F2044D7A600091937 /* AdMob.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AdMob.plist; path = ../../../../Dropbox/documents/keys/AdMob.plist; sourceTree = "<group>"; };
 		A0B94AB41E34747000CF73F2 /* AlertType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		A0BA9D001F22D865003CC441 /* ApplicationTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTheme.swift; sourceTree = "<group>"; };
 		A0BCC9931E4ABD4500C48D51 /* UIButton+PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+PulseAnimation.swift"; sourceTree = "<group>"; };
@@ -298,22 +248,17 @@
 		A0DE9E311DB833E800C56226 /* UIRubricView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricView.swift; sourceTree = "<group>"; };
 		A0DE9E321DB833E800C56226 /* UIFloatingPromptTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFloatingPromptTextField.swift; sourceTree = "<group>"; };
 		A0DE9E331DB833E800C56226 /* UIRubricViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewDelegate.swift; sourceTree = "<group>"; };
-		A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GradePointWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewController.swift; sourceTree = "<group>"; };
-		A0E4A6751F4A09E00094BC4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		A0E4A6771F4A09E00094BC4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0E892E71DB97BCD0034DAB6 /* UIRubricViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIRubricViewState.swift; sourceTree = "<group>"; };
 		A0E8B6941E4990B500EC4470 /* UIButton+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Handler.swift"; sourceTree = "<group>"; };
 		A0E8CAA41E5BF31E0029565A /* Onboard4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard4ViewController.swift; sourceTree = "<group>"; };
-		A0EAE706211E4A3200015AC7 /* fabric.apikey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fabric.apikey; path = GradePoint/fabric.apikey; sourceTree = SOURCE_ROOT; };
-		A0EAE708211E4A3A00015AC7 /* fabric.buildsecret */ = {isa = PBXFileReference; lastKnownFileType = text; name = fabric.buildsecret; path = GradePoint/fabric.buildsecret; sourceTree = SOURCE_ROOT; };
 		A0F89EF31E591DF40062F9F2 /* ClassPeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassPeekViewController.swift; sourceTree = "<group>"; };
 		A0FA1A8E1F1D536000F5FF6E /* ClassDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailTableViewController.swift; sourceTree = "<group>"; };
 		A0FE32B41F145BFB00F264EC /* PreviousClassDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousClassDetailViewController.swift; sourceTree = "<group>"; };
 		A0FE91321E998C1B006584B9 /* Onboard3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboard3ViewController.swift; sourceTree = "<group>"; };
-		A7922920C2F8419A367D6D20 /* Pods-GradePointWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.release.xcconfig"; sourceTree = "<group>"; };
-		B5246B7B1482CFF9B7881525 /* Pods-GradePoint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GradePoint/Pods-GradePoint.debug.xcconfig"; sourceTree = "<group>"; };
+		A6EB4694D24E93E4362E1ECE /* Pods-GradePointWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePointWidget.release.xcconfig"; path = "Target Support Files/Pods-GradePointWidget/Pods-GradePointWidget.release.xcconfig"; sourceTree = "<group>"; };
+		BFE12D715AB27F0E731C8C0C /* Pods-GradePoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.release.xcconfig"; path = "Target Support Files/Pods-GradePoint/Pods-GradePoint.release.xcconfig"; sourceTree = "<group>"; };
+		FFAA3C0FC47DFCDFE7612ED6 /* Pods-GradePoint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GradePoint.debug.xcconfig"; path = "Target Support Files/Pods-GradePoint/Pods-GradePoint.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,20 +270,8 @@
 				A0263AC52021954A001940DE /* StoreKit.framework in Frameworks */,
 				A03DA6741FD1197300A7D8F5 /* LPSnackbar.framework in Frameworks */,
 				A00422661FD10F07000016BA /* Realm.framework in Frameworks */,
-				A00288C41FD11A590076097C /* UIEmptyState.framework in Frameworks */,
 				A00422671FD10F07000016BA /* RealmSwift.framework in Frameworks */,
-				004E2A61AB13973EAE595374 /* Pods_GradePoint.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A0E4A66B1F4A09E00094BC4F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A0E4A6701F4A09E00094BC4F /* NotificationCenter.framework in Frameworks */,
-				A004225A1FD10AB4000016BA /* Realm.framework in Frameworks */,
-				A004225B1FD10AB4000016BA /* RealmSwift.framework in Frameworks */,
-				96ED3F490307AC4255603F21 /* Pods_GradePointWidget.framework in Frameworks */,
+				237EFFBCBADAC434DB17AD1F /* Pods_GradePoint.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,20 +288,30 @@
 				A00422561FD10A96000016BA /* Realm.framework */,
 				A00422571FD10A96000016BA /* RealmSwift.framework */,
 				A0E4A66F1F4A09E00094BC4F /* NotificationCenter.framework */,
-				7971F9C4F7958B018CA72392 /* Pods_GradePoint.framework */,
-				5D548EEA096F6B694CDE70AF /* Pods_GradePointWidget.framework */,
+				6215066D5A601A2F7C349028 /* Pods_GradePoint.framework */,
+				000C8A15CF8EEE8B49F7846D /* Pods_GradePointWidget.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7CB3939AB775ABF4601FB314 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FFAA3C0FC47DFCDFE7612ED6 /* Pods-GradePoint.debug.xcconfig */,
+				BFE12D715AB27F0E731C8C0C /* Pods-GradePoint.release.xcconfig */,
+				254AB6370680A578AD4ED5EF /* Pods-GradePointWidget.debug.xcconfig */,
+				A6EB4694D24E93E4362E1ECE /* Pods-GradePointWidget.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		A00705021DAF0E9B00AD740A = {
 			isa = PBXGroup;
 			children = (
 				A007050D1DAF0E9B00AD740A /* GradePoint */,
-				A0E4A6711F4A09E00094BC4F /* GradePointWidget */,
 				A007050C1DAF0E9B00AD740A /* Products */,
 				6A96FD7C66A3F4FCE8EED023 /* Frameworks */,
-				C607A3A6DFAD2481AB36BDBB /* Pods */,
+				7CB3939AB775ABF4601FB314 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -376,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				A007050B1DAF0E9B00AD740A /* GradePoint.app */,
-				A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -386,7 +328,6 @@
 			children = (
 				A007050E1DAF0E9B00AD740A /* AppDelegate.swift */,
 				A0BF3B291F243782001CCE52 /* Constants.swift */,
-				A0B0A3AB2127A398002A8D15 /* AdMobConstants.swift */,
 				A027533E1F043B2A0021CDFF /* Managers */,
 				A01B87801DBD272600A85E2D /* Models */,
 				A0E705AD1DBBDE40008E04EC /* Enums */,
@@ -396,10 +337,7 @@
 				A0CE8B481DAF26E3007968EE /* CustomControls */,
 				A0CE8B441DAF178F007968EE /* Storyboards */,
 				A007051C1DAF0E9B00AD740A /* Info.plist */,
-				A0B8577F2044D7A600091937 /* AdMob.plist */,
 				A07521801FF4A3D2005BBFF8 /* DefaultPreferences.plist */,
-				A0EAE706211E4A3200015AC7 /* fabric.apikey */,
-				A0EAE708211E4A3A00015AC7 /* fabric.buildsecret */,
 				A0983E1F1F4A23D1002D393E /* GradePoint.entitlements */,
 				A00705171DAF0E9B00AD740A /* Assets.xcassets */,
 			);
@@ -423,7 +361,6 @@
 			children = (
 				A07B59741E86ED7D007EEE1E /* Main */,
 				A0C5170E1E78A65E0089527D /* GPA */,
-				A0AEB5B0228B927F00F409BC /* Models+CoudKit */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -578,16 +515,6 @@
 			path = UIBlurAlert;
 			sourceTree = "<group>";
 		};
-		A0AEB5B0228B927F00F409BC /* Models+CoudKit */ = {
-			isa = PBXGroup;
-			children = (
-				A0AEB5B1228B960300F409BC /* Main+CloudKit.swift */,
-				A0AEB5B3228B960B00F409BC /* GPA+CloudKit.swift */,
-			);
-			name = "Models+CoudKit";
-			path = "Models+CloudKit";
-			sourceTree = "<group>";
-		};
 		A0C5170E1E78A65E0089527D /* GPA */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,21 +583,9 @@
 				A0CD83CA1EBBE16D0020B8C8 /* UIGPAView.swift */,
 				A00288C51FD11E190076097C /* ClassCellHeaderView.swift */,
 				A078D23B1FF1C0B1004197DF /* UIPickerField.swift */,
-				A08A777E2023D5AA00709F12 /* InterstitialAdController.swift */,
 				A0D80C0B209CDFCC004BCB95 /* UIGradePercentageView.swift */,
 			);
 			path = CustomControls;
-			sourceTree = "<group>";
-		};
-		A0E4A6711F4A09E00094BC4F /* GradePointWidget */ = {
-			isa = PBXGroup;
-			children = (
-				A0983E201F4A3287002D393E /* GradePointWidget.entitlements */,
-				A0E4A6721F4A09E00094BC4F /* WidgetViewController.swift */,
-				A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */,
-				A0E4A6771F4A09E00094BC4F /* Info.plist */,
-			);
-			path = GradePointWidget;
 			sourceTree = "<group>";
 		};
 		A0E705AD1DBBDE40008E04EC /* Enums */ = {
@@ -695,17 +610,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		C607A3A6DFAD2481AB36BDBB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B5246B7B1482CFF9B7881525 /* Pods-GradePoint.debug.xcconfig */,
-				5A817A3CD9C702E5F8807842 /* Pods-GradePoint.release.xcconfig */,
-				6235F0C4A9C36A5FF5DC84F6 /* Pods-GradePointWidget.debug.xcconfig */,
-				A7922920C2F8419A367D6D20 /* Pods-GradePointWidget.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -713,43 +617,22 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A00705351DAF0E9B00AD740A /* Build configuration list for PBXNativeTarget "GradePoint" */;
 			buildPhases = (
-				5080CB25E2A8D3AD2597B7D8 /* [CP] Check Pods Manifest.lock */,
+				639698DAA4DF6219C5482CB5 /* [CP] Check Pods Manifest.lock */,
 				A00705071DAF0E9B00AD740A /* Sources */,
 				A00705081DAF0E9B00AD740A /* Frameworks */,
 				A00705091DAF0E9B00AD740A /* Resources */,
 				A0E4A67E1F4A09E00094BC4F /* Embed App Extensions */,
 				A00422621FD10CE7000016BA /* Embed Frameworks */,
-				A00422651FD10D49000016BA /* Run Script */,
-				A02FF3D5211E435200E9643F /* ShellScript */,
-				7FA8699847383A52D8C0263F /* [CP] Embed Pods Frameworks */,
+				9D35FEBDF381DC6A8DCE4781 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A0E4A6791F4A09E00094BC4F /* PBXTargetDependency */,
 			);
 			name = GradePoint;
 			productName = GradePoint;
 			productReference = A007050B1DAF0E9B00AD740A /* GradePoint.app */;
 			productType = "com.apple.product-type.application";
-		};
-		A0E4A66D1F4A09E00094BC4F /* GradePointWidget */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A0E4A67D1F4A09E00094BC4F /* Build configuration list for PBXNativeTarget "GradePointWidget" */;
-			buildPhases = (
-				F0B1FA89DCF59D9A796DFD2D /* [CP] Check Pods Manifest.lock */,
-				A0E4A66A1F4A09E00094BC4F /* Sources */,
-				A0E4A66B1F4A09E00094BC4F /* Frameworks */,
-				A0E4A66C1F4A09E00094BC4F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = GradePointWidget;
-			productName = GradePointWidget;
-			productReference = A0E4A66E1F4A09E00094BC4F /* GradePointWidget.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -758,7 +641,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Luis Padron";
 				TargetAttributes = {
 					A007050A1DAF0E9B00AD740A = {
@@ -775,24 +658,13 @@
 							};
 						};
 					};
-					A0E4A66D1F4A09E00094BC4F = {
-						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = YGJQDEP824;
-						LastSwiftMigration = 1020;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = A00705061DAF0E9B00AD740A /* Build configuration list for PBXProject "GradePoint" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -802,7 +674,6 @@
 			projectRoot = "";
 			targets = (
 				A007050A1DAF0E9B00AD740A /* GradePoint */,
-				A0E4A66D1F4A09E00094BC4F /* GradePointWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -812,7 +683,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0B857802044D7A600091937 /* AdMob.plist in Resources */,
 				A007051B1DAF0E9B00AD740A /* LaunchScreen.storyboard in Resources */,
 				A0263ABA202185CC001940DE /* BirdFlap.wav in Resources */,
 				A0263AC2202189AB001940DE /* ThudSound.wav in Resources */,
@@ -824,24 +694,15 @@
 				A037C77520215CDB00AE153A /* bird.atlas in Resources */,
 				A06E178A20223A2600D5ACC0 /* GradePointPremium.storyboard in Resources */,
 				A00705161DAF0E9B00AD740A /* Main.storyboard in Resources */,
-				A0EAE707211E4A3200015AC7 /* fabric.apikey in Resources */,
 				A0263ABE202188C7001940DE /* RewardSound.wav in Resources */,
 				A07B96911EBBCC6500382E45 /* Settings.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A0E4A66C1F4A09E00094BC4F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A0E4A6761F4A09E00094BC4F /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5080CB25E2A8D3AD2597B7D8 /* [CP] Check Pods Manifest.lock */ = {
+		639698DAA4DF6219C5482CB5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -863,80 +724,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7FA8699847383A52D8C0263F /* [CP] Embed Pods Frameworks */ = {
+		9D35FEBDF381DC6A8DCE4781 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GradePoint/Pods-GradePoint-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/LPSnackbar/LPSnackbar.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/UICircularProgressRing/UICircularProgressRing.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LPSnackbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICircularProgressRing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GradePoint/Pods-GradePoint-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A00422651FD10D49000016BA /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/LPSnackbar.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/UIEmptyState.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/IceCream.framework",
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-		A02FF3D5211E435200E9643F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "FABRIC_APIKEY_FILE=\"${SRCROOT}/GradePoint/fabric.apikey\"\nFABRIC_BUILDSECRET_FILE=\"${SRCROOT}/GradePoint/fabric.buildsecret\"\n\nif test ! -f \"$FABRIC_APIKEY_FILE\" -o ! -f \"$FABRIC_BUILDSECRET_FILE\"; then\necho \"This build wants to upload dSYM files to Crashlytics.\"\necho \"Uploading is possible only if a Fabric API key and a Fabric build secret are\"\necho \"available. This build is failing because at least one of these pieces of\"\necho \"information is missing.\"\necho \"\"\necho \"To fix the problem, create the following files and store the API key and\"\necho \"build secret, respectively, within those files:\"\necho \"\"\necho \"  $FABRIC_APIKEY_FILE\"\necho \"  $FABRIC_BUILDSECRET_FILE\"\necho \"\"\necho \"If you forked the project then you must register with Crashlytics and\"\necho \"get your own API key and build secret.\"\n\n# Let the build fail\nexit 1\nfi\n\nFABRIC_APIKEY=$(cat \"$FABRIC_APIKEY_FILE\")\nif test $? -ne 0; then\necho \"Cannot read $FABRIC_APIKEY_FILE\"\nexit 1\nfi\n\nFABRIC_BUILDSECRET=$(cat \"$FABRIC_BUILDSECRET_FILE\")\nif test $? -ne 0; then\necho \"Cannot read $FABRIC_BUILDSECRET_FILE\"\nexit 1\nfi\n\n\necho \"Uploading dSYM files to Crashlytics\"\n\"${PODS_ROOT}/Fabric/run\" \"$FABRIC_APIKEY\" \"$FABRIC_BUILDSECRET\"\n";
-		};
-		F0B1FA89DCF59D9A796DFD2D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GradePointWidget-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -993,9 +802,7 @@
 				A01B87821DBD273A00A85E2D /* Rubric.swift in Sources */,
 				A07B59771E86EDB5007EEE1E /* GPACalculation.swift in Sources */,
 				A00288C61FD11E190076097C /* ClassCellHeaderView.swift in Sources */,
-				A0B0A3AC2127A398002A8D15 /* AdMobConstants.swift in Sources */,
 				A06E179720223BFF00D5ACC0 /* GPPOnboarding3ViewController.swift in Sources */,
-				A0AEB5B4228B960B00F409BC /* GPA+CloudKit.swift in Sources */,
 				A0FE91331E998C1B006584B9 /* Onboard3ViewController.swift in Sources */,
 				A06E179520223BEE00D5ACC0 /* GPPOnboarding2ViewController.swift in Sources */,
 				A027533D1F043B240021CDFF /* RatingManager.swift in Sources */,
@@ -1004,7 +811,6 @@
 				A0DE9E361DB833E800C56226 /* UIRubricViewDelegate.swift in Sources */,
 				A0E8B6951E4990B500EC4470 /* UIButton+Handler.swift in Sources */,
 				A037C76F20215A8700AE153A /* GameViewController.swift in Sources */,
-				A0AEB5B2228B960300F409BC /* Main+CloudKit.swift in Sources */,
 				A007050F1DAF0E9B00AD740A /* AppDelegate.swift in Sources */,
 				A06E179320223BDD00D5ACC0 /* GPPOnboarding1ViewController.swift in Sources */,
 				A0565AAA1EF080F3005C23C0 /* QuickActionId.swift in Sources */,
@@ -1032,7 +838,6 @@
 				A0E892E81DB97BCD0034DAB6 /* UIRubricViewState.swift in Sources */,
 				A0D80C0C209CDFCC004BCB95 /* UIGradePercentageView.swift in Sources */,
 				A0D80C0E209CE0FD004BCB95 /* GradePercentageTableViewCell.swift in Sources */,
-				A08A777F2023D5AA00709F12 /* InterstitialAdController.swift in Sources */,
 				A05AB7D1202159E100BDDDBF /* GameScene.swift in Sources */,
 				A0CD83CB1EBBE16D0020B8C8 /* UIGPAView.swift in Sources */,
 				A0B94AB51E34747000CF73F2 /* AlertType.swift in Sources */,
@@ -1042,41 +847,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A0E4A66A1F4A09E00094BC4F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A0983E1D1F4A1B03002D393E /* Array+Extensions.swift in Sources */,
-				A06C258A202384BA007C4EE0 /* Constants.swift in Sources */,
-				A0983E1C1F4A1AFD002D393E /* ApplicationTheme.swift in Sources */,
-				A0983E1B1F4A1AF1002D393E /* GPARubric.swift in Sources */,
-				A0983E1A1F4A1AEB002D393E /* Int+Random.swift in Sources */,
-				A0C96A5A20AA89B4003030C0 /* GradePercentage.swift in Sources */,
-				A0C96A5920AA89B1003030C0 /* GradeRubric.swift in Sources */,
-				A0983E191F4A1ADD002D393E /* GPAScale.swift in Sources */,
-				A0983E171F4A1AD0002D393E /* UIColor+Exentions.swift in Sources */,
-				A0983E131F4A1AB6002D393E /* ClassType.swift in Sources */,
-				A0983E141F4A1AB6002D393E /* Grade.swift in Sources */,
-				A0983E151F4A1AB6002D393E /* Rubric.swift in Sources */,
-				A0983E161F4A1AB6002D393E /* Semester.swift in Sources */,
-				A0983E121F4A1A53002D393E /* GPACalculation.swift in Sources */,
-				A0983E111F4A1A47002D393E /* Assignment.swift in Sources */,
-				A00849B42044E44C00F176A3 /* ClassGradeType.swift in Sources */,
-				A0983E101F4A1A43002D393E /* Class.swift in Sources */,
-				A0983E0F1F4A19C1002D393E /* DatabaseManager.swift in Sources */,
-				A0E4A6731F4A09E00094BC4F /* WidgetViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A0E4A6791F4A09E00094BC4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A0E4A66D1F4A09E00094BC4F /* GradePointWidget */;
-			targetProxy = A0E4A6781F4A09E00094BC4F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A00705141DAF0E9B00AD740A /* Main.storyboard */ = {
@@ -1111,14 +882,6 @@
 			name = Onboarding.storyboard;
 			sourceTree = "<group>";
 		};
-		A0E4A6741F4A09E00094BC4F /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A0E4A6751F4A09E00094BC4F /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1148,6 +911,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1174,7 +938,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1211,6 +975,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1231,7 +996,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1243,20 +1008,18 @@
 		};
 		A00705361DAF0E9B00AD740A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5246B7B1482CFF9B7881525 /* Pods-GradePoint.debug.xcconfig */;
+			baseConfigurationReference = FFAA3C0FC47DFCDFE7612ED6 /* Pods-GradePoint.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GradePoint/GradePoint.entitlements;
+				CURRENT_PROJECT_VERSION = 800;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YGJQDEP824;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradePoint/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 8.0.0;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1266,74 +1029,20 @@
 		};
 		A00705371DAF0E9B00AD740A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A817A3CD9C702E5F8807842 /* Pods-GradePoint.release.xcconfig */;
+			baseConfigurationReference = BFE12D715AB27F0E731C8C0C /* Pods-GradePoint.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GradePoint/GradePoint.entitlements;
+				CURRENT_PROJECT_VERSION = 800;
 				DEVELOPMENT_TEAM = YGJQDEP824;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GradePoint/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 8.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		A0E4A67B1F4A09E00094BC4F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6235F0C4A9C36A5FF5DC84F6 /* Pods-GradePointWidget.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = GradePointWidget/GradePointWidget.entitlements;
-				DEVELOPMENT_TEAM = YGJQDEP824;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = GradePointWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint.GradePointWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		A0E4A67C1F4A09E00094BC4F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7922920C2F8419A367D6D20 /* Pods-GradePointWidget.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = GradePointWidget/GradePointWidget.entitlements;
-				DEVELOPMENT_TEAM = YGJQDEP824;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = GradePointWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.luispadron.GradePoint.GradePointWidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1354,15 +1063,6 @@
 			buildConfigurations = (
 				A00705361DAF0E9B00AD740A /* Debug */,
 				A00705371DAF0E9B00AD740A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A0E4A67D1F4A09E00094BC4F /* Build configuration list for PBXNativeTarget "GradePointWidget" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A0E4A67B1F4A09E00094BC4F /* Debug */,
-				A0E4A67C1F4A09E00094BC4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

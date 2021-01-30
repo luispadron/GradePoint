@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 /// The type of the GPA Scale
-@objc enum GPAScaleType: Int {
+@objc enum GPAScaleType: Int, RealmEnum {
     case plusScale = 1
     case nonPlusScale = -1
 }

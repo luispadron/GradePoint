@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,8 +27,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUA-3y-YwT">
-                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUA-3y-YwT">
+                                <rect key="frame" x="16" y="0.0" width="56" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Cancel">
@@ -43,7 +42,7 @@
                                 <rect key="frame" x="73" y="212.5" width="229" height="242"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-Si-nmW">
-                                <rect key="frame" x="29" y="90" width="317" height="86"/>
+                                <rect key="frame" x="29" y="70" width="317" height="86"/>
                                 <string key="text">GradePoint Premium
 $1.99</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
@@ -51,17 +50,16 @@ $1.99</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RkF-AN-lEM">
-                                <rect key="frame" x="95.5" y="466.5" width="184" height="95.5"/>
-                                <string key="text">• No Ads
-• New themes
+                                <rect key="frame" x="109.5" y="466.5" width="156" height="72"/>
+                                <string key="text">• New themes
 • GradeBird game
-• Free updates for life</string>
+• Tip me</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqb-ID-OoE">
-                                <rect key="frame" x="111" y="630" width="153" height="21"/>
+                                <rect key="frame" x="112" y="630" width="151.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -101,8 +99,8 @@ $1.99</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qms-yc-OA2">
-                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qms-yc-OA2">
+                                <rect key="frame" x="16" y="0.0" width="56" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Cancel">
@@ -113,25 +111,25 @@ $1.99</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsd-E5-0zq">
-                                <rect key="frame" x="111" y="634" width="153" height="21"/>
+                                <rect key="frame" x="112" y="634" width="151.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GradeBird" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQk-FZ-C5M">
-                                <rect key="frame" x="109.5" y="90" width="156" height="43"/>
+                                <rect key="frame" x="109.5" y="70" width="156" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GradeBirdSampleImg" translatesAutoresizingMaskIntoConstraints="NO" id="v1u-1a-qUF">
-                                <rect key="frame" x="77.5" y="325.5" width="220" height="16"/>
+                                <rect key="frame" x="77.5" y="141.5" width="220" height="384"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="SLD-uH-q47"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get the new hit classic!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-zd-1nT">
-                                <rect key="frame" x="103.5" y="350" width="168.5" height="19.5"/>
+                                <rect key="frame" x="103.5" y="534" width="168.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -168,8 +166,8 @@ $1.99</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tV-Xa-iGu">
-                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tV-Xa-iGu">
+                                <rect key="frame" x="16" y="0.0" width="56" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Cancel">
@@ -179,25 +177,13 @@ $1.99</string>
                                     <action selector="cancelButtonTapped:" destination="twP-gj-Mef" eventType="touchUpInside" id="8hK-yz-EN4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="And much more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zcd-Na-Az5">
-                                <rect key="frame" x="66" y="90" width="243.5" height="43"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Premium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zcd-Na-Az5">
+                                <rect key="frame" x="86" y="70" width="203.5" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmv-lv-t3P">
-                                <rect key="frame" x="58.5" y="213" width="258.5" height="143.5"/>
-                                <string key="text">• Updates for life
-
-• Support the continued
-developement of GradePoint
-
-• Any future premium features</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyq-k0-6SG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyq-k0-6SG">
                                 <rect key="frame" x="62.5" y="512" width="250" height="75"/>
                                 <color key="backgroundColor" red="0.63278323411941528" green="0.83653479814529419" blue="0.98433870077133179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -212,8 +198,8 @@ developement of GradePoint
                                     <action selector="purchasedButtonTapped:" destination="twP-gj-Mef" eventType="touchUpInside" id="d4c-tT-0UL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="paH-LN-UQK">
-                                <rect key="frame" x="116.5" y="599" width="142" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="paH-LN-UQK">
+                                <rect key="frame" x="117" y="599" width="141" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Restore purchase">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -222,9 +208,19 @@ developement of GradePoint
                                     <action selector="restorePurchasedButtonTapped:" destination="twP-gj-Mef" eventType="touchUpInside" id="HWe-3r-ucP"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVa-cH-jfD">
+                                <rect key="frame" x="109.5" y="297.5" width="156" height="72"/>
+                                <string key="text">• New themes
+• GradeBird game
+• Tip me</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.6553528904914856" green="0.65240436792373657" blue="0.7921757698059082" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="gVa-cH-jfD" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="0TN-GD-6pt"/>
                             <constraint firstItem="paH-LN-UQK" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="PCi-RC-iF8"/>
                             <constraint firstItem="2tV-Xa-iGu" firstAttribute="top" secondItem="qq0-GU-x5P" secondAttribute="bottom" id="RF4-M5-xQY"/>
                             <constraint firstItem="qyq-k0-6SG" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="Sn9-W6-28z"/>
@@ -232,9 +228,8 @@ developement of GradePoint
                             <constraint firstItem="Zcd-Na-Az5" firstAttribute="top" secondItem="qq0-GU-x5P" secondAttribute="bottom" constant="70" id="Vnt-0A-a4T"/>
                             <constraint firstItem="e3d-5d-1Zg" firstAttribute="top" secondItem="qyq-k0-6SG" secondAttribute="bottom" constant="80" id="Xyl-Qe-Nec"/>
                             <constraint firstItem="paH-LN-UQK" firstAttribute="top" secondItem="qyq-k0-6SG" secondAttribute="bottom" constant="12" id="eRZ-JT-XaZ"/>
-                            <constraint firstItem="Rmv-lv-t3P" firstAttribute="top" secondItem="Zcd-Na-Az5" secondAttribute="bottom" constant="80" id="nPP-96-qhT"/>
                             <constraint firstItem="Zcd-Na-Az5" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="o0W-XA-Yey"/>
-                            <constraint firstItem="Rmv-lv-t3P" firstAttribute="centerX" secondItem="dI1-os-WfC" secondAttribute="centerX" id="sbU-FK-5gX"/>
+                            <constraint firstItem="gVa-cH-jfD" firstAttribute="centerY" secondItem="dI1-os-WfC" secondAttribute="centerY" id="weA-Ke-cwU"/>
                         </constraints>
                     </view>
                     <connections>
@@ -244,75 +239,6 @@ developement of GradePoint
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6K7-aq-62D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2525.5999999999999" y="144.3778110944528"/>
-        </scene>
-        <!--Onboarding2 View Controller-->
-        <scene sceneID="5pR-GU-gyc">
-            <objects>
-                <viewController storyboardIdentifier="GPPOnboarding2" id="DVJ-Tp-6I5" customClass="GPPOnboarding2ViewController" customModule="GradePoint" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ywt-zp-gjb"/>
-                        <viewControllerLayoutGuide type="bottom" id="ctU-fU-Tth"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gwC-ou-ho7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOE-j0-gpK">
-                                <rect key="frame" x="16" y="20" width="56" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelButtonTapped:" destination="DVJ-Tp-6I5" eventType="touchUpInside" id="uDQ-5G-Jg6"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Fi-82-A2B">
-                                <rect key="frame" x="111" y="630" width="153" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No more Ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3N-nC-aYD">
-                                <rect key="frame" x="88" y="90" width="199.5" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AdExampleImg" translatesAutoresizingMaskIntoConstraints="NO" id="L6j-DP-6GG">
-                                <rect key="frame" x="16" y="325.5" width="16" height="16"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoAdExampleImg" translatesAutoresizingMaskIntoConstraints="NO" id="Gxd-VY-N9i">
-                                <rect key="frame" x="343" y="325.5" width="16" height="16"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enjoy an ad free experience" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNg-yb-V7R">
-                                <rect key="frame" x="76" y="357.5" width="223" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.59646517038345337" green="0.84889179468154907" blue="0.70978933572769165" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="L6j-DP-6GG" firstAttribute="centerY" secondItem="gwC-ou-ho7" secondAttribute="centerY" id="31m-cE-kbU"/>
-                            <constraint firstItem="JOE-j0-gpK" firstAttribute="leading" secondItem="gwC-ou-ho7" secondAttribute="leadingMargin" id="DxZ-nd-gmg"/>
-                            <constraint firstItem="Gxd-VY-N9i" firstAttribute="trailing" secondItem="gwC-ou-ho7" secondAttribute="trailingMargin" id="GyY-fl-tAq"/>
-                            <constraint firstItem="Gxd-VY-N9i" firstAttribute="centerY" secondItem="gwC-ou-ho7" secondAttribute="centerY" id="Sq5-0Y-d2O"/>
-                            <constraint firstItem="m3N-nC-aYD" firstAttribute="top" secondItem="Ywt-zp-gjb" secondAttribute="bottom" constant="70" id="We8-C2-6np"/>
-                            <constraint firstItem="nNg-yb-V7R" firstAttribute="centerX" secondItem="gwC-ou-ho7" secondAttribute="centerX" id="YyT-et-LUA"/>
-                            <constraint firstItem="L6j-DP-6GG" firstAttribute="leading" secondItem="gwC-ou-ho7" secondAttribute="leadingMargin" id="drG-Hf-5BS"/>
-                            <constraint firstItem="2Fi-82-A2B" firstAttribute="centerX" secondItem="gwC-ou-ho7" secondAttribute="centerX" id="f4L-xS-sqZ"/>
-                            <constraint firstItem="m3N-nC-aYD" firstAttribute="centerX" secondItem="gwC-ou-ho7" secondAttribute="centerX" id="k1P-Pl-rQa"/>
-                            <constraint firstItem="ctU-fU-Tth" firstAttribute="top" secondItem="2Fi-82-A2B" secondAttribute="bottom" constant="16" id="lHr-iL-Fik"/>
-                            <constraint firstItem="JOE-j0-gpK" firstAttribute="top" secondItem="Ywt-zp-gjb" secondAttribute="bottom" id="sAK-dx-tvU"/>
-                            <constraint firstItem="nNg-yb-V7R" firstAttribute="top" secondItem="L6j-DP-6GG" secondAttribute="bottom" constant="16" id="uxR-SG-Szt"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cts-3K-7tP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2525.5999999999999" y="-533.88305847076469"/>
         </scene>
         <!--Onboarding3 View Controller-->
         <scene sceneID="cPw-G9-ewv">
@@ -326,8 +252,8 @@ developement of GradePoint
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZO-Yr-shr">
-                                <rect key="frame" x="16" y="20" width="56" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZO-Yr-shr">
+                                <rect key="frame" x="16" y="0.0" width="56" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Cancel">
@@ -338,25 +264,25 @@ developement of GradePoint
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More themes!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaZ-lu-1uq">
-                                <rect key="frame" x="81" y="90" width="213" height="43"/>
+                                <rect key="frame" x="81.5" y="70" width="212" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EcoThemeSample" translatesAutoresizingMaskIntoConstraints="NO" id="esB-wU-5NN">
-                                <rect key="frame" x="16" y="141" width="170" height="337"/>
+                                <rect key="frame" x="16" y="121" width="170" height="337"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="lsh-fX-hps"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PurpleThemeSample" translatesAutoresizingMaskIntoConstraints="NO" id="073-vG-oSh">
-                                <rect key="frame" x="189" y="233" width="170" height="337"/>
+                                <rect key="frame" x="189" y="213" width="170" height="337"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="qvo-rn-Q6V"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to learn more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uB9-B8-qUy">
-                                <rect key="frame" x="111" y="634" width="153" height="21"/>
+                                <rect key="frame" x="112" y="634" width="151.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -379,15 +305,13 @@ developement of GradePoint
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qt5-VV-2JM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3477.5999999999999" y="-537.48125937031489"/>
+            <point key="canvasLocation" x="2526" y="-571"/>
         </scene>
     </scenes>
     <resources>
-        <image name="AdExampleImg" width="175" height="249"/>
         <image name="EcoThemeSample" width="179" height="337"/>
         <image name="GradeBirdSampleImg" width="239" height="384"/>
         <image name="GradePointPremiumIcon" width="229" height="242"/>
-        <image name="NoAdExampleImg" width="175" height="249"/>
         <image name="PurpleThemeSample" width="178" height="337"/>
     </resources>
 </document>

@@ -8,10 +8,8 @@
 
 import UIKit
 import RealmSwift
-import UIEmptyState
 import UICircularProgressRing
 import LPSnackbar
-import GoogleMobileAds
 
 class ClassDetailTableViewController: UITableViewController, RealmTableView {
     // Conformance to RealmTableView protocol
@@ -28,8 +26,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     }
 
     var preferedSnackbarBottomSpacing: CGFloat {
-        let bannerHeight = self.bannerAdView.isHidden || GradePointPremium.isPurchased ? 0 : self.bannerAdView.frame.height
-        return self.tabBarController!.tabBar.frame.height + bannerHeight + 12
+        return self.tabBarController!.tabBar.frame.height + 12
     }
 
     // MARK: Subviews
@@ -63,25 +60,10 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
     /// that this controller relies on. For example, will call modify when a new assignment is added to the class.
     public weak var classListener: ClassChangesListener? = nil
 
-    /// The Google AdMob view
-    private lazy var bannerAdView: GADBannerView = {
-        let view = GADBannerView()
-        view.adUnitID = kAdMobBannerId
-        view.adSize = kGADAdSizeSmartBannerPortrait
-        view.rootViewController = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = self
-        view.alpha = 0.0
-        return view
-    }()
-
-    // MARK: View Handleing Methods
+    // MARK: View handling
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.emptyStateDelegate = self
-        self.emptyStateDataSource = self
 
         // Set the progressRing as the tableHeaderView, encapsulates the view to stop clipping
         let encapsulationView = UIView() //
@@ -98,21 +80,11 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
         // Listen for theme changes
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIForThemeChanges(notification:)),
                                                name: kThemeUpdatedNotification, object: nil)
-
-        if !GradePointPremium.isPurchased {
-            self.addBannerView()
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Remove Ads if gradepoint premium was just purchased
-        if GradePointPremium.isPurchased && self.tableView.tableFooterView === self.bannerAdView {
-            self.bannerAdView.removeFromSuperview()
-            self.tableView.tableFooterView = UIView(frame: .zero)
-        }
         self.updateUI()
-        self.reloadEmptyState()
     }
 
 
@@ -260,32 +232,7 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
             self.navigationItem.leftBarButtonItem?.isEnabled = false
             self.navigationItem.rightBarButtonItem?.isEnabled = false
             self.tableView.reloadData()
-            self.reloadEmptyState()
         }
-    }
-
-    /// Adds a google ad mob banner view
-    private func addBannerView() {
-        // Add banner ad view
-        self.tableView.tableFooterView = self.bannerAdView
-        // Banner view constraints
-        if #available(iOS 11.0, *) {
-            let guide = self.view.safeAreaLayoutGuide
-            NSLayoutConstraint.activate([
-                guide.leftAnchor.constraint(equalTo: self.bannerAdView.leftAnchor),
-                guide.rightAnchor.constraint(equalTo: self.bannerAdView.rightAnchor),
-                guide.bottomAnchor.constraint(equalTo: self.bannerAdView.bottomAnchor)
-                ])
-        } else {
-            self.view.addConstraints(
-                [NSLayoutConstraint(item: self.bannerAdView, attribute: .bottom, relatedBy: .equal,
-                                    toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0),
-                 NSLayoutConstraint(item: self.bannerAdView, attribute: .centerX, relatedBy: .equal,
-                                    toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
-                ])
-        }
-
-        self.bannerAdView.load(kAdMobAdRequest)
     }
 
     /// Updates the progress on the progress ring
@@ -332,11 +279,9 @@ class ClassDetailTableViewController: UITableViewController, RealmTableView {
                 }
             }
             self.updateProgressRing()
-            self.reloadEmptyState()
         }
 
         self.updateProgressRing()
-        self.reloadEmptyState()
     }
     
     // Conformance to RealmTableView
@@ -363,18 +308,11 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         self.tableView.insertRows(at: [IndexPath(row: row, section: section)], with: .automatic)
         self.tableView.reloadSections(IndexSet(integer: section), with: .automatic)
         self.tableView.endUpdates()
-        self.reloadEmptyState()
         self.updateProgressRing()
         
         // Notify listener that underlying class has been modified
         if let modifiedClass = _classObj {
             self.classListener?.classWasUpdated(modifiedClass)
-        }
-
-        // Show ads after creating assignment if possible
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            guard let strongSelf = self else { return }
-            InterstitialAdController.shared.showAdIfCan(in: strongSelf)
         }
     }
 
@@ -404,76 +342,6 @@ extension ClassDetailTableViewController: AssignmentChangesListener {
         }
     }
 }
-
-// MARK: Empty State Delegate & Data Source
-
-extension ClassDetailTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
-
-    // DataSource
-
-    func emptyStateViewShouldShow(for tableView: UITableView) -> Bool {
-        return assignments.isTrueEmpty
-    }
-
-    var emptyStateTitle: NSAttributedString {
-        guard _classObj != nil else { return NSAttributedString(string: "") }
-        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 20),
-                                                         .foregroundColor: ApplicationTheme.shared.mainTextColor()]
-
-        return NSAttributedString(string: "No assignments added", attributes: attributes)
-    }
-
-    var emptyStateButtonTitle: NSAttributedString? {
-        guard _classObj != nil else { return nil }
-        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
-                                                   .font: UIFont.systemFont(ofSize: 18)]
-
-        return NSAttributedString(string: "Add assignment", attributes: attrs)
-    }
-
-    var emptyStateButtonImage: UIImage? {
-        // If no class selected, or if class is a previous class, then dont show the button image
-        guard _classObj != nil else { return nil }
-
-        return #imageLiteral(resourceName: "ButtonBg")
-    }
-
-    var emptyStateButtonSize: CGSize? {
-        // If no class selected, or if class is a previous class, then dont return button size
-        guard _classObj != nil else { return nil }
-
-        return CGSize(width: 170, height: 50)
-    }
-
-    var emptyStateViewAnimatesEverytime: Bool { return false }
-
-    var emptyStateViewAnimationDuration: TimeInterval { return 0.8 }
-
-    // Delegate
-
-    func emptyStateViewWillShow(view: UIView) {
-        guard let emptyView = view as? UIEmptyStateView else { return }
-
-        // Update tint for button
-        emptyView.button.tintColor = ApplicationTheme.shared.highlightColor
-
-        // Hide the progress ring
-        self.progressRing.superview?.isHidden = true
-        self.progressRing.isHidden = true
-    }
-
-    func emptyStateViewWillHide(view: UIView) {
-        self.progressRing.isHidden = false
-        self.progressRing.superview?.isHidden = false
-        self.navigationItem.rightBarButtonItem?.isEnabled = true
-        self.navigationItem.leftBarButtonItem?.isEnabled = true
-    }
-
-    func emptyStatebuttonWasTapped(button: UIButton) {
-        self.performSegue(withIdentifier: .addAssignment, sender: button)
-    }
-}
-
 
 // MARK: Segueable Protocol
 
@@ -511,17 +379,6 @@ extension ClassDetailTableViewController: Segueable {
     }
 }
 
-// MARK: Google Ad View delegate
-
-extension ClassDetailTableViewController: GADBannerViewDelegate {
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        self.bannerAdView.alpha = 0.0
-        UIView.animate(withDuration: 0.6) {
-            self.bannerAdView.alpha = 1.0
-        }
-    }
-}
-
 // MARK: Notification Methods
 
 extension ClassDetailTableViewController {
@@ -534,7 +391,6 @@ extension ClassDetailTableViewController {
         progressRing.startProgress(to: val, duration: 0)
 
         self.tableView.reloadData()
-        self.reloadEmptyState()
     }
 }
 

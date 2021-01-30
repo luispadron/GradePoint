@@ -157,7 +157,7 @@ class Class: Object {
     // MARK: - Computed Properties
     
     /// Returns the color after getting it from the color data
-    var color: UIColor { return NSKeyedUnarchiver.unarchiveObject(with: self.colorData) as! UIColor }
+    var color: UIColor {  try! NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData)! }
 
     /// Returns whether or not a class is in progress
     var isInProgress: Bool { return self.classGradeType != .previous }

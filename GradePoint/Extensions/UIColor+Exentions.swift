@@ -78,7 +78,7 @@ extension UIColor {
     // MARK: - Helpers
     
     /// Function which turns UIColor to NSData, for saving to realm
-    func toData() -> Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
+    func toData() -> Data { try! NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true) }
 }
 
 /// Color Adjustment Extensions

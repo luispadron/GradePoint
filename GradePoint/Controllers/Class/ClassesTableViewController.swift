@@ -8,9 +8,7 @@
 
 import UIKit
 import RealmSwift
-import UIEmptyState
 import LPSnackbar
-import GoogleMobileAds
 
 class ClassesTableViewController: UITableViewController, RealmTableView {
     // Conformance to RealmTableView
@@ -27,23 +25,10 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     }
 
     var preferedSnackbarBottomSpacing: CGFloat {
-        let bannerHeight = self.bannerAdView.isHidden || GradePointPremium.isPurchased ? 0 : self.bannerAdView.frame.height
-        return self.tabBarController!.tabBar.frame.height + bannerHeight + 12
+        return self.tabBarController!.tabBar.frame.height + 12
     }
     
     // MARK: Properties
-
-    /// The Google AdMob view
-    private lazy var bannerAdView: GADBannerView = {
-        let view = GADBannerView()
-        view.adSize = kGADAdSizeSmartBannerPortrait
-        view.rootViewController = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = self
-        view.alpha = 0.0
-        view.adUnitID = kAdMobBannerId
-        return view
-    }()
 
     /// The semesters, which are the sections for the tableview
     private var semesters: [Semester] = []
@@ -58,7 +43,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.searchBar.delegate = self
-        controller.dimsBackgroundDuringPresentation = false
         controller.searchBar.placeholder = "Search"
         return controller
     }()
@@ -80,8 +64,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        InterstitialAdController.shared.prepare()
-
         self.navigationController?.navigationBar.barStyle = ApplicationTheme.shared.navigationBarStyle
 
         // Setup search bar and titles
@@ -97,9 +79,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         self.splitViewController?.delegate = self
         self.splitViewController?.preferredDisplayMode = .allVisible
         self.tableView.scrollsToTop = true
-        self.emptyStateDelegate = self
-        self.emptyStateDataSource = self
-        
         // Remove seperator lines from empty cells, and remove white background around navbars
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
@@ -124,10 +103,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         // Add 3D touch support to this view
         if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
 
-        if !GradePointPremium.isPurchased {
-            self.addBannerView()
-        }
-
         // Listen to changes to grade rubric
         self.gradeRubricNotifToken = DatabaseManager.shared.realm.objects(GradeRubric.self).observe({ _ in
             DispatchQueue.main.async {
@@ -140,37 +115,17 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         super.viewWillAppear(animated)
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
         self.view.backgroundColor = ApplicationTheme.shared.backgroundColor
-        if !GradePointPremium.isPurchased {
-            self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
-        }
-
-        // Remove Ads if gradepoint premium was just purchased
-        if GradePointPremium.isPurchased && self.tableView.tableFooterView === self.bannerAdView {
-            self.bannerAdView.removeFromSuperview()
-            self.tableView.tableFooterView = UIView(frame: .zero)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
-        self.reloadEmptyState()
         self.setNeedsStatusBarAppearanceUpdate()
-
-        GradePointPremium.presentPromotionalAlertIfNeeded(in: self)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.dequeAndDeleteObjects()
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        // Get correct layout for AD
-        let orientation = UIDevice.current.orientation
-
-        self.updateAdSize(withOrientation: orientation, size: size)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -218,8 +173,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         header.tintColor = ApplicationTheme.shared.tableViewHeaderColor
         header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = ApplicationTheme.shared.tableViewHeaderTextColor
-        // TODO: Figure out real fix for this? Not sure why the banner view is being displayed behind header view
-        self.view.bringSubviewToFront(self.bannerAdView)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -324,29 +277,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
     }
     
     // MARK: Helper Methods
-
-    /// Updates the size for the Ad
-    private func updateAdSize(withOrientation orientation: UIDeviceOrientation, size: CGSize) {
-        let adSize: GADAdSize
-
-        switch orientation {
-        case .landscapeLeft: fallthrough
-        case .landscapeRight:
-            // Hide banner in landscape when empty view is shown
-            if self.emptyStateViewShouldShow(for: self.tableView) {
-                adSize = kGADAdSizeInvalid
-                self.bannerAdView.isHidden = true
-            } else {
-                self.bannerAdView.isHidden = false
-                adSize = kGADAdSizeSmartBannerLandscape
-            }
-        default:
-            self.bannerAdView.isHidden = false
-            adSize = kGADAdSizeSmartBannerPortrait
-        }
-
-        self.bannerAdView.adSize = adSize
-    }
     
     /// This generates all of the possible Semester combinations, this array will be the sections for the table view
     private func generateSemesters() -> [Semester] {
@@ -394,30 +324,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         }
     }
 
-    /// Adds a google ad mob banner view to the tableview
-    private func addBannerView() {
-        // Add banner ad view
-        self.tableView.tableFooterView = self.bannerAdView
-        // Banner view constraints
-        if #available(iOS 11.0, *) {
-            let guide = self.view.safeAreaLayoutGuide
-            NSLayoutConstraint.activate([
-                guide.leftAnchor.constraint(equalTo: self.bannerAdView.leftAnchor),
-                guide.rightAnchor.constraint(equalTo: self.bannerAdView.rightAnchor),
-                guide.bottomAnchor.constraint(equalTo: self.bannerAdView.bottomAnchor)
-                ])
-        } else {
-            self.view.addConstraints(
-                [NSLayoutConstraint(item: self.bannerAdView, attribute: .bottom, relatedBy: .equal,
-                                    toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0),
-                 NSLayoutConstraint(item: self.bannerAdView, attribute: .centerX, relatedBy: .equal,
-                                    toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
-                ])
-        }
-
-        self.bannerAdView.load(kAdMobAdRequest)
-    }
-    
     /// Deletes a class from Realm
     private func deleteClass(_ classObj: Class) {
         // Remove object from Realm
@@ -465,7 +371,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             self.deleteCellWithObject(classToDel, section: regSection,
                                       snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: true, completion: { [weak self] (undone, obj) in
-                self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(obj)
             })
@@ -474,7 +379,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             self.deleteCellWithObject(classToDel, section: path.section,
                                       snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: true) { [weak self] undone, classObj in
-                self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(classObj)
             }
@@ -487,7 +391,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
             self.deleteCellWithObject(classToDel, section: path.section,
                                       snackTitle: "Class deleted", buttonTitle: "UNDO",
                                       allowsUndo: true) { [weak self] undone, classObj in
-                self?.reloadEmptyState()
                 guard !undone else { return }
                 self?.deleteClass(classObj)
             }
@@ -497,8 +400,6 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
         DatabaseManager.shared.write {
             classToDel.isFavorite = false
         }
-
-        self.reloadEmptyState()
     }
 
     /// Called whenever a class is favorited. Will update the class in realm and add the appropriate cells to the table view
@@ -567,13 +468,11 @@ extension ClassesTableViewController: UISearchBarDelegate {
         // Update classes array to filter for name
         self.filterClasses(for: searchText)
         self.tableView.reloadData()
-        self.reloadEmptyState()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchController.isActive = false
         self.tableView.reloadData()
-        self.reloadEmptyState()
     }
 }
 
@@ -648,24 +547,12 @@ extension ClassesTableViewController: Segueable {
     }
 }
 
-// MARK: Google Ad View delegate
-
-extension ClassesTableViewController: GADBannerViewDelegate {
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        self.bannerAdView.alpha = 0.0
-        UIView.animate(withDuration: 0.6) {
-            self.bannerAdView.alpha = 1.0
-        }
-    }
-}
-
 // MARK: AddEditClassDelegation
 
 extension ClassesTableViewController: ClassChangesListener {
 
     func classWasCreated(_ classObj: Class) {
         self.addCellWithObject(classObj, section: self.semesters.firstIndex(of: classObj.semester!)! + 1)
-        self.reloadEmptyState()
     }
 
     func classWasUpdated(_ classObj: Class) {
@@ -684,8 +571,6 @@ extension ClassesTableViewController: ClassChangesListener {
             detailControl.gradeString = classObj.grade?.gradeLetter
             detailControl.setupUI()
         }
-        
-        self.reloadEmptyState()
     }
 
     func classSemesterWasUpdated(_ classObj: Class, from sem1: Semester, to sem2: Semester) {
@@ -695,80 +580,6 @@ extension ClassesTableViewController: ClassChangesListener {
         let newPath = IndexPath(row: classes[toSection].count, section: toSection)
 
         self.moveCellWithObject(classObj, from: oldPath, to: newPath)
-        self.reloadEmptyState()
-    }
-}
-
-// MARK: UIEmptyState Data Source & Delegate
-
-extension ClassesTableViewController: UIEmptyStateDataSource, UIEmptyStateDelegate {
-    
-    // Empty State Data Source
-
-    func emptyStateViewShouldShow(for tableView: UITableView) -> Bool {
-        // If not items then empty, show empty state
-        return classes.isTrueEmpty
-    }
-    
-    var emptyStateTitle: NSAttributedString {
-        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.mainTextColor(),
-                                                   .font: UIFont.systemFont(ofSize: 20)]
-        return NSAttributedString(string: "No classes added", attributes: attrs)
-    }
-    
-    var emptyStateImage: UIImage? { return #imageLiteral(resourceName: "EmptyClassesIcon") }
-
-    var emptyStateImageSize: CGSize? { return CGSize(width: 120, height: 122) }
-    
-    var emptyStateButtonTitle: NSAttributedString? {
-        let attrs: [NSAttributedString.Key: Any] = [.foregroundColor: ApplicationTheme.shared.highlightColor,
-                                                   .font: UIFont.systemFont(ofSize: 18)]
-        return NSAttributedString(string: "Add a class", attributes: attrs)
-    }
-    
-    var emptyStateButtonImage: UIImage? { return #imageLiteral(resourceName: "ButtonBg") }
-    
-    var emptyStateButtonSize: CGSize? { return CGSize(width: 160, height: 45) }
-    
-    var emptyStateViewAnimatesEverytime: Bool { return false }
-
-    var emptyStateViewSpacing: CGFloat { return 20 }
-
-    // Empty State Delegate
-    
-    func emptyStateViewWillShow(view: UIView) {
-        guard let emptyView = view as? UIEmptyStateView else { return }
-
-        // Update tint for button
-        emptyView.button.tintColor = ApplicationTheme.shared.highlightColor
-
-        // Hide the search controller
-        if #available(iOS 11.0, *) {
-            navigationItem.hidesSearchBarWhenScrolling = true
-            searchController.isActive = false
-        } else {
-            searchController.isActive = false
-            // Remove from table view header
-            tableView.tableHeaderView = nil
-        }
-
-        // Update ad size
-        self.updateAdSize(withOrientation: UIDevice.current.orientation, size: self.view.frame.size)
-    }
-    
-    func emptyStateViewWillHide(view: UIView) {
-        // Re add the search controller
-        if #available(iOS 11.0, *) {
-            // Nothing to do here
-        } else {
-            if tableView.tableHeaderView == nil {
-                tableView.tableHeaderView = searchController.searchBar
-            }
-        }
-    }
-    
-    func emptyStatebuttonWasTapped(button: UIButton) {
-        self.performSegue(withIdentifier: .addEditClass, sender: button)
     }
 }
 
@@ -829,7 +640,6 @@ extension ClassesTableViewController {
         semesters = generateSemesters()
         loadClasses()
         self.tableView.reloadData()
-        self.reloadEmptyState()
     }
 
     /// Called whenever the them is updated
@@ -840,6 +650,5 @@ extension ClassesTableViewController {
         self.tableView.separatorColor = ApplicationTheme.shared.tableViewSeperatorColor
 
         self.tableView.reloadData()
-        self.reloadEmptyState()
     }
 }

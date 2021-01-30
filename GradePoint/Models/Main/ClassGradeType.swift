@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
-@objc enum ClassGradeType: Int {
+@objc enum ClassGradeType: Int, RealmEnum {
     case weighted = 0
     case points = 1
     case previous = 2

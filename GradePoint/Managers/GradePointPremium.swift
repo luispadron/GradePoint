@@ -43,39 +43,4 @@ public struct GradePointPremium {
             appDelegate?.window?.rootViewController?.present(onboardingController, animated: true, completion: nil)
         }
     }
-
-    // MARK: Promotional alerts
-
-    public static func presentPromotionalAlertIfNeeded(in viewController: UIViewController) {
-        let key = "com.luispadron.GradePoint.GradePointPremium.Promotion1"
-        let hasPresented = UserDefaults.standard.bool(forKey: key)
-        guard !hasPresented, !isPurchased else { return }
-
-        UserDefaults.standard.set(true, forKey: key)
-
-        GradePointPremium.store.requestProducts { (success, products) in
-            guard let price = products?.first?.localizedPrice, success else { return }
-            let title = "GradePoint Premium Sale"
-            let message = "Get premium for \(price)! Help support the continued development of GradePoint and get some goodies as well."
-            let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-            let storyboard = UIStoryboard(name: "GradePointPremium", bundle: nil)
-            let onboardingController = storyboard.instantiateViewController(withIdentifier: "GPPPageViewController")
-
-            let buyAction = UIAlertAction(title: "Get Premium", style: .default, handler: { _ in
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                onboardingController.modalPresentationStyle = .overCurrentContext
-                DispatchQueue.main.async {
-                    appDelegate?.window?.rootViewController?.present(onboardingController, animated: true, completion: nil)
-                }
-            })
-            let closeAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
-
-            controller.addAction(closeAction)
-            controller.addAction(buyAction)
-            DispatchQueue.main.async {
-                viewController.present(controller, animated: true, completion: nil)
-            }
-        }
-    }
 }

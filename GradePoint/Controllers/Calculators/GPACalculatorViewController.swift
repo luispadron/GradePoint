@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import UICircularProgressRing
 import RealmSwift
-import GoogleMobileAds
 
 class GPACalculatorViewController: UIViewController {
 
@@ -232,15 +231,6 @@ class GPACalculatorViewController: UIViewController {
         var totalPoints: Double = 0.0
         var totalCreditHours: Double = 0.0
 
-        // Completion block for when progress ring is done animation
-        let completion: UICircularProgressRing.ProgressCompletion = { [weak self] in
-            guard let strongSelf = self else { return }
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                InterstitialAdController.shared.showAdIfCan(in: strongSelf)
-            }
-        }
-
         /// Calculation of gpa closure block
         let calculate: (Bool) -> Double? = { isWeighted in
             for (index, gpaView) in self.gpaViews.enumerated() {
@@ -285,7 +275,7 @@ class GPACalculatorViewController: UIViewController {
             // Set max value of ring to 4, since unweighted
             self.progressRingView.maxValue = 4.0
             // Set value to gpa
-            self.progressRingView.startProgress(to: CGFloat(gpa), duration: 1.5, completion: completion)
+            self.progressRingView.startProgress(to: CGFloat(gpa), duration: 1.5)
             // Save the calculated GPA
             self.saveCalculation(withGpa: gpa, weighted: false)
         case .highSchool:
@@ -302,7 +292,7 @@ class GPACalculatorViewController: UIViewController {
                 // Set max value of ring to 5, since weighted
                 self.progressRingView.maxValue = 5.0
                 // Set value to gpa
-                self.progressRingView.startProgress(to: CGFloat(gpa), duration: 1.5, completion: completion)
+                self.progressRingView.startProgress(to: CGFloat(gpa), duration: 1.5)
                 // Save the calculated GPA
                 self.saveCalculation(withGpa: gpa, weighted: true)
             } else {
@@ -317,7 +307,7 @@ class GPACalculatorViewController: UIViewController {
                 // Set max value of ring to 4, since unweighted
                 self.progressRingView.maxValue = 4.0
                 // Set value to gpa
-                self.progressRingView.startProgress(to: CGFloat(gpa), duration: 1.5, completion: completion)
+                self.progressRingView.startProgress(to: CGFloat(gpa), duration: 1.5)
                 //Save the calculated GPA
                 self.saveCalculation(withGpa: gpa, weighted: false)
             }

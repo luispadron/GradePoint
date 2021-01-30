@@ -8,7 +8,6 @@
 
 import UIKit
 import UICircularProgressRing
-import GoogleMobileAds
 
 class ExamGradePredictionViewController: UIViewController {
 
@@ -169,11 +168,6 @@ class ExamGradePredictionViewController: UIViewController {
         } else {
             self.progressRing.startProgress(to: gradeNeeded, duration: 1.5) { [weak self] in
                 self?.messageLabel.text = ScoreMessage.createMessage(forScore: gradeNeeded)
-                // Show ad if it can
-                guard let strongSelf = self else { return }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    InterstitialAdController.shared.showAdIfCan(in: strongSelf)
-                }
             }
         }
     }

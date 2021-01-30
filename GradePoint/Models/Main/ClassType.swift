@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 /// The type of the GPA Scale
-@objc enum ClassType: Int {
-    // College students only have college option, highschool students have all options
+@objc enum ClassType: Int, RealmEnum {
+    // College students only have college option, high school students have all options
     case regular = 1
     case honors = 2
     case ap = 3

@@ -13,7 +13,6 @@ class GPPPageViewController: UIPageViewController {
     private(set) lazy var onboardControllers: [UIViewController] = {
         return [
             self.newOnboardingControlled(named: "GPPOnboarding1"),
-            self.newOnboardingControlled(named: "GPPOnboarding2"),
             self.newOnboardingControlled(named: "GPPOnboarding3"),
             self.newOnboardingControlled(named: "GPPOnboarding4"),
             self.newOnboardingControlled(named: "GPPOnboarding5"),
