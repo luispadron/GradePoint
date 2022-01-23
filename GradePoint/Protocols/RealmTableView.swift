@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import LPSnackbar
 
-protocol RealmTableView: class {
+protocol RealmTableView: AnyObject {
     associatedtype RealmObject: Hashable
 
     var realmData: [[RealmObject]] { get set }

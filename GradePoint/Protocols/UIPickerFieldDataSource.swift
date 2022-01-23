@@ -6,7 +6,7 @@
 //  Copyright © 2017 Luis Padron. All rights reserved.
 //
 
-protocol UIPickerFieldDataSource: class {
+protocol UIPickerFieldDataSource: AnyObject {
     func numberOfComponents(in field: UIPickerField) -> Int
     
     func numberOfRows(in compononent: Int, for field: UIPickerField) -> Int

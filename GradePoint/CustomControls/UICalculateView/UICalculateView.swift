@@ -9,7 +9,7 @@
 import UIKit
 
 /// Delegate for the calculate view
-protocol UICalculateViewDelegate: class {
+protocol UICalculateViewDelegate: AnyObject {
     func calculateWasTapped(for: UICalculateView, score: String, total: String)
     func exitButtonWasTapped(for: UICalculateView)
 }
