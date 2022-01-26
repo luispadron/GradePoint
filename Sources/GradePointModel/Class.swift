@@ -6,8 +6,8 @@
 //  Copyright © 2016 Luis Padron. All rights reserved.
 //
 
+import Foundation
 import RealmSwift
-import UIKit
 
 class Class: Object {
     

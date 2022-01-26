@@ -101,6 +101,9 @@ class ClassesTableViewController: UITableViewController, RealmTableView {
                                                name: kThemeUpdatedNotification, object: nil)
 
         // Add 3D touch support to this view
+        UIContextualAction(style: .normal, title: "Class Details") { action, view, <#@escaping (Bool) -> Void#> in
+            <#code#>
+        }
         if self.traitCollection.forceTouchCapability == .available { self.registerForPreviewing(with: self, sourceView: self.view) }
 
         // Listen to changes to grade rubric

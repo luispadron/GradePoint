@@ -13,7 +13,7 @@ class GPPOnboarding5ViewController: UIViewController {
     var bgView: UIView?
 
     private lazy var indicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .whiteLarge)
+        let view = UIActivityIndicatorView(style: .large)
         return view
     }()
 

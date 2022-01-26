@@ -31,3 +31,4 @@ AdMob.plist
 # Fabric API key info
 fabric.apikey
 fabric.buildsecret
+.build/
